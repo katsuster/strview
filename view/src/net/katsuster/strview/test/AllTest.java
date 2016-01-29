@@ -5,12 +5,15 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import net.katsuster.strview.test.util.*;
+
 /**
  * ユニットテストクラス。
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-        //Test.class,
+        SIntTest.class,
+        UIntTest.class,
 })
 public class AllTest {
     protected AllTest() {
