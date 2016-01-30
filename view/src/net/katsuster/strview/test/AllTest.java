@@ -14,6 +14,7 @@ import net.katsuster.strview.test.util.*;
 @SuiteClasses({
         SIntTest.class,
         UIntTest.class,
+        FloatTest.class,
 })
 public class AllTest {
     protected AllTest() {
