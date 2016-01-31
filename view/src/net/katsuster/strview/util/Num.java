@@ -144,6 +144,7 @@ public abstract class Num extends Range
      * </p>
      *
      * @param v 数値
+     * @return 数値の文字列表記
      */
     protected static String uint8ToString(byte v) {
         char[] buf = new char[3];
@@ -178,6 +179,7 @@ public abstract class Num extends Range
      * </p>
      *
      * @param v 数値
+     * @return 数値の文字列表記
      */
     protected static String uint16ToString(short v) {
         char[] buf = new char[5];
@@ -212,6 +214,7 @@ public abstract class Num extends Range
      * </p>
      *
      * @param v 数値
+     * @return 数値の文字列表記
      */
     protected static String uint32ToString(int v) {
         char[] buf = new char[10];
@@ -246,6 +249,7 @@ public abstract class Num extends Range
      * </p>
      *
      * @param v 数値
+     * @return 数値の文字列表記
      */
     protected static String uint64ToString(long v) {
         char[] buf = new char[20];

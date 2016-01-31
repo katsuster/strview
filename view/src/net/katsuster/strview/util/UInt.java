@@ -103,7 +103,7 @@ public class UInt extends Num
      * </p>
      *
      * @return オブジェクトが保持する値 val を、
-     * 変換式 (val ^ (val >>> 32)) にて int に変換した値に等しい
+     * 変換式 (val ^ (val &gt;&gt;&gt; 32)) にて int に変換した値に等しい
      */
     @Override
     public int hashCode() {
