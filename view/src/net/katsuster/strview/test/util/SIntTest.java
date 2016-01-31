@@ -306,4 +306,3 @@ public class SIntTest {
         assertEquals(msg1, "-9223372036854775807", vh4.toString());
     }
 }
-

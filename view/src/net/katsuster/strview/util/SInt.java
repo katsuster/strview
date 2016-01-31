@@ -149,4 +149,3 @@ public class SInt extends Num
         return Long.toString(val);
     }
 }
-
