@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE project>
 
-<project name="strview" default="dist">
-    <property name="src.dir"      location="../view/src"/>
+<project name="test_strview" default="dist">
+    <property name="depend.dir"  location="../view/src"/>
+    <property name="src.dir"      location="../test_view/src"/>
     <property name="lib.dir"      location="../lib"/>
     <property name="doc.dir"      location="../doc/"/>
     <property name="package.dir"  location="${doc.dir}/package-list/"/>
@@ -13,10 +14,9 @@
 
     <property name="mainpackage" value="net.katsuster.strview"/>
 
-    <property name="manifest.mainclass.strview" value="${mainpackage}.ui.Main"/>
-    <property name="manifest.mainclass.strview_applet" value="${mainpackage}.ui.MainApplet"/>
+    <property name="manifest.mainclass.junit" value="${mainpackage}.test.AllTest"/>
     <property name="manifest.classpath" value="/"/>
-    <property name="manifest.title"     value="strview"/>
+    <property name="manifest.title"     value="test_strview"/>
     <property name="manifest.version"   value="0.1"/>
     <property name="manifest.vendor"    value="Katsuhiro Suzuki"/>
     <tstamp>
@@ -26,8 +26,8 @@
     <property name="lib.hamcrest.path" value="${lib.dir}/hamcrest-core-1.3.jar"/>
     <property name="lib.junit.path" value="${lib.dir}/junit-4.11.jar"/>
 
-    <property name="javadoc.window" value="strview"/>
-    <property name="javadoc.doctitle" value="Javadoc of strview"/>
+    <property name="javadoc.window" value="test_strview"/>
+    <property name="javadoc.doctitle" value="Javadoc of test_strview"/>
 
     <!-- libraries for target 'build' -->
     <path id="build.classpath">
@@ -52,6 +52,11 @@
 
     <target name="compile" depends="init">
         <echo message="----- compile in ${ant.project.name} -----"/>
+        <javac srcdir="${depend.dir}" destdir="${build.dir}"
+               target="1.7" source="1.7"
+               encoding="UTF-8" includeantruntime="false">
+            <classpath refid="build.classpath"/>
+        </javac>
         <javac srcdir="${src.dir}" destdir="${build.dir}"
                target="1.7" source="1.7"
                encoding="UTF-8" includeantruntime="false">
@@ -61,33 +66,13 @@
 
     <target name="dist" depends="compile">
         <echo message="----- dist in ${ant.project.name} -----"/>
-        <jar jarfile="${dist.dir}/strview.jar">
-            <fileset dir="${build.dir}" casesensitive="yes">
-                <exclude name="**/test/"/>
-            </fileset>
+        <jar jarfile="${dist.dir}/strview_junit.jar">
+            <fileset dir="${build.dir}" casesensitive="yes"/>
+            <zipfileset refid="dist.hamcrest"/>
+            <zipfileset refid="dist.junit"/>
             <manifest>
                 <attribute name="Main-Class"
-                           value="${manifest.mainclass.strview}"/>
-                <attribute name="Class-Path"
-                           value="${manifest.classpath}"/>
-                <attribute name="Implementation-Title"
-                           value="${manifest.title}"/>
-                <attribute name="Implementation-Version"
-                           value="${manifest.version}"/>
-                <attribute name="Implementation-Vendor"
-                           value="${manifest.vendor}"/>
-                <attribute name="Build-Id"
-                           value="${ts} (${user.name}@${os.name} ${os.version} ${os.arch})"/>
-            </manifest>
-        </jar>
-
-        <jar jarfile="${dist.dir}/strview_applet.jar">
-            <fileset dir="${build.dir}" casesensitive="yes">
-                <exclude name="**/test/"/>
-            </fileset>
-            <manifest>
-                <attribute name="Main-Class"
-                           value="${manifest.mainclass.strview_applet}"/>
+                           value="${manifest.mainclass.junit}"/>
                 <attribute name="Class-Path"
                            value="${manifest.classpath}"/>
                 <attribute name="Implementation-Title"
@@ -141,6 +126,7 @@
 
     <target name="test" depends="dist">
         <echo message="----- test in ${ant.project.name} -----"/>
+        <java jar="${dist.dir}/strview_junit.jar" fork="true"/>
     </target>
 
     <target name="clean">
