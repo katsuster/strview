@@ -15,6 +15,8 @@ import net.katsuster.strview.test.util.*;
         SIntTest.class,
         UIntTest.class,
         FloatTest.class,
+        SFixedTest.class,
+        UFixedTest.class,
 })
 public class AllTest {
     protected AllTest() {
