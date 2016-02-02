@@ -6,6 +6,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import net.katsuster.strview.test.util.*;
+import net.katsuster.strview.test.io.*;
 
 /**
  * ユニットテストクラス。
@@ -17,6 +18,7 @@ import net.katsuster.strview.test.util.*;
         FloatTest.class,
         SFixedTest.class,
         UFixedTest.class,
+        MemoryByteListTest.class,
 })
 public class AllTest {
     protected AllTest() {
