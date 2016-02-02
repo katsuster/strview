@@ -1,8 +1,10 @@
 package net.katsuster.strview.util;
 
+import java.util.*;
+
 /**
  * <p>
- * 半開区間 [start, end) を表すクラスです。
+ * バッファの半開区間 [start, end) を表すクラスです。
  * </p>
  *
  * <p>
@@ -15,25 +17,58 @@ package net.katsuster.strview.util;
  * @author katsuhiro
  */
 public class Range {
+    public static final List<?> INVALID_LIST = new ArrayList<Boolean>();
+
+    private List<?> buf;
     private long start;
     private long end;
 
     /**
      * <p>
-     * 開始点と終了点を指定して半開区間を構築します。
+     * バッファと開始点と終了点を指定して半開区間を構築します。
+     * </p>
+     *
+     * @param b この区間を含むバッファ
+     * @param s 区間の開始地点
+     * @param e 区間の終了地点
+     */
+    public Range(List<?> b, long s, long e) {
+        if (e < s) {
+            throw new IllegalArgumentException(
+                    "start(" + s + ")" + "is larger than "
+                            + "end(" + e + ").");
+        }
+        if (b != INVALID_LIST && b.size() <= e) {
+            throw new IllegalArgumentException(
+                    "end(" + e + ")" + "is larger than "
+                            + "b.size(" + b.size() + ").");
+        }
+        buf = b;
+        start = s;
+        end = e;
+    }
+
+    /**
+     * <p>
+     * バッファを指定せず開始点と終了点を指定して半開区間を構築します。
      * </p>
      *
      * @param s 区間の開始地点
      * @param e 区間の終了地点
      */
     public Range(long s, long e) {
-        if (e < s) {
-            throw new IllegalArgumentException(
-                    "start(" + s + ")" + "is larger than "
-                            + "end(" + e + ").");
-        }
-        start = s;
-        end = e;
+        this(INVALID_LIST, s, e);
+    }
+
+    /**
+     * <p>
+     * 区間を含むバッファを取得します。
+     * </p>
+     *
+     * @return 区間を含むバッファ
+     */
+    public List<?> getBuffer() {
+        return buf;
     }
 
     /**
