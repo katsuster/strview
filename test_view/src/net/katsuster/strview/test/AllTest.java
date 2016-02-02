@@ -20,6 +20,7 @@ import net.katsuster.strview.test.io.*;
         UFixedTest.class,
         MemoryByteListTest.class,
         FileByteListTest.class,
+        SlowMemoryBitListTest.class,
 })
 public class AllTest {
     protected AllTest() {
