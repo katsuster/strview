@@ -11,7 +11,6 @@ import org.junit.Test;
 import net.katsuster.strview.util.*;
 
 public class SFixedTest {
-
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
     }
