@@ -21,6 +21,7 @@ import net.katsuster.strview.test.io.*;
         MemoryByteListTest.class,
         FileByteListTest.class,
         SlowMemoryBitListTest.class,
+        MemoryBitListTest.class,
 })
 public class AllTest {
     protected AllTest() {
