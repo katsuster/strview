@@ -47,7 +47,7 @@ public class FileByteList extends AbstractLargeByteList
 
     /**
      * <p>
-     * 長さ 0 の一時ファイルを利用して配列を作成します。
+     * 長さ 0 の一時ファイルを利用してバイト列を作成します。
      * </p>
      */
     public FileByteList() {
@@ -56,10 +56,10 @@ public class FileByteList extends AbstractLargeByteList
 
     /**
      * <p>
-     * 指定された長さの一時ファイルを利用して配列を作成します。
+     * 指定された長さの一時ファイルを利用してバイト列を作成します。
      * </p>
      *
-     * @param size 作成する配列の長さ
+     * @param size 作成するバイト列の長さ
      * @throws NegativeArraySizeException 負のサイズを指定した場合
      */
     public FileByteList(long size) {
@@ -68,7 +68,7 @@ public class FileByteList extends AbstractLargeByteList
 
     /**
      * <p>
-     * 既存のファイルを利用して配列を作成します。
+     * 既存のファイルを利用してバイト列を作成します。
      * </p>
      *
      * @param path 利用するファイルへのパス
@@ -97,7 +97,7 @@ public class FileByteList extends AbstractLargeByteList
 
     /**
      * <p>
-     * 既存のファイルを利用して配列を作成します。
+     * 既存のファイルを利用してバイト列を作成します。
      * </p>
      *
      * @param file 利用するファイル

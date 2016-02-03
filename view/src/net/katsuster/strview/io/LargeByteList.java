@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * <p>
- * int 型で扱える長さを超える配列のインタフェースです。
+ * int 型で扱える長さを超えるバイト列のインタフェースです。
  * </p>
  *
  * @author katsuhiro
@@ -12,10 +12,10 @@ import java.util.List;
 public interface LargeByteList extends List<Byte> {
     /**
      * <p>
-     * 配列の長さを返します。
+     * バイト列の長さを返します。
      * </p>
      *
-     * @return 配列の長さ
+     * @return バイト列の長さ
      */
     public long length();
 
@@ -38,7 +38,7 @@ public interface LargeByteList extends List<Byte> {
      *
      * @param index 要素の位置
      * @return 指定された位置の値
-     * @throws IndexOutOfBoundsException 読み出し位置が負、配列の範囲外の場合
+     * @throws IndexOutOfBoundsException 読み出し位置が負、バイト列の範囲外の場合
      */
     public int get(long index);
 
@@ -52,7 +52,7 @@ public interface LargeByteList extends List<Byte> {
      * @param offset 結果の格納を開始する位置（バイト単位）
      * @param length 読みだすバイト数
      * @return 実際に読みだしたバイト数
-     * @throws IndexOutOfBoundsException 読み出し位置が負、配列の範囲外の場合
+     * @throws IndexOutOfBoundsException 読み出し位置が負、バイト列の範囲外の場合
      */
     public int get(long index, byte[] dest, int offset, int length);
 
@@ -63,7 +63,7 @@ public interface LargeByteList extends List<Byte> {
      *
      * @param index 要素の位置
      * @param data  指定された位置に設定する値
-     * @throws IndexOutOfBoundsException 書き込み位置が負、配列の範囲外の場合
+     * @throws IndexOutOfBoundsException 書き込み位置が負、バイト列の範囲外の場合
      */
     public void set(long index, byte data);
 
@@ -77,7 +77,7 @@ public interface LargeByteList extends List<Byte> {
      * @param offset データの書きこみを開始する位置（バイト単位）
      * @param length 書きこむバイト数
      * @return 実際に書き込んだバイト数
-     * @throws IndexOutOfBoundsException 書き込み位置が負、配列の範囲外の場合
+     * @throws IndexOutOfBoundsException 書き込み位置が負、バイト列の範囲外の場合
      */
     public int set(long index, byte[] src, int offset, int length);
 }

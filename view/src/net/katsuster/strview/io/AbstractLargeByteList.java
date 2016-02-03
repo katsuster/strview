@@ -4,14 +4,14 @@ import java.util.AbstractList;
 
 /**
  * <p>
- * int 型で扱える長さを超える配列の共通動作を定義します。
+ * int 型で扱える長さを超えるバイト列の共通動作を定義します。
  * </p>
  *
  * @author katsuhiro
  */
 public abstract class AbstractLargeByteList extends AbstractList<Byte>
         implements LargeByteList, Cloneable {
-    //配列の長さ（バイト単位）
+    //バイト列の長さ（バイト単位）
     private long len;
 
     /**
@@ -86,10 +86,10 @@ public abstract class AbstractLargeByteList extends AbstractList<Byte>
 
     /**
      * <p>
-     * 配列の長さを設定します。
+     * バイト列の長さを設定します。
      * </p>
      *
-     * @param l バイト配列の長さ（バイト単位）
+     * @param l バイト列の長さ（バイト単位）
      */
     protected void setLength(long l) {
         len = l;
@@ -97,11 +97,11 @@ public abstract class AbstractLargeByteList extends AbstractList<Byte>
 
     /**
      * <p>
-     * 指定された位置がバイト配列の範囲内か確認します。
+     * 指定された位置がバイト列の範囲内か確認します。
      * </p>
      *
      * <p>
-     * 指定された位置がバイト配列の範囲内であれば何もしません。
+     * 指定された位置がバイト列の範囲内であれば何もしません。
      * 範囲外であれば例外をスローします。
      * </p>
      *
@@ -138,7 +138,7 @@ public abstract class AbstractLargeByteList extends AbstractList<Byte>
      *
      * @param index 読み出しを開始するバイト位置
      * @param n 読み出すバイト数
-     * @throws IndexOutOfBoundsException n バイト読み出したとき、バイト配列の
+     * @throws IndexOutOfBoundsException n バイト読み出したとき、バイト列の
      * 範囲外へのアクセスが発生する場合
      */
     protected void checkRemaining(long index, int n) {

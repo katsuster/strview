@@ -13,7 +13,7 @@ public class MemoryByteList extends AbstractLargeByteList
 
     /**
      * <p>
-     * 長さ 0 の配列を作成します。
+     * 長さ 0 のバイト列を作成します。
      * </p>
      */
     public MemoryByteList() {
@@ -32,14 +32,14 @@ public class MemoryByteList extends AbstractLargeByteList
 
     /**
      * <p>
-     * 指定された長さの配列を作成します。
+     * 指定された長さのバイト列を作成します。
      * </p>
      *
      * <p>
      * 指定できる最大サイズは Integer.MAX_VALUE までです。
      * </p>
      *
-     * @param size 作成する配列の長さ
+     * @param size 作成するバイト列の長さ
      * @throws IllegalArgumentException Integer.MAX_VALUE 以上のサイズを
      * 指定した場合
      * @throws NegativeArraySizeException 負のサイズを指定した場合
@@ -57,10 +57,10 @@ public class MemoryByteList extends AbstractLargeByteList
 
     /**
      * <p>
-     * 既存のバイト配列を利用して、配列を作成します。
+     * 既存の byte 型配列を利用して、バイト列を作成します。
      * </p>
      *
-     * @param array 利用するバイト配列
+     * @param array 利用する byte 型配列
      * @throws IllegalArgumentException null を指定した場合
      */
     public MemoryByteList(byte[] array) {

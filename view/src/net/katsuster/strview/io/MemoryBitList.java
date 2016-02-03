@@ -41,7 +41,7 @@ public class MemoryBitList extends AbstractLargeBitList {
 
     /**
      * <p>
-     * 長さ 0 ビットの配列を作成します。
+     * 長さ 0 のビット列を作成します。
      * </p>
      */
     public MemoryBitList() {
@@ -50,7 +50,7 @@ public class MemoryBitList extends AbstractLargeBitList {
 
     /**
      * <p>
-     * 長さ n ビットの配列を作成します。
+     * 長さ n のビット列を作成します。
      * </p>
      *
      * <p>
@@ -58,7 +58,7 @@ public class MemoryBitList extends AbstractLargeBitList {
      * つまり (2^31 - 1) * 32 / 8 ≒ 約 8[GB] です。
      * </p>
      *
-     * @param size 作成する配列の長さ（ビット単位）
+     * @param size 作成するビット列の長さ（ビット単位）
      * @throws NegativeArraySizeException 負のサイズを指定した場合
      * @throws IllegalArgumentException 最大サイズを超えていた場合
      */
@@ -76,10 +76,10 @@ public class MemoryBitList extends AbstractLargeBitList {
 
     /**
      * <p>
-     * 既存のビット配列を利用して、配列を作成します。
+     * 既存の boolean 型配列を利用して、ビット列を作成します。
      * </p>
      *
-     * @param array 利用するビット配列
+     * @param array 利用する boolean 型配列
      * @throws IllegalArgumentException null を指定した場合
      */
     public MemoryBitList(boolean[] array) {

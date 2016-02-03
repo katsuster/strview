@@ -4,14 +4,14 @@ import java.util.AbstractList;
 
 /**
  * <p>
- * int 型で扱える長さを超えるビット配列の共通動作を定義します。
+ * int 型で扱える長さを超えるビット列の共通動作を定義します。
  * </p>
  *
  * @author katsuhiro
  */
 public abstract class AbstractLargeBitListBase extends AbstractList<Boolean>
         implements LargeBitList, Cloneable {
-    //配列の長さ（ビット単位）
+    //ビット列の長さ（ビット単位）
     private long len;
 
     /**
@@ -60,17 +60,17 @@ public abstract class AbstractLargeBitListBase extends AbstractList<Boolean>
 
     /**
      * <p>
-     * ブール値の配列を整数値に右詰め（LSB 側に詰める）した値を返します。
+     * boolean 型配列を整数値に右詰め（LSB 側に詰める）した値を返します。
      * </p>
      *
      * <p>
      * ブール値の true が整数値の 1、false が 0 に対応します。
-     * ブール値の配列長が 32 に満たない場合、残りのビットは 0 で埋められます。
+     * boolean 型配列の長さが 32 に満たない場合、残りのビットは 0 で埋められます。
      * </p>
      *
-     * @param array ブール値の配列
-     * @return ブール値の配列を整数値に右詰め（LSB 側に詰める）した値
-     * @throws IllegalArgumentException 配列長が長すぎた
+     * @param array boolean 型配列
+     * @return boolean 型配列を整数値に右詰め（LSB 側に詰める）した値
+     * @throws IllegalArgumentException 配列が長すぎた
      */
     public static int packBitsInt(boolean[] array) {
         int result;
@@ -95,17 +95,17 @@ public abstract class AbstractLargeBitListBase extends AbstractList<Boolean>
 
     /**
      * <p>
-     * ブール値の配列を整数値に右詰め（LSB 側に詰める）した値を返します。
+     * boolean 型配列を整数値に右詰め（LSB 側に詰める）した値を返します。
      * </p>
      *
      * <p>
      * ブール値の true が整数値の 1、false が 0 に対応します。
-     * ブール値の配列長が 64 に満たない場合、残りのビットは 0 で埋められます。
+     * boolean 型配列の長さが 64 に満たない場合、残りのビットは 0 で埋められます。
      * </p>
      *
-     * @param array ブール値の配列
-     * @return ブール値の配列を整数値に右詰め（LSB 側に詰める）した値
-     * @throws IllegalArgumentException 配列長が長すぎた
+     * @param array boolean 型配列
+     * @return boolean 型配列を整数値に右詰め（LSB 側に詰める）した値
+     * @throws IllegalArgumentException 配列が長すぎた
      */
     public static long packBitsLong(boolean[] array) {
         long result;
@@ -130,16 +130,16 @@ public abstract class AbstractLargeBitListBase extends AbstractList<Boolean>
 
     /**
      * <p>
-     * 右詰め（LSB 側に詰める）された整数値をブール値の配列に変換します。
+     * 右詰め（LSB 側に詰める）された整数値を boolean 型配列に変換します。
      * </p>
      *
      * <p>
      * 整数値の 1 がブール値の true、0 が false に対応します。
-     * ブール値の配列の要素分だけビットが変換され、他の値は無視されます。
+     * boolean 型配列の要素分だけビットが変換され、他の値は無視されます。
      * </p>
      *
      * @param val   整数値
-     * @param array ブール値の配列
+     * @param array boolean 型配列
      * @throws IllegalArgumentException 変換するビット数が長すぎた
      */
     public static void unpackBitsInt(int val, boolean[] array) {
@@ -158,16 +158,16 @@ public abstract class AbstractLargeBitListBase extends AbstractList<Boolean>
 
     /**
      * <p>
-     * 右詰め（LSB 側に詰める）された整数値をブール値の配列に変換します。
+     * 右詰め（LSB 側に詰める）された整数値を boolean 型配列に変換します。
      * </p>
      *
      * <p>
      * 整数値の 1 がブール値の true、0 が false に対応します。
-     * ブール値の配列の要素分だけビットが変換され、他の値は無視されます。
+     * boolean 型配列の要素分だけビットが変換され、他の値は無視されます。
      * </p>
      *
      * @param val   整数値
-     * @param array ブール値の配列
+     * @param array boolean 型配列
      * @throws IllegalArgumentException 変換するビット数が長すぎた
      */
     public static void unpackBitsLong(long val, boolean[] array) {
@@ -250,10 +250,10 @@ public abstract class AbstractLargeBitListBase extends AbstractList<Boolean>
 
     /**
      * <p>
-     * 配列の長さを設定します。
+     * ビット列の長さを設定します。
      * </p>
      *
-     * @param l ビット配列の長さ（ビット単位）
+     * @param l ビット列の長さ（ビット単位）
      */
     protected void setLength(long l) {
         len = l;
@@ -261,11 +261,11 @@ public abstract class AbstractLargeBitListBase extends AbstractList<Boolean>
 
     /**
      * <p>
-     * 指定された位置がビット配列の範囲内か確認します。
+     * 指定された位置がビット列の範囲内か確認します。
      * </p>
      *
      * <p>
-     * 指定された位置がビット配列の範囲内であれば何もしません。
+     * 指定された位置がビット列の範囲内であれば何もしません。
      * 範囲外であれば例外をスローします。
      * </p>
      *
@@ -302,8 +302,8 @@ public abstract class AbstractLargeBitListBase extends AbstractList<Boolean>
      *
      * @param index 読み出しを開始するビット位置
      * @param n 読み出すビット数
-     * @throws IndexOutOfBoundsException n ビット読み出したとき、ビット配列の
-     * 範囲外へのアクセスが発生する場合
+     * @throws IndexOutOfBoundsException n ビット読み出したとき、
+     * ビット列の範囲外へのアクセスが発生する場合
      */
     protected void checkRemaining(long index, int n) {
         if (n > remaining(index)) {

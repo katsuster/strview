@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * <p>
- * int 型で扱える長さを超えるビット配列のインタフェースです。
+ * int 型で扱える長さを超えるビット列のインタフェースです。
  * </p>
  *
  * @author katsuhiro
@@ -27,23 +27,23 @@ public interface LargeBitList extends List<Boolean> {
      *
      * @param index 要素の位置（ビット単位）
      * @return 指定された位置のビット値が 1 なら true、0 なら false
-     * @throws IndexOutOfBoundsException 読み出し位置が負、配列の範囲外の場合
+     * @throws IndexOutOfBoundsException 読み出し位置が負、ビット列の範囲外の場合
      */
     public boolean get(long index);
 
     /**
      * <p>
      * 指定された位置から、length の長さだけビット値を取得し、
-     * ブール値として配列に格納します。
+     * boolean 型配列に格納します。
      * ビット値が 1 ならば true、0 ならば false が返されます。
      * </p>
      *
      * @param index  読み出し開始位置（ビット単位）
-     * @param dest   結果を格納するブール値の配列
+     * @param dest   結果を格納するboolean 型配列
      * @param offset 結果の格納を開始する位置（ビット単位）
      * @param length 読みだすビット数
      * @return 実際に読みだしたビット数
-     * @throws IndexOutOfBoundsException 読み出し位置が負、配列の範囲外の場合
+     * @throws IndexOutOfBoundsException 読み出し位置が負、ビット列の範囲外の場合
      */
     public int get(long index, boolean[] dest, int offset, int length);
 
@@ -58,7 +58,7 @@ public interface LargeBitList extends List<Boolean> {
      * @param offset 結果の格納を開始する位置（ビット単位）
      * @param length 読みだすビット数
      * @return 実際に読みだしたビット数
-     * @throws IndexOutOfBoundsException 読み出し位置が負、配列の範囲外の場合
+     * @throws IndexOutOfBoundsException 読み出し位置が負、ビット列の範囲外の場合
      */
     public int get(long index, LargeBitList dest, int offset, int length);
 
@@ -71,7 +71,7 @@ public interface LargeBitList extends List<Boolean> {
      * @param index 要素の位置（ビット単位）
      * @param data  指定された位置に設定する値、
      * 1 を設定するならば true、0 を設定するならば false
-     * @throws IndexOutOfBoundsException 書き込み位置が負、配列の範囲外の場合
+     * @throws IndexOutOfBoundsException 書き込み位置が負、ビット列の範囲外の場合
      */
     public void set(long index, boolean data);
 
@@ -82,11 +82,11 @@ public interface LargeBitList extends List<Boolean> {
      * </p>
      *
      * @param index  バッファの書き込み開始位置（ビット単位）
-     * @param src    バッファに書きこむブール値の配列
+     * @param src    バッファに書きこむ boolean 型配列
      * @param offset データの書きこみを開始する位置（ビット単位）
      * @param length 書きこむビット数
      * @return 実際に書き込んだビット数
-     * @throws IndexOutOfBoundsException 書き込み位置が負、配列の範囲外の場合
+     * @throws IndexOutOfBoundsException 書き込み位置が負、ビット列の範囲外の場合
      */
     public int set(long index, boolean[] src, int offset, int length);
 
@@ -100,7 +100,7 @@ public interface LargeBitList extends List<Boolean> {
      * @param offset データの書きこみを開始する位置（ビット単位）
      * @param length 書きこむビット数
      * @return 実際に書き込んだビット数
-     * @throws IndexOutOfBoundsException 書き込み位置が負、配列の範囲外の場合
+     * @throws IndexOutOfBoundsException 書き込み位置が負、ビット列の範囲外の場合
      */
     public int set(long index, LargeBitList src, int offset, int length);
 
@@ -180,7 +180,7 @@ public interface LargeBitList extends List<Boolean> {
      * </p>
      *
      * @param index 読み出しを開始する位置（ビット単位）
-     * @param dst   取得したビットを格納する配列
+     * @param dst   取得したビットを格納する byte 型配列
      * @param off   読み出したビットを書きこむビット位置（配列内の位置）
      * @param n     取得するビット数（ビット単位）
      * @throws IllegalArgumentException 読み出すビット数が不適切だった
@@ -250,7 +250,7 @@ public interface LargeBitList extends List<Boolean> {
      * </p>
      *
      * @param index 書き込みを開始する位置（ビット単位）
-     * @param src   バッファに書き出すビットが入った配列
+     * @param src   バッファに書き出す byte 型配列
      * @param off   書き込むビットを読み出すビット位置（配列内の位置）
      * @param n     書き込むビット数（ビット単位）
      * @throws IllegalArgumentException 読み出すビット数が不適切だった

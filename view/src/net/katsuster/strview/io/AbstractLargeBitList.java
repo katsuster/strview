@@ -2,11 +2,11 @@ package net.katsuster.strview.io;
 
 /**
  * <p>
- * int 型で扱える長さを超えるビット配列の共通動作を定義します。
+ * int 型で扱える長さを超えるビット列の共通動作を定義します。
  * </p>
  *
  * <p>
- * ビット列から整数、バイト配列を読み出すための補助メソッドを実装しています。
+ * ビット列から整数、byte 型配列を読み出すための補助メソッドを実装しています。
  * </p>
  *
  * @author katsuhiro
@@ -236,7 +236,7 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      *
      * <p>
      * この関数は指定された位置をチェックしません。
-     * ビット配列の範囲内の位置を指定する必要があります。
+     * ビット列の範囲内の位置を指定する必要があります。
      * 範囲外を指定した場合の動作は不定です。
      * </p>
      *
@@ -248,18 +248,18 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
     /**
      * <p>
      * 指定された位置から、length の長さだけビット値を取得し、
-     * ブール値として配列に格納します。
+     * ブール値として boolean 型配列に格納します。
      * ビット値が 1 ならば true、0 ならば false が返されます。
      * </p>
      *
      * <p>
      * この関数は指定された位置をチェックしません。
-     * ビット配列の範囲内の位置を指定する必要があります。
+     * ビット列の範囲内の位置を指定する必要があります。
      * 範囲外を指定した場合の動作は不定です。
      * </p>
      *
      * <p>
-     * ビット配列から get() メソッドにより、
+     * ビット列から get() メソッドにより、
      * 1ビットずつビットを取得する実装になっています。
      * </p>
      *
@@ -273,7 +273,7 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      * @param offset 結果の格納を開始する位置（ビット単位）
      * @param length 読みだすビット数
      * @return 実際に読みだしたビット数
-     * @throws IndexOutOfBoundsException 読み出し位置が負、配列の範囲外の場合
+     * @throws IndexOutOfBoundsException 読み出し位置が負、ビット列の範囲外の場合
      */
     protected int getInner(long index, boolean[] dest, int offset, int length) {
         int i;
@@ -293,12 +293,12 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      *
      * <p>
      * この関数は指定された位置をチェックしません。
-     * ビット配列の範囲内の位置を指定する必要があります。
+     * ビット列の範囲内の位置を指定する必要があります。
      * 範囲外を指定した場合の動作は不定です。
      * </p>
      *
      * <p>
-     * ビット配列から get() メソッドにより、
+     * ビット列から get() メソッドにより、
      * 1ビットずつビットを取得する実装になっています。
      * </p>
      *
@@ -312,7 +312,7 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      * @param offset 結果の格納を開始する位置（ビット単位）
      * @param length 読みだすビット数
      * @return 実際に読みだしたビット数
-     * @throws IndexOutOfBoundsException 読み出し位置が負、配列の範囲外の場合
+     * @throws IndexOutOfBoundsException 読み出し位置が負、ビット列の範囲外の場合
      */
     protected int getInner(long index, LargeBitList dest, int offset, int length) {
         int i;
@@ -331,7 +331,7 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      *
      * <p>
      * この関数は指定された位置をチェックしません。
-     * ビット配列の範囲内の位置を指定する必要があります。
+     * ビット列の範囲内の位置を指定する必要があります。
      * 範囲外を指定した場合の動作は不定です。
      * </p>
      *
@@ -348,12 +348,12 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      *
      * <p>
      * この関数は指定された位置をチェックしません。
-     * ビット配列の範囲内の位置を指定する必要があります。
+     * ビット列の範囲内の位置を指定する必要があります。
      * 範囲外を指定した場合の動作は不定です。
      * </p>
      *
      * <p>
-     * ビット配列へ set() メソッドにより、
+     * ビット列へ set() メソッドにより、
      * 1ビットずつビットを設定する実装になっています。
      * </p>
      *
@@ -363,11 +363,11 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      * </p>
      *
      * @param index  バッファの書き込み開始位置（ビット単位）
-     * @param src    バッファに書きこむブール値の配列
+     * @param src    バッファに書きこむ boolean 型配列
      * @param offset データの書きこみを開始する位置（ビット単位）
      * @param length 書きこむビット数
      * @return 実際に書き込んだビット数
-     * @throws IndexOutOfBoundsException 書き込み位置が負、配列の範囲外の場合
+     * @throws IndexOutOfBoundsException 書き込み位置が負、ビット列の範囲外の場合
      */
     protected int setInner(long index, boolean[] src, int offset, int length) {
         int i;
@@ -386,12 +386,12 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      *
      * <p>
      * この関数は指定された位置をチェックしません。
-     * ビット配列の範囲内の位置を指定する必要があります。
+     * ビット列の範囲内の位置を指定する必要があります。
      * 範囲外を指定した場合の動作は不定です。
      * </p>
      *
      * <p>
-     * ビット配列へ set() メソッドにより、
+     * ビット列へ set() メソッドにより、
      * 1ビットずつビットを設定する実装になっています。
      * </p>
      *
@@ -405,7 +405,7 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      * @param offset データの書きこみを開始する位置（ビット単位）
      * @param length 書きこむビット数
      * @return 実際に書き込んだビット数
-     * @throws IndexOutOfBoundsException 書き込み位置が負、配列の範囲外の場合
+     * @throws IndexOutOfBoundsException 書き込み位置が負、ビット列の範囲外の場合
      */
     protected int setInner(long index, LargeBitList src, int offset, int length) {
         int i;
@@ -425,12 +425,12 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      *
      * <p>
      * この関数は指定された位置をチェックしません。
-     * ビット配列の範囲内の位置を指定する必要があります。
+     * ビット列の範囲内の位置を指定する必要があります。
      * 範囲外を指定した場合の動作は不定です。
      * </p>
      *
      * <p>
-     * get() メソッドによりブール値の配列を取得した後、
+     * get() メソッドにより boolean 型配列を取得した後、
      * 整数値に変換する実装になっています。
      * </p>
      *
@@ -460,12 +460,12 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      *
      * <p>
      * この関数は指定された位置をチェックしません。
-     * ビット配列の範囲内の位置を指定する必要があります。
+     * ビット列の範囲内の位置を指定する必要があります。
      * 範囲外を指定した場合の動作は不定です。
      * </p>
      *
      * <p>
-     * get() メソッドによりブール値の配列を取得した後、
+     * get() メソッドにより boolean 型配列を取得した後、
      * 整数値に変換する実装になっています。
      * </p>
      *
@@ -495,7 +495,7 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      *
      * <p>
      * この関数は指定された位置をチェックしません。
-     * ビット配列の範囲内の位置を指定する必要があります。
+     * ビット列の範囲内の位置を指定する必要があります。
      * 範囲外を指定した場合の動作は不定です。
      * </p>
      *
@@ -510,7 +510,7 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      * </p>
      *
      * @param index 読み出しを開始する位置（ビット単位）
-     * @param dst   取得したビットを格納する配列
+     * @param dst   取得したビットを格納する boolean 型配列
      * @param off   読み出したビットを書きこむビット位置（配列内の位置）
      * @param n     取得するビット数（ビット単位）
      * @throws IllegalArgumentException 読み出すビット数が不適切だった
@@ -574,12 +574,12 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      *
      * <p>
      * この関数は指定された位置をチェックしません。
-     * ビット配列の範囲内の位置を指定する必要があります。
+     * ビット列の範囲内の位置を指定する必要があります。
      * 範囲外を指定した場合の動作は不定です。
      * </p>
      *
      * <p>
-     * ブール値の配列を整数値に変換した後、
+     * boolean 型配列を整数値に変換した後、
      * set() にて書き込む実装になっています。
      * </p>
      *
@@ -609,12 +609,12 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      *
      * <p>
      * この関数は指定された位置をチェックしません。
-     * ビット配列の範囲内の位置を指定する必要があります。
+     * ビット列の範囲内の位置を指定する必要があります。
      * 範囲外を指定した場合の動作は不定です。
      * </p>
      *
      * <p>
-     * ブール値の配列を整数値に変換した後、
+     * boolean 型配列を整数値に変換した後、
      * set() にて書き込む実装になっています。
      * </p>
      *
@@ -643,13 +643,13 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      *
      * <p>
      * この関数は指定された位置をチェックしません。
-     * ビット配列の範囲内の位置を指定する必要があります。
+     * ビット列の範囲内の位置を指定する必要があります。
      * 範囲外を指定した場合の動作は不定です。
      * </p>
      *
      * <p>
      * setPackedIntInner() により、
-     * バイト値の配列を書き込む実装になっています。
+     * boolean 型配列を書き込む実装になっています。
      * </p>
      *
      * <p>
@@ -658,7 +658,7 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      * </p>
      *
      * @param index 書き込みを開始する位置（ビット単位）
-     * @param src   バッファに書き出すビットが入った配列
+     * @param src   バッファに書き出すビットが入った boolean 型配列
      * @param off   書き込むビットを読み出すビット位置（配列内の位置）
      * @param n     書き込むビット数（ビット単位）
      * @throws IllegalArgumentException 読み出すビット数が不適切だった
