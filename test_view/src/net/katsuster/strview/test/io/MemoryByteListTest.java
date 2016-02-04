@@ -336,8 +336,8 @@ public class MemoryByteListTest {
             }
             elapse += (System.nanoTime() - start);
         }
-        LargeByteListTest.printBenchResult(
-                "seq write 1B", i * a1.length(), elapse);
+        LargeByteListTest.printBenchResult("seq write 1B",
+                i * a1.length(), elapse);
 
         LargeByteListTest.benchIO(a1, "seq access 4B", 4, 2);
         LargeByteListTest.benchIO(a1, "seq access 512B", 512, 8);

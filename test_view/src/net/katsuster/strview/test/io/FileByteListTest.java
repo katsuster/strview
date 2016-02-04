@@ -307,8 +307,8 @@ public class FileByteListTest {
             }
             elapse += (System.nanoTime() - start);
         }
-        LargeByteListTest.printBenchResult(
-                "seq write 1B", i * a1.length(), elapse);
+        LargeByteListTest.printBenchResult("seq write 1B",
+                i * a1.length(), elapse);
 
         //seq multi-bytes
         LargeByteListTest.benchIO(a1, "seq access 4B", 4, 0);

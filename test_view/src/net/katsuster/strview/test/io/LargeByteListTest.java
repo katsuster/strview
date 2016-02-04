@@ -121,8 +121,7 @@ public class LargeByteListTest {
                 iteration * target.length(), elapse_set);
     }
 
-    public static void printBenchResult(String msg,
-                                              long size, long elapse) {
+    public static void printBenchResult(String msg, long size, long elapse) {
         System.out.printf("%-24s: %5.3f[MB/s] (%8d[KB], %4d[ms])\n",
                 msg,
                 (double)size / elapse * 1000000000 / 1024 / 1024,

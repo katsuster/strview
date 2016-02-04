@@ -590,8 +590,8 @@ public class ByteToBitListTest {
             }
             elapse += (System.nanoTime() - start);
         }
-        LargeBitListTest.printBenchResult(
-                "seq write 1bit", i * a1.length(), elapse);
+        LargeBitListTest.printBenchResult("seq write 1bit",
+                i * a1.length(), elapse);
 
         LargeBitListTest.benchPackedIO(a1, "seq packed 4bit", 4, 1);
         LargeBitListTest.benchPackedIO(a1, "seq packed 8bit", 8, 1);
