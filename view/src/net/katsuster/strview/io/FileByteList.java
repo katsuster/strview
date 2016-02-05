@@ -76,16 +76,13 @@ public class FileByteList extends AbstractLargeByteList
     public FileByteList(String path) {
         super(0);
 
-        File f;
-
         if (path == null) {
             throw new IllegalArgumentException(
                     "path is null.");
         }
 
-        f = new File(path);
-
         try {
+            File f = new File(path);
             buf = new RandomAccessFile(f.getAbsolutePath(), "rw");
             buf.seek(0);
             filepointer = 0;
@@ -123,7 +120,9 @@ public class FileByteList extends AbstractLargeByteList
     @Override
     protected void finalize() {
         try {
-            buf.close();
+            if (buf != null) {
+                buf.close();
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
