@@ -37,7 +37,7 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
     }
 
     @Override
-    public boolean get(long index) {
+    public Boolean get(long index) {
         checkIndex(index);
 
         return getInner(index);
@@ -51,14 +51,14 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
     }
 
     @Override
-    public int get(long index, LargeBitList dest, int offset, int length) {
+    public int get(long index, LargeList<Boolean> dest, int offset, int length) {
         checkRemaining(index, length);
 
         return getInner(index, dest, offset, length);
     }
 
     @Override
-    public void set(long index, boolean data) {
+    public void set(long index, Boolean data) {
         checkIndex(index);
 
         setInner(index, data);
@@ -72,7 +72,7 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
     }
 
     @Override
-    public int set(long index, LargeBitList src, int offset, int length) {
+    public int set(long index, LargeList<Boolean> src, int offset, int length) {
         checkRemaining(index, length);
 
         return setInner(index, src, offset, length);
@@ -314,7 +314,7 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      * @return 実際に読みだしたビット数
      * @throws IndexOutOfBoundsException 読み出し位置が負、ビット列の範囲外の場合
      */
-    protected int getInner(long index, LargeBitList dest, int offset, int length) {
+    protected int getInner(long index, LargeList<Boolean> dest, int offset, int length) {
         int i;
 
         for (i = 0; i < length; i++) {
@@ -407,7 +407,7 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      * @return 実際に書き込んだビット数
      * @throws IndexOutOfBoundsException 書き込み位置が負、ビット列の範囲外の場合
      */
-    protected int setInner(long index, LargeBitList src, int offset, int length) {
+    protected int setInner(long index, LargeList<Boolean> src, int offset, int length) {
         int i;
 
         for (i = 0; i < length; i++) {

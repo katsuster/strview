@@ -53,7 +53,7 @@ public class SubLargeBitList extends AbstractLargeBitListBase
     }
 
     @Override
-    public boolean get(long index) {
+    public Boolean get(long index) {
         checkIndex(index);
 
         return buf.get(index + offset);
@@ -67,14 +67,14 @@ public class SubLargeBitList extends AbstractLargeBitListBase
     }
 
     @Override
-    public int get(long index, LargeBitList dest, int offset, int length) {
+    public int get(long index, LargeList<Boolean> dest, int offset, int length) {
         checkRemaining(index, length);
 
         return buf.get(index + offset, dest, offset, length);
     }
 
     @Override
-    public void set(long index, boolean data) {
+    public void set(long index, Boolean data) {
         checkIndex(index);
 
         buf.set(index + offset, data);
@@ -88,7 +88,7 @@ public class SubLargeBitList extends AbstractLargeBitListBase
     }
 
     @Override
-    public int set(long index, LargeBitList src, int offset, int length) {
+    public int set(long index, LargeList<Boolean> src, int offset, int length) {
         checkRemaining(index, length);
 
         return buf.set(index + offset, src, offset, length);

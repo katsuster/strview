@@ -248,6 +248,30 @@ public abstract class AbstractLargeBitListBase extends AbstractList<Boolean>
         return len;
     }
 
+    @Override
+    public int get(long index, Boolean[] dest, int offset, int length) {
+        checkRemaining(index, length);
+
+        boolean[] tmp = new boolean[dest.length];
+        int result = get(index, tmp, offset, length);
+        for (int i = 0; i < dest.length; i++) {
+            dest[i] = tmp[i];
+        }
+
+        return result;
+    }
+
+    @Override
+    public int set(long index, Boolean[] src, int offset, int length) {
+        checkRemaining(index, length);
+
+        boolean[] tmp = new boolean[src.length];
+        for (int i = 0; i < src.length; i++) {
+            tmp[i] = src[i];
+        }
+        return set(index, tmp, offset, length);
+    }
+
     /**
      * <p>
      * ビット列の長さを設定します。

@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author katsuhiro
  */
-public interface LargeBitList extends List<Boolean> {
+public interface LargeBitList extends LargeList<Boolean> {
     /**
      * <p>
      * ビット列の長さを返します。
@@ -29,7 +29,7 @@ public interface LargeBitList extends List<Boolean> {
      * @return 指定された位置のビット値が 1 なら true、0 なら false
      * @throws IndexOutOfBoundsException 読み出し位置が負、ビット列の範囲外の場合
      */
-    public boolean get(long index);
+    public Boolean get(long index);
 
     /**
      * <p>
@@ -60,7 +60,7 @@ public interface LargeBitList extends List<Boolean> {
      * @return 実際に読みだしたビット数
      * @throws IndexOutOfBoundsException 読み出し位置が負、ビット列の範囲外の場合
      */
-    public int get(long index, LargeBitList dest, int offset, int length);
+    public int get(long index, LargeList<Boolean> dest, int offset, int length);
 
     /**
      * <p>
@@ -73,7 +73,7 @@ public interface LargeBitList extends List<Boolean> {
      * 1 を設定するならば true、0 を設定するならば false
      * @throws IndexOutOfBoundsException 書き込み位置が負、ビット列の範囲外の場合
      */
-    public void set(long index, boolean data);
+    public void set(long index, Boolean data);
 
     /**
      * <p>
@@ -102,7 +102,7 @@ public interface LargeBitList extends List<Boolean> {
      * @return 実際に書き込んだビット数
      * @throws IndexOutOfBoundsException 書き込み位置が負、ビット列の範囲外の場合
      */
-    public int set(long index, LargeBitList src, int offset, int length);
+    public int set(long index, LargeList<Boolean> src, int offset, int length);
 
     /**
      * <p>
