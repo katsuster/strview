@@ -43,7 +43,7 @@ public interface LargeList<T> extends List<T> {
      * @return 実際に読みだした要素数
      * @throws IndexOutOfBoundsException 読み出し位置が負、リストの範囲外の場合
      */
-    public int get(long index, T[] dest, int offset, int length);
+    //public int get(long index, T[] dest, int offset, int length);
 
     /**
      * <p>
@@ -83,7 +83,7 @@ public interface LargeList<T> extends List<T> {
      * @return 実際に書き込んだ要素数
      * @throws IndexOutOfBoundsException 書き込み位置が負、リストの範囲外の場合
      */
-    public int set(long index, T[] src, int offset, int length);
+    //public int set(long index, T[] src, int offset, int length);
 
     /**
      * <p>

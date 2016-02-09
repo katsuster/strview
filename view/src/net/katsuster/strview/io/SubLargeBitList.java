@@ -7,12 +7,12 @@ package net.katsuster.strview.io;
  *
  * @author katsuhiro
  */
-public class SubLargeBitList extends AbstractLargeBitListBase
+public class SubLargeBitList extends AbstractLargeListBase<Boolean>
         implements LargeBitList, Cloneable {
-    //元となるビット列
-    private LargeBitList buf;
-    //部分列の開始位置（ビット単位）
-    private long offset;
+    //元となるリスト
+    private LargeBitList list;
+    //部分列の開始位置
+    private long offsetList;
 
     /**
      * <p>
@@ -32,8 +32,8 @@ public class SubLargeBitList extends AbstractLargeBitListBase
                     + " is too large.");
         }
 
-        buf = bits;
-        offset = from;
+        list = bits;
+        offsetList = from;
     }
 
     @Override
@@ -41,10 +41,41 @@ public class SubLargeBitList extends AbstractLargeBitListBase
             throws CloneNotSupportedException {
         SubLargeBitList obj = (SubLargeBitList)super.clone();
 
-        obj.buf = buf;
-        obj.offset = offset;
-
         return obj;
+    }
+
+    @Override
+    public Boolean get(long index) {
+        checkRemaining(index, 1);
+
+        return list.get(index + offsetList);
+    }
+
+    @Override
+    public int get(long index, LargeList<Boolean> dest, int offset, int length) {
+        checkRemaining(index, length);
+
+        return list.get(index + offsetList, dest, offset, length);
+    }
+
+    @Override
+    public int get(long index, boolean[] dest, int offset, int length) {
+        return list.get(index + offsetList, dest, offset, length);
+    }
+
+    @Override
+    public int set(long index, boolean[] src, int offset, int length) {
+        return list.set(index + offsetList, src, offset, length);
+    }
+
+    @Override
+    public void set(long index, Boolean data) {
+        list.set(index + offsetList, data);
+    }
+
+    @Override
+    public int set(long index, LargeList<Boolean> src, int offset, int length) {
+        return set(index + offsetList, src, offset, length);
     }
 
     @Override
@@ -53,114 +84,72 @@ public class SubLargeBitList extends AbstractLargeBitListBase
     }
 
     @Override
-    public Boolean get(long index) {
-        checkIndex(index);
-
-        return buf.get(index + offset);
-    }
-
-    @Override
-    public int get(long index, boolean[] dest, int offset, int length) {
-        checkRemaining(index, length);
-
-        return buf.get(index + offset, dest, offset, length);
-    }
-
-    @Override
-    public int get(long index, LargeList<Boolean> dest, int offset, int length) {
-        checkRemaining(index, length);
-
-        return buf.get(index + offset, dest, offset, length);
-    }
-
-    @Override
-    public void set(long index, Boolean data) {
-        checkIndex(index);
-
-        buf.set(index + offset, data);
-    }
-
-    @Override
-    public int set(long index, boolean[] src, int offset, int length) {
-        checkRemaining(index, length);
-
-        return buf.set(index + offset, src, offset, length);
-    }
-
-    @Override
-    public int set(long index, LargeList<Boolean> src, int offset, int length) {
-        checkRemaining(index, length);
-
-        return buf.set(index + offset, src, offset, length);
-    }
-
-    @Override
     public byte getPackedByte(long index, int n) {
         checkRemaining(index, n);
 
-        return buf.getPackedByte(index + offset, n);
+        return list.getPackedByte(index + offsetList, n);
     }
 
     @Override
     public short getPackedShort(long index, int n) {
         checkRemaining(index, n);
 
-        return buf.getPackedShort(index + offset, n);
+        return list.getPackedShort(index + offsetList, n);
     }
 
     @Override
     public int getPackedInt(long index, int n) {
         checkRemaining(index, n);
 
-        return buf.getPackedInt(index + offset, n);
+        return list.getPackedInt(index + offsetList, n);
     }
 
     @Override
     public long getPackedLong(long index, int n) {
         checkRemaining(index, n);
 
-        return buf.getPackedLong(index + offset, n);
+        return list.getPackedLong(index + offsetList, n);
     }
 
     @Override
     public void getPackedByteArray(long index, byte[] dst, int off, int n) {
         checkRemaining(index, n);
 
-        buf.getPackedByteArray(index + offset, dst, off, n);
+        list.getPackedByteArray(index + offsetList, dst, off, n);
     }
 
     @Override
     public void setPackedByte(long index, int n, byte val) {
         checkRemaining(index, n);
 
-        buf.setPackedByte(index + offset, n, val);
+        list.setPackedByte(index + offsetList, n, val);
     }
 
     @Override
     public void setPackedShort(long index, int n, short val) {
         checkRemaining(index, n);
 
-        buf.setPackedShort(index + offset, n, val);
+        list.setPackedShort(index + offsetList, n, val);
     }
 
     @Override
     public void setPackedInt(long index, int n, int val) {
         checkRemaining(index, n);
 
-        buf.setPackedInt(index + offset, n, val);
+        list.setPackedInt(index + offsetList, n, val);
     }
 
     @Override
     public void setPackedLong(long index, int n, long val) {
         checkRemaining(index, n);
 
-        buf.setPackedLong(index + offset, n, val);
+        list.setPackedLong(index + offsetList, n, val);
     }
 
     @Override
     public void setPackedByteArray(long index, byte[] src, int off, int n) {
         checkRemaining(index, n);
 
-        buf.setPackedByteArray(index + offset, src, off, n);
+        list.setPackedByteArray(index + offsetList, src, off, n);
     }
 }

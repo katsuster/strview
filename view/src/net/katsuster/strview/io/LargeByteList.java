@@ -9,39 +9,7 @@ import java.util.List;
  *
  * @author katsuhiro
  */
-public interface LargeByteList extends List<Byte> {
-    /**
-     * <p>
-     * バイト列の長さを返します。
-     * </p>
-     *
-     * @return バイト列の長さ
-     */
-    public long length();
-
-    /**
-     * <p>
-     * バイト列の from（この要素を含む）から to（この要素を含まない）までの、
-     * 部分列を返します。返された部分列への変更は、元のバイト列と連動します。
-     * </p>
-     *
-     * @param from 部分列の開始位置
-     * @param to   部分列の終了位置
-     * @return バイト列の部分列
-     */
-    //public LargeArray subArray(long from, long to);
-
-    /**
-     * <p>
-     * 指定された位置の要素を取得します。
-     * </p>
-     *
-     * @param index 要素の位置
-     * @return 指定された位置の値
-     * @throws IndexOutOfBoundsException 読み出し位置が負、バイト列の範囲外の場合
-     */
-    public int get(long index);
-
+public interface LargeByteList extends LargeList<Byte> {
     /**
      * <p>
      * 指定された位置から、length の長さだけ要素を取得します。
@@ -55,17 +23,6 @@ public interface LargeByteList extends List<Byte> {
      * @throws IndexOutOfBoundsException 読み出し位置が負、バイト列の範囲外の場合
      */
     public int get(long index, byte[] dest, int offset, int length);
-
-    /**
-     * <p>
-     * 指定された位置に要素を設定します。
-     * </p>
-     *
-     * @param index 要素の位置
-     * @param data  指定された位置に設定する値
-     * @throws IndexOutOfBoundsException 書き込み位置が負、バイト列の範囲外の場合
-     */
-    public void set(long index, byte data);
 
     /**
      * <p>

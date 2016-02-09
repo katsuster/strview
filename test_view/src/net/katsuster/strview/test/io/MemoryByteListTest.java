@@ -71,15 +71,15 @@ public class MemoryByteListTest {
         assertNotNull(msg1, a1);
 
         a1.set(0, (byte)30);
-        assertEquals(msg1, (byte)30, a1.get(0L));
+        assertEquals(msg1, (byte)30, (byte)a1.get(0L));
 
         try {
             MemoryByteList a2 = a1.clone();
             assertNotNull(msg1, a2);
 
             a2.set(0, (byte)40);
-            assertEquals(msg1, (byte)30, a1.get(0L));
-            assertEquals(msg1, (byte)40, a2.get(0L));
+            assertEquals(msg1, (byte)30, (byte)a1.get(0L));
+            assertEquals(msg1, (byte)40, (byte)a2.get(0L));
         } catch (CloneNotSupportedException ex) {
             fail(msg1);
         }

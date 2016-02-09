@@ -4,25 +4,25 @@ import java.util.AbstractList;
 
 /**
  * <p>
- * int 型で扱える長さを超えるビット列の共通動作を定義します。
+ * int 型で扱える長さを超えるリストの共通動作を定義します。
  * </p>
  *
  * @author katsuhiro
  */
-public abstract class AbstractLargeBitListBase extends AbstractList<Boolean>
-        implements LargeBitList, Cloneable {
-    //ビット列の長さ（ビット単位）
+public abstract class AbstractLargeListBase<T> extends AbstractList<T>
+        implements LargeList<T>, Cloneable {
+    //リストの長さ
     private long len;
 
     /**
      * <p>
-     * 指定された長さのビット列を作成します。
+     * 指定された長さのリストを作成します。
      * </p>
      *
-     * @param from ビット列の開始点
-     * @param to   ビット列の終了点
+     * @param from リストの開始点
+     * @param to   リストの終了点
      */
-    public AbstractLargeBitListBase(long from, long to) {
+    public AbstractLargeListBase(long from, long to) {
         if (from < 0) {
             throw new IndexOutOfBoundsException("from:" + from
                     + " is negative.");
@@ -36,12 +36,12 @@ public abstract class AbstractLargeBitListBase extends AbstractList<Boolean>
 
     /**
      * <p>
-     * 指定された長さのビット列を作成します。
+     * 指定された長さのリストを作成します。
      * </p>
      *
-     * @param l ビット列の長さ
+     * @param l リストの長さ
      */
-    public AbstractLargeBitListBase(long l) {
+    public AbstractLargeListBase(long l) {
         if (l < 0) {
             throw new NegativeArraySizeException("len:" + l
                     + " is negative.");
@@ -50,8 +50,8 @@ public abstract class AbstractLargeBitListBase extends AbstractList<Boolean>
     }
 
     @Override
-    public AbstractLargeBitListBase clone() throws CloneNotSupportedException {
-        AbstractLargeBitListBase obj = (AbstractLargeBitListBase)super.clone();
+    public AbstractLargeListBase clone() throws CloneNotSupportedException {
+        AbstractLargeListBase obj = (AbstractLargeListBase)super.clone();
 
         obj.len = len;
 
@@ -232,13 +232,13 @@ public abstract class AbstractLargeBitListBase extends AbstractList<Boolean>
     }
 
     @Override
-    public Boolean get(int index) {
+    public T get(int index) {
         return get((long)index);
     }
 
     @Override
-    public Boolean set(int index, Boolean element) {
-        Boolean before = get(index);
+    public T set(int index, T element) {
+        T before = get(index);
         set((long)index, element);
         return before;
     }
@@ -249,35 +249,16 @@ public abstract class AbstractLargeBitListBase extends AbstractList<Boolean>
     }
 
     @Override
-    public int get(long index, Boolean[] dest, int offset, int length) {
-        checkRemaining(index, length);
-
-        boolean[] tmp = new boolean[dest.length];
-        int result = get(index, tmp, offset, length);
-        for (int i = 0; i < dest.length; i++) {
-            dest[i] = tmp[i];
-        }
-
-        return result;
-    }
-
-    @Override
-    public int set(long index, Boolean[] src, int offset, int length) {
-        checkRemaining(index, length);
-
-        boolean[] tmp = new boolean[src.length];
-        for (int i = 0; i < src.length; i++) {
-            tmp[i] = src[i];
-        }
-        return set(index, tmp, offset, length);
+    public LargeList<T> subArray(long from, long to) {
+        return new SubLargeList<T>(this, from, to);
     }
 
     /**
      * <p>
-     * ビット列の長さを設定します。
+     * リストの長さを設定します。
      * </p>
      *
-     * @param l ビット列の長さ（ビット単位）
+     * @param l リストの長さ
      */
     protected void setLength(long l) {
         len = l;
@@ -285,15 +266,16 @@ public abstract class AbstractLargeBitListBase extends AbstractList<Boolean>
 
     /**
      * <p>
-     * 指定された位置がビット列の範囲内か確認します。
+     * 指定された位置がリストの範囲内か確認します。
      * </p>
      *
      * <p>
-     * 指定された位置がビット列の範囲内であれば何もしません。
+     * 指定された位置がリストの範囲内であれば何もしません。
      * 範囲外であれば例外をスローします。
      * </p>
      *
-     * @throws IndexOutOfBoundsException 指定された位置がビット列の範囲外の場合
+     * @param index 位置
+     * @throws IndexOutOfBoundsException 指定された位置がリストの範囲外の場合
      */
     protected void checkIndex(long index) {
         if (index < 0 || length() <= index) {
@@ -304,11 +286,11 @@ public abstract class AbstractLargeBitListBase extends AbstractList<Boolean>
 
     /**
      * <p>
-     * 指定された位置から終端までのビット数を取得します。
+     * 指定された位置から終端までの要素数を取得します。
      * </p>
      *
-     * @param index ビット位置
-     * @return 指定された位置から終端までのビット数
+     * @param index 位置
+     * @return 指定された位置から終端までの要素数
      */
     protected long remaining(long index) {
         return length() - index;
@@ -316,18 +298,18 @@ public abstract class AbstractLargeBitListBase extends AbstractList<Boolean>
 
     /**
      * <p>
-     * 指定された位置から n ビット読み出せるかどうか確認します。
+     * 指定された位置から n 要素読み出せるかどうか確認します。
      * </p>
      *
      * <p>
-     * n ビット読み出し可能であれば何もしません。
+     * n 要素読み出し可能であれば何もしません。
      * 読みだし不可能であれば例外をスローします。
      * </p>
      *
-     * @param index 読み出しを開始するビット位置
-     * @param n 読み出すビット数
-     * @throws IndexOutOfBoundsException n ビット読み出したとき、
-     * ビット列の範囲外へのアクセスが発生する場合
+     * @param index 読み出しを開始する位置
+     * @param n 読み出す要素数
+     * @throws IndexOutOfBoundsException n 要素読み出したとき、
+     * リストの範囲外へのアクセスが発生する場合
      */
     protected void checkRemaining(long index, int n) {
         if (n > remaining(index)) {

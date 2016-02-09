@@ -11,7 +11,7 @@ package net.katsuster.strview.io;
  *
  * @author katsuhiro
  */
-public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
+public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
         implements LargeBitList, Cloneable {
     /**
      * <p>
@@ -37,13 +37,6 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
     }
 
     @Override
-    public Boolean get(long index) {
-        checkIndex(index);
-
-        return getInner(index);
-    }
-
-    @Override
     public int get(long index, boolean[] dest, int offset, int length) {
         checkRemaining(index, length);
 
@@ -51,28 +44,7 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
     }
 
     @Override
-    public int get(long index, LargeList<Boolean> dest, int offset, int length) {
-        checkRemaining(index, length);
-
-        return getInner(index, dest, offset, length);
-    }
-
-    @Override
-    public void set(long index, Boolean data) {
-        checkIndex(index);
-
-        setInner(index, data);
-    }
-
-    @Override
     public int set(long index, boolean[] src, int offset, int length) {
-        checkRemaining(index, length);
-
-        return setInner(index, src, offset, length);
-    }
-
-    @Override
-    public int set(long index, LargeList<Boolean> src, int offset, int length) {
         checkRemaining(index, length);
 
         return setInner(index, src, offset, length);
@@ -243,7 +215,7 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      * @param index 要素の位置（ビット位置）
      * @return 指定された位置のビット値
      */
-    protected abstract boolean getInner(long index);
+    protected abstract Boolean getInner(long index);
 
     /**
      * <p>
@@ -287,45 +259,6 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
 
     /**
      * <p>
-     * 指定された位置から、length の長さだけビット値を取得し、
-     * ビット列に格納します。
-     * </p>
-     *
-     * <p>
-     * この関数は指定された位置をチェックしません。
-     * ビット列の範囲内の位置を指定する必要があります。
-     * 範囲外を指定した場合の動作は不定です。
-     * </p>
-     *
-     * <p>
-     * ビット列から get() メソッドにより、
-     * 1ビットずつビットを取得する実装になっています。
-     * </p>
-     *
-     * <p>
-     * 派生クラスにてより高速な実装が可能であれば、
-     * オーバライドすることを推奨します。
-     * </p>
-     *
-     * @param index  バッファの読み出し開始位置（ビット単位）
-     * @param dest   結果を格納するバイト列
-     * @param offset 結果の格納を開始する位置（ビット単位）
-     * @param length 読みだすビット数
-     * @return 実際に読みだしたビット数
-     * @throws IndexOutOfBoundsException 読み出し位置が負、ビット列の範囲外の場合
-     */
-    protected int getInner(long index, LargeList<Boolean> dest, int offset, int length) {
-        int i;
-
-        for (i = 0; i < length; i++) {
-            dest.set(offset + i, getInner(index + i));
-        }
-
-        return i;
-    }
-
-    /**
-     * <p>
      * 指定された位置にビット値を設定します。
      * </p>
      *
@@ -338,7 +271,7 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
      * @param index 要素の位置（ビット単位）
      * @param data  指定された位置に設定する値
      */
-    protected abstract void setInner(long index, boolean data);
+    protected abstract void setInner(long index, Boolean data);
 
     /**
      * <p>
@@ -374,44 +307,6 @@ public abstract class AbstractLargeBitList extends AbstractLargeBitListBase
 
         for (i = 0; i < length; i++) {
             setInner(index + i, src[offset + i]);
-        }
-
-        return i;
-    }
-
-    /**
-     * <p>
-     * 指定された位置から、length の長さだけビット値を設定します。
-     * </p>
-     *
-     * <p>
-     * この関数は指定された位置をチェックしません。
-     * ビット列の範囲内の位置を指定する必要があります。
-     * 範囲外を指定した場合の動作は不定です。
-     * </p>
-     *
-     * <p>
-     * ビット列へ set() メソッドにより、
-     * 1ビットずつビットを設定する実装になっています。
-     * </p>
-     *
-     * <p>
-     * 派生クラスにてより高速な実装が可能であれば、
-     * オーバライドすることを推奨します。
-     * </p>
-     *
-     * @param index  バッファの書き込み開始位置（ビット単位）
-     * @param src    バッファに書きこむビット列
-     * @param offset データの書きこみを開始する位置（ビット単位）
-     * @param length 書きこむビット数
-     * @return 実際に書き込んだビット数
-     * @throws IndexOutOfBoundsException 書き込み位置が負、ビット列の範囲外の場合
-     */
-    protected int setInner(long index, LargeList<Boolean> src, int offset, int length) {
-        int i;
-
-        for (i = 0; i < length; i++) {
-            setInner(index + i, src.get(offset + i));
         }
 
         return i;

@@ -82,7 +82,7 @@ public class ByteToBitList extends AbstractLargeBitList {
     }
 
     @Override
-    protected boolean getInner(long index) {
+    protected Boolean getInner(long index) {
         long b;
         int p, shifts;
 
@@ -105,7 +105,7 @@ public class ByteToBitList extends AbstractLargeBitList {
     }
 
     @Override
-    protected void setInner(long index, boolean data) {
+    protected void setInner(long index, Boolean data) {
         long b;
         int p, shifts;
         byte t;
@@ -143,7 +143,6 @@ public class ByteToBitList extends AbstractLargeBitList {
         while (n > remain) {
             //バッファに残っているビットを全部追加する
             n -= remain;
-            index += remain;
             result |= (getRightBits32(remain, elem) << n);
             //次の要素を読み出す
             epos += 1;

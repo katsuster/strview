@@ -107,7 +107,7 @@ public class MemoryBitList extends AbstractLargeBitList {
     }
 
     @Override
-    protected boolean getInner(long index) {
+    protected Boolean getInner(long index) {
         int b, p, shifts;
 
 		/*
@@ -129,7 +129,7 @@ public class MemoryBitList extends AbstractLargeBitList {
     }
 
     @Override
-    protected void setInner(long index, boolean data) {
+    protected void setInner(long index, Boolean data) {
         int b, p, shifts;
         int t;
 

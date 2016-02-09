@@ -12,27 +12,6 @@ import java.util.List;
 public interface LargeBitList extends LargeList<Boolean> {
     /**
      * <p>
-     * ビット列の長さを返します。
-     * </p>
-     *
-     * @return ビット列の長さ（ビット単位）
-     */
-    public long length();
-
-    /**
-     * <p>
-     * 指定された位置のビット値を取得します。
-     * ビット値が 1 ならば true、0 ならば false が返されます。
-     * </p>
-     *
-     * @param index 要素の位置（ビット単位）
-     * @return 指定された位置のビット値が 1 なら true、0 なら false
-     * @throws IndexOutOfBoundsException 読み出し位置が負、ビット列の範囲外の場合
-     */
-    public Boolean get(long index);
-
-    /**
-     * <p>
      * 指定された位置から、length の長さだけビット値を取得し、
      * boolean 型配列に格納します。
      * ビット値が 1 ならば true、0 ならば false が返されます。
@@ -49,34 +28,6 @@ public interface LargeBitList extends LargeList<Boolean> {
 
     /**
      * <p>
-     * 指定された位置から、length の長さだけビット値を取得し、
-     * ビット列に格納します。
-     * </p>
-     *
-     * @param index  読み出し開始位置（ビット単位）
-     * @param dest   結果を格納するビット列
-     * @param offset 結果の格納を開始する位置（ビット単位）
-     * @param length 読みだすビット数
-     * @return 実際に読みだしたビット数
-     * @throws IndexOutOfBoundsException 読み出し位置が負、ビット列の範囲外の場合
-     */
-    public int get(long index, LargeList<Boolean> dest, int offset, int length);
-
-    /**
-     * <p>
-     * 指定された位置にビット値を設定します。
-     * ブール値が true ならば 1 が設定され、false ならば 0 が設定されます。
-     * </p>
-     *
-     * @param index 要素の位置（ビット単位）
-     * @param data  指定された位置に設定する値、
-     * 1 を設定するならば true、0 を設定するならば false
-     * @throws IndexOutOfBoundsException 書き込み位置が負、ビット列の範囲外の場合
-     */
-    public void set(long index, Boolean data);
-
-    /**
-     * <p>
      * 指定された位置から、length の長さだけビット値を設定します。
      * ブール値が true ならば 1 が設定され、false ならば 0 が設定されます。
      * </p>
@@ -89,20 +40,6 @@ public interface LargeBitList extends LargeList<Boolean> {
      * @throws IndexOutOfBoundsException 書き込み位置が負、ビット列の範囲外の場合
      */
     public int set(long index, boolean[] src, int offset, int length);
-
-    /**
-     * <p>
-     * 指定された位置から、length の長さだけビット値を設定します。
-     * </p>
-     *
-     * @param index  バッファの書き込み開始位置（ビット単位）
-     * @param src    バッファに書きこむビット列
-     * @param offset データの書きこみを開始する位置（ビット単位）
-     * @param length 書きこむビット数
-     * @return 実際に書き込んだビット数
-     * @throws IndexOutOfBoundsException 書き込み位置が負、ビット列の範囲外の場合
-     */
-    public int set(long index, LargeList<Boolean> src, int offset, int length);
 
     /**
      * <p>
@@ -257,16 +194,4 @@ public interface LargeBitList extends LargeList<Boolean> {
      * @throws IndexOutOfBoundsException ビット列の範囲外を読みだそうとした
      */
     public void setPackedByteArray(long index, byte[] src, int off, int n);
-
-    /**
-     * <p>
-     * ビット列の from（この要素を含む）から to（この要素を含まない）までの、
-     * 部分列を返します。返された部分列への変更は、元のビット列と連動します。
-     * </p>
-     *
-     * @param from 部分列の開始位置（ビット単位）
-     * @param to   部分列の終了位置（ビット単位）
-     * @return ビット列の部分列（ビット単位）
-     */
-    public LargeBitList subArray(long from, long to);
 }

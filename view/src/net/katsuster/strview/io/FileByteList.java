@@ -9,7 +9,7 @@ import java.io.*;
  *
  * @author katsuhiro
  */
-public class FileByteList extends AbstractLargeByteList
+public class FileByteList extends AbstractLargeList<Byte>
         implements LargeByteList {
     private RandomAccessFile buf;
     private long filepointer;
@@ -208,35 +208,6 @@ public class FileByteList extends AbstractLargeByteList
     }
 
     @Override
-    public int get(long index) {
-        int result;
-
-        checkIndex(index);
-
-        try {
-            synchronized (buf) {
-                if (index != filepointer) {
-                    buf.seek(index);
-                    filepointer = index;
-                }
-
-                result = buf.read();
-                if (result == -1) {
-                    //EOF
-                    throw new IndexOutOfBoundsException(
-                            "cannot read from " + index + "(reached EOF).");
-                }
-                filepointer += 1;
-            }
-
-            return result;
-        } catch (IOException ex) {
-            throw new IndexOutOfBoundsException(
-                    "cannot read from " + index + ".");
-        }
-    }
-
-    @Override
     public int get(long index, byte[] dest, int offset, int length) {
         int res = 0;
 
@@ -270,26 +241,6 @@ public class FileByteList extends AbstractLargeByteList
     }
 
     @Override
-    public void set(long index, byte data) {
-        checkIndex(index);
-
-        try {
-            synchronized (buf) {
-                if (index != filepointer) {
-                    buf.seek(index);
-                    filepointer = index;
-                }
-
-                buf.write(data);
-                filepointer += 1;
-            }
-        } catch (IOException ex) {
-            throw new IndexOutOfBoundsException(
-                    "cannot write at " + index + ".");
-        }
-    }
-
-    @Override
     public int set(long index, byte[] src, int offset, int length) {
         checkIndexOffsetLength(index, offset, length);
 
@@ -317,4 +268,50 @@ public class FileByteList extends AbstractLargeByteList
 
         return length;
     }
+
+    @Override
+    public Byte getInner(long index) {
+        int result;
+
+        try {
+            synchronized (buf) {
+                if (index != filepointer) {
+                    buf.seek(index);
+                    filepointer = index;
+                }
+
+                result = buf.read();
+                if (result == -1) {
+                    //EOF
+                    throw new IndexOutOfBoundsException(
+                            "cannot read from " + index + "(reached EOF).");
+                }
+                filepointer += 1;
+            }
+
+            return (byte)result;
+        } catch (IOException ex) {
+            throw new IndexOutOfBoundsException(
+                    "cannot read from " + index + ".");
+        }
+    }
+
+    @Override
+    public void setInner(long index, Byte data) {
+        try {
+            synchronized (buf) {
+                if (index != filepointer) {
+                    buf.seek(index);
+                    filepointer = index;
+                }
+
+                buf.write(data);
+                filepointer += 1;
+            }
+        } catch (IOException ex) {
+            throw new IndexOutOfBoundsException(
+                    "cannot write at " + index + ".");
+        }
+    }
+
 }

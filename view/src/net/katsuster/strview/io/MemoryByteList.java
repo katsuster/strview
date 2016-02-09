@@ -7,7 +7,7 @@ package net.katsuster.strview.io;
  *
  * @author katsuhiro
  */
-public class MemoryByteList extends AbstractLargeByteList
+public class MemoryByteList extends AbstractLargeList<Byte>
         implements LargeByteList, Cloneable {
     private byte[] buf;
 
@@ -81,11 +81,6 @@ public class MemoryByteList extends AbstractLargeByteList
     }
 
     @Override
-    public int get(long index) {
-        return buf[(int)index];
-    }
-
-    @Override
     public int get(long index, byte[] dest, int offset, int length) {
         System.arraycopy(buf, (int)index, dest, offset, length);
 
@@ -93,14 +88,19 @@ public class MemoryByteList extends AbstractLargeByteList
     }
 
     @Override
-    public void set(long index, byte data) {
-        buf[(int)index] = data;
-    }
-
-    @Override
     public int set(long index, byte[] src, int offset, int length) {
         System.arraycopy(src, offset, buf, (int)index, length);
 
         return length;
+    }
+
+    @Override
+    public Byte getInner(long index) {
+        return buf[(int)index];
+    }
+
+    @Override
+    public void setInner(long index, Byte data) {
+        buf[(int)index] = data;
     }
 }
