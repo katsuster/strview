@@ -1,5 +1,7 @@
 package net.katsuster.strview.util;
 
+import java.util.*;
+
 /**
  * <p>
  * 64bit の符号あり整数、位置、長さを格納するクラス。
@@ -12,15 +14,19 @@ public class SInt extends Num
     private long val;
 
     public SInt() {
-        this(0, 0, 0);
+        this(0, 0, 0, Collections.emptyList());
     }
 
     public SInt(long v) {
-        this(v, 0, 0);
+        this(v, 0, 0, Collections.emptyList());
     }
 
     public SInt(long v, int l, long p) {
-        super(l, p);
+        this(v, l, p, Collections.emptyList());
+    }
+
+    public SInt(long v, int l, long p, List<?> b) {
+        super(l, p, b);
         setBitsValue(v);
     }
 

@@ -17,36 +17,9 @@ import java.util.*;
  * @author katsuhiro
  */
 public class Range {
-    public static final List<?> INVALID_LIST = new ArrayList<Boolean>();
-
-    private List<?> buf;
     private long start;
     private long end;
-
-    /**
-     * <p>
-     * バッファと開始点と終了点を指定して半開区間を構築します。
-     * </p>
-     *
-     * @param b この区間を含むバッファ
-     * @param s 区間の開始地点
-     * @param e 区間の終了地点
-     */
-    public Range(List<?> b, long s, long e) {
-        if (e < s) {
-            throw new IllegalArgumentException(
-                    "start(" + s + ")" + "is larger than "
-                            + "end(" + e + ").");
-        }
-        if (b != INVALID_LIST && b.size() <= e) {
-            throw new IllegalArgumentException(
-                    "end(" + e + ")" + "is larger than "
-                            + "b.size(" + b.size() + ").");
-        }
-        buf = b;
-        start = s;
-        end = e;
-    }
+    private List<?> buf;
 
     /**
      * <p>
@@ -57,18 +30,32 @@ public class Range {
      * @param e 区間の終了地点
      */
     public Range(long s, long e) {
-        this(INVALID_LIST, s, e);
+        this(s, e, Collections.emptyList());
     }
 
     /**
      * <p>
-     * 区間を含むバッファを取得します。
+     * バッファと開始点と終了点を指定して半開区間を構築します。
      * </p>
      *
-     * @return 区間を含むバッファ
+     * @param s 区間の開始地点
+     * @param e 区間の終了地点
+     * @param b この区間を含むバッファ
      */
-    public List<?> getBuffer() {
-        return buf;
+    public Range(long s, long e, List<?> b) {
+        if (e < s) {
+            throw new IllegalArgumentException(
+                    "start(" + s + ")" + "is larger than "
+                            + "end(" + e + ").");
+        }
+        if (b != Collections.emptyList() && b.size() <= e) {
+            throw new IllegalArgumentException(
+                    "end(" + e + ")" + "is larger than "
+                            + "b.size(" + b.size() + ").");
+        }
+        buf = b;
+        start = s;
+        end = e;
     }
 
     /**
@@ -129,6 +116,17 @@ public class Range {
      */
     public void setEnd(long p) {
         end = p;
+    }
+
+    /**
+     * <p>
+     * 区間を含むバッファを取得します。
+     * </p>
+     *
+     * @return 区間を含むバッファ
+     */
+    public List<?> getBuffer() {
+        return buf;
     }
 
     /**

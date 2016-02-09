@@ -1,5 +1,7 @@
 package net.katsuster.strview.util;
 
+import java.util.List;
+
 /**
  * <p>
  * 数値、位置、長さを格納するクラスの基底クラス。
@@ -50,6 +52,21 @@ public abstract class Num extends Range
      */
     public Num(int l, long p) {
         super(p, p + l);
+    }
+
+    /**
+     * <p>
+     * 数値の長さ（ビット単位）と、
+     * 数値が存在する位置（ビット単位）を設定して、
+     * 新たな数値を構築します。
+     * </p>
+     *
+     * @param l 数値の長さ（ビット単位）
+     * @param p 数値の存在する位置（ビット単位）
+     * @param b 数値の存在するバッファ
+     */
+    public Num(int l, long p, List<?> b) {
+        super(p, p + l, b);
     }
 
     /**
