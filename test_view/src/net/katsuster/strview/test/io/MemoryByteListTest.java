@@ -16,30 +16,18 @@ import net.katsuster.strview.io.*;
  * @author katsuhiro
  */
 public class MemoryByteListTest {
-    /**
-     * @throws java.lang.Exception
-     */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
     @AfterClass
     public static void tearDownAfterClass() throws Exception {
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
     @Before
     public void setUp() throws Exception {
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
     @After
     public void tearDown() throws Exception {
     }
@@ -222,7 +210,7 @@ public class MemoryByteListTest {
     }
 
     /**
-     * Test method for {@link net.katsuster.strview.io.MemoryByteList#set(long, byte)}.
+     * Test method for {@link net.katsuster.strview.io.MemoryByteList#set(long, Byte)}.
      */
     @Test
     public final void testSetLongByte() {

@@ -17,30 +17,18 @@ package net.katsuster.strview.test.io;
  * @author katsuhiro
  */
 public class FileByteListTest {
-    /**
-     * @throws java.lang.Exception
-     */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
     @AfterClass
     public static void tearDownAfterClass() throws Exception {
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
     @Before
     public void setUp() throws Exception {
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
     @After
     public void tearDown() throws Exception {
     }
@@ -208,7 +196,7 @@ public class FileByteListTest {
     }
 
     /**
-     * Test method for {@link net.katsuster.strview.io.FileByteList#set(long, byte)}.
+     * Test method for {@link net.katsuster.strview.io.FileByteList#set(long, Byte)}.
      */
     @Test
     public final void testSetLongByte() {
