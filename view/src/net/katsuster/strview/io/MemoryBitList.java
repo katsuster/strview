@@ -6,7 +6,7 @@ package net.katsuster.strview.io;
  * </p>
  *
  * <p>
- * WrappedBitList に MemoryArray を渡すより高速に動作します。
+ * ByteToBitList に MemoryByteList を渡すより高速に動作します。
  * </p>
  *
  * @author katsuhiro

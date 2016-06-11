@@ -185,7 +185,7 @@ public class FileByteList extends AbstractLargeList<Byte>
      * @param length 転送する量
      * @throws IndexOutOfBoundsException offset, length が負の場合、
      * checkIndex() が例外をスローした場合
-     * @see checkIndex()
+     * @see #checkIndex(long)
      */
     protected void checkIndexOffsetLength(
             long index, int offset, int length) {
