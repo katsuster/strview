@@ -167,7 +167,7 @@ public class SlowMemoryBitListTest {
     }
 
     @Test
-    public final void testGetLongByteArrayIntInt() {
+    public final void testGetLongBoolArrayIntInt() {
         //String msg1 = "get(long, boolean[], int, int) failed.";
         //String msg2 = "get(long, boolean[], int, int) illegal arguments check failed.";
 
@@ -235,7 +235,7 @@ public class SlowMemoryBitListTest {
     }
 
     @Test
-    public final void testSetLongByteArrayIntInt() {
+    public final void testSetLongBoolArrayIntInt() {
         //String msg1 = "set(long, boolean[], int, int) failed.";
         //String msg2 = "set(long, boolean[], int, int) illegal arguments check failed.";
 
