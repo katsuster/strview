@@ -23,6 +23,7 @@ import net.katsuster.strview.test.io.*;
         SlowMemoryBitListTest.class,
         MemoryBitListTest.class,
         ByteToBitListTest.class,
+        BitBufferTest.class,
 })
 public class AllTest {
     protected AllTest() {
