@@ -79,7 +79,7 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
     }
 
     @Override
-    public LargeBitList subArray(long from, long to) {
+    public LargeBitList subLargeList(long from, long to) {
         return new SubLargeBitList(this, from, to);
     }
 

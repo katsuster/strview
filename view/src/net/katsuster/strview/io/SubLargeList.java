@@ -76,7 +76,7 @@ public class SubLargeList<T> extends AbstractLargeListBase<T>
     }
 
     @Override
-    public LargeList<T> subArray(long from, long to) {
+    public LargeList<T> subLargeList(long from, long to) {
         return new SubLargeList<T>(this, from, to);
     }
 }

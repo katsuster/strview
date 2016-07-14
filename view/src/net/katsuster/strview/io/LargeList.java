@@ -109,5 +109,5 @@ public interface LargeList<T> extends List<T> {
      * @param to   部分列の終了位置
      * @return リストの部分列
      */
-    public LargeList<T> subArray(long from, long to);
+    public LargeList<T> subLargeList(long from, long to);
 }

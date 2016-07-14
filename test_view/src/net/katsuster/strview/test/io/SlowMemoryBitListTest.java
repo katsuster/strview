@@ -272,9 +272,9 @@ public class SlowMemoryBitListTest {
     }
 
     @Test
-    public final void testSubArrayLongLong() {
-        String msg1 = "subArray(long, long) failed.";
-        String msg2 = "subArray(long, long) illegal arguments check failed.";
+    public final void testSubLargeListLongLong() {
+        String msg1 = "subLargeList(long, long) failed.";
+        String msg2 = "subLargeList(long, long) illegal arguments check failed.";
         int off;
 
         boolean[] a_a = new boolean[1024];
@@ -287,7 +287,7 @@ public class SlowMemoryBitListTest {
         SlowMemoryBitList a1 = new SlowMemoryBitList(a_a);
 
         off = 0;
-        LargeBitList s1 = a1.subArray(off, 5);
+        LargeBitList s1 = a1.subLargeList(off, 5);
         assertNotNull(msg1, s1);
         assertEquals(msg1, 5, s1.length());
         for (int i = 0; i < s1.length(); i++) {
@@ -295,7 +295,7 @@ public class SlowMemoryBitListTest {
         }
 
         off = 100;
-        LargeBitList s2 = a1.subArray(off, 755);
+        LargeBitList s2 = a1.subLargeList(off, 755);
         assertNotNull(msg1, s2);
         assertEquals(msg1, 655, s2.length());
         for (int i = 0; i < s2.length(); i++) {
@@ -319,21 +319,21 @@ public class SlowMemoryBitListTest {
 
         //illegal arguments
         try {
-            a1.subArray(-1, 4);
+            a1.subLargeList(-1, 4);
             fail(msg2);
         } catch (IndexOutOfBoundsException ex) {
             //OK
         }
 
         try {
-            a1.subArray(4, -1);
+            a1.subLargeList(4, -1);
             fail(msg2);
         } catch (IllegalArgumentException ex) {
             //OK
         }
 
         try {
-            a1.subArray(5, 4);
+            a1.subLargeList(5, 4);
             fail(msg2);
         } catch (IllegalArgumentException ex) {
             //OK
