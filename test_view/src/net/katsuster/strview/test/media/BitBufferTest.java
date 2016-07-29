@@ -1,4 +1,4 @@
-package net.katsuster.strview.test.io;
+package net.katsuster.strview.test.media;
 
 import static org.junit.Assert.*;
 
@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import net.katsuster.strview.io.*;
+import net.katsuster.strview.media.*;
 
 public class BitBufferTest {
     @BeforeClass
