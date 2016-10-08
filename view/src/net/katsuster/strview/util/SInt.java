@@ -14,19 +14,15 @@ public class SInt extends Num
     private long val;
 
     public SInt() {
-        this(0, 0, 0, Collections.emptyList());
+        this(0, 0, 0);
     }
 
     public SInt(long v) {
-        this(v, 0, 0, Collections.emptyList());
+        this(v, 0, 0);
     }
 
     public SInt(long v, int l, long p) {
-        this(v, l, p, Collections.emptyList());
-    }
-
-    public SInt(long v, int l, long p, List<?> b) {
-        super(l, p, b);
+        super(l, p);
         setBitsValue(v);
     }
 

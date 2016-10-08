@@ -1,7 +1,5 @@
 package net.katsuster.strview.util;
 
-import java.util.*;
-
 /**
  * <p>
  * バッファの半開区間 [start, end) を表すクラスです。
@@ -16,10 +14,10 @@ import java.util.*;
  *
  * @author katsuhiro
  */
-public class Range {
+public class Range
+        implements Cloneable {
     private long start;
     private long end;
-    private List<?> buf;
 
     /**
      * <p>
@@ -30,32 +28,23 @@ public class Range {
      * @param e 区間の終了地点
      */
     public Range(long s, long e) {
-        this(s, e, Collections.emptyList());
+        start = s;
+        end = e;
     }
 
     /**
      * <p>
-     * バッファと開始点と終了点を指定して半開区間を構築します。
+     * 区間の位置と長さを、
+     * コピーした新たな区間を返します。
      * </p>
      *
-     * @param s 区間の開始地点
-     * @param e 区間の終了地点
-     * @param b この区間を含むバッファ
+     * @return コピーされたオブジェクト
+     * @throws CloneNotSupportedException インスタンスを複製できない場合
      */
-    public Range(long s, long e, List<?> b) {
-        if (e < s) {
-            throw new IllegalArgumentException(
-                    "start(" + s + ")" + "is larger than "
-                            + "end(" + e + ").");
-        }
-        if (b != Collections.emptyList() && b.size() <= e) {
-            throw new IllegalArgumentException(
-                    "end(" + e + ")" + "is larger than "
-                            + "b.size(" + b.size() + ").");
-        }
-        buf = b;
-        start = s;
-        end = e;
+    public Range clone() throws CloneNotSupportedException {
+        Range obj = (Range)super.clone();
+
+        return obj;
     }
 
     /**
@@ -116,17 +105,6 @@ public class Range {
      */
     public void setEnd(long p) {
         end = p;
-    }
-
-    /**
-     * <p>
-     * 区間を含むバッファを取得します。
-     * </p>
-     *
-     * @return 区間を含むバッファ
-     */
-    public List<?> getBuffer() {
-        return buf;
     }
 
     /**

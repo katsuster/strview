@@ -14,19 +14,15 @@ public class UInt extends Num
     private long val;
 
     public UInt() {
-        this(0, 0, 0, Collections.emptyList());
+        this(0, 0, 0);
     }
 
     public UInt(long v) {
-        this(v, 0, 0, Collections.emptyList());
+        this(v, 0, 0);
     }
 
     public UInt(long v, int l, long p) {
-        this(v, l, p, Collections.emptyList());
-    }
-
-    public UInt(long v, int l, long p, List<?> b) {
-        super(l, p, b);
+        super(l, p);
         setBitsValue(v);
     }
 
