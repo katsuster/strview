@@ -2,7 +2,7 @@ package net.katsuster.strview.util;
 
 /**
  * <p>
- * バッファの半開区間 [start, end) を表すクラスです。
+ * 半開区間 [start, end) を表すクラスです。
  * </p>
  *
  * <p>
@@ -45,6 +45,49 @@ public class Range
         Range obj = (Range)super.clone();
 
         return obj;
+    }
+
+    /**
+     * <p>
+     * オブジェクトを指定されたオブジェクトと比較します。
+     * 結果が true になるのは、引数が null ではなく、
+     * このオブジェクトと同じ生成元、開始位置、
+     * 長さを持つオブジェクトである場合だけです。
+     * </p>
+     *
+     * @param obj 比較対象のオブジェクト
+     * @return オブジェクトが同じである場合は true、そうでない場合は false
+     */
+    @Override
+    public boolean equals(Object obj) {
+        Range objp;
+
+        if (!(obj instanceof Range)) {
+            return false;
+        }
+        objp = (Range)obj;
+
+        if ((start != objp.start)
+                || (end != objp.end)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * <p>
+     * オブジェクトのハッシュコードを返します。
+     * </p>
+     *
+     * @return オブジェクトが保持する start, end を、
+     * 変換式 (val ^ (val >> 32)) にて int に変換した値を
+     * 全て xor した値
+     */
+    @Override
+    public int hashCode() {
+        return (int)((start ^ (start >> 32))
+                ^ (end ^ (end >> 32)));
     }
 
     /**
