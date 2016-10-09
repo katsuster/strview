@@ -93,8 +93,7 @@ public class UFixed16_16 extends Num {
 
     @Override
     public float floatValue() {
-        float f = toFloat(val);
-        return f;
+        return toFloat(val);
     }
 
     @Override
