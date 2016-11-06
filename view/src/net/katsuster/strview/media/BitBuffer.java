@@ -1427,6 +1427,24 @@ public class BitBuffer {
 
     /**
      * <p>
+     * 現在位置から任意のバイト数を読み出し、
+     * 現在位置を進めます。
+     * </p>
+     *
+     * @param n 取得するビット数
+     * @return バッファから取得した n ビットのリスト
+     */
+    public LargeBitList getBitList(int n) {
+        LargeBitList b;
+
+        b = buf.subLargeList(position(), position() + n);
+        position += n;
+
+        return b;
+    }
+
+    /**
+     * <p>
      * 現在位置から任意のビット数を読み出し、
      * 現在位置を進めます。
      * </p>
