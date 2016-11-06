@@ -194,4 +194,16 @@ public interface LargeBitList extends LargeList<Boolean> {
      * @throws IndexOutOfBoundsException ビット列の範囲外を読みだそうとした
      */
     public void setPackedByteArray(long index, byte[] src, int off, int n);
+
+    /**
+     * <p>
+     * リストの from（この要素を含む）から to（この要素を含まない）までの、
+     * 部分列を返します。返された部分列への変更は、元のリストと連動します。
+     * </p>
+     *
+     * @param from 部分列の開始位置
+     * @param to   部分列の終了位置
+     * @return リストの部分列
+     */
+    public LargeBitList subLargeList(long from, long to);
 }
