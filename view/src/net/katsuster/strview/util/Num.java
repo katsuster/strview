@@ -279,4 +279,91 @@ public abstract class Num extends Range
 
         return new String(buf, i + 1, buf.length - i - 1);
     }
+
+    /**
+     * <p>
+     * 数値を 8ビットの浮動小数点の小数点部とみなして、文字列に変換します。
+     * </p>
+     *
+     * @param n 数値
+     * @return 数値の文字列表記
+     */
+    protected static String fraction8ToString(int n) {
+        long dec[] = {
+                390625L,
+                781250L,
+                1562500L,
+                3125000L,
+                6250000L,
+                12500000L,
+                25000000L,
+                50000000L,
+        };
+        long result;
+        int dig;
+
+        result = 0;
+        for (dig = 0; dig < dec.length; dig++) {
+            if (((n >> dig) & 1) == 1) {
+                result += dec[dig];
+            }
+        }
+        while ((result != 0) && (result % 1000 == 0)) {
+            result /= 1000;
+        }
+        while ((result != 0) && (result % 10 == 0)) {
+            result /= 10;
+        }
+
+        return Long.toString(result);
+    }
+
+    /**
+     * <p>
+     * 数値を 16ビットの浮動小数点の小数点部とみなして、文字列に変換します。
+     * </p>
+     *
+     * @param n 数値
+     * @return 数値の文字列表記
+     */
+    protected static String fraction16ToString(int n) {
+        long dec[] = {
+                152587890625L,
+                305175781250L,
+                610351562500L,
+                1220703125000L,
+                2441406250000L,
+                4882812500000L,
+                9765625000000L,
+                19531250000000L,
+                39062500000000L,
+                78125000000000L,
+                156250000000000L,
+                312500000000000L,
+                625000000000000L,
+                1250000000000000L,
+                2500000000000000L,
+                5000000000000000L,
+        };
+        long result;
+        int dig;
+
+        result = 0;
+        for (dig = 0; dig < dec.length; dig++) {
+            if (((n >> dig) & 1) == 1) {
+                result += dec[dig];
+            }
+        }
+        while ((result != 0) && (result % 10000000 == 0)) {
+            result /= 10000000;
+        }
+        while ((result != 0) && (result % 1000 == 0)) {
+            result /= 1000;
+        }
+        while ((result != 0) && (result % 10 == 0)) {
+            result /= 10;
+        }
+
+        return Long.toString(result);
+    }
 }
