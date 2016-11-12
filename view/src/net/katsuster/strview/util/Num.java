@@ -1,7 +1,5 @@
 package net.katsuster.strview.util;
 
-import java.util.List;
-
 /**
  * <p>
  * 数値、位置、長さを格納するクラスの基底クラス。
@@ -9,7 +7,7 @@ import java.util.List;
  *
  * @author katsuhiro
  */
-public abstract class Num extends Range
+public abstract class Num extends SimpleRange
         implements Cloneable {
     private static final char[] DIGITS = {
             '0', '1', '2', '3', '4',

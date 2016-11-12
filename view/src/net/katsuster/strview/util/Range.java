@@ -2,7 +2,7 @@ package net.katsuster.strview.util;
 
 /**
  * <p>
- * 半開区間 [start, end) を表すクラスです。
+ * 半開区間 [start, end) を表すインタフェースです。
  * </p>
  *
  * <p>
@@ -14,82 +14,7 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public class Range
-        implements Cloneable {
-    private long start;
-    private long end;
-
-    /**
-     * <p>
-     * バッファを指定せず開始点と終了点を指定して半開区間を構築します。
-     * </p>
-     *
-     * @param s 区間の開始地点
-     * @param e 区間の終了地点
-     */
-    public Range(long s, long e) {
-        start = s;
-        end = e;
-    }
-
-    /**
-     * <p>
-     * 区間の位置と長さを、
-     * コピーした新たな区間を返します。
-     * </p>
-     *
-     * @return コピーされたオブジェクト
-     * @throws CloneNotSupportedException インスタンスを複製できない場合
-     */
-    public Range clone() throws CloneNotSupportedException {
-        Range obj = (Range)super.clone();
-
-        return obj;
-    }
-
-    /**
-     * <p>
-     * オブジェクトを指定されたオブジェクトと比較します。
-     * 結果が true になるのは、引数が null ではなく、
-     * このオブジェクトと同じ生成元、開始位置、
-     * 長さを持つオブジェクトである場合だけです。
-     * </p>
-     *
-     * @param obj 比較対象のオブジェクト
-     * @return オブジェクトが同じである場合は true、そうでない場合は false
-     */
-    @Override
-    public boolean equals(Object obj) {
-        Range objp;
-
-        if (!(obj instanceof Range)) {
-            return false;
-        }
-        objp = (Range)obj;
-
-        if ((start != objp.start)
-                || (end != objp.end)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * <p>
-     * オブジェクトのハッシュコードを返します。
-     * </p>
-     *
-     * @return オブジェクトが保持する start, end を、
-     * 変換式 (val ^ (val >> 32)) にて int に変換した値を
-     * 全て xor した値
-     */
-    @Override
-    public int hashCode() {
-        return (int)((start ^ (start >> 32))
-                ^ (end ^ (end >> 32)));
-    }
-
+public interface Range {
     /**
      * <p>
      * 区間の開始地点を取得します。
@@ -101,9 +26,7 @@ public class Range
      *
      * @return 区間の開始地点
      */
-    public long getStart() {
-        return start;
-    }
+    public long getStart();
 
     /**
      * <p>
@@ -116,9 +39,7 @@ public class Range
      *
      * @param p 区間の開始地点
      */
-    public void setStart(long p) {
-        start = p;
-    }
+    public void setStart(long p);
 
     /**
      * <p>
@@ -131,9 +52,7 @@ public class Range
      *
      * @return 区間の終了地点
      */
-    public long getEnd() {
-        return end;
-    }
+    public long getEnd();
 
     /**
      * <p>
@@ -146,9 +65,7 @@ public class Range
      *
      * @param p 区間の終了地点
      */
-    public void setEnd(long p) {
-        end = p;
-    }
+    public void setEnd(long p);
 
     /**
      * <p>
@@ -157,9 +74,7 @@ public class Range
      *
      * @return 区間の長さ
      */
-    public long getLength() {
-        return (end - start);
-    }
+    public long getLength();
 
     /**
      * <p>
@@ -173,9 +88,7 @@ public class Range
      *
      * @param l 区間の長さ
      */
-    public void setLength(long l) {
-        end = start + l;
-    }
+    public void setLength(long l);
 
     /**
      * <p>
@@ -185,17 +98,5 @@ public class Range
      * @param i インデックス
      * @return インデックスが区間内なら true、区間外なら false
      */
-    public boolean isHit(long i) {
-        if (getStart() <= i && i < getEnd()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public String toString() {
-        return String.format("start:%d - end:%d(length:%d)",
-                getStart(), getEnd(), getLength());
-    }
+    public boolean isHit(long i);
 }

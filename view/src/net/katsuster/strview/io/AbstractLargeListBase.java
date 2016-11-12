@@ -2,6 +2,8 @@ package net.katsuster.strview.io;
 
 import java.util.AbstractList;
 
+import net.katsuster.strview.util.*;
+
 /**
  * <p>
  * int 型で扱える長さを超えるリストの共通動作を定義します。
@@ -12,7 +14,7 @@ import java.util.AbstractList;
 public abstract class AbstractLargeListBase<T> extends AbstractList<T>
         implements LargeList<T>, Cloneable {
     //リストの長さ
-    private long len;
+    private SimpleRange r;
 
     /**
      * <p>
@@ -31,7 +33,7 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
             throw new IllegalArgumentException("'from' is larger than 'to'"
                     + "(from:" + from + " > to:" + to + ").");
         }
-        len = to - from;
+        r = new SimpleRange(from, to);
     }
 
     /**
@@ -46,14 +48,14 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
             throw new NegativeArraySizeException("len:" + l
                     + " is negative.");
         }
-        len = l;
+        r = new SimpleRange(0, l);
     }
 
     @Override
     public AbstractLargeListBase clone() throws CloneNotSupportedException {
         AbstractLargeListBase obj = (AbstractLargeListBase)super.clone();
 
-        obj.len = len;
+        obj.r = r.clone();
 
         return obj;
     }
@@ -227,7 +229,7 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
         if (length() > Integer.MAX_VALUE) {
             return Integer.MAX_VALUE;
         } else {
-            return (int) length();
+            return (int) getLength();
         }
     }
 
@@ -245,7 +247,7 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
 
     @Override
     public long length() {
-        return len;
+        return getLength();
     }
 
     @Override
@@ -253,15 +255,39 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
         return new SubLargeList<T>(this, from, to);
     }
 
-    /**
-     * <p>
-     * リストの長さを設定します。
-     * </p>
-     *
-     * @param l リストの長さ
-     */
-    protected void setLength(long l) {
-        len = l;
+    @Override
+    public long getStart() {
+        return r.getStart();
+    }
+
+    @Override
+    public void setStart(long p) {
+        r.setStart(p);
+    }
+
+    @Override
+    public long getEnd() {
+        return r.getEnd();
+    }
+
+    @Override
+    public void setEnd(long p) {
+        r.setEnd(p);
+    }
+
+    @Override
+    public long getLength() {
+        return r.getLength();
+    }
+
+    @Override
+    public void setLength(long l) {
+        r.setLength(l);
+    }
+
+    @Override
+    public boolean isHit(long i) {
+        return r.isHit(i);
     }
 
     /**

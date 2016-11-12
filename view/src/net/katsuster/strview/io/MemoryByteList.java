@@ -64,7 +64,7 @@ public class MemoryByteList extends AbstractLargeList<Byte>
      * @throws IllegalArgumentException null を指定した場合
      */
     public MemoryByteList(byte[] array) {
-        super(0);
+        super(0, 0);
 
         if (array == null) {
             throw new IllegalArgumentException(
@@ -72,7 +72,29 @@ public class MemoryByteList extends AbstractLargeList<Byte>
         }
 
         buf = array;
-        setLength(buf.length);
+        setStart(0);
+        setEnd(array.length << 3);
+    }
+
+    /**
+     * <p>
+     * 既存の byte 型配列と位置を指定して、バイト列を作成します。
+     * </p>
+     *
+     * @param array 利用する byte 型配列
+     * @param st    開始位置
+     * @param ed    終了位置
+     * @throws IllegalArgumentException null を指定した場合
+     */
+    public MemoryByteList(byte[] array, long st, long ed) {
+        super(st, ed);
+
+        if (array == null) {
+            throw new IllegalArgumentException(
+                    "array is null.");
+        }
+
+        buf = array;
     }
 
     @Override

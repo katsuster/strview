@@ -2,6 +2,8 @@ package net.katsuster.strview.io;
 
 import java.util.List;
 
+import net.katsuster.strview.util.*;
+
 /**
  * <p>
  * int 型で扱える長さを超えるリストのインタフェースです。
@@ -9,7 +11,7 @@ import java.util.List;
  *
  * @author katsuhiro
  */
-public interface LargeList<T> extends List<T> {
+public interface LargeList<T> extends List<T>, Range {
     /**
      * <p>
      * リストの長さを返します。
