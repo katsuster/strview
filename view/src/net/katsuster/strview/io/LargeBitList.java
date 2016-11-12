@@ -1,7 +1,5 @@
 package net.katsuster.strview.io;
 
-import java.util.List;
-
 /**
  * <p>
  * int 型で扱える長さを超えるビット列のインタフェースです。

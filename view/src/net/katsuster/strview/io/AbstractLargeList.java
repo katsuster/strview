@@ -7,8 +7,7 @@ package net.katsuster.strview.io;
  *
  * @author katsuhiro
  */
-public abstract class AbstractLargeList<T> extends AbstractLargeListBase<T>
-        implements LargeList<T>, Cloneable {
+public abstract class AbstractLargeList<T> extends AbstractLargeListBase<T> {
     /**
      * <p>
      * 指定された長さのリストを作成します。
