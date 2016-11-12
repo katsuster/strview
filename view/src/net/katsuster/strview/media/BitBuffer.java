@@ -661,69 +661,7 @@ public class BitBuffer {
      * @throws IndexOutOfBoundsException バッファの残量が足りない場合
      */
     public BitBuffer get(byte[] dst, int off, int length) {
-        //bits
-        long index;
-        int len, n;
-        //bytes
-        int dst_off;
-
-        if (off < 0) {
-            throw new IllegalArgumentException(
-                    "offset is negative"
-                            + "(offset: " + off + ").");
-        }
-        if (length < 0) {
-            throw new IllegalArgumentException(
-                    "length is negative"
-                            + "(length: " + length + ").");
-        }
-        if ((off + length) > (dst.length << 3)) {
-            throw new IndexOutOfBoundsException(
-                    "offset + length is too large"
-                            + "(offset: " + off + ", "
-                            + "(length: " + length + ", "
-                            + "(dst.length: " + (dst.length << 3) + ")");
-        }
-        if (length > remaining()) {
-            throw new IndexOutOfBoundsException(
-                    "buffer is underflow, "
-                            + "required(" + length + ") is exceeded "
-                            + "remaining(" + remaining() + ").");
-        }
-
-        index = getIndex(position, length);
-        len = length;
-        dst_off = (off >>> 3);
-
-        if (len > 8) {
-            //use for-loop
-            n = 8 - (off & 0x07);
-            off = 0;
-
-            //1st byte
-            dst[dst_off] = (byte)peek32Inner(n, index);
-            index += n;
-            len -= n;
-            dst_off += 1;
-
-            //mid bytes
-            while (len >= 8) {
-                dst[dst_off] = (byte)peek32Inner(8, index);
-                index += 8;
-                len -= 8;
-                dst_off += 1;
-            }
-        }
-
-        //last byte
-        if (len > 0) {
-            dst[dst_off] =
-                    (byte)(peek32Inner(len, index) << (8 - len - (off & 0x07)));
-        }
-
-        position += length;
-
-        return this;
+        return get(new MemoryByteList(dst), off, length);
     }
 
     /**
@@ -763,8 +701,70 @@ public class BitBuffer {
      * @throws IllegalArgumentException 読み出すビット数が不適切であるとき
      * @throws IndexOutOfBoundsException バッファの残量が足りない場合
      */
-    public BitBuffer get(ByteArray dst, int off, int length) {
-        return get(dst.getArray(), off, length);
+    public BitBuffer get(LargeByteList dst, int off, int length) {
+        //bits
+        long index;
+        int len, n;
+        //bytes
+        int dst_off;
+
+        if (off < 0) {
+            throw new IllegalArgumentException(
+                    "offset is negative"
+                            + "(offset: " + off + ").");
+        }
+        if (length < 0) {
+            throw new IllegalArgumentException(
+                    "length is negative"
+                            + "(length: " + length + ").");
+        }
+        if ((off + length) > (dst.length() << 3)) {
+            throw new IndexOutOfBoundsException(
+                    "offset + length is too large"
+                            + "(offset: " + off + ", "
+                            + "(length: " + length + ", "
+                            + "(dst.length: " + (dst.length() << 3) + ")");
+        }
+        if (length > remaining()) {
+            throw new IndexOutOfBoundsException(
+                    "buffer is underflow, "
+                            + "required(" + length + ") is exceeded "
+                            + "remaining(" + remaining() + ").");
+        }
+
+        index = getIndex(position, length);
+        len = length;
+        dst_off = (off >>> 3);
+
+        if (len > 8) {
+            //use for-loop
+            n = 8 - (off & 0x07);
+            off = 0;
+
+            //1st byte
+            dst.set(dst_off, (byte)peek32Inner(n, index));
+            index += n;
+            len -= n;
+            dst_off += 1;
+
+            //mid bytes
+            while (len >= 8) {
+                dst.set(dst_off, (byte)peek32Inner(8, index));
+                index += 8;
+                len -= 8;
+                dst_off += 1;
+            }
+        }
+
+        //last byte
+        if (len > 0) {
+            dst.set(dst_off,
+                    (byte)(peek32Inner(len, index) << (8 - len - (off & 0x07))));
+        }
+
+        position += length;
+
+        return this;
     }
 
     /**
@@ -787,7 +787,7 @@ public class BitBuffer {
      * @throws IllegalArgumentException 読み出すビット数が不適切であるとき
      * @throws IndexOutOfBoundsException バッファの残量が足りない場合
      */
-    public BitBuffer get(ByteArray dst) {
+    public BitBuffer get(LargeByteList dst) {
         return get(dst, 0, (int)dst.getLength());
     }
 
@@ -1454,7 +1454,7 @@ public class BitBuffer {
      * @throws IllegalArgumentException 読み出すビット数が不適切であるとき
      * @throws IndexOutOfBoundsException 現在位置がリミット以上である場合
      */
-    public ByteArray getByteArray(int n) {
+    public LargeByteList getByteArray(int n) {
 		/*
 		 * n  | bytes | n >>> 3 | (n+7) >>> 3
 		 * ---+-------+---------+------------
@@ -1473,7 +1473,7 @@ public class BitBuffer {
 		 * 17 | 3     | 2       | 3
 		 * ...
 		 */
-        ByteArray a = new ByteArray(
+        LargeByteList a = new MemoryByteList(
                 new byte[(n + 7) >>> 3], n, position());
 
         get(a);
@@ -1601,68 +1601,7 @@ public class BitBuffer {
      * @throws IndexOutOfBoundsException バッファの残量が足りない場合
      */
     public BitBuffer put(byte[] src, int off, int length) {
-        //bits
-        long index;
-        int len, n;
-        //bytes
-        int src_off;
-
-        if (off < 0) {
-            throw new IllegalArgumentException(
-                    "offset is negative"
-                            + "(offset: " + off + ").");
-        }
-        if (length < 0) {
-            throw new IllegalArgumentException(
-                    "length is negative"
-                            + "(length: " + length + ").");
-        }
-        if ((off + length) > (src.length << 3)) {
-            throw new IndexOutOfBoundsException(
-                    "offset + length is too large"
-                            + "(offset: " + off + ", "
-                            + "(length: " + length + ", "
-                            + "(src.length: " + (src.length << 3) + ")");
-        }
-        if (length > remaining()) {
-            throw new IndexOutOfBoundsException(
-                    "buffer is overflow, "
-                            + "required(" + length + ") is exceeded "
-                            + "remaining(" + remaining() + ").");
-        }
-
-        index = getIndex(position, length);
-        len = length;
-        src_off = (off >>> 3);
-
-        if (len > 8) {
-            //use for-loop
-            n = 8 - (off & 0x07);
-            off = 0;
-
-            //1st byte
-            poke32Inner(n, src[src_off], index);
-            index += n;
-            len -= n;
-            src_off += 1;
-
-            //mid bytes
-            while (len >= 8) {
-                poke32Inner(8, src[src_off], index);
-                index += 8;
-                len -= 8;
-                src_off += 1;
-            }
-        }
-
-        //last byte
-        if (len > 0) {
-            poke32Inner(len, src[src_off] >>> (8 - len - (off & 0x07)), index);
-        }
-
-        position += length;
-
-        return this;
+        return put(new MemoryByteList(src), off, length);
     }
 
     /**
@@ -1702,8 +1641,69 @@ public class BitBuffer {
      * @throws IllegalArgumentException 読み出すビット数が不適切であるとき
      * @throws IndexOutOfBoundsException バッファの残量が足りない場合
      */
-    public BitBuffer put(ByteArray src, int off, int length) {
-        return put(src.getArray(), off, length);
+    public BitBuffer put(LargeByteList src, int off, int length) {
+        //bits
+        long index;
+        int len, n;
+        //bytes
+        int src_off;
+
+        if (off < 0) {
+            throw new IllegalArgumentException(
+                    "offset is negative"
+                            + "(offset: " + off + ").");
+        }
+        if (length < 0) {
+            throw new IllegalArgumentException(
+                    "length is negative"
+                            + "(length: " + length + ").");
+        }
+        if ((off + length) > (src.length() << 3)) {
+            throw new IndexOutOfBoundsException(
+                    "offset + length is too large"
+                            + "(offset: " + off + ", "
+                            + "(length: " + length + ", "
+                            + "(src.length: " + (src.length() << 3) + ")");
+        }
+        if (length > remaining()) {
+            throw new IndexOutOfBoundsException(
+                    "buffer is overflow, "
+                            + "required(" + length + ") is exceeded "
+                            + "remaining(" + remaining() + ").");
+        }
+
+        index = getIndex(position, length);
+        len = length;
+        src_off = (off >>> 3);
+
+        if (len > 8) {
+            //use for-loop
+            n = 8 - (off & 0x07);
+            off = 0;
+
+            //1st byte
+            poke32Inner(n, src.get(src_off), index);
+            index += n;
+            len -= n;
+            src_off += 1;
+
+            //mid bytes
+            while (len >= 8) {
+                poke32Inner(8, src.get(src_off), index);
+                index += 8;
+                len -= 8;
+                src_off += 1;
+            }
+        }
+
+        //last byte
+        if (len > 0) {
+            poke32Inner(len, src.get(src_off) >>> (8 - len - (off & 0x07)), index);
+        }
+
+        position += length;
+
+        return this;
     }
 
     /**
@@ -1726,7 +1726,7 @@ public class BitBuffer {
      * @throws IllegalArgumentException 読み出すビット数が不適切であるとき
      * @throws IndexOutOfBoundsException バッファの残量が足りない場合
      */
-    public BitBuffer put(ByteArray src) {
+    public BitBuffer put(LargeByteList src) {
         return put(src, 0, (int)src.getLength());
     }
 
@@ -2122,22 +2122,6 @@ public class BitBuffer {
      */
     public BitBuffer putF64r(int n, Float64 val) {
         return put64(n, Long.reverseBytes(val.getBitsValue()));
-    }
-
-    /**
-     * <p>
-     * 現在位置に ary の先頭から、
-     * 任意のビット数を書き出し、現在位置を進めます。
-     * </p>
-     *
-     * @param n   書き込むビット数
-     * @param ary 書き込むビットを含んだ配列オブジェクト
-     * @return バッファ
-     * @throws IllegalArgumentException 読み出すビット数が不適切であるとき
-     * @throws IndexOutOfBoundsException 現在位置がリミット以上である場合
-     */
-    public BitBuffer putByteArray(int n, ByteArray ary) {
-        return put(ary, 0, n);
     }
 
     /**
