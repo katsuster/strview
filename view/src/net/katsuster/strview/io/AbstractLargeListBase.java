@@ -13,6 +13,9 @@ import net.katsuster.strview.util.*;
  */
 public abstract class AbstractLargeListBase<T> extends AbstractList<T>
         implements LargeList<T>, Cloneable {
+    //size() および length() メソッドで長さが分からないときに返される値です
+    public static long LENGTH_UNKNOWN = -1;
+
     //リストの長さ
     private SimpleRange r;
 
@@ -44,7 +47,7 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
      * @param l リストの長さ
      */
     public AbstractLargeListBase(long l) {
-        if (l < 0) {
+        if (l < 0 && l != LENGTH_UNKNOWN) {
             throw new NegativeArraySizeException("len:" + l
                     + " is negative.");
         }
@@ -79,6 +82,11 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
         T before = get(index);
         set((long)index, element);
         return before;
+    }
+
+    @Override
+    public void count() {
+
     }
 
     @Override
@@ -140,7 +148,7 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
      * @throws IndexOutOfBoundsException 指定された位置がリストの範囲外の場合
      */
     protected void checkIndex(long index) {
-        if (index < 0 || length() <= index) {
+        if (index < 0 || (length() != LENGTH_UNKNOWN && length() <= index)) {
             throw new IndexOutOfBoundsException("index:" + index
                     + " is negative or too large.");
         }

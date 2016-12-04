@@ -14,6 +14,13 @@ import net.katsuster.strview.util.*;
 public interface LargeList<T> extends List<T>, Range {
     /**
      * <p>
+     * リストの長さを調べます。処理には長い時間が掛かることがあります。
+     * </p>
+     */
+    public void count();
+
+    /**
+     * <p>
      * リストの長さを返します。
      * </p>
      *
