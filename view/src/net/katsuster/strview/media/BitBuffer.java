@@ -1434,7 +1434,7 @@ public class BitBuffer {
      * @param n 取得するビット数
      * @return バッファから取得した n ビットのリスト
      */
-    public LargeBitList getBitList(int n) {
+    public LargeBitList getBitList(long n) {
         LargeBitList b;
 
         b = buf.subLargeList(position(), position() + n);
