@@ -1,11 +1,14 @@
 package net.katsuster.strview.ui;
 
+import java.util.*;
+import java.io.*;
 import java.awt.HeadlessException;
 
 import javax.swing.*;
 
 import net.katsuster.strview.io.*;
 import net.katsuster.strview.gui.*;
+import net.katsuster.strview.media.ts.*;
 
 /**
  * メインクラス。
@@ -17,6 +20,22 @@ public class Main {
 
     public static void main(String[] args) {
         FileDropWindow w = null;
+
+        if (args.length > 0) {
+            String fname = args[0];
+            List<File> flist = new ArrayList<File>();
+
+            flist.add(new File(fname));
+
+            LargeBitList blist = new ByteToBitList(new FileByteList(fname));
+            TSPacketList tslist = new TSPacketList(blist);
+
+            //tslist.count();
+
+            for (TSPacket a : tslist) {
+                System.out.println(a);
+            }
+        }
 
         try {
             //Look and Feel をシステム標準に変更する
