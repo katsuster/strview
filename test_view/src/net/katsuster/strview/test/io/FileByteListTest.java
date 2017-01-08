@@ -196,7 +196,7 @@ public class FileByteListTest {
     }
 
     /**
-     * Test method for {@link net.katsuster.strview.io.FileByteList#set(long, Byte)}.
+     *
      */
     @Test
     public final void testSetLongByte() {

@@ -210,7 +210,7 @@ public class MemoryByteListTest {
     }
 
     /**
-     * Test method for {@link net.katsuster.strview.io.MemoryByteList#set(long, Byte)}.
+     * 
      */
     @Test
     public final void testSetLongByte() {
