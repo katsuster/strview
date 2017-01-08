@@ -82,7 +82,7 @@ public class PacketConverterAdapter<T> implements PacketConverter<T> {
     }
 
     @Override
-    public void position(long pos) {
+    public void position(long p) {
         //do nothing
     }
 

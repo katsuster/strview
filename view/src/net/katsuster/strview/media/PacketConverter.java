@@ -211,9 +211,9 @@ public interface PacketConverter<T> {
      * 変換中の位置を設定します（ビット単位）。
      * </p>
      *
-     * @param pos 新たな位置（ビット単位）
+     * @param p 新たな位置（ビット単位）
      */
-    public void position(long pos);
+    public void position(long p);
 
     /**
      * <p>
