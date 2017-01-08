@@ -8,6 +8,13 @@ package net.katsuster.strview.media;
  * @author katsuhiro
  */
 public class BlockAdapter extends AbstractBlock {
+    @Override
+    public BlockAdapter clone() throws CloneNotSupportedException {
+        BlockAdapter obj = (BlockAdapter)super.clone();
+
+        return obj;
+    }
+
     /**
      * <p>
      * ブロックを読み込みます。

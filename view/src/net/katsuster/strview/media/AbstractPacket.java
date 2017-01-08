@@ -132,6 +132,8 @@ public abstract class AbstractPacket
         len_header = 0;
         len_body = 0;
         len_footer = 0;
+        head = new BlockAdapter();
+        foot = new BlockAdapter();
     }
 
     @Override
@@ -146,9 +148,9 @@ public abstract class AbstractPacket
             obj.children.add(children.get(i));
         }
 
-        obj.head = head;
+        obj.head = head.clone();
         obj.body = body;
-        obj.foot = foot;
+        obj.foot = foot.clone();
         obj.raw_packet = raw_packet;
 
         return obj;

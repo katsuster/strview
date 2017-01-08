@@ -35,6 +35,14 @@ import java.util.*;
  * @author katsuhiro
  */
 public abstract class AbstractBlock implements Block {
+    @Override
+    public AbstractBlock clone()
+            throws CloneNotSupportedException {
+        AbstractBlock obj = (AbstractBlock)super.clone();
+
+        return obj;
+    }
+
     /**
      * <p>
      * ブロックを別の形式に変換します。

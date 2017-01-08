@@ -10,7 +10,16 @@ package net.katsuster.strview.media;
  * @see Packet
  * @author katsuhiro
  */
-public interface Block {
+public interface Block extends Cloneable {
+    /**
+     * オブジェクトのコピーを作成し、返します。
+     *
+     * @return このブロックのコピー
+     * @throws CloneNotSupportedException clone をサポートしていない場合にスローされます。
+     */
+    public Block clone()
+            throws CloneNotSupportedException;
+
     /**
      * <p>
      * ブロックを読み込みます。
