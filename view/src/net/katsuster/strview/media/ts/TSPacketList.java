@@ -27,7 +27,7 @@ public class TSPacketList extends AbstractLargeList<TSPacket> {
     @Override
     protected TSPacket getInner(long index) {
         TSPacket p = new TSPacket();
-        FromBitBufferConverter c = new FromBitBufferConverter(BitBuffer.wrap(buf));
+        FromBitListConverter c = new FromBitListConverter(buf);
 
         c.doInit();
         c.position(index * 188 * 8);
