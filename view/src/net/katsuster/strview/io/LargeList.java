@@ -12,6 +12,9 @@ import net.katsuster.strview.util.*;
  * @author katsuhiro
  */
 public interface LargeList<T> extends List<T>, Range {
+    //size() および length() メソッドで長さが分からないときに返される値です
+    public static long LENGTH_UNKNOWN = -1;
+
     /**
      * <p>
      * リストの長さを調べます。処理には長い時間が掛かることがあります。

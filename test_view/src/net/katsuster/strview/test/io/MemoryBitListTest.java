@@ -75,8 +75,11 @@ public class MemoryBitListTest {
         MemoryBitList a1 = new MemoryBitList(100);
         assertNotNull(msg1, a1);
 
+        MemoryBitList a2 = new MemoryBitList(LargeList.LENGTH_UNKNOWN);
+        assertNotNull(msg1, a2);
+
         try {
-            new MemoryBitList(-1);
+            new MemoryBitList(-2);
             fail(msg2);
         } catch (NegativeArraySizeException ex) {
             //OK

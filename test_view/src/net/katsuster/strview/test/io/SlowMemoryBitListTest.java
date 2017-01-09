@@ -75,8 +75,11 @@ public class SlowMemoryBitListTest {
         SlowMemoryBitList a1 = new SlowMemoryBitList(100);
         assertNotNull(msg1, a1);
 
+        SlowMemoryBitList a2 = new SlowMemoryBitList(LargeList.LENGTH_UNKNOWN);
+        assertNotNull(msg1, a2);
+
         try {
-            new SlowMemoryBitList(-1);
+            new SlowMemoryBitList(-2);
             fail(msg2);
         } catch (NegativeArraySizeException ex) {
             //OK

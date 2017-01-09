@@ -13,9 +13,6 @@ import net.katsuster.strview.util.*;
  */
 public abstract class AbstractLargeListBase<T> extends AbstractList<T>
         implements LargeList<T>, Cloneable {
-    //size() および length() メソッドで長さが分からないときに返される値です
-    public static long LENGTH_UNKNOWN = -1;
-
     //リストの長さ
     private SimpleRange r;
 
