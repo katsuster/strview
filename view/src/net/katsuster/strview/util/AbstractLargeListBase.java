@@ -1,8 +1,6 @@
-package net.katsuster.strview.io;
+package net.katsuster.strview.util;
 
 import java.util.AbstractList;
-
-import net.katsuster.strview.util.*;
 
 /**
  * <p>

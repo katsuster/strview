@@ -1,4 +1,4 @@
-package net.katsuster.strview.test.io;
+package net.katsuster.strview.test.util;
 
 import static org.junit.Assert.*;
 
@@ -10,7 +10,7 @@ import org.junit.BeforeClass;
 
 import java.util.*;
 
-import net.katsuster.strview.io.*;
+import net.katsuster.strview.util.*;
 
 /**
  * @author katsuhiro

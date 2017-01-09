@@ -1,5 +1,7 @@
 package net.katsuster.strview.io;
 
+import net.katsuster.strview.util.*;
+
 /**
  * <p>
  * メモリ上に確保されたビット列を表すクラスです。

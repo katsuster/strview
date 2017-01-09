@@ -1,5 +1,7 @@
 package net.katsuster.strview.io;
 
+import net.katsuster.strview.util.*;
+
 /**
  * <p>
  * 通常の byte 型配列を LargeByteList インタフェースでラップしたクラスです。

@@ -2,7 +2,7 @@ package net.katsuster.strview.media;
 
 import java.util.*;
 
-import net.katsuster.strview.io.*;
+import net.katsuster.strview.util.*;
 
 /**
  * <p>

@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.util.*;
 
 import net.katsuster.strview.io.*;
+import net.katsuster.strview.test.util.*;
 
 /**
  * @author katsuhiro

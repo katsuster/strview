@@ -1,4 +1,4 @@
-package net.katsuster.strview.io;
+package net.katsuster.strview.util;
 
 /**
  * <p>

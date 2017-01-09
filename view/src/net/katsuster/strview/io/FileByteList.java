@@ -2,6 +2,8 @@ package net.katsuster.strview.io;
 
 import java.io.*;
 
+import net.katsuster.strview.util.*;
+
 /**
  * <p>
  * RandomAccessFile クラスを LargeByteList インタフェースでラップしたクラスです。

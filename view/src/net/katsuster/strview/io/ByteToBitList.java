@@ -1,5 +1,7 @@
 package net.katsuster.strview.io;
 
+import net.katsuster.strview.util.*;
+
 /**
  * <p>
  * バイト列を受け取り、ビット列を返すクラスです。

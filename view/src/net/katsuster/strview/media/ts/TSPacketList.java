@@ -1,6 +1,6 @@
 package net.katsuster.strview.media.ts;
 
-import net.katsuster.strview.io.*;
+import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
