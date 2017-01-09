@@ -12,7 +12,7 @@ import net.katsuster.strview.util.*;
  * @author katsuhiro
  */
 public class NumFormatter {
-    public static final String FORMAT_ADDRESS = "%6d-%6d";
+    public static final String FORMAT_ADDRESS = "%6x.%d-%6x.%d";
     public static final String FORMAT_NAME    = "%-32s";
     public static final String FORMAT_INDENT  = "  ";
 
@@ -74,9 +74,9 @@ public class NumFormatter {
         return String.format(
                 FORMAT_ADDRESS + ": " + FORMAT_NAME + ": "
                         + "0x%0" + digits + "x(%s)\n",
-                v.getStart(), v.getStart() + v.getLength() - 1,
-                name,
-                v.getBitsValue(), v.toString());
+                v.getStart() >>> 3, v.getStart() & 7,
+                (v.getEnd() - 1) >>> 3, (v.getEnd() - 1) & 7,
+                name, v.getBitsValue(), v.toString());
     }
 
     public static String numToDecHexCaption(String name, Num v, String caption) {
@@ -85,9 +85,9 @@ public class NumFormatter {
         return String.format(
                 FORMAT_ADDRESS + ": " + FORMAT_NAME + ": "
                         + "0x%0" + digits + "x(%s)(%s)\n",
-                v.getStart(), v.getStart() + v.getLength() - 1,
-                name,
-                v.getBitsValue(), v.toString(), caption);
+                v.getStart() >>> 3, v.getStart() & 7,
+                (v.getEnd() - 1) >>> 3, (v.getEnd() - 1) & 7,
+                name, v.getBitsValue(), v.toString(), caption);
     }
 
     public static String longToDecHex(String name, long v) {
@@ -133,39 +133,43 @@ public class NumFormatter {
                                              String caption) {
         StringBuilder sb = new StringBuilder();
         long i, t, w = 16;
-        long pos, len_bit, len;
+        long pos, len_bit, len_byte, len_show;
 
         if (v == null) {
             pos = 0;
             len_bit = 0;
-            len = 0;
         } else {
             pos = v.getStart();
             len_bit = v.getLength();
-            len = v.getLength() >>> 3;
         }
+        len_byte = len_bit >>> 3;
+        len_show = Long.min(len_byte, 32);
 
         if (caption == null) {
             sb.append(String.format(
                     FORMAT_ADDRESS + ": " + FORMAT_NAME + ": %d[bytes]\n",
-                    pos, pos + len_bit - 1, name, len));
+                    pos >>> 3, pos & 7,
+                    (pos + len_bit - 1) >>> 3, (pos + len_bit - 1) & 7,
+                    name, len_byte));
         } else {
             sb.append(String.format(
                     FORMAT_ADDRESS + ": " + FORMAT_NAME + ": %d[bytes](%s)\n",
-                    pos, pos + len_bit - 1, name, len, caption));
+                    pos >>> 3, pos & 7,
+                    (pos + len_bit - 1) >>> 3, (pos + len_bit - 1) & 7,
+                    name, len_byte, caption));
         }
 
-        if (len == 0) {
+        if (len_show == 0) {
             sb.append(FORMAT_INDENT);
-            sb.append(String.format("(empty)\n"));
+            sb.append("(empty)\n");
         }
 
         i = 0;
-        while (i < len) {
+        while (i < len_show) {
             sb.append(FORMAT_INDENT);
             sb.append(String.format("%04x: ", i));
 
-            t = Math.min(i + w, len);
+            t = Math.min(i + w, len_show);
             for (; i < t; i++) {
                 if (isCenter(i, 8, w)) {
                     sb.append(String.format("%02x-", v.getPackedByte(i * 8, 8)));
@@ -175,6 +179,10 @@ public class NumFormatter {
             }
 
             sb.append("\n");
+        }
+        if (len_byte != len_show) {
+            sb.append(FORMAT_INDENT);
+            sb.append("...\n");
         }
 
         return sb.toString();
@@ -188,39 +196,43 @@ public class NumFormatter {
                                              String caption) {
         StringBuilder sb = new StringBuilder();
         long i, t, w = 16;
-        long pos, len_bit, len;
+        long pos, len_bit, len_byte, len_show;
 
         if (v == null) {
             pos = 0;
             len_bit = 0;
-            len = 0;
         } else {
             pos = v.getStart();
-            len_bit = v.getLength();
-            len = v.getLength() >>> 3;
+            len_bit = v.getLength() << 3;
         }
+        len_byte = len_bit >>> 3;
+        len_show = Long.min(len_byte, 32);
 
         if (caption == null) {
             sb.append(String.format(
                     FORMAT_ADDRESS + ": " + FORMAT_NAME + ": %d[bytes]\n",
-                    pos, pos + len_bit - 1, name, len));
+                    pos >>> 3, pos & 7,
+                    (pos + len_bit - 1) >>> 3, (pos + len_bit - 1) & 7,
+                    name, len_byte));
         } else {
             sb.append(String.format(
                     FORMAT_ADDRESS + ": " + FORMAT_NAME + ": %d[bytes](%s)\n",
-                    pos, pos + len_bit - 1, name, len, caption));
+                    pos >>> 3, pos & 7,
+                    (pos + len_bit - 1) >>> 3, (pos + len_bit - 1) & 7,
+                    name, len_byte, caption));
         }
 
-        if (len == 0) {
+        if (len_show == 0) {
             sb.append(FORMAT_INDENT);
-            sb.append(String.format("(empty)\n"));
+            sb.append("(empty)\n");
         }
 
         i = 0;
-        while (i < len) {
+        while (i < len_show) {
             sb.append(FORMAT_INDENT);
             sb.append(String.format("%04x: ", i));
 
-            t = Math.min(i + w, len);
+            t = Math.min(i + w, len_show);
             for (; i < t; i++) {
                 if (isCenter(i, 8, w)) {
                     sb.append(String.format("%02x-", v.get(i)));
@@ -231,53 +243,9 @@ public class NumFormatter {
 
             sb.append("\n");
         }
-
-        return sb.toString();
-    }
-
-    public static String arrayToHex(String name, byte[] v) {
-        return arrayToHexCaption(name, v, null);
-    }
-
-    public static String arrayToHexCaption(String name, byte[] v, String caption) {
-        StringBuilder sb = new StringBuilder();
-        int i, t, w = 16;
-        int len;
-
-        if (v == null) {
-            len = 0;
-        } else {
-            len = v.length;
-        }
-
-        if (caption == null) {
-            sb.append(String.format(FORMAT_NAME + ": %d[bytes]\n",
-                    name, len));
-        } else {
-            sb.append(String.format(FORMAT_NAME + ": %d[bytes](%s)\n",
-                    name, len, caption));
-        }
-
-        if (len == 0) {
+        if (len_byte != len_show) {
             sb.append(FORMAT_INDENT);
-            sb.append(String.format("(empty)\n"));
-        }
-
-        i = 0;
-        while (i < len) {
-            sb.append(FORMAT_INDENT);
-            sb.append(String.format("%04x: ", i));
-
-            t = Math.min(i + w, len);
-            for (; i < t; i++) {
-                if (isCenter(i, 8, w)) {
-                    sb.append(String.format("%02x-", v[i]));
-                } else {
-                    sb.append(String.format("%02x ", v[i]));
-                }
-            }
-
-            sb.append("\n");
+            sb.append("...\n");
         }
 
         return sb.toString();
