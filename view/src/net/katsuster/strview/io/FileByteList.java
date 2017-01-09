@@ -4,7 +4,7 @@ import java.io.*;
 
 /**
  * <p>
- * RandomAccessFile クラスを LargeArray インタフェースでラップしたクラスです。
+ * RandomAccessFile クラスを LargeByteList インタフェースでラップしたクラスです。
  * </p>
  *
  * @author katsuhiro
@@ -219,7 +219,6 @@ public class FileByteList extends AbstractLargeList<Byte>
                             + "length:" + length + " is larger than "
                             + "dest.length:" + dest.length + ".");
         }
-
 
         try {
             synchronized (buf) {
