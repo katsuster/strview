@@ -1,17 +1,17 @@
 package net.katsuster.strview.test.io;
 
-        import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 
-        import org.junit.After;
-        import org.junit.AfterClass;
-        import org.junit.Before;
-        import org.junit.BeforeClass;
-        import org.junit.Test;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-        import java.io.*;
-        import java.util.*;
+import java.io.*;
+import java.util.*;
 
-        import net.katsuster.strview.io.*;
+import net.katsuster.strview.io.*;
 
 /**
  * @author katsuhiro

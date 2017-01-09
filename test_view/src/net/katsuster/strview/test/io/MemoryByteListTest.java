@@ -210,7 +210,7 @@ public class MemoryByteListTest {
     }
 
     /**
-     * 
+     *
      */
     @Test
     public final void testSetLongByte() {
