@@ -11,7 +11,7 @@ import net.katsuster.strview.util.*;
  *
  * @author katsuhiro
  */
-public interface LargeList<T> extends List<T>, Range {
+public interface LargeList<T> extends List<T> {
     //size() および length() メソッドで長さが分からないときに返される値です
     public static long LENGTH_UNKNOWN = -1;
 
@@ -30,6 +30,15 @@ public interface LargeList<T> extends List<T>, Range {
      * @return リストの長さ
      */
     public long length();
+
+    /**
+     * <p>
+     * リストの長さを設定します。
+     * </p>
+     *
+     * @param l リストの長さ
+     */
+    public void length(long l);
 
     /**
      * <p>
@@ -122,4 +131,37 @@ public interface LargeList<T> extends List<T>, Range {
      * @return リストの部分列
      */
     public LargeList<T> subLargeList(long from, long to);
+
+    /**
+     * <p>
+     * リストが存在する範囲を取得します。
+     * </p>
+     *
+     * <p>
+     * 範囲の単位はリストによって意味が異なります。
+     * またその範囲から完全にリストを再現できるとは限りません。
+     * </p>
+     *
+     * <p>
+     * 例えば、このリストが別のビット列 A から生成された場合、
+     * リスト A の何ビット目から生成されたかを示します。
+     * </p>
+     *
+     * @return リストが存在する範囲
+     */
+    public Range getRange();
+
+    /**
+     * <p>
+     * リストが存在する範囲を設定します。
+     * </p>
+     *
+     * <p>
+     * 範囲の単位はリストによって意味が異なります。
+     * またその範囲から完全にリストを再現できるとは限りません。
+     * </p>
+     *
+     * @param range リストが存在する範囲
+     */
+    public void setRange(Range range);
 }

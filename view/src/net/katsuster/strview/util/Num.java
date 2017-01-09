@@ -7,8 +7,11 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public abstract class Num extends SimpleRange
+public abstract class Num
         implements Cloneable {
+    //リストが存在する範囲
+    private Range r;
+
     private static final char[] DIGITS = {
             '0', '1', '2', '3', '4',
             '5', '6', '7', '8', '9',
@@ -22,7 +25,7 @@ public abstract class Num extends SimpleRange
      * </p>
      */
     public Num() {
-        this(0, 0);
+        r = new SimpleRange(0, 0);
     }
 
     /**
@@ -35,7 +38,7 @@ public abstract class Num extends SimpleRange
      * @param l 数値の長さ（ビット単位）
      */
     public Num(int l) {
-        this(l, 0);
+        r = new SimpleRange(l, 0);
     }
 
     /**
@@ -49,7 +52,7 @@ public abstract class Num extends SimpleRange
      * @param p 数値の存在する位置（ビット単位）
      */
     public Num(int l, long p) {
-        super(p, p + l);
+        r = new SimpleRange(p, p + l);
     }
 
     /**
@@ -65,7 +68,46 @@ public abstract class Num extends SimpleRange
     public Num clone() throws CloneNotSupportedException {
         Num obj = (Num)super.clone();
 
+        obj.r = r.clone();
+
         return obj;
+    }
+
+    /**
+     * <p>
+     * 数値が存在する範囲を取得します。
+     * </p>
+     *
+     * <p>
+     * 範囲の単位は数値によって意味が異なります。
+     * またその範囲から完全に数値を再現できるとは限りません。
+     * </p>
+     *
+     * <p>
+     * 例えば、この数値が別のビット列 A から生成された場合、
+     * リスト A の何ビット目から生成されたかを示します。
+     * </p>
+     *
+     * @return 数値が存在する範囲
+     */
+    public Range getRange() {
+        return r;
+    }
+
+    /**
+     * <p>
+     * 数値が存在する範囲を設定します。
+     * </p>
+     *
+     * <p>
+     * 範囲の単位は数値によって意味が異なります。
+     * またその範囲から完全に数値を再現できるとは限りません。
+     * </p>
+     *
+     * @param range 数値が存在する範囲
+     */
+    public void setRange(Range range) {
+        r = range;
     }
 
     /**

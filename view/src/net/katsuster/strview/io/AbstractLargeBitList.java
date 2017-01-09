@@ -37,6 +37,13 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
     }
 
     @Override
+    public AbstractLargeBitList clone() throws CloneNotSupportedException {
+        AbstractLargeBitList obj = (AbstractLargeBitList)super.clone();
+
+        return obj;
+    }
+
+    @Override
     public int get(long index, boolean[] dest, int offset, int length) {
         checkRemaining(index, length);
 

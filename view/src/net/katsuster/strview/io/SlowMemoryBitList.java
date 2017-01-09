@@ -72,7 +72,8 @@ public class SlowMemoryBitList extends AbstractLargeBitList {
         }
 
         buf = new int[getBufferElementPosition(size + ELEM_MASK)];
-        setLength(size);
+        length(size);
+        getRange().setLength(size);
     }
 
     /**
@@ -92,7 +93,8 @@ public class SlowMemoryBitList extends AbstractLargeBitList {
         }
 
         buf = new int[getBufferElementPosition(array.length + ELEM_MASK)];
-        setLength(array.length);
+        length(array.length);
+        getRange().setLength(array.length);
 
         set(0, array, 0, array.length);
     }

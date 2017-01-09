@@ -47,7 +47,7 @@ public class NumFormatter {
      * @return 16進数で表現した時の最低桁数
      */
     public static String numToDigits(Num v) {
-        if (v.getLength() == 0) {
+        if (v.getRange().getLength() == 0) {
             return "1";
         }
 
@@ -65,7 +65,7 @@ public class NumFormatter {
 		 * 9 | "3"    | 2                   | 2
 		 * 10| "3"    | 2                   | 2
 		 */
-        return Integer.toString(((int)(v.getLength() - 1) >> 2) + 1);
+        return Integer.toString(((int)(v.getRange().getLength() - 1) >> 2) + 1);
     }
 
     public static String numToDecHex(String name, Num v) {
@@ -74,8 +74,8 @@ public class NumFormatter {
         return String.format(
                 FORMAT_ADDRESS + ": " + FORMAT_NAME + ": "
                         + "0x%0" + digits + "x(%s)\n",
-                v.getStart() >>> 3, v.getStart() & 7,
-                (v.getEnd() - 1) >>> 3, (v.getEnd() - 1) & 7,
+                v.getRange().getStart() >>> 3, v.getRange().getStart() & 7,
+                (v.getRange().getEnd() - 1) >>> 3, (v.getRange().getEnd() - 1) & 7,
                 name, v.getBitsValue(), v.toString());
     }
 
@@ -85,8 +85,8 @@ public class NumFormatter {
         return String.format(
                 FORMAT_ADDRESS + ": " + FORMAT_NAME + ": "
                         + "0x%0" + digits + "x(%s)(%s)\n",
-                v.getStart() >>> 3, v.getStart() & 7,
-                (v.getEnd() - 1) >>> 3, (v.getEnd() - 1) & 7,
+                v.getRange().getStart() >>> 3, v.getRange().getStart() & 7,
+                (v.getRange().getEnd() - 1) >>> 3, (v.getRange().getEnd() - 1) & 7,
                 name, v.getBitsValue(), v.toString(), caption);
     }
 
@@ -139,8 +139,8 @@ public class NumFormatter {
             pos = 0;
             len_bit = 0;
         } else {
-            pos = v.getStart();
-            len_bit = v.getLength();
+            pos = v.getRange().getStart();
+            len_bit = v.getRange().getLength();
         }
         len_byte = len_bit >>> 3;
         len_show = Long.min(len_byte, 32);
@@ -202,8 +202,8 @@ public class NumFormatter {
             pos = 0;
             len_bit = 0;
         } else {
-            pos = v.getStart();
-            len_bit = v.getLength() << 3;
+            pos = v.getRange().getStart();
+            len_bit = v.getRange().getLength() << 3;
         }
         len_byte = len_bit >>> 3;
         len_show = Long.min(len_byte, 32);

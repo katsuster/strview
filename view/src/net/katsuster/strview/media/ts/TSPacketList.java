@@ -21,7 +21,7 @@ public class TSPacketList extends AbstractLargeList<TSPacket> {
 
     @Override
     public void count() {
-        setLength(buf.length() / 188 / 8);
+        length(buf.length() / 188 / 8);
     }
 
     @Override

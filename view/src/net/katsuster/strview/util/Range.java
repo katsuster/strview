@@ -16,6 +16,15 @@ package net.katsuster.strview.util;
  */
 public interface Range {
     /**
+     * オブジェクトのコピーを作成し、返します。
+     *
+     * @return この範囲のコピー
+     * @throws CloneNotSupportedException clone をサポートしていない場合にスローされます。
+     */
+    public Range clone()
+            throws CloneNotSupportedException;
+
+    /**
      * <p>
      * 区間の開始地点を取得します。
      * </p>

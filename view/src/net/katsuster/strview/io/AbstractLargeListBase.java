@@ -14,7 +14,9 @@ import net.katsuster.strview.util.*;
 public abstract class AbstractLargeListBase<T> extends AbstractList<T>
         implements LargeList<T>, Cloneable {
     //リストの長さ
-    private SimpleRange r;
+    private long len;
+    //リストが存在する範囲
+    private Range r;
 
     /**
      * <p>
@@ -33,6 +35,7 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
             throw new IllegalArgumentException("'from' is larger than 'to'"
                     + "(from:" + from + " > to:" + to + ").");
         }
+        len = to - from;
         r = new SimpleRange(from, to);
     }
 
@@ -48,6 +51,7 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
             throw new NegativeArraySizeException("len:" + l
                     + " is negative.");
         }
+        len = l;
         r = new SimpleRange(0, l);
     }
 
@@ -65,7 +69,7 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
         if (length() > Integer.MAX_VALUE) {
             return Integer.MAX_VALUE;
         } else {
-            return (int) getLength();
+            return (int) length();
         }
     }
 
@@ -88,7 +92,12 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
 
     @Override
     public long length() {
-        return getLength();
+        return len;
+    }
+
+    @Override
+    public void length(long l) {
+        len = l;
     }
 
     @Override
@@ -97,38 +106,13 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
     }
 
     @Override
-    public long getStart() {
-        return r.getStart();
+    public Range getRange() {
+        return r;
     }
 
     @Override
-    public void setStart(long p) {
-        r.setStart(p);
-    }
-
-    @Override
-    public long getEnd() {
-        return r.getEnd();
-    }
-
-    @Override
-    public void setEnd(long p) {
-        r.setEnd(p);
-    }
-
-    @Override
-    public long getLength() {
-        return r.getLength();
-    }
-
-    @Override
-    public void setLength(long l) {
-        r.setLength(l);
-    }
-
-    @Override
-    public boolean isHit(long i) {
-        return r.isHit(i);
+    public void setRange(Range range) {
+        r = range;
     }
 
     /**

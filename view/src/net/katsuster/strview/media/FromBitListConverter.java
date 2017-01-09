@@ -55,8 +55,8 @@ public class FromBitListConverter extends PacketConverterAdapter<LargeBitList> {
             val = new SInt();
         }
 
-        val.setStart(pos);
-        val.setLength(nbit);
+        val.getRange().setStart(pos);
+        val.getRange().setLength(nbit);
         val.setBitsValue(buf.getPackedLong(pos, nbit));
         pos += nbit;
 
@@ -69,8 +69,8 @@ public class FromBitListConverter extends PacketConverterAdapter<LargeBitList> {
             val = new UInt();
         }
 
-        val.setStart(pos);
-        val.setLength(nbit);
+        val.getRange().setStart(pos);
+        val.getRange().setLength(nbit);
         val.setBitsValue(buf.getPackedLong(pos, nbit));
         pos += nbit;
 

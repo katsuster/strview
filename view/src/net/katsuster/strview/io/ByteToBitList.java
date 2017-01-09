@@ -67,7 +67,8 @@ public class ByteToBitList extends AbstractLargeBitList {
         }
 
         buf = array;
-        setLength(array.length() * ELEM_BITS);
+        length(array.length() * ELEM_BITS);
+        getRange().setLength(array.length() * ELEM_BITS);
     }
 
     @Override
@@ -76,7 +77,7 @@ public class ByteToBitList extends AbstractLargeBitList {
         ByteToBitList obj = (ByteToBitList)super.clone();
 
         obj.buf = buf;
-        setLength(length());
+        getRange().setLength(length());
 
         return obj;
     }

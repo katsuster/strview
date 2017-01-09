@@ -72,8 +72,8 @@ public class MemoryByteList extends AbstractLargeList<Byte>
         }
 
         buf = array;
-        setStart(0);
-        setEnd(array.length << 3);
+        length(array.length);
+        getRange().setLength(array.length << 3);
     }
 
     /**

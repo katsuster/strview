@@ -788,7 +788,7 @@ public class BitBuffer {
      * @throws IndexOutOfBoundsException バッファの残量が足りない場合
      */
     public BitBuffer get(LargeByteList dst) {
-        return get(dst, 0, (int)dst.getLength());
+        return get(dst, 0, (int)dst.length() << 3);
     }
 
     /**
@@ -812,8 +812,8 @@ public class BitBuffer {
             val = new Float32();
         }
 
-        val.setStart(p);
-        val.setLength(n);
+        val.getRange().setStart(p);
+        val.getRange().setLength(n);
         val.setBitsValue(get32(n));
 
         return val;
@@ -846,8 +846,8 @@ public class BitBuffer {
             val = new SFixed8_8();
         }
 
-        val.setStart(p);
-        val.setLength(n);
+        val.getRange().setStart(p);
+        val.getRange().setLength(n);
         val.setBitsValue((short)(get32(n)));
 
         return val;
@@ -880,8 +880,8 @@ public class BitBuffer {
             val = new UFixed8_8();
         }
 
-        val.setStart(p);
-        val.setLength(n);
+        val.getRange().setStart(p);
+        val.getRange().setLength(n);
         val.setBitsValue((short)(get32(n)));
 
         return val;
@@ -914,8 +914,8 @@ public class BitBuffer {
             val = new SFixed16_16();
         }
 
-        val.setStart(p);
-        val.setLength(n);
+        val.getRange().setStart(p);
+        val.getRange().setLength(n);
         val.setBitsValue(get32(n));
 
         return val;
@@ -948,8 +948,8 @@ public class BitBuffer {
             val = new UFixed16_16();
         }
 
-        val.setStart(p);
-        val.setLength(n);
+        val.getRange().setStart(p);
+        val.getRange().setLength(n);
         val.setBitsValue(get32(n));
 
         return val;
@@ -987,8 +987,8 @@ public class BitBuffer {
             val = new SInt();
         }
 
-        val.setStart(p);
-        val.setLength(n);
+        val.getRange().setStart(p);
+        val.getRange().setLength(n);
         val.setBitsValue(Short.reverseBytes((short)(get32(n))));
 
         return val;
@@ -1026,8 +1026,8 @@ public class BitBuffer {
             val = new SInt();
         }
 
-        val.setStart(p);
-        val.setLength(n);
+        val.getRange().setStart(p);
+        val.getRange().setLength(n);
         val.setBitsValue(Integer.reverseBytes(get32(n)));
 
         return val;
@@ -1065,8 +1065,8 @@ public class BitBuffer {
             val = new UInt();
         }
 
-        val.setStart(p);
-        val.setLength(n);
+        val.getRange().setStart(p);
+        val.getRange().setLength(n);
         val.setBitsValue(Short.reverseBytes((short)(get32(n))) & 0xffffL);
 
         return val;
@@ -1104,8 +1104,8 @@ public class BitBuffer {
             val = new UInt();
         }
 
-        val.setStart(p);
-        val.setLength(n);
+        val.getRange().setStart(p);
+        val.getRange().setLength(n);
         val.setBitsValue(Integer.reverseBytes(get32(n)) & 0xffffffffL);
 
         return val;
@@ -1142,8 +1142,8 @@ public class BitBuffer {
             val = new Float32();
         }
 
-        val.setStart(p);
-        val.setLength(n);
+        val.getRange().setStart(p);
+        val.getRange().setLength(n);
         val.setBitsValue(Integer.reverseBytes(get32(n)));
 
         return val;
@@ -1246,8 +1246,8 @@ public class BitBuffer {
             val = new SInt();
         }
 
-        val.setStart(p);
-        val.setLength(n);
+        val.getRange().setStart(p);
+        val.getRange().setLength(n);
         val.setBitsValue(get64(n));
 
         return val;
@@ -1274,8 +1274,8 @@ public class BitBuffer {
             val = new UInt();
         }
 
-        val.setStart(p);
-        val.setLength(n);
+        val.getRange().setStart(p);
+        val.getRange().setLength(n);
         val.setBitsValue(get64(n));
 
         return val;
@@ -1302,8 +1302,8 @@ public class BitBuffer {
             val = new Float64();
         }
 
-        val.setStart(p);
-        val.setLength(n);
+        val.getRange().setStart(p);
+        val.getRange().setLength(n);
         val.setBitsValue(get64(n));
 
         return val;
@@ -1341,8 +1341,8 @@ public class BitBuffer {
             val = new SInt();
         }
 
-        val.setStart(p);
-        val.setLength(n);
+        val.getRange().setStart(p);
+        val.getRange().setLength(n);
         val.setBitsValue(Long.reverseBytes(get64(n)));
 
         return val;
@@ -1380,8 +1380,8 @@ public class BitBuffer {
             val = new UInt();
         }
 
-        val.setStart(p);
-        val.setLength(n);
+        val.getRange().setStart(p);
+        val.getRange().setLength(n);
         val.setBitsValue(Long.reverseBytes(get64(n)));
 
         return val;
@@ -1418,8 +1418,8 @@ public class BitBuffer {
             val = new Float64();
         }
 
-        val.setStart(p);
-        val.setLength(n);
+        val.getRange().setStart(p);
+        val.getRange().setLength(n);
         val.setBitsValue(Long.reverseBytes(get64(n)));
 
         return val;
@@ -1727,7 +1727,7 @@ public class BitBuffer {
      * @throws IndexOutOfBoundsException バッファの残量が足りない場合
      */
     public BitBuffer put(LargeByteList src) {
-        return put(src, 0, (int)src.getLength());
+        return put(src, 0, (int)src.length() << 3);
     }
 
     /**
