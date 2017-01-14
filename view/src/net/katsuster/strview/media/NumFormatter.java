@@ -160,7 +160,7 @@ public class NumFormatter {
             len_bit = v.getRange().getLength();
         }
         len_byte = len_bit >>> 3;
-        len_show = Long.min(len_byte, 32);
+        len_show = Math.min(len_byte, 32);
 
         sb.append(addressAndName(new SimpleRange(pos, pos + len_bit - 1), name));
         if (caption == null) {
@@ -218,7 +218,7 @@ public class NumFormatter {
             len_bit = v.getRange().getLength() << 3;
         }
         len_byte = len_bit >>> 3;
-        len_show = Long.min(len_byte, 32);
+        len_show = Math.min(len_byte, 32);
 
         sb.append(addressAndName(new SimpleRange(pos, pos + len_bit - 1), name));
         if (caption == null) {
