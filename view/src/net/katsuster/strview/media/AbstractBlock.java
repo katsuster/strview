@@ -59,12 +59,10 @@ public abstract class AbstractBlock implements Block {
 
     @Override
     public String toString() {
-        PacketConverter<String> c = new ToStringConverter();
+        ToStringConverter c = new ToStringConverter(new StringBuilder());
 
-        c.doInit();
         convert(c);
-        c.doFinal();
 
-        return c.getResult();
+        return c.getResult().toString();
     }
 }

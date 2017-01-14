@@ -26,16 +26,6 @@ public class PacketConverterAdapter<T> implements PacketConverter<T> {
     }
 
     @Override
-    public void doInit() {
-        //do nothing
-    }
-
-    @Override
-    public void doFinal() {
-        //do nothing
-    }
-
-    @Override
     public void enterPacket(String name) {
         //do nothing
     }

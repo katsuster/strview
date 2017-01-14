@@ -9,24 +9,15 @@ import net.katsuster.strview.util.*;
  *
  * @author katsuhiro
  */
-public class ToStringConverter extends PacketConverterAdapter<String> {
+public class ToStringConverter extends PacketConverterAdapter<StringBuilder> {
     private StringBuilder sb;
-    private String result;
 
     public ToStringConverter() {
-        sb = new StringBuilder();
-        result = sb.toString();
+        this(new StringBuilder());
     }
 
-    @Override
-    public void doInit() {
-        sb.delete(0, sb.length());
-        result = sb.toString();
-    }
-
-    @Override
-    public void doFinal() {
-        result = sb.toString();
+    public ToStringConverter(StringBuilder s) {
+        sb = s;
     }
 
     @Override
@@ -83,7 +74,7 @@ public class ToStringConverter extends PacketConverterAdapter<String> {
     }
 
     @Override
-    public String getResult() {
-        return result;
+    public StringBuilder getResult() {
+        return sb;
     }
 }

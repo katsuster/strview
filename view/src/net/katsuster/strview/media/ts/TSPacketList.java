@@ -29,12 +29,10 @@ public class TSPacketList extends AbstractLargeList<TSPacket> {
         TSPacket p = new TSPacket();
         FromBitListConverter c = new FromBitListConverter(buf);
 
-        c.doInit();
         c.position(index * 188 * 8);
         p.setNumber(index);
         p.setLevel(0);
         p.read(c);
-        c.doFinal();
 
         return p;
     }

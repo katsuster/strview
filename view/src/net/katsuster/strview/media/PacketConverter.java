@@ -18,15 +18,11 @@ import net.katsuster.strview.util.*;
  *
  * <pre>
  * Packet p;
- * PacketConverter&lt;SomeObject&gt; c = new SomeConverter();
  * SomeObject r;
+ * PacketConverter&lt;SomeObject&gt; c = new SomeConverter(new SomeObject());
  *
- * //initialize to start converting
- * c.doInit();
  * //add members of packet
  * p.convert(c);
- * //finish the converting
- * c.doFinish();
  *
  * r = c.getResult();
  * </pre>
@@ -35,28 +31,6 @@ import net.katsuster.strview.util.*;
  * @author katsuhiro
  */
 public interface PacketConverter<T> {
-    /**
-     * <p>
-     * 変換を開始します。
-     * </p>
-     *
-     * <p>
-     * 前回の変換の結果は削除され、参照できなくなります。
-     * </p>
-     */
-    public void doInit();
-
-    /**
-     * <p>
-     * 変換を終了します。
-     * </p>
-     *
-     * <p>
-     * 変換の結果が getResult() にて取得できるようになります。
-     * </p>
-     */
-    public void doFinal();
-
     /**
      * <p>
      * パケットの変換を開始します。
@@ -302,10 +276,6 @@ public interface PacketConverter<T> {
     /**
      * <p>
      * 変換結果を取得します。
-     * </p>
-     *
-     * <p>
-     * doFinal() により変換を終了するまでは、変換結果は不定です。
      * </p>
      *
      * <p>

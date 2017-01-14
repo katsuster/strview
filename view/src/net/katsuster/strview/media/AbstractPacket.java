@@ -855,12 +855,10 @@ public abstract class AbstractPacket
 
     @Override
     public String toString() {
-        PacketConverter<String> c = new ToStringConverter();
+        ToStringConverter c = new ToStringConverter(new StringBuilder());
 
-        c.doInit();
         convert(c);
-        c.doFinal();
 
-        return c.getResult();
+        return c.getResult().toString();
     }
 }
