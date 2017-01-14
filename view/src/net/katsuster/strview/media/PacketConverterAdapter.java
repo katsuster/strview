@@ -57,7 +57,7 @@ public class PacketConverterAdapter<T> implements PacketConverter<T> {
 
     @Override
     public void mark(String name, String s) {
-        mark(name, s, "");
+        mark(name, s, null);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class PacketConverterAdapter<T> implements PacketConverter<T> {
 
     @Override
     public void mark(String name, Number n) {
-        mark(name, n, "");
+        mark(name, n, null);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class PacketConverterAdapter<T> implements PacketConverter<T> {
 
     @Override
     public SInt convSInt(int nbit, SInt val, String name) {
-        return convSInt(nbit, val, name, "");
+        return convSInt(nbit, val, name, null);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class PacketConverterAdapter<T> implements PacketConverter<T> {
 
     @Override
     public UInt convUInt(int nbit, UInt val, String name) {
-        return convUInt(nbit, val, name, "");
+        return convUInt(nbit, val, name, null);
     }
 
     @Override
@@ -107,7 +107,7 @@ public class PacketConverterAdapter<T> implements PacketConverter<T> {
 
     @Override
     public LargeBitList convBitList(long nbit, LargeBitList val, String name) {
-        return convBitList(nbit, val, name, "");
+        return convBitList(nbit, val, name, null);
     }
 
     @Override

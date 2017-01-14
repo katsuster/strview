@@ -10,8 +10,9 @@ import net.katsuster.strview.util.*;
  * @author katsuhiro
  */
 public class NumFormatter {
-    public static final String FORMAT_ADDRESS = "%6x.%d-%6x.%d";
-    public static final String FORMAT_NAME    = "%-32s";
+    public static final String FORMAT_ADDRESS = "%6x.%d-%6x.%d" + ": ";
+    public static final String FORMAT_ADDRESS_EMPTY = "                 " + "  ";
+    public static final String FORMAT_NAME    = "%-32s" + ": ";
     public static final String FORMAT_INDENT  = "  ";
 
     protected NumFormatter() {
@@ -66,56 +67,74 @@ public class NumFormatter {
         return Integer.toString(((int)(v.getRange().getLength() - 1) >> 2) + 1);
     }
 
-    public static String numToDecHex(String name, Num v) {
-        String digits = numToDigits(v);
-
-        return String.format(
-                FORMAT_ADDRESS + ": " + FORMAT_NAME + ": "
-                        + "0x%0" + digits + "x(%s)\n",
-                v.getRange().getStart() >>> 3, v.getRange().getStart() & 7,
-                (v.getRange().getEnd() - 1) >>> 3, (v.getRange().getEnd() - 1) & 7,
-                name, v.getBitsValue(), v.toString());
+    protected static String addressAndName(Range r, String name) {
+        if (r == null) {
+            return String.format(FORMAT_ADDRESS_EMPTY + FORMAT_NAME,
+                    name);
+        } else {
+            return String.format(FORMAT_ADDRESS + FORMAT_NAME,
+                    r.getStart() >>> 3, r.getStart() & 7,
+                    (r.getEnd() - 1) >>> 3, (r.getEnd() - 1) & 7,
+                    name);
+        }
     }
 
     public static String numToDecHexCaption(String name, Num v, String caption) {
         String digits = numToDigits(v);
+        StringBuilder sb = new StringBuilder();
 
-        return String.format(
-                FORMAT_ADDRESS + ": " + FORMAT_NAME + ": "
-                        + "0x%0" + digits + "x(%s)(%s)\n",
-                v.getRange().getStart() >>> 3, v.getRange().getStart() & 7,
-                (v.getRange().getEnd() - 1) >>> 3, (v.getRange().getEnd() - 1) & 7,
-                name, v.getBitsValue(), v.toString(), caption);
-    }
+        sb.append(addressAndName(v.getRange(), name));
+        sb.append(String.format("0x%0" + digits + "x(%s)",
+                v.getBitsValue(), v.toString()));
+        if (caption == null) {
+            sb.append("\n");
+        } else {
+            sb.append(String.format("(%s)\n", caption));
+        }
 
-    public static String longToDecHex(String name, long v) {
-        return String.format(FORMAT_NAME + ": 0x%x(%d)\n",
-                name, v, v);
+        return sb.toString();
     }
 
     public static String longToDecHexCaption(String name, long v, String caption) {
-        return String.format(FORMAT_NAME + ": 0x%x(%d)(%s)\n",
-                name, v, v, caption);
-    }
+        StringBuilder sb = new StringBuilder();
 
-    public static String intToDecHex(String name, int v) {
-        return String.format(FORMAT_NAME + ": 0x%x(%d)\n",
-                name, v, v);
+        sb.append(addressAndName(null, name));
+        sb.append(String.format("0x%x(%d)", v, v));
+        if (caption == null) {
+            sb.append("\n");
+        } else {
+            sb.append(String.format("(%s)\n", caption));
+        }
+
+        return sb.toString();
     }
 
     public static String intToDecHexCaption(String name, int v, String caption) {
-        return String.format(FORMAT_NAME + ": 0x%x(%d)(%s)\n",
-                name, v, v, caption);
-    }
+        StringBuilder sb = new StringBuilder();
 
-    public static String stringToDecHex(String name, String v) {
-        return String.format(FORMAT_NAME + ": '%s'\n",
-                name, v);
+        sb.append(addressAndName(null, name));
+        sb.append(String.format("0x%x(%d)", v, v));
+        if (caption == null) {
+            sb.append("\n");
+        } else {
+            sb.append(String.format("(%s)\n", caption));
+        }
+
+        return sb.toString();
     }
 
     public static String stringToDecHexCaption(String name, String v, String caption) {
-        return String.format(FORMAT_NAME + ": '%s'(%s)\n",
-                name, v, caption);
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(addressAndName(null, name));
+        sb.append(String.format("'%s'", v));
+        if (caption == null) {
+            sb.append("\n");
+        } else {
+            sb.append(String.format("(%s)\n", caption));
+        }
+
+        return sb.toString();
     }
 
     protected static boolean isCenter(long index, long interval, long width) {
@@ -143,18 +162,13 @@ public class NumFormatter {
         len_byte = len_bit >>> 3;
         len_show = Long.min(len_byte, 32);
 
+        sb.append(addressAndName(new SimpleRange(pos, pos + len_bit - 1), name));
         if (caption == null) {
-            sb.append(String.format(
-                    FORMAT_ADDRESS + ": " + FORMAT_NAME + ": %d[bytes]\n",
-                    pos >>> 3, pos & 7,
-                    (pos + len_bit - 1) >>> 3, (pos + len_bit - 1) & 7,
-                    name, len_byte));
+            sb.append(String.format("%d[bytes]\n",
+                    len_byte));
         } else {
-            sb.append(String.format(
-                    FORMAT_ADDRESS + ": " + FORMAT_NAME + ": %d[bytes](%s)\n",
-                    pos >>> 3, pos & 7,
-                    (pos + len_bit - 1) >>> 3, (pos + len_bit - 1) & 7,
-                    name, len_byte, caption));
+            sb.append(String.format("%d[bytes](%s)\n",
+                    len_byte, caption));
         }
 
         if (len_show == 0) {
@@ -191,7 +205,7 @@ public class NumFormatter {
     }
 
     public static String byteListToHexCaption(String name, LargeByteList v,
-                                             String caption) {
+                                              String caption) {
         StringBuilder sb = new StringBuilder();
         long i, t, w = 16;
         long pos, len_bit, len_byte, len_show;
@@ -206,18 +220,13 @@ public class NumFormatter {
         len_byte = len_bit >>> 3;
         len_show = Long.min(len_byte, 32);
 
+        sb.append(addressAndName(new SimpleRange(pos, pos + len_bit - 1), name));
         if (caption == null) {
-            sb.append(String.format(
-                    FORMAT_ADDRESS + ": " + FORMAT_NAME + ": %d[bytes]\n",
-                    pos >>> 3, pos & 7,
-                    (pos + len_bit - 1) >>> 3, (pos + len_bit - 1) & 7,
-                    name, len_byte));
+            sb.append(String.format("%d[bytes]\n",
+                    len_byte));
         } else {
-            sb.append(String.format(
-                    FORMAT_ADDRESS + ": " + FORMAT_NAME + ": %d[bytes](%s)\n",
-                    pos >>> 3, pos & 7,
-                    (pos + len_bit - 1) >>> 3, (pos + len_bit - 1) & 7,
-                    name, len_byte, caption));
+            sb.append(String.format("%d[bytes](%s)\n",
+                    len_byte, caption));
         }
 
         if (len_show == 0) {

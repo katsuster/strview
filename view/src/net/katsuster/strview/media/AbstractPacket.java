@@ -835,30 +835,18 @@ public abstract class AbstractPacket
 
         c.mark("tag_num",
                 d.getNumber());
-        c.mark("addr(head,body,foot)(hex byte)",
-                String.format("0x%x(0x%x, 0x%x, 0x%x)",
-                        d.getAddress() >>> 3,
-                        d.getHeaderAddress() >>> 3,
-                        d.getBodyAddress() >>> 3,
-                        d.getFooterAddress() >>> 3));
-        c.mark("addr(head,body,foot)(dec byte)",
-                String.format("%d(%d, %d, %d)",
-                        d.getAddress() >>> 3,
-                        d.getHeaderAddress() >>> 3,
-                        d.getBodyAddress() >>> 3,
-                        d.getFooterAddress() >>> 3));
-        c.mark("len (head,body,foot)(byte)",
-                String.format("%d(%d, %d, %d)",
-                        d.getLength() >>> 3,
-                        d.getHeaderLength() >>> 3,
-                        d.getBodyLength() >>> 3,
-                        d.getFooterLength() >>> 3));
-        c.mark("len (head,body,foot)(bit)",
-                String.format("%d(%d, %d, %d)",
-                        d.getLength(),
-                        d.getHeaderLength(),
-                        d.getBodyLength(),
-                        d.getFooterLength()));
+        c.mark("addr(head,body,foot)(hex)",
+                String.format("%x.%d(%x.%d, %x.%d, %x.%d)",
+                        d.getAddress() >>> 3,d. getAddress() & 7,
+                        d.getHeaderAddress() >>> 3, d.getHeaderAddress() & 7,
+                        d.getBodyAddress() >>> 3, d.getBodyAddress() & 7,
+                        d.getFooterAddress() >>> 3, d.getFooterAddress() & 7));
+        c.mark("len (head,body,foot)(dec)",
+                String.format("%d.%d(%d.%d, %d.%d, %d.%d)",
+                        d.getLength() >>> 3, d.getLength() & 7,
+                        d.getHeaderLength() >>> 3, d.getHeaderLength() & 7,
+                        d.getBodyLength() >>> 3, d.getBodyLength() & 7,
+                        d.getFooterLength() >>> 3, d.getFooterLength() & 7));
         c.mark("level",
                 d.getLevel());
 
