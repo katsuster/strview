@@ -215,12 +215,14 @@ public class TSPacketHeaderAdaptation extends BlockAdapter
             d.program_clock_reference_base      = c.convUInt(33, d.program_clock_reference_base     , "program_clock_reference_base"     );
             d.reserved                          = c.convUInt( 6, d.reserved                         , "reserved"                         );
             d.program_clock_reference_extension = c.convUInt( 9, d.program_clock_reference_extension, "program_clock_reference_extension");
+            c.mark("pcr", d.getPCRValue());
         }
 
         if (d.opcr_flag.intValue() == 1) {
             d.original_program_clock_reference_base      = c.convUInt(33, d.original_program_clock_reference_base     , "original_program_clock_reference_base"     );
             d.reserved2                                  = c.convUInt( 6, d.reserved2                                 , "reserved2"                                 );
             d.original_program_clock_reference_extension = c.convUInt( 9, d.original_program_clock_reference_extension, "original_program_clock_reference_extension");
+            c.mark("opcr", d.getOPCRValue());
         }
 
         if (d.splicing_point_flag.intValue() == 1) {
@@ -302,6 +304,7 @@ public class TSPacketHeaderAdaptation extends BlockAdapter
             d.marker_bit2      = c.convUInt( 1, d.marker_bit2     , "marker_bit2"     );
             d.dts_next_au_low  = c.convUInt(15, d.dts_next_au_low , "dts_next_au_low" );
             d.marker_bit3      = c.convUInt( 1, d.marker_bit3     , "marker_bit3"     );
+            c.mark("dts_next_au", d.getDTSNextAUValue());
         }
 
         //残りを埋めているバイト列

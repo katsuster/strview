@@ -7,7 +7,7 @@ import net.katsuster.strview.media.*;
  * @author katsuhiro
  */
 public class TSPacketList extends AbstractLargeList<TSPacket> {
-    public LargeBitList buf;
+    private LargeBitList buf;
 
     public TSPacketList() {
         super(LENGTH_UNKNOWN);

@@ -77,9 +77,9 @@ public class TSPacketHeader extends BlockAdapter
         d.transport_error_indicator    = c.convUInt( 1, d.transport_error_indicator   , "transport_error_indicator"   );
         d.payload_unit_start_indicator = c.convUInt( 1, d.payload_unit_start_indicator, "payload_unit_start_indicator");
         d.transport_priority           = c.convUInt( 1, d.transport_priority          , "transport_priority"          );
-        d.pid                          = c.convUInt(13, d.pid                         , "pid"                         );
-        d.transport_scrambling_control = c.convUInt( 2, d.transport_scrambling_control, "transport_scrambling_control");
-        d.adaptation_field_control     = c.convUInt( 2, d.adaptation_field_control    , "adaptation_field_control"    );
+        d.pid                          = c.convUInt(13, d.pid                         , "pid"                         , d.getPIDName());
+        d.transport_scrambling_control = c.convUInt( 2, d.transport_scrambling_control, "transport_scrambling_control", d.getScramblingName());
+        d.adaptation_field_control     = c.convUInt( 2, d.adaptation_field_control    , "adaptation_field_control"    , d.getAdaptationFieldName());
         d.continuity_counter           = c.convUInt( 4, d.continuity_counter          , "continuity_counter"          );
 
         if (d.adaptation_field_control.intValue() == 2
