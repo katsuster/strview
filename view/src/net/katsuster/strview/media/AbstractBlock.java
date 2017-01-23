@@ -43,25 +43,11 @@ public abstract class AbstractBlock implements Block {
         return obj;
     }
 
-    /**
-     * <p>
-     * ブロックを別の形式に変換します。
-     * </p>
-     *
-     * <p>
-     * 変換結果は PacketConverter オブジェクトに保持されます。
-     * </p>
-     *
-     * @param c 各メンバの変換を実施するオブジェクト
-     */
-    @Override
-    public abstract void convert(PacketConverter<?> c);
-
     @Override
     public String toString() {
         ToStringConverter c = new ToStringConverter(new StringBuilder());
 
-        convert(c);
+        write(c);
 
         return c.getResult().toString();
     }

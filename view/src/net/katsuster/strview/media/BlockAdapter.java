@@ -27,7 +27,8 @@ public class BlockAdapter extends AbstractBlock {
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    public void read(PacketConverter<?> c) {
+    @Override
+    public void read(PacketReader<?> c) {
         //do nothing
     }
 
@@ -43,28 +44,8 @@ public class BlockAdapter extends AbstractBlock {
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    public void write(PacketConverter<?> c) {
-        //do nothing
-    }
-
-    /**
-     * <p>
-     * ブロックを別の形式に変換します。
-     * </p>
-     *
-     * <p>
-     * 変換結果は PacketConverter オブジェクトに保持されます。
-     * </p>
-     *
-     * <p>
-     * このクラスは何もメンバを持たないため、
-     * convert 関数は何も変換しません。
-     * </p>
-     *
-     * @param c 各メンバの変換を実施するオブジェクト
-     */
     @Override
-    public void convert(PacketConverter<?> c) {
+    public void write(PacketWriter<?> c) {
         //do nothing
     }
 }

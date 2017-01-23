@@ -43,18 +43,69 @@ public class PacketAdapter extends AbstractPacket {
 
     /**
      * <p>
-     * パケットのヘッダを別の形式に変換します。
+     * 別の形式からパケットのヘッダに変換します。
      * </p>
      *
      * <p>
      * このクラスは何もメンバを持たないため、
-     * convert 関数は何も変換しません。
+     * 関数は何も変換しません。
      * </p>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
     @Override
-    protected void convertHeader(PacketConverter<?> c) {
+    protected void readHeader(PacketReader<?> c) {
+        //do nothing
+    }
+
+    /**
+     * <p>
+     * 別の形式からパケットの本体に変換します。
+     * </p>
+     *
+     * <p>
+     * このクラスは何もメンバを持たないため、
+     * 関数は何も変換しません。
+     * </p>
+     *
+     * @param c 各メンバの変換を実施するオブジェクト
+     */
+    @Override
+    protected void readBody(PacketReader<?> c) {
+        //do nothing
+    }
+
+    /**
+     * <p>
+     * 別の形式からパケットのフッタに変換します。
+     * </p>
+     *
+     * <p>
+     * このクラスは何もメンバを持たないため、
+     * 関数は何も変換しません。
+     * </p>
+     *
+     * @param c 各メンバの変換を実施するオブジェクト
+     */
+    @Override
+    protected void readFooter(PacketReader<?> c) {
+        //do nothing
+    }
+
+    /**
+     * <p>
+     * パケットのヘッダを別の形式に変換します。
+     * </p>
+     *
+     * <p>
+     * このクラスは何もメンバを持たないため、
+     * 関数は何も変換しません。
+     * </p>
+     *
+     * @param c 各メンバの変換を実施するオブジェクト
+     */
+    @Override
+    protected void writeHeader(PacketWriter<?> c) {
         //do nothing
     }
 
@@ -65,13 +116,13 @@ public class PacketAdapter extends AbstractPacket {
      *
      * <p>
      * このクラスは何もメンバを持たないため、
-     * convert 関数は何も変換しません。
+     * 関数は何も変換しません。
      * </p>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
     @Override
-    protected void convertBody(PacketConverter<?> c) {
+    protected void writeBody(PacketWriter<?> c) {
         //do nothing
     }
 
@@ -82,13 +133,13 @@ public class PacketAdapter extends AbstractPacket {
      *
      * <p>
      * このクラスは何もメンバを持たないため、
-     * convert 関数は何も変換しません。
+     * 関数は何も変換しません。
      * </p>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
     @Override
-    protected void convertFooter(PacketConverter<?> c) {
+    protected void writeFooter(PacketWriter<?> c) {
         //do nothing
     }
 }

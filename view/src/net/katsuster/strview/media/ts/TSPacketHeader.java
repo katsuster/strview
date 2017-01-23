@@ -65,26 +65,52 @@ public class TSPacketHeader extends BlockAdapter
     }
 
     @Override
-    public void convert(PacketConverter<?> c) {
-        convert(c, this);
+    public void read(PacketReader<?> c) {
+        read(c, this);
     }
 
-    public static void convert(PacketConverter<?> c,
-                               TSPacketHeader d) {
+    public static void read(PacketReader<?> c,
+                            TSPacketHeader d) {
         c.enterBlock("TS packet header");
 
-        d.sync_byte                    = c.convUInt( 8, d.sync_byte                   , "sync_byte"                   );
-        d.transport_error_indicator    = c.convUInt( 1, d.transport_error_indicator   , "transport_error_indicator"   );
-        d.payload_unit_start_indicator = c.convUInt( 1, d.payload_unit_start_indicator, "payload_unit_start_indicator");
-        d.transport_priority           = c.convUInt( 1, d.transport_priority          , "transport_priority"          );
-        d.pid                          = c.convUInt(13, d.pid                         , "pid"                         , d.getPIDName());
-        d.transport_scrambling_control = c.convUInt( 2, d.transport_scrambling_control, "transport_scrambling_control", d.getScramblingName());
-        d.adaptation_field_control     = c.convUInt( 2, d.adaptation_field_control    , "adaptation_field_control"    , d.getAdaptationFieldName());
-        d.continuity_counter           = c.convUInt( 4, d.continuity_counter          , "continuity_counter"          );
+        d.sync_byte                    = c.readUInt( 8, d.sync_byte                   );
+        d.transport_error_indicator    = c.readUInt( 1, d.transport_error_indicator   );
+        d.payload_unit_start_indicator = c.readUInt( 1, d.payload_unit_start_indicator);
+        d.transport_priority           = c.readUInt( 1, d.transport_priority          );
+        d.pid                          = c.readUInt(13, d.pid                         , d.getPIDName());
+        d.transport_scrambling_control = c.readUInt( 2, d.transport_scrambling_control, d.getScramblingName());
+        d.adaptation_field_control     = c.readUInt( 2, d.adaptation_field_control    , d.getAdaptationFieldName());
+        d.continuity_counter           = c.readUInt( 4, d.continuity_counter          );
 
         if (d.adaptation_field_control.intValue() == 2
                 || d.adaptation_field_control.intValue() == 3) {
-            d.adapt.convert(c);
+            d.adapt.read(c);
+        }
+
+        c.leaveBlock();
+    }
+
+    @Override
+    public void write(PacketWriter<?> c) {
+        write(c, this);
+    }
+
+    public static void write(PacketWriter<?> c,
+                            TSPacketHeader d) {
+        c.enterBlock("TS packet header");
+
+        c.writeUInt( 8, d.sync_byte                   , "sync_byte"                   );
+        c.writeUInt( 1, d.transport_error_indicator   , "transport_error_indicator"   );
+        c.writeUInt( 1, d.payload_unit_start_indicator, "payload_unit_start_indicator");
+        c.writeUInt( 1, d.transport_priority          , "transport_priority"          );
+        c.writeUInt(13, d.pid                         , "pid"                         , d.getPIDName());
+        c.writeUInt( 2, d.transport_scrambling_control, "transport_scrambling_control", d.getScramblingName());
+        c.writeUInt( 2, d.adaptation_field_control    , "adaptation_field_control"    , d.getAdaptationFieldName());
+        c.writeUInt( 4, d.continuity_counter          , "continuity_counter"          );
+
+        if (d.adaptation_field_control.intValue() == 2
+                || d.adaptation_field_control.intValue() == 3) {
+            d.adapt.write(c);
         }
 
         c.leaveBlock();

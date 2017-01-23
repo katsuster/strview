@@ -9,7 +9,7 @@ import net.katsuster.strview.util.*;
  *
  * @author katsuhiro
  */
-public class ToBitListConverter extends PacketConverterAdapter<LargeBitList> {
+public class ToBitListConverter extends PacketWriterAdapter<LargeBitList> {
     private LargeBitList buf;
     private long pos;
 
@@ -48,27 +48,21 @@ public class ToBitListConverter extends PacketConverterAdapter<LargeBitList> {
     }
 
     @Override
-    public SInt convSInt(int nbit, SInt val, String name, String desc) {
+    public void writeSInt(int nbit, SInt val, String name, String desc) {
         buf.setPackedLong(pos, nbit, val.getBitsValue());
         pos += nbit;
-
-        return val;
     }
 
     @Override
-    public UInt convUInt(int nbit, UInt val, String name, String desc) {
+    public void writeUInt(int nbit, UInt val, String name, String desc) {
         buf.setPackedLong(pos, nbit, val.getBitsValue());
         pos += nbit;
-
-        return val;
     }
 
     @Override
-    public LargeBitList convBitList(long nbit, LargeBitList val, String name, String desc) {
+    public void writeBitList(long nbit, LargeBitList val, String name, String desc) {
         buf.set(pos, val, 0, (int)nbit);
         pos += nbit;
-
-        return val;
     }
 
     @Override

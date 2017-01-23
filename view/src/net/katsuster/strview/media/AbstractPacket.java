@@ -35,28 +35,22 @@ import net.katsuster.strview.util.*;
  * </p>
  *
  * <dl>
- * <dt>convertHeader() メソッド</dt>
+ * <dt>readHeader() メソッド</dt>
+ * <dd>別の形式からパケットのヘッダに変換します。</dd>
+ * <dt>readBody() メソッド</dt>
+ * <dd>別の形式からパケットの本体に変換します。</dd>
+ * <dt>readFooter() メソッド</dt>
+ * <dd>別の形式から、パケットのフッタに変換します。</dd>
+ *
+ * <dt>writeHeader() メソッド</dt>
  * <dd>パケットのヘッダが保持するデータを、
  * 別の形式に変換します。</dd>
- * <dt>convertBody() メソッド</dt>
+ * <dt>writeBody() メソッド</dt>
  * <dd>パケットの本体が保持するデータを、
  * 別の形式に変換します。</dd>
- * <dt>convertFooter() メソッド</dt>
+ * <dt>writeFooter() メソッド</dt>
  * <dd>パケットのフッタが保持するデータを、
  * 別の形式に変換します。</dd>
- *
- * <dt>setupBeforeNotifyStartPacket() メソッド</dt>
- * <dd>パケット開始イベントが通知される直前に、
- * パケットを設定するために呼び出されます。</dd>
- * <dt>setupAfterNotifyStartPacket() メソッド</dt>
- * <dd>パケット開始イベントが通知された直後に、
- * パケットを設定するために呼び出されます。</dd>
- * <dt>setupBeforeNotifyEndPacket() メソッド</dt>
- * <dd>パケット終端イベントが通知される直前に、
- * パケットを設定するために呼び出されます。</dd>
- * <dt>setupAfterNotifyEndPacket() メソッド</dt>
- * <dd>パケット終端イベントが通知された直後に、
- * パケットを設定するために呼び出されます。</dd>
  * </dl>
  *
  * <p>
@@ -96,7 +90,7 @@ public abstract class AbstractPacket
     //フッタ
     private Block foot;
 
-    //パケット全体を表すビット列
+    //パケット全体を表すビット列（参照のみ）
     private LargeBitList raw_packet;
 
     //パケットの階層レベル
@@ -372,56 +366,76 @@ public abstract class AbstractPacket
 
     /**
      * <p>
-     * パケットのヘッダを別の形式に変換します。
-     * </p>
-     *
-     * <p>
-     * 変換結果は PacketConverter オブジェクトに保持されます。
+     * 別の形式からパケットのヘッダに変換します。
      * </p>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected abstract void convertHeader(PacketConverter<?> c);
+    protected abstract void readHeader(PacketReader<?> c);
+
+    /**
+     * <p>
+     * 別の形式からパケットの本体に変換します。
+     * </p>
+     *
+     * @param c 各メンバの変換を実施するオブジェクト
+     */
+    protected abstract void readBody(PacketReader<?> c);
+
+    /**
+     * <p>
+     * 別の形式からパケットのフッタに変換します。
+     * </p>
+     *
+     * @param c 各メンバの変換を実施するオブジェクト
+     */
+    protected abstract void readFooter(PacketReader<?> c);
+
+    /**
+     * <p>
+     * パケットのヘッダを別の形式に変換します。
+     * </p>
+     *
+     * @param c 各メンバの変換を実施するオブジェクト
+     */
+    protected abstract void writeHeader(PacketWriter<?> c);
 
     /**
      * <p>
      * パケットの本体を別の形式に変換します。
      * </p>
      *
-     * <p>
-     * 変換結果は PacketConverter オブジェクトに保持されます。
-     * </p>
-     *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected abstract void convertBody(PacketConverter<?> c);
+    protected abstract void writeBody(PacketWriter<?> c);
 
     /**
      * <p>
      * パケットのフッタを別の形式に変換します。
      * </p>
      *
-     * <p>
-     * 変換結果は PacketConverter オブジェクトに保持されます。
-     * </p>
-     *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected abstract void convertFooter(PacketConverter<?> c);
+    protected abstract void writeFooter(PacketWriter<?> c);
 
     /**
      * <p>
-     * パケット全体を別の形式に変換します。
+     * パケット全体を表すビット列を取得します。
+     * </p>
+     *
+     * <p>
+     * パケット全体を表すビット列が存在しない場合もあります。
      * </p>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected void convertRawPacket(PacketConverter<?> c) {
+    protected void convRawPacket(PacketConverter<?> c) {
         long org_pos;
 
         org_pos = c.position();
         c.position(getHeaderAddress());
-        raw_packet = c.convBitList(getLength(), raw_packet, "raw_packet");
+        //FIXME: convSubList を実装する
+        raw_packet = c.convSubList(getLength(), raw_packet, "raw_packet");
         c.position(org_pos);
     }
 
@@ -437,17 +451,18 @@ public abstract class AbstractPacket
      * @param c 各メンバの変換を実施するオブジェクト
      */
     @Override
-    public void read(PacketConverter<?> c) {
+    public void read(PacketReader<?> c) {
         c.enterPacket(getShortName());
 
         setHeaderAddress(c.position());
-        convertHeader(c);
+        readHeader(c);
         setHeaderLength(c.position() - getHeaderAddress());
-        convertBody(c);
+        readBody(c);
         setBodyLength(c.position() - getBodyAddress());
-        convertFooter(c);
+        readFooter(c);
         setFooterLength(c.position() - getFooterAddress());
-        convertRawPacket(c);
+
+        convRawPacket(c);
 
         c.leavePacket();
     }
@@ -464,40 +479,18 @@ public abstract class AbstractPacket
      * @param c 各メンバの変換を実施するオブジェクト
      */
     @Override
-    public void write(PacketConverter<?> c) {
+    public void write(PacketWriter<?> c) {
         c.enterPacket(getShortName());
 
         setHeaderAddress(c.position());
-        convertHeader(c);
+        writeHeader(c);
         setHeaderLength(c.position() - getHeaderAddress());
-        convertBody(c);
+        writeBody(c);
         setBodyLength(c.position() - getBodyAddress());
-        convertFooter(c);
+        writeFooter(c);
         setFooterLength(c.position() - getFooterAddress());
-        convertRawPacket(c);
 
-        c.leavePacket();
-    }
-
-    /**
-     * <p>
-     * パケットを別の形式に変換します。
-     * </p>
-     *
-     * <p>
-     * 変換結果は PacketConverter オブジェクトに保持されます。
-     * </p>
-     *
-     * @param c 各メンバの変換を実施するオブジェクト
-     */
-    @Override
-    public void convert(PacketConverter<?> c) {
-        c.enterPacket(getShortName());
-
-        convertHeader(c);
-        convertBody(c);
-        convertFooter(c);
-        convertRawPacket(c);
+        convRawPacket(c);
 
         c.leavePacket();
     }
@@ -829,8 +822,18 @@ public abstract class AbstractPacket
         return children.get(index);
     }
 
-    public static void convert(PacketConverter<?> c,
-                               AbstractPacket d) {
+    public static void read(PacketConverter<?> c,
+                             AbstractPacket d) {
+        conv(c, d);
+    }
+
+    public static void write(PacketConverter<?> c,
+                             AbstractPacket d) {
+        conv(c, d);
+    }
+
+    private static void conv(PacketConverter<?> c,
+                             AbstractPacket d) {
         c.enterBlock("standard packet header");
 
         c.mark("tag_num",
@@ -857,7 +860,7 @@ public abstract class AbstractPacket
     public String toString() {
         ToStringConverter c = new ToStringConverter(new StringBuilder());
 
-        convert(c);
+        write(c);
 
         return c.getResult().toString();
     }

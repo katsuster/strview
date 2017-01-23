@@ -27,7 +27,7 @@ public interface Block extends Cloneable {
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    public void read(PacketConverter<?> c);
+    public void read(PacketReader<?> c);
 
     /**
      * <p>
@@ -36,18 +36,5 @@ public interface Block extends Cloneable {
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    public void write(PacketConverter<?> c);
-
-    /**
-     * <p>
-     * ブロックを別の形式に変換します。
-     * </p>
-     *
-     * <p>
-     * 変換結果は PacketConverter オブジェクトに保持されます。
-     * </p>
-     *
-     * @param c 各メンバの変換を実施するオブジェクト
-     */
-    public void convert(PacketConverter<?> c);
+    public void write(PacketWriter<?> c);
 }

@@ -48,21 +48,40 @@ public class TSPacket extends PacketAdapter
     }
 
     @Override
-    protected void convertHeader(PacketConverter<?> c) {
-        AbstractPacket.convert(c, this);
+    protected void readHeader(PacketReader<?> c) {
+        AbstractPacket.read(c, this);
 
-        getHeader().convert(c);
+        getHeader().read(c);
     }
 
     @Override
-    protected void convertBody(PacketConverter<?> c) {
+    protected void readBody(PacketReader<?> c) {
         int size_f;
 
         //サイズは固定の長さ
         size_f = (PACKET_SIZE << 3);
 
-        //ヘッダ以降を本体として読み込む
+        //ヘッダ以降の本体を読み込む
         size_f -= getHeaderLength();
-        setBody(c.convBitList(size_f, getBody(), "body"));
+        setBody(c.readBitList(size_f, getBody(), "body"));
+    }
+
+    @Override
+    protected void writeHeader(PacketWriter<?> c) {
+        AbstractPacket.write(c, this);
+
+        getHeader().write(c);
+    }
+
+    @Override
+    protected void writeBody(PacketWriter<?> c) {
+        int size_f;
+
+        //サイズは固定の長さ
+        size_f = (PACKET_SIZE << 3);
+
+        //ヘッダ以降の本体を書き込む
+        size_f -= getHeaderLength();
+        c.writeBitList(size_f, getBody(), "body");
     }
 }

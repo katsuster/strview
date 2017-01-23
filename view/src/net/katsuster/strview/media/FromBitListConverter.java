@@ -9,7 +9,7 @@ import net.katsuster.strview.util.*;
  *
  * @author katsuhiro
  */
-public class FromBitListConverter extends PacketConverterAdapter<LargeBitList> {
+public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
     private LargeBitList buf;
     private long pos;
 
@@ -48,7 +48,7 @@ public class FromBitListConverter extends PacketConverterAdapter<LargeBitList> {
     }
 
     @Override
-    public SInt convSInt(int nbit, SInt val, String name, String desc) {
+    public SInt readSInt(int nbit, SInt val, String desc) {
         if (val == null) {
             val = new SInt();
         }
@@ -62,7 +62,7 @@ public class FromBitListConverter extends PacketConverterAdapter<LargeBitList> {
     }
 
     @Override
-    public UInt convUInt(int nbit, UInt val, String name, String desc) {
+    public UInt readUInt(int nbit, UInt val, String desc) {
         if (val == null) {
             val = new UInt();
         }
@@ -76,12 +76,20 @@ public class FromBitListConverter extends PacketConverterAdapter<LargeBitList> {
     }
 
     @Override
-    public LargeBitList convBitList(long nbit, LargeBitList val, String name, String desc) {
+    public LargeBitList readBitList(long nbit, LargeBitList val, String desc) {
         val = buf.subLargeList(pos, pos + nbit);
         pos += nbit;
 
         return val;
     }
+
+    /*@Override
+    public LargeBitList convSubList(long nbit, LargeBitList val, String name, String desc) {
+        val = buf.subLargeList(pos, pos + nbit);
+        pos += nbit;
+
+        return val;
+    }*/
 
     @Override
     public LargeBitList getResult() {

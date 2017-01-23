@@ -190,64 +190,11 @@ public interface PacketConverter<T> {
 
     /**
      * <p>
-     * 変換対象となる符号付き数値を追加します。
+     * データの部分列を取得します。
      * </p>
      *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @param name 変換対象の名前
-     * @return 変換対象の符号付き数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public SInt convSInt(int nbit, SInt val, String name);
-
-    /**
      * <p>
-     * 変換対象となる符号付き数値を追加します。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @param name 変換対象の名前
-     * @param desc 変換対象の符号付き数値の意味、説明など
-     * @return 変換対象の符号付き数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public SInt convSInt(int nbit, SInt val, String name, String desc);
-
-    /**
-     * <p>
-     * 変換対象となる符号無し数値を追加します。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @param name 変換対象の名前
-     * @return 変換対象の符号無し数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public UInt convUInt(int nbit, UInt val, String name);
-
-    /**
-     * <p>
-     * 変換対象となる符号無し数値を追加します。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @param name 変換対象の名前
-     * @param desc 変換対象の符号無し数値の意味、説明など
-     * @return 変換対象の符号無し数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public UInt convUInt(int nbit, UInt val, String name, String desc);
-
-    /**
-     * <p>
-     * 変換対象となるビットリストを追加します。
-     * データに加えて、データの意味、説明などを渡すことができます。
+     * 部分列が定義できないデータの場合は null を返します。
      * </p>
      *
      * @param nbit 変換対象のサイズ（ビット単位）
@@ -256,12 +203,16 @@ public interface PacketConverter<T> {
      * @return 変換対象のビットリスト
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public LargeBitList convBitList(long nbit, LargeBitList val, String name);
+    public LargeBitList convSubList(long nbit, LargeBitList val, String name);
 
     /**
      * <p>
-     * 変換対象となるビットリストを追加します。
+     * データの部分列を取得します。
      * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * <p>
+     * 部分列が定義できないデータの場合は null を返します。
      * </p>
      *
      * @param nbit 変換対象のサイズ（ビット単位）
@@ -271,7 +222,7 @@ public interface PacketConverter<T> {
      * @return 変換対象のビットリスト
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public LargeBitList convBitList(long nbit, LargeBitList val, String name, String desc);
+    public LargeBitList convSubList(long nbit, LargeBitList val, String name, String desc);
 
     /**
      * <p>

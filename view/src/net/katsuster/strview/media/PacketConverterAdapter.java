@@ -76,33 +76,13 @@ public class PacketConverterAdapter<T> implements PacketConverter<T> {
     }
 
     @Override
-    public SInt convSInt(int nbit, SInt val, String name) {
-        return convSInt(nbit, val, name, null);
+    public LargeBitList convSubList(long nbit, LargeBitList val, String name) {
+        return convSubList(nbit, val, name, null);
     }
 
     @Override
-    public SInt convSInt(int nbit, SInt val, String name, String desc) {
-        return val;
-    }
-
-    @Override
-    public UInt convUInt(int nbit, UInt val, String name) {
-        return convUInt(nbit, val, name, null);
-    }
-
-    @Override
-    public UInt convUInt(int nbit, UInt val, String name, String desc) {
-        return val;
-    }
-
-    @Override
-    public LargeBitList convBitList(long nbit, LargeBitList val, String name) {
-        return convBitList(nbit, val, name, null);
-    }
-
-    @Override
-    public LargeBitList convBitList(long nbit, LargeBitList val, String name, String desc) {
-        return val;
+    public LargeBitList convSubList(long nbit, LargeBitList val, String name, String desc) {
+        return null;
     }
 
     @Override
