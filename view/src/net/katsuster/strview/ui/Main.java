@@ -6,6 +6,7 @@ import java.awt.HeadlessException;
 
 import javax.swing.*;
 
+import net.katsuster.strview.util.*;
 import net.katsuster.strview.io.*;
 import net.katsuster.strview.gui.*;
 import net.katsuster.strview.media.ts.*;
@@ -30,7 +31,7 @@ public class Main {
             LargeBitList blist = new ByteToBitList(new FileByteList(fname));
             TSPacketList tslist = new TSPacketList(blist);
 
-            //tslist.count();
+            tslist.count();
 
             for (TSPacket a : tslist) {
                 System.out.println(a);
