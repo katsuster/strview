@@ -434,7 +434,6 @@ public abstract class AbstractPacket extends AbstractBlock
 
         org_pos = c.position();
         c.position(getHeaderAddress());
-        //FIXME: convSubList を実装する
         raw_packet = c.convSubList(getLength(), raw_packet, "raw_packet");
         c.position(org_pos);
     }
