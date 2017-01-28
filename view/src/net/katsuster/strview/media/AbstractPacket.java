@@ -68,7 +68,7 @@ import net.katsuster.strview.util.*;
  * @see PacketAdapter
  * @author katsuhiro
  */
-public abstract class AbstractPacket
+public abstract class AbstractPacket extends AbstractBlock
         implements Packet, Cloneable {
     //パケットの通し番号
     private long num;
@@ -823,7 +823,7 @@ public abstract class AbstractPacket
     }
 
     public static void read(PacketReader<?> c,
-                             AbstractPacket d) {
+                            AbstractPacket d) {
         conv(c, d);
     }
 
@@ -854,14 +854,5 @@ public abstract class AbstractPacket
                 d.getLevel());
 
         c.leaveBlock();
-    }
-
-    @Override
-    public String toString() {
-        ToStringConverter c = new ToStringConverter(new StringBuilder());
-
-        write(c);
-
-        return c.getResult().toString();
     }
 }

@@ -44,6 +44,20 @@ public abstract class AbstractBlock implements Block {
     }
 
     @Override
+    public void peek(PacketReader<?> c) {
+        long orgpos = c.position();
+        read(c);
+        c.position(orgpos);
+    }
+
+    @Override
+    public void poke(PacketWriter<?> c) {
+        long orgpos = c.position();
+        write(c);
+        c.position(orgpos);
+    }
+
+    @Override
     public String toString() {
         ToStringConverter c = new ToStringConverter(new StringBuilder());
 

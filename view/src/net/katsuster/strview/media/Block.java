@@ -22,12 +22,30 @@ public interface Block extends Cloneable {
 
     /**
      * <p>
+     * 現在位置を更新せずに、ブロックを読み込みます。
+     * </p>
+     *
+     * @param c 各メンバの変換を実施するオブジェクト
+     */
+    public void peek(PacketReader<?> c);
+
+    /**
+     * <p>
      * ブロックを読み込みます。
      * </p>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
     public void read(PacketReader<?> c);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、ブロックを書き込みます。
+     * </p>
+     *
+     * @param c 各メンバの変換を実施するオブジェクト
+     */
+    public void poke(PacketWriter<?> c);
 
     /**
      * <p>
