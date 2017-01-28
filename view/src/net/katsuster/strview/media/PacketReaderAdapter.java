@@ -20,15 +20,15 @@ import net.katsuster.strview.util.*;
  *
  * @author katsuhiro
  */
-public class PacketReaderAdapter<T> extends PacketConverterAdapter<T>
+public class PacketReaderAdapter<T> extends AbstractPacketReader<T>
         implements PacketReader<T> {
     public PacketReaderAdapter() {
         //do nothing
     }
 
     @Override
-    public SInt readSInt(int nbit, SInt val) {
-        return readSInt(nbit, val, null);
+    public long readLong(int nbit, String desc) {
+        return 0;
     }
 
     @Override
@@ -37,22 +37,12 @@ public class PacketReaderAdapter<T> extends PacketConverterAdapter<T>
     }
 
     @Override
-    public UInt readUInt(int nbit, UInt val) {
-        return readUInt(nbit, val, null);
-    }
-
-    @Override
     public UInt readUInt(int nbit, UInt val, String desc) {
         return val;
     }
 
     @Override
-    public LargeBitList readBitList(long nbit, LargeBitList val) {
-        return readBitList(nbit, val, null);
-    }
-
-    @Override
-    public LargeBitList readBitList(long nbit, LargeBitList val, String desc) {
+    public LargeBitList readBitList(int nbit, LargeBitList val, String desc) {
         return val;
     }
 }

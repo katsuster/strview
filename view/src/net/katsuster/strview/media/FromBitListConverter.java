@@ -48,6 +48,14 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
     }
 
     @Override
+    public long readLong(int nbit, String desc) {
+        long res = buf.getPackedLong(pos, nbit);
+        pos += nbit;
+
+        return res;
+    }
+
+    @Override
     public SInt readSInt(int nbit, SInt val, String desc) {
         if (val == null) {
             val = new SInt();
@@ -76,20 +84,20 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
     }
 
     @Override
-    public LargeBitList readBitList(long nbit, LargeBitList val, String desc) {
+    public LargeBitList readBitList(int nbit, LargeBitList val, String desc) {
         val = buf.subLargeList(pos, pos + nbit);
         pos += nbit;
 
         return val;
     }
 
-    /*@Override
+    @Override
     public LargeBitList convSubList(long nbit, LargeBitList val, String name, String desc) {
         val = buf.subLargeList(pos, pos + nbit);
         pos += nbit;
 
         return val;
-    }*/
+    }
 
     @Override
     public LargeBitList getResult() {

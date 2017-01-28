@@ -20,15 +20,15 @@ import net.katsuster.strview.util.*;
  *
  * @author katsuhiro
  */
-public class PacketWriterAdapter<T> extends PacketConverterAdapter<T>
+public class PacketWriterAdapter<T> extends AbstractPacketWriter<T>
         implements PacketWriter<T> {
     public PacketWriterAdapter() {
         //do nothing
     }
 
     @Override
-    public void writeSInt(int nbit, SInt val, String name) {
-        writeSInt(nbit, val, name, null);
+    public void writeLong(int nbit, long val, String name, String desc) {
+        //do nothing
     }
 
     @Override
@@ -37,22 +37,12 @@ public class PacketWriterAdapter<T> extends PacketConverterAdapter<T>
     }
 
     @Override
-    public void writeUInt(int nbit, UInt val, String name) {
-        writeUInt(nbit, val, name, null);
-    }
-
-    @Override
     public void writeUInt(int nbit, UInt val, String name, String desc) {
         //do nothing
     }
 
     @Override
-    public void writeBitList(long nbit, LargeBitList val, String name) {
-        writeBitList(nbit, val, name, null);
-    }
-
-    @Override
-    public void writeBitList(long nbit, LargeBitList val, String name, String desc) {
+    public void writeBitList(int nbit, LargeBitList val, String name, String desc) {
         //do nothing
     }
 }

@@ -33,6 +33,80 @@ import net.katsuster.strview.util.*;
 public interface PacketReader<T> extends PacketConverter<T> {
     /**
      * <p>
+     * 現在位置を更新せずに、数値を読み出します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @return 変換対象の数値
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public long peekLong(int nbit);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、数値を読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param desc 変換対象の符号付き数値の意味、説明など
+     * @return 変換対象の符号付き数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public long peekLong(int nbit, String desc);
+
+    /**
+     * <p>
+     * 数値を読み出します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @return 変換対象の数値
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public long readLong(int nbit);
+
+    /**
+     * <p>
+     * 数値を読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param desc 変換対象の符号付き数値の意味、説明など
+     * @return 変換対象の符号付き数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public long readLong(int nbit, String desc);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、符号付き数値を読み出します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の符号付き数値オブジェクト
+     * @return 変換対象の符号付き数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public SInt peekSInt(int nbit, SInt val);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、符号付き数値を読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の符号付き数値オブジェクト
+     * @param desc 変換対象の符号付き数値の意味、説明など
+     * @return 変換対象の符号付き数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public SInt peekSInt(int nbit, SInt val, String desc);
+
+    /**
+     * <p>
      * 符号付き数値を読み出します。
      * </p>
      *
@@ -56,6 +130,32 @@ public interface PacketReader<T> extends PacketConverter<T> {
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
     public SInt readSInt(int nbit, SInt val, String desc);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、符号無し数値を読み出します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の符号無し数値オブジェクト
+     * @return 変換対象の符号無し数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public UInt peekUInt(int nbit, UInt val);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、符号無し数値を読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の符号無し数値オブジェクト
+     * @param desc 変換対象の符号無し数値の意味、説明など
+     * @return 変換対象の符号無し数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public UInt peekUInt(int nbit, UInt val, String desc);
 
     /**
      * <p>
@@ -85,6 +185,33 @@ public interface PacketReader<T> extends PacketConverter<T> {
 
     /**
      * <p>
+     * 現在位置を更新せずに、ビットリストを読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象のビットリスト
+     * @return 変換対象のビットリスト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public LargeBitList peekBitList(int nbit, LargeBitList val);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、ビットリストを読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象のビットリスト
+     * @param desc 変換対象のビットリストの意味、説明など
+     * @return 変換対象のビットリスト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public LargeBitList peekBitList(int nbit, LargeBitList val, String desc);
+
+    /**
+     * <p>
      * ビットリストを読み出します。
      * データに加えて、データの意味、説明などを渡すことができます。
      * </p>
@@ -94,7 +221,7 @@ public interface PacketReader<T> extends PacketConverter<T> {
      * @return 変換対象のビットリスト
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public LargeBitList readBitList(long nbit, LargeBitList val);
+    public LargeBitList readBitList(int nbit, LargeBitList val);
 
     /**
      * <p>
@@ -108,5 +235,5 @@ public interface PacketReader<T> extends PacketConverter<T> {
      * @return 変換対象のビットリスト
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public LargeBitList readBitList(long nbit, LargeBitList val, String desc);
+    public LargeBitList readBitList(int nbit, LargeBitList val, String desc);
 }

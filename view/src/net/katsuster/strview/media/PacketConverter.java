@@ -27,7 +27,7 @@ import net.katsuster.strview.util.*;
  * r = c.getResult();
  * </pre>
  *
- * @see PacketConverterAdapter
+ * @see AbstractPacketConverter
  * @author katsuhiro
  */
 public interface PacketConverter<T> {

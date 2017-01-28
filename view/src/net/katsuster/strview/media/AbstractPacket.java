@@ -822,12 +822,12 @@ public abstract class AbstractPacket
         return children.get(index);
     }
 
-    public static void read(PacketConverter<?> c,
+    public static void read(PacketReader<?> c,
                              AbstractPacket d) {
         conv(c, d);
     }
 
-    public static void write(PacketConverter<?> c,
+    public static void write(PacketWriter<?> c,
                              AbstractPacket d) {
         conv(c, d);
     }

@@ -20,8 +20,8 @@ import net.katsuster.strview.util.*;
  *
  * @author katsuhiro
  */
-public class PacketConverterAdapter<T> implements PacketConverter<T> {
-    public PacketConverterAdapter() {
+public abstract class AbstractPacketConverter<T> implements PacketConverter<T> {
+    public AbstractPacketConverter() {
         //do nothing
     }
 

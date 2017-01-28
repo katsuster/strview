@@ -33,6 +33,12 @@ public class ToStringConverter extends PacketWriterAdapter<StringBuilder> {
     }
 
     @Override
+    public void writeLong(int nbit, long val, String name, String desc) {
+        sb.append(NumFormatter.longToDecHexCaption(
+                name, val, desc));
+    }
+
+    @Override
     public void writeSInt(int nbit, SInt val, String name, String desc) {
         sb.append(NumFormatter.numToDecHexCaption(
                 name, val, desc));
@@ -45,7 +51,7 @@ public class ToStringConverter extends PacketWriterAdapter<StringBuilder> {
     }
 
     @Override
-    public void writeBitList(long nbit, LargeBitList val, String name, String desc) {
+    public void writeBitList(int nbit, LargeBitList val, String name, String desc) {
         sb.append(NumFormatter.bitListToHexCaption(
                 name, val, desc));
     }
