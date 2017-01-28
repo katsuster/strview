@@ -4,6 +4,10 @@ import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
+ * <p>
+ * MPEG2-TS(Transport Stream) パケットリスト。
+ * </p>
+ *
  * @author katsuhiro
  */
 public class TSPacketList extends AbstractLargeList<TSPacket> {
