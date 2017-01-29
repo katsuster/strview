@@ -34,7 +34,7 @@ import net.katsuster.strview.media.*;
  *
  * @author katsuhiro
  */
-public class MKVTagList extends AbstractLargeList<MKVTag> {
+public class MKVTagList extends AbstractPacketList<MKVTag> {
     private LargeBitList buf;
 
     public MKVTagList() {
@@ -49,11 +49,11 @@ public class MKVTagList extends AbstractLargeList<MKVTag> {
 
     protected void seekSlow(PacketReader<?> c, long start, long index) {
         for (long i = start; i < index; i++) {
-            readNext(c);
+            readNext(c, i);
         }
     }
 
-    protected MKVTag readNext(PacketReader<?> c) {
+    protected MKVTag readNext(PacketReader<?> c, long index) {
         MKVTag packet;
 
         MKVHeader tmph = new MKVHeader();
@@ -81,6 +81,8 @@ public class MKVTagList extends AbstractLargeList<MKVTag> {
             c.position(packet.getBodyAddress());
         }
 
+        packet.setNumber(index);
+
         return packet;
     }
 
@@ -91,7 +93,9 @@ public class MKVTagList extends AbstractLargeList<MKVTag> {
 
         try {
             while (true) {
-                readNext(c);
+                MKVTag t = readNext(c, cnt);
+                leaveParentPacket(t);
+                enterParentPacket(t);
                 cnt++;
             }
         } catch (IndexOutOfBoundsException ex) {
@@ -110,8 +114,7 @@ public class MKVTagList extends AbstractLargeList<MKVTag> {
 
         seekSlow(c, 0, index);
 
-        MKVTag p = readNext(c);
-        p.setNumber(index);
+        MKVTag p = readNext(c, index);
         p.setLevel(0);
 
         return p;
