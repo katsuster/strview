@@ -129,10 +129,9 @@ public abstract class EBMLvint extends BlockAdapter
      * @throws IllegalArgumentException どの種類にも当てはまらない場合
      */
     public static int getVintType(int f) {
-        for (int i = 0; i < 8; i++) {
-            if ((f & (0x80 >>> i)) != 0) {
-                return i;
-            }
+        int i = 8 + Integer.numberOfLeadingZeros(f & 0xff) - 32;
+        if (i < 8) {
+            return i;
         }
 
         //over 64bit... not support
