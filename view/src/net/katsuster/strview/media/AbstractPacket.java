@@ -460,7 +460,6 @@ public abstract class AbstractPacket extends AbstractBlock
         setBodyLength(c.position() - getBodyAddress());
         readFooter(c);
         setFooterLength(c.position() - getFooterAddress());
-
         convRawPacket(c);
 
         c.leavePacket();
@@ -481,14 +480,9 @@ public abstract class AbstractPacket extends AbstractBlock
     public void write(PacketWriter<?> c) {
         c.enterPacket(getShortName());
 
-        setHeaderAddress(c.position());
         writeHeader(c);
-        setHeaderLength(c.position() - getHeaderAddress());
         writeBody(c);
-        setBodyLength(c.position() - getBodyAddress());
         writeFooter(c);
-        setFooterLength(c.position() - getFooterAddress());
-
         convRawPacket(c);
 
         c.leavePacket();
