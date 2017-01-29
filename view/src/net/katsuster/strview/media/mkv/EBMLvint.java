@@ -122,7 +122,7 @@ public abstract class EBMLvint extends BlockAdapter
      * <dt>7</dt>
      * <dd>64bit: 0b0000-0001 xxxx-xxxx xxxx-xxxx xxxx-xxxx
      * xxxx-xxxx xxxx-xxxx xxxx-xxxx xxxx-xxxx</dd>
-     * </nl>
+     * </dl>
      *
      * @param f 可変長整数の先頭 8bit の値
      * @return 可変長整数の符号全体の種類

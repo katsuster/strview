@@ -53,7 +53,6 @@ public interface PacketWriter<T> extends PacketConverter<T> {
      * @param val  変換対象の数値
      * @param name 変換対象の名前
      * @param desc 変換対象の符号付き数値の意味、説明など
-     * @return 変換対象の符号付き数値オブジェクト
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
     public void pokeLong(int nbit, long val, String name, String desc);
@@ -80,7 +79,6 @@ public interface PacketWriter<T> extends PacketConverter<T> {
      * @param val  変換対象の数値
      * @param name 変換対象の名前
      * @param desc 変換対象の符号付き数値の意味、説明など
-     * @return 変換対象の符号付き数値オブジェクト
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
     public void writeLong(int nbit, long val, String name, String desc);
