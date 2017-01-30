@@ -94,7 +94,7 @@ public class MKVHeaderSimpleBlock extends MKVHeader {
         long frame_size, frame_sum;
         int i;
 
-        c.enterBlock("Matroska SimpleBlock header");
+        c.enterBlock("Matroska SimpleBlock");
 
         MKVHeader.read(c, d);
 
@@ -149,7 +149,7 @@ public class MKVHeaderSimpleBlock extends MKVHeader {
                              MKVHeaderSimpleBlock d) {
         int i;
 
-        c.enterBlock("Matroska SimpleBlock header");
+        c.enterBlock("Matroska SimpleBlock");
 
         MKVHeader.write(c, d);
 
