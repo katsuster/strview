@@ -117,8 +117,7 @@ public class TSPacketHeader extends BlockAdapter
     }
 
     public String getPIDName() {
-        return getPIDName(
-                this.pid.intValue());
+        return getPIDName(pid.intValue());
     }
 
     public static String getPIDName(int id) {
@@ -179,8 +178,7 @@ public class TSPacketHeader extends BlockAdapter
     }
 
     public String getScramblingName() {
-        return getScramblingName(
-                this.transport_scrambling_control.intValue());
+        return getScramblingName(transport_scrambling_control.intValue());
     }
 
     public static String getScramblingName(int id) {
@@ -214,8 +212,7 @@ public class TSPacketHeader extends BlockAdapter
     }
 
     public String getAdaptationFieldName() {
-        return getAdaptationFieldName(
-                this.adaptation_field_control.intValue());
+        return getAdaptationFieldName(adaptation_field_control.intValue());
     }
 
     public static String getAdaptationFieldName(int id) {
