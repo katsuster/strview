@@ -30,11 +30,11 @@ public class MKVConsts {
     public static final PacketFactory<MKVTag, MKVHeader, Integer> mkvDataFactory =
             new PacketFactory<MKVTag, MKVHeader, Integer>(MKVTag.class, MKVHeader.class);
     static {
-        //mkvDataFactory.put(TAG_TYPE.UINT, MKVTagHeaderUint.class);
-        //mkvDataFactory.put(TAG_TYPE.INT, MKVTagHeaderSint.class);
+        mkvDataFactory.put(TAG_TYPE.UINT, MKVHeaderUInt.class);
+        mkvDataFactory.put(TAG_TYPE.INT, MKVHeaderSInt.class);
         //mkvDataFactory.put(TAG_TYPE.STRING, MKVTagHeaderString.class);
         //mkvDataFactory.put(TAG_TYPE.UTF8, MKVTagHeaderUTF8.class);
-        //mkvDataFactory.put(TAG_TYPE.FLOAT, MKVTagHeaderFloat.class);
+        mkvDataFactory.put(TAG_TYPE.FLOAT, MKVHeaderFloat.class);
     }
 
     //MKV タグの仕様定義テーブル
