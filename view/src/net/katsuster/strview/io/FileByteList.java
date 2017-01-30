@@ -204,8 +204,8 @@ public class FileByteList extends AbstractLargeList<Byte>
         if (index + length > length()) {
             throw new IndexOutOfBoundsException(
                     "index:" + index + " + "
-                            + "length:" + length + " is larger than "
-                            + "this.length:" + length() + ".");
+                            + "len:" + length + " is larger than "
+                            + "length():" + length() + ".");
         }
     }
 
