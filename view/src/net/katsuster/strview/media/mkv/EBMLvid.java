@@ -84,7 +84,7 @@ public class EBMLvid extends EBMLvint
         d.setSizeAll(size);
         d.setSizeContent(size);
 
-        d.vint_tag = c.readUInt(size, null);
+        d.vint_tag = c.readUInt(size, d.vint_tag);
 
         c.leaveBlock();
     }
