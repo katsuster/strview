@@ -66,13 +66,44 @@ public abstract class AbstractPacketConverter<T> implements PacketConverter<T> {
     }
 
     @Override
-    public long position() {
-        return 0;
+    public boolean isAlignByte() {
+        return (position() & 0x7) == 0;
     }
 
     @Override
-    public void position(long p) {
-        //do nothing
+    public void alignByte() {
+        position((position() + 0x7) & ~0x7);
+    }
+
+    @Override
+    public boolean isAlignShort() {
+        return (position() & 0xf) == 0;
+    }
+
+    @Override
+    public void alignShort() {
+        position((position() + 0xf) & ~0xf);
+    }
+
+    @Override
+    public boolean isAlignInt() {
+        return (position() & 0x1f) == 0;
+
+    }
+
+    @Override
+    public void alignInt() {
+        position((position() + 0x1f) & ~0x1f);
+    }
+
+    @Override
+    public boolean isAlignLong() {
+        return (position() & 0x3f) == 0;
+    }
+
+    @Override
+    public void alignLong() {
+        position((position() + 0x3f) & ~0x3f);
     }
 
     @Override
@@ -82,11 +113,6 @@ public abstract class AbstractPacketConverter<T> implements PacketConverter<T> {
 
     @Override
     public LargeBitList convSubList(long nbit, LargeBitList val, String name, String desc) {
-        return null;
-    }
-
-    @Override
-    public T getResult() {
         return null;
     }
 }

@@ -27,6 +27,16 @@ public class PacketWriterAdapter<T> extends AbstractPacketWriter<T>
     }
 
     @Override
+    public long position() {
+        return 0;
+    }
+
+    @Override
+    public void position(long p) {
+        //do nothing
+    }
+
+    @Override
     public void writeLong(int nbit, long val, String name, String desc) {
         //do nothing
     }
@@ -44,5 +54,10 @@ public class PacketWriterAdapter<T> extends AbstractPacketWriter<T>
     @Override
     public void writeBitList(int nbit, LargeBitList val, String name, String desc) {
         //do nothing
+    }
+
+    @Override
+    public T getResult() {
+        return null;
     }
 }

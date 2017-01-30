@@ -27,6 +27,16 @@ public class PacketReaderAdapter<T> extends AbstractPacketReader<T>
     }
 
     @Override
+    public long position() {
+        return 0;
+    }
+
+    @Override
+    public void position(long p) {
+        //do nothing
+    }
+
+    @Override
     public long readLong(int nbit, String desc) {
         return 0;
     }
@@ -44,5 +54,10 @@ public class PacketReaderAdapter<T> extends AbstractPacketReader<T>
     @Override
     public LargeBitList readBitList(int nbit, LargeBitList val, String desc) {
         return val;
+    }
+
+    @Override
+    public T getResult() {
+        return null;
     }
 }

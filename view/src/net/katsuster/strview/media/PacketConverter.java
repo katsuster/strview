@@ -190,6 +190,70 @@ public interface PacketConverter<T> {
 
     /**
      * <p>
+     * 変換中の位置が 1バイト境界かどうか取得します。
+     * </p>
+     *
+     * @return 1バイト境界なら true、そうでなければ false
+     */
+    public boolean isAlignByte();
+
+    /**
+     * <p>
+     * 変換中の位置を 1バイト境界に設定します。
+     * </p>
+     */
+    public void alignByte();
+
+    /**
+     * <p>
+     * 変換中の位置が 2バイト境界かどうか取得します。
+     * </p>
+     *
+     * @return 2バイト境界なら true、そうでなければ false
+     */
+    public boolean isAlignShort();
+
+    /**
+     * <p>
+     * 変換中の位置を 2バイト境界に設定します。
+     * </p>
+     */
+    public void alignShort();
+
+    /**
+     * <p>
+     * 変換中の位置が 4バイト境界かどうか取得します。
+     * </p>
+     *
+     * @return 4バイト境界なら true、そうでなければ false
+     */
+    public boolean isAlignInt();
+
+    /**
+     * <p>
+     * 変換中の位置を 4バイト境界に設定します。
+     * </p>
+     */
+    public void alignInt();
+
+    /**
+     * <p>
+     * 変換中の位置が 8バイト境界かどうか取得します。
+     * </p>
+     *
+     * @return 8バイト境界なら true、そうでなければ false
+     */
+    public boolean isAlignLong();
+
+    /**
+     * <p>
+     * 変換中の位置を 8バイト境界に設定します。
+     * </p>
+     */
+    public void alignLong();
+
+    /**
+     * <p>
      * データの部分列を取得します。
      * </p>
      *
