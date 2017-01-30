@@ -4,6 +4,7 @@ import java.util.*;
 
 import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.media.mkv.MKVConsts.*;
 
 /**
  * <p>
@@ -187,41 +188,6 @@ public class MKVHeaderBlock extends MKVHeader {
     }
 
     public String getLacingName() {
-        return getLacingName(lacing.intValue());
-    }
-
-    public static String getLacingName(int id) {
-        String name = "..unknown..";
-
-        switch (id) {
-        case LACING.NO:
-            //no lacing
-            name = "no lacing";
-            break;
-        case LACING.XIPH:
-            //Xiph lacing
-            name = "Xiph lacing";
-            break;
-        case LACING.EBML:
-            //EBML lacing
-            name = "EBML lacing";
-            break;
-        case LACING.FIXED_SIZE:
-            //fixed-size lacing
-            name = "fixed-size lacing";
-            break;
-        default:
-            //do nothing
-            break;
-        }
-
-        return name;
-    }
-
-    public static class LACING {
-        public static final int NO         = 0x00; //no lacing
-        public static final int XIPH       = 0x01; //Xiph lacing
-        public static final int EBML       = 0x03; //EBML lacing
-        public static final int FIXED_SIZE = 0x02; //fixed-size lacing
+        return MKVConsts.getLacingName(lacing.intValue());
     }
 }
