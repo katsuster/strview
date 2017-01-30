@@ -69,10 +69,9 @@ public class ToStringConverter extends PacketWriterAdapter<StringBuilder> {
     }
 
     @Override
-    public LargeBitList convSubList(long nbit, LargeBitList val, String name, String desc) {
+    public void writeSubList(long nbit, LargeBitList val, String name, String desc) {
         sb.append(NumFormatter.bitListToHexCaption(
                 name, val, desc));
-        return val;
     }
 
     @Override

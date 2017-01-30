@@ -105,14 +105,4 @@ public abstract class AbstractPacketConverter<T> implements PacketConverter<T> {
     public void alignLong() {
         position((position() + 0x3f) & ~0x3f);
     }
-
-    @Override
-    public LargeBitList convSubList(long nbit, LargeBitList val, String name) {
-        return convSubList(nbit, val, name, null);
-    }
-
-    @Override
-    public LargeBitList convSubList(long nbit, LargeBitList val, String name, String desc) {
-        return null;
-    }
 }

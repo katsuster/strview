@@ -1,5 +1,6 @@
 package net.katsuster.strview.media;
 
+import net.katsuster.strview.io.*;
 import net.katsuster.strview.util.*;
 
 /**
@@ -113,14 +114,17 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
 
     @Override
     public LargeBitList readBitList(int nbit, LargeBitList val, String desc) {
-        val = buf.subLargeList(pos, pos + nbit);
+        if (val == null || val.length() < nbit) {
+            val = new MemoryBitList(nbit);
+        }
+        buf.get(pos, val, 0, nbit);
         pos += nbit;
 
         return val;
     }
 
     @Override
-    public LargeBitList convSubList(long nbit, LargeBitList val, String name, String desc) {
+    public LargeBitList readSubList(long nbit, LargeBitList val, String desc) {
         val = buf.subLargeList(pos, pos + nbit);
         pos += nbit;
 

@@ -254,42 +254,6 @@ public interface PacketConverter<T> {
 
     /**
      * <p>
-     * データの部分列を取得します。
-     * </p>
-     *
-     * <p>
-     * 部分列が定義できないデータの場合は null を返します。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象のビットリスト
-     * @param name 変換対象の名前
-     * @return 変換対象のビットリスト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public LargeBitList convSubList(long nbit, LargeBitList val, String name);
-
-    /**
-     * <p>
-     * データの部分列を取得します。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * <p>
-     * 部分列が定義できないデータの場合は null を返します。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象のビットリスト
-     * @param name 変換対象の名前
-     * @param desc 変換対象のビットリストの意味、説明など
-     * @return 変換対象のビットリスト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public LargeBitList convSubList(long nbit, LargeBitList val, String name, String desc);
-
-    /**
-     * <p>
      * 変換結果を取得します。
      * </p>
      *

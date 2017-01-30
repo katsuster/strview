@@ -70,7 +70,7 @@ public class M2VData extends PacketAdapter
         }
         c.position(orgpos);
 
-        setBody(c.readBitList(size_f, getBody(), "body"));
+        setBody(c.readSubList(size_f, getBody()));
     }
 
     @Override
@@ -85,6 +85,6 @@ public class M2VData extends PacketAdapter
         //int size_f;
 
         //TODO: not implemented
-        //c.writeBitList(size_f, getBody(), "body");
+        //c.writeSubList(size_f, getBody(), "body");
     }
 }

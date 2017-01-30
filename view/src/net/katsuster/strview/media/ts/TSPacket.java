@@ -56,14 +56,14 @@ public class TSPacket extends PacketAdapter
 
     @Override
     protected void readBody(PacketReader<?> c) {
-        int size_f;
+        long size_f;
 
         //サイズは固定の長さ
         size_f = (PACKET_SIZE << 3);
 
         //ヘッダ以降の本体を読み込む
         size_f -= getHeaderLength();
-        setBody(c.readBitList(size_f, getBody(), "body"));
+        setBody(c.readSubList(size_f, getBody()));
     }
 
     @Override
@@ -75,13 +75,13 @@ public class TSPacket extends PacketAdapter
 
     @Override
     protected void writeBody(PacketWriter<?> c) {
-        int size_f;
+        long size_f;
 
         //サイズは固定の長さ
         size_f = (PACKET_SIZE << 3);
 
         //ヘッダ以降の本体を書き込む
         size_f -= getHeaderLength();
-        c.writeBitList(size_f, getBody(), "body");
+        c.writeSubList(size_f, getBody(), "body");
     }
 }

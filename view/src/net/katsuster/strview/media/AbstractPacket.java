@@ -429,13 +429,28 @@ public abstract class AbstractPacket extends AbstractBlock
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected void convRawPacket(PacketConverter<?> c) {
+    protected void readRawPacket(PacketReader<?> c) {
         long org_pos;
 
         org_pos = c.position();
         c.position(getHeaderAddress());
-        raw_packet = c.convSubList(getLength(), raw_packet, "raw_packet");
+        raw_packet = c.readSubList(getLength(), raw_packet, "raw_packet");
         c.position(org_pos);
+    }
+
+    /**
+     * <p>
+     * パケット全体を表すビット列を書き込みます。
+     * </p>
+     *
+     * <p>
+     * パケット全体を表すビット列が存在しない場合もあります。
+     * </p>
+     *
+     * @param c 各メンバの変換を実施するオブジェクト
+     */
+    protected void writeRawPacket(PacketWriter<?> c) {
+        c.writeSubList(getLength(), raw_packet, "raw_packet");
     }
 
     /**
@@ -460,7 +475,7 @@ public abstract class AbstractPacket extends AbstractBlock
         setBodyLength(c.position() - getBodyAddress());
         readFooter(c);
         setFooterLength(c.position() - getFooterAddress());
-        convRawPacket(c);
+        readRawPacket(c);
 
         c.leavePacket();
     }
@@ -483,7 +498,7 @@ public abstract class AbstractPacket extends AbstractBlock
         writeHeader(c);
         writeBody(c);
         writeFooter(c);
-        convRawPacket(c);
+        writeRawPacket(c);
 
         c.leavePacket();
     }

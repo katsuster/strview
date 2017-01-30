@@ -67,6 +67,11 @@ public class PacketReaderAdapter<T> extends AbstractPacketReader<T>
     }
 
     @Override
+    public LargeBitList readSubList(long nbit, LargeBitList val, String desc) {
+        return null;
+    }
+
+    @Override
     public T getResult() {
         return null;
     }

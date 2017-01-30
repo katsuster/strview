@@ -290,7 +290,11 @@ public interface PacketReader<T> extends PacketConverter<T> {
     /**
      * <p>
      * 現在位置を更新せずに、ビットリストを読み出します。
-     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * <p>
+     * readBitList で取得したデータのコピーを変更しても、取得元のデータは変化しません。
+     * readSubList で取得した部分列を変更すると、取得元のデータも変化します。
      * </p>
      *
      * @param nbit 変換対象のサイズ（ビット単位）
@@ -306,6 +310,11 @@ public interface PacketReader<T> extends PacketConverter<T> {
      * データに加えて、データの意味、説明などを渡すことができます。
      * </p>
      *
+     * <p>
+     * readBitList で取得したデータのコピーを変更しても、取得元のデータは変化しません。
+     * readSubList で取得した部分列を変更すると、取得元のデータも変化します。
+     * </p>
+     *
      * @param nbit 変換対象のサイズ（ビット単位）
      * @param val  変換対象のビットリスト
      * @param desc 変換対象のビットリストの意味、説明など
@@ -317,7 +326,11 @@ public interface PacketReader<T> extends PacketConverter<T> {
     /**
      * <p>
      * ビットリストを読み出します。
-     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * <p>
+     * readBitList で取得したデータのコピーを変更しても、取得元のデータは変化しません。
+     * readSubList で取得した部分列を変更すると、取得元のデータも変化します。
      * </p>
      *
      * @param nbit 変換対象のサイズ（ビット単位）
@@ -333,6 +346,11 @@ public interface PacketReader<T> extends PacketConverter<T> {
      * データに加えて、データの意味、説明などを渡すことができます。
      * </p>
      *
+     * <p>
+     * readBitList で取得したデータのコピーを変更しても、取得元のデータは変化しません。
+     * readSubList で取得した部分列を変更すると、取得元のデータも変化します。
+     * </p>
+     *
      * @param nbit 変換対象のサイズ（ビット単位）
      * @param val  変換対象のビットリスト
      * @param desc 変換対象のビットリストの意味、説明など
@@ -340,4 +358,92 @@ public interface PacketReader<T> extends PacketConverter<T> {
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
     public LargeBitList readBitList(int nbit, LargeBitList val, String desc);
+
+    /**
+     * <p>
+     * データの部分列を取得します。
+     * </p>
+     *
+     * <p>
+     * readBitList で取得したデータのコピーを変更しても、取得元のデータは変化しません。
+     * readSubList で取得した部分列を変更すると、取得元のデータも変化します。
+     * </p>
+     *
+     * <p>
+     * 部分列が定義できないデータの場合は null を返します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象のビットリスト
+     * @return 変換対象のビットリスト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public LargeBitList peekSubList(long nbit, LargeBitList val);
+
+    /**
+     * <p>
+     * データの部分列を取得します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * <p>
+     * readBitList で取得したデータのコピーを変更しても、取得元のデータは変化しません。
+     * readSubList で取得した部分列を変更すると、取得元のデータも変化します。
+     * </p>
+     *
+     * <p>
+     * 部分列が定義できないデータの場合は null を返します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象のビットリスト
+     * @param desc 変換対象のビットリストの意味、説明など
+     * @return 変換対象のビットリスト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public LargeBitList peekSubList(long nbit, LargeBitList val, String desc);
+
+    /**
+     * <p>
+     * データの部分列を取得します。
+     * </p>
+     *
+     * <p>
+     * readBitList で取得したデータのコピーを変更しても、取得元のデータは変化しません。
+     * readSubList で取得した部分列を変更すると、取得元のデータも変化します。
+     * </p>
+     *
+     * <p>
+     * 部分列が定義できないデータの場合は null を返します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象のビットリスト
+     * @return 変換対象のビットリスト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public LargeBitList readSubList(long nbit, LargeBitList val);
+
+    /**
+     * <p>
+     * データの部分列を取得します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * <p>
+     * readBitList で取得したデータのコピーを変更しても、取得元のデータは変化しません。
+     * readSubList で取得した部分列を変更すると、取得元のデータも変化します。
+     * </p>
+     *
+     * <p>
+     * 部分列が定義できないデータの場合は null を返します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象のビットリスト
+     * @param desc 変換対象のビットリストの意味、説明など
+     * @return 変換対象のビットリスト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public LargeBitList readSubList(long nbit, LargeBitList val, String desc);
 }
