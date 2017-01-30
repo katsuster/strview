@@ -109,11 +109,11 @@ public class NumFormatter {
         return sb.toString();
     }
 
-    public static String intToDecHexCaption(String name, int v, String caption) {
+    public static String doubleToDecHexCaption(String name, double v, String caption) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(addressAndName(null, name));
-        sb.append(String.format("0x%x(%d)", v, v));
+        sb.append(String.format("%f", v));
         if (caption == null) {
             sb.append("\n");
         } else {

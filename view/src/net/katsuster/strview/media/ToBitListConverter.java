@@ -66,6 +66,18 @@ public class ToBitListConverter extends PacketWriterAdapter<LargeBitList> {
     }
 
     @Override
+    public void writeFloat32(int nbit, Float32 val, String name, String desc) {
+        buf.setPackedLong(pos, nbit, val.getBitsValue());
+        pos += nbit;
+    }
+
+    @Override
+    public void writeFloat64(int nbit, Float64 val, String name, String desc) {
+        buf.setPackedLong(pos, nbit, val.getBitsValue());
+        pos += nbit;
+    }
+
+    @Override
     public void writeBitList(int nbit, LargeBitList val, String name, String desc) {
         buf.set(pos, val, 0, nbit);
         pos += nbit;

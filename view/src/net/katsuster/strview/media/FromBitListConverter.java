@@ -84,6 +84,34 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
     }
 
     @Override
+    public Float32 readFloat32(int nbit, Float32 val, String desc) {
+        if (val == null) {
+            val = new Float32();
+        }
+
+        val.getRange().setStart(pos);
+        val.getRange().setLength(nbit);
+        val.setBitsValue(buf.getPackedInt(pos, nbit));
+        pos += nbit;
+
+        return val;
+    }
+
+    @Override
+    public Float64 readFloat64(int nbit, Float64 val, String desc) {
+        if (val == null) {
+            val = new Float64();
+        }
+
+        val.getRange().setStart(pos);
+        val.getRange().setLength(nbit);
+        val.setBitsValue(buf.getPackedLong(pos, nbit));
+        pos += nbit;
+
+        return val;
+    }
+
+    @Override
     public LargeBitList readBitList(int nbit, LargeBitList val, String desc) {
         val = buf.subLargeList(pos, pos + nbit);
         pos += nbit;
