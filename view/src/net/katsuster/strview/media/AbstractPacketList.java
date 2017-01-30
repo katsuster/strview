@@ -48,8 +48,6 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
      * </p>
      *
      * @param current 処理対象となるパケット
-     *
-     * @see leaveParentPacket
      */
     protected void enterParentPacket(Packet current) {
         //ツリー深さレベル、親パケットを設定する
@@ -80,8 +78,6 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
      * </p>
      *
      * @param current 一番最後に読み込んだパケット
-     *
-     * @see enterParentPacket
      */
     protected void leaveParentPacket(Packet current) {
         Packet p;
