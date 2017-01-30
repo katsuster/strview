@@ -90,10 +90,8 @@ public class MKVTag extends PacketAdapter
                 + head.tag_len.getSizeAll()
                 + (getTagLength() << 3);
 
-        //ヘッダ以降を本体として読み込む
         size_f -= getHeaderLength();
         setBody(c.readBitList((int)size_f, getBody(), "body"));
-        //c.position(getBodyAddress() + size_f);
     }
 
     @Override
@@ -101,5 +99,13 @@ public class MKVTag extends PacketAdapter
         AbstractPacket.write(c, this);
 
         getHeader().write(c);
+    }
+
+    @Override
+    protected void writeBody(PacketWriter<?> c) {
+        //int size_f;
+
+        //TODO: not implemented
+        //c.writeBitList(size_f, getBody(), "body");
     }
 }

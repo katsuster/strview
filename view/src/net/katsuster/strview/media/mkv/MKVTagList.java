@@ -101,10 +101,6 @@ public class MKVTagList extends AbstractPacketList<MKVTag> {
         } catch (IndexOutOfBoundsException ex) {
             //End
             length(cnt);
-        } catch (Exception ex) {
-            //Error
-            cnt = 0;
-            throw ex;
         }
     }
 
