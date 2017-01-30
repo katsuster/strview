@@ -78,6 +78,40 @@ public abstract class AbstractPacketWriter<T> extends AbstractPacketConverter<T>
     }
 
     @Override
+    public void pokeFloat32(int nbit, Float32 val, String name) {
+        pokeFloat32(nbit, val, name, null);
+    }
+
+    @Override
+    public void pokeFloat32(int nbit, Float32 val, String name, String desc) {
+        long orgpos = position();
+        writeFloat32(nbit, val, name, desc);
+        position(orgpos);
+    }
+
+    @Override
+    public void writeFloat32(int nbit, Float32 val, String name) {
+        writeFloat32(nbit, val, name, null);
+    }
+
+    @Override
+    public void pokeFloat64(int nbit, Float64 val, String name) {
+        pokeFloat64(nbit, val, name, null);
+    }
+
+    @Override
+    public void pokeFloat64(int nbit, Float64 val, String name, String desc) {
+        long orgpos = position();
+        writeFloat64(nbit, val, name, desc);
+        position(orgpos);
+    }
+
+    @Override
+    public void writeFloat64(int nbit, Float64 val, String name) {
+        writeFloat64(nbit, val, name, null);
+    }
+
+    @Override
     public void pokeBitList(int nbit, LargeBitList val, String name) {
         pokeBitList(nbit, val, name, null);
     }

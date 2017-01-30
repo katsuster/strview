@@ -185,6 +185,110 @@ public interface PacketReader<T> extends PacketConverter<T> {
 
     /**
      * <p>
+     * 現在位置を更新せずに、32ビット浮動小数値を読み出します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @return 変換対象の浮動小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public Float32 peekFloat32(int nbit, Float32 val);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、32ビット浮動小数値を読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @param desc 変換対象の浮動小数値の意味、説明など
+     * @return 変換対象の浮動小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public Float32 peekFloat32(int nbit, Float32 val, String desc);
+
+    /**
+     * <p>
+     * 32ビット浮動小数値を読み出します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @return 変換対象の浮動小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public Float32 readFloat32(int nbit, Float32 val);
+
+    /**
+     * <p>
+     * 32ビット浮動小数値を読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @param desc 変換対象の浮動小数値の意味、説明など
+     * @return 変換対象の浮動小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public Float32 readFloat32(int nbit, Float32 val, String desc);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、64ビット浮動小数値を読み出します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @return 変換対象の浮動小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public Float64 peekFloat64(int nbit, Float64 val);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、64ビット浮動小数値を読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @param desc 変換対象の浮動小数値の意味、説明など
+     * @return 変換対象の浮動小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public Float64 peekFloat64(int nbit, Float64 val, String desc);
+
+    /**
+     * <p>
+     * 64ビット浮動小数値を読み出します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @return 変換対象の浮動小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public Float64 readFloat64(int nbit, Float64 val);
+
+    /**
+     * <p>
+     * 64ビット浮動小数値を読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @param desc 変換対象の浮動小数値の意味、説明など
+     * @return 変換対象の浮動小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public Float64 readFloat64(int nbit, Float64 val, String desc);
+
+    /**
+     * <p>
      * 現在位置を更新せずに、ビットリストを読み出します。
      * データに加えて、データの意味、説明などを渡すことができます。
      * </p>

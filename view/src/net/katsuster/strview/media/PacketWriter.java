@@ -189,6 +189,110 @@ public interface PacketWriter<T> extends PacketConverter<T> {
 
     /**
      * <p>
+     * 現在位置を更新せずに、32ビット浮動小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @param name 変換対象の名前
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void pokeFloat32(int nbit, Float32 val, String name);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、32ビット浮動小数値を書き込みます。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @param name 変換対象の名前
+     * @param desc 変換対象の浮動小数値の意味、説明など
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void pokeFloat32(int nbit, Float32 val, String name, String desc);
+
+    /**
+     * <p>
+     * 32ビット浮動小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @param name 変換対象の名前
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeFloat32(int nbit, Float32 val, String name);
+
+    /**
+     * <p>
+     * 32ビット浮動小数値を書き込みます。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @param name 変換対象の名前
+     * @param desc 変換対象の浮動小数値の意味、説明など
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeFloat32(int nbit, Float32 val, String name, String desc);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、64ビット浮動小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @param name 変換対象の名前
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void pokeFloat64(int nbit, Float64 val, String name);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、64ビット浮動小数値を書き込みます。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @param name 変換対象の名前
+     * @param desc 変換対象の浮動小数値の意味、説明など
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void pokeFloat64(int nbit, Float64 val, String name, String desc);
+
+    /**
+     * <p>
+     * 64ビット浮動小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @param name 変換対象の名前
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeFloat64(int nbit, Float64 val, String name);
+
+    /**
+     * <p>
+     * 64ビット浮動小数値を書き込みます。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @param name 変換対象の名前
+     * @param desc 変換対象の浮動小数値の意味、説明など
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeFloat64(int nbit, Float64 val, String name, String desc);
+
+    /**
+     * <p>
      * 現在位置を更新せずに、ビットリストを書き込みます。
      * データに加えて、データの意味、説明などを渡すことができます。
      * </p>
