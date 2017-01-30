@@ -32,8 +32,8 @@ public class MKVConsts {
     static {
         mkvDataFactory.put(TAG_TYPE.UINT, MKVHeaderUInt.class);
         mkvDataFactory.put(TAG_TYPE.INT, MKVHeaderSInt.class);
-        //mkvDataFactory.put(TAG_TYPE.STRING, MKVTagHeaderString.class);
-        //mkvDataFactory.put(TAG_TYPE.UTF8, MKVTagHeaderUTF8.class);
+        mkvDataFactory.put(TAG_TYPE.STRING, MKVHeaderString.class);
+        mkvDataFactory.put(TAG_TYPE.UTF8, MKVHeaderUTF8.class);
         mkvDataFactory.put(TAG_TYPE.FLOAT, MKVHeaderFloat.class);
     }
 
