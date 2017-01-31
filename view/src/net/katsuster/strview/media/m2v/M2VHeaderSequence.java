@@ -4,6 +4,19 @@ import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
+ * <p>
+ * MPEG2 Video sequence header
+ * </p>
+ *
+ * <p>
+ * 参考規格
+ * </p>
+ * <ul>
+ * <li>ITU-T H.262, ISO/IEC 13818-2:
+ * Information technology - Generic coding of moving pictures and
+ * associated audio information: Video</li>
+ * </ul>
+ *
  * @author katsuhiro
  */
 public class M2VHeaderSequence
@@ -76,7 +89,7 @@ public class M2VHeaderSequence
 
     public static void read(PacketReader<?> c,
                             M2VHeaderSequence d) {
-        c.enterBlock("M2V sequence");
+        c.enterBlock("M2V sequence_header()");
 
         M2VHeader.read(c, d);
 
@@ -113,7 +126,7 @@ public class M2VHeaderSequence
 
     public static void write(PacketWriter<?> c,
                              M2VHeaderSequence d) {
-        c.enterBlock("M2V sequence");
+        c.enterBlock("M2V sequence_header()");
 
         M2VHeader.write(c, d);
 

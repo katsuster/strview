@@ -5,7 +5,7 @@ import net.katsuster.strview.media.*;
 
 /**
  * <p>
- * MPEG2 Video extension header and user data
+ * MPEG2 Video extension and user data
  * </p>
  *
  * <p>
@@ -46,7 +46,7 @@ public class M2VHeaderExt extends M2VHeader
 
     public static void read(PacketReader<?> c,
                             M2VHeaderExt d) {
-        c.enterBlock("M2V ext header");
+        c.enterBlock("M2V ext");
 
         M2VHeader.read(c, d);
 
@@ -62,7 +62,7 @@ public class M2VHeaderExt extends M2VHeader
 
     public static void write(PacketWriter<?> c,
                              M2VHeaderExt d) {
-        c.enterBlock("M2V ext header");
+        c.enterBlock("M2V ext");
 
         M2VHeader.write(c, d);
 

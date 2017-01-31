@@ -67,7 +67,7 @@ public class M2VHeaderGOP extends M2VHeader
 
     public static void read(PacketReader<?> c,
                             M2VHeaderGOP d) {
-        c.enterBlock("M2V GOP header");
+        c.enterBlock("M2V group_of_pictures_header()");
 
         M2VHeader.read(c, d);
 
@@ -90,7 +90,7 @@ public class M2VHeaderGOP extends M2VHeader
 
     public static void write(PacketWriter<?> c,
                              M2VHeaderGOP d) {
-        c.enterBlock("M2V GOP header");
+        c.enterBlock("M2V group_of_pictures_header()");
 
         M2VHeader.write(c, d);
 
