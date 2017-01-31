@@ -1,7 +1,5 @@
 package net.katsuster.strview.media;
 
-import java.util.*;
-
 /**
  * <p>
  * 意味のあるデータのまとまりを実装する際に利用するクラスです。

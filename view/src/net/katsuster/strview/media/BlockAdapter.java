@@ -5,6 +5,16 @@ package net.katsuster.strview.media;
  * 何もメンバを持たないブロックを表すためのユーティリティクラスです。
  * </p>
  *
+ * <p>
+ * 下記の特徴を持ちます。
+ * </p>
+ *
+ * <ul>
+ *     <li>タグ本体に別のタグを含められません。</li>
+ *     <li>read 関数は何も読み込みません。</li>
+ *     <li>write 関数は何も書き込みません。</li>
+ * </ul>
+ *
  * @author katsuhiro
  */
 public class BlockAdapter extends AbstractBlock {
@@ -15,35 +25,16 @@ public class BlockAdapter extends AbstractBlock {
         return obj;
     }
 
-    /**
-     * <p>
-     * ブロックを読み込みます。
-     * </p>
-     *
-     * <p>
-     * このクラスは何もメンバを持たないため、
-     * read 関数は何も読み込みません。
-     * </p>
-     *
-     * @param c 各メンバの変換を実施するオブジェクト
-     */
+    @Override
+    public boolean isRecursive() {
+        return false;
+    }
+
     @Override
     public void read(PacketReader<?> c) {
         //do nothing
     }
 
-    /**
-     * <p>
-     * ブロックを書き込みます。
-     * </p>
-     *
-     * <p>
-     * このクラスは何もメンバを持たないため、
-     * write 関数は何も書き込みません。
-     * </p>
-     *
-     * @param c 各メンバの変換を実施するオブジェクト
-     */
     @Override
     public void write(PacketWriter<?> c) {
         //do nothing

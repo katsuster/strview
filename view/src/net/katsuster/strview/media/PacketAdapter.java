@@ -5,6 +5,16 @@ package net.katsuster.strview.media;
  * 何もメンバを持たないパケットを表すためのユーティリティクラスです。
  * </p>
  *
+ * <p>
+ * 下記の特徴を持ちます。
+ * </p>
+ *
+ * <ul>
+ *     <li>タグ本体に別のタグを含められません。</li>
+ *     <li>read 関数は何も読み込みません。</li>
+ *     <li>write 関数は何も書き込みません。</li>
+ * </ul>
+ *
  * @author katsuhiro
  */
 public class PacketAdapter extends AbstractPacket {
@@ -41,103 +51,36 @@ public class PacketAdapter extends AbstractPacket {
         super(pp);
     }
 
-    /**
-     * <p>
-     * 別の形式からパケットのヘッダに変換します。
-     * </p>
-     *
-     * <p>
-     * このクラスは何もメンバを持たないため、
-     * 関数は何も変換しません。
-     * </p>
-     *
-     * @param c 各メンバの変換を実施するオブジェクト
-     */
+    @Override
+    public boolean isRecursive() {
+        return false;
+    }
+
     @Override
     protected void readHeader(PacketReader<?> c) {
         //do nothing
     }
 
-    /**
-     * <p>
-     * 別の形式からパケットの本体に変換します。
-     * </p>
-     *
-     * <p>
-     * このクラスは何もメンバを持たないため、
-     * 関数は何も変換しません。
-     * </p>
-     *
-     * @param c 各メンバの変換を実施するオブジェクト
-     */
     @Override
     protected void readBody(PacketReader<?> c) {
         //do nothing
     }
 
-    /**
-     * <p>
-     * 別の形式からパケットのフッタに変換します。
-     * </p>
-     *
-     * <p>
-     * このクラスは何もメンバを持たないため、
-     * 関数は何も変換しません。
-     * </p>
-     *
-     * @param c 各メンバの変換を実施するオブジェクト
-     */
     @Override
     protected void readFooter(PacketReader<?> c) {
         //do nothing
     }
 
-    /**
-     * <p>
-     * パケットのヘッダを別の形式に変換します。
-     * </p>
-     *
-     * <p>
-     * このクラスは何もメンバを持たないため、
-     * 関数は何も変換しません。
-     * </p>
-     *
-     * @param c 各メンバの変換を実施するオブジェクト
-     */
     @Override
     protected void writeHeader(PacketWriter<?> c) {
         //do nothing
     }
 
-    /**
-     * <p>
-     * パケットの本体を別の形式に変換します。
-     * </p>
-     *
-     * <p>
-     * このクラスは何もメンバを持たないため、
-     * 関数は何も変換しません。
-     * </p>
-     *
-     * @param c 各メンバの変換を実施するオブジェクト
-     */
     @Override
     protected void writeBody(PacketWriter<?> c) {
         //do nothing
     }
 
-    /**
-     * <p>
-     * パケットのフッタを別の形式に変換します。
-     * </p>
-     *
-     * <p>
-     * このクラスは何もメンバを持たないため、
-     * 関数は何も変換しません。
-     * </p>
-     *
-     * @param c 各メンバの変換を実施するオブジェクト
-     */
     @Override
     protected void writeFooter(PacketWriter<?> c) {
         //do nothing
