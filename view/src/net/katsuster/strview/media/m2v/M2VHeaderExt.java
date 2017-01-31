@@ -39,18 +39,6 @@ public class M2VHeaderExt extends M2VHeader
         return obj;
     }
 
-    /**
-     * <p>
-     * タグ本体に別のタグを含められるかどうかを返します。
-     * </p>
-     *
-     * @return タグ本体に別のタグを含められる場合は true、
-     * 含められない場合は false
-     */
-    public boolean isRecursive() {
-        return false;
-    }
-
     @Override
     public void read(PacketReader<?> c) {
         read(c, this);

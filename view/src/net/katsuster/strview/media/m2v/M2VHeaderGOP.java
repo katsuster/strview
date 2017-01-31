@@ -60,18 +60,6 @@ public class M2VHeaderGOP extends M2VHeader
         return obj;
     }
 
-    /**
-     * <p>
-     * タグ本体に別のタグを含められるかどうかを返します。
-     * </p>
-     *
-     * @return タグ本体に別のタグを含められる場合は true、
-     * 含められない場合は false
-     */
-    public boolean isRecursive() {
-        return false;
-    }
-
     @Override
     public void read(PacketReader<?> c) {
         read(c, this);
@@ -105,6 +93,7 @@ public class M2VHeaderGOP extends M2VHeader
         c.enterBlock("M2V GOP header");
 
         M2VHeader.write(c, d);
+
         c.writeUInt( 1, d.drop_frame        , "drop_frame"        );
         c.writeUInt( 5, d.time_code_hours   , "time_code_hours"   );
         c.writeUInt( 6, d.time_code_minutes , "time_code_minutes" );
