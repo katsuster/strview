@@ -21,7 +21,7 @@ import net.katsuster.strview.media.*;
 public class M2VConsts {
     //MKV タグのファクトリ
     public static final PacketFactory<M2VData, M2VHeader, Integer> m2vFactory =
-            new PacketFactory<M2VData, M2VHeader, Integer>(M2VData.class, M2VHeader.class);
+            new PacketFactory<>(M2VData.class, M2VHeader.class);
     static {
         m2vFactory.put(START_CODE.SEQUENCE_HEADER, M2VHeaderSequence.class);
         m2vFactory.put(START_CODE.EXTENSION, M2VHeaderExt.class);
