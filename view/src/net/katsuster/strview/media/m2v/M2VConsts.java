@@ -95,6 +95,9 @@ public class M2VConsts {
         return name;
     }
 
+    /**
+     * Table 6-1: Start code values
+     */
     public static class START_CODE {
         //[ISO 13818-2] picture_start_code
         public static final int PICTURE = 0x00000100;
@@ -127,6 +130,103 @@ public class M2VConsts {
         public static final int SYSTEM_START = 0x000001b9;
         //[ISO 13818-2] system_start_code
         public static final int SYSTEM_END = 0x000001ff;
+    }
+
+    public static String getExtensionStartCodeName(int id) {
+        String name = "..unknown..";
+
+        switch (id) {
+        case EXTENSION_START_CODE.RESERVED1:
+            //[ISO 13818-2] reserved1
+            name = "reserved1";
+            break;
+        case EXTENSION_START_CODE.SEQUENCE:
+            //[ISO 13818-2] Sequence Extension ID
+            name = "Sequence Extension ID";
+            break;
+        case EXTENSION_START_CODE.SEQUENCE_DISPLAY:
+            //[ISO 13818-2] Sequence Display Extension ID
+            name = "Sequence Display Extension ID";
+            break;
+        case EXTENSION_START_CODE.QUANT_MATRIX:
+            //[ISO 13818-2] Quant Matrix Extension ID
+            name = "Quant Matrix Extension ID";
+            break;
+        case EXTENSION_START_CODE.COPYRIGHT:
+            //[ISO 13818-2] Copyright Extension ID
+            name = "Copyright Extension ID";
+            break;
+        case EXTENSION_START_CODE.SEQUENCE_SCALABLE:
+            //[ISO 13818-2] Sequence Scalable Extension ID
+            name = "Sequence Scalable Extension ID";
+            break;
+        case EXTENSION_START_CODE.RESERVED2:
+            //[ISO 13818-2] reserved2
+            name = "reserved2";
+            break;
+        case EXTENSION_START_CODE.PICTURE_DISPLAY:
+            //[ISO 13818-2] Picture Display Extension ID
+            name = "Picture Display Extension ID";
+            break;
+        case EXTENSION_START_CODE.PICTURE_CODING:
+            //[ISO 13818-2] Picture Coding Extension ID
+            name = "Picture Coding Extension ID";
+            break;
+        case EXTENSION_START_CODE.PICTURE_SPATIAL_SCALABLE:
+            //[ISO 13818-2] Picture Spatial Scalable Extension ID
+            name = "Picture Spatial Scalable Extension ID";
+            break;
+        case EXTENSION_START_CODE.PICTURE_TEMPORAL_SCALABLE:
+            //[ISO 13818-2] Picture Temporal Scalable Extension ID
+            name = "Picture Temporal Scalable Extension ID";
+            break;
+        default:
+            //do nothing
+            break;
+        }
+
+        if (EXTENSION_START_CODE.RESERVED_START <= id &&
+                id <= EXTENSION_START_CODE.RESERVED_END) {
+            //[ISO 13818-2] reserved
+            name = "reserved";
+        }
+
+        return name;
+    }
+
+    /**
+     * Table 6-2: extension_start_code_identifier codes
+     */
+    public static class EXTENSION_START_CODE {
+        //[ISO 13818-2] reserved1
+        public static final int RESERVED1 = 0x00;
+        //[ISO 13818-2] Sequence Extension ID
+        public static final int SEQUENCE = 0x01;
+        //[ISO 13818-2] Sequence Display Extension ID
+        public static final int SEQUENCE_DISPLAY = 0x02;
+        //[ISO 13818-2] Quant Matrix Extension ID
+        public static final int QUANT_MATRIX = 0x03;
+        //[ISO 13818-2] Copyright Extension ID
+        public static final int COPYRIGHT = 0x04;
+        //[ISO 13818-2] Sequence Scalable Extension ID
+        public static final int SEQUENCE_SCALABLE = 0x05;
+
+        //[ISO 13818-2] reserved2
+        public static final int RESERVED2 = 0x06;
+
+        //[ISO 13818-2] Picture Display Extension ID
+        public static final int PICTURE_DISPLAY = 0x07;
+        //[ISO 13818-2] Picture Coding Extension ID
+        public static final int PICTURE_CODING = 0x08;
+        //[ISO 13818-2] Picture Spatial Scalable Extension ID
+        public static final int PICTURE_SPATIAL_SCALABLE = 0x09;
+        //[ISO 13818-2] Picture Temporal Scalable Extension ID
+        public static final int PICTURE_TEMPORAL_SCALABLE = 0x0a;
+
+        //[ISO 13818-2] reserved
+        public static final int RESERVED_START = 0x0b;
+        //[ISO 13818-2] reserved
+        public static final int RESERVED_END = 0x0f;
     }
 
     public static String getAspectRatioName(int id) {
@@ -167,6 +267,9 @@ public class M2VConsts {
         return name;
     }
 
+    /**
+     * Table 6-3: aspect_ratio_information
+     */
     public static class ASPECT_RATIO {
         //[ISO 13818-2] forbidden
         public static final int FORBIDDEN         = 0x0; //0b0000
@@ -245,6 +348,9 @@ public class M2VConsts {
         return v[id];
     }
 
+    /**
+     * Table 6-4: frame_rate_value
+     */
     public static class FRAME_RATE_VALUE {
         //[ISO 13818-2]
         public static final int FORBIDDEN   = 0x0; //0b0000
@@ -260,6 +366,156 @@ public class M2VConsts {
         //[ISO 13818-2] reserved
         public static final int RESERVED_START = 0x9; //0b1001
         public static final int RESERVED_END   = 0xf; //0b1111
+    }
+
+    public static String getChromaFormatName(int id) {
+        String name = "..unknown..";
+
+        switch (id) {
+        case CHROMA_FORMAT.RESERVED:
+            //[ISO 13818-2] reserved
+            name = "reserved";
+            break;
+        case CHROMA_FORMAT.CHROMA_4_2_0:
+            //[ISO 13818-2] 4:2:0
+            name = "4:2:0";
+            break;
+        case CHROMA_FORMAT.CHROMA_4_2_2:
+            //[ISO 13818-2] 4:2:2
+            name = "4:2:2";
+            break;
+        case CHROMA_FORMAT.CHROMA_4_4_4:
+            //[ISO 13818-2] 4:4:4
+            name = "4:4:4";
+            break;
+        default:
+            //do nothing
+            break;
+        }
+
+        return name;
+    }
+
+    /**
+     * Table 6-5: Meaning of chroma_format
+     */
+    public static class CHROMA_FORMAT {
+        //[ISO 13818-2] reserved
+        public static final int RESERVED = 0x0;
+        //[ISO 13818-2] 4:2:0
+        public static final int CHROMA_4_2_0 = 0x1;
+        //[ISO 13818-2] 4:2:2
+        public static final int CHROMA_4_2_2 = 0x2;
+        //[ISO 13818-2] 4:4:4
+        public static final int CHROMA_4_4_4 = 0x3;
+    }
+
+    public static String getVideoFormatName(int id) {
+        String name = "..unknown..";
+
+        switch (id) {
+        case VIDEO_FORMAT.COMPONENT:
+            //[ISO 13818-2] component
+            name = "component";
+            break;
+        case VIDEO_FORMAT.PAL:
+            //[ISO 13818-2] PAL
+            name = "PAL";
+            break;
+        case VIDEO_FORMAT.NTSC:
+            //[ISO 13818-2] NTSC
+            name = "NTSC";
+            break;
+        case VIDEO_FORMAT.SECAM:
+            //[ISO 13818-2] SECAM
+            name = "SECAM";
+            break;
+        case VIDEO_FORMAT.MAC:
+            //[ISO 13818-2] MAC
+            name = "MAC";
+            break;
+        case VIDEO_FORMAT.UNSPECIFIED:
+            //[ISO 13818-2] Unspecified video format
+            name = "Unspecified video format";
+            break;
+        case VIDEO_FORMAT.RESERVED1:
+            //[ISO 13818-2] reserved
+            name = "reserved1";
+            break;
+        case VIDEO_FORMAT.RESERVED2:
+            //[ISO 13818-2] reserved
+            name = "reserved2";
+            break;
+        default:
+            //do nothing
+            break;
+        }
+
+        return name;
+    }
+
+    /**
+     * Table 6-6: Meaning of video_format
+     */
+    public static class VIDEO_FORMAT {
+        //[ISO 13818-2] component
+        public static final int COMPONENT = 0x0; //0b000
+        //[ISO 13818-2] PAL
+        public static final int PAL = 0x1; //0b001
+        //[ISO 13818-2] NTSC
+        public static final int NTSC = 0x2; //0b010
+        //[ISO 13818-2] SECAM
+        public static final int SECAM = 0x3; //0b011
+        //[ISO 13818-2] MAC
+        public static final int MAC = 0x4; //0b100
+        //[ISO 13818-2] Unspecified video format
+        public static final int UNSPECIFIED = 0x5; //0b101
+        //[ISO 13818-2] reserved
+        public static final int RESERVED1 = 0x6; //0b110
+        //[ISO 13818-2] reserved
+        public static final int RESERVED2 = 0x7; //0b111
+    }
+
+    public static String getScalableModeName(int id) {
+        String name = "..unknown..";
+
+        switch (id) {
+        case SCALABLE_MODE.DATA_PARTITIONING:
+            //[ISO 13818-2] data partitioning
+            name = "data partitioning";
+            break;
+        case SCALABLE_MODE.SPATIAL:
+            //[ISO 13818-2] spatial scalability
+            name = "spatial scalability";
+            break;
+        case SCALABLE_MODE.SNR:
+            //[ISO 13818-2] SNR scalability
+            name = "SNR scalability";
+            break;
+        case SCALABLE_MODE.TEMPORAL:
+            //[ISO 13818-2] temporal scalability
+            name = "temporal scalability";
+            break;
+        default:
+            //do nothing
+            break;
+        }
+
+        return name;
+    }
+
+    /**
+     * Table 6-10: Definition of scalable_mode
+     */
+    public static class SCALABLE_MODE {
+        //[ISO 13818-2] data partitioning
+        public static final int DATA_PARTITIONING = 0x0; //0b00
+        //[ISO 13818-2] spatial scalability
+        public static final int SPATIAL = 0x1; //0b01
+        //[ISO 13818-2] SNR scalability
+        public static final int SNR = 0x2; //0b10
+        //[ISO 13818-2] temporal scalability
+        public static final int TEMPORAL = 0x3; //0b11
     }
 
     public static String getPictureCodingTypeName(int id) {
@@ -306,6 +562,9 @@ public class M2VConsts {
         return name;
     }
 
+    /**
+     * Table 6-12: picture_coding_type
+     */
     public static class PICTURE_CODING_TYPE {
         //[ISO 13818-2] forbidden
         public static final int FORBIDDEN = 0x0;
@@ -323,6 +582,90 @@ public class M2VConsts {
         public static final int RESERVED2 = 0x6;
         //[ISO 13818-2] reserved3
         public static final int RESERVED3 = 0x7;
+    }
+
+    public static String getIntraDCPrecisionName(int id) {
+        String name = "..unknown..";
+
+        switch (id) {
+        case INTRA_DC_PRECISION.PREC_8:
+            //[ISO 13818-2] 8bits
+            name = "8bits";
+            break;
+        case INTRA_DC_PRECISION.PREC_9:
+            //[ISO 13818-2] 9bits
+            name = "9bits";
+            break;
+        case INTRA_DC_PRECISION.PREC_10:
+            //[ISO 13818-2] 10bits
+            name = "10bits";
+            break;
+        case INTRA_DC_PRECISION.PREC_11:
+            //[ISO 13818-2] 11bits
+            name = "11bits";
+            break;
+        default:
+            //do nothing
+            break;
+        }
+
+        return name;
+    }
+
+    /**
+     * Table 6-13: Intra DC precision
+     */
+    public static class INTRA_DC_PRECISION {
+        //[ISO 13818-2] 8bits
+        public static final int PREC_8 = 0x00; //0b00
+        //[ISO 13818-2] 9bits
+        public static final int PREC_9 = 0x01; //0b01
+        //[ISO 13818-2] 10bits
+        public static final int PREC_10 = 0x02; //0b10
+        //[ISO 13818-2] 11bits
+        public static final int PREC_11 = 0x03; //0b11
+    }
+
+    public static String getPictureStructureName(int id) {
+        String name = "..unknown..";
+
+        switch (id) {
+        case PICTURE_STRUCTURE.RESERVED:
+            //[ISO 13818-2] reserved
+            name = "reserved";
+            break;
+        case PICTURE_STRUCTURE.TOP:
+            //[ISO 13818-2] Top Field
+            name = "top";
+            break;
+        case PICTURE_STRUCTURE.BOTTOM:
+            //[ISO 13818-2] Bottom Field
+            name = "bottom";
+            break;
+        case PICTURE_STRUCTURE.FRAME:
+            //[ISO 13818-2] Frame picture
+            name = "frame";
+            break;
+        default:
+            //do nothing
+            break;
+        }
+
+        return name;
+    }
+
+    /**
+     * Table 6-14: Meaning of picture_structure
+     */
+    public static class PICTURE_STRUCTURE {
+        //[ISO 13818-2] reserved
+        public static final int RESERVED = 0x00; //0b00
+        //[ISO 13818-2] Top Field
+        public static final int TOP = 0x01; //0b01
+        //[ISO 13818-2] Bottom Field
+        public static final int BOTTOM = 0x02; //0b10
+        //[ISO 13818-2] Frame picture
+        public static final int FRAME = 0x03; //0b11
     }
 
     public static String getFrameMotionTypeName(int id) {
@@ -353,6 +696,9 @@ public class M2VConsts {
         return name;
     }
 
+    /**
+     * Table 6-17: Meaning of frame_motion_type
+     */
     public static class FRAME_MOTION_TYPE {
         //[ISO 13818-2] reserved
         public static final int RESERVED = 0x0;
@@ -392,6 +738,9 @@ public class M2VConsts {
         return name;
     }
 
+    /**
+     * Table 6-18: Meaning of field_motion_type
+     */
     public static class FIELD_MOTION_TYPE {
         //[ISO 13818-2] reserved
         public static final int RESERVED = 0x0;
@@ -401,100 +750,6 @@ public class M2VConsts {
         public static final int MC16_8 = 0x2; //0b10
         //[ISO 13818-2] Dual-prime
         public static final int DUAL = 0x3; //0b11
-    }
-
-    public static String getExtensionStartCodeName(int id) {
-        String name = "..unknown..";
-
-        switch (id) {
-        case EXTENSION_START_CODE.RESERVED1:
-            //[ISO 13818-2] reserved1
-            name = "reserved1";
-            break;
-        case EXTENSION_START_CODE.SEQUENCE:
-            //[ISO 13818-2] Sequence Extension ID
-            name = "Sequence Extension ID";
-            break;
-        case EXTENSION_START_CODE.SEQUENCE_DISPLAY:
-            //[ISO 13818-2] Sequence Display Extension ID
-            name = "Sequence Display Extension ID";
-            break;
-        case EXTENSION_START_CODE.QUANT_MATRIX:
-            //[ISO 13818-2] Quant Matrix Extension ID
-            name = "Quant Matrix Extension ID";
-            break;
-        case EXTENSION_START_CODE.COPYRIGHT:
-            //[ISO 13818-2] Copyright Extension ID
-            name = "Copyright Extension ID";
-            break;
-        case EXTENSION_START_CODE.SEQUENCE_SCALABLE:
-            //[ISO 13818-2] Sequence Scalable Extension ID
-            name = "Sequence Scalable Extension ID";
-            break;
-        case EXTENSION_START_CODE.RESERVED2:
-            //[ISO 13818-2] reserved2
-            name = "reserved2";
-            break;
-        case EXTENSION_START_CODE.PICTURE_DISPLAY:
-            //[ISO 13818-2] Picture Display Extension ID
-            name = "Picture Display Extension ID";
-            break;
-        case EXTENSION_START_CODE.PICTURE_CODING:
-            //[ISO 13818-2] Picture Coding Extension ID
-            name = "Picture Coding Extension ID";
-            break;
-        case EXTENSION_START_CODE.PICTURE_SPATIAL_SCALABLE:
-            //[ISO 13818-2] Picture Spatial Scalable Extension ID
-            name = "Picture Spatial Scalable Extension ID";
-            break;
-        case EXTENSION_START_CODE.PICTURE_TEMPORAL_SCALABLE:
-            //[ISO 13818-2] Picture Temporal Scalable Extension ID
-            name = "Picture Temporal Scalable Extension ID";
-            break;
-        default:
-            //do nothing
-            break;
-        }
-
-        if (EXTENSION_START_CODE.RESERVED_START <= id &&
-                id <= EXTENSION_START_CODE.RESERVED_END) {
-            //[ISO 13818-2] reserved
-            name = "reserved";
-        }
-
-        return name;
-    }
-
-    public static class EXTENSION_START_CODE {
-        //[ISO 13818-2] reserved1
-        public static final int RESERVED1 = 0x00;
-        //[ISO 13818-2] Sequence Extension ID
-        public static final int SEQUENCE = 0x01;
-        //[ISO 13818-2] Sequence Display Extension ID
-        public static final int SEQUENCE_DISPLAY = 0x02;
-        //[ISO 13818-2] Quant Matrix Extension ID
-        public static final int QUANT_MATRIX = 0x03;
-        //[ISO 13818-2] Copyright Extension ID
-        public static final int COPYRIGHT = 0x04;
-        //[ISO 13818-2] Sequence Scalable Extension ID
-        public static final int SEQUENCE_SCALABLE = 0x05;
-
-        //[ISO 13818-2] reserved2
-        public static final int RESERVED2 = 0x06;
-
-        //[ISO 13818-2] Picture Display Extension ID
-        public static final int PICTURE_DISPLAY = 0x07;
-        //[ISO 13818-2] Picture Coding Extension ID
-        public static final int PICTURE_CODING = 0x08;
-        //[ISO 13818-2] Picture Spatial Scalable Extension ID
-        public static final int PICTURE_SPATIAL_SCALABLE = 0x09;
-        //[ISO 13818-2] Picture Temporal Scalable Extension ID
-        public static final int PICTURE_TEMPORAL_SCALABLE = 0x0a;
-
-        //[ISO 13818-2] reserved
-        public static final int RESERVED_START = 0x0b;
-        //[ISO 13818-2] reserved
-        public static final int RESERVED_END = 0x0f;
     }
 
     public static String getProfileName(int id) {
@@ -541,6 +796,9 @@ public class M2VConsts {
         return name;
     }
 
+    /**
+     * Table 8-2: Profile identification
+     */
     public static class PROFILE {
         //[ISO 13818-2] reserved
         public static final int RESERVED1 = 0x0;
@@ -610,6 +868,9 @@ public class M2VConsts {
         return name;
     }
 
+    /**
+     * Table 8-3: Level identification
+     */
     public static class LEVEL {
         //[ISO 13818-2] reserved
         public static final int RESERVED1_START = 0x0; //0b0000
@@ -631,224 +892,5 @@ public class M2VConsts {
         //[ISO 13818-2] reserved
         public static final int RESERVED5_START = 0xb; //0b1011
         public static final int RESERVED5_END = 0xf; //0b1111
-    }
-
-    public static String getChromaFormatName(int id) {
-        String name = "..unknown..";
-
-        switch (id) {
-        case CHROMA_FORMAT.RESERVED:
-            //[ISO 13818-2] reserved
-            name = "reserved";
-            break;
-        case CHROMA_FORMAT.CHROMA_4_2_0:
-            //[ISO 13818-2] 4:2:0
-            name = "4:2:0";
-            break;
-        case CHROMA_FORMAT.CHROMA_4_2_2:
-            //[ISO 13818-2] 4:2:2
-            name = "4:2:2";
-            break;
-        case CHROMA_FORMAT.CHROMA_4_4_4:
-            //[ISO 13818-2] 4:4:4
-            name = "4:4:4";
-            break;
-        default:
-            //do nothing
-            break;
-        }
-
-        return name;
-    }
-
-    public static class CHROMA_FORMAT {
-        //[ISO 13818-2] reserved
-        public static final int RESERVED = 0x0;
-        //[ISO 13818-2] 4:2:0
-        public static final int CHROMA_4_2_0 = 0x1;
-        //[ISO 13818-2] 4:2:2
-        public static final int CHROMA_4_2_2 = 0x2;
-        //[ISO 13818-2] 4:4:4
-        public static final int CHROMA_4_4_4 = 0x3;
-    }
-
-    public static String getVideoFormatName(int id) {
-        String name = "..unknown..";
-
-        switch (id) {
-        case VIDEO_FORMAT.COMPONENT:
-            //[ISO 13818-2] component
-            name = "component";
-            break;
-        case VIDEO_FORMAT.PAL:
-            //[ISO 13818-2] PAL
-            name = "PAL";
-            break;
-        case VIDEO_FORMAT.NTSC:
-            //[ISO 13818-2] NTSC
-            name = "NTSC";
-            break;
-        case VIDEO_FORMAT.SECAM:
-            //[ISO 13818-2] SECAM
-            name = "SECAM";
-            break;
-        case VIDEO_FORMAT.MAC:
-            //[ISO 13818-2] MAC
-            name = "MAC";
-            break;
-        case VIDEO_FORMAT.UNSPECIFIED:
-            //[ISO 13818-2] Unspecified video format
-            name = "Unspecified video format";
-            break;
-        case VIDEO_FORMAT.RESERVED1:
-            //[ISO 13818-2] reserved
-            name = "reserved1";
-            break;
-        case VIDEO_FORMAT.RESERVED2:
-            //[ISO 13818-2] reserved
-            name = "reserved2";
-            break;
-        default:
-            //do nothing
-            break;
-        }
-
-        return name;
-    }
-
-    public static class VIDEO_FORMAT {
-        //[ISO 13818-2] component
-        public static final int COMPONENT = 0x0; //0b000
-        //[ISO 13818-2] PAL
-        public static final int PAL = 0x1; //0b001
-        //[ISO 13818-2] NTSC
-        public static final int NTSC = 0x2; //0b010
-        //[ISO 13818-2] SECAM
-        public static final int SECAM = 0x3; //0b011
-        //[ISO 13818-2] MAC
-        public static final int MAC = 0x4; //0b100
-        //[ISO 13818-2] Unspecified video format
-        public static final int UNSPECIFIED = 0x5; //0b101
-        //[ISO 13818-2] reserved
-        public static final int RESERVED1 = 0x6; //0b110
-        //[ISO 13818-2] reserved
-        public static final int RESERVED2 = 0x7; //0b111
-    }
-
-    public static String getScalableModeName(int id) {
-        String name = "..unknown..";
-
-        switch (id) {
-        case SCALABLE_MODE.DATA_PARTITIONING:
-            //[ISO 13818-2] data partitioning
-            name = "data partitioning";
-            break;
-        case SCALABLE_MODE.SPATIAL:
-            //[ISO 13818-2] spatial scalability
-            name = "spatial scalability";
-            break;
-        case SCALABLE_MODE.SNR:
-            //[ISO 13818-2] SNR scalability
-            name = "SNR scalability";
-            break;
-        case SCALABLE_MODE.TEMPORAL:
-            //[ISO 13818-2] temporal scalability
-            name = "temporal scalability";
-            break;
-        default:
-            //do nothing
-            break;
-        }
-
-        return name;
-    }
-
-    public static class SCALABLE_MODE {
-        //[ISO 13818-2] data partitioning
-        public static final int DATA_PARTITIONING = 0x0; //0b00
-        //[ISO 13818-2] spatial scalability
-        public static final int SPATIAL = 0x1; //0b01
-        //[ISO 13818-2] SNR scalability
-        public static final int SNR = 0x2; //0b10
-        //[ISO 13818-2] temporal scalability
-        public static final int TEMPORAL = 0x3; //0b11
-    }
-
-    public static String getIntraDCPrecisionName(int id) {
-        String name = "..unknown..";
-
-        switch (id) {
-        case INTRA_DC_PRECISION.PREC_8:
-            //[ISO 13818-2] 8bits
-            name = "8bits";
-            break;
-        case INTRA_DC_PRECISION.PREC_9:
-            //[ISO 13818-2] 9bits
-            name = "9bits";
-            break;
-        case INTRA_DC_PRECISION.PREC_10:
-            //[ISO 13818-2] 10bits
-            name = "10bits";
-            break;
-        case INTRA_DC_PRECISION.PREC_11:
-            //[ISO 13818-2] 11bits
-            name = "11bits";
-            break;
-        default:
-            //do nothing
-            break;
-        }
-
-        return name;
-    }
-
-    public static class INTRA_DC_PRECISION {
-        //[ISO 13818-2] 8bits
-        public static final int PREC_8 = 0x00; //0b00
-        //[ISO 13818-2] 9bits
-        public static final int PREC_9 = 0x01; //0b01
-        //[ISO 13818-2] 10bits
-        public static final int PREC_10 = 0x02; //0b10
-        //[ISO 13818-2] 11bits
-        public static final int PREC_11 = 0x03; //0b11
-    }
-
-    public static String getPictureStructureName(int id) {
-        String name = "..unknown..";
-
-        switch (id) {
-        case PICTURE_STRUCTURE.RESERVED:
-            //[ISO 13818-2] reserved
-            name = "reserved";
-            break;
-        case PICTURE_STRUCTURE.TOP:
-            //[ISO 13818-2] Top Field
-            name = "top";
-            break;
-        case PICTURE_STRUCTURE.BOTTOM:
-            //[ISO 13818-2] Bottom Field
-            name = "bottom";
-            break;
-        case PICTURE_STRUCTURE.FRAME:
-            //[ISO 13818-2] Frame picture
-            name = "frame";
-            break;
-        default:
-            //do nothing
-            break;
-        }
-
-        return name;
-    }
-
-    public static class PICTURE_STRUCTURE {
-        //[ISO 13818-2] reserved
-        public static final int RESERVED = 0x00; //0b00
-        //[ISO 13818-2] Top Field
-        public static final int TOP = 0x01; //0b01
-        //[ISO 13818-2] Bottom Field
-        public static final int BOTTOM = 0x02; //0b10
-        //[ISO 13818-2] Frame picture
-        public static final int FRAME = 0x03; //0b11
     }
 }
