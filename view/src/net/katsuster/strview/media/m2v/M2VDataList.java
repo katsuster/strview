@@ -48,12 +48,7 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
         buf = l;
     }
 
-    protected void seekSlow(PacketReader<?> c, long start, long index) {
-        for (long i = start; i < index; i++) {
-            readNext(c, i);
-        }
-    }
-
+    @Override
     protected M2VData readNext(PacketReader<?> c, long index) {
         M2VHeader tagh = null;
         M2VData packet;
@@ -85,8 +80,10 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
             //かもしれないので、パケット本体を解析する
             c.position(packet.getBodyAddress());
         }
+        leaveParentPacket(packet);
 
         packet.setNumber(index);
+        packet.setLevel(getPacketStack().size());
 
         return packet;
     }
@@ -94,29 +91,17 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
     @Override
     public void count() {
         FromBitListConverter c = new FromBitListConverter(buf);
-        long cnt = 0;
 
-        try {
-            while (true) {
-                M2VData t = readNext(c, cnt);
-                leaveParentPacket(t);
-                enterParentPacket(t);
-                cnt++;
-            }
-        } catch (IndexOutOfBoundsException ex) {
-            //End
-            length(cnt);
-        }
+        countSlow(c);
     }
 
     @Override
     protected M2VData getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
-        seekSlow(c, 0, index);
+        seekSlow(c, index);
 
         M2VData p = readNext(c, index);
-        p.setLevel(0);
 
         return p;
     }

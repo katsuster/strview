@@ -47,12 +47,7 @@ public class MKVTagList extends AbstractPacketList<MKVTag> {
         buf = l;
     }
 
-    protected void seekSlow(PacketReader<?> c, long start, long index) {
-        for (long i = start; i < index; i++) {
-            readNext(c, i);
-        }
-    }
-
+    @Override
     protected MKVTag readNext(PacketReader<?> c, long index) {
         MKVTag packet;
 
@@ -80,8 +75,10 @@ public class MKVTagList extends AbstractPacketList<MKVTag> {
             //かもしれないので、パケット本体を解析する
             c.position(packet.getBodyAddress());
         }
+        leaveParentPacket(packet);
 
         packet.setNumber(index);
+        packet.setLevel(getPacketStack().size());
 
         return packet;
     }
@@ -89,29 +86,17 @@ public class MKVTagList extends AbstractPacketList<MKVTag> {
     @Override
     public void count() {
         FromBitListConverter c = new FromBitListConverter(buf);
-        long cnt = 0;
 
-        try {
-            while (true) {
-                MKVTag t = readNext(c, cnt);
-                leaveParentPacket(t);
-                enterParentPacket(t);
-                cnt++;
-            }
-        } catch (IndexOutOfBoundsException ex) {
-            //End
-            length(cnt);
-        }
+        countSlow(c);
     }
 
     @Override
     protected MKVTag getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
-        seekSlow(c, 0, index);
+        seekSlow(c, index);
 
         MKVTag p = readNext(c, index);
-        p.setLevel(0);
 
         return p;
     }
