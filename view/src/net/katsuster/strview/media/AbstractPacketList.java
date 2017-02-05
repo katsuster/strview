@@ -36,56 +36,27 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
         return stack_packet;
     }
 
-    /**
-     * <p>
-     * ツリー構造をなすストリームについて、
-     * 1つの枝の処理を開始します。
-     * </p>
-     *
-     * <p>
-     * パケットスタックの頂上にパケットを積み、
-     * パケット開始イベントを通知します。
-     * </p>
-     *
-     * @param current 処理対象となるパケット
-     */
-    protected void enterParentPacket(Packet current) {
-        //ツリー深さレベル、親パケットを設定する
-        if (getPacketStack().peek() != null) {
-            getPacketStack().peek().appendChild(current);
-        }
-
-        //スタックに積む
-        getPacketStack().push(current);
-    }
 
     /**
      * <p>
-     * ツリー構造をなすストリームについて、
-     * 1つの枝の処理を終了します。
+     * パケットをスタックに追加します。
      * </p>
      *
      * <p>
-     * パケットスタックの頂上にあるパケットを見て、
-     * パケットの終端に達していれば（※）パケット終了イベントを通知し、
-     * パケットスタックから取り払います。
+     * 終端に到達している全てのパケットは、
+     * スタックから削除されます。
+     * このため current がスタックに残るとは限りません。
      * </p>
      *
-     * <p>
-     * （※）一番最後に読み込んだパケットの終端位置が、
-     * パケットスタックの頂上にあるパケットの終端位置を超えていた場合、
-     * 終端に達したと判断します。
-     * </p>
-     *
-     * @param current 一番最後に読み込んだパケット
+     * @param current スタックに追加するパケット
      */
-    protected void leaveParentPacket(Packet current) {
+    protected void stackPacket(Packet current) {
         Packet p;
 
         while (true) {
             p = getPacketStack().peek();
             if (p == null) {
-                //パケットがなければ何もする必要はない
+                //パケットがない
                 break;
             }
 
@@ -95,14 +66,21 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
             }*/
 
             if (current.getAddress() + current.getLength() <= p.getAddress() + p.getLength()) {
-                //親パケットはまだ続いているので、
-                //終了イベントは送らない
+                //パケットはまだ続いている
                 break;
             }
 
             //スタックから外す
             getPacketStack().pop();
         }
+
+        //ツリー深さレベル、親パケットを設定する
+        if (getPacketStack().peek() != null) {
+            getPacketStack().peek().appendChild(current);
+        }
+
+        //スタックに積む
+        getPacketStack().push(current);
     }
 
     /**
@@ -123,14 +101,28 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
         try {
             while (true) {
                 Packet p = readNext(c, cnt);
-                leaveParentPacket(p);
-                enterParentPacket(p);
                 cnt++;
             }
         } catch (IndexOutOfBoundsException ex) {
             //End
             length(cnt);
         }
+    }
+
+    /**
+     * <p>
+     * シークを行います。
+     * </p>
+     *
+     * <p>
+     * デフォルトの実装では seekSlow() と同じです。
+     * </p>
+     *
+     * @param c 各メンバの変換を実施するオブジェクト
+     * @param index シークする位置のパケット ID
+     */
+    protected void seek(PacketReader<?> c, long index) {
+        seekSlow(c, index);
     }
 
     /**
@@ -173,10 +165,29 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
     protected void seekSlow(PacketReader<?> c, long start, long index) {
         for (long i = start; i < index; i++) {
             Packet p = readNext(c, i);
-            leaveParentPacket(p);
-            enterParentPacket(p);
         }
     }
+
+    /**
+     * <p>
+     * 現在位置からパケットを読み出し、インデックス、レベルを設定します。
+     * </p>
+     *
+     * @param c 各メンバの変換を実施するオブジェクト
+     * @param index パケットに付与する ID
+     * @return パケット
+     */
+    protected Packet readNext(PacketReader<?> c, long index) {
+        Packet p;
+
+        p = readNextInner(c, index);
+        stackPacket(p);
+        p.setNumber(index);
+        p.setLevel(getPacketStack().size());
+
+        return p;
+    }
+
 
     /**
      * <p>
@@ -187,5 +198,5 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
      * @param index パケットに付与する ID
      * @return パケット
      */
-    protected abstract Packet readNext(PacketReader<?> c, long index);
+    protected abstract Packet readNextInner(PacketReader<?> c, long index);
 }

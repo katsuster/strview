@@ -49,7 +49,14 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
     }
 
     @Override
-    protected M2VData readNext(PacketReader<?> c, long index) {
+    public void count() {
+        FromBitListConverter c = new FromBitListConverter(buf);
+
+        countSlow(c);
+    }
+
+    @Override
+    protected M2VData readNextInner(PacketReader<?> c, long index) {
         M2VHeader tagh = null;
         M2VData packet;
 
@@ -73,37 +80,24 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
         }
 
         packet = new M2VData(tagh);
-        packet.read(c);
 
+        packet.read(c);
         if (packet.getHeader().isRecursive()) {
             //入れ子にできるなら、本体に別のパケットが含まれている
             //かもしれないので、パケット本体を解析する
             c.position(packet.getBodyAddress());
         }
-        leaveParentPacket(packet);
-
-        packet.setNumber(index);
-        packet.setLevel(getPacketStack().size());
 
         return packet;
-    }
-
-    @Override
-    public void count() {
-        FromBitListConverter c = new FromBitListConverter(buf);
-
-        countSlow(c);
     }
 
     @Override
     protected M2VData getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
-        seekSlow(c, index);
+        seek(c, index);
 
-        M2VData p = readNext(c, index);
-
-        return p;
+        return (M2VData)readNext(c, index);
     }
 
     @Override

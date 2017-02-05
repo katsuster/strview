@@ -10,12 +10,13 @@ import net.katsuster.strview.media.*;
  *
  * @author katsuhiro
  */
-public class TSPacketList extends AbstractLargeList<TSPacket> {
+public class TSPacketList extends AbstractPacketList<TSPacket> {
     private LargeBitList buf;
 
     public TSPacketList() {
         super(LENGTH_UNKNOWN);
     }
+
 
     public TSPacketList(LargeBitList l) {
         super(LENGTH_UNKNOWN);
@@ -29,16 +30,26 @@ public class TSPacketList extends AbstractLargeList<TSPacket> {
     }
 
     @Override
+    protected void seek(PacketReader<?> c, long index) {
+        c.position(index * 188 * 8);
+    }
+
+    @Override
+    protected Packet readNextInner(PacketReader<?> c, long index) {
+        TSPacket packet = new TSPacket();
+
+        packet.read(c);
+
+        return packet;
+    }
+
+    @Override
     protected TSPacket getInner(long index) {
-        TSPacket p = new TSPacket();
         FromBitListConverter c = new FromBitListConverter(buf);
 
-        c.position(index * 188 * 8);
-        p.setNumber(index);
-        p.setLevel(0);
-        p.read(c);
+        seek(c, index);
 
-        return p;
+        return (TSPacket)readNext(c, index);
     }
 
     @Override
