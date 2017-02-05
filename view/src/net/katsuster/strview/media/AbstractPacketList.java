@@ -14,6 +14,8 @@ import net.katsuster.strview.util.*;
 public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
     //木構造を管理するためのスタック
     private Deque<Packet> stack_packet;
+    //インデックスキャッシュ
+    private NavigableMap<Long, Long> cache_packet;
 
     public AbstractPacketList() {
         this(LENGTH_UNKNOWN);
@@ -22,7 +24,8 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
     public AbstractPacketList(long l) {
         super(l);
 
-        stack_packet = new ArrayDeque<Packet>();
+        stack_packet = new ArrayDeque<>();
+        cache_packet = new TreeMap<>();
     }
 
     /**
@@ -85,6 +88,25 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
 
     /**
      * <p>
+     * パケットをキャッシュに追加します。
+     * </p>
+     *
+     * <p>
+     * 次回以降のシークが速くなる可能性があります。
+     * </p>
+     *
+     * @param p キャッシュするパケット
+     */
+    protected void cachePacket(Packet p) {
+        if (cache_packet.containsKey(p.getNumber())) {
+            return;
+        }
+
+        cache_packet.put(p.getNumber(), p.getAddress());
+    }
+
+    /**
+     * <p>
      * パケットを数え、リストの長さを確定させます。
      * </p>
      *
@@ -100,7 +122,7 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
 
         try {
             while (true) {
-                Packet p = readNext(c, cnt);
+                readNext(c, cnt);
                 cnt++;
             }
         } catch (IndexOutOfBoundsException ex) {
@@ -127,6 +149,26 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
 
     /**
      * <p>
+     * 指定された位置の近くまでシークします。
+     * </p>
+     *
+     * @param c 各メンバの変換を実施するオブジェクト
+     * @param index シークする位置のパケット ID
+     * @return シークした位置
+     */
+    protected long seekNearest(PacketReader<?> c, long index) {
+        Map.Entry<Long, Long> ent = cache_packet.floorEntry(index);
+
+        if (ent == null) {
+            return 0;
+        }
+
+        c.position(ent.getValue());
+        return ent.getKey();
+    }
+
+    /**
+     * <p>
      * 先頭からシークを行います。
      * </p>
      *
@@ -139,8 +181,11 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
      * @param index シークする位置のパケット ID
      */
     protected void seekSlow(PacketReader<?> c, long index) {
+        long start;
+
         getPacketStack().clear();
-        seekSlow(c, 0, index);
+        start = seekNearest(c, index);
+        seekSlow(c, start, index);
     }
 
     /**
@@ -184,6 +229,8 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
         stackPacket(p);
         p.setNumber(index);
         p.setLevel(getPacketStack().size());
+
+        cachePacket(p);
 
         return p;
     }
