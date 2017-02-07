@@ -73,16 +73,14 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
                 break;
             }
 
-            //スタックから外す
+            //パケットの終わりに到達したのでスタックから外す
             getPacketStack().pop();
         }
 
-        //ツリー深さレベル、親パケットを設定する
         if (getPacketStack().peek() != null) {
             getPacketStack().peek().appendChild(current);
         }
 
-        //スタックに積む
         getPacketStack().push(current);
     }
 
@@ -234,7 +232,6 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
 
         return p;
     }
-
 
     /**
      * <p>

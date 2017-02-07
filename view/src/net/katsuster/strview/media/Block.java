@@ -7,10 +7,14 @@ package net.katsuster.strview.media;
  * データの整合性の検証、他の形式への変換を行います。
  * </p>
  *
- * @see Packet
+ * <p>
+ * 実装する際は BlockAdapter クラスを継承すると便利です。
+ * </p>
+ *
+ * @see BlockAdapter
  * @author katsuhiro
  */
-public interface Block extends Cloneable {
+public interface Block extends BlockPosition, Cloneable {
     /**
      * オブジェクトのコピーを作成し、返します。
      *
@@ -19,6 +23,24 @@ public interface Block extends Cloneable {
      */
     public Block clone()
             throws CloneNotSupportedException;
+
+    /**
+     * <p>
+     * データの位置を取得します。
+     * </p>
+     *
+     * @return データの位置
+     */
+    public BlockPosition getDataPosition();
+
+    /**
+     * <p>
+     * データの位置を設定します。
+     * </p>
+     *
+     * @param p データの位置
+     */
+    public void setDataPosition(BlockPosition p);
 
     /**
      * <p>

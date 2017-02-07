@@ -33,12 +33,60 @@ package net.katsuster.strview.media;
  * @author katsuhiro
  */
 public abstract class AbstractBlock implements Block {
+    private BlockPosition pos;
+
+    public AbstractBlock() {
+        pos = new SimpleBlockPosition();
+    }
+
     @Override
     public AbstractBlock clone()
             throws CloneNotSupportedException {
         AbstractBlock obj = (AbstractBlock)super.clone();
 
+        obj.setDataPosition(new SimpleBlockPosition(getDataPosition()));
+
         return obj;
+    }
+
+    @Override
+    public long getNumber() {
+        return getDataPosition().getNumber();
+    }
+
+    @Override
+    public void setNumber(long num) {
+        getDataPosition().setNumber(num);
+    }
+
+    @Override
+    public long getAddress() {
+        return getDataPosition().getAddress();
+    }
+
+    @Override
+    public void setAddress(long addr) {
+        getDataPosition().setAddress(addr);
+    }
+
+    @Override
+    public long getLength() {
+        return getDataPosition().getLength();
+    }
+
+    @Override
+    public void setLength(long len) {
+        getDataPosition().setLength(len);
+    }
+
+    @Override
+    public BlockPosition getDataPosition() {
+        return pos;
+    }
+
+    @Override
+    public void setDataPosition(BlockPosition p) {
+        pos = p;
     }
 
     @Override

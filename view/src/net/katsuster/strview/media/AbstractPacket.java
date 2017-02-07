@@ -70,19 +70,6 @@ import net.katsuster.strview.util.*;
  */
 public abstract class AbstractPacket extends AbstractBlock
         implements Packet, Cloneable {
-    //パケットの通し番号
-    private long num;
-
-    //パケットのヘッダのアドレス（ビット単位）
-    private long address_header;
-
-    //パケットのヘッダの長さ（ビット単位）
-    private long len_header;
-    //パケットの本体の長さ（ビット単位）
-    private long len_body;
-    //パケットのフッタの長さ（ビット単位）
-    private long len_footer;
-
     //ヘッダ
     private Block head;
     //本体を表すビット列
@@ -119,13 +106,9 @@ public abstract class AbstractPacket extends AbstractBlock
     public AbstractPacket(Packet pp) {
         super();
 
-        num = 0;
+        setDataPosition(new SimplePacketPosition());
         setParentNode(pp);
-        children = new ArrayList<Node>();
-        address_header = 0;
-        len_header = 0;
-        len_body = 0;
-        len_footer = 0;
+        children = new ArrayList<>();
         head = new BlockAdapter();
         foot = new BlockAdapter();
     }
@@ -142,6 +125,7 @@ public abstract class AbstractPacket extends AbstractBlock
             obj.children.add(children.get(i));
         }
 
+        obj.setDataPosition(new SimplePacketPosition(getDataPosition()));
         obj.head = head.clone();
         obj.body = body;
         obj.foot = foot.clone();
@@ -150,121 +134,54 @@ public abstract class AbstractPacket extends AbstractBlock
         return obj;
     }
 
-    /**
-     * <p>
-     * パケットの短い名前を取得します。
-     * </p>
-     *
-     * <p>
-     * このクラスではクラス名 Class.getCanonicalName() を返します。
-     * 継承するクラスにおいてはこのメソッドをオーバライドして、
-     * より適切な名前を返すことが推奨されます。
-     * </p>
-     *
-     * @return パケットの短い名前
-     */
-    @Override
-    public String getShortName() {
-        return getClass().getName();
-    }
-
-    @Override
-    public long getNumber() {
-        return num;
-    }
-
-    @Override
-    public void setNumber(long n) {
-        num = n;
-    }
-
-    @Override
-    public long getAddress() {
-        return getHeaderAddress();
-    }
-
-    @Override
-    public long getHeaderAddress() {
-        return address_header;
-    }
-
-    /**
-     * <p>
-     * パケットのヘッダが存在するストリーム中の位置を設定します。
-     * </p>
-     *
-     * <p>
-     * パーサによって位置の付け方が異なりますが、
-     * 通常はストリーム先頭を 0 とした位置（ビット単位）が設定されます。
-     * </p>
-     *
-     * @param s パケットのヘッダが存在するストリーム中の位置（ビット単位）
-     */
-    public void setHeaderAddress(long s) {
-        address_header = s;
-    }
-
     @Override
     public long getBodyAddress() {
-        return getHeaderAddress() + getHeaderLength();
+        return getDataPosition().getBodyAddress();
     }
 
     @Override
     public long getFooterAddress() {
-        return getBodyAddress() + getBodyLength();
-    }
-
-    @Override
-    public long getLength() {
-        return getHeaderLength() + getBodyLength() + getFooterLength();
+        return getDataPosition().getFooterAddress();
     }
 
     @Override
     public long getHeaderLength() {
-        return len_header;
+        return getDataPosition().getHeaderLength();
     }
 
-    /**
-     * <p>
-     * パケットのヘッダの長さを設定します。
-     * </p>
-     *
-     * @param s パケットのヘッダの長さ（ビット単位）
-     */
+    @Override
     public void setHeaderLength(long s) {
-        len_header = s;
+        getDataPosition().setHeaderLength(s);
     }
 
     @Override
     public long getBodyLength() {
-        return len_body;
+        return getDataPosition().getBodyLength();
     }
 
-    /**
-     * <p>
-     * パケットの本体の長さを設定します。
-     * </p>
-     *
-     * @param s パケットの本体の長さ（ビット単位）
-     */
+    @Override
     public void setBodyLength(long s) {
-        len_body = s;
+        getDataPosition().setBodyLength(s);
     }
 
     @Override
     public long getFooterLength() {
-        return len_footer;
+        return getDataPosition().getFooterLength();
     }
 
-    /**
-     * <p>
-     * パケットのフッタの長さを設定します。
-     * </p>
-     *
-     * @param s パケットのフッタの長さ（ビット単位）
-     */
+    @Override
     public void setFooterLength(long s) {
-        len_footer = s;
+        getDataPosition().setFooterLength(s);
+    }
+
+    @Override
+    public PacketPosition getDataPosition() {
+        return (PacketPosition)super.getDataPosition();
+    }
+
+    @Override
+    public String getShortName() {
+        return getClass().getName();
     }
 
     @Override
@@ -433,7 +350,7 @@ public abstract class AbstractPacket extends AbstractBlock
         long org_pos;
 
         org_pos = c.position();
-        c.position(getHeaderAddress());
+        c.position(getAddress());
         raw_packet = c.readSubList(getLength(), raw_packet, "raw_packet");
         c.position(org_pos);
     }
@@ -468,9 +385,9 @@ public abstract class AbstractPacket extends AbstractBlock
     public void read(PacketReader<?> c) {
         c.enterPacket(getShortName());
 
-        setHeaderAddress(c.position());
+        setAddress(c.position());
         readHeader(c);
-        setHeaderLength(c.position() - getHeaderAddress());
+        setHeaderLength(c.position() - getAddress());
         readBody(c);
         setBodyLength(c.position() - getBodyAddress());
         readFooter(c);
@@ -849,7 +766,7 @@ public abstract class AbstractPacket extends AbstractBlock
         c.mark("addr(head,body,foot)(hex)",
                 String.format("%x.%d(%x.%d, %x.%d, %x.%d)",
                         d.getAddress() >>> 3,d. getAddress() & 7,
-                        d.getHeaderAddress() >>> 3, d.getHeaderAddress() & 7,
+                        d.getAddress() >>> 3, d.getAddress() & 7,
                         d.getBodyAddress() >>> 3, d.getBodyAddress() & 7,
                         d.getFooterAddress() >>> 3, d.getFooterAddress() & 7));
         c.mark("len (head,body,foot)(dec)",
