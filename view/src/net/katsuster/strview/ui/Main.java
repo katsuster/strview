@@ -10,6 +10,8 @@ import net.katsuster.strview.util.*;
 import net.katsuster.strview.io.*;
 import net.katsuster.strview.gui.*;
 import net.katsuster.strview.media.ts.*;
+import net.katsuster.strview.media.mkv.*;
+import net.katsuster.strview.media.m2v.*;
 
 /**
  * メインクラス。
@@ -29,13 +31,24 @@ public class Main {
             flist.add(new File(fname));
 
             LargeBitList blist = new ByteToBitList(new FileByteList(fname));
-            TSPacketList tslist = new TSPacketList(blist);
 
+            /*TSPacketList tslist = new TSPacketList(blist);
             tslist.count();
-
             for (TSPacket a : tslist) {
                 System.out.println(a);
-            }
+            }*/
+
+            /*MKVTagList mkvlist = new MKVTagList(blist);
+            //mkvlist.count();
+            for (MKVTag a : mkvlist) {
+                System.out.println(a);
+            }*/
+
+            /*M2VDataList m2vlist = new M2VDataList(blist);
+            //m2vlist.count();
+            for (M2VData a : m2vlist) {
+                System.out.println(a);
+            }*/
         }
 
         try {
@@ -49,7 +62,7 @@ public class Main {
 
             //結果表示用のフレームを作成する
             w = new FileDropWindow();
-            w.setTitle("bined");
+            w.setTitle("strview");
             w.setSize(300, 100);
             w.setVisible(true);
         } catch (HeadlessException ex) {
