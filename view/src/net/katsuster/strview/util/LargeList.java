@@ -40,6 +40,32 @@ public interface LargeList<T> extends List<T> {
 
     /**
      * <p>
+     * リストの位置のヒントを返します。
+     * </p>
+     *
+     * <p>
+     * リストが別のリストの一部に含まれる場合などに使用します。
+     * </p>
+     *
+     * @return リストの位置のヒント
+     */
+    public long getOffsetHint();
+
+    /**
+     * <p>
+     * リストの位置のヒントを設定します。
+     * </p>
+     *
+     * <p>
+     * リストが別のリストの一部に含まれる場合などに使用します。
+     * </p>
+     *
+     * @param h リストの位置のヒント
+     */
+    public void setOffsetHint(long h);
+
+    /**
+     * <p>
      * 指定された位置の要素を取得します。
      * </p>
      *

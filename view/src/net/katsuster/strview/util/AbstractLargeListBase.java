@@ -13,6 +13,8 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
         implements LargeList<T>, Cloneable {
     //リストの長さ
     private long len;
+    //リストの位置のヒント
+    private long offsetHint;
     //リストが存在する範囲
     private Range r;
 
@@ -96,6 +98,16 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
     @Override
     public void length(long l) {
         len = l;
+    }
+
+    @Override
+    public long getOffsetHint() {
+        return offsetHint;
+    }
+
+    @Override
+    public void setOffsetHint(long h) {
+        offsetHint = h;
     }
 
     @Override
