@@ -6,32 +6,8 @@ import net.katsuster.strview.media.m2v.M2VConsts.*;
 
 /**
  * <p>
- * Matroska タグリスト。
+ * MPEG2 Video データリスト。
  * </p>
- *
- * <p>
- * タグの種類は下記の通り。
- * </p>
- *
- * <dl>
- * <dt>Master-Element タグ</dt>
- * <dd>他のタグを内包するタグ。</dd>
- * <dt>Unsigned Integer タグ</dt>
- * <dd>Big-endian の符号なし整数を含むタグ。</dd>
- * <dt>Signed Integer タグ</dt>
- * <dd>Big-endian の符号付き整数を含むタグ。</dd>
- * <dt>String タグ</dt>
- * <dd>ASCII(0x20 ... 0x7e) 文字列を含むタグ。</dd>
- * <dt>UTF-8 タグ</dt>
- * <dd>UTF-8 文字列を含むタグ。</dd>
- * <dt>Binary タグ</dt>
- * <dd>任意のバイナリデータを含むタグ。</dd>
- * <dt>Float タグ</dt>
- * <dd>Big-endian の 32bit あるいは 64bit 浮動小数点数を含むタグ。</dd>
- * <dt>Date タグ</dt>
- * <dd>2001-01-01T00:00:00,000000000 UTC からの経過時間を、
- * ナノ秒で表した符号付き整数を含むタグ。</dd>
- * </dl>
  *
  * @author katsuhiro
  */

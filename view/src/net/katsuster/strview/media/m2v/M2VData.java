@@ -4,7 +4,7 @@ import net.katsuster.strview.media.*;
 
 /**
  * <p>
- * MPEG2-TS(Transport Stream) パケット。
+ * MPEG2 Video データ。
  * </p>
  *
  * @author katsuhiro
