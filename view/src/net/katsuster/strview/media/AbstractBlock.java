@@ -33,10 +33,10 @@ package net.katsuster.strview.media;
  * @author katsuhiro
  */
 public abstract class AbstractBlock implements Block {
-    private BlockPosition pos;
+    private BlockRange pos;
 
     public AbstractBlock() {
-        pos = new SimpleBlockPosition();
+        pos = new SimpleBlockRange();
     }
 
     @Override
@@ -44,48 +44,48 @@ public abstract class AbstractBlock implements Block {
             throws CloneNotSupportedException {
         AbstractBlock obj = (AbstractBlock)super.clone();
 
-        obj.setDataPosition(new SimpleBlockPosition(getDataPosition()));
+        obj.setRange(new SimpleBlockRange(getRange()));
 
         return obj;
     }
 
     @Override
     public long getNumber() {
-        return getDataPosition().getNumber();
+        return getRange().getNumber();
     }
 
     @Override
     public void setNumber(long num) {
-        getDataPosition().setNumber(num);
+        getRange().setNumber(num);
     }
 
     @Override
-    public long getAddress() {
-        return getDataPosition().getAddress();
+    public long getStart() {
+        return getRange().getStart();
     }
 
     @Override
-    public void setAddress(long addr) {
-        getDataPosition().setAddress(addr);
+    public void setStart(long addr) {
+        getRange().setStart(addr);
     }
 
     @Override
     public long getLength() {
-        return getDataPosition().getLength();
+        return getRange().getLength();
     }
 
     @Override
     public void setLength(long len) {
-        getDataPosition().setLength(len);
+        getRange().setLength(len);
     }
 
     @Override
-    public BlockPosition getDataPosition() {
+    public BlockRange getRange() {
         return pos;
     }
 
     @Override
-    public void setDataPosition(BlockPosition p) {
+    public void setRange(BlockRange p) {
         pos = p;
     }
 

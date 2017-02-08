@@ -106,7 +106,7 @@ public abstract class AbstractPacket extends AbstractBlock
     public AbstractPacket(Packet pp) {
         super();
 
-        setDataPosition(new SimplePacketPosition());
+        setRange(new SimplePacketRange());
         setParentNode(pp);
         children = new ArrayList<>();
         head = new BlockAdapter();
@@ -125,7 +125,7 @@ public abstract class AbstractPacket extends AbstractBlock
             obj.children.add(children.get(i));
         }
 
-        obj.setDataPosition(new SimplePacketPosition(getDataPosition()));
+        obj.setRange(new SimplePacketRange(getRange()));
         obj.head = head.clone();
         obj.body = body;
         obj.foot = foot.clone();
@@ -136,47 +136,47 @@ public abstract class AbstractPacket extends AbstractBlock
 
     @Override
     public long getBodyAddress() {
-        return getDataPosition().getBodyAddress();
+        return getRange().getBodyAddress();
     }
 
     @Override
     public long getFooterAddress() {
-        return getDataPosition().getFooterAddress();
+        return getRange().getFooterAddress();
     }
 
     @Override
     public long getHeaderLength() {
-        return getDataPosition().getHeaderLength();
+        return getRange().getHeaderLength();
     }
 
     @Override
     public void setHeaderLength(long s) {
-        getDataPosition().setHeaderLength(s);
+        getRange().setHeaderLength(s);
     }
 
     @Override
     public long getBodyLength() {
-        return getDataPosition().getBodyLength();
+        return getRange().getBodyLength();
     }
 
     @Override
     public void setBodyLength(long s) {
-        getDataPosition().setBodyLength(s);
+        getRange().setBodyLength(s);
     }
 
     @Override
     public long getFooterLength() {
-        return getDataPosition().getFooterLength();
+        return getRange().getFooterLength();
     }
 
     @Override
     public void setFooterLength(long s) {
-        getDataPosition().setFooterLength(s);
+        getRange().setFooterLength(s);
     }
 
     @Override
-    public PacketPosition getDataPosition() {
-        return (PacketPosition)super.getDataPosition();
+    public PacketRange getRange() {
+        return (PacketRange)super.getRange();
     }
 
     @Override
@@ -350,7 +350,7 @@ public abstract class AbstractPacket extends AbstractBlock
         long org_pos;
 
         org_pos = c.position();
-        c.position(getAddress());
+        c.position(getStart());
         raw_packet = c.readSubList(getLength(), raw_packet, "raw_packet");
         c.position(org_pos);
     }
@@ -385,9 +385,9 @@ public abstract class AbstractPacket extends AbstractBlock
     public void read(PacketReader<?> c) {
         c.enterPacket(getShortName());
 
-        setAddress(c.position());
+        setStart(c.position());
         readHeader(c);
-        setHeaderLength(c.position() - getAddress());
+        setHeaderLength(c.position() - getStart());
         readBody(c);
         setBodyLength(c.position() - getBodyAddress());
         readFooter(c);
@@ -765,8 +765,8 @@ public abstract class AbstractPacket extends AbstractBlock
                 d.getNumber());
         c.mark("addr(head,body,foot)(hex)",
                 String.format("%x.%d(%x.%d, %x.%d, %x.%d)",
-                        d.getAddress() >>> 3,d. getAddress() & 7,
-                        d.getAddress() >>> 3, d.getAddress() & 7,
+                        d.getStart() >>> 3,d.getStart() & 7,
+                        d.getStart() >>> 3, d.getStart() & 7,
                         d.getBodyAddress() >>> 3, d.getBodyAddress() & 7,
                         d.getFooterAddress() >>> 3, d.getFooterAddress() & 7));
         c.mark("len (head,body,foot)(dec)",

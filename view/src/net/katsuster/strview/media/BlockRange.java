@@ -2,12 +2,12 @@ package net.katsuster.strview.media;
 
 /**
  * <p>
- * データの場所を表します。
+ * データの存在する範囲を表します。
  * </p>
  *
  * @author katsuhiro
  */
-public interface BlockPosition extends Cloneable {
+public interface BlockRange extends Cloneable {
     /**
      * <p>
      * パケットの通し番号を返します。
@@ -48,7 +48,7 @@ public interface BlockPosition extends Cloneable {
      *
      * @return パケットが存在するストリーム中の位置
      */
-    public long getAddress();
+    public long getStart();
 
     /**
      * <p>
@@ -62,7 +62,7 @@ public interface BlockPosition extends Cloneable {
      *
      * @param addr パケットが存在するストリーム中の位置
      */
-    public void setAddress(long addr);
+    public void setStart(long addr);
 
     /**
      * <p>

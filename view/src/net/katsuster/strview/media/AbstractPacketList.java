@@ -68,7 +68,7 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
                 break;
             }*/
 
-            if (current.getAddress() + current.getLength() <= p.getAddress() + p.getLength()) {
+            if (current.getStart() + current.getLength() <= p.getStart() + p.getLength()) {
                 //パケットはまだ続いている
                 break;
             }
@@ -100,7 +100,7 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
             return;
         }
 
-        cache_packet.put(p.getNumber(), p.getAddress());
+        cache_packet.put(p.getNumber(), p.getStart());
     }
 
     /**

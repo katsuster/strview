@@ -14,7 +14,7 @@ package net.katsuster.strview.media;
  * @see BlockAdapter
  * @author katsuhiro
  */
-public interface Block extends BlockPosition, Cloneable {
+public interface Block extends BlockRange, Cloneable {
     /**
      * オブジェクトのコピーを作成し、返します。
      *
@@ -26,21 +26,21 @@ public interface Block extends BlockPosition, Cloneable {
 
     /**
      * <p>
-     * データの位置を取得します。
+     * データの存在する範囲を取得します。
      * </p>
      *
-     * @return データの位置
+     * @return データの範囲
      */
-    public BlockPosition getDataPosition();
+    public BlockRange getRange();
 
     /**
      * <p>
-     * データの位置を設定します。
+     * データの存在する位置を設定します。
      * </p>
      *
-     * @param p データの位置
+     * @param p データの範囲
      */
-    public void setDataPosition(BlockPosition p);
+    public void setRange(BlockRange p);
 
     /**
      * <p>

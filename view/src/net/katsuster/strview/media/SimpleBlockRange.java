@@ -7,14 +7,12 @@ package net.katsuster.strview.media;
  *
  * @author katsuhiro
  */
-public class SimpleBlockPosition
-        implements BlockPosition, Cloneable {
+public class SimpleBlockRange
+        implements BlockRange, Cloneable {
     //パケットの通し番号
     private long number;
-
     //パケットの位置
     private long address;
-
     //パケットの長さ
     private long length;
 
@@ -23,7 +21,7 @@ public class SimpleBlockPosition
      * 番号 0、位置 0、長さ 0 のパケット位置を作成します。
      * </p>
      */
-    public SimpleBlockPosition() {
+    public SimpleBlockRange() {
         this(0, 0, 0);
     }
 
@@ -34,7 +32,7 @@ public class SimpleBlockPosition
      *
      * @param num パケットの番号
      */
-    public SimpleBlockPosition(long num) {
+    public SimpleBlockRange(long num) {
         this(num, 0, 0);
     }
 
@@ -46,7 +44,7 @@ public class SimpleBlockPosition
      * @param num パケットの番号
      * @param addr パケットの位置
      */
-    public SimpleBlockPosition(long num, long addr) {
+    public SimpleBlockRange(long num, long addr) {
         this(num, addr, 0);
     }
 
@@ -59,7 +57,7 @@ public class SimpleBlockPosition
      * @param addr パケットの位置
      * @param len パケットのサイズ
      */
-    public SimpleBlockPosition(long num, long addr, long len) {
+    public SimpleBlockRange(long num, long addr, long len) {
         number = num;
         address = addr;
         length = len;
@@ -72,14 +70,14 @@ public class SimpleBlockPosition
      *
      * @param obj パケット位置
      */
-    public SimpleBlockPosition(BlockPosition obj) {
-        this(obj.getNumber(), obj.getAddress(), obj.getLength());
+    public SimpleBlockRange(BlockRange obj) {
+        this(obj.getNumber(), obj.getStart(), obj.getLength());
     }
 
     @Override
-    public SimpleBlockPosition clone()
+    public SimpleBlockRange clone()
             throws CloneNotSupportedException {
-        SimpleBlockPosition obj = (SimpleBlockPosition)super.clone();
+        SimpleBlockRange obj = (SimpleBlockRange)super.clone();
 
         return obj;
     }
@@ -95,12 +93,12 @@ public class SimpleBlockPosition
     }
 
     @Override
-    public long getAddress() {
+    public long getStart() {
         return address;
     }
 
     @Override
-    public void setAddress(long addr) {
+    public void setStart(long addr) {
         address = addr;
     }
 

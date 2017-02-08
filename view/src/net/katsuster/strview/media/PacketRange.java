@@ -2,12 +2,12 @@ package net.katsuster.strview.media;
 
 /**
  * <p>
- * データの場所を表します。
+ * パケットの存在する範囲を表します。
  * </p>
  *
  * @author katsuhiro
  */
-public interface PacketPosition extends BlockPosition {
+public interface PacketRange extends BlockRange {
     /**
      * <p>
      * パケットの本体が存在するストリーム中の位置を返します。

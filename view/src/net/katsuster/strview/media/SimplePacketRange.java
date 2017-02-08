@@ -7,8 +7,8 @@ package net.katsuster.strview.media;
  *
  * @author katsuhiro
  */
-public class SimplePacketPosition extends SimpleBlockPosition
-        implements PacketPosition, Cloneable {
+public class SimplePacketRange extends SimpleBlockRange
+        implements PacketRange, Cloneable {
     //パケットのヘッダの長さ（ビット単位）
     private long len_header;
     //パケットのフッタの長さ（ビット単位）
@@ -19,7 +19,7 @@ public class SimplePacketPosition extends SimpleBlockPosition
      * 番号 0、位置 0、長さ 0 のパケット位置を作成します。
      * </p>
      */
-    public SimplePacketPosition() {
+    public SimplePacketRange() {
         this(0, 0, 0, 0, 0);
     }
 
@@ -30,7 +30,7 @@ public class SimplePacketPosition extends SimpleBlockPosition
      *
      * @param num パケットの番号
      */
-    public SimplePacketPosition(long num) {
+    public SimplePacketRange(long num) {
         this(num, 0, 0, 0, 0);
     }
 
@@ -42,7 +42,7 @@ public class SimplePacketPosition extends SimpleBlockPosition
      * @param num パケットの番号
      * @param addr パケットの位置
      */
-    public SimplePacketPosition(long num, long addr) {
+    public SimplePacketRange(long num, long addr) {
         this(num, addr, 0, 0, 0);
     }
 
@@ -57,7 +57,7 @@ public class SimplePacketPosition extends SimpleBlockPosition
      * @param len_b パケットペイロードのサイズ
      * @param len_f パケットフッタのサイズ
      */
-    public SimplePacketPosition(long num, long addr, long len_h, long len_b, long len_f) {
+    public SimplePacketRange(long num, long addr, long len_h, long len_b, long len_f) {
         super(num, addr, len_h + len_b + len_f);
 
         len_header = len_h;
@@ -71,22 +71,22 @@ public class SimplePacketPosition extends SimpleBlockPosition
      *
      * @param obj パケットの位置
      */
-    public SimplePacketPosition(PacketPosition obj) {
-        this(obj.getNumber(), obj.getAddress(),
+    public SimplePacketRange(PacketRange obj) {
+        this(obj.getNumber(), obj.getStart(),
                 obj.getHeaderLength(), obj.getBodyLength(), obj.getFooterLength());
     }
 
     @Override
-    public SimplePacketPosition clone()
+    public SimplePacketRange clone()
             throws CloneNotSupportedException {
-        SimplePacketPosition obj = (SimplePacketPosition)super.clone();
+        SimplePacketRange obj = (SimplePacketRange)super.clone();
 
         return obj;
     }
 
     @Override
     public long getBodyAddress() {
-        return getAddress() + getHeaderLength();
+        return getStart() + getHeaderLength();
     }
 
     @Override

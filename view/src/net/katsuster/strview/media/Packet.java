@@ -15,7 +15,7 @@ import net.katsuster.strview.util.*;
  * @see PacketAdapter
  * @author katsuhiro
  */
-public interface Packet extends PacketPosition, Block, Node {
+public interface Packet extends PacketRange, Block, Node {
     /**
      * <p>
      * パケットの短い名前を取得します。
