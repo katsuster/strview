@@ -1,5 +1,7 @@
 package net.katsuster.strview.media;
 
+import net.katsuster.strview.util.*;
+
 /**
  * <p>
  * パケットの位置。
@@ -7,14 +9,10 @@ package net.katsuster.strview.media;
  *
  * @author katsuhiro
  */
-public class SimpleBlockRange
+public class SimpleBlockRange extends SimpleRange
         implements BlockRange, Cloneable {
     //パケットの通し番号
     private long number;
-    //パケットの位置
-    private long address;
-    //パケットの長さ
-    private long length;
 
     /**
      * <p>
@@ -58,9 +56,8 @@ public class SimpleBlockRange
      * @param len パケットのサイズ
      */
     public SimpleBlockRange(long num, long addr, long len) {
+        super(addr, addr + len);
         number = num;
-        address = addr;
-        length = len;
     }
 
     /**
@@ -90,25 +87,5 @@ public class SimpleBlockRange
     @Override
     public void setNumber(long num) {
         number = num;
-    }
-
-    @Override
-    public long getStart() {
-        return address;
-    }
-
-    @Override
-    public void setStart(long addr) {
-        address = addr;
-    }
-
-    @Override
-    public long getLength() {
-        return length;
-    }
-
-    @Override
-    public void setLength(long len) {
-        length = len;
     }
 }

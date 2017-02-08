@@ -50,16 +50,6 @@ public abstract class AbstractBlock implements Block {
     }
 
     @Override
-    public long getNumber() {
-        return getRange().getNumber();
-    }
-
-    @Override
-    public void setNumber(long num) {
-        getRange().setNumber(num);
-    }
-
-    @Override
     public long getStart() {
         return getRange().getStart();
     }
@@ -70,6 +60,16 @@ public abstract class AbstractBlock implements Block {
     }
 
     @Override
+    public long getEnd() {
+        return getRange().getEnd();
+    }
+
+    @Override
+    public void setEnd(long addr) {
+        getRange().setEnd(addr);
+    }
+
+    @Override
     public long getLength() {
         return getRange().getLength();
     }
@@ -77,6 +77,21 @@ public abstract class AbstractBlock implements Block {
     @Override
     public void setLength(long len) {
         getRange().setLength(len);
+    }
+
+    @Override
+    public boolean isHit(long i) {
+        return getRange().isHit(i);
+    }
+
+    @Override
+    public long getNumber() {
+        return getRange().getNumber();
+    }
+
+    @Override
+    public void setNumber(long num) {
+        getRange().setNumber(num);
     }
 
     @Override
