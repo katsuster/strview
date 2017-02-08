@@ -27,6 +27,17 @@ public class SimpleRange
 
     /**
      * <p>
+     * 半開区間を構築します。
+     * </p>
+     *
+     * @param obj 区間
+     */
+    public SimpleRange(Range obj) {
+        this(obj.getStart(), obj.getEnd());
+    }
+
+    /**
+     * <p>
      * 区間の位置と長さを、
      * コピーした新たな区間を返します。
      * </p>

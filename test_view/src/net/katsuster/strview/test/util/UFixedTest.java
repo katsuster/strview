@@ -28,6 +28,78 @@ public class UFixedTest {
     }
 
     @Test
+    public final void testUFixed8_8UFixed8_8() {
+        String msg1 = "UFixed8_8(UFixed8_8) failed.";
+        String msg2 = "UFixed8_8.clone() failed.";
+        UFixed8_8 va = new UFixed8_8((short)1, 2, 3);
+        UFixed8_8 vb = new UFixed8_8(va);
+
+        assertEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+
+        vb.setBitsValue((short)10);
+        vb.getRange().setStart(20);
+        vb.getRange().setEnd(30);
+        assertNotEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertNotEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+
+        try {
+            UFixed8_8 vc = va.clone();
+
+            assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+
+            vc.setBitsValue((short)100);
+            vc.getRange().setStart(200);
+            vc.getRange().setEnd(300);
+            assertNotEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+        } catch (Exception ex) {
+            fail(msg2);
+        }
+    }
+
+    @Test
+    public final void testUFixed16_16UFixed16_16() {
+        String msg1 = "UFixed16_16(UFixed16_16) failed.";
+        String msg2 = "UFixed16_16.clone() failed.";
+        UFixed16_16 va = new UFixed16_16(1, 2, 3);
+        UFixed16_16 vb = new UFixed16_16(va);
+
+        assertEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+
+        vb.setBitsValue(10);
+        vb.getRange().setStart(20);
+        vb.getRange().setEnd(30);
+        assertNotEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertNotEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+
+        try {
+            UFixed16_16 vc = va.clone();
+
+            assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+
+            vc.setBitsValue(100);
+            vc.getRange().setStart(200);
+            vc.getRange().setEnd(300);
+            assertNotEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+        } catch (Exception ex) {
+            fail(msg2);
+        }
+    }
+
+    @Test
     public final void testUFixed16_16ByteValue() {
         String msg1 = "UFixed16_16.byteValue() failed.";
         UFixed16_16 vz0 = new UFixed16_16(0x00000000, 0, 0);

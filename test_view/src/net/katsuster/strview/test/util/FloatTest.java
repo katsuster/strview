@@ -28,6 +28,78 @@ public class FloatTest {
     }
 
     @Test
+    public final void testFloat32Float32() {
+        String msg1 = "Float32(Float32) failed.";
+        String msg2 = "Float32.clone() failed.";
+        Float32 va = new Float32(1, 2, 3);
+        Float32 vb = new Float32(va);
+
+        assertEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+
+        vb.setBitsValue(10);
+        vb.getRange().setStart(20);
+        vb.getRange().setEnd(30);
+        assertNotEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertNotEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+
+        try {
+            Float32 vc = va.clone();
+
+            assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+
+            vc.setBitsValue(100);
+            vc.getRange().setStart(200);
+            vc.getRange().setEnd(300);
+            assertNotEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+        } catch (Exception ex) {
+            fail(msg2);
+        }
+    }
+
+    @Test
+    public final void testFloat64Float64() {
+        String msg1 = "Float64(Float64) failed.";
+        String msg2 = "Float64.clone() failed.";
+        Float64 va = new Float64(1, 2, 3);
+        Float64 vb = new Float64(va);
+
+        assertEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+
+        vb.setBitsValue(10);
+        vb.getRange().setStart(20);
+        vb.getRange().setEnd(30);
+        assertNotEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertNotEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+
+        try {
+            Float64 vc = va.clone();
+
+            assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+
+            vc.setBitsValue(100);
+            vc.getRange().setStart(200);
+            vc.getRange().setEnd(300);
+            assertNotEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+        } catch (Exception ex) {
+            fail(msg2);
+        }
+    }
+
+    @Test
     public final void testFloat32ByteValue() {
         String msg1 = "Float32.byteValue() failed.";
         Float32 vz0 = new Float32(0.0F, 0, 0);

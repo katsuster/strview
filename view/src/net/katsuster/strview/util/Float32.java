@@ -27,6 +27,11 @@ public class Float32 extends Num {
         setBitsValue(v);
     }
 
+    public Float32(Float32 obj) {
+        super(obj);
+        setBitsValue((int)obj.getBitsValue());
+    }
+
     /**
      * <p>
      * 値をコピーした新たなオブジェクトを返します。

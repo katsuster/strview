@@ -24,6 +24,11 @@ public class UFixed8_8 extends Num {
         setBitsValue(v);
     }
 
+    public UFixed8_8(UFixed8_8 obj) {
+        super(obj);
+        setBitsValue((short)obj.getBitsValue());
+    }
+
     /**
      * <p>
      * 値をコピーした新たなオブジェクトを返します。

@@ -28,6 +28,42 @@ public class SIntTest {
     }
 
     @Test
+    public final void testSIntSInt() {
+        String msg1 = "SInt(SInt) failed.";
+        String msg2 = "SInt.clone() failed.";
+        SInt va = new SInt(1, 2, 3);
+        SInt vb = new SInt(va);
+
+        assertEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+
+        vb.setBitsValue(10);
+        vb.getRange().setStart(20);
+        vb.getRange().setEnd(30);
+        assertNotEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertNotEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+
+        try {
+            SInt vc = va.clone();
+
+            assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+
+            vc.setBitsValue(100);
+            vc.getRange().setStart(200);
+            vc.getRange().setEnd(300);
+            assertNotEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+        } catch (Exception ex) {
+            fail(msg2);
+        }
+    }
+
+    @Test
     public final void testSIntEquals() {
         String msg1 = "SInt.equals(Object) failed.";
         SInt vz0_1 = new SInt(0L, 0, 0);

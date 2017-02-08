@@ -26,6 +26,11 @@ public class UInt extends Num
         setBitsValue(v);
     }
 
+    public UInt(UInt obj) {
+        super(obj);
+        setBitsValue(obj.getBitsValue());
+    }
+
     /**
      * <p>
      * 値をコピーした新たなオブジェクトを返します。

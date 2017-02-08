@@ -24,6 +24,11 @@ public class SFixed16_16 extends Num {
         setBitsValue(v);
     }
 
+    public SFixed16_16(SFixed16_16 obj) {
+        super(obj);
+        setBitsValue((int)obj.getBitsValue());
+    }
+
     /**
      * <p>
      * 値をコピーした新たなオブジェクトを返します。

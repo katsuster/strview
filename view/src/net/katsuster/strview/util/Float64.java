@@ -27,6 +27,11 @@ public class Float64 extends Num {
         setBitsValue(v);
     }
 
+    public Float64(Float64 obj) {
+        super(obj);
+        setBitsValue(obj.getBitsValue());
+    }
+
     /**
      * <p>
      * 値をコピーした新たなオブジェクトを返します。

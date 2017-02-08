@@ -24,6 +24,11 @@ public class UFixed16_16 extends Num {
         setBitsValue(v);
     }
 
+    public UFixed16_16(UFixed16_16 obj) {
+        super(obj);
+        setBitsValue((int)obj.getBitsValue());
+    }
+
     /**
      * <p>
      * 値をコピーした新たなオブジェクトを返します。

@@ -26,6 +26,11 @@ public class SInt extends Num
         setBitsValue(v);
     }
 
+    public SInt(SInt obj) {
+        super(obj);
+        setBitsValue(obj.getBitsValue());
+    }
+
     /**
      * <p>
      * 値をコピーした新たなオブジェクトを返します。

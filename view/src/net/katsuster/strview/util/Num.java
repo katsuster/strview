@@ -57,6 +57,17 @@ public abstract class Num
 
     /**
      * <p>
+     * 新たな数値を構築します。
+     * </p>
+     *
+     * @param obj 数値
+     */
+    public Num(Num obj) {
+        r = new SimpleRange(obj.r);
+    }
+
+    /**
+     * <p>
      * 数値の長さ（ビット単位）と、
      * 数値が存在する位置（ビット単位）を、
      * コピーした新たな数値を返します。

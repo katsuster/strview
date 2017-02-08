@@ -28,6 +28,78 @@ public class SFixedTest {
     }
 
     @Test
+    public final void testSFixed8_8SFixed8_8() {
+        String msg1 = "SFixed8_8(SFixed8_8) failed.";
+        String msg2 = "SFixed8_8.clone() failed.";
+        SFixed8_8 va = new SFixed8_8((short)1, 2, 3);
+        SFixed8_8 vb = new SFixed8_8(va);
+
+        assertEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+
+        vb.setBitsValue((short)10);
+        vb.getRange().setStart(20);
+        vb.getRange().setEnd(30);
+        assertNotEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertNotEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+
+        try {
+            SFixed8_8 vc = va.clone();
+
+            assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+
+            vc.setBitsValue((short)100);
+            vc.getRange().setStart(200);
+            vc.getRange().setEnd(300);
+            assertNotEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+        } catch (Exception ex) {
+            fail(msg2);
+        }
+    }
+
+    @Test
+    public final void testSFixed16_16SFixed16_16() {
+        String msg1 = "SFixed16_16(SFixed16_16) failed.";
+        String msg2 = "SFixed16_16.clone() failed.";
+        SFixed16_16 va = new SFixed16_16(1, 2, 3);
+        SFixed16_16 vb = new SFixed16_16(va);
+
+        assertEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+
+        vb.setBitsValue(10);
+        vb.getRange().setStart(20);
+        vb.getRange().setEnd(30);
+        assertNotEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertNotEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+
+        try {
+            SFixed16_16 vc = va.clone();
+
+            assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+
+            vc.setBitsValue(100);
+            vc.getRange().setStart(200);
+            vc.getRange().setEnd(300);
+            assertNotEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+        } catch (Exception ex) {
+            fail(msg2);
+        }
+    }
+
+    @Test
     public final void testSFixed16_16ByteValue() {
         String msg1 = "SFixed16_16.byteValue() failed.";
         SFixed16_16 vz0 = new SFixed16_16(0x00000000, 0, 0);
