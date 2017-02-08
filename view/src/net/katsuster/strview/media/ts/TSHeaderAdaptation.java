@@ -18,7 +18,7 @@ import net.katsuster.strview.media.*;
  *
  * @author katsuhiro
  */
-public class TSPacketHeaderAdaptation extends BlockAdapter
+public class TSHeaderAdaptation extends BlockAdapter
         implements Cloneable {
     public UInt adaptation_field_length;
 
@@ -67,7 +67,7 @@ public class TSPacketHeaderAdaptation extends BlockAdapter
     public LargeBitList reserved_byte;
     public LargeBitList stuffing_byte;
 
-    public TSPacketHeaderAdaptation() {
+    public TSHeaderAdaptation() {
         super();
 
         adaptation_field_length = new UInt();
@@ -119,9 +119,9 @@ public class TSPacketHeaderAdaptation extends BlockAdapter
     }
 
     @Override
-    public TSPacketHeaderAdaptation clone()
+    public TSHeaderAdaptation clone()
             throws CloneNotSupportedException {
-        TSPacketHeaderAdaptation obj = (TSPacketHeaderAdaptation)super.clone();
+        TSHeaderAdaptation obj = (TSHeaderAdaptation)super.clone();
 
         obj.adaptation_field_length = adaptation_field_length.clone();
 
@@ -179,7 +179,7 @@ public class TSPacketHeaderAdaptation extends BlockAdapter
     }
 
     public static void read(PacketReader<?> c,
-                            TSPacketHeaderAdaptation d) {
+                            TSHeaderAdaptation d) {
         c.enterBlock("TS packet header(adaptation field)");
 
         long pos_byte;
@@ -264,7 +264,7 @@ public class TSPacketHeaderAdaptation extends BlockAdapter
     }
 
     protected static void readExtensions(PacketReader<?> c,
-                                         TSPacketHeaderAdaptation d) {
+                                         TSHeaderAdaptation d) {
         long pos_byte;
         int size_rs;
 
@@ -326,7 +326,7 @@ public class TSPacketHeaderAdaptation extends BlockAdapter
     }
 
     public static void write(PacketWriter<?> c,
-                             TSPacketHeaderAdaptation d) {
+                             TSHeaderAdaptation d) {
         c.enterBlock("TS packet header(adaptation field)");
 
         long pos_byte;
@@ -411,7 +411,7 @@ public class TSPacketHeaderAdaptation extends BlockAdapter
     }
 
     protected static void writeExtensions(PacketWriter<?> c,
-                                          TSPacketHeaderAdaptation d) {
+                                          TSHeaderAdaptation d) {
         long pos_byte;
         int size_rs;
 

@@ -17,7 +17,7 @@ import net.katsuster.strview.media.*;
  *
  * @author katsuhiro
  */
-public class TSPacketHeader extends BlockAdapter
+public class TSHeader extends BlockAdapter
         implements Cloneable {
     public UInt sync_byte;
     public UInt transport_error_indicator;
@@ -28,9 +28,9 @@ public class TSPacketHeader extends BlockAdapter
     public UInt adaptation_field_control;
     public UInt continuity_counter;
 
-    public TSPacketHeaderAdaptation adapt;
+    public TSHeaderAdaptation adapt;
 
-    public TSPacketHeader() {
+    public TSHeader() {
         super();
 
         sync_byte = new UInt();
@@ -42,13 +42,13 @@ public class TSPacketHeader extends BlockAdapter
         adaptation_field_control = new UInt();
         continuity_counter = new UInt();
 
-        adapt = new TSPacketHeaderAdaptation();
+        adapt = new TSHeaderAdaptation();
     }
 
     @Override
-    public TSPacketHeader clone()
+    public TSHeader clone()
             throws CloneNotSupportedException {
-        TSPacketHeader obj = (TSPacketHeader)super.clone();
+        TSHeader obj = (TSHeader)super.clone();
 
         obj.sync_byte = sync_byte.clone();
         obj.transport_error_indicator = transport_error_indicator.clone();
@@ -70,7 +70,7 @@ public class TSPacketHeader extends BlockAdapter
     }
 
     public static void read(PacketReader<?> c,
-                            TSPacketHeader d) {
+                            TSHeader d) {
         c.enterBlock("TS packet header");
 
         d.sync_byte                    = c.readUInt( 8, d.sync_byte                   );
@@ -96,7 +96,7 @@ public class TSPacketHeader extends BlockAdapter
     }
 
     public static void write(PacketWriter<?> c,
-                            TSPacketHeader d) {
+                            TSHeader d) {
         c.enterBlock("TS packet header");
 
         c.writeUInt( 8, d.sync_byte                   , "sync_byte"                   );

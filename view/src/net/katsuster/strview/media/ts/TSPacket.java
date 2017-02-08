@@ -15,10 +15,10 @@ public class TSPacket extends PacketAdapter
     public static final int PACKET_SIZE = 188;
 
     public TSPacket() {
-        this(new TSPacketHeader());
+        this(new TSHeader());
     }
 
-    public TSPacket(TSPacketHeader header) {
+    public TSPacket(TSHeader header) {
         setHeader(header);
     }
 
@@ -43,8 +43,8 @@ public class TSPacket extends PacketAdapter
      * @return TS パケットヘッダ
      */
     @Override
-    public TSPacketHeader getHeader() {
-        return (TSPacketHeader)super.getHeader();
+    public TSHeader getHeader() {
+        return (TSHeader)super.getHeader();
     }
 
     @Override
