@@ -351,8 +351,8 @@ public class TSHeaderAdaptation extends BlockAdapter
         c.writeUInt( 1, d.discontinuity_indicator             , "discontinuity_indicator"             );
         c.writeUInt( 1, d.random_access_indicator             , "random_access_indicator"             );
         c.writeUInt( 1, d.elementary_stream_priority_indicator, "elementary_stream_priority_indicator");
-        c.writeUInt( 1, d.pcr_flag                            , "pcr_flag"                            );
-        c.writeUInt( 1, d.opcr_flag                           , "opcr_flag"                           );
+        c.writeUInt( 1, d.pcr_flag                            , "PCR_flag"                            );
+        c.writeUInt( 1, d.opcr_flag                           , "OPCR_flag"                           );
         c.writeUInt( 1, d.splicing_point_flag                 , "splicing_point_flag"                 );
         c.writeUInt( 1, d.transport_private_data_flag         , "transport_private_data_flag"         );
         c.writeUInt( 1, d.adaptation_field_extension_flag     , "adaptation_field_extension_flag"     );
@@ -445,11 +445,11 @@ public class TSHeaderAdaptation extends BlockAdapter
 
         if (d.seamless_splice_flag.intValue() == 1) {
             c.writeUInt( 4, d.splice_type     , "splice_type"     );
-            c.writeUInt( 3, d.dts_next_au_high, "dts_next_au_high");
+            c.writeUInt( 3, d.dts_next_au_high, "DTS_next_AU_high");
             c.writeUInt( 1, d.marker_bit      , "marker_bit"      );
-            c.writeUInt(15, d.dts_next_au_mid , "dts_next_au_mid" );
+            c.writeUInt(15, d.dts_next_au_mid , "DTS_next_AU_mid" );
             c.writeUInt( 1, d.marker_bit2     , "marker_bit2"     );
-            c.writeUInt(15, d.dts_next_au_low , "dts_next_au_low" );
+            c.writeUInt(15, d.dts_next_au_low , "DTS_next_AU_low" );
             c.writeUInt( 1, d.marker_bit3     , "marker_bit3"     );
             c.mark("dts_next_au", d.getDTSNextAUValue());
         }

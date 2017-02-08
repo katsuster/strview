@@ -103,7 +103,7 @@ public class TSHeader extends BlockAdapter
         c.writeUInt( 1, d.transport_error_indicator   , "transport_error_indicator"   );
         c.writeUInt( 1, d.payload_unit_start_indicator, "payload_unit_start_indicator");
         c.writeUInt( 1, d.transport_priority          , "transport_priority"          );
-        c.writeUInt(13, d.pid                         , "pid"                         , d.getPIDName());
+        c.writeUInt(13, d.pid                         , "PID"                         , d.getPIDName());
         c.writeUInt( 2, d.transport_scrambling_control, "transport_scrambling_control", d.getScramblingName());
         c.writeUInt( 2, d.adaptation_field_control    , "adaptation_field_control"    , d.getAdaptationFieldName());
         c.writeUInt( 4, d.continuity_counter          , "continuity_counter"          );
