@@ -32,6 +32,16 @@ public interface Packet extends PacketRange, Block, Node {
 
     /**
      * <p>
+     * パケットの存在する範囲を取得します。
+     * </p>
+     *
+     * @return データの範囲
+     */
+    @Override
+    public PacketRange getRange();
+
+    /**
+     * <p>
      * パケットのヘッダを取得します。
      * </p>
      *

@@ -15,7 +15,7 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
     //木構造を管理するためのスタック
     private Deque<Packet> stack_packet;
     //インデックスキャッシュ
-    private NavigableMap<Long, Long> cache_packet;
+    private NavigableMap<Long, PacketRange> cache_packet;
 
     public AbstractPacketList() {
         this(LENGTH_UNKNOWN);
@@ -100,7 +100,7 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
             return;
         }
 
-        cache_packet.put(p.getNumber(), p.getStart());
+        cache_packet.put(p.getNumber(), p.getRange());
     }
 
     /**
@@ -155,13 +155,13 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
      * @return シークした位置
      */
     protected long seekNearest(PacketReader<?> c, long index) {
-        Map.Entry<Long, Long> ent = cache_packet.floorEntry(index);
+        Map.Entry<Long, PacketRange> ent = cache_packet.floorEntry(index);
 
         if (ent == null) {
             return 0;
         }
 
-        c.position(ent.getValue());
+        c.position(ent.getValue().getStart());
         return ent.getKey();
     }
 

@@ -9,7 +9,7 @@ import net.katsuster.strview.util.*;
  *
  * @author katsuhiro
  */
-public interface BlockRange extends Range, Cloneable {
+public interface BlockRange extends Range {
     /**
      * <p>
      * パケットの通し番号を返します。
