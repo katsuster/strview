@@ -17,19 +17,19 @@ public class SubLargeList<T> extends AbstractLargeListBase<T>
     /**
      * <p>
      * 指定されたリストの
-     * from から to まで（to は含まない）の部分列を作成します。
+     * from から len の長さの部分列を作成します。
      * </p>
      *
      * @param buf  リスト
      * @param from 部分列の開始点
-     * @param to   部分列の終了点
+     * @param len  部分列の長さ
      */
-    public SubLargeList(LargeList<T> buf, long from, long to) {
-        super(from, to);
+    public SubLargeList(LargeList<T> buf, long from, long len) {
+        super(from, len);
 
-        if (to > buf.length()) {
-            throw new IndexOutOfBoundsException("to:" + to
-                    + " is too large.");
+        if (from + len > buf.length()) {
+            throw new IndexOutOfBoundsException("from:" + from
+                    + ", len:" + len + " is too large.");
         }
 
         list = buf;
@@ -76,7 +76,7 @@ public class SubLargeList<T> extends AbstractLargeListBase<T>
     }
 
     @Override
-    public LargeList<T> subLargeList(long from, long to) {
-        return new SubLargeList<T>(this, from, to);
+    public LargeList<T> subLargeList(long from, long len) {
+        return new SubLargeList<T>(this, from, len);
     }
 }

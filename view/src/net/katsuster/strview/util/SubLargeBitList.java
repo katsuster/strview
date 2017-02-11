@@ -17,19 +17,19 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
     /**
      * <p>
      * 指定されたビット列の
-     * from から to まで（to は含まない）の部分列を作成します。
+     * from から len の長さの部分列を作成します。
      * </p>
      *
      * @param bits ビット列
      * @param from 部分列の開始点
-     * @param to   部分列の終了点
+     * @param len  部分列の長さ
      */
-    public SubLargeBitList(LargeBitList bits, long from, long to) {
-        super(from, to);
+    public SubLargeBitList(LargeBitList bits, long from, long len) {
+        super(from, len);
 
-        if (to > bits.length()) {
-            throw new IndexOutOfBoundsException("to:" + to
-                    + " is too large.");
+        if (from + len > bits.length()) {
+            throw new IndexOutOfBoundsException("from:" + from
+                    + ", len:" + len + " is too large.");
         }
 
         list = bits;
@@ -79,8 +79,8 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
     }
 
     @Override
-    public LargeBitList subLargeList(long from, long to) {
-        return new SubLargeBitList(this, from, to);
+    public LargeBitList subLargeList(long from, long len) {
+        return new SubLargeBitList(this, from, len);
     }
 
     @Override

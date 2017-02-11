@@ -162,7 +162,7 @@ public class NumFormatter {
         len_byte = len_bit >>> 3;
         len_show = Math.min(len_byte, 32);
 
-        sb.append(addressAndName(new SimpleRange(pos, pos + len_bit), name));
+        sb.append(addressAndName(new SimpleRange(pos, len_bit), name));
         if (caption == null) {
             sb.append(String.format("%d[bytes]\n",
                     len_byte));
@@ -220,7 +220,7 @@ public class NumFormatter {
         len_byte = len_bit >>> 3;
         len_show = Math.min(len_byte, 32);
 
-        sb.append(addressAndName(new SimpleRange(pos, pos + len_bit), name));
+        sb.append(addressAndName(new SimpleRange(pos, len_bit), name));
         if (caption == null) {
             sb.append(String.format("%d[bytes]\n",
                     len_byte));

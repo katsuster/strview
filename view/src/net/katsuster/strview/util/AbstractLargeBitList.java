@@ -19,10 +19,10 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
      * </p>
      *
      * @param from ビット列の開始点
-     * @param to   ビット列の終了点
+     * @param len  ビット列の長さ
      */
-    public AbstractLargeBitList(long from, long to) {
-        super(from, to);
+    public AbstractLargeBitList(long from, long len) {
+        super(from, len);
     }
 
     /**
@@ -204,8 +204,8 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
     }
 
     @Override
-    public LargeBitList subLargeList(long from, long to) {
-        return new SubLargeBitList(this, from, to);
+    public LargeBitList subLargeList(long from, long len) {
+        return new SubLargeBitList(this, from, len);
     }
 
     /**

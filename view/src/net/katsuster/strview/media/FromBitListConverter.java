@@ -126,7 +126,7 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
 
     @Override
     public LargeBitList readSubList(long nbit, LargeBitList val, String desc) {
-        val = buf.subLargeList(pos, pos + nbit);
+        val = buf.subLargeList(pos, nbit);
         pos += nbit;
 
         return val;

@@ -5,12 +5,16 @@ package net.katsuster.strview.util;
  * 半開区間 [start, end) を表すクラスです。
  * </p>
  *
+ * <p>
+ * end = start + length です。
+ * </p>
+ *
  * @author katsuhiro
  */
 public class SimpleRange
         implements Range, Cloneable {
     private long start;
-    private long end;
+    private long length;
 
     /**
      * <p>
@@ -27,11 +31,11 @@ public class SimpleRange
      * </p>
      *
      * @param s 区間の開始地点
-     * @param e 区間の終了地点
+     * @param l 区間の長さ
      */
-    public SimpleRange(long s, long e) {
+    public SimpleRange(long s, long l) {
         start = s;
-        end = e;
+        length = l;
     }
 
     /**
@@ -42,7 +46,7 @@ public class SimpleRange
      * @param obj 区間
      */
     public SimpleRange(Range obj) {
-        this(obj.getStart(), obj.getEnd());
+        this(obj.getStart(), obj.getLength());
     }
 
     /**
@@ -81,7 +85,7 @@ public class SimpleRange
         objp = (SimpleRange)obj;
 
         if ((start != objp.start)
-                || (end != objp.end)) {
+                || (length != objp.length)) {
             return false;
         }
 
@@ -93,14 +97,14 @@ public class SimpleRange
      * オブジェクトのハッシュコードを返します。
      * </p>
      *
-     * @return オブジェクトが保持する start, end を、
+     * @return オブジェクトが保持する start, length を、
      * 変換式 (val ^ (val &gt;&gt; 32)) にて int に変換した値を
      * 全て xor した値
      */
     @Override
     public int hashCode() {
         return (int)((start ^ (start >> 32))
-                ^ (end ^ (end >> 32)));
+                ^ (length ^ (length >> 32)));
     }
 
     /**
@@ -145,7 +149,7 @@ public class SimpleRange
      * @return 区間の終了地点
      */
     public long getEnd() {
-        return end;
+        return start + length;
     }
 
     /**
@@ -160,7 +164,7 @@ public class SimpleRange
      * @param p 区間の終了地点
      */
     public void setEnd(long p) {
-        end = p;
+        length = p - start;
     }
 
     /**
@@ -171,7 +175,7 @@ public class SimpleRange
      * @return 区間の長さ
      */
     public long getLength() {
-        return (end - start);
+        return length;
     }
 
     /**
@@ -187,7 +191,7 @@ public class SimpleRange
      * @param l 区間の長さ
      */
     public void setLength(long l) {
-        end = start + l;
+        length = l;
     }
 
     /**

@@ -384,10 +384,10 @@ public class BinaryViewer extends JPanel {
      * </p>
      *
      * @param s バイナリデータを通常描画する範囲の開始
-     * @param e バイナリデータを通常描画する範囲の終端
+     * @param l バイナリデータを通常描画する範囲の長さ
      */
-    public void setDataRange(long s, long e) {
-        setDataRange(new SimpleRange(s, e));
+    public void setDataRange(long s, long l) {
+        setDataRange(new SimpleRange(s, l));
     }
 
     /**
@@ -440,10 +440,10 @@ public class BinaryViewer extends JPanel {
      * </p>
      *
      * @param s バイナリデータを強調して描画する範囲の開始
-     * @param e バイナリデータを強調して描画する範囲の終端
+     * @param l バイナリデータを強調して描画する範囲の長さ
      */
-    public void setHighlightRange(long s, long e) {
-        setHighlightRange(new SimpleRange(s, e));
+    public void setHighlightRange(long s, long l) {
+        setHighlightRange(new SimpleRange(s, l));
     }
 
     /**
@@ -496,10 +496,10 @@ public class BinaryViewer extends JPanel {
      * </p>
      *
      * @param s バイナリデータをさらに強調して描画する範囲の開始
-     * @param e バイナリデータをさらに強調して描画する範囲の終端
+     * @param l バイナリデータをさらに強調して描画する範囲の長さ
      */
-    public void setHighlightMemberRange(long s, long e) {
-        setHighlightMemberRange(new SimpleRange(s, e));
+    public void setHighlightMemberRange(long s, long l) {
+        setHighlightMemberRange(new SimpleRange(s, l));
     }
 
     protected class BinaryViewerWheelListener

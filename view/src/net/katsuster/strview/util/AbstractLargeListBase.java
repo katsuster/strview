@@ -24,19 +24,19 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
      * </p>
      *
      * @param from リストの開始点
-     * @param to   リストの終了点
+     * @param l    リストの長さ
      */
-    public AbstractLargeListBase(long from, long to) {
+    public AbstractLargeListBase(long from, long l) {
         if (from < 0) {
             throw new IndexOutOfBoundsException("from:" + from
                     + " is negative.");
         }
-        if (from > to) {
-            throw new IllegalArgumentException("'from' is larger than 'to'"
-                    + "(from:" + from + " > to:" + to + ").");
+        if (l < 0) {
+            throw new IllegalArgumentException("len:" + l
+                    + " is negative.");
         }
-        len = to - from;
-        r = new SimpleRange(from, to);
+        len = l;
+        r = new SimpleRange(from, l);
     }
 
     /**
@@ -111,8 +111,8 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
     }
 
     @Override
-    public LargeList<T> subLargeList(long from, long to) {
-        return new SubLargeList<T>(this, from, to);
+    public LargeList<T> subLargeList(long from, long len) {
+        return new SubLargeList<T>(this, from, len);
     }
 
     @Override

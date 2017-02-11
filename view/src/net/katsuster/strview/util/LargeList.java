@@ -146,15 +146,15 @@ public interface LargeList<T> extends List<T> {
 
     /**
      * <p>
-     * リストの from（この要素を含む）から to（この要素を含まない）までの、
+     * リストの from（この要素を含む）から len の長さの、
      * 部分列を返します。返された部分列への変更は、元のリストと連動します。
      * </p>
      *
      * @param from 部分列の開始位置
-     * @param to   部分列の終了位置
+     * @param len  部分列の長さ
      * @return リストの部分列
      */
-    public LargeList<T> subLargeList(long from, long to);
+    public LargeList<T> subLargeList(long from, long len);
 
     /**
      * <p>

@@ -14,10 +14,10 @@ public abstract class AbstractLargeList<T> extends AbstractLargeListBase<T> {
      * </p>
      *
      * @param from リストの開始点
-     * @param to   リストの終了点
+     * @param len  リストの長さ
      */
-    public AbstractLargeList(long from, long to) {
-        super(from, to);
+    public AbstractLargeList(long from, long len) {
+        super(from, len);
     }
 
     /**

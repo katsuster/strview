@@ -1437,7 +1437,7 @@ public class BitBuffer {
     public LargeBitList getBitList(long n) {
         LargeBitList b;
 
-        b = buf.subLargeList(position(), position() + n);
+        b = buf.subLargeList(position(), n);
         position += n;
 
         return b;
@@ -1474,7 +1474,7 @@ public class BitBuffer {
 		 * ...
 		 */
         LargeByteList a = new MemoryByteList(
-                new byte[(n + 7) >>> 3], n, position());
+                new byte[(n + 7) >>> 3], position(), n);
 
         get(a);
 

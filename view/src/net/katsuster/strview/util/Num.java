@@ -38,7 +38,7 @@ public abstract class Num
      * @param l 数値の長さ（ビット単位）
      */
     public Num(int l) {
-        r = new SimpleRange(l, 0);
+        r = new SimpleRange(0, l);
     }
 
     /**
@@ -52,7 +52,7 @@ public abstract class Num
      * @param p 数値の存在する位置（ビット単位）
      */
     public Num(int l, long p) {
-        r = new SimpleRange(p, p + l);
+        r = new SimpleRange(p, l);
     }
 
     /**

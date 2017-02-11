@@ -243,35 +243,28 @@ public abstract class AbstractPacket extends AbstractBlock
 
     /**
      * <p>
-     * 指定したビット列の部分ビット列を、
-     * パケット本体のビット列として設定します。
+     * 部分ビット列をパケット本体として設定します。
      * </p>
      *
      * <p>
-     * from の位置は本体のビット列に含まれます。
-     * to の位置のビットは本体のビット列には含まれません。
-     * </p>
-     *
-     * <p>
-     * from が to より小さい場合、本体のビット列の長さは 0 となります。
+     * 長さに負の値を指定したとき、本体のビット列の長さは 0 となります。
      * </p>
      *
      * @param b パケット本体のビット列を含むビット列
      * @param from パケット本体の開始位置（ビット単位）
-     * @param to パケット本体の終了位置（ビット単位）
+     * @param len  パケット本体の長さ（ビット単位）
      */
-    protected void setBody(LargeBitList b, long from, long to) {
-        if (from > to) {
-            //長さが負の場合
+    protected void setBody(LargeBitList b, long from, long len) {
+        if (len < 0) {
+            //長さが負の場合、長さを 0 にする
             System.err.printf("Warning: body length is negative."
-                            + "(from:0x%08x, to:0x%08x, len:0x%08x)\n",
-                    from, to, to - from);
+                            + "(from:0x%08x, len:0x%08x)\n",
+                    from, len);
 
-            //長さを 0 にする
-            to = from;
+            len = 0;
         }
 
-        body = b.subLargeList(from, to);
+        body = b.subLargeList(from, len);
     }
 
     @Override

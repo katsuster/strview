@@ -85,11 +85,11 @@ public class MemoryByteList extends AbstractLargeList<Byte>
      *
      * @param array 利用する byte 型配列
      * @param st    開始位置
-     * @param ed    終了位置
+     * @param len   長さ
      * @throws IllegalArgumentException null を指定した場合
      */
-    public MemoryByteList(byte[] array, long st, long ed) {
-        super(st, ed);
+    public MemoryByteList(byte[] array, long st, long len) {
+        super(st, len);
 
         if (array == null) {
             throw new IllegalArgumentException(
