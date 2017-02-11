@@ -52,6 +52,16 @@ public class PacketWriterAdapter<T> extends AbstractPacketWriter<T>
     }
 
     @Override
+    public void writeSIntR(int nbit, SInt val, String name, String desc) {
+        //do nothing
+    }
+
+    @Override
+    public void writeUIntR(int nbit, UInt val, String name, String desc) {
+        //do nothing
+    }
+
+    @Override
     public void writeFloat32(int nbit, Float32 val, String name, String desc) {
         //do nothing
     }

@@ -66,6 +66,52 @@ public class ToBitListConverter extends PacketWriterAdapter<LargeBitList> {
     }
 
     @Override
+    public void writeSIntR(int nbit, SInt val, String name, String desc) {
+        long rawval = val.getBitsValue();
+
+        switch (nbit) {
+        case 16:
+            rawval = Short.reverseBytes((short)rawval);
+            break;
+        case 32:
+            rawval = Integer.reverseBytes((int)rawval);
+            break;
+        case 64:
+            rawval = Long.reverseBytes(rawval);
+            break;
+        default:
+            throw new IllegalArgumentException(
+                    "writeSIntR() not support " + nbit + "bits.");
+        }
+
+        buf.setPackedLong(pos, nbit, rawval);
+        pos += nbit;
+    }
+
+    @Override
+    public void writeUIntR(int nbit, UInt val, String name, String desc) {
+        long rawval = val.getBitsValue();
+
+        switch (nbit) {
+        case 16:
+            rawval = Short.reverseBytes((short)rawval);
+            break;
+        case 32:
+            rawval = Integer.reverseBytes((int)rawval);
+            break;
+        case 64:
+            rawval = Long.reverseBytes(rawval);
+            break;
+        default:
+            throw new IllegalArgumentException(
+                    "writeUIntR() not support " + nbit + "bits.");
+        }
+
+        buf.setPackedLong(pos, nbit, rawval);
+        pos += nbit;
+    }
+
+    @Override
     public void writeFloat32(int nbit, Float32 val, String name, String desc) {
         buf.setPackedLong(pos, nbit, val.getBitsValue());
         pos += nbit;

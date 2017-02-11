@@ -52,6 +52,16 @@ public class PacketReaderAdapter<T> extends AbstractPacketReader<T>
     }
 
     @Override
+    public SInt readSIntR(int nbit, SInt val, String desc) {
+        return val;
+    }
+
+    @Override
+    public UInt readUIntR(int nbit, UInt val, String desc) {
+        return val;
+    }
+
+    @Override
     public Float32 readFloat32(int nbit, Float32 val, String desc) {
         return val;
     }

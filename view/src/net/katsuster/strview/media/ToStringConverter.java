@@ -51,6 +51,18 @@ public class ToStringConverter extends PacketWriterAdapter<StringBuilder> {
     }
 
     @Override
+    public void writeSIntR(int nbit, SInt val, String name, String desc) {
+        sb.append(NumFormatter.numToDecHexCaption(
+                name, val, desc));
+    }
+
+    @Override
+    public void writeUIntR(int nbit, UInt val, String name, String desc) {
+        sb.append(NumFormatter.numToDecHexCaption(
+                name, val, desc));
+    }
+
+    @Override
     public void writeFloat32(int nbit, Float32 val, String name, String desc) {
         sb.append(NumFormatter.doubleToDecHexCaption(
                 name, val.floatValue(), desc));

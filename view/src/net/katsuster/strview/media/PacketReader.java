@@ -185,6 +185,150 @@ public interface PacketReader<T> extends PacketConverter<T> {
 
     /**
      * <p>
+     * 現在位置を更新せずに、符号付き数値を読み出します。
+     * </p>
+     *
+     * <p>
+     * バイト順序を逆順に並べ替えた値を読み込みます。
+     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の符号付き数値オブジェクト
+     * @return 変換対象の符号付き数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public SInt peekSIntR(int nbit, SInt val);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、符号付き数値を読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * <p>
+     * バイト順序を逆順に並べ替えた値を読み込みます。
+     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の符号付き数値オブジェクト
+     * @param desc 変換対象の符号付き数値の意味、説明など
+     * @return 変換対象の符号付き数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public SInt peekSIntR(int nbit, SInt val, String desc);
+
+    /**
+     * <p>
+     * 符号付き数値を読み出します。
+     * </p>
+     *
+     * <p>
+     * バイト順序を逆順に並べ替えた値を読み込みます。
+     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の符号付き数値オブジェクト
+     * @return 変換対象の符号付き数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public SInt readSIntR(int nbit, SInt val);
+
+    /**
+     * <p>
+     * 符号付き数値を読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * <p>
+     * バイト順序を逆順に並べ替えた値を読み込みます。
+     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の符号付き数値オブジェクト
+     * @param desc 変換対象の符号付き数値の意味、説明など
+     * @return 変換対象の符号付き数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public SInt readSIntR(int nbit, SInt val, String desc);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、符号無し数値を読み出します。
+     * </p>
+     *
+     * <p>
+     * バイト順序を逆順に並べ替えた値を読み込みます。
+     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の符号無し数値オブジェクト
+     * @return 変換対象の符号無し数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public UInt peekUIntR(int nbit, UInt val);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、符号無し数値を読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * <p>
+     * バイト順序を逆順に並べ替えた値を読み込みます。
+     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の符号無し数値オブジェクト
+     * @param desc 変換対象の符号無し数値の意味、説明など
+     * @return 変換対象の符号無し数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public UInt peekUIntR(int nbit, UInt val, String desc);
+
+    /**
+     * <p>
+     * 符号無し数値を読み出します。
+     * </p>
+     *
+     * <p>
+     * バイト順序を逆順に並べ替えた値を読み込みます。
+     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の符号無し数値オブジェクト
+     * @return 変換対象の符号無し数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public UInt readUIntR(int nbit, UInt val);
+
+    /**
+     * <p>
+     * 符号無し数値を読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * <p>
+     * バイト順序を逆順に並べ替えた値を読み込みます。
+     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の符号無し数値オブジェクト
+     * @param desc 変換対象の符号無し数値の意味、説明など
+     * @return 変換対象の符号無し数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public UInt readUIntR(int nbit, UInt val, String desc);
+
+    /**
+     * <p>
      * 現在位置を更新せずに、32ビット浮動小数値を読み出します。
      * </p>
      *
