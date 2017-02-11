@@ -6,14 +6,16 @@ import net.katsuster.strview.media.*;
 
 /**
  * <p>
- * MPEG2-TS(Transport Stream) パケットヘッダのアダプテーションフィールド。
+ * MPEG2-TS(Transport Stream) transport packet - adaptation field
  * </p>
  *
  * <p>
  * 参考規格
  * </p>
  * <ul>
- * <li>ISO/IEC 13818-1: MPEG2 Systems</li>
+ * <li>ITU-T H.222, ISO/IEC 13818-1:
+ * Information technology – Generic coding of moving pictures and
+ * associated audio information: Systems</li>
  * </ul>
  *
  * @author katsuhiro
