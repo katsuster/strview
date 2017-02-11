@@ -80,28 +80,40 @@ public abstract class AbstractPacket extends AbstractBlock
 
     /**
      * <p>
-     * 親も子も持たないパケットを作成します。
+     * 空のヘッダを持ち、親を持たないパケットを作成します。
      * </p>
      */
     public AbstractPacket() {
-        this(null);
+        this(null, new BlockAdapter());
     }
 
     /**
      * <p>
-     * 指定された親を持ち、子要素を持たないパケットを作成します。
+     * 指定されたヘッダを持ち、親を持たないパケットを作成します。
+     * </p>
+     *
+     * @param h パケットヘッダ
+     */
+    public AbstractPacket(Block h) {
+        this(null, h);
+    }
+
+    /**
+     * <p>
+     * 指定されたヘッダと親を持つパケットを作成します。
      * </p>
      *
      * @param pp 親パケット
+     * @param h パケットヘッダ
      */
-    public AbstractPacket(Packet pp) {
+    public AbstractPacket(Packet pp, Block h) {
         super();
 
         setRange(new SimplePacketRange());
         if (pp != null) {
             setParentNode(pp.getRange());
         }
-        head = new BlockAdapter();
+        head = h;
         foot = new BlockAdapter();
     }
 

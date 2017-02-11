@@ -25,6 +25,11 @@ public class TSPacketList extends AbstractPacketList<TSPacket> {
     }
 
     @Override
+    public boolean hasTreeStructure() {
+        return false;
+    }
+
+    @Override
     public void count() {
         length(buf.length() / 188 / 8);
     }

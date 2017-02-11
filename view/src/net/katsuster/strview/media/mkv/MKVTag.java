@@ -15,17 +15,15 @@ public class MKVTag extends PacketAdapter
     public static final int TAG_HEADER_SIZE = 2;
 
     public MKVTag() {
-        this(new MKVHeader());
+        super();
     }
 
     public MKVTag(MKVHeader header) {
-        this(null, header);
+        super(header);
     }
 
-    public MKVTag(MKVTag parent, MKVHeader header) {
-        super(parent);
-
-        setHeader(header);
+    public MKVTag(MKVHeader header, MKVTag parent) {
+        super(parent, header);
     }
 
     @Override

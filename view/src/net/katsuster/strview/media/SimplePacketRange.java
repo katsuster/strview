@@ -166,10 +166,15 @@ public class SimplePacketRange extends SimpleRange
                     "newChild is null.");
         }
 
-        children.add(newChild);
-        if (newChild instanceof AbstractPacket) {
-            ((AbstractPacket)newChild).setParentNode(this);
+        for (int i = 0; i < children.size(); i++) {
+            if (children.get(i).getNumber() == newChild.getNumber()) {
+                newChild.setParentNode(this);
+                return null;
+            }
         }
+
+        children.add(newChild);
+        newChild.setParentNode(this);
 
         return newChild;
     }
@@ -185,9 +190,7 @@ public class SimplePacketRange extends SimpleRange
 
         result = children.remove(oldChild);
         if (result) {
-            if (oldChild instanceof AbstractPacket) {
-                ((AbstractPacket)oldChild).setParentNode(null);
-            }
+            oldChild.setParentNode(null);
 
             return oldChild;
         } else {
@@ -210,9 +213,7 @@ public class SimplePacketRange extends SimpleRange
         }
 
         children.add(index, newChild);
-        if (newChild instanceof AbstractPacket) {
-            ((AbstractPacket)newChild).setParentNode(this);
-        }
+        newChild.setParentNode(this);
 
         return newChild;
     }
@@ -232,12 +233,8 @@ public class SimplePacketRange extends SimpleRange
         }
 
         children.set(index, newChild);
-        if (oldChild instanceof AbstractPacket) {
-            ((AbstractPacket)oldChild).setParentNode(null);
-        }
-        if (newChild instanceof AbstractPacket) {
-            ((AbstractPacket)newChild).setParentNode(this);
-        }
+        oldChild.setParentNode(null);
+        newChild.setParentNode(this);
 
         return newChild;
     }
@@ -328,5 +325,11 @@ public class SimplePacketRange extends SimpleRange
     @Override
     public PacketRange getChild(int index) {
         return children.get(index);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("num:%d, %s",
+                getNumber(), super.toString());
     }
 }

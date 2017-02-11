@@ -37,7 +37,7 @@ public class PacketAdapter extends AbstractPacket {
      * @param h パケットヘッダ
      */
     public PacketAdapter(Block h) {
-        super();
+        super(null, h);
     }
 
     /**
@@ -46,14 +46,15 @@ public class PacketAdapter extends AbstractPacket {
      * </p>
      *
      * @param pp 親パケット
+     * @param h パケットヘッダ
      */
-    public PacketAdapter(Packet pp) {
-        super(pp);
+    public PacketAdapter(Packet pp, Block h) {
+        super(pp, h);
     }
 
     @Override
     public boolean isRecursive() {
-        return false;
+        return getHeader().isRecursive();
     }
 
     @Override

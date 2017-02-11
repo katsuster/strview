@@ -13,7 +13,7 @@ import net.katsuster.strview.util.*;
  */
 public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
     //木構造を管理するためのスタック
-    private Deque<Packet> stack_packet;
+    private Deque<PacketRange> stack_packet;
     //インデックスキャッシュ
     private NavigableMap<Long, PacketRange> cache_packet;
 
@@ -30,13 +30,50 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
 
     /**
      * <p>
+     * パケットが木構造を持つかどうかを返します。
+     * </p>
+     *
+     * <p>
+     * シーク時に木構造の管理が不要であれば、
+     * このメソッドをオーバライドし false を返してください。
+     * </p>
+     *
+     * @return パケットが木構造を持つなら true、持たないなら false
+     */
+    public boolean hasTreeStructure() {
+        return true;
+    }
+
+    /**
+     * <p>
      * パケットのスタックを取得します。
      * </p>
      *
      * @return パケットスタック
      */
-    protected Deque<Packet> getPacketStack() {
+    protected Deque<PacketRange> getPacketStack() {
         return stack_packet;
+    }
+
+    /**
+     * <p>
+     * パケットのスタックを再設定します。
+     * </p>
+     *
+     * @param cr スタックの再設定に使うパケット
+     */
+    protected void setupPacketStack(PacketRange cr) {
+        PacketRange pr;
+
+        if (!hasTreeStructure()) {
+            return;
+        }
+
+        pr = cr.getParentNode();
+        while (pr != null) {
+            getPacketStack().addLast(pr);
+            pr = pr.getParentNode();
+        }
     }
 
     /**
@@ -47,22 +84,23 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
      * <p>
      * 終端に到達している全てのパケットは、
      * スタックから削除されます。
-     * このため current がスタックに残るとは限りません。
      * </p>
      *
-     * @param current スタックに追加するパケット
+     * @param cr スタックに追加するパケット
      */
-    protected void stackPacket(Packet current) {
-        Packet p;
-        PacketRange cr = current.getRange(), pr;
+    protected void stackPacket(PacketRange cr) {
+        PacketRange pr;
+
+        if (!hasTreeStructure()) {
+            return;
+        }
 
         while (true) {
-            p = getPacketStack().peek();
-            if (p == null) {
+            pr = getPacketStack().peek();
+            if (pr == null) {
                 //パケットがない
                 break;
             }
-            pr = p.getRange();
 
             /*if (p instanceof RootPacket) {
                 //ルートパケットは終了させない（＝長さ無限と同じ扱い）
@@ -78,14 +116,12 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
             getPacketStack().pop();
         }
 
-        p = getPacketStack().peek();
-        if (p != null) {
-            pr = p.getRange();
+        pr = getPacketStack().peek();
+        if (pr != null) {
             pr.appendChild(cr);
-            cr.setParentNode(pr);
         }
 
-        getPacketStack().push(current);
+        getPacketStack().push(cr);
     }
 
     /**
@@ -97,14 +133,12 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
      * 次回以降のシークが速くなる可能性があります。
      * </p>
      *
-     * @param p キャッシュするパケット
+     * @param pr キャッシュするパケット
      */
-    protected void cachePacket(Packet p) {
-        PacketRange pr = p.getRange();
-
-        if (cache_packet.containsKey(pr.getNumber())) {
+    protected void cachePacket(PacketRange pr) {
+        /*if (cache_packet.containsKey(pr.getNumber())) {
             return;
-        }
+        }*/
 
         cache_packet.put(pr.getNumber(), pr);
     }
@@ -189,7 +223,9 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
             return 0;
         }
 
+        setupPacketStack(ent.getValue());
         c.position(ent.getValue().getStart());
+
         return ent.getKey();
     }
 
@@ -233,10 +269,10 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
 
         p = readNextInner(c, index);
         pr = p.getRange();
-        stackPacket(p);
         pr.setNumber(index);
+        stackPacket(pr);
 
-        cachePacket(p);
+        cachePacket(pr);
 
         return p;
     }

@@ -42,6 +42,16 @@ public interface Packet extends Block {
 
     /**
      * <p>
+     * タグ本体に別のタグを含められるかどうかを返します。
+     * </p>
+     *
+     * @return タグ本体に別のタグを含められる場合は true、
+     * 含められない場合は false
+     */
+    public boolean isRecursive();
+
+    /**
+     * <p>
      * パケットのヘッダを取得します。
      * </p>
      *

@@ -208,7 +208,7 @@ public class SimpleRange
 
     @Override
     public String toString() {
-        return String.format("start:%d - end:%d(length:%d)",
+        return String.format("addr:%d-%d(len:%d)",
                 getStart(), getEnd(), getLength());
     }
 }
