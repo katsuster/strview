@@ -28,13 +28,8 @@ public abstract class AbstractPacketWriter<T> extends AbstractPacketConverter<T>
 
     @Override
     public void pokeLong(int nbit, long val, String name) {
-        pokeLong(nbit, val, name, null);
-    }
-
-    @Override
-    public void pokeLong(int nbit, long val, String name, String desc) {
         long orgpos = position();
-        writeLong(nbit, val, name, desc);
+        writeLong(nbit, val, name, null);
         position(orgpos);
     }
 
@@ -45,13 +40,8 @@ public abstract class AbstractPacketWriter<T> extends AbstractPacketConverter<T>
 
     @Override
     public void pokeSInt(int nbit, SInt val, String name) {
-        pokeSInt(nbit, val, name, null);
-    }
-
-    @Override
-    public void pokeSInt(int nbit, SInt val, String name, String desc) {
         long orgpos = position();
-        writeSInt(nbit, val, name, desc);
+        writeSInt(nbit, val, name, null);
         position(orgpos);
     }
 
@@ -62,13 +52,8 @@ public abstract class AbstractPacketWriter<T> extends AbstractPacketConverter<T>
 
     @Override
     public void pokeUInt(int nbit, UInt val, String name) {
-        pokeUInt(nbit, val, name, null);
-    }
-
-    @Override
-    public void pokeUInt(int nbit, UInt val, String name, String desc) {
         long orgpos = position();
-        writeUInt(nbit, val, name, desc);
+        writeUInt(nbit, val, name, null);
         position(orgpos);
     }
 
@@ -79,13 +64,8 @@ public abstract class AbstractPacketWriter<T> extends AbstractPacketConverter<T>
 
     @Override
     public void pokeSIntR(int nbit, SInt val, String name) {
-        pokeSIntR(nbit, val, name, null);
-    }
-
-    @Override
-    public void pokeSIntR(int nbit, SInt val, String name, String desc) {
         long orgpos = position();
-        writeSIntR(nbit, val, name, desc);
+        writeSIntR(nbit, val, name, null);
         position(orgpos);
     }
 
@@ -96,13 +76,8 @@ public abstract class AbstractPacketWriter<T> extends AbstractPacketConverter<T>
 
     @Override
     public void pokeUIntR(int nbit, UInt val, String name) {
-        pokeUIntR(nbit, val, name, null);
-    }
-
-    @Override
-    public void pokeUIntR(int nbit, UInt val, String name, String desc) {
         long orgpos = position();
-        writeUIntR(nbit, val, name, desc);
+        writeUIntR(nbit, val, name, null);
         position(orgpos);
     }
 
@@ -113,13 +88,8 @@ public abstract class AbstractPacketWriter<T> extends AbstractPacketConverter<T>
 
     @Override
     public void pokeFloat32(int nbit, Float32 val, String name) {
-        pokeFloat32(nbit, val, name, null);
-    }
-
-    @Override
-    public void pokeFloat32(int nbit, Float32 val, String name, String desc) {
         long orgpos = position();
-        writeFloat32(nbit, val, name, desc);
+        writeFloat32(nbit, val, name, null);
         position(orgpos);
     }
 
@@ -130,13 +100,8 @@ public abstract class AbstractPacketWriter<T> extends AbstractPacketConverter<T>
 
     @Override
     public void pokeFloat64(int nbit, Float64 val, String name) {
-        pokeFloat64(nbit, val, name, null);
-    }
-
-    @Override
-    public void pokeFloat64(int nbit, Float64 val, String name, String desc) {
         long orgpos = position();
-        writeFloat64(nbit, val, name, desc);
+        writeFloat64(nbit, val, name, null);
         position(orgpos);
     }
 
@@ -147,13 +112,8 @@ public abstract class AbstractPacketWriter<T> extends AbstractPacketConverter<T>
 
     @Override
     public void pokeBitList(int nbit, LargeBitList val, String name) {
-        pokeBitList(nbit, val, name, null);
-    }
-
-    @Override
-    public void pokeBitList(int nbit, LargeBitList val, String name, String desc) {
         long orgpos = position();
-        writeBitList(nbit, val, name, desc);
+        writeBitList(nbit, val, name, null);
         position(orgpos);
     }
 
@@ -164,13 +124,8 @@ public abstract class AbstractPacketWriter<T> extends AbstractPacketConverter<T>
 
     @Override
     public void pokeSubList(long nbit, LargeBitList val, String name) {
-        pokeSubList(nbit, val, name, null);
-    }
-
-    @Override
-    public void pokeSubList(long nbit, LargeBitList val, String name, String desc) {
         long orgpos = position();
-        writeSubList(nbit, val, name, desc);
+        writeSubList(nbit, val, name, null);
         position(orgpos);
     }
 

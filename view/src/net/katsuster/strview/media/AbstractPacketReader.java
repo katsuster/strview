@@ -28,13 +28,8 @@ public abstract class AbstractPacketReader<T> extends AbstractPacketConverter<T>
 
     @Override
     public long peekLong(int nbit) {
-        return peekLong(nbit, null);
-    }
-
-    @Override
-    public long peekLong(int nbit, String desc) {
         long orgpos = position();
-        long res = readLong(nbit, desc);
+        long res = readLong(nbit, null);
         position(orgpos);
         return res;
     }
@@ -46,13 +41,8 @@ public abstract class AbstractPacketReader<T> extends AbstractPacketConverter<T>
 
     @Override
     public SInt peekSInt(int nbit, SInt val) {
-        return peekSInt(nbit, val, null);
-    }
-
-    @Override
-    public SInt peekSInt(int nbit, SInt val, String desc) {
         long orgpos = position();
-        SInt res = readSInt(nbit, val, desc);
+        SInt res = readSInt(nbit, val, null);
         position(orgpos);
         return res;
     }
@@ -64,13 +54,8 @@ public abstract class AbstractPacketReader<T> extends AbstractPacketConverter<T>
 
     @Override
     public UInt peekUInt(int nbit, UInt val) {
-        return peekUInt(nbit, val, null);
-    }
-
-    @Override
-    public UInt peekUInt(int nbit, UInt val, String desc) {
         long orgpos = position();
-        UInt res = readUInt(nbit, val, desc);
+        UInt res = readUInt(nbit, val, null);
         position(orgpos);
         return res;
     }
@@ -82,13 +67,8 @@ public abstract class AbstractPacketReader<T> extends AbstractPacketConverter<T>
 
     @Override
     public SInt peekSIntR(int nbit, SInt val) {
-        return peekSIntR(nbit, val, null);
-    }
-
-    @Override
-    public SInt peekSIntR(int nbit, SInt val, String desc) {
         long orgpos = position();
-        SInt res = readSIntR(nbit, val, desc);
+        SInt res = readSIntR(nbit, val, null);
         position(orgpos);
         return res;
     }
@@ -100,13 +80,8 @@ public abstract class AbstractPacketReader<T> extends AbstractPacketConverter<T>
 
     @Override
     public UInt peekUIntR(int nbit, UInt val) {
-        return peekUIntR(nbit, val, null);
-    }
-
-    @Override
-    public UInt peekUIntR(int nbit, UInt val, String desc) {
         long orgpos = position();
-        UInt res = readUIntR(nbit, val, desc);
+        UInt res = readUIntR(nbit, val, null);
         position(orgpos);
         return res;
     }
@@ -118,13 +93,8 @@ public abstract class AbstractPacketReader<T> extends AbstractPacketConverter<T>
 
     @Override
     public Float32 peekFloat32(int nbit, Float32 val) {
-        return peekFloat32(nbit, val, null);
-    }
-
-    @Override
-    public Float32 peekFloat32(int nbit, Float32 val, String desc) {
         long orgpos = position();
-        Float32 res = readFloat32(nbit, val, desc);
+        Float32 res = readFloat32(nbit, val, null);
         position(orgpos);
         return res;
     }
@@ -136,13 +106,8 @@ public abstract class AbstractPacketReader<T> extends AbstractPacketConverter<T>
 
     @Override
     public Float64 peekFloat64(int nbit, Float64 val) {
-        return peekFloat64(nbit, val, null);
-    }
-
-    @Override
-    public Float64 peekFloat64(int nbit, Float64 val, String desc) {
         long orgpos = position();
-        Float64 res = readFloat64(nbit, val, desc);
+        Float64 res = readFloat64(nbit, val, null);
         position(orgpos);
         return res;
     }
@@ -154,13 +119,8 @@ public abstract class AbstractPacketReader<T> extends AbstractPacketConverter<T>
 
     @Override
     public LargeBitList peekBitList(int nbit, LargeBitList val) {
-        return peekBitList(nbit, val, null);
-    }
-
-    @Override
-    public LargeBitList peekBitList(int nbit, LargeBitList val, String desc) {
         long orgpos = position();
-        LargeBitList res = readBitList(nbit, val, desc);
+        LargeBitList res = readBitList(nbit, val, null);
         position(orgpos);
         return res;
     }
@@ -172,13 +132,8 @@ public abstract class AbstractPacketReader<T> extends AbstractPacketConverter<T>
 
     @Override
     public LargeBitList peekSubList(long nbit, LargeBitList val) {
-        return peekSubList(nbit, val, null);
-    }
-
-    @Override
-    public LargeBitList peekSubList(long nbit, LargeBitList val, String desc) {
         long orgpos = position();
-        LargeBitList res = readSubList(nbit, val, desc);
+        LargeBitList res = readSubList(nbit, val, null);
         position(orgpos);
         return res;
     }

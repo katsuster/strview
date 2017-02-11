@@ -45,20 +45,6 @@ public interface PacketWriter<T> extends PacketConverter<T> {
 
     /**
      * <p>
-     * 現在位置を更新せずに、数値を書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の数値
-     * @param name 変換対象の名前
-     * @param desc 変換対象の符号付き数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void pokeLong(int nbit, long val, String name, String desc);
-
-    /**
-     * <p>
      * 数値を書き込みます。
      * </p>
      *
@@ -97,20 +83,6 @@ public interface PacketWriter<T> extends PacketConverter<T> {
 
     /**
      * <p>
-     * 現在位置を更新せずに、符号付き数値を書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @param name 変換対象の名前
-     * @param desc 変換対象の符号付き数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void pokeSInt(int nbit, SInt val, String name, String desc);
-
-    /**
-     * <p>
      * 符号付き数値を書き込みます。
      * </p>
      *
@@ -146,20 +118,6 @@ public interface PacketWriter<T> extends PacketConverter<T> {
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
     public void pokeUInt(int nbit, UInt val, String name);
-
-    /**
-     * <p>
-     * 現在位置を更新せずに、符号無し数値を書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @param name 変換対象の名前
-     * @param desc 変換対象の符号無し数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void pokeUInt(int nbit, UInt val, String name, String desc);
 
     /**
      * <p>
@@ -203,25 +161,6 @@ public interface PacketWriter<T> extends PacketConverter<T> {
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
     public void pokeSIntR(int nbit, SInt val, String name);
-
-    /**
-     * <p>
-     * 現在位置を更新せずに、符号付き数値を書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * <p>
-     * バイト順序を逆順に並べ替えた値を書き込みます。
-     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @param name 変換対象の名前
-     * @param desc 変換対象の符号付き数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void pokeSIntR(int nbit, SInt val, String name, String desc);
 
     /**
      * <p>
@@ -278,25 +217,6 @@ public interface PacketWriter<T> extends PacketConverter<T> {
 
     /**
      * <p>
-     * 現在位置を更新せずに、符号無し数値を書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * <p>
-     * バイト順序を逆順に並べ替えた値を書き込みます。
-     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @param name 変換対象の名前
-     * @param desc 変換対象の符号無し数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void pokeUIntR(int nbit, UInt val, String name, String desc);
-
-    /**
-     * <p>
      * 符号無し数値を書き込みます。
      * </p>
      *
@@ -345,20 +265,6 @@ public interface PacketWriter<T> extends PacketConverter<T> {
 
     /**
      * <p>
-     * 現在位置を更新せずに、32ビット浮動小数値を書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の浮動小数値オブジェクト
-     * @param name 変換対象の名前
-     * @param desc 変換対象の浮動小数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void pokeFloat32(int nbit, Float32 val, String name, String desc);
-
-    /**
-     * <p>
      * 32ビット浮動小数値を書き込みます。
      * </p>
      *
@@ -397,20 +303,6 @@ public interface PacketWriter<T> extends PacketConverter<T> {
 
     /**
      * <p>
-     * 現在位置を更新せずに、64ビット浮動小数値を書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の浮動小数値オブジェクト
-     * @param name 変換対象の名前
-     * @param desc 変換対象の浮動小数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void pokeFloat64(int nbit, Float64 val, String name, String desc);
-
-    /**
-     * <p>
      * 64ビット浮動小数値を書き込みます。
      * </p>
      *
@@ -446,20 +338,6 @@ public interface PacketWriter<T> extends PacketConverter<T> {
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
     public void pokeBitList(int nbit, LargeBitList val, String name);
-
-    /**
-     * <p>
-     * 現在位置を更新せずに、ビットリストを書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象のビットリスト
-     * @param name 変換対象の名前
-     * @param desc 変換対象のビットリストの意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void pokeBitList(int nbit, LargeBitList val, String name, String desc);
 
     /**
      * <p>
@@ -503,23 +381,6 @@ public interface PacketWriter<T> extends PacketConverter<T> {
      */
     public void pokeSubList(long nbit, LargeBitList val, String name);
 
-    /**
-     * <p>
-     * ビットリストの部分列を書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * <p>
-     * 取得した部分列を変更すると、取得元のデータも変化する場合は、この関数は何もしません。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象のビットリスト
-     * @param name 変換対象の名前
-     * @param desc 変換対象のビットリストの意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void pokeSubList(long nbit, LargeBitList val, String name, String desc);
     /**
      * <p>
      * ビットリストの部分列を書き込みます。
