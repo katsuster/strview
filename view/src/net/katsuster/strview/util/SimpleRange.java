@@ -14,6 +14,15 @@ public class SimpleRange
 
     /**
      * <p>
+     * 開始点と終了点を指定せず半開区間を構築します。
+     * </p>
+     */
+    public SimpleRange() {
+        this(0, 0);
+    }
+
+    /**
+     * <p>
      * 開始点と終了点を指定して半開区間を構築します。
      * </p>
      *

@@ -39,7 +39,6 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
         return stack_packet;
     }
 
-
     /**
      * <p>
      * パケットをスタックに追加します。
@@ -55,6 +54,7 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
      */
     protected void stackPacket(Packet current) {
         Packet p;
+        PacketRange cr = current.getRange(), pr;
 
         while (true) {
             p = getPacketStack().peek();
@@ -62,13 +62,14 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
                 //パケットがない
                 break;
             }
+            pr = p.getRange();
 
             /*if (p instanceof RootPacket) {
                 //ルートパケットは終了させない（＝長さ無限と同じ扱い）
                 break;
             }*/
 
-            if (current.getStart() + current.getLength() <= p.getStart() + p.getLength()) {
+            if (cr.getStart() + cr.getLength() <= pr.getStart() + pr.getLength()) {
                 //パケットはまだ続いている
                 break;
             }
@@ -77,8 +78,11 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
             getPacketStack().pop();
         }
 
-        if (getPacketStack().peek() != null) {
-            getPacketStack().peek().appendChild(current);
+        p = getPacketStack().peek();
+        if (p != null) {
+            pr = p.getRange();
+            pr.appendChild(cr);
+            cr.setParentNode(pr);
         }
 
         getPacketStack().push(current);
@@ -96,11 +100,13 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
      * @param p キャッシュするパケット
      */
     protected void cachePacket(Packet p) {
-        if (cache_packet.containsKey(p.getNumber())) {
+        PacketRange pr = p.getRange();
+
+        if (cache_packet.containsKey(pr.getNumber())) {
             return;
         }
 
-        cache_packet.put(p.getNumber(), p.getRange());
+        cache_packet.put(pr.getNumber(), pr);
     }
 
     /**
@@ -118,6 +124,7 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
     protected void countSlow(PacketReader<?> c) {
         long cnt = 0;
 
+        getPacketStack().clear();
         try {
             while (true) {
                 readNext(c, cnt);
@@ -135,14 +142,34 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
      * </p>
      *
      * <p>
-     * デフォルトの実装では seekSlow() と同じです。
+     * パケットスタックをクリアし、適切に設定し直します。
      * </p>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      * @param index シークする位置のパケット ID
      */
     protected void seek(PacketReader<?> c, long index) {
-        seekSlow(c, index);
+        getPacketStack().clear();
+        seekInner(c, index);
+    }
+
+    /**
+     * <p>
+     * シークを行います。
+     * </p>
+     *
+     * <p>
+     * デフォルトの実装では seekNearest(), seekSlow() を呼び出します。
+     * </p>
+     *
+     * @param c 各メンバの変換を実施するオブジェクト
+     * @param index シークする位置のパケット ID
+     */
+    protected void seekInner(PacketReader<?> c, long index) {
+        long start;
+
+        start = seekNearest(c, index, cache_packet);
+        seekSlow(c, start, index);
     }
 
     /**
@@ -152,10 +179,11 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
      *
      * @param c 各メンバの変換を実施するオブジェクト
      * @param index シークする位置のパケット ID
+     * @param cache パケット位置のキャッシュマップ
      * @return シークした位置
      */
-    protected long seekNearest(PacketReader<?> c, long index) {
-        Map.Entry<Long, PacketRange> ent = cache_packet.floorEntry(index);
+    protected long seekNearest(PacketReader<?> c, long index, NavigableMap<Long, PacketRange> cache) {
+        Map.Entry<Long, PacketRange> ent = cache.floorEntry(index);
 
         if (ent == null) {
             return 0;
@@ -163,27 +191,6 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
 
         c.position(ent.getValue().getStart());
         return ent.getKey();
-    }
-
-    /**
-     * <p>
-     * 先頭からシークを行います。
-     * </p>
-     *
-     * <p>
-     * 先頭から、指定された位置まで順にパケットを読み出すため、
-     * 正確にシークできますが、非常に低速です。
-     * </p>
-     *
-     * @param c 各メンバの変換を実施するオブジェクト
-     * @param index シークする位置のパケット ID
-     */
-    protected void seekSlow(PacketReader<?> c, long index) {
-        long start;
-
-        getPacketStack().clear();
-        start = seekNearest(c, index);
-        seekSlow(c, start, index);
     }
 
     /**
@@ -207,7 +214,7 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
      */
     protected void seekSlow(PacketReader<?> c, long start, long index) {
         for (long i = start; i < index; i++) {
-            Packet p = readNext(c, i);
+            readNext(c, i);
         }
     }
 
@@ -222,11 +229,12 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
      */
     protected Packet readNext(PacketReader<?> c, long index) {
         Packet p;
+        PacketRange pr;
 
         p = readNextInner(c, index);
+        pr = p.getRange();
         stackPacket(p);
-        p.setNumber(index);
-        p.setLevel(getPacketStack().size());
+        pr.setNumber(index);
 
         cachePacket(p);
 

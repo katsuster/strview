@@ -30,7 +30,7 @@ public class TSPacketList extends AbstractPacketList<TSPacket> {
     }
 
     @Override
-    protected void seek(PacketReader<?> c, long index) {
+    protected void seekInner(PacketReader<?> c, long index) {
         c.position(index * 188 * 8);
     }
 

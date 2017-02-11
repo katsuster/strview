@@ -1,7 +1,5 @@
 package net.katsuster.strview.media;
 
-import java.util.*;
-
 import net.katsuster.strview.util.*;
 
 /**
@@ -80,13 +78,6 @@ public abstract class AbstractPacket extends AbstractBlock
     //パケット全体を表すビット列（参照のみ）
     private LargeBitList raw_packet;
 
-    //パケットの階層レベル
-    private int level;
-    //パケットの親
-    private Node parent;
-    //パケットの子供
-    private List<Node> children;
-
     /**
      * <p>
      * 親も子も持たないパケットを作成します。
@@ -107,8 +98,9 @@ public abstract class AbstractPacket extends AbstractBlock
         super();
 
         setRange(new SimplePacketRange());
-        setParentNode(pp);
-        children = new ArrayList<>();
+        if (pp != null) {
+            setParentNode(pp.getRange());
+        }
         head = new BlockAdapter();
         foot = new BlockAdapter();
     }
@@ -117,13 +109,6 @@ public abstract class AbstractPacket extends AbstractBlock
     public AbstractPacket clone()
             throws CloneNotSupportedException {
         AbstractPacket obj = (AbstractPacket)super.clone();
-        int i;
-
-        obj.parent = parent;
-        obj.children = new ArrayList<Node>();
-        for (i = 0; i < children.size(); i++) {
-            obj.children.add(children.get(i));
-        }
 
         obj.setRange(new SimplePacketRange(getRange()));
         obj.head = head.clone();
@@ -134,44 +119,72 @@ public abstract class AbstractPacket extends AbstractBlock
         return obj;
     }
 
-    @Override
+    public long getNumber() {
+        return getRange().getNumber();
+    }
+
+    public void setNumber(long num) {
+        getRange().setNumber(num);
+    }
+
     public long getBodyAddress() {
         return getRange().getBodyAddress();
     }
 
-    @Override
     public long getFooterAddress() {
         return getRange().getFooterAddress();
     }
 
-    @Override
     public long getHeaderLength() {
         return getRange().getHeaderLength();
     }
 
-    @Override
     public void setHeaderLength(long s) {
         getRange().setHeaderLength(s);
     }
 
-    @Override
     public long getBodyLength() {
         return getRange().getBodyLength();
     }
 
-    @Override
     public void setBodyLength(long s) {
         getRange().setBodyLength(s);
     }
 
-    @Override
     public long getFooterLength() {
         return getRange().getFooterLength();
     }
 
-    @Override
     public void setFooterLength(long s) {
         getRange().setFooterLength(s);
+    }
+
+    public int getLevel() {
+        return getRange().getLevel();
+    }
+
+    public PacketRange appendChild(PacketRange newChild) {
+        return getRange().appendChild(newChild);
+    }
+
+    public PacketRange removeChild(PacketRange oldChild) {
+        return getRange().removeChild(oldChild);
+    }
+
+    public PacketRange insertBefore(PacketRange newChild, PacketRange refChild) {
+        return getRange().insertBefore(newChild, refChild);
+    }
+
+    public PacketRange replaceChild(PacketRange newChild, PacketRange oldChild) {
+        return getRange().replaceChild(newChild, oldChild);
+    }
+
+    public PacketRange getParentNode() {
+        return getRange().getParentNode();
+    }
+
+    public void setParentNode(PacketRange p) {
+        getRange().setParentNode(p);
     }
 
     @Override
@@ -418,333 +431,6 @@ public abstract class AbstractPacket extends AbstractBlock
         writeRawPacket(c);
 
         c.leavePacket();
-    }
-
-    /**
-     * <p>
-     * 木構造のストリームにおける、パケットの位置する深さを取得します。
-     * </p>
-     *
-     * <p>
-     * ノードの深さは親パケットを設定した際に、自動的に更新されます。
-     * </p>
-     *
-     * @return パケットの位置する深さ
-     */
-    @Override
-    public int getLevel() {
-        return level;
-    }
-
-    /**
-     * <p>
-     * 木構造のストリームにおける、パケットの位置する深さを設定します。
-     * </p>
-     *
-     * <p>
-     * パケットの深さを別の値に上書きしたいときに使用します。
-     * </p>
-     *
-     * @param l パケットの位置する深さ
-     */
-    @Override
-    public void setLevel(int l) {
-        level = l;
-    }
-
-    /**
-     * <p>
-     * 子要素のリストの末尾に、新たに子要素を加えます。
-     * </p>
-     *
-     * @param newChild リストの末尾に加える子要素
-     * @return リストに加えられた子要素
-     */
-    @Override
-    public Node appendChild(Node newChild) {
-        if (newChild == null) {
-            throw new IllegalArgumentException(
-                    "newChild is null.");
-        }
-
-        children.add(newChild);
-        if (newChild instanceof AbstractPacket) {
-            ((AbstractPacket)newChild).setParentNode(this);
-        }
-
-        return newChild;
-    }
-
-    /**
-     * <p>
-     * 子要素のリストから指定された要素を削除します。
-     * </p>
-     *
-     * @param oldChild 削除したい子要素
-     * @return リストから削除された子要素、
-     * 削除する要素が見つからない場合は null
-     */
-    @Override
-    public Node removeChild(Node oldChild) {
-        boolean result;
-
-        if (oldChild == null) {
-            throw new IllegalArgumentException(
-                    "oldChild is null.");
-        }
-
-        result = children.remove(oldChild);
-        if (result) {
-            if (oldChild instanceof AbstractPacket) {
-                ((AbstractPacket)oldChild).setParentNode(null);
-            }
-
-            return oldChild;
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * <p>
-     * 子要素のリストに含まれる refChild の直前に、
-     * newChild を追加します。
-     * </p>
-     *
-     * @param newChild 追加したい子要素
-     * @param refChild 追加する位置を表す子要素
-     * @return リストに追加された子要素、
-     * 追加できなかった場合は null
-     */
-    @Override
-    public Node insertBefore(Node newChild, Node refChild) {
-        int index;
-
-        if (newChild == null || refChild == null) {
-            throw new IllegalArgumentException(
-                    "newChild or refChild is null.");
-        }
-
-        index = children.indexOf(refChild);
-        if (index == -1) {
-            return null;
-        }
-
-        children.add(index, newChild);
-        if (newChild instanceof AbstractPacket) {
-            ((AbstractPacket)newChild).setParentNode(this);
-        }
-
-        return newChild;
-    }
-
-    /**
-     * <p>
-     * 子要素のリストに含まれる oldChild を newChild に置き換えます。
-     * </p>
-     *
-     * @param newChild 置き換え後の子要素
-     * @param oldChild 置き換える対象となる子要素
-     * @return リストの置き換えられた子要素、
-     * 置き換えられなかった場合は null
-     */
-    @Override
-    public Node replaceChild(Node newChild, Node oldChild) {
-        int index;
-
-        if (newChild == null || oldChild == null) {
-            throw new IllegalArgumentException(
-                    "newChild or oldChild is null.");
-        }
-
-        index = children.indexOf(oldChild);
-        if (index == -1) {
-            return null;
-        }
-
-        children.set(index, newChild);
-        if (oldChild instanceof AbstractPacket) {
-            ((AbstractPacket)oldChild).setParentNode(null);
-        }
-        if (newChild instanceof AbstractPacket) {
-            ((AbstractPacket)newChild).setParentNode(this);
-        }
-
-        return newChild;
-    }
-
-    /**
-     * <p>
-     * 親要素を取得します。
-     * </p>
-     *
-     * @return 親要素、親を持たない場合は null
-     */
-    @Override
-    public Node getParentNode() {
-        return parent;
-    }
-
-    /**
-     * <p>
-     * 親パケットを設定します。
-     * </p>
-     *
-     * <p>
-     * ノードの深さは親パケットの深さ + 1 に設定されます。
-     * </p>
-     *
-     * @param p パケットの親パケット
-     */
-    protected void setParentNode(Node p) {
-        parent = p;
-
-        if (p != null) {
-            setLevel(p.getLevel() + 1);
-        } else {
-            setLevel(0);
-        }
-    }
-
-    /**
-     * <p>
-     * 兄要素（親が持つ子要素のリストで自身の直前に位置する要素）
-     * を取得します。
-     * </p>
-     *
-     * @return 兄要素、兄を持たない場合は null
-     */
-    @Override
-    public Node getPreviousSibling() {
-        List<Node> l;
-        int index;
-
-        if (getParentNode() == null) {
-            return null;
-        }
-
-        l = getParentNode().getChildNodes();
-        index = l.indexOf(this);
-        if (index == -1 || index <= 0) {
-            return null;
-        }
-
-        return l.get(index - 1);
-    }
-
-    /**
-     * <p>
-     * 弟要素（親が持つ子要素のリストで自身の直後に位置する要素）
-     * を取得します。
-     * </p>
-     *
-     * @return 弟要素、弟を持たない場合は null
-     */
-    @Override
-    public Node getNextSibling() {
-        List<Node> l;
-        int index;
-
-        if (getParentNode() == null) {
-            return null;
-        }
-
-        l = getParentNode().getChildNodes();
-        index = getParentNode().getChildNodes().indexOf(this);
-        if ((index == -1) || (l.size() - 1 <= index)) {
-            return null;
-        }
-
-        return getParentNode().getChildNodes().get(index + 1);
-    }
-
-    /**
-     * <p>
-     * 子要素を持つかどうかを取得します。
-     * </p>
-     *
-     * @return 子要素を持つ場合は true、子要素を持たない場合は false
-     */
-    @Override
-    public boolean hasChildNodes() {
-        return !children.isEmpty();
-    }
-
-    /**
-     * <p>
-     * 子要素のリストを取得します。
-     * </p>
-     *
-     * @return 子要素のリスト
-     */
-    @Override
-    public List<Node> getChildNodes() {
-        return children;
-    }
-
-    /**
-     * <p>
-     * 最初の子要素を取得します。
-     * </p>
-     *
-     * @return 最初の子要素、
-     * 子要素がない場合は null
-     */
-    @Override
-    public Node getFirstChild() {
-        if (children.isEmpty()) {
-            return null;
-        }
-
-        return children.get(0);
-    }
-
-    /**
-     * <p>
-     * 最後の子要素を取得します。
-     * </p>
-     *
-     * @return 最後の子要素、
-     * 子要素がない場合は null
-     */
-    @Override
-    public Node getLastChild() {
-        if (children.isEmpty()) {
-            return null;
-        }
-
-        return children.get(children.size() - 1);
-    }
-
-    /**
-     * <p>
-     * 子要素の数を取得します。
-     * </p>
-     *
-     * <p>
-     * この関数は getChildNodes().size() と同じ結果を返します。
-     * </p>
-     *
-     * @return 子要素の数
-     */
-    @Override
-    public int getChildCounts() {
-        return children.size();
-    }
-
-    /**
-     * <p>
-     * 指定された位置の子要素を取得します。
-     * </p>
-     *
-     * @param index 取得したい子要素の位置
-     * @return 指定された位置にある子要素
-     * @throws IndexOutOfBoundsException 負の位置、
-     * または子要素の数を超える位置を指定した場合
-     */
-    @Override
-    public Node getChild(int index) {
-        return children.get(index);
     }
 
     public static void read(PacketReader<?> c,

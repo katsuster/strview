@@ -1,5 +1,7 @@
 package net.katsuster.strview.media;
 
+import net.katsuster.strview.util.*;
+
 /**
  * <p>
  * 意味のあるデータのまとまりです。
@@ -14,7 +16,7 @@ package net.katsuster.strview.media;
  * @see BlockAdapter
  * @author katsuhiro
  */
-public interface Block extends BlockRange, Cloneable {
+public interface Block extends Cloneable {
     /**
      * オブジェクトのコピーを作成し、返します。
      *
@@ -31,7 +33,7 @@ public interface Block extends BlockRange, Cloneable {
      *
      * @return データの範囲
      */
-    public BlockRange getRange();
+    public Range getRange();
 
     /**
      * <p>
@@ -40,7 +42,7 @@ public interface Block extends BlockRange, Cloneable {
      *
      * @param p データの範囲
      */
-    public void setRange(BlockRange p);
+    public void setRange(Range p);
 
     /**
      * <p>

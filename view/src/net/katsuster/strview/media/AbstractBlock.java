@@ -1,5 +1,7 @@
 package net.katsuster.strview.media;
 
+import net.katsuster.strview.util.*;
+
 /**
  * <p>
  * 意味のあるデータのまとまりを実装する際に利用するクラスです。
@@ -33,10 +35,10 @@ package net.katsuster.strview.media;
  * @author katsuhiro
  */
 public abstract class AbstractBlock implements Block {
-    private BlockRange pos;
+    private Range pos;
 
     public AbstractBlock() {
-        pos = new SimpleBlockRange();
+        pos = new SimpleRange();
     }
 
     @Override
@@ -44,63 +46,46 @@ public abstract class AbstractBlock implements Block {
             throws CloneNotSupportedException {
         AbstractBlock obj = (AbstractBlock)super.clone();
 
-        obj.setRange(new SimpleBlockRange(getRange()));
+        obj.setRange(new SimpleRange(getRange()));
 
         return obj;
     }
 
-    @Override
     public long getStart() {
         return getRange().getStart();
     }
 
-    @Override
     public void setStart(long addr) {
         getRange().setStart(addr);
     }
 
-    @Override
     public long getEnd() {
         return getRange().getEnd();
     }
 
-    @Override
     public void setEnd(long addr) {
         getRange().setEnd(addr);
     }
 
-    @Override
     public long getLength() {
         return getRange().getLength();
     }
 
-    @Override
     public void setLength(long len) {
         getRange().setLength(len);
     }
 
-    @Override
     public boolean isHit(long i) {
         return getRange().isHit(i);
     }
 
     @Override
-    public long getNumber() {
-        return getRange().getNumber();
-    }
-
-    @Override
-    public void setNumber(long num) {
-        getRange().setNumber(num);
-    }
-
-    @Override
-    public BlockRange getRange() {
+    public Range getRange() {
         return pos;
     }
 
     @Override
-    public void setRange(BlockRange p) {
+    public void setRange(Range p) {
         pos = p;
     }
 
