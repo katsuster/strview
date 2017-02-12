@@ -7,7 +7,7 @@ import net.katsuster.strview.media.*;
 
 /**
  * <p>
- * パケットの各メンバをツリーのノードに変換するコンバータクラスです。
+ * パケットを構成するデータをツリービューのノードに変換するコンバータです。
  * </p>
  *
  * @author katsuhiro

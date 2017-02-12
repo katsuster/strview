@@ -8,7 +8,7 @@ import javax.swing.filechooser.*;
 
 /**
  * <p>
- * ファイルを受け付けるウインドウ。
+ * ファイルを開くためのウインドウです。ドラッグ＆ドロップを受け付けます。
  * </p>
  *
  * @author katsuhiro

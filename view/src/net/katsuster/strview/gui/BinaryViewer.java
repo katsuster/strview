@@ -13,7 +13,7 @@ import net.katsuster.strview.io.*;
 
 /**
  * <p>
- * バイナリデータを表示するクラスです。
+ * バイナリデータを表示するビューアです。
  * </p>
  *
  * @author katsuhiro

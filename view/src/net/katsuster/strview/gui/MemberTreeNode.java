@@ -7,7 +7,12 @@ import net.katsuster.strview.media.*;
 
 /**
  * <p>
- * パケットを構成するデータメンバを表すクラスです。
+ * パケットを構成するデータを表すクラスです。
+ * </p>
+ *
+ * <p>
+ * ToMemberTreeNodeConverter が生成し、
+ * MemberTreeViewer に設定し、表示します。
  * </p>
  *
  * @author katsuhiro

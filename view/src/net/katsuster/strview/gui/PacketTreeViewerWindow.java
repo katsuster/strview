@@ -15,7 +15,7 @@ import net.katsuster.strview.media.mkv.*;
 
 /**
  * <p>
- * ストリームの構造を表示するクラス。
+ * ストリームの構造を表示するウインドウです。
  * </p>
  *
  * <p>

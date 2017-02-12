@@ -7,7 +7,7 @@ import javax.swing.*;
 
 /**
  * <p>
- * バイナリデータを表示するウインドウ。
+ * バイナリデータを表示するウインドウです。
  * </p>
  *
  * @author katsuhiro
