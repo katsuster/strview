@@ -107,101 +107,37 @@ public class SimpleRange
                 ^ (length ^ (length >> 32)));
     }
 
-    /**
-     * <p>
-     * 区間の開始地点を取得します。
-     * </p>
-     *
-     * <p>
-     * getStart() の点は区間に入りますが、getEnd() の点は区間に入りません。
-     * </p>
-     *
-     * @return 区間の開始地点
-     */
+    @Override
     public long getStart() {
         return start;
     }
 
-    /**
-     * <p>
-     * 区間の開始地点を設定します。
-     * </p>
-     *
-     * <p>
-     * getStart() の点は区間に入りますが、getEnd() の点は区間に入りません。
-     * </p>
-     *
-     * @param p 区間の開始地点
-     */
+    @Override
     public void setStart(long p) {
         start = p;
     }
 
-    /**
-     * <p>
-     * 区間の終了地点を取得します。
-     * </p>
-     *
-     * <p>
-     * getStart() の点は区間に入りますが、getEnd() の点は区間に入りません。
-     * </p>
-     *
-     * @return 区間の終了地点
-     */
+    @Override
     public long getEnd() {
         return start + length;
     }
 
-    /**
-     * <p>
-     * 区間の終了地点を設定します。
-     * </p>
-     *
-     * <p>
-     * getStart() の点は区間に入りますが、getEnd() の点は区間に入りません。
-     * </p>
-     *
-     * @param p 区間の終了地点
-     */
+    @Override
     public void setEnd(long p) {
         length = p - start;
     }
 
-    /**
-     * <p>
-     * 区間の長さを取得します。
-     * </p>
-     *
-     * @return 区間の長さ
-     */
+    @Override
     public long getLength() {
         return length;
     }
 
-    /**
-     * <p>
-     * 区間の長さを設定します。
-     * </p>
-     *
-     * <p>
-     * 長さを設定すると、開始点は変更されず、
-     * 終了点が適切な位置に変更されます。
-     * </p>
-     *
-     * @param l 区間の長さ
-     */
+    @Override
     public void setLength(long l) {
         length = l;
     }
 
-    /**
-     * <p>
-     * 指定したインデックスが区間内に入るかどうかを判定します。
-     * </p>
-     *
-     * @param i インデックス
-     * @return インデックスが区間内なら true、区間外なら false
-     */
+    @Override
     public boolean isHit(long i) {
         if (getStart() <= i && i < getEnd()) {
             return true;

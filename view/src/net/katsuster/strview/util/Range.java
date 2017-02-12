@@ -6,10 +6,14 @@ package net.katsuster.strview.util;
  * </p>
  *
  * <p>
+ * end = start + length です。
+ * </p>
+ *
+ * <p>
  * start は区間に入りますが、end は区間に入りません。
- * つまり start = 0, end = 5 であれば、
- * isHit(0) は true、isHit(4) も true ですが、
- * isHit(5) は false、isHit(6) も false です。
+ * つまり start = 1, length = 5 (end = 6) であれば、
+ * isHit(1) は true、isHit(5) も true ですが、
+ * isHit(6) は false、isHit(7) も false です。
  * </p>
  *
  * @author katsuhiro
@@ -26,53 +30,63 @@ public interface Range {
 
     /**
      * <p>
-     * 区間の開始地点を取得します。
+     * 区間の開始点を取得します。
      * </p>
      *
      * <p>
      * getStart() の点は区間に入りますが、getEnd() の点は区間に入りません。
      * </p>
      *
-     * @return 区間の開始地点
+     * @return 区間の開始点
      */
     public long getStart();
 
     /**
      * <p>
-     * 区間の開始地点を設定します。
+     * 区間の開始点を設定します。
      * </p>
      *
      * <p>
      * getStart() の点は区間に入りますが、getEnd() の点は区間に入りません。
      * </p>
      *
-     * @param p 区間の開始地点
+     * <p>
+     * 開始点を設定しても、長さは変更されず、
+     * 終了点が適切な値に変更されます。
+     * </p>
+     *
+     * @param p 区間の開始点
      */
     public void setStart(long p);
 
     /**
      * <p>
-     * 区間の終了地点を取得します。
+     * 区間の終了点を取得します。
      * </p>
      *
      * <p>
      * getStart() の点は区間に入りますが、getEnd() の点は区間に入りません。
      * </p>
      *
-     * @return 区間の終了地点
+     * @return 区間の終了点
      */
     public long getEnd();
 
     /**
      * <p>
-     * 区間の終了地点を設定します。
+     * 区間の終了点を設定します。
+     * </p>
+     *
+     * <p>
+     * 終了点を設定しても、開始点は変更されず、
+     * 長さが適切な値に変更されます。
      * </p>
      *
      * <p>
      * getStart() の点は区間に入りますが、getEnd() の点は区間に入りません。
      * </p>
      *
-     * @param p 区間の終了地点
+     * @param p 区間の終了点
      */
     public void setEnd(long p);
 
