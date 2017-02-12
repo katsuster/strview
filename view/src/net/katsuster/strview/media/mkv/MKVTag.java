@@ -39,6 +39,11 @@ public class MKVTag extends PacketAdapter
         return getHeader().getTagIdName();
     }
 
+    @Override
+    public boolean isRecursive() {
+        return getHeader().isMaster();
+    }
+
     /**
      * <p>
      * Matroska タグヘッダを返す。

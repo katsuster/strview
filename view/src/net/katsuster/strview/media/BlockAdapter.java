@@ -26,11 +26,6 @@ public class BlockAdapter extends AbstractBlock {
     }
 
     @Override
-    public boolean isRecursive() {
-        return false;
-    }
-
-    @Override
     public void read(PacketReader<?> c) {
         //do nothing
     }

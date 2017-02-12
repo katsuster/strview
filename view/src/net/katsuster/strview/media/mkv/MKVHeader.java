@@ -33,8 +33,7 @@ public class MKVHeader extends EBMLHeader {
         return obj;
     }
 
-    @Override
-    public boolean isRecursive() {
+    public boolean isMaster() {
         long id;
 
         id = tag_id.getValue();

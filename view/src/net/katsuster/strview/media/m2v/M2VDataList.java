@@ -58,11 +58,6 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
         packet = new M2VData(tagh);
 
         packet.read(c);
-        if (packet.isRecursive()) {
-            //入れ子にできるなら、本体に別のパケットが含まれている
-            //かもしれないので、パケット本体を解析する
-            c.position(packet.getBodyAddress());
-        }
 
         return packet;
     }

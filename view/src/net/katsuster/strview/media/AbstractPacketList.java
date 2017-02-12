@@ -69,7 +69,7 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
             return;
         }
 
-        pr = cr.getParentNode();
+        pr = cr;
         while (pr != null) {
             getPacketStack().addLast(pr);
             pr = pr.getParentNode();
@@ -218,15 +218,30 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
      */
     protected long seekNearest(PacketReader<?> c, long index, NavigableMap<Long, PacketRange> cache) {
         Map.Entry<Long, PacketRange> ent = cache.floorEntry(index);
+        PacketRange pr;
 
         if (ent == null) {
             return 0;
         }
+        pr = ent.getValue();
 
-        setupPacketStack(ent.getValue());
-        c.position(ent.getValue().getStart());
+        if (pr.getNumber() == index) {
+            setupPacketStack(pr.getParentNode());
 
-        return ent.getKey();
+            c.position(pr.getStart());
+
+            return ent.getKey();
+        } else {
+            setupPacketStack(pr);
+
+            if (pr.getRecursive()) {
+                c.position(pr.getBodyAddress());
+            } else {
+                c.position(pr.getStart() + pr.getLength());
+            }
+
+            return ent.getKey() + 1;
+        }
     }
 
     /**

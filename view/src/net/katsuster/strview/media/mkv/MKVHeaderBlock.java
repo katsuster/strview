@@ -75,7 +75,7 @@ public class MKVHeaderBlock extends MKVHeader {
     }
 
     @Override
-    public boolean isRecursive() {
+    public boolean isMaster() {
         return false;
     }
 

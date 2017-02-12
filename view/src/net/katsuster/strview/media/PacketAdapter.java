@@ -54,7 +54,7 @@ public class PacketAdapter extends AbstractPacket {
 
     @Override
     public boolean isRecursive() {
-        return getHeader().isRecursive();
+        return false;
     }
 
     @Override

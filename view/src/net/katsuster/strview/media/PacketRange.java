@@ -154,6 +154,26 @@ public interface PacketRange extends Range {
 
     /**
      * <p>
+     * 本体に子データを含められるかどうかを返します。
+     * </p>
+     *
+     * @return 本体に子データを含められる場合は true、
+     * 含められない場合は false
+     */
+    public boolean getRecursive();
+
+    /**
+     * <p>
+     * 本体に子データを含められるかどうかを設定します。
+     * </p>
+     *
+     * @param r 本体に子データを含められる場合は true、
+     * 含められない場合は false
+     */
+    public void setRecursive(boolean r);
+
+    /**
+     * <p>
      * 木構造のストリームにおける、パケットの位置する深さを取得します。
      * </p>
      *

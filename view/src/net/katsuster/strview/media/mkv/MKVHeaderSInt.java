@@ -30,7 +30,7 @@ public class MKVHeaderSInt extends MKVHeader {
     }
 
     @Override
-    public boolean isRecursive() {
+    public boolean isMaster() {
         return false;
     }
 

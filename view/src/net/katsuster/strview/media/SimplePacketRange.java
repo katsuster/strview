@@ -19,6 +19,8 @@ public class SimplePacketRange extends SimpleRange
     private long len_header;
     //パケットのフッタの長さ（ビット単位）
     private long len_footer;
+    //パケット本体に別のパケットを含められるか否か
+    private boolean f_recursive;
 
     //パケットの親
     private PacketRange parent;
@@ -145,6 +147,16 @@ public class SimplePacketRange extends SimpleRange
     @Override
     public void setFooterLength(long len) {
         len_footer = len;
+    }
+
+    @Override
+    public boolean getRecursive() {
+        return f_recursive;
+    }
+
+    @Override
+    public void setRecursive(boolean r) {
+        f_recursive = r;
     }
 
     @Override

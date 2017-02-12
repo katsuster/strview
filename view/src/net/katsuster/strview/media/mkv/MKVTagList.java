@@ -76,11 +76,6 @@ public class MKVTagList extends AbstractPacketList<MKVTag> {
         }
 
         packet.read(c);
-        if (packet.isRecursive()) {
-            //入れ子にできるなら、本体に別のパケットが含まれている
-            //かもしれないので、パケット本体を解析する
-            c.position(packet.getBodyAddress());
-        }
 
         return packet;
     }

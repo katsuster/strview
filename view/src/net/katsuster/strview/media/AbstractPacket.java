@@ -171,6 +171,14 @@ public abstract class AbstractPacket extends AbstractBlock
         getRange().setFooterLength(s);
     }
 
+    public boolean getRecursive() {
+        return getRange().getRecursive();
+    }
+
+    public void setRecursive(boolean r) {
+        getRange().setRecursive(r);
+    }
+
     public int getLevel() {
         return getRange().getLevel();
     }
@@ -411,6 +419,13 @@ public abstract class AbstractPacket extends AbstractBlock
         readFooter(c);
         setFooterLength(c.position() - getFooterAddress());
         readRawPacket(c);
+
+        if (isRecursive()) {
+            //入れ子にできるなら、本体に別のパケットが含まれている
+            //かもしれないので、パケット本体を解析する
+            c.position(getBodyAddress());
+        }
+        setRecursive(isRecursive());
 
         c.leavePacket();
     }
