@@ -18,8 +18,8 @@ public class TSPacket extends PacketAdapter
         this(new TSHeader());
     }
 
-    public TSPacket(TSHeader header) {
-        setHeader(header);
+    public TSPacket(TSHeader h) {
+        super(h);
     }
 
     @Override

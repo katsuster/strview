@@ -67,6 +67,7 @@ public class SimplePacketRange extends SimpleRange
     public SimplePacketRange(long num, long addr, long len_h, long len_b, long len_f, PacketRange pp) {
         super(addr, len_h + len_b + len_f);
 
+        number = num;
         len_header = len_h;
         len_footer = len_f;
         parent = pp;

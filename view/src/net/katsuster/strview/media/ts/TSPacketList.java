@@ -35,14 +35,15 @@ public class TSPacketList extends AbstractPacketList<TSPacket> {
     }
 
     @Override
-    protected void seekInner(PacketReader<?> c, long index) {
+    protected void seek(PacketReader<?> c, long index) {
         c.position(index * 188 * 8);
     }
 
     @Override
-    protected Packet readNextInner(PacketReader<?> c, long index) {
-        TSPacket packet = new TSPacket();
+    protected Packet readNextInner(PacketReader<?> c, PacketRange pr) {
+        TSPacket packet = new TSPacket(new TSHeader());
 
+        packet.setRange(pr);
         packet.read(c);
 
         return packet;

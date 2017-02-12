@@ -55,7 +55,7 @@ public class MKVTagList extends AbstractPacketList<MKVTag> {
     }
 
     @Override
-    protected MKVTag readNextInner(PacketReader<?> c, long index) {
+    protected MKVTag readNextInner(PacketReader<?> c, PacketRange pr) {
         MKVTag packet;
 
         MKVHeader tmph = new MKVHeader();
@@ -75,6 +75,7 @@ public class MKVTagList extends AbstractPacketList<MKVTag> {
                     spec.type, null);
         }
 
+        packet.setRange(pr);
         packet.read(c);
 
         return packet;

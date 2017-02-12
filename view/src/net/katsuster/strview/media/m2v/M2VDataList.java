@@ -32,7 +32,7 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
     }
 
     @Override
-    protected M2VData readNextInner(PacketReader<?> c, long index) {
+    protected M2VData readNextInner(PacketReader<?> c, PacketRange pr) {
         M2VHeader tagh = null;
         M2VData packet;
 
@@ -57,6 +57,7 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
 
         packet = new M2VData(tagh);
 
+        packet.setRange(pr);
         packet.read(c);
 
         return packet;

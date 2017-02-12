@@ -20,7 +20,7 @@ package net.katsuster.strview.media;
 public class PacketAdapter extends AbstractPacket {
     /**
      * <p>
-     * 何もメンバを持たないパケットの構成要素を作成します。
+     * 空のヘッダを持ち、存在する範囲が未定義のパケットを作成します。
      * </p>
      */
     public PacketAdapter() {
@@ -29,27 +29,36 @@ public class PacketAdapter extends AbstractPacket {
 
     /**
      * <p>
-     * パケットヘッダを指定して、
-     * 何もメンバを持たないパケットの構成要素を作成します。
-     * パケットヘッダは無視されます。
+     * 空のヘッダを持ち、存在する範囲が定義されたパケットを作成します。
+     * </p>
+     *
+     * @param pr パケットが存在する範囲
+     */
+    public PacketAdapter(PacketRange pr) {
+        super(pr);
+    }
+
+    /**
+     * <p>
+     * 指定されたヘッダを持ち、存在する範囲が未定義のパケットを作成します。
      * </p>
      *
      * @param h パケットヘッダ
      */
     public PacketAdapter(Block h) {
-        super(null, h);
+        super(h);
     }
 
     /**
      * <p>
-     * 親パケットを持ったパケットの構成要素を作成します。
+     * 指定されたヘッダを持ち、存在する範囲が定義されたパケットを作成します。
      * </p>
      *
-     * @param pp 親パケット
+     * @param pr パケットが存在する範囲
      * @param h パケットヘッダ
      */
-    public PacketAdapter(Packet pp, Block h) {
-        super(pp, h);
+    public PacketAdapter(PacketRange pr, Block h) {
+        super(pr, h);
     }
 
     @Override

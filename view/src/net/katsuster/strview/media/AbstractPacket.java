@@ -80,7 +80,7 @@ public abstract class AbstractPacket extends AbstractBlock
 
     /**
      * <p>
-     * 空のヘッダを持ち、親を持たないパケットを作成します。
+     * 空のヘッダを持ち、存在する範囲が未定義のパケットを作成します。
      * </p>
      */
     public AbstractPacket() {
@@ -89,7 +89,18 @@ public abstract class AbstractPacket extends AbstractBlock
 
     /**
      * <p>
-     * 指定されたヘッダを持ち、親を持たないパケットを作成します。
+     * 空のヘッダを持ち、存在する範囲が定義されたパケットを作成します。
+     * </p>
+     *
+     * @param pr パケットが存在する範囲
+     */
+    public AbstractPacket(PacketRange pr) {
+        this(pr, new BlockAdapter());
+    }
+
+    /**
+     * <p>
+     * 指定されたヘッダを持ち、存在する範囲が未定義のパケットを作成します。
      * </p>
      *
      * @param h パケットヘッダ
@@ -100,19 +111,16 @@ public abstract class AbstractPacket extends AbstractBlock
 
     /**
      * <p>
-     * 指定されたヘッダと親を持つパケットを作成します。
+     * 指定されたヘッダを持ち、存在する範囲が定義されたパケットを作成します。
      * </p>
      *
-     * @param pp 親パケット
+     * @param pr パケットが存在する範囲
      * @param h パケットヘッダ
      */
-    public AbstractPacket(Packet pp, Block h) {
+    public AbstractPacket(PacketRange pr, Block h) {
         super();
 
-        setRange(new SimplePacketRange());
-        if (pp != null) {
-            setParentNode(pp.getRange());
-        }
+        setRange(pr);
         head = h;
         foot = new BlockAdapter();
     }
@@ -122,7 +130,7 @@ public abstract class AbstractPacket extends AbstractBlock
             throws CloneNotSupportedException {
         AbstractPacket obj = (AbstractPacket)super.clone();
 
-        obj.setRange(new SimplePacketRange(getRange()));
+        obj.setRange(getRange());
         obj.head = head.clone();
         obj.body = body;
         obj.foot = foot.clone();

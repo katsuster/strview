@@ -15,8 +15,8 @@ public class M2VData extends PacketAdapter
         this(new M2VHeader());
     }
 
-    public M2VData(M2VHeader header) {
-        setHeader(header);
+    public M2VData(M2VHeader h) {
+        super(h);
     }
 
     @Override
