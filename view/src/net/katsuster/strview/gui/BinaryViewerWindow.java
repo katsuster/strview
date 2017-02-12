@@ -18,78 +18,52 @@ public class BinaryViewerWindow extends JFrame {
     private String filename;
 
     private JMenuBar topMenuBar;
+    private JMenu menuFile;
+    private Action actionClose;
     private BinaryViewer binaryViewer;
 
     public BinaryViewerWindow(String fn) {
         super();
 
-        //タイトル設定、リサイズ可能にする
         setTitle(fn);
         setResizable(true);
-
-        //ウインドウを閉じられたらウインドウを破棄する
-        addWindowListener(new StreamViewerWindowListener());
-
-        //ドラッグ＆ドロップを可能にする
-        setTransferHandler(new FileDropWindow.FileTransferHandler());
-
-        //表示するファイルを設定する
-        setFilename(fn);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setTransferHandler(new FileTransferHandler());
 
         //メニューを作成する
         topMenuBar = new JMenuBar();
-        topMenuBar.add(new JMenu("ファイル"));
+        menuFile = new JMenu("ファイル");
 
+        actionClose = new MenuActionClose(this, "閉じる(C)");
+        actionClose.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_C);
+        menuFile.add(actionClose);
+
+        topMenuBar.add(menuFile);
         setJMenuBar(topMenuBar);
 
         //バイナリビューア
-        binaryViewer = new BinaryViewer(getFilename());
+        binaryViewer = new BinaryViewer(fn);
         binaryViewer.setFont(new Font(Font.MONOSPACED, 0, 12));
         getContentPane().add(binaryViewer);
     }
 
-    public String getFilename() {
-        return filename;
-    }
+    public class MenuActionClose extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+        private JFrame parent;
 
-    public void setFilename(String fn) {
-        filename = fn;
-    }
+        public MenuActionClose(JFrame f, String name) {
+            super(name);
+            parent = f;
+        }
 
-    public static class StreamViewerWindowListener implements WindowListener {
-        @Override
-        public void windowActivated(WindowEvent ev) {
-            //do nothing
+        public MenuActionClose(JFrame f, String name, Icon icon) {
+            super(name, icon);
+            parent = f;
         }
 
         @Override
-        public void windowClosed(WindowEvent ev) {
-            //do nothing
-        }
-
-        @Override
-        public void windowClosing(WindowEvent ev) {
-            ev.getWindow().dispose();
-        }
-
-        @Override
-        public void windowDeactivated(WindowEvent ev) {
-            //do nothing
-        }
-
-        @Override
-        public void windowDeiconified(WindowEvent ev) {
-            //do nothing
-        }
-
-        @Override
-        public void windowIconified(WindowEvent ev) {
-            //do nothing
-        }
-
-        @Override
-        public void windowOpened(WindowEvent ev) {
-            //do nothing
+        public void actionPerformed(ActionEvent e) {
+            parent.dispose();
         }
     }
 }

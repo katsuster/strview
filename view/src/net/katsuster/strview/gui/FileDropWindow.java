@@ -1,17 +1,10 @@
 package net.katsuster.strview.gui;
 
-import java.io.*;
-import java.util.*;
 import java.awt.FlowLayout;
-import java.awt.HeadlessException;
-import java.awt.datatransfer.*;
 import java.awt.event.*;
 
 import javax.swing.*;
-
-import net.katsuster.strview.util.*;
-import net.katsuster.strview.io.*;
-import net.katsuster.strview.media.*;
+import javax.swing.filechooser.*;
 
 /**
  * <p>
@@ -24,8 +17,8 @@ public class FileDropWindow extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private JMenuBar topMenuBar;
-    private Action actionExit;
     private JMenu menuFile;
+    private Action actionOpen, actionExit;
     private Action actionGC;
     private JButton btnGC;
     private JLabel lblHeapWatcher;
@@ -35,21 +28,23 @@ public class FileDropWindow extends JFrame {
     public FileDropWindow() {
         super();
 
-        //レイアウトを決める
+        setResizable(true);
         setLayout(new FlowLayout(FlowLayout.LEFT));
-
-        //ウインドウを閉じられたらアプリケーションを終了する
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTransferHandler(new FileTransferHandler());
 
         //メニューを作成する
         topMenuBar = new JMenuBar();
         menuFile = new JMenu("ファイル");
 
+        actionOpen = new MenuActionFileOpen(this, "開く(O)");
+        actionOpen.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_O);
+        menuFile.add(actionOpen);
         actionExit = new MenuActionExit("終了(X)");
         actionExit.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_X);
+        menuFile.addSeparator();
         menuFile.add(actionExit);
 
-        //メニュー、リスナを追加する
         topMenuBar.add(menuFile);
         setJMenuBar(topMenuBar);
 
@@ -65,18 +60,40 @@ public class FileDropWindow extends JFrame {
         actionGC = new ButtonActionGC("GC");
         btnGC = new JButton(actionGC);
         getContentPane().add(btnGC);
+    }
 
+    public class MenuActionFileOpen extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+        private JFrame parent;
 
-        //ドラッグ＆ドロップを可能にする
-        setTransferHandler(new FileDropWindow.FileTransferHandler());
+        public MenuActionFileOpen(JFrame f, String name) {
+            super(name);
+            parent = f;
+        }
+
+        public MenuActionFileOpen(JFrame f, String name, Icon icon) {
+            super(name, icon);
+            parent = f;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                    "Matroska", "mkv");
+            int res;
+
+            //chooser.setFileFilter(filter);
+            res = chooser.showOpenDialog(parent);
+            if (res == JFileChooser.APPROVE_OPTION) {
+                FileTransferHandler t = new FileTransferHandler();
+                t.openFile(chooser.getSelectedFile());
+            }
+        }
     }
 
     public class MenuActionExit extends AbstractAction {
         private static final long serialVersionUID = 1L;
-
-        public MenuActionExit() {
-            this("");
-        }
 
         public MenuActionExit(String name) {
             super(name);
@@ -94,10 +111,6 @@ public class FileDropWindow extends JFrame {
 
     public class ButtonActionGC extends AbstractAction {
         private static final long serialVersionUID = 1L;
-
-        public ButtonActionGC() {
-            this("");
-        }
 
         public ButtonActionGC(String name) {
             super(name);
@@ -123,87 +136,12 @@ public class FileDropWindow extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent evt) {
-            long free, total;
-
-            free = Runtime.getRuntime().freeMemory();
-            total = Runtime.getRuntime().totalMemory();
+            long free = Runtime.getRuntime().freeMemory();
+            long total = Runtime.getRuntime().totalMemory();
 
             lbl.setText("used/total: "
                     + ((total - free) / 1048576) + "MB"
                     + "/" + (total / 1048576) + "MB");
-        }
-    }
-
-    public static class FileTransferHandler extends TransferHandler {
-        private static final long serialVersionUID = 1L;
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public boolean importData(TransferSupport support) {
-            Transferable trans = support.getTransferable();
-            Object tdata;
-            List<Object> tlist;
-            File tfile;
-            boolean result;
-
-            try {
-                //ファイルリスト以外を渡された場合はドロップを拒否します
-                if (!canImport(support)) {
-                    return false;
-                }
-
-                //ファイルリストの取得ができなければドロップを拒否します
-                tdata = trans.getTransferData(DataFlavor.javaFileListFlavor);
-                tlist = (List<Object>)tdata;
-            } catch (Exception ex) {
-                DebugInfo.printFunctionName(this);
-                ex.printStackTrace();
-
-                return false;
-            }
-
-            for (Object o: tlist) {
-                //ファイル以外は無視します
-                if (!(o instanceof File)) {
-                    continue;
-                }
-                tfile = (File)o;
-                if (!(tfile.isFile())) {
-                    continue;
-                }
-
-                //ファイルを解析します
-                result = openFile(tfile);
-                if (!result) {
-                    System.err.println("open '" + tfile + "' is failed.");
-                    continue;
-                }
-            }
-
-            return true;
-        }
-
-        private boolean openFile(File tfile) {
-            BinaryViewerWindow bw;
-
-            System.out.println(tfile);
-
-            try {
-                bw = new BinaryViewerWindow(tfile.getAbsolutePath());
-
-                bw.setSize(1024, 720);
-                bw.setVisible(true);
-                bw.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            } catch (HeadlessException ex) {
-
-            }
-
-            return true;
-        }
-
-        @Override
-        public boolean canImport(TransferSupport support) {
-            return support.isDataFlavorSupported(DataFlavor.javaFileListFlavor);
         }
     }
 }
