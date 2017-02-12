@@ -27,6 +27,36 @@ public class PacketReaderAdapter<T> extends AbstractPacketReader<T>
     }
 
     @Override
+    public void enterPacket(String name) {
+        //do nothing
+    }
+
+    @Override
+    public void leavePacket() {
+        //do nothing
+    }
+
+    @Override
+    public void enterBlock(String name) {
+        //do nothing
+    }
+
+    @Override
+    public void leaveBlock() {
+        //do nothing
+    }
+
+    @Override
+    public void mark(String name, String s, String desc) {
+        //do nothing
+    }
+
+    @Override
+    public void mark(String name, Number n, String desc) {
+        //do nothing
+    }
+
+    @Override
     public long position() {
         return 0;
     }

@@ -26,43 +26,13 @@ public abstract class AbstractPacketConverter<T> implements PacketConverter<T> {
     }
 
     @Override
-    public void enterPacket(String name) {
-        //do nothing
-    }
-
-    @Override
-    public void leavePacket() {
-        //do nothing
-    }
-
-    @Override
-    public void enterBlock(String name) {
-        //do nothing
-    }
-
-    @Override
-    public void leaveBlock() {
-        //do nothing
-    }
-
-    @Override
     public void mark(String name, String s) {
         mark(name, s, null);
     }
 
     @Override
-    public void mark(String name, String s, String desc) {
-        //do nothing
-    }
-
-    @Override
     public void mark(String name, Number n) {
         mark(name, n, null);
-    }
-
-    @Override
-    public void mark(String name, Number n, String desc) {
-        //do nothing
     }
 
     @Override
@@ -88,7 +58,6 @@ public abstract class AbstractPacketConverter<T> implements PacketConverter<T> {
     @Override
     public boolean isAlignInt() {
         return (position() & 0x1f) == 0;
-
     }
 
     @Override
