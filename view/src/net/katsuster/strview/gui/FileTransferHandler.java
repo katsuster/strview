@@ -72,14 +72,16 @@ public class FileTransferHandler extends TransferHandler {
     }
 
     public boolean openFile(File tfile) {
-        BinaryViewerWindow bw;
-
         System.out.println(tfile);
 
         try {
-            bw = new BinaryViewerWindow(tfile.getAbsolutePath());
+            BinaryViewerWindow bw = new BinaryViewerWindow(tfile.getAbsolutePath());
             bw.setSize(1024, 720);
             bw.setVisible(true);
+
+            PacketTreeViewerWindow pw = new PacketTreeViewerWindow(tfile.getAbsolutePath());
+            pw.setSize(1024, 720);
+            pw.setVisible(true);
         } catch (HeadlessException ex) {
 
         }
