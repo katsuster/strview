@@ -42,16 +42,16 @@ public class ToMemberTreeNodeConverter extends PacketWriterAdapter<MemberTreeNod
 
     @Override
     public void enterBlock(String name) {
-        //MemberTreeNode top = stack_node.peek();
-        //MemberTreeNode node = new MemberTreeNode(name);
+        MemberTreeNode top = stack_node.peek();
+        MemberTreeNode node = new MemberTreeNode(name);
 
-        //top.add(node);
-        //stack_node.push(node);
+        top.add(node);
+        stack_node.push(node);
     }
 
     @Override
     public void leaveBlock() {
-        //stack_node.pop();
+        stack_node.pop();
     }
 
     @Override
