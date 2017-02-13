@@ -35,9 +35,10 @@ public class FileDropWindow extends JFrame {
 
         //メニューを作成する
         topMenuBar = new JMenuBar();
-        menuFile = new JMenu("ファイル");
+        menuFile = new JMenu("ファイル(F)");
+        menuFile.setMnemonic('f');
 
-        actionOpen = new MenuActionFileOpen(this, "開く(O)");
+        actionOpen = new MenuActionFileOpen(this, "開く(O)...");
         actionOpen.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_O);
         menuFile.add(actionOpen);
         actionExit = new MenuActionExit("終了(X)");
