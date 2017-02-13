@@ -63,8 +63,6 @@ public class BinaryViewer extends JPanel {
     private ContentBox box_ascii;
 
     protected BinaryViewer() {
-        super();
-
         //do nothing
     }
 
@@ -73,10 +71,6 @@ public class BinaryViewer extends JPanel {
     }
 
     public BinaryViewer(LargeBitList l) {
-        super();
-
-        int i;
-
         //表示するバイナリデータを初期化する
         buf = null;
 
@@ -89,7 +83,7 @@ public class BinaryViewer extends JPanel {
 
         //表示する範囲を初期化する
         ranges = new Range[PRIORITY.MAX];
-        for (i = 0; i < PRIORITY.MAX; i++) {
+        for (int i = 0; i < PRIORITY.MAX; i++) {
             ranges[i] = new SimpleRange(0, 0);
         }
         setDataRange(new SimpleRange(0, 0));
@@ -99,7 +93,7 @@ public class BinaryViewer extends JPanel {
         //フォントの色を初期化する
         color_addr = Color.BLACK;
         colors = new Color[PRIORITY.MAX];
-        for (i = 0; i < PRIORITY.MAX; i++) {
+        for (int i = 0; i < PRIORITY.MAX; i++) {
             colors[i] = Color.BLACK;
         }
         setDataColor(Color.BLACK);
