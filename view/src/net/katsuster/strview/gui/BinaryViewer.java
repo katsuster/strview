@@ -27,14 +27,14 @@ public class BinaryViewer extends JPanel {
     private JScrollBar scr;
 
     //表示させるビットデータ
-    private LargeBitList buf;
+    private LargeBitList buf = null;
 
     //表示開始するアドレス（バイト単位）
-    private long addr_start;
+    private long addr_start = 0;
     //1列に表示させるバイト数
-    private int length_raw;
+    private int length_raw = 16;
     //1列の高さ（ピクセル）
-    private int height_raw;
+    private int height_raw = 16;
 
     //表示するデータ範囲
     private Range[] ranges;
@@ -71,16 +71,6 @@ public class BinaryViewer extends JPanel {
     }
 
     public BinaryViewer(LargeBitList l) {
-        //表示するバイナリデータを初期化する
-        buf = null;
-
-        //表示するデータの先頭アドレス（バイト単位）
-        addr_start = 0;
-        //1列に表示するバイト数
-        length_raw = 16;
-        //列の表示領域の高さ
-        height_raw = 16;
-
         //表示する範囲を初期化する
         ranges = new Range[PRIORITY.MAX];
         for (int i = 0; i < PRIORITY.MAX; i++) {
@@ -117,16 +107,11 @@ public class BinaryViewer extends JPanel {
         box_ascii_area.setPadding(5, 0, 5, 0);
 
 
-        //背景色を設定する
         setBackground(Color.WHITE);
+        setLayout(new BorderLayout());
 
-        //マウスホイール、リサイズイベント、リスナを追加する
         addMouseWheelListener(new BinaryViewerWheelListener());
         addComponentListener(new BinaryViewerComponentListener());
-
-
-        //子パネル追加
-        setLayout(new BorderLayout());
 
         //中央にバイナリデータ表示パネルを配置する
         viewer = new BinaryViewerInner();
@@ -136,7 +121,6 @@ public class BinaryViewer extends JPanel {
         scr = new JScrollBar();
         scr.getModel().addChangeListener(viewer);
         add(scr, BorderLayout.EAST);
-
 
         //表示するファイルを設定する
         //スクロールバーの最大値をいじるので、GUI 作成の後でないとだめ
@@ -229,11 +213,8 @@ public class BinaryViewer extends JPanel {
      * @return 列の先頭アドレス
      */
     protected long rawToAddress(long raw) {
-        long lines;
-        double pos;
-
-        lines = getLength() / getLengthOfRaw() + 1;
-        pos = (double)lines * scr.getValue() / scr.getMaximum();
+        long lines = getLength() / getLengthOfRaw() + 1;
+        double pos = (double)lines * scr.getValue() / scr.getMaximum();
 
         return (long)(pos * getLengthOfRaw());
     }
@@ -504,27 +485,14 @@ public class BinaryViewer extends JPanel {
         }
     }
 
-    protected class BinaryViewerComponentListener
-            implements ComponentListener {
-        @Override
-        public void componentHidden(ComponentEvent e) {
-            //do nothing
-        }
-
-        @Override
-        public void componentMoved(ComponentEvent e) {
-            //do nothing
-        }
-
+    protected class BinaryViewerComponentListener extends ComponentAdapter {
         @Override
         public void componentResized(ComponentEvent e) {
-            Rectangle all_contents;
-
             //表示領域を更新する
             box_all.setWidth(viewer.getWidth());
             box_all.setHeight(viewer.getHeight());
 
-            all_contents = box_all.getContents();
+            Rectangle all_contents = box_all.getContents();
             box_addr_area.setHeight(all_contents.height);
             box_data_area.setHeight(all_contents.height);
             box_ascii_area.setHeight(all_contents.height);
@@ -534,11 +502,6 @@ public class BinaryViewer extends JPanel {
                     all_contents.height / box_addr_area.getHeight());
 
             viewer.repaint();
-        }
-
-        @Override
-        public void componentShown(ComponentEvent e) {
-            //do nothing
         }
     }
 
@@ -558,12 +521,10 @@ public class BinaryViewer extends JPanel {
         }
 
         protected void drawAll(Graphics g, long addr) {
-            FontMetrics met;
-            Rectangle all_contents;
             int width_f, height_f, dx, dy;
 
             //フォントメトリックから表示領域の大きさを計算する
-            met = g.getFontMetrics();
+            FontMetrics met = g.getFontMetrics();
 
             //表示領域
             width_f = met.stringWidth("F");
@@ -586,7 +547,7 @@ public class BinaryViewer extends JPanel {
 
 
             //マージンを除いた領域を描画に使う
-            all_contents = box_all.getContents();
+            Rectangle all_contents = box_all.getContents();
             dx = all_contents.x;
             dy = all_contents.y;
 
@@ -608,14 +569,10 @@ public class BinaryViewer extends JPanel {
         }
 
         protected void drawAddressAll(Graphics g, long addr) {
-            Rectangle all_addr;
-            //Rectangle borders_addr;
-            int dx, dy;
-
             //マージンを除いた領域を描画に使う
-            all_addr = box_addr_area.getContents();
-            dx = all_addr.x;
-            dy = all_addr.y;
+            Rectangle all_addr = box_addr_area.getContents();
+            int dx = all_addr.x;
+            int dy = all_addr.y;
 
             while (dy < all_addr.height) {
                 box_addr.setX(dx);
@@ -627,7 +584,7 @@ public class BinaryViewer extends JPanel {
             }
 
             //枠を描画
-            //borders_addr = box_addr_area.getBorder();
+            //Rectangle borders_addr = box_addr_area.getBorder();
             //g.drawRoundRect(borders_addr.x, borders_addr.y,
             //		borders_addr.width, borders_addr.height,
             //		14, 14);
@@ -648,22 +605,18 @@ public class BinaryViewer extends JPanel {
          * @param addr アドレス（バイト単位）
          */
         protected void drawAddress(Graphics g, long addr) {
-            Rectangle raw_addr;
-            Color c;
-            String str;
-
             //マージンを除いた領域を描画に使う
-            raw_addr = box_addr.getContents();
+            Rectangle raw_addr = box_addr.getContents();
 
             //文字列の色に設定する
-            c = g.getColor();
+            Color c = g.getColor();
             g.setColor(getAddressColor(addr));
 
             //描画する
             //drawString の Y 座標は文字のベースラインの位置のため、
             //本来ベースラインから文字の頭までの高さを足すべきだが、
             //簡易処理として描画領域の高さを足している
-            str = String.format("%08x", addr);
+            String str = String.format("%08x", addr);
             g.drawString(str, raw_addr.x, raw_addr.y + raw_addr.height);
 
             //元の色に戻す
@@ -671,14 +624,10 @@ public class BinaryViewer extends JPanel {
         }
 
         protected void drawDataAll(Graphics g, long addr) {
-            Rectangle all_data;
-            //Rectangle borders_data;
-            int dx, dy;
-
             //マージンを除いた領域を描画に使う
-            all_data = box_data_area.getContents();
-            dx = all_data.x;
-            dy = all_data.y;
+            Rectangle all_data = box_data_area.getContents();
+            int dx = all_data.x;
+            int dy = all_data.y;
 
             while (dy < all_data.height) {
                 box_data_raw.setX(dx);
@@ -690,17 +639,15 @@ public class BinaryViewer extends JPanel {
             }
 
             //枠を描画
-            //borders_data = box_data_area.getBorder();
+            //Rectangle borders_data = box_data_area.getBorder();
             //g.drawRoundRect(borders_data.x, borders_data.y,
             //		borders_data.width, borders_data.height,
             //		14, 14);
         }
 
         protected void drawDataRaw(Graphics g, long addr) {
-            Rectangle raw_data;
-            Color c;
             byte[] buf_data;
-            int buflen, dx, dy;
+            int buflen;
             int i;
 
             //1列分のデータリード
@@ -715,12 +662,12 @@ public class BinaryViewer extends JPanel {
             }
 
             //マージンを除いた領域を描画に使う
-            raw_data = box_data_raw.getContents();
-            dx = raw_data.x;
-            dy = raw_data.y;
+            Rectangle raw_data = box_data_raw.getContents();
+            int dx = raw_data.x;
+            int dy = raw_data.y;
 
             //元の色を覚えておく
-            c = g.getColor();
+            Color c = g.getColor();
 
             //1列分のデータ描画
             //1列分に満たない部分は ".." で埋める
@@ -765,11 +712,8 @@ public class BinaryViewer extends JPanel {
          * @param data 描画するデータ
          */
         protected void drawData(Graphics g, long addr, byte data) {
-            Rectangle one_data;
-            String str;
-
             //マージンを除いた領域を描画に使う
-            one_data = box_data.getContents();
+            Rectangle one_data = box_data.getContents();
 
             //文字列の色を設定する
             g.setColor(getRangeColor(addr));
@@ -778,15 +722,13 @@ public class BinaryViewer extends JPanel {
             //drawString の Y 座標は文字のベースラインの位置のため、
             //本来ベースラインから文字の頭までの高さを足すべきだが、
             //簡易処理として描画領域の高さを足している
-            str = String.format("%02x", data & 0xff);
+            String str = String.format("%02x", data & 0xff);
             g.drawString(str, one_data.x, one_data.y + one_data.height);
         }
 
         protected void drawDataOther(Graphics g, String s) {
-            Rectangle one_data;
-
             //マージンを除いた領域を描画に使う
-            one_data = box_data.getContents();
+            Rectangle one_data = box_data.getContents();
 
             //その他のデータの色に設定する
             g.setColor(Color.BLACK);
@@ -799,14 +741,10 @@ public class BinaryViewer extends JPanel {
         }
 
         protected void drawAsciiAll(Graphics g, long addr) {
-            Rectangle all_ascii;
-            //Rectangle borders_ascii;
-            int dx, dy;
-
             //マージンを除いた領域を描画に使う
-            all_ascii = box_ascii_area.getContents();
-            dx = all_ascii.x;
-            dy = all_ascii.y;
+            Rectangle all_ascii = box_ascii_area.getContents();
+            int dx = all_ascii.x;
+            int dy = all_ascii.y;
 
             while (dy < all_ascii.height) {
                 box_ascii_raw.setX(dx);
@@ -818,18 +756,16 @@ public class BinaryViewer extends JPanel {
             }
 
             //枠を描画
-            //borders_ascii = box_ascii_area.getBorder();
+            //Rectangle borders_ascii = box_ascii_area.getBorder();
             //g.drawRoundRect(borders_ascii.x, borders_ascii.y,
             //		borders_ascii.width, borders_ascii.height,
             //		14, 14);
         }
 
         protected void drawAsciiRaw(Graphics g, long addr) {
-            Rectangle raw_ascii;
-            Color c;
             byte[] buf_data, buf_char;
             String str_char;
-            int buflen, dx, dy;
+            int buflen;
             int i;
 
             //1列分のデータを文字列に変換
@@ -860,12 +796,12 @@ public class BinaryViewer extends JPanel {
             }
 
             //マージンを除いた領域を描画に使う
-            raw_ascii = box_ascii_raw.getContents();
-            dx = raw_ascii.x;
-            dy = raw_ascii.y;
+            Rectangle raw_ascii = box_ascii_raw.getContents();
+            int dx = raw_ascii.x;
+            int dy = raw_ascii.y;
 
             //元の色を記憶しておく
-            c = g.getColor();
+            Color c = g.getColor();
 
             //1列分の文字列を描画する
             //1列分に満たない部分は空白とする
@@ -899,10 +835,8 @@ public class BinaryViewer extends JPanel {
          * @param s    描画するデータの文字列表現
          */
         protected void drawAscii(Graphics g, long addr, String s) {
-            Rectangle one_ascii;
-
             //マージンを除いた領域を描画に使う
-            one_ascii = box_ascii.getContents();
+            Rectangle one_ascii = box_ascii.getContents();
 
             //文字列の色を設定する
             g.setColor(getRangeColor(addr));
@@ -927,11 +861,8 @@ public class BinaryViewer extends JPanel {
          * @return 描画に使う色
          */
         private Color getRangeColor(long addr) {
-            Color c;
-            int i;
-
-            c = Color.BLACK;
-            for (i = 0; i < PRIORITY.MAX; i++) {
+            Color c = Color.BLACK;
+            for (int i = 0; i < PRIORITY.MAX; i++) {
                 if (ranges[i].isHit(addr)) {
                     c = colors[i];
                     break;
