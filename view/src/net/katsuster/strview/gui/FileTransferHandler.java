@@ -11,6 +11,11 @@ import java.awt.datatransfer.*;
 import javax.swing.*;
 
 import net.katsuster.strview.util.*;
+import net.katsuster.strview.io.*;
+import net.katsuster.strview.media.*;
+import net.katsuster.strview.media.m2v.*;
+import net.katsuster.strview.media.mkv.*;
+import net.katsuster.strview.media.ts.*;
 
 /**
  * <p>
@@ -75,17 +80,88 @@ public class FileTransferHandler extends TransferHandler {
         System.out.println(tfile);
 
         try {
-            BinaryViewerWindow bw = new BinaryViewerWindow(tfile.getAbsolutePath());
-            bw.setSize(1024, 720);
-            bw.setVisible(true);
+            LargeBitList blist = new ByteToBitList(new FileByteList(tfile.getAbsolutePath()));
+            LargeList<? extends Packet> list = getPacketList(getFileType(tfile), blist);
+            JFrame w;
 
-            PacketTreeViewerWindow pw = new PacketTreeViewerWindow(tfile.getAbsolutePath());
-            pw.setSize(1024, 720);
-            pw.setVisible(true);
+            if (list != null) {
+                PacketTreeViewerWindow pw = new PacketTreeViewerWindow(tfile.getAbsolutePath(), list);
+                w = pw;
+            } else {
+                BinaryViewerWindow bw = new BinaryViewerWindow(tfile.getAbsolutePath());
+                w = bw;
+            }
+
+            w.setSize(1024, 720);
+            w.setVisible(true);
         } catch (HeadlessException ex) {
 
         }
 
         return true;
+    }
+
+    enum FILE_TYPE {
+        FT_UNKNOWN,
+        FT_MPEG2TS,
+        FT_MATROSKA,
+        FT_MPEG2VIDEO,
+    }
+
+    public LargeList<? extends Packet> getPacketList(FILE_TYPE t, LargeBitList l) {
+        LargeList<? extends Packet> list = null;
+
+        switch (t) {
+        case FT_MPEG2TS:
+            list = new TSPacketList(l);
+            break;
+        case FT_MATROSKA:
+            list = new MKVTagList(l);
+            break;
+        case FT_MPEG2VIDEO:
+            list = new M2VDataList(l);
+            break;
+        case FT_UNKNOWN:
+            list = null;
+            break;
+        }
+
+        return list;
+    }
+
+    public FILE_TYPE getFileType(File tfile) {
+        String ext = getSuffix(tfile.getPath());
+
+        if (ext.equals("ts")) {
+            return FILE_TYPE.FT_MPEG2TS;
+        }
+        if (ext.equals("mkv")) {
+            return FILE_TYPE.FT_MATROSKA;
+        }
+        if (ext.equals("m2v")) {
+            return FILE_TYPE.FT_MPEG2VIDEO;
+        }
+
+        return FILE_TYPE.FT_UNKNOWN;
+    }
+
+    /**
+     * <p>
+     * ファイル名の拡張子を取得します。
+     * </p>
+     *
+     * @param n ファイル名
+     * @return ファイルの拡張子、なければ空文字列
+     */
+    public String getSuffix(String n) {
+        if (n == null) {
+            return null;
+        }
+
+        int dot = n.lastIndexOf(".");
+        if (dot != -1) {
+            return n.substring(dot + 1);
+        }
+        return "";
     }
 }
