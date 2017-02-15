@@ -33,19 +33,21 @@ public class PacketTreeViewerWindow extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private String filename;
-    //private PacketNode pn_root;
+    private LargeList<? extends Packet> list_packet;
 
     private BinaryViewer binaryViewer;
+    private PacketTreeViewer packetTreeViewer;
+    private PacketTreeSelListener packetTreeListener;
     private MemberTreeViewer memberTreeViewer;
     private MemberTreeSelListener memberTreeListener;
     private JTextArea memberTextViewer;
 
-    public PacketTreeViewerWindow(String fn) {
+    public PacketTreeViewerWindow(String fn, LargeList<? extends Packet> l) {
         super();
 
         //表示するファイルを保持する
         filename = fn;
-        //setRootPacketNode(pn);
+        list_packet = l;
 
         setTitle(fn);
         setResizable(true);
@@ -55,7 +57,8 @@ public class PacketTreeViewerWindow extends JFrame {
 
         //メニューを作成する
         JMenuBar topMenuBar = new JMenuBar();
-        JMenu menuFile = new JMenu("ファイル");
+        JMenu menuFile = new JMenu("ファイル(F)");
+        menuFile.setMnemonic('f');
 
         Action actionClose = new MenuActionClose(this, "閉じる(C)");
         actionClose.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_C);
@@ -67,32 +70,6 @@ public class PacketTreeViewerWindow extends JFrame {
         //ビューアペインを作成し追加する
         JSplitPane strViewer = createStreamViewer();
         getContentPane().add(strViewer);
-
-
-
-
-
-
-
-
-
-        //FIXME: test code
-        PacketWriter<MemberTreeNode> c = new ToMemberTreeNodeConverter();
-        LargeBitList blist = new ByteToBitList(new FileByteList(fn));
-        MKVTagList mkvlist = new MKVTagList(blist);
-        Packet p = mkvlist.get(10);
-
-        //ノードのツリー表現を表示する
-        p.write(c);
-        memberTreeViewer.setRootTreeNode(c.getResult());
-        for (int row = 0; row < memberTreeViewer.getTreePane().getRowCount(); row++) {
-            memberTreeViewer.getTreePane().expandRow(row);
-        }
-        memberTreeViewer.repaint();
-
-        //ノードの文字列表現を表示する
-        memberTextViewer.setText(p.toString());
-        memberTextViewer.repaint();
     }
 
     protected JSplitPane createStreamViewer() {
@@ -101,18 +78,16 @@ public class PacketTreeViewerWindow extends JFrame {
 
         //ビューアを左右に分割表示する
         splitStreamViewer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        splitStreamViewer.setDividerSize(3);
+        splitStreamViewer.setDividerSize(6);
         splitStreamViewer.setDividerLocation(500);
 
         //左側、ツリービューア
         splitTreeViewer = createTreeViewer();
-
         splitStreamViewer.setLeftComponent(splitTreeViewer);
 
         //右側、バイナリビューア
         binaryViewer = new BinaryViewer(getFilename());
         binaryViewer.setFont(new Font(Font.MONOSPACED, 0, 12));
-
         splitStreamViewer.setRightComponent(binaryViewer);
 
         return splitStreamViewer;
@@ -139,15 +114,14 @@ public class PacketTreeViewerWindow extends JFrame {
 
         //1番目（上側）、ストリームビューア
         //TODO: not implemented
-        /*packetTreeViewer = new PacketTreeViewer();
-        packetTreeViewer.setRootDataNode(getRootPacketNode());
+        packetTreeViewer = new PacketTreeViewer(getPacketList());
+        /*packetTreeViewer.setRootDataNode(getRootPacketNode());
+        m_pt.addTreeSelectionListener(packetTreeListener);*/
         packetTreeListener = new PacketTreeSelListener();
-        JTree m_pt = memberTreeViewer.getTreePane();
-        m_pt.addTreeSelectionListener(packetTreeListener);
-        m_pt.addMouseListener(packetTreeListener);
+        packetTreeViewer.addMouseListener(packetTreeListener);
+        //packetTreeViewer.setFont(new Font(Font.MONOSPACED, 0, 12));
 
-        scrTreeViewer = new JScrollPane(packetTreeViewer);*/
-        scrTreeViewer = new JScrollPane(new JPanel());
+        scrTreeViewer = new JScrollPane(packetTreeViewer);
         scrTreeViewer.getVerticalScrollBar().setUnitIncrement(10);
         splitTreeViewer.setLeftComponent(scrTreeViewer);
 
@@ -175,6 +149,86 @@ public class PacketTreeViewerWindow extends JFrame {
 
     public String getFilename() {
         return filename;
+    }
+
+    public LargeList<? extends Packet> getPacketList() {
+        return list_packet;
+    }
+
+    public class PacketTreeSelListener extends MouseAdapter
+            implements TreeSelectionListener {
+        @Override
+        public void valueChanged(TreeSelectionEvent e) {
+            //onLeftSingleClick(0, e.getPath());
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            long selRow = packetTreeViewer.getRowForLocation(
+                    e.getX(), e.getY());
+
+            if (selRow != -1) {
+                if (e.getClickCount() == 1
+                        && e.getButton() == MouseEvent.BUTTON1) {
+                    //左シングルのとき
+                    onLeftSingleClick(selRow);
+                } else if (e.getClickCount() == 1
+                        && e.getButton() == MouseEvent.BUTTON3) {
+                    //右シングルのとき
+                    //onRightSingleClick(selRow);
+                } else if (e.getClickCount() == 2
+                        && e.getButton() == MouseEvent.BUTTON1) {
+                    //左ダブルのとき
+                    onLeftDoubleClick(selRow);
+                }
+            }
+        }
+
+        public void onLeftSingleClick(long selRow) {
+            Packet p = getPacketFromEvent(selRow);
+            if (p == null) {
+                return;
+            }
+
+            //ノードの文字列表現を表示する
+            memberTextViewer.setText(p.toString());
+            memberTextViewer.repaint();
+
+            //ノードのツリー表現を表示する
+            PacketWriter<MemberTreeNode> c = new ToMemberTreeNodeConverter();
+            p.write(c);
+            memberTreeViewer.setRootTreeNode(c.getResult());
+            for (int row = 0; row < memberTreeViewer.getTreePane().getRowCount(); row++) {
+                memberTreeViewer.getTreePane().expandRow(row);
+            }
+            memberTreeViewer.repaint();
+
+            //ノードが指すデータ範囲をハイライトする
+            if (p.getRawPacket() != null) {
+                PacketRange pr = p.getRange();
+
+                binaryViewer.setHighlightMemberRange(0, 0);
+                binaryViewer.setHighlightRange(
+                        pr.getStart() >>> 3, pr.getLength() >>> 3);
+                binaryViewer.repaint();
+            }
+        }
+
+        public void onLeftDoubleClick(long selRow) {
+            Packet p = getPacketFromEvent(selRow);
+            if (p == null) {
+                return;
+            }
+
+            //ノードが指すデータの先頭にジャンプする
+            binaryViewer.setRaw(
+                    (p.getRange().getStart() >>> 3) / binaryViewer.getLengthOfRaw());
+            binaryViewer.repaint();
+        }
+
+        protected Packet getPacketFromEvent(long selRow) {
+            return packetTreeViewer.getPacketList().get(selRow);
+        }
     }
 
     public class MemberTreeSelListener extends MouseAdapter
