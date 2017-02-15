@@ -58,12 +58,19 @@ public class PacketTreeViewerWindow extends JFrame {
         JMenuBar topMenuBar = new JMenuBar();
         JMenu menuFile = new JMenu("ファイル(F)");
         menuFile.setMnemonic('f');
+        JMenu menuSetting = new JMenu("設定(S)");
+        menuSetting.setMnemonic('s');
 
         Action actionClose = new MenuActionClose(this, "閉じる(C)");
         actionClose.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_C);
         menuFile.add(actionClose);
 
+        Action actionFont = new MenuActionFont(this, "フォント(F)...");
+        actionFont.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_F);
+        menuSetting.add(actionFont);
+
         topMenuBar.add(menuFile);
+        topMenuBar.add(menuSetting);
         setJMenuBar(topMenuBar);
 
         //ビューアペインを作成し追加する
@@ -152,6 +159,32 @@ public class PacketTreeViewerWindow extends JFrame {
 
     public LargeList<? extends Packet> getPacketList() {
         return list_packet;
+    }
+
+    public class MenuActionFont extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+        private JFrame parent;
+
+        public MenuActionFont(JFrame f, String name) {
+            super(name);
+            parent = f;
+        }
+
+        public MenuActionFont(JFrame f, String name, Icon icon) {
+            super(name, icon);
+            parent = f;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JFontChooser chooser = new JFontChooser();
+
+            chooser.setSelectedFont(binaryViewer.getFont());
+            int res = chooser.showDialog(parent);
+            if (res == JFontChooser.OK_OPTION) {
+                binaryViewer.setFont(chooser.getSelectedFont());
+            }
+        }
     }
 
     public class PacketTreeSelListener extends MouseAdapter
