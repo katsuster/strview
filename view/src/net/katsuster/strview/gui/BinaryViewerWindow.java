@@ -32,7 +32,8 @@ public class BinaryViewerWindow extends JFrame {
 
         //メニューを作成する
         JMenuBar topMenuBar = new JMenuBar();
-        JMenu menuFile = new JMenu("ファイル");
+        JMenu menuFile = new JMenu("ファイル(F)");
+        menuFile.setMnemonic('f');
 
         Action actionClose = new MenuActionClose(this, "閉じる(C)");
         actionClose.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_C);
