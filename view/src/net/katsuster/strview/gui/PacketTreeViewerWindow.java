@@ -1,8 +1,7 @@
 package net.katsuster.strview.gui;
 
 import java.io.*;
-import java.awt.Font;
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -35,8 +34,8 @@ public class PacketTreeViewerWindow extends JFrame {
     private LargeList<? extends Packet> list_packet;
 
     private BinaryViewer binaryViewer;
-    private PacketTreeViewer packetTreeViewer;
-    private PacketTreeSelListener packetTreeListener;
+    private PacketListViewer packetListViewer;
+    private PacketListSelListener packetListListener;
     private MemberTreeViewer memberTreeViewer;
     private MemberTreeSelListener memberTreeListener;
     private JTextArea memberTextViewer;
@@ -80,7 +79,7 @@ public class PacketTreeViewerWindow extends JFrame {
 
     protected JSplitPane createStreamViewer() {
         JSplitPane splitStreamViewer;
-        JSplitPane splitTreeViewer;
+        JSplitPane splitPacketViewer;
 
         //ビューアを左右に分割表示する
         splitStreamViewer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
@@ -88,48 +87,58 @@ public class PacketTreeViewerWindow extends JFrame {
         splitStreamViewer.setDividerLocation(500);
 
         //左側、ツリービューア
-        splitTreeViewer = createTreeViewer();
-        splitStreamViewer.setLeftComponent(splitTreeViewer);
+        splitPacketViewer = createPacketViewer();
+        splitStreamViewer.setLeftComponent(splitPacketViewer);
 
         //右側、バイナリビューア
+        FlatTextField ft = new FlatTextField();
+        ft.setPreferredSize(new Dimension(150, 22));
+
+        JPanel binaryTool = new JPanel();
+        binaryTool.setLayout(new FlowLayout(FlowLayout.LEFT));
+        //binaryTool.add(new JLabel("Find: "));
+        binaryTool.add(ft);
+
         binaryViewer = new BinaryViewer(getFile());
         binaryViewer.setFont(new Font(Font.MONOSPACED, 0, 12));
-        splitStreamViewer.setRightComponent(binaryViewer);
+
+        JPanel binaryPanel = new JPanel();
+        binaryPanel.setLayout(new BorderLayout());
+        binaryPanel.add(binaryTool, BorderLayout.NORTH);
+        binaryPanel.add(binaryViewer, BorderLayout.CENTER);
+        splitStreamViewer.setRightComponent(binaryPanel);
 
         return splitStreamViewer;
     }
 
-    protected JSplitPane createTreeViewer() {
-        JSplitPane splitTreeViewer;
-        JSplitPane splitNodeViewer;
-        JScrollPane scrTreeViewer;
-        JScrollPane scrNodeViewer;
-        JScrollPane scrTreeNodeViewer;
+    protected JSplitPane createPacketViewer() {
+        JSplitPane splitPacketMember;
+        JSplitPane splitMemberText;
+        JScrollPane scrPacketViewer;
+        JScrollPane scrMemberViewer;
+        JScrollPane scrText;
 
         //ビューアを上下に 3分割表示する
         //真ん中、下
-        splitNodeViewer = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-        splitNodeViewer.setDividerSize(3);
-        splitNodeViewer.setDividerLocation(400);
+        splitMemberText = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        splitMemberText.setDividerSize(3);
+        splitMemberText.setDividerLocation(400);
 
         //上、(真ん中、下）
-        splitTreeViewer = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-        splitTreeViewer.setDividerSize(3);
-        splitTreeViewer.setDividerLocation(200);
-        splitTreeViewer.setRightComponent(splitNodeViewer);
+        splitPacketMember = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        splitPacketMember.setDividerSize(3);
+        splitPacketMember.setDividerLocation(200);
+        splitPacketMember.setRightComponent(splitMemberText);
 
         //1番目（上側）、ストリームビューア
-        //TODO: not implemented
-        packetTreeViewer = new PacketTreeViewer(getPacketList());
-        /*packetTreeViewer.setRootDataNode(getRootPacketNode());
-        m_pt.addTreeSelectionListener(packetTreeListener);*/
-        packetTreeListener = new PacketTreeSelListener();
-        packetTreeViewer.addMouseListener(packetTreeListener);
-        //packetTreeViewer.setFont(new Font(Font.MONOSPACED, 0, 12));
+        packetListViewer = new PacketListViewer(getPacketList());
+        packetListListener = new PacketListSelListener();
+        packetListViewer.getViewer().addMouseListener(packetListListener);
+        packetListViewer.getViewer().addListSelectionListener(packetListListener);
 
-        scrTreeViewer = new JScrollPane(packetTreeViewer);
-        scrTreeViewer.getVerticalScrollBar().setUnitIncrement(10);
-        splitTreeViewer.setLeftComponent(scrTreeViewer);
+        scrPacketViewer = new JScrollPane(packetListViewer);
+        scrPacketViewer.getVerticalScrollBar().setUnitIncrement(10);
+        splitPacketMember.setLeftComponent(scrPacketViewer);
 
         //2番目（下側の上側）、パケットビューア
         memberTreeViewer = new MemberTreeViewer();
@@ -139,18 +148,18 @@ public class PacketTreeViewerWindow extends JFrame {
         m_jt.addMouseListener(memberTreeListener);
         m_jt.setFont(new Font(Font.MONOSPACED, 0, 12));
 
-        scrTreeNodeViewer = new JScrollPane(memberTreeViewer);
-        scrTreeNodeViewer.getVerticalScrollBar().setUnitIncrement(10);
-        splitNodeViewer.setLeftComponent(scrTreeNodeViewer);
+        scrMemberViewer = new JScrollPane(memberTreeViewer);
+        scrMemberViewer.getVerticalScrollBar().setUnitIncrement(10);
+        splitMemberText.setLeftComponent(scrMemberViewer);
 
         //3番目（下側の下側）、パケットビューア（文字列表現）
         memberTextViewer = new JTextArea();
         memberTextViewer.setFont(new Font(Font.MONOSPACED, 0, 12));
 
-        scrNodeViewer = new JScrollPane(memberTextViewer);
-        splitNodeViewer.setRightComponent(scrNodeViewer);
+        scrText = new JScrollPane(memberTextViewer);
+        splitMemberText.setRightComponent(scrText);
 
-        return splitTreeViewer;
+        return splitPacketMember;
     }
 
     public File getFile() {
@@ -187,23 +196,25 @@ public class PacketTreeViewerWindow extends JFrame {
         }
     }
 
-    public class PacketTreeSelListener extends MouseAdapter
-            implements TreeSelectionListener {
+    public class PacketListSelListener extends MouseAdapter
+            implements ListSelectionListener {
         @Override
-        public void valueChanged(TreeSelectionEvent e) {
-            //onLeftSingleClick(0, e.getPath());
+        public void valueChanged(ListSelectionEvent e) {
+            JList l = (JList)e.getSource();
+
+            onLeftSingleClick(l.getLeadSelectionIndex());
         }
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            long selRow = packetTreeViewer.getRowForLocation(
+            long selRow = packetListViewer.getRowForLocation(
                     e.getX(), e.getY());
 
             if (selRow != -1) {
                 if (e.getClickCount() == 1
                         && e.getButton() == MouseEvent.BUTTON1) {
                     //左シングルのとき
-                    onLeftSingleClick(selRow);
+                    //onLeftSingleClick(selRow);
                 } else if (e.getClickCount() == 1
                         && e.getButton() == MouseEvent.BUTTON3) {
                     //右シングルのとき
@@ -259,7 +270,7 @@ public class PacketTreeViewerWindow extends JFrame {
         }
 
         protected Packet getPacketFromEvent(long selRow) {
-            return packetTreeViewer.getPacketList().get(selRow);
+            return packetListViewer.getPacketList().get(selRow);
         }
     }
 
