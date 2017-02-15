@@ -1,5 +1,6 @@
 package net.katsuster.strview.gui;
 
+import java.io.*;
 import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.event.*;
@@ -9,9 +10,7 @@ import javax.swing.event.*;
 import javax.swing.tree.*;
 
 import net.katsuster.strview.util.*;
-import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
-import net.katsuster.strview.media.mkv.*;
 
 /**
  * <p>
@@ -32,7 +31,7 @@ import net.katsuster.strview.media.mkv.*;
 public class PacketTreeViewerWindow extends JFrame {
     private static final long serialVersionUID = 1L;
 
-    private String filename;
+    private File file;
     private LargeList<? extends Packet> list_packet;
 
     private BinaryViewer binaryViewer;
@@ -42,14 +41,14 @@ public class PacketTreeViewerWindow extends JFrame {
     private MemberTreeSelListener memberTreeListener;
     private JTextArea memberTextViewer;
 
-    public PacketTreeViewerWindow(String fn, LargeList<? extends Packet> l) {
+    public PacketTreeViewerWindow(File f, LargeList<? extends Packet> l) {
         super();
 
         //表示するファイルを保持する
-        filename = fn;
+        file = f;
         list_packet = l;
 
-        setTitle(fn);
+        setTitle(f.getAbsolutePath());
         setResizable(true);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -86,7 +85,7 @@ public class PacketTreeViewerWindow extends JFrame {
         splitStreamViewer.setLeftComponent(splitTreeViewer);
 
         //右側、バイナリビューア
-        binaryViewer = new BinaryViewer(getFilename());
+        binaryViewer = new BinaryViewer(getFile());
         binaryViewer.setFont(new Font(Font.MONOSPACED, 0, 12));
         splitStreamViewer.setRightComponent(binaryViewer);
 
@@ -147,8 +146,8 @@ public class PacketTreeViewerWindow extends JFrame {
         return splitTreeViewer;
     }
 
-    public String getFilename() {
-        return filename;
+    public File getFile() {
+        return file;
     }
 
     public LargeList<? extends Packet> getPacketList() {

@@ -85,10 +85,10 @@ public class FileTransferHandler extends TransferHandler {
             JFrame w;
 
             if (list != null) {
-                PacketTreeViewerWindow pw = new PacketTreeViewerWindow(tfile.getAbsolutePath(), list);
+                PacketTreeViewerWindow pw = new PacketTreeViewerWindow(tfile, list);
                 w = pw;
             } else {
-                BinaryViewerWindow bw = new BinaryViewerWindow(tfile.getAbsolutePath());
+                BinaryViewerWindow bw = new BinaryViewerWindow(tfile);
                 w = bw;
             }
 

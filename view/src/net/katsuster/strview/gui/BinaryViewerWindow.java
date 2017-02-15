@@ -1,5 +1,6 @@
 package net.katsuster.strview.gui;
 
+import java.io.*;
 import java.awt.Font;
 import java.awt.event.*;
 
@@ -15,17 +16,17 @@ import javax.swing.*;
 public class BinaryViewerWindow extends JFrame {
     private static final long serialVersionUID = 1L;
 
-    private String filename;
+    private File file;
 
     private BinaryViewer binaryViewer;
 
-    public BinaryViewerWindow(String fn) {
+    public BinaryViewerWindow(File f) {
         super();
 
         //表示するファイルを保持する
-        filename = fn;
+        file = f;
 
-        setTitle(fn);
+        setTitle(f.getAbsolutePath());
         setResizable(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTransferHandler(new FileTransferHandler());
@@ -50,13 +51,13 @@ public class BinaryViewerWindow extends JFrame {
         setJMenuBar(topMenuBar);
 
         //バイナリビューア
-        binaryViewer = new BinaryViewer(fn);
+        binaryViewer = new BinaryViewer(f);
         binaryViewer.setFont(new Font(Font.MONOSPACED, 0, 12));
         getContentPane().add(binaryViewer);
     }
 
-    public String getFilename() {
-        return filename;
+    public File getFile() {
+        return file;
     }
 
     public class MenuActionFont extends AbstractAction {

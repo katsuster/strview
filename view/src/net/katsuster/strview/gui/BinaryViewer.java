@@ -66,8 +66,8 @@ public class BinaryViewer extends JPanel {
         //do nothing
     }
 
-    public BinaryViewer(String filename) {
-        this(new ByteToBitList(new FileByteList(filename)));
+    public BinaryViewer(File f) {
+        this(new ByteToBitList(new FileByteList(f.getAbsolutePath())));
     }
 
     public BinaryViewer(LargeBitList l) {
