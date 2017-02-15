@@ -520,7 +520,7 @@ public class BinaryViewer extends JPanel {
             super();
         }
 
-        protected void drawAll(Graphics g, long addr) {
+        protected void drawAll(Graphics2D g, long addr) {
             int width_f, height_f, dx, dy;
 
             //フォントメトリックから表示領域の大きさを計算する
@@ -568,7 +568,7 @@ public class BinaryViewer extends JPanel {
             dx += box_ascii_area.getWidth();
         }
 
-        protected void drawAddressAll(Graphics g, long addr) {
+        protected void drawAddressAll(Graphics2D g, long addr) {
             //マージンを除いた領域を描画に使う
             Rectangle all_addr = box_addr_area.getContents();
             int dx = all_addr.x;
@@ -604,7 +604,7 @@ public class BinaryViewer extends JPanel {
          * @param g    描画を行うグラフィクス
          * @param addr アドレス（バイト単位）
          */
-        protected void drawAddress(Graphics g, long addr) {
+        protected void drawAddress(Graphics2D g, long addr) {
             //マージンを除いた領域を描画に使う
             Rectangle raw_addr = box_addr.getContents();
 
@@ -623,7 +623,7 @@ public class BinaryViewer extends JPanel {
             g.setColor(c);
         }
 
-        protected void drawDataAll(Graphics g, long addr) {
+        protected void drawDataAll(Graphics2D g, long addr) {
             //マージンを除いた領域を描画に使う
             Rectangle all_data = box_data_area.getContents();
             int dx = all_data.x;
@@ -645,7 +645,7 @@ public class BinaryViewer extends JPanel {
             //		14, 14);
         }
 
-        protected void drawDataRaw(Graphics g, long addr) {
+        protected void drawDataRaw(Graphics2D g, long addr) {
             byte[] buf_data;
             int buflen;
             int i;
@@ -711,7 +711,7 @@ public class BinaryViewer extends JPanel {
          * @param addr アドレス
          * @param data 描画するデータ
          */
-        protected void drawData(Graphics g, long addr, byte data) {
+        protected void drawData(Graphics2D g, long addr, byte data) {
             //マージンを除いた領域を描画に使う
             Rectangle one_data = box_data.getContents();
 
@@ -726,7 +726,7 @@ public class BinaryViewer extends JPanel {
             g.drawString(str, one_data.x, one_data.y + one_data.height);
         }
 
-        protected void drawDataOther(Graphics g, String s) {
+        protected void drawDataOther(Graphics2D g, String s) {
             //マージンを除いた領域を描画に使う
             Rectangle one_data = box_data.getContents();
 
@@ -740,7 +740,7 @@ public class BinaryViewer extends JPanel {
             g.drawString(s, one_data.x, one_data.y + one_data.height);
         }
 
-        protected void drawAsciiAll(Graphics g, long addr) {
+        protected void drawAsciiAll(Graphics2D g, long addr) {
             //マージンを除いた領域を描画に使う
             Rectangle all_ascii = box_ascii_area.getContents();
             int dx = all_ascii.x;
@@ -762,7 +762,7 @@ public class BinaryViewer extends JPanel {
             //		14, 14);
         }
 
-        protected void drawAsciiRaw(Graphics g, long addr) {
+        protected void drawAsciiRaw(Graphics2D g, long addr) {
             byte[] buf_data, buf_char;
             String str_char;
             int buflen;
@@ -834,7 +834,7 @@ public class BinaryViewer extends JPanel {
          * @param addr アドレス
          * @param s    描画するデータの文字列表現
          */
-        protected void drawAscii(Graphics g, long addr, String s) {
+        protected void drawAscii(Graphics2D g, long addr, String s) {
             //マージンを除いた領域を描画に使う
             Rectangle one_ascii = box_ascii.getContents();
 
@@ -888,7 +888,10 @@ public class BinaryViewer extends JPanel {
                 return;
             }
 
-            drawAll(g, getAddress());
+            Graphics2D g2 = (Graphics2D)g.create();
+            g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            drawAll(g2, getAddress());
         }
     }
 
