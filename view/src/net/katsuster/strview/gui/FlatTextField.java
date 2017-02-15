@@ -221,7 +221,7 @@ public class FlatTextField extends JPanel {
         public void setEllipseSize(int s) {
             ellipseSize = s;
 
-            setPreferredSize(new Dimension(ellipseSize * 3 / 2, ellipseSize * 2));
+            setPreferredSize(new Dimension(ellipseSize * 3 / 2, ellipseSize * 3 / 2));
         }
 
         public Color getBorderColor() {
