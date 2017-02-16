@@ -54,8 +54,8 @@ public class PacketListViewer extends JPanel {
             return index + ": " + list.get(index).getShortName();
         }
 
-        public void update() {
-            fireIntervalAdded(this, 0, getSize());
+        public void update(long before, long after) {
+            fireIntervalAdded(this, (int)before, (int)after);
         }
     }
 
@@ -127,10 +127,12 @@ public class PacketListViewer extends JPanel {
      * @param n パケット番号の最大値
      */
     protected void setMax(long n) {
+        long before = n_max;
+
         n_max = n;
 
         if (model != null) {
-            model.update();
+            model.update(before, n_max);
         }
     }
 
