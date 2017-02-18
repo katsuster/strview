@@ -131,6 +131,9 @@ public class PacketTreeViewerWindow extends JFrame {
         splitPacketMember.setRightComponent(splitMemberText);
 
         //1番目（上側）、ストリームビューア
+        FlatTextField ft = new FlatTextField();
+        ft.setPreferredSize(new Dimension(150, 22));
+
         packetListViewer = new PacketListViewer(getPacketList());
         packetListListener = new PacketListSelListener();
         packetListViewer.getViewer().addMouseListener(packetListListener);
@@ -138,7 +141,23 @@ public class PacketTreeViewerWindow extends JFrame {
 
         scrPacketViewer = new JScrollPane(packetListViewer);
         scrPacketViewer.getVerticalScrollBar().setUnitIncrement(10);
-        splitPacketMember.setLeftComponent(scrPacketViewer);
+
+        JPanel packetTool = new JPanel();
+        packetTool.setLayout(new FlowLayout(FlowLayout.LEFT));
+        JButton btn = new JButton("Count");
+        btn.addActionListener(e -> {
+            list_packet.count();
+            packetListViewer.setMax(1);
+        });
+        packetTool.add(ft);
+        packetTool.add(btn);
+
+        JPanel packetPanel = new JPanel();
+        packetPanel.setLayout(new BorderLayout());
+        packetPanel.add(packetTool, BorderLayout.NORTH);
+        packetPanel.add(scrPacketViewer, BorderLayout.CENTER);
+
+        splitPacketMember.setLeftComponent(packetPanel);
 
         //2番目（下側の上側）、パケットビューア
         memberTreeViewer = new MemberTreeViewer();
@@ -191,6 +210,8 @@ public class PacketTreeViewerWindow extends JFrame {
             chooser.setSelectedFont(binaryViewer.getFont());
             int res = chooser.showDialog(parent);
             if (res == JFontChooser.OK_OPTION) {
+                packetListViewer.setFont(chooser.getSelectedFont());
+                memberTreeViewer.setFont(chooser.getSelectedFont());
                 binaryViewer.setFont(chooser.getSelectedFont());
             }
         }
