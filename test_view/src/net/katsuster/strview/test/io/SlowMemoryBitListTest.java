@@ -302,7 +302,7 @@ public class SlowMemoryBitListTest {
         off = 100;
         LargeBitList s2 = a1.subLargeList(off, 755);
         assertNotNull(msg1, s2);
-        assertEquals(msg1, 655, s2.length());
+        assertEquals(msg1, 755, s2.length());
         for (int i = 0; i < s2.length(); i++) {
             assertEquals(msg1, a_b[i + off], s2.get(i));
         }
@@ -332,13 +332,6 @@ public class SlowMemoryBitListTest {
 
         try {
             a1.subLargeList(4, -1);
-            fail(msg2);
-        } catch (IllegalArgumentException ex) {
-            //OK
-        }
-
-        try {
-            a1.subLargeList(5, 4);
             fail(msg2);
         } catch (IllegalArgumentException ex) {
             //OK
