@@ -1,6 +1,7 @@
 package net.katsuster.strview.gui;
 
-import java.awt.BorderLayout;
+import java.awt.*;
+
 import javax.swing.*;
 import javax.swing.tree.*;
 
@@ -11,10 +12,10 @@ import javax.swing.tree.*;
  *
  * @author katsuhiro
  */
-public class MemberTreeViewer extends JComponent {
+public class MemberTreeViewer extends JPanel {
     private static final long serialVersionUID = 1L;
 
-    private JTree w_tree;
+    private JTree viewer;
     private DefaultMutableTreeNode hidden_root, root;
 
     public MemberTreeViewer() {
@@ -22,16 +23,25 @@ public class MemberTreeViewer extends JComponent {
 
         //ルートのみを持つツリービューアを作成する
         hidden_root = new DefaultMutableTreeNode();
-        w_tree = new JTree(hidden_root);
-        w_tree.setRootVisible(false);
+        viewer = new JTree(hidden_root);
+        viewer.setRootVisible(false);
 
         //ツリービューアを登録、表示する
-        add(w_tree);
+        add(viewer);
         setVisible(true);
     }
 
-    public JTree getTreePane() {
-        return w_tree;
+    @Override
+    public void setFont(Font f) {
+        super.setFont(f);
+
+        if (viewer != null) {
+            viewer.setFont(f);
+        }
+    }
+
+    public JTree getViewer() {
+        return viewer;
     }
 
     /**
@@ -58,12 +68,12 @@ public class MemberTreeViewer extends JComponent {
         hidden_root.add(n);
 
         //リロード
-        DefaultTreeModel model = (DefaultTreeModel)w_tree.getModel();
+        DefaultTreeModel model = (DefaultTreeModel)viewer.getModel();
         model.reload();
 
         //選択を解除し、ルートノードを展開する
-        w_tree.clearSelection();
-        w_tree.expandRow(0);
+        viewer.clearSelection();
+        viewer.expandRow(0);
 
         root = n;
     }

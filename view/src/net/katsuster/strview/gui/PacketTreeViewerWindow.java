@@ -162,7 +162,7 @@ public class PacketTreeViewerWindow extends JFrame {
         //2番目（下側の上側）、パケットビューア
         memberTreeViewer = new MemberTreeViewer();
         memberTreeListener = new MemberTreeSelListener();
-        JTree m_jt = memberTreeViewer.getTreePane();
+        JTree m_jt = memberTreeViewer.getViewer();
         m_jt.addTreeSelectionListener(memberTreeListener);
         m_jt.addMouseListener(memberTreeListener);
         m_jt.setFont(new Font(Font.MONOSPACED, 0, 12));
@@ -262,8 +262,8 @@ public class PacketTreeViewerWindow extends JFrame {
             PacketWriter<MemberTreeNode> c = new ToMemberTreeNodeConverter();
             p.write(c);
             memberTreeViewer.setRootTreeNode(c.getResult());
-            for (int row = 0; row < memberTreeViewer.getTreePane().getRowCount(); row++) {
-                memberTreeViewer.getTreePane().expandRow(row);
+            for (int row = 0; row < memberTreeViewer.getViewer().getRowCount(); row++) {
+                memberTreeViewer.getViewer().expandRow(row);
             }
             memberTreeViewer.repaint();
 
@@ -304,9 +304,9 @@ public class PacketTreeViewerWindow extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            int selRow = memberTreeViewer.getTreePane().getRowForLocation(
+            int selRow = memberTreeViewer.getViewer().getRowForLocation(
                     e.getX(), e.getY());
-            TreePath selPath = memberTreeViewer.getTreePane().getPathForLocation(
+            TreePath selPath = memberTreeViewer.getViewer().getPathForLocation(
                     e.getX(), e.getY());
 
             if (selRow != -1) {

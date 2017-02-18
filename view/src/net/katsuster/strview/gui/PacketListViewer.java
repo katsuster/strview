@@ -55,7 +55,7 @@ public class PacketListViewer extends JPanel {
         }
 
         public void update(long before, long after) {
-            fireIntervalAdded(this, (int)before, (int)after);
+            fireContentsChanged(this, (int)before, (int)after);
         }
     }
 
@@ -87,6 +87,15 @@ public class PacketListViewer extends JPanel {
         } catch (IndexOutOfBoundsException ex) {
             //短そうなので全カウント
             list.count();
+        }
+    }
+
+    @Override
+    public void setFont(Font f) {
+        super.setFont(f);
+
+        if (viewer != null) {
+            viewer.setFont(f);
         }
     }
 
