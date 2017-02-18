@@ -49,6 +49,14 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
     }
 
     @Override
+    public boolean hasNext(long n) {
+        if (buf.length() == LargeList.LENGTH_UNKNOWN) {
+            return true;
+        }
+        return pos + n <= buf.length();
+    }
+
+    @Override
     public long readLong(int nbit, String desc) {
         long res = buf.getPackedLong(pos, nbit);
         pos += nbit;

@@ -48,6 +48,14 @@ public class ToBitListConverter extends PacketWriterAdapter<LargeBitList> {
     }
 
     @Override
+    public boolean hasNext(long n) {
+        if (buf.length() == LargeList.LENGTH_UNKNOWN) {
+            return true;
+        }
+        return pos + n <= buf.length();
+    }
+
+    @Override
     public void writeLong(int nbit, long val, String name, String desc) {
         buf.setPackedLong(pos, nbit, val);
         pos += nbit;

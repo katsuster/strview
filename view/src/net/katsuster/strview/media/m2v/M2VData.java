@@ -54,20 +54,22 @@ public class M2VData extends PacketAdapter
     @Override
     protected void readBody(PacketReader<?> c) {
         long orgpos;
-        int size_f;
+        int size_f = 0;
+        int stepback = 0;
         int acc = 0xffffff;
 
         //次のスタートコードを探す
         c.alignByte();
         orgpos = c.position();
-        while (true) {
+        while (c.hasNext(8)) {
             acc <<= 8;
             acc |= c.readLong(8);
             if ((acc & 0xffffff) == 0x000001) {
-                size_f = (int)(c.position() - orgpos - 24);
+                stepback = 24;
                 break;
             }
         }
+        size_f = (int)(c.position() - orgpos - stepback);
         c.position(orgpos);
 
         setBody(c.readSubList(size_f, getBody()));

@@ -190,6 +190,17 @@ public interface PacketConverter<T> {
 
     /**
      * <p>
+     * 現在位置から指定されたサイズを読み出しあるいは、
+     * 書き込みできるかどうかを取得します。
+     * </p>
+     *
+     * @param n 読み出すまたは書き込む予定のサイズ（ビット単位）
+     * @return 読み出しまたは書き込みが可能ならば true、不可能ならば false
+     */
+    public boolean hasNext(long n);
+
+    /**
+     * <p>
      * 変換中の位置が 1バイト境界かどうか取得します。
      * </p>
      *

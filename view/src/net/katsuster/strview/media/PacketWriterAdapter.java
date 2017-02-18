@@ -13,6 +13,7 @@ import net.katsuster.strview.util.*;
  *
  * <ul>
  *     <li>位置は常に 0</li>
+ *     <li>無限に書き込み可能（hasNext が常にtrue）</li>
  *     <li>マークは全て無視する</li>
  *     <li>変換対象は全て無視する</li>
  *     <li>結果は常に null を返す</li>
@@ -64,6 +65,11 @@ public class PacketWriterAdapter<T> extends AbstractPacketWriter<T>
     @Override
     public void position(long p) {
         //do nothing
+    }
+
+    @Override
+    public boolean hasNext(long n) {
+        return true;
     }
 
     @Override
