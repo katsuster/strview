@@ -349,7 +349,7 @@ public class PacketTreeViewerWindow extends JFrame {
                 }
 
                 binaryViewer.setHighlightMemberRange(
-                        ptn.getDataPosition() >>> 3, len >>> 3);
+                        ptn.getDataStart() >>> 3, len >>> 3);
             } else {
                 binaryViewer.setHighlightMemberRange(0, 0);
             }
@@ -366,7 +366,7 @@ public class PacketTreeViewerWindow extends JFrame {
             //ノードが指すデータの先頭にジャンプする
             if (ptn.hasNumData() || ptn.hasArrayData()) {
                 binaryViewer.setRaw(
-                        (ptn.getDataPosition() >>> 3) / binaryViewer.getLengthOfRaw());
+                        (ptn.getDataStart() >>> 3) / binaryViewer.getLengthOfRaw());
 
                 binaryViewer.repaint();
             }

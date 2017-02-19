@@ -20,7 +20,8 @@ import net.katsuster.strview.media.*;
 public class MemberTreeNode extends DefaultMutableTreeNode {
     private static final long serialVersionUID = 1L;
 
-    public static final String FORMAT_ADDRESS = "  %x.%d(%3dbits)";
+    public static final String FORMAT_ADDRESS = "%6x.%d-%6x.%d";
+    public static final String FORMAT_ADDRESS_EMPTY = "                 ";
     public static final String FORMAT_NAME    = "%-32s";
     public static final String FORMAT_INDENT  = "  ";
 
@@ -238,13 +239,40 @@ public class MemberTreeNode extends DefaultMutableTreeNode {
      *
      * @return ストリーム上での値の開始位置（ビット単位）
      */
-    public long getDataPosition() {
+    public long getDataStart() {
         long pos;
 
         if (hasNumData()) {
             pos = getNumData().getRange().getStart();
         } else if (hasArrayData()) {
             pos = getArrayData().getRange().getStart() + getArrayData().getOffsetHint();
+        } else {
+            throw new IllegalStateException("Node does not have "
+                    + "start position.");
+        }
+
+        return pos;
+    }
+
+    /**
+     * <p>
+     * ストリーム上での値（数値、またはビットリスト）の、
+     * 終了位置（ビット単位）を取得します。
+     * </p>
+     *
+     * <p>
+     * 開始位置を持たない場合は IllegalStateException をスローします。
+     * </p>
+     *
+     * @return ストリーム上での値の終了位置（ビット単位）
+     */
+    public long getDataEnd() {
+        long pos;
+
+        if (hasNumData()) {
+            pos = getNumData().getRange().getEnd();
+        } else if (hasArrayData()) {
+            pos = getArrayData().getRange().getEnd() + getArrayData().getOffsetHint();
         } else {
             throw new IllegalStateException("Node does not have "
                     + "start position.");
@@ -287,9 +315,15 @@ public class MemberTreeNode extends DefaultMutableTreeNode {
 
         //長さ
         if (hasNumData() || hasArrayData()) {
-            String len = String.format(FORMAT_ADDRESS,
-                    getDataPosition() >>> 3, getDataPosition() & 7,
-                    getDataLength());
+            String len;
+
+            if (getDataLength() == 0) {
+                len = String.format(FORMAT_ADDRESS_EMPTY);
+            } else {
+                len = String.format(FORMAT_ADDRESS,
+                        getDataStart() >>> 3, getDataStart() & 7,
+                        (getDataEnd() - 1) >>> 3, (getDataEnd() - 1) & 7);
+            }
             sb.append(len + ": ");
         }
 
