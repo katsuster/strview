@@ -19,6 +19,9 @@ package net.katsuster.strview.util;
  * @author katsuhiro
  */
 public interface Range {
+    //size() および length() メソッドで長さが分からないときに返される値です
+    public static long LENGTH_UNKNOWN = -1;
+
     /**
      * オブジェクトのコピーを作成し、返します。
      *

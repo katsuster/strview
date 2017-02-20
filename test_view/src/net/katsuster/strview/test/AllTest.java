@@ -19,6 +19,7 @@ import net.katsuster.strview.test.media.*;
         FloatTest.class,
         SFixedTest.class,
         UFixedTest.class,
+        SimpleRangeTest.class,
         MemoryByteListTest.class,
         FileByteListTest.class,
         SlowMemoryBitListTest.class,
