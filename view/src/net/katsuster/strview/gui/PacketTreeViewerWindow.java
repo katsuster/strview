@@ -145,9 +145,12 @@ public class PacketTreeViewerWindow extends JFrame {
         JPanel packetTool = new JPanel();
         packetTool.setLayout(new FlowLayout(FlowLayout.LEFT));
         JButton btn = new JButton("Count");
-        btn.addActionListener(e -> {
-            list_packet.count();
-            packetListViewer.setMax(1);
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    list_packet.count();
+                    packetListViewer.setMax(1);
+            }
         });
         packetTool.add(ft);
         packetTool.add(btn);
