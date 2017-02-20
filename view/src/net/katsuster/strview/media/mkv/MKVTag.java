@@ -102,9 +102,9 @@ public class MKVTag extends PacketAdapter
 
     @Override
     protected void writeBody(PacketWriter<?> c) {
-        //long size_f;
+        long size_f = getBody().length();
 
-        //TODO: not implemented
-        //c.writeSubList(size_f, getBody(), "body");
+        //FIXME: tentative
+        c.writeSubList(size_f, getBody(), "body");
     }
 }

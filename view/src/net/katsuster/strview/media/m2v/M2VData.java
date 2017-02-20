@@ -84,9 +84,9 @@ public class M2VData extends PacketAdapter
 
     @Override
     protected void writeBody(PacketWriter<?> c) {
-        //int size_f;
+        long size_f = getBody().length();
 
-        //TODO: not implemented
-        //c.writeSubList(size_f, getBody(), "body");
+        //FIXME: tentative
+        c.writeSubList(size_f, getBody(), "body");
     }
 }
