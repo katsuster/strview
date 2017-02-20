@@ -34,6 +34,8 @@ public class PacketTreeViewerWindow extends JFrame {
     private LargeList<? extends Packet> list_packet;
 
     private BinaryViewer binaryViewer;
+    private PacketTreeViewer packetTreeViewer;
+    private PacketTreeSelListener packetTreeListener;
     private PacketListViewer packetListViewer;
     private PacketListSelListener packetListListener;
     private MemberTreeViewer memberTreeViewer;
@@ -134,13 +136,25 @@ public class PacketTreeViewerWindow extends JFrame {
         FlatTextField ft = new FlatTextField();
         ft.setPreferredSize(new Dimension(150, 22));
 
-        packetListViewer = new PacketListViewer(getPacketList());
-        packetListListener = new PacketListSelListener();
-        packetListViewer.getViewer().addMouseListener(packetListListener);
-        packetListViewer.getViewer().addListSelectionListener(packetListListener);
+        //FIXME: tentative use cast to AbstaractList
+        AbstractPacketList l = (AbstractPacketList)getPacketList();
+        if (l.hasTreeStructure()) {
+            packetTreeViewer = new PacketTreeViewer(getPacketList());
+            packetTreeListener = new PacketTreeSelListener();
+            packetTreeViewer.getViewer().addMouseListener(packetTreeListener);
+            packetTreeViewer.getViewer().addTreeSelectionListener(packetTreeListener);
 
-        scrPacketViewer = new JScrollPane(packetListViewer);
-        scrPacketViewer.getVerticalScrollBar().setUnitIncrement(10);
+            scrPacketViewer = new JScrollPane(packetTreeViewer);
+            scrPacketViewer.getVerticalScrollBar().setUnitIncrement(10);
+        } else {
+            packetListViewer = new PacketListViewer(getPacketList());
+            packetListListener = new PacketListSelListener();
+            packetListViewer.getViewer().addMouseListener(packetListListener);
+            packetListViewer.getViewer().addListSelectionListener(packetListListener);
+
+            scrPacketViewer = new JScrollPane(packetListViewer);
+            scrPacketViewer.getVerticalScrollBar().setUnitIncrement(10);
+        }
 
         JPanel packetTool = new JPanel();
         packetTool.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -148,8 +162,13 @@ public class PacketTreeViewerWindow extends JFrame {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    list_packet.count();
+                list_packet.count();
+                if (packetTreeViewer != null) {
+                    packetTreeViewer.setMax(1);
+                }
+                if (packetListViewer != null) {
                     packetListViewer.setMax(1);
+                }
             }
         });
         packetTool.add(ft);
@@ -220,7 +239,66 @@ public class PacketTreeViewerWindow extends JFrame {
         }
     }
 
-    public class PacketListSelListener extends MouseAdapter
+    public class PacketTreeSelListener extends SelListener
+            implements TreeSelectionListener {
+        @Override
+        public void valueChanged(TreeSelectionEvent e) {
+            TreePath selPath = e.getPath();
+            long selRow = getIndexFromEvent(selPath);
+
+            if (selRow != -1) {
+                onLeftSingleClick(selRow);
+            }
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            long locRow = packetTreeViewer.getViewer().getRowForLocation(
+                    e.getX(), e.getY());
+            TreePath selPath = packetTreeViewer.getViewer().getPathForLocation(
+                    e.getX(), e.getY());
+            long selRow = getIndexFromEvent(selPath);
+
+            if (locRow != -1) {
+                if (e.getClickCount() == 1
+                        && e.getButton() == MouseEvent.BUTTON1) {
+                    //左シングルのとき
+                    //onLeftSingleClick(selRow);
+                } else if (e.getClickCount() == 1
+                        && e.getButton() == MouseEvent.BUTTON3) {
+                    //右シングルのとき
+                    //onRightSingleClick(selRow);
+                } else if (e.getClickCount() == 2
+                        && e.getButton() == MouseEvent.BUTTON1) {
+                    //左ダブルのとき
+                    onLeftDoubleClick(selRow);
+                }
+            }
+        }
+
+        protected long getIndexFromEvent(TreePath selPath) {
+            if (selPath == null || !(selPath.getLastPathComponent()
+                    instanceof DefaultMutableTreeNode)) {
+                return -1;
+            }
+
+            DefaultMutableTreeNode n = (DefaultMutableTreeNode)
+                    selPath.getLastPathComponent();
+            if (!(n.getUserObject() instanceof PacketTreeNode)) {
+                return -1;
+            }
+
+            PacketTreeNode pn = (PacketTreeNode)n.getUserObject();
+            PacketRange pr = pn.getRange();
+            if (pr == null) {
+                return -1;
+            }
+
+            return pr.getNumber();
+        }
+    }
+
+    public class PacketListSelListener extends SelListener
             implements ListSelectionListener {
         @Override
         public void valueChanged(ListSelectionEvent e) {
@@ -250,7 +328,9 @@ public class PacketTreeViewerWindow extends JFrame {
                 }
             }
         }
+    }
 
+    public class SelListener extends MouseAdapter {
         public void onLeftSingleClick(long selRow) {
             Packet p = getPacketFromEvent(selRow);
             if (p == null) {
@@ -294,7 +374,7 @@ public class PacketTreeViewerWindow extends JFrame {
         }
 
         protected Packet getPacketFromEvent(long selRow) {
-            return packetListViewer.getPacketList().get(selRow);
+            return getPacketList().get(selRow);
         }
     }
 
