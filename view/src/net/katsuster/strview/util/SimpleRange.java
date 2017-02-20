@@ -34,6 +34,12 @@ public class SimpleRange
      * @param l 区間の長さ
      */
     public SimpleRange(long s, long l) {
+        if (s < 0) {
+            throw new IllegalArgumentException("start:" + s + " is negative.");
+        }
+        if (l != Range.LENGTH_UNKNOWN && l < 0) {
+            throw new NegativeArraySizeException("length:" + l + " is negative.");
+        }
         start = s;
         length = l;
     }
@@ -114,16 +120,25 @@ public class SimpleRange
 
     @Override
     public void setStart(long p) {
+        if (p < 0) {
+            throw new IllegalArgumentException("new start:" + p + " is negative.");
+        }
         start = p;
     }
 
     @Override
     public long getEnd() {
+        if (length == Range.LENGTH_UNKNOWN) {
+            return Range.LENGTH_UNKNOWN;
+        }
         return start + length;
     }
 
     @Override
     public void setEnd(long p) {
+        if (p < start) {
+            throw new NegativeArraySizeException("new end:" + p + " is less than start:" + start + ".");
+        }
         length = p - start;
     }
 
@@ -134,6 +149,9 @@ public class SimpleRange
 
     @Override
     public void setLength(long l) {
+        if (l != Range.LENGTH_UNKNOWN && l < 0) {
+            throw new NegativeArraySizeException("new length:" + l + " is negative.");
+        }
         length = l;
     }
 
