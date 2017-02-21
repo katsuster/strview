@@ -46,8 +46,6 @@ public class M2VData extends PacketAdapter
 
     @Override
     protected void readHeader(PacketReader<?> c) {
-        AbstractPacket.read(c, this);
-
         getHeader().read(c);
     }
 
@@ -77,8 +75,6 @@ public class M2VData extends PacketAdapter
 
     @Override
     protected void writeHeader(PacketWriter<?> c) {
-        AbstractPacket.write(c, this);
-
         getHeader().write(c);
     }
 

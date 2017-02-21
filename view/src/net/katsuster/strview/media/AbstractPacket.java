@@ -419,6 +419,8 @@ public abstract class AbstractPacket extends AbstractBlock
     public void read(PacketReader<?> c) {
         c.enterPacket(getShortName());
 
+        convHeader(c, this);
+
         setStart(c.position());
         readHeader(c);
         setHeaderLength(c.position() - getStart());
@@ -453,6 +455,8 @@ public abstract class AbstractPacket extends AbstractBlock
     public void write(PacketWriter<?> c) {
         c.enterPacket(getShortName());
 
+        convHeader(c, this);
+
         writeHeader(c);
         writeBody(c);
         writeFooter(c);
@@ -461,19 +465,9 @@ public abstract class AbstractPacket extends AbstractBlock
         c.leavePacket();
     }
 
-    public static void read(PacketReader<?> c,
-                            AbstractPacket d) {
-        conv(c, d);
-    }
-
-    public static void write(PacketWriter<?> c,
+    private static void convHeader(PacketConverter<?> c,
                              AbstractPacket d) {
-        conv(c, d);
-    }
-
-    private static void conv(PacketConverter<?> c,
-                             AbstractPacket d) {
-        c.enterBlock("standard packet header");
+        c.enterBlock("common");
 
         c.mark("tag_num",
                 d.getNumber());

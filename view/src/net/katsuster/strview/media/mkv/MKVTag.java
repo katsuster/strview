@@ -95,8 +95,6 @@ public class MKVTag extends PacketAdapter
 
     @Override
     protected void writeHeader(PacketWriter<?> c) {
-        AbstractPacket.write(c, this);
-
         getHeader().write(c);
     }
 
