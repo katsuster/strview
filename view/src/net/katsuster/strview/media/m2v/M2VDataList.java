@@ -39,14 +39,15 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
         M2VHeader tmph = new M2VHeader();
         tmph.peek(c);
 
-        if (tmph.start_code.intValue() == START_CODE.EXTENSION) {
+        switch (tmph.start_code.intValue()) {
+        case START_CODE.EXTENSION:
             M2VHeaderExt tmphext = new M2VHeaderExt();
             tmphext.peek(c);
 
             tagh = M2VConsts.m2vExtFactory.createPacketHeader(
                     tmphext.extension_start_code_identifier.intValue());
-        }
-        if (tagh == null) {
+            break;
+        default:
             tagh = M2VConsts.m2vFactory.createPacketHeader(
                     tmph.start_code.intValue());
         }
