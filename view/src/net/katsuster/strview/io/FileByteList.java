@@ -14,7 +14,9 @@ import net.katsuster.strview.util.*;
 public class FileByteList extends AbstractLargeList<Byte>
         implements LargeByteList {
     private RandomAccessFile buf;
-    private long filepointer;
+    private byte[] cache;
+    private Range cacheRange;
+    private long cacheHit, cacheMiss;
 
     /**
      * <p>
@@ -87,7 +89,10 @@ public class FileByteList extends AbstractLargeList<Byte>
             File f = new File(path);
             buf = new RandomAccessFile(f.getAbsolutePath(), "rw");
             buf.seek(0);
-            filepointer = 0;
+            cache = new byte[4096];
+            cacheRange = new SimpleRange(0, Range.LENGTH_UNKNOWN);
+            cacheHit = 0;
+            cacheMiss = 0;
         } catch (IOException ex) {
             throw new IllegalArgumentException(
                     "cannot open the file '" + path + "'.");
@@ -112,7 +117,10 @@ public class FileByteList extends AbstractLargeList<Byte>
         try {
             buf = file;
             buf.seek(0);
-            filepointer = 0;
+            cache = new byte[4096];
+            cacheRange = new SimpleRange(0, Range.LENGTH_UNKNOWN);
+            cacheHit = 0;
+            cacheMiss = 0;
         } catch (IOException ex) {
             throw new IllegalStateException(
                     "cannot rewind the file.");
@@ -209,6 +217,40 @@ public class FileByteList extends AbstractLargeList<Byte>
         }
     }
 
+    protected void invalidateCache() {
+        cacheRange.setLength(Range.LENGTH_UNKNOWN);
+    }
+
+    protected void refillCache(long index) {
+        long len = cache.length;
+
+        index &= ~0xfff;
+
+        try {
+            cacheRange.setStart(index);
+            cacheRange.setLength(Range.LENGTH_UNKNOWN);
+
+            len = Math.min(buf.length() - index, len);
+            buf.seek(index);
+            buf.readFully(cache, 0, (int)len);
+            cacheRange.setLength(len);
+        } catch (IOException ex) {
+            throw new IndexOutOfBoundsException(
+                    "cannot read from " + index + "(reached EOF).");
+        }
+    }
+
+    protected int readCache(long index) {
+        if (cacheRange.isHit(index)) {
+            cacheHit++;
+        } else {
+            refillCache(index);
+            cacheMiss++;
+        }
+
+        return cache[(int)(index - cacheRange.getStart())] & 0xff;
+    }
+
     @Override
     public int get(long index, byte[] dest, int offset, int length) {
         int res = 0;
@@ -224,13 +266,8 @@ public class FileByteList extends AbstractLargeList<Byte>
 
         try {
             synchronized (buf) {
-                if (index != filepointer) {
-                    buf.seek(index);
-                    filepointer = index;
-                }
-
+                buf.seek(index);
                 buf.readFully(dest, offset, length);
-                filepointer += length;
             }
         } catch (IOException ex) {
             throw new IndexOutOfBoundsException(
@@ -254,13 +291,10 @@ public class FileByteList extends AbstractLargeList<Byte>
 
         try {
             synchronized (buf) {
-                if (index != filepointer) {
-                    buf.seek(index);
-                    filepointer = index;
-                }
+                invalidateCache();
 
+                buf.seek(index);
                 buf.write(src, offset, length);
-                filepointer += length;
             }
         } catch (IOException ex) {
             throw new IndexOutOfBoundsException(
@@ -274,45 +308,30 @@ public class FileByteList extends AbstractLargeList<Byte>
     public Byte getInner(long index) {
         int result;
 
-        try {
-            synchronized (buf) {
-                if (index != filepointer) {
-                    buf.seek(index);
-                    filepointer = index;
-                }
-
-                result = buf.read();
-                if (result == -1) {
-                    //EOF
-                    throw new IndexOutOfBoundsException(
-                            "cannot read from " + index + "(reached EOF).");
-                }
-                filepointer += 1;
+        synchronized (buf) {
+            result = readCache(index);
+            if (result == -1) {
+                //EOF
+                throw new IndexOutOfBoundsException(
+                        "cannot read from " + index + "(reached EOF).");
             }
-
-            return (byte)result;
-        } catch (IOException ex) {
-            throw new IndexOutOfBoundsException(
-                    "cannot read from " + index + ".");
         }
+
+        return (byte)result;
     }
 
     @Override
     public void setInner(long index, Byte data) {
         try {
             synchronized (buf) {
-                if (index != filepointer) {
-                    buf.seek(index);
-                    filepointer = index;
-                }
+                invalidateCache();
 
+                buf.seek(index);
                 buf.write(data);
-                filepointer += 1;
             }
         } catch (IOException ex) {
             throw new IndexOutOfBoundsException(
                     "cannot write at " + index + ".");
         }
     }
-
 }
