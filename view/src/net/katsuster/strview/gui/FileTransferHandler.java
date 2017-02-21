@@ -15,6 +15,7 @@ import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
 import net.katsuster.strview.media.m2v.*;
 import net.katsuster.strview.media.mkv.*;
+import net.katsuster.strview.media.riff.*;
 import net.katsuster.strview.media.ts.*;
 
 /**
@@ -96,6 +97,8 @@ public class FileTransferHandler extends TransferHandler {
             w.setVisible(true);
         } catch (HeadlessException ex) {
 
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
         return true;
@@ -105,6 +108,7 @@ public class FileTransferHandler extends TransferHandler {
         FT_UNKNOWN,
         FT_MPEG2TS,
         FT_MATROSKA,
+        FT_RIFF,
         FT_MPEG2VIDEO,
     }
 
@@ -117,6 +121,9 @@ public class FileTransferHandler extends TransferHandler {
             break;
         case FT_MATROSKA:
             list = new MKVTagList(l);
+            break;
+        case FT_RIFF:
+            list = new RIFFChunkList(l);
             break;
         case FT_MPEG2VIDEO:
             list = new M2VDataList(l);
@@ -137,6 +144,9 @@ public class FileTransferHandler extends TransferHandler {
         }
         if (ext.equals("mkv")) {
             return FILE_TYPE.FT_MATROSKA;
+        }
+        if (ext.equals("avi") || ext.equals("cur") || ext.equals("ico") || ext.equals("wav")) {
+            return FILE_TYPE.FT_RIFF;
         }
         if (ext.equals("m2v")) {
             return FILE_TYPE.FT_MPEG2VIDEO;
