@@ -253,13 +253,11 @@ public class PacketTreeViewerWindow extends JFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            long locRow = packetTreeViewer.getViewer().getRowForLocation(
-                    e.getX(), e.getY());
             TreePath selPath = packetTreeViewer.getViewer().getPathForLocation(
                     e.getX(), e.getY());
             long selRow = getIndexFromEvent(selPath);
 
-            if (locRow != -1) {
+            if (selRow != -1) {
                 if (e.getClickCount() == 1
                         && e.getButton() == MouseEvent.BUTTON1) {
                     //左シングルのとき
