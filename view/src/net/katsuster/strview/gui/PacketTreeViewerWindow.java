@@ -232,8 +232,6 @@ public class PacketTreeViewerWindow extends JFrame {
             chooser.setSelectedFont(binaryViewer.getFont());
             int res = chooser.showDialog(parent);
             if (res == JFontChooser.OK_OPTION) {
-                packetListViewer.setFont(chooser.getSelectedFont());
-                memberTreeViewer.setFont(chooser.getSelectedFont());
                 binaryViewer.setFont(chooser.getSelectedFont());
             }
         }
