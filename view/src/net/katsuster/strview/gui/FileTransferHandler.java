@@ -77,6 +77,21 @@ public class FileTransferHandler extends TransferHandler {
         return true;
     }
 
+    /**
+     * <p>
+     * ファイルを開きます。
+     * </p>
+     *
+     * <p>
+     * 解析が可能なファイルだと判断した場合は、
+     * ストリームの構造を表示するウインドウが開きます。
+     * 解析が不可能なファイルだと判断した場合は、
+     * バイナリデータを表示するウインドウが開きます。
+     * </p>
+     *
+     * @param tfile ファイル
+     * @return ファイルを開けた場合は true、ファイルを開けなかった場合は false
+     */
     public boolean openFile(File tfile) {
         System.out.println(tfile);
 
@@ -99,6 +114,7 @@ public class FileTransferHandler extends TransferHandler {
 
         } catch (Exception ex) {
             ex.printStackTrace();
+            return false;
         }
 
         return true;
@@ -112,6 +128,15 @@ public class FileTransferHandler extends TransferHandler {
         FT_MPEG2VIDEO,
     }
 
+    /**
+     * <p>
+     * 指定されたファイル形式に適したパケットリストを生成します。
+     * </p>
+     *
+     * @param t ファイル形式
+     * @param l パケットリストの元データとなるビットリスト
+     * @return パケットリスト
+     */
     public LargeList<? extends Packet> getPacketList(FILE_TYPE t, LargeBitList l) {
         LargeList<? extends Packet> list = null;
 
@@ -136,6 +161,14 @@ public class FileTransferHandler extends TransferHandler {
         return list;
     }
 
+    /**
+     * <p>
+     * ファイル形式を類推します。
+     * </p>
+     *
+     * @param tfile ファイル
+     * @return ファイル形式
+     */
     public FILE_TYPE getFileType(File tfile) {
         String ext = getSuffix(tfile.getPath());
 
