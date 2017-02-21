@@ -86,6 +86,7 @@ public class PacketTreeViewer extends JPanel {
         } catch (IndexOutOfBoundsException ex) {
             //短そうなので全カウント
             list.count();
+            setMax(1);
         }
     }
 
