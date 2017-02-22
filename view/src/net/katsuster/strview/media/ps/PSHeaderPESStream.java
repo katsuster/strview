@@ -486,58 +486,58 @@ public class PSHeaderPESStream extends PSHeaderPES
         PSHeaderPES.write(c, d);
 
         c.writeUInt( 2, d.const_bit                , "const_bit"                );
-        c.writeUInt( 2, d.pes_scrambling_control   , "pes_scrambling_control"   );
-        c.writeUInt( 1, d.pes_priority             , "pes_priority"             );
+        c.writeUInt( 2, d.pes_scrambling_control   , "PES_scrambling_control"   );
+        c.writeUInt( 1, d.pes_priority             , "PES_priority"             );
         c.writeUInt( 1, d.data_alignment_indicator , "data_alignment_indicator" );
         c.writeUInt( 1, d.copyright                , "copyright"                );
         c.writeUInt( 1, d.original_or_copy         , "original_or_copy"         );
-        c.writeUInt( 2, d.pts_dts_flags            , "pts_dts_flags"            );
-        c.writeUInt( 1, d.escr_flag                , "escr_flag"                );
-        c.writeUInt( 1, d.es_rate_flag             , "es_rate_flag"             );
-        c.writeUInt( 1, d.dsm_trick_mode_flag      , "dsm_trick_mode_flag"      );
+        c.writeUInt( 2, d.pts_dts_flags            , "PTS_DTS_flags"            );
+        c.writeUInt( 1, d.escr_flag                , "ESCR_flag"                );
+        c.writeUInt( 1, d.es_rate_flag             , "ES_rate_flag"             );
+        c.writeUInt( 1, d.dsm_trick_mode_flag      , "DSM_trick_mode_flag"      );
         c.writeUInt( 1, d.additional_copy_info_flag, "additional_copy_info_flag");
-        c.writeUInt( 1, d.pes_crc_flag             , "pes_crc_flag"             );
-        c.writeUInt( 1, d.pes_extension_flag       , "pes_extension_flag"       );
-        c.writeUInt( 8, d.pes_header_data_length   , "pes_header_data_length"   );
+        c.writeUInt( 1, d.pes_crc_flag             , "PES_CRC_flag"             );
+        c.writeUInt( 1, d.pes_extension_flag       , "PES_extension_flag"       );
+        c.writeUInt( 8, d.pes_header_data_length   , "PES_header_data_length"   );
 
         if ((d.pts_dts_flags.intValue() & 2) != 0) {
             c.writeUInt( 4, d.const_bit2 , "const_bit2" );
-            c.writeUInt( 3, d.pts_high   , "pts_high"   );
+            c.writeUInt( 3, d.pts_high   , "PTS_high"   );
             c.writeUInt( 1, d.marker_bit1, "marker_bit1");
-            c.writeUInt(15, d.pts_mid    , "pts_mid"    );
+            c.writeUInt(15, d.pts_mid    , "PTS_mid"    );
             c.writeUInt( 1, d.marker_bit2, "marker_bit2");
-            c.writeUInt(15, d.pts_low    , "pts_low"    );
+            c.writeUInt(15, d.pts_low    , "PTS_low"    );
             c.writeUInt( 1, d.marker_bit3, "marker_bit3");
-            c.mark("pts", d.getPTS());
+            c.mark("PTS", d.getPTS());
         }
 
         if ((d.pts_dts_flags.intValue() & 1) != 0) {
             c.writeUInt( 4, d.const_bit3 , "const_bit3" );
-            c.writeUInt( 3, d.dts_high   , "dts_high"   );
+            c.writeUInt( 3, d.dts_high   , "DTS_high"   );
             c.writeUInt( 1, d.marker_bit4, "marker_bit4");
-            c.writeUInt(15, d.dts_mid    , "dts_mid"    );
+            c.writeUInt(15, d.dts_mid    , "DTS_mid"    );
             c.writeUInt( 1, d.marker_bit5, "marker_bit5");
-            c.writeUInt(15, d.dts_low    , "dts_low"    );
+            c.writeUInt(15, d.dts_low    , "DTS_low"    );
             c.writeUInt( 1, d.marker_bit6, "marker_bit6");
-            c.mark("dts", d.getDTS());
+            c.mark("DTS", d.getDTS());
         }
 
         if (d.escr_flag.intValue() == 1) {
             c.writeUInt( 2, d.reserved      , "reserved"      );
-            c.writeUInt( 3, d.escr_base_high, "escr_base_high");
+            c.writeUInt( 3, d.escr_base_high, "ESCR_base_high");
             c.writeUInt( 1, d.marker_bit10  , "marker_bit10"  );
-            c.writeUInt(15, d.escr_base_mid , "escr_base_mid" );
+            c.writeUInt(15, d.escr_base_mid , "ESCR_base_mid" );
             c.writeUInt( 1, d.marker_bit11  , "marker_bit11"  );
-            c.writeUInt(15, d.escr_base_low , "escr_base_low" );
+            c.writeUInt(15, d.escr_base_low , "ESCR_base_low" );
             c.writeUInt( 1, d.marker_bit12  , "marker_bit12"  );
-            c.writeUInt( 9, d.escr_extension, "escr_extension");
+            c.writeUInt( 9, d.escr_extension, "ESCR_extension");
             c.writeUInt( 1, d.marker_bit13  , "marker_bit13"  );
-            c.mark("escr", d.getESCR());
+            c.mark("ESCR", d.getESCR());
         }
 
         if (d.es_rate_flag.intValue() == 1) {
             c.writeUInt( 1, d.marker_bit14, "marker_bit14");
-            c.writeUInt(22, d.es_rate     , "es_rate"     );
+            c.writeUInt(22, d.es_rate     , "ES_rate"     );
             c.writeUInt( 1, d.marker_bit15, "marker_bit15");
         }
 
@@ -577,7 +577,7 @@ public class PSHeaderPESStream extends PSHeaderPES
         }
 
         if (d.pes_crc_flag.intValue() == 1) {
-            c.writeUInt(16, d.previous_pes_packet_crc, "previous_pes_packet_crc");
+            c.writeUInt(16, d.previous_pes_packet_crc, "previous_PES_packet_CRC");
         }
 
         //拡張ヘッダを読む
@@ -592,15 +592,15 @@ public class PSHeaderPESStream extends PSHeaderPES
 
     protected static void writeStreamExt(PacketWriter<?> c,
                                          PSHeaderPESStream d) {
-        c.writeUInt( 1, d.pes_private_data_flag , "pes_private_data_flag" );
+        c.writeUInt( 1, d.pes_private_data_flag , "PES_private_data_flag" );
         c.writeUInt( 1, d.pack_header_field_flag, "pack_header_field_flag");
         c.writeUInt( 1, d.program_packet_sequence_counter_flag, "program_packet_sequence_counter_flag");
-        c.writeUInt( 1, d.p_std_buffer_flag     , "p_std_buffer_flag"     );
+        c.writeUInt( 1, d.p_std_buffer_flag     , "P-STD_buffer_flag"     );
         c.writeUInt( 3, d.reserved3             , "reserved3"             );
-        c.writeUInt( 1, d.pes_extension_flag_2  , "pes_extension_flag_2"  );
+        c.writeUInt( 1, d.pes_extension_flag_2  , "PES_extension_flag_2"  );
 
         if (d.pes_private_data_flag.intValue() == 1) {
-            c.writeBitList(128, d.pes_private_data, "pes_private_data");
+            c.writeBitList(128, d.pes_private_data, "PES_private_data");
         }
 
         if (d.pack_header_field_flag.intValue() == 1) {
@@ -616,19 +616,19 @@ public class PSHeaderPESStream extends PSHeaderPES
             c.writeUInt( 1, d.marker_bit14          , "marker_bit14"          );
             c.writeUInt( 7, d.program_packet_sequence_counter, "program_packet_sequence_counter");
             c.writeUInt( 1, d.marker_bit15          , "marker_bit15"          );
-            c.writeUInt( 1, d.mpeg1_mpeg2_identifier,  "mpeg1_mpeg2_identifier");
+            c.writeUInt( 1, d.mpeg1_mpeg2_identifier, "MPEG1_MPEG2_identifier");
             c.writeUInt( 6, d.original_stuff_length , "original_stuff_length" );
         }
 
         if (d.p_std_buffer_flag.intValue() == 1) {
             c.writeUInt( 2, d.const_bit4        , "const_bit4"        );
-            c.writeUInt( 1, d.p_std_buffer_scale, "p_std_buffer_scale");
-            c.writeUInt(13, d.p_std_buffer_size , "p_std_buffer_size" );
+            c.writeUInt( 1, d.p_std_buffer_scale, "P-STD_buffer_scale");
+            c.writeUInt(13, d.p_std_buffer_size , "P-STD_buffer_size" );
         }
 
         if (d.pes_extension_flag_2.intValue() == 1) {
             c.writeUInt( 1, d.marker_bit16              , "marker_bit16"              );
-            c.writeUInt( 7, d.pes_extension_field_length, "pes_extension_field_length");
+            c.writeUInt( 7, d.pes_extension_field_length, "PES_extension_field_length");
 
             c.writeBitList(d.pes_extension_field_length.intValue() << 3,
                     d.extension_field_data_byte, "extension_field_data_byte");

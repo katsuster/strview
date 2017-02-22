@@ -66,7 +66,7 @@ public class PSHeaderPES extends PSHeader
 
         PSHeader.write(c, d);
 
-        c.writeUInt(16, d.pes_packet_length, "pes_packet_length");
+        c.writeUInt(16, d.pes_packet_length, "PES_packet_length");
 
         c.leaveBlock();
     }
