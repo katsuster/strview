@@ -25,6 +25,11 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
     }
 
     @Override
+    public boolean hasTreeStructure() {
+        return false;
+    }
+
+    @Override
     public void count() {
         FromBitListConverter c = new FromBitListConverter(buf);
 
