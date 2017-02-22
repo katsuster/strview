@@ -17,7 +17,6 @@ public class TSPacketList extends AbstractPacketList<TSPacket> {
         super(LENGTH_UNKNOWN);
     }
 
-
     public TSPacketList(LargeBitList l) {
         super(LENGTH_UNKNOWN);
 
@@ -42,7 +41,6 @@ public class TSPacketList extends AbstractPacketList<TSPacket> {
     @Override
     protected Packet readNextInner(PacketReader<?> c, PacketRange pr) {
         TSPacket packet = new TSPacket(new TSHeader());
-
         packet.setRange(pr);
         packet.read(c);
 

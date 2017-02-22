@@ -56,25 +56,9 @@ public class MKVTagList extends AbstractPacketList<MKVTag> {
 
     @Override
     protected MKVTag readNextInner(PacketReader<?> c, PacketRange pr) {
-        MKVTag packet;
+        MKVHeader tagh = createHeader(c, pr);
 
-        MKVHeader tmph = new MKVHeader();
-        tmph.peek(c);
-
-        MKVHeader tagh = MKVConsts.mkvFactory.createPacketHeader(
-                (int)tmph.tag_id.getValue());
-
-        if (tagh != null) {
-            //対応しているタグ
-            packet = new MKVTag(tagh);
-        } else {
-            //未対応のタグなので、タグの仕様定義にあるデータ型から類推する
-            long id = tmph.tag_id.getValue();
-            MKVTagSpec spec = MKVConsts.getTagSpec(id);
-            packet = MKVConsts.mkvDataFactory.createPacket(
-                    spec.type, null);
-        }
-
+        MKVTag packet = new MKVTag(tagh);
         packet.setRange(pr);
         packet.read(c);
 
@@ -93,5 +77,26 @@ public class MKVTagList extends AbstractPacketList<MKVTag> {
     @Override
     protected void setInner(long index, MKVTag data) {
         //TODO: not implemented yet
+    }
+
+    protected MKVHeader createHeader(PacketReader<?> c, PacketRange pr) {
+        MKVHeader tmph = new MKVHeader();
+        tmph.peek(c);
+
+        MKVHeader tagh = MKVConsts.mkvFactory.createPacketHeader(
+                (int)tmph.tag_id.getValue());
+        if (tagh == null) {
+            //タグの仕様定義にあるデータ型から類推する
+            long id = tmph.tag_id.getValue();
+            MKVTagSpec spec = MKVConsts.getTagSpec(id);
+            tagh = MKVConsts.mkvDataFactory.createPacketHeader(
+                    spec.type);
+        }
+        if (tagh == null) {
+            //unknown
+            tagh = tmph;
+        }
+
+        return tagh;
     }
 }

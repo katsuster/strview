@@ -32,19 +32,9 @@ public class RIFFChunkList extends AbstractPacketList<RIFFChunk> {
 
     @Override
     protected RIFFChunk readNextInner(PacketReader<?> c, PacketRange pr) {
-        RIFFChunk packet;
+        RIFFHeader tagh = createHeader(c, pr);
 
-        RIFFHeader tmph = new RIFFHeader();
-        tmph.peek(c);
-
-        RIFFHeader tagh = RIFFConsts.riffFactory.createPacketHeader(
-                tmph.ckID.intValue());
-        if (tagh == null) {
-            //未対応のチャンク
-            tagh = new RIFFHeader();
-        }
-
-        packet = new RIFFChunk(tagh);
+        RIFFChunk packet = new RIFFChunk(tagh);
         packet.setRange(pr);
         packet.read(c);
 
@@ -66,5 +56,19 @@ public class RIFFChunkList extends AbstractPacketList<RIFFChunk> {
     @Override
     protected void setInner(long index, RIFFChunk data) {
         //TODO: not implemented yet
+    }
+
+    protected RIFFHeader createHeader(PacketReader<?> c, PacketRange pr) {
+        RIFFHeader tmph = new RIFFHeader();
+        tmph.peek(c);
+
+        RIFFHeader tagh = RIFFConsts.riffFactory.createPacketHeader(
+                tmph.ckID.intValue());
+        if (tagh == null) {
+            //unknown
+            tagh = tmph;
+        }
+
+        return tagh;
     }
 }

@@ -33,31 +33,9 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
 
     @Override
     protected M2VData readNextInner(PacketReader<?> c, PacketRange pr) {
-        M2VHeader tagh = null;
-        M2VData packet;
+        M2VHeader tagh = createHeader(c, pr);
 
-        M2VHeader tmph = new M2VHeader();
-        tmph.peek(c);
-
-        switch (tmph.start_code.intValue()) {
-        case START_CODE.EXTENSION:
-            M2VHeaderExt tmphext = new M2VHeaderExt();
-            tmphext.peek(c);
-
-            tagh = M2VConsts.m2vExtFactory.createPacketHeader(
-                    tmphext.extension_start_code_identifier.intValue());
-            break;
-        default:
-            tagh = M2VConsts.m2vFactory.createPacketHeader(
-                    tmph.start_code.intValue());
-        }
-        if (tagh == null) {
-            //未対応のタグ
-            tagh = new M2VHeader();
-        }
-
-        packet = new M2VData(tagh);
-
+        M2VData packet = new M2VData(tagh);
         packet.setRange(pr);
         packet.read(c);
 
@@ -76,5 +54,31 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
     @Override
     protected void setInner(long index, M2VData data) {
         //TODO: not implemented yet
+    }
+
+    protected M2VHeader createHeader(PacketReader<?> c, PacketRange pr) {
+        M2VHeader tagh;
+
+        M2VHeader tmph = new M2VHeader();
+        tmph.peek(c);
+
+        switch (tmph.start_code.intValue()) {
+        case START_CODE.EXTENSION:
+            M2VHeaderExt tmphext = new M2VHeaderExt();
+            tmphext.peek(c);
+
+            tagh = M2VConsts.m2vExtFactory.createPacketHeader(
+                    tmphext.extension_start_code_identifier.intValue());
+            break;
+        default:
+            tagh = M2VConsts.m2vFactory.createPacketHeader(
+                    tmph.start_code.intValue());
+        }
+        if (tagh == null) {
+            //unknown
+            tagh = tmph;
+        }
+
+        return tagh;
     }
 }
