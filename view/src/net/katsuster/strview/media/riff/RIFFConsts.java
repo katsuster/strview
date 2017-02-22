@@ -22,8 +22,8 @@ import net.katsuster.strview.media.*;
  */
 public class RIFFConsts {
     //RIFF チャンクのファクトリ
-    public static final PacketFactory<RIFFChunk, RIFFHeader, Integer> riffFactory =
-            new PacketFactory<>(RIFFChunk.class, RIFFHeader.class);
+    public static final PacketFactory<RIFFHeader, Integer> riffFactory =
+            new PacketFactory<>(RIFFHeader.class);
     static {
         riffFactory.put(CHUNK_ID.RIFF, RIFFHeaderList.class);
         riffFactory.put(CHUNK_ID.LIST, RIFFHeaderList.class);

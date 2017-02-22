@@ -20,8 +20,8 @@ import net.katsuster.strview.media.*;
  */
 public class M2VConsts {
     //MPEG2 Video データのファクトリ
-    public static final PacketFactory<M2VData, M2VHeader, Integer> m2vFactory =
-            new PacketFactory<>(M2VData.class, M2VHeader.class);
+    public static final PacketFactory<M2VHeader, Integer> m2vFactory =
+            new PacketFactory<>(M2VHeader.class);
     static {
         m2vFactory.put(START_CODE.PICTURE, M2VHeaderPicture.class);
         m2vFactory.put(START_CODE.SEQUENCE_HEADER, M2VHeaderSequence.class);
@@ -29,8 +29,8 @@ public class M2VConsts {
         m2vFactory.put(START_CODE.GROUP, M2VHeaderGOP.class);
     }
 
-    public static final PacketFactory<M2VData, M2VHeaderExt, Integer> m2vExtFactory =
-            new PacketFactory<>(M2VData.class, M2VHeaderExt.class);
+    public static final PacketFactory<M2VHeaderExt, Integer> m2vExtFactory =
+            new PacketFactory<>(M2VHeaderExt.class);
     static {
         m2vExtFactory.put(EXTENSION_START_CODE.SEQUENCE, M2VHeaderExtSequence.class);
         m2vExtFactory.put(EXTENSION_START_CODE.SEQUENCE_DISPLAY, M2VHeaderExtSequenceDisplay.class);

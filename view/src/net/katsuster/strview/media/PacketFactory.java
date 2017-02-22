@@ -5,12 +5,11 @@ import java.lang.reflect.*;
 
 /**
  * <p>
- * パケットのファクトリクラス。
+ * パケットヘッダのファクトリクラス。
  * </p>
  *
  * <p>
  * このクラスは、
- * パケット Class オブジェクト（汎用型 P で示すクラス）と、
  * パケットのヘッダの Class オブジェクト（汎用型 H で示すクラス）と、
  * ID（汎用型 K で示すクラス）を、
  * パラメータとして取ります。
@@ -32,41 +31,24 @@ import java.lang.reflect.*;
  *
  *
  * <p>
- * パケットの生成メソッド createPacket() は、
+ * パケットヘッダの生成メソッド createPacket() は、
  * ID とユニット Class オブジェクトをパラメータとして取り、
- * 下記の手順で新たなパケットのインスタンスを生成します。
+ * 下記の手順で新たなパケットヘッダのインスタンスを生成します。
  * </p>
  *
  * <ul>
- * <li>コンストラクタに渡したパケットクラスから、
- * パケットのインスタンスを生成します。</li>
- * <li>指定された ID に対応するユニットクラスを対応表
+ * <li>指定された ID に対応するパケットヘッダクラスを対応表
  * （コンストラクタに渡したもの）から探します。</li>
  * <li>もし対応するクラスがあれば、クラスのインスタンスを生成します。</li>
- * <li>もし対応するクラスがなければ、
- * パラメータに渡されたユニットクラスのインスタンスを生成します。</li>
- * <li>もしパラメータに渡されたユニットクラスもなければ、
- * コンストラクタに渡されたユニットクラスのインスタンスを生成します。</li>
- * <li>生成したユニットを、パケットのヘッダに設定します。</li>
+ * <li>もし対応するクラスがなければ、null を返します。</li>
  * </ul>
  *
- * <p>
- * ファクトリメソッドにより生成するパケットのクラス P は、
- * パケットヘッダのクラス H のオブジェクトを引数に取る
- * コンストラクタを実装する必要があります。
- * コンストラクタが実装されていない場合、
- * パケット生成時に例外がスローされます。
- * </p>
- *
- * @param <P> ファクトリが生成するパケットの型
  * @param <H> ファクトリが生成するパケットのヘッダの型
  * @param <K> パケットのヘッダを識別する ID の型
  *
  * @author katsuhiro
  */
-public class PacketFactory<P extends Packet, H extends Block, K extends Object> {
-    //このファクトリクラスで生成するパケットのクラス
-    private Class<? extends P> pclass;
+public class PacketFactory<H extends Block, K extends Object> {
     //このファクトリクラスで生成するパケットのヘッダのクラス
     private Class<? extends H> hclass;
     //ID と、ID に対応するユニットクラスのペアを登録した表
@@ -79,50 +61,25 @@ public class PacketFactory<P extends Packet, H extends Block, K extends Object> 
      * ファクトリオブジェクトを生成します。
      * </p>
      *
-     * @param pcl ファクトリで生成するパケットのクラス
      * @param hcl パケットのヘッダのクラス
      */
-    public PacketFactory(Class<? extends P> pcl, Class<? extends H> hcl) {
-        this(pcl, hcl, new HashMap<K, Class<? extends H>>());
+    public PacketFactory(Class<? extends H> hcl) {
+        this(hcl, new HashMap<K, Class<? extends H>>());
     }
 
     /**
      * <p>
-     * パケットのクラスと、パケットヘッダのクラスと、
+     * パケットヘッダのクラスと、
      * ID とパケットヘッダの対応表を指定して、
      * ファクトリオブジェクトを生成します。
      * </p>
      *
-     * @param pcl ファクトリで生成するパケットのクラス
      * @param hcl パケットのヘッダのクラス
      * @param t ID とパケットヘッダの対応表
      */
-    public PacketFactory(Class<? extends P> pcl, Class<? extends H> hcl, Map<K, Class<? extends H>> t) {
-        setPacketClass(pcl);
+    public PacketFactory(Class<? extends H> hcl, Map<K, Class<? extends H>> t) {
         setPacketHeaderClass(hcl);
         setTable(t);
-    }
-
-    /**
-     * <p>
-     * このファクトリクラスで生成するパケットのクラスを取得します。
-     * </p>
-     *
-     * @return パケットのクラス
-     */
-    protected Class<? extends P> getPacketClass() {
-        return pclass;
-    }
-
-    /**
-     * <p>
-     * このファクトリクラスで生成するパケットのクラスを設定します。
-     * </p>
-     *
-     * @param c パケットのクラス
-     */
-    protected void setPacketClass(Class<? extends P> c) {
-        pclass = c;
     }
 
     /**
@@ -222,60 +179,5 @@ public class PacketFactory<P extends Packet, H extends Block, K extends Object> 
             ex.printStackTrace();
             return null;
         }
-    }
-
-    /**
-     * <p>
-     * 指定した ID に対応したパケットヘッダを持つ、
-     * パケットを生成します。
-     * </p>
-     *
-     * @param id ヘッダを識別する ID
-     * @param def デフォルトで生成するパケットヘッダのクラス、
-     * 不要な場合は null
-     * @return パケットのインスタンス
-     */
-    public P createPacket(K id, Class<? extends H> def) {
-        Constructor<? extends P> con;
-        H h;
-        P p;
-        String msg;
-
-        try {
-            h = createPacketHeader(id);
-
-            if (h == null) {
-                //ID に該当するヘッダがない
-                if (def != null) {
-                    //パラメータで指定されたデフォルトヘッダを生成する
-                    h = def.newInstance();
-                } else {
-                    //コンストラクタで指定されたデフォルトヘッダを生成する
-                    h = getPacketHeaderClass().newInstance();
-                }
-            }
-
-            con = getPacketClass().getConstructor(getPacketHeaderClass());
-            p = con.newInstance(h);
-
-            return p;
-        } catch (NoSuchMethodException ex) {
-            ex.printStackTrace();
-            msg = "cannot find constructor of packet.";
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-            msg = "cannot create new packet.";
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            msg = "cannot create new packet(illegal access).";
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            msg = "cannot create new packet(illegal argument).";
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-            msg = "cannot create new packet(illegal invoking).";
-        }
-
-        throw new IllegalStateException(msg);
     }
 }

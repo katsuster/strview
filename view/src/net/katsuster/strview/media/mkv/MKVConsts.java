@@ -19,16 +19,16 @@ import net.katsuster.strview.media.*;
  */
 public class MKVConsts {
     //MKV タグのファクトリ
-    public static final PacketFactory<MKVTag, MKVHeader, Integer> mkvFactory =
-            new PacketFactory<>(MKVTag.class, MKVHeader.class);
+    public static final PacketFactory<MKVHeader, Integer> mkvFactory =
+            new PacketFactory<>(MKVHeader.class);
     static {
         mkvFactory.put(TAG_ID.BLOCK, MKVHeaderBlock.class);
         mkvFactory.put(TAG_ID.SIMPLE_BLOCK, MKVHeaderSimpleBlock.class);
     }
 
     //MKV タグのファクトリ（タグが持つデータ型から作成）
-    public static final PacketFactory<MKVTag, MKVHeader, Integer> mkvDataFactory =
-            new PacketFactory<>(MKVTag.class, MKVHeader.class);
+    public static final PacketFactory<MKVHeader, Integer> mkvDataFactory =
+            new PacketFactory<>(MKVHeader.class);
     static {
         mkvDataFactory.put(TAG_TYPE.UINT, MKVHeaderUInt.class);
         mkvDataFactory.put(TAG_TYPE.INT, MKVHeaderSInt.class);
