@@ -108,6 +108,8 @@ public class PSHeaderPESStream extends PSHeaderPES
 
     public UInt marker_bit16;
     public UInt pes_extension_field_length;
+    public UInt stream_id_extension_flag;
+    public UInt stream_id_extension;
 
     public LargeBitList extension_field_data_byte;
 
@@ -197,6 +199,8 @@ public class PSHeaderPESStream extends PSHeaderPES
 
         marker_bit16 = new UInt();
         pes_extension_field_length = new UInt();
+        stream_id_extension_flag = new UInt();
+        stream_id_extension = new UInt();
 
         extension_field_data_byte = new MemoryBitList();
     }
@@ -288,6 +292,8 @@ public class PSHeaderPESStream extends PSHeaderPES
 
         obj.marker_bit16 = marker_bit16.clone();
         obj.pes_extension_field_length = pes_extension_field_length.clone();
+        obj.stream_id_extension_flag = stream_id_extension_flag.clone();
+        obj.stream_id_extension = stream_id_extension.clone();
 
         obj.extension_field_data_byte = extension_field_data_byte;
 
@@ -330,6 +336,7 @@ public class PSHeaderPESStream extends PSHeaderPES
             d.marker_bit2 = c.readUInt( 1, d.marker_bit2);
             d.pts_low     = c.readUInt(15, d.pts_low    );
             d.marker_bit3 = c.readUInt( 1, d.marker_bit3);
+            c.mark("PTS", d.getPTS());
         }
 
         if ((d.pts_dts_flags.intValue() & 1) != 0) {
@@ -340,6 +347,7 @@ public class PSHeaderPESStream extends PSHeaderPES
             d.marker_bit5 = c.readUInt( 1, d.marker_bit5);
             d.dts_low     = c.readUInt(15, d.dts_low    );
             d.marker_bit6 = c.readUInt( 1, d.marker_bit6);
+            c.mark("DTS", d.getDTS());
         }
 
         if (d.escr_flag.intValue() == 1) {
@@ -352,6 +360,7 @@ public class PSHeaderPESStream extends PSHeaderPES
             d.marker_bit12   = c.readUInt( 1, d.marker_bit12  );
             d.escr_extension = c.readUInt( 9, d.escr_extension);
             d.marker_bit13   = c.readUInt( 1, d.marker_bit13  );
+            c.mark("ESCR", d.getESCR());
         }
 
         if (d.es_rate_flag.intValue() == 1) {
@@ -463,14 +472,18 @@ public class PSHeaderPESStream extends PSHeaderPES
         if (d.pes_extension_flag_2.intValue() == 1) {
             d.marker_bit16               = c.readUInt( 1, d.marker_bit16              );
             d.pes_extension_field_length = c.readUInt( 7, d.pes_extension_field_length);
+            d.stream_id_extension_flag   = c.readUInt( 1, d.stream_id_extension_flag  );
 
-            //pes_extension_field
-            int size_ef = d.pes_extension_field_length.intValue();
-            if (size_ef < 0) {
-                throw new IllegalStateException("pes_extension_field has "
-                        + "negative size(size: " + size_ef + ").");
+            if (d.stream_id_extension_flag.intValue() == 0) {
+                d.stream_id_extension = c.readUInt( 7, d.stream_id_extension);
+
+                int size_ef = d.pes_extension_field_length.intValue();
+                if (size_ef < 0) {
+                    throw new IllegalStateException("pes_extension_field has "
+                            + "negative size(size: " + size_ef + ").");
+                }
+                d.extension_field_data_byte = c.readBitList(size_ef << 3, d.extension_field_data_byte);
             }
-            d.extension_field_data_byte = c.readBitList(size_ef << 3, d.extension_field_data_byte);
         }
     }
 
@@ -580,7 +593,7 @@ public class PSHeaderPESStream extends PSHeaderPES
             c.writeUInt(16, d.previous_pes_packet_crc, "previous_PES_packet_CRC");
         }
 
-        //拡張ヘッダを読む
+        //拡張ヘッダを書く
         if (d.pes_extension_flag.intValue() == 1) {
             writeStreamExt(c, d);
         }
@@ -629,9 +642,13 @@ public class PSHeaderPESStream extends PSHeaderPES
         if (d.pes_extension_flag_2.intValue() == 1) {
             c.writeUInt( 1, d.marker_bit16              , "marker_bit16"              );
             c.writeUInt( 7, d.pes_extension_field_length, "PES_extension_field_length");
+            c.writeUInt( 1, d.stream_id_extension_flag  , "stream_id_extension_flag"  );
 
-            c.writeBitList(d.pes_extension_field_length.intValue() << 3,
-                    d.extension_field_data_byte, "extension_field_data_byte");
+            if (d.stream_id_extension_flag.intValue() == 0) {
+                c.writeUInt( 7, d.stream_id_extension, "stream_id_extension");
+                c.writeBitList(d.pes_extension_field_length.intValue() << 3,
+                        d.extension_field_data_byte, "extension_field_data_byte");
+            }
         }
     }
 
