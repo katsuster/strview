@@ -15,6 +15,7 @@ import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
 import net.katsuster.strview.media.m2v.*;
 import net.katsuster.strview.media.mkv.*;
+import net.katsuster.strview.media.ps.*;
 import net.katsuster.strview.media.riff.*;
 import net.katsuster.strview.media.ts.*;
 
@@ -122,6 +123,7 @@ public class FileTransferHandler extends TransferHandler {
 
     enum FILE_TYPE {
         FT_UNKNOWN,
+        FT_MPEG2PS,
         FT_MPEG2TS,
         FT_MATROSKA,
         FT_RIFF,
@@ -141,6 +143,9 @@ public class FileTransferHandler extends TransferHandler {
         LargeList<? extends Packet> list = null;
 
         switch (t) {
+        case FT_MPEG2PS:
+            list = new PSPackList(l);
+            break;
         case FT_MPEG2TS:
             list = new TSPacketList(l);
             break;
@@ -172,6 +177,9 @@ public class FileTransferHandler extends TransferHandler {
     public FILE_TYPE getFileType(File tfile) {
         String ext = getSuffix(tfile.getPath());
 
+        if (ext.equals("ps") || ext.equals("vob")) {
+            return FILE_TYPE.FT_MPEG2PS;
+        }
         if (ext.equals("ts")) {
             return FILE_TYPE.FT_MPEG2TS;
         }

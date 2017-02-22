@@ -1,0 +1,108 @@
+package net.katsuster.strview.media.ps;
+
+import net.katsuster.strview.media.*;
+
+/**
+ * <p>
+ * MPEG2-PS (Program Stream) パック。
+ * </p>
+ *
+ * @author katsuhiro
+ */
+public class PSPack extends PacketAdapter
+        implements Cloneable {
+    //PS パケットのヘッダサイズ（byte 単位）
+    public static final int PACKET_HEADER_SIZE = 6;
+
+    public PSPack() {
+        this(new PSHeader());
+    }
+
+    public PSPack(PSHeader h) {
+        super(h);
+    }
+
+    @Override
+    public PSPack clone()
+            throws CloneNotSupportedException {
+        PSPack obj = (PSPack)super.clone();
+
+        return obj;
+    }
+
+    @Override
+    public String getShortName() {
+        return getHeader().getStreamIdName();
+    }
+
+    /**
+     * <p>
+     * MPEG2-PS パックヘッダを取得します。
+     * </p>
+     *
+     * @return MPEG2-PS パックヘッダ
+     */
+    @Override
+    public PSHeader getHeader() {
+        return (PSHeader)super.getHeader();
+    }
+
+    @Override
+    protected void readHeader(PacketReader<?> c) {
+        getHeader().read(c);
+    }
+
+    @Override
+    protected void readBody(PacketReader<?> c) {
+        long orgpos;
+        long size_f = 0;
+        boolean search = false;
+        int stepback = 0;
+        int acc = 0xffffff;
+
+        if (getHeader() instanceof PSHeaderPES) {
+            PSHeaderPES h = (PSHeaderPES)getHeader();
+
+            if (h.pes_packet_length.intValue() == 0) {
+                search = true;
+            } else {
+                size_f = (h.pes_packet_length.intValue() << 3)
+                        - (getHeaderLength() - (PACKET_HEADER_SIZE << 3));
+                //search = true;
+            }
+        } else {
+            search = true;
+        }
+
+        if (search) {
+            //次のパックヘッダを探す
+            c.alignByte();
+            orgpos = c.position();
+            while (c.hasNext(8)) {
+                acc <<= 8;
+                acc |= c.readLong(8);
+                if ((acc & 0xffffff) == 0x000001) {
+                    stepback = 24;
+                    break;
+                }
+            }
+            size_f = (int) (c.position() - orgpos - stepback);
+            c.position(orgpos);
+        }
+
+        setBody(c.readSubList(size_f, getBody()));
+    }
+
+    @Override
+    protected void writeHeader(PacketWriter<?> c) {
+        getHeader().write(c);
+    }
+
+    @Override
+    protected void writeBody(PacketWriter<?> c) {
+        long size_f = getBody().length();
+
+        //FIXME: tentative
+        c.writeSubList(size_f, getBody(), "body");
+    }
+}
