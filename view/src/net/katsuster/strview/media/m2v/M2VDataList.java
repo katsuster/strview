@@ -1,5 +1,7 @@
 package net.katsuster.strview.media.m2v;
 
+import java.util.*;
+
 import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 import net.katsuster.strview.media.m2v.M2VConsts.*;
@@ -14,6 +16,10 @@ import net.katsuster.strview.media.m2v.M2VConsts.*;
 public class M2VDataList extends AbstractPacketList<M2VData> {
     private LargeBitList buf;
 
+    private NavigableMap<Long, M2VHeaderSequence> cacheSeq;
+    private NavigableMap<Long, M2VHeaderExtSequence> cacheExtSeq;
+    private NavigableMap<Long, M2VHeaderExtSequenceScalable> cacheExtSeqSca;
+
     public M2VDataList() {
         super(LENGTH_UNKNOWN);
     }
@@ -22,6 +28,10 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
         super(LENGTH_UNKNOWN);
 
         buf = l;
+
+        cacheSeq = new TreeMap<>();
+        cacheExtSeq = new TreeMap<>();
+        cacheExtSeqSca = new TreeMap<>();
     }
 
     @Override
@@ -43,6 +53,8 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
         M2VData packet = new M2VData(tagh);
         packet.setRange(pr);
         packet.read(c);
+
+        cachePacket(packet);
 
         return packet;
     }
@@ -67,8 +79,9 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
         M2VHeader tmph = new M2VHeader();
         tmph.peek(c);
 
-        switch (tmph.start_code.intValue()) {
-        case START_CODE.EXTENSION:
+        int sc = tmph.start_code.intValue();
+
+        if (sc == START_CODE.EXTENSION) {
             M2VHeaderExt tmphext = new M2VHeaderExt();
             tmphext.peek(c);
 
@@ -77,8 +90,10 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
             if (tagh == null) {
                 tagh = new M2VHeaderExt();
             }
-            break;
-        default:
+        } else if (START_CODE.SLICE_START <= sc
+                && sc <= START_CODE.SLICE_END) {
+            tagh = createSliceHeader(c, pr);
+        } else {
             tagh = M2VConsts.m2vFactory.createPacketHeader(
                     tmph.start_code.intValue());
         }
@@ -88,5 +103,32 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
         }
 
         return tagh;
+    }
+
+    protected M2VHeader createSliceHeader(PacketReader<?> c, PacketRange pr) {
+        Map.Entry<Long, M2VHeaderSequence> entSeq = cacheSeq.floorEntry(pr.getNumber());
+        Map.Entry<Long, M2VHeaderExtSequence> entExtSeq = cacheExtSeq.floorEntry(pr.getNumber());
+        Map.Entry<Long, M2VHeaderExtSequenceScalable> entExtSeqSca = cacheExtSeqSca.floorEntry(pr.getNumber());
+        if (entSeq == null) {
+            //Cannot read
+            return null;
+        }
+
+        return new M2VHeaderSlice(entSeq, entExtSeq, entExtSeqSca);
+    }
+
+    protected void cachePacket(M2VData packet) {
+        M2VHeader h = packet.getHeader();
+        PacketRange pr = packet.getRange();
+
+        if (h instanceof M2VHeaderSequence) {
+            cacheSeq.put(pr.getNumber(), (M2VHeaderSequence)h);
+        }
+        if (h instanceof M2VHeaderExtSequence) {
+            cacheExtSeq.put(pr.getNumber(), (M2VHeaderExtSequence)h);
+        }
+        if (h instanceof M2VHeaderExtSequenceScalable) {
+            cacheExtSeqSca.put(pr.getNumber(), (M2VHeaderExtSequenceScalable)h);
+        }
     }
 }
