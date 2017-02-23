@@ -34,6 +34,7 @@ public class M2VConsts {
     static {
         m2vExtFactory.put(EXTENSION_START_CODE.SEQUENCE, M2VHeaderExtSequence.class);
         m2vExtFactory.put(EXTENSION_START_CODE.SEQUENCE_DISPLAY, M2VHeaderExtSequenceDisplay.class);
+        m2vExtFactory.put(EXTENSION_START_CODE.SEQUENCE_SCALABLE, M2VHeaderExtSequenceScalable.class);
         m2vExtFactory.put(EXTENSION_START_CODE.PICTURE_CODING, M2VHeaderExtPictureCoding.class);
     }
 
