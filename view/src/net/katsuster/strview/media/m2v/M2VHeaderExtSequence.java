@@ -84,8 +84,8 @@ public class M2VHeaderExtSequence extends M2VHeaderExt
         M2VHeaderExt.read(c, d);
 
         d.profile_and_level_indication = c.readUInt( 8, d.profile_and_level_indication);
-        d.profile = (d.profile_and_level_indication.intValue() >>> 4) & 0x7;
-        d.level   = (d.profile_and_level_indication.intValue() >>> 0) & 0xf;
+        d.profile = getProfileValue(d);
+        d.level   = getLevelValue(d);
 
         d.progressive_sequence         = c.readUInt( 1, d.progressive_sequence        );
         d.chroma_format                = c.readUInt( 2, d.chroma_format               );
@@ -138,12 +138,20 @@ public class M2VHeaderExtSequence extends M2VHeaderExt
         return profile;
     }
 
+    public static int getProfileValue(M2VHeaderExtSequence d) {
+        return (d.profile_and_level_indication.intValue() >>> 4) & 0x7;
+    }
+
     public String getLevelName() {
         return M2VConsts.getLevelName(getLevelValue());
     }
 
     public int getLevelValue() {
         return level;
+    }
+
+    public static int getLevelValue(M2VHeaderExtSequence d) {
+        return (d.profile_and_level_indication.intValue() >>> 0) & 0xf;
     }
 
     public String getChromaFormatName() {
