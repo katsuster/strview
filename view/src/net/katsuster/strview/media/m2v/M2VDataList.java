@@ -74,6 +74,9 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
 
             tagh = M2VConsts.m2vExtFactory.createPacketHeader(
                     tmphext.extension_start_code_identifier.intValue());
+            if (tagh == null) {
+                tagh = new M2VHeaderExt();
+            }
             break;
         default:
             tagh = M2VConsts.m2vFactory.createPacketHeader(

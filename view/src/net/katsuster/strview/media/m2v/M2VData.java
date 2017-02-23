@@ -31,7 +31,7 @@ public class M2VData extends PacketAdapter
     public String getShortName() {
         if (getHeader() instanceof M2VHeaderExt) {
             M2VHeaderExt h = (M2VHeaderExt)getHeader();
-            return "extension (" + h.getExtensionStartCodeName() + ")";
+            return getHeader().getStartCodeName() + " (" + h.getExtensionStartCodeName() + ")";
         } else {
             return getHeader().getStartCodeName();
         }
