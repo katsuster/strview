@@ -39,8 +39,6 @@ public class PSHeaderSystem extends PSHeader {
     public List<SystemESInfo> es_info;
 
     public PSHeaderSystem() {
-        super();
-
         header_length = new UInt();
         marker_bit1 = new UInt();
         rate_bound = new UInt();

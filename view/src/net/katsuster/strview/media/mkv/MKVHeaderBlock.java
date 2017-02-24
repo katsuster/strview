@@ -30,8 +30,6 @@ public class MKVHeaderBlock extends MKVHeader {
     private ArrayList<Long> lacing_sizes;
 
     public MKVHeaderBlock() {
-        super();
-
         track_number = new EBMLvalue();
         timecode = new UInt();
         reserved1 = new UInt();

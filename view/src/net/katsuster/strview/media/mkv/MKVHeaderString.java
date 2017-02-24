@@ -17,8 +17,6 @@ public class MKVHeaderString extends MKVHeader {
     public MemoryBitList string_bits;
 
     public MKVHeaderString() {
-        super();
-
         string_bits = new MemoryBitList();
     }
 

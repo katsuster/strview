@@ -118,8 +118,6 @@ public abstract class AbstractPacket extends AbstractBlock
      * @param h パケットヘッダ
      */
     public AbstractPacket(PacketRange pr, Block h) {
-        super();
-
         setRange(pr);
         head = h;
         foot = new BlockAdapter();

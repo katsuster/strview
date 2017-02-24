@@ -51,8 +51,6 @@ public class EBMLvalue extends EBMLvint
     public UInt vint_val;
 
     public EBMLvalue() {
-        super();
-
         vint_head = new UInt();
         vint_val = new UInt();
     }

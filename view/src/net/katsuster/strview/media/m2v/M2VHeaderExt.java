@@ -24,8 +24,6 @@ public class M2VHeaderExt extends M2VHeader
     public UInt extension_start_code_identifier;
 
     public M2VHeaderExt() {
-        super();
-
         extension_start_code_identifier = new UInt();
     }
 

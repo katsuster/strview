@@ -24,7 +24,7 @@ public class PacketAdapter extends AbstractPacket {
      * </p>
      */
     public PacketAdapter() {
-        super();
+        //Do nothing
     }
 
     /**

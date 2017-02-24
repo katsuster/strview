@@ -42,8 +42,6 @@ public class M2VHeaderExtPictureCoding extends M2VHeaderExt
     public UInt sub_carrier_phase;
 
     public M2VHeaderExtPictureCoding() {
-        super();
-
         f_code = new UInt[2][2];
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {

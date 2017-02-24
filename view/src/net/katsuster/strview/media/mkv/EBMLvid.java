@@ -38,8 +38,6 @@ public class EBMLvid extends EBMLvint
     public UInt vint_tag;
 
     public EBMLvid() {
-        super();
-
         vint_tag = new UInt();
     }
 

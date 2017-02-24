@@ -33,8 +33,6 @@ public class TSHeader extends BlockAdapter
     public TSHeaderAdaptation adapt;
 
     public TSHeader() {
-        super();
-
         sync_byte = new UInt();
         transport_error_indicator = new UInt();
         payload_unit_start_indicator = new UInt();

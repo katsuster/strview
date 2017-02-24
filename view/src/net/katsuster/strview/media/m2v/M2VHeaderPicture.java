@@ -24,34 +24,24 @@ public class M2VHeaderPicture extends M2VHeader
     public UInt temporal_reference;
     public UInt picture_coding_type;
     public UInt vbv_delay;
-
     public UInt full_pel_forward_vector;
     public UInt forward_f_code;
-
     public UInt full_pel_backward_vector;
     public UInt backward_f_code;
-
     public UInt extra_bit_picture_1;
     public UInt extra_information_picture;
-
     public UInt extra_bit_picture_0;
 
     public M2VHeaderPicture() {
-        super();
-
         temporal_reference = new UInt();
         picture_coding_type = new UInt();
         vbv_delay = new UInt();
-
         full_pel_forward_vector = new UInt();
         forward_f_code = new UInt();
-
         full_pel_backward_vector = new UInt();
         backward_f_code = new UInt();
-
         extra_bit_picture_1 = new UInt();
         extra_information_picture = new UInt();
-
         extra_bit_picture_0 = new UInt();
     }
 
@@ -63,16 +53,12 @@ public class M2VHeaderPicture extends M2VHeader
         obj.temporal_reference = temporal_reference.clone();
         obj.picture_coding_type = picture_coding_type.clone();
         obj.vbv_delay = vbv_delay.clone();
-
         obj.full_pel_forward_vector = full_pel_forward_vector.clone();
         obj.forward_f_code = forward_f_code.clone();
-
         obj.full_pel_backward_vector = full_pel_backward_vector.clone();
         obj.backward_f_code = backward_f_code.clone();
-
         obj.extra_bit_picture_1 = extra_bit_picture_1.clone();
         obj.extra_information_picture = extra_information_picture.clone();
-
         obj.extra_bit_picture_0 = extra_bit_picture_0.clone();
 
         return obj;

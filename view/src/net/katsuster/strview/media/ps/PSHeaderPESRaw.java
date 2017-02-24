@@ -21,7 +21,7 @@ import net.katsuster.strview.media.*;
 public class PSHeaderPESRaw extends PSHeaderPES
         implements Cloneable {
     public PSHeaderPESRaw() {
-        super();
+        //Do nothing
     }
 
     @Override

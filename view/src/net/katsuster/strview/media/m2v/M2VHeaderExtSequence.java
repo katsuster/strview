@@ -37,8 +37,6 @@ public class M2VHeaderExtSequence extends M2VHeaderExt
     private int level;
 
     public M2VHeaderExtSequence() {
-        super();
-
         profile_and_level_indication = new UInt();
         progressive_sequence = new UInt();
         chroma_format = new UInt();

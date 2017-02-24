@@ -39,8 +39,6 @@ public class PSHeaderPack extends PSHeader
     public LargeBitList stuffing_byte;
 
     public PSHeaderPack() {
-        super();
-
         reserved1 = new UInt();
         system_clock_reference_base_high = new UInt();
         marker_bit1 = new UInt();

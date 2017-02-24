@@ -21,8 +21,6 @@ public class BinaryViewerWindow extends JFrame {
     private BinaryViewer binaryViewer;
 
     public BinaryViewerWindow(File f) {
-        super();
-
         //表示するファイルを保持する
         file = f;
 

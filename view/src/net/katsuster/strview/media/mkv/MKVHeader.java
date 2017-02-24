@@ -22,7 +22,7 @@ public class MKVHeader extends EBMLHeader {
     protected MKVTagSpec tag_spec;
 
     public MKVHeader() {
-        super();
+        //Do nothing
     }
 
     @Override

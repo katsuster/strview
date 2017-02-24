@@ -43,8 +43,6 @@ public class PacketTreeViewerWindow extends JFrame {
     private JTextArea memberTextViewer;
 
     public PacketTreeViewerWindow(File f, LargeList<? extends Packet> l) {
-        super();
-
         //表示するファイルを保持する
         file = f;
         list_packet = l;

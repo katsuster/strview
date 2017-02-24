@@ -15,8 +15,6 @@ public class MKVHeaderFloat extends MKVHeader {
     public Float64 double_bits;
 
     public MKVHeaderFloat() {
-        super();
-
         float_bits = new Float32();
         double_bits = new Float64();
     }

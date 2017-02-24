@@ -70,8 +70,6 @@ public class TSHeaderAdaptation extends BlockAdapter
     public LargeBitList stuffing_byte;
 
     public TSHeaderAdaptation() {
-        super();
-
         adaptation_field_length = new UInt();
 
         discontinuity_indicator = new UInt();

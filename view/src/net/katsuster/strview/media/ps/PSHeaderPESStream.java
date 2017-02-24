@@ -22,7 +22,6 @@ import net.katsuster.strview.media.*;
  */
 public class PSHeaderPESStream extends PSHeaderPES
         implements Cloneable {
-
     //pes_stream
 
     public UInt const_bit; //must be '0b10'
@@ -114,8 +113,6 @@ public class PSHeaderPESStream extends PSHeaderPES
     public LargeBitList extension_field_data_byte;
 
     public PSHeaderPESStream() {
-        super();
-
         //pes_stream
         const_bit = new UInt();
         pes_scrambling_control = new UInt();

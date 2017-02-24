@@ -27,8 +27,6 @@ public class RIFFHeaderFmt extends RIFFHeader
     public UInt wBitsPerSample;
 
     public RIFFHeaderFmt() {
-        super();
-
         wFormatTag = new UInt();
         nChannels = new UInt();
         nSamplesPerSec = new UInt();

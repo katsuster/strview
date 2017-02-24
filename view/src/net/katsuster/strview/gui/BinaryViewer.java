@@ -517,7 +517,7 @@ public class BinaryViewer extends JPanel {
         private static final long serialVersionUID = 1L;
 
         public BinaryViewerInner() {
-            super();
+            //Do nothing
         }
 
         protected void drawAll(Graphics2D g, long addr) {

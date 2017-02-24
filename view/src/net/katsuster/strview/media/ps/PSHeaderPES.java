@@ -24,8 +24,6 @@ public class PSHeaderPES extends PSHeader
     public UInt pes_packet_length;
 
     public PSHeaderPES() {
-        super();
-
         pes_packet_length = new UInt();
     }
 

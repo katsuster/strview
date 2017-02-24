@@ -26,8 +26,6 @@ public class FileDropWindow extends JFrame {
     private javax.swing.Timer timHeapWatcher;
 
     public FileDropWindow() {
-        super();
-
         setResizable(true);
         setLayout(new FlowLayout(FlowLayout.LEFT));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

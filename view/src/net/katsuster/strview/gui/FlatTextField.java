@@ -199,8 +199,6 @@ public class FlatTextField extends JPanel {
         private int strokeSize = 1;
 
         public FlatClearButton(Action act) {
-            super();
-
             addMouseListener(new ClickListener(this, act));
             addMouseMotionListener(new CursorChanger(this));
             setEllipseSize(14);

@@ -40,8 +40,6 @@ public class RIFFHeaderStrh extends RIFFHeader
     public SInt bottom;
 
     public RIFFHeaderStrh() {
-        super();
-
         fccType = new UInt();
         fccHandler = new UInt();
         dwFlags = new UInt();

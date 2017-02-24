@@ -14,8 +14,6 @@ public class MKVHeaderUInt extends MKVHeader {
     public UInt uint_val;
 
     public MKVHeaderUInt() {
-        super();
-
         uint_val = new UInt();
     }
 

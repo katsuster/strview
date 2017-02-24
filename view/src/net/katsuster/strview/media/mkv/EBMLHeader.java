@@ -14,8 +14,6 @@ public class EBMLHeader extends BlockAdapter {
     public EBMLvalue tag_len;
 
     public EBMLHeader() {
-        super();
-
         tag_id = new EBMLvid();
         tag_len = new EBMLvalue();
     }

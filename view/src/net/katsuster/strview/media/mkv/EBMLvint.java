@@ -19,7 +19,7 @@ public abstract class EBMLvint extends BlockAdapter
     private int size_content;
 
     public EBMLvint() {
-        super();
+        //Do nothing
     }
 
     @Override

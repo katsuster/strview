@@ -34,8 +34,6 @@ public class M2VHeaderExtQuantMatrix extends M2VHeaderExt
     public LargeBitList chroma_non_intra_quantiser_matrix;
 
     public M2VHeaderExtQuantMatrix() {
-        super();
-
         load_intra_quantiser_matrix = new UInt();
         intra_quantiser_matrix = new MemoryBitList();
         load_non_intra_quantiser_matrix = new UInt();

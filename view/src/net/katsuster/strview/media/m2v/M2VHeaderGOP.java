@@ -31,8 +31,6 @@ public class M2VHeaderGOP extends M2VHeader
     public UInt broken_link;
 
     public M2VHeaderGOP() {
-        super();
-
         drop_frame = new UInt();
         time_code_hours = new UInt();
         time_code_minutes = new UInt();

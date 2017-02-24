@@ -70,8 +70,6 @@ public class EBMLlacing extends EBMLvint
     private long lacing_val;
 
     public EBMLlacing() {
-        super();
-
         vint_head = new UInt();
         vint_val = new UInt();
     }

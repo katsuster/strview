@@ -25,8 +25,6 @@ public class PSHeader extends BlockAdapter
     public UInt stream_id;
 
     public PSHeader() {
-        super();
-
         packet_start_code_prefix = new UInt();
         stream_id = new UInt();
     }

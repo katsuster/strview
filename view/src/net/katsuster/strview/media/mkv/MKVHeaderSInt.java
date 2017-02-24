@@ -14,8 +14,6 @@ public class MKVHeaderSInt extends MKVHeader {
     public SInt sint_val;
 
     public MKVHeaderSInt() {
-        super();
-
         sint_val = new SInt();
     }
 

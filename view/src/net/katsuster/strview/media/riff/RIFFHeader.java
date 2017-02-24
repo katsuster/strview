@@ -23,8 +23,6 @@ public class RIFFHeader extends BlockAdapter {
     public UInt ckSize;
 
     public RIFFHeader() {
-        super();
-
         ckID = new UInt();
         ckSize = new UInt();
     }

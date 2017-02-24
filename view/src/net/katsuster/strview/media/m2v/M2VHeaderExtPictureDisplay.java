@@ -36,8 +36,6 @@ public class M2VHeaderExtPictureDisplay extends M2VHeaderExt
 
     public M2VHeaderExtPictureDisplay(Map.Entry<Long, M2VHeaderExtSequence> es,
                                       Map.Entry<Long, M2VHeaderExtPictureCoding> epc) {
-        super();
-
         frame_centre_horizontal_offset = new SInt[4];
         marker_bit0 = new UInt[4];
         frame_centre_vertical_offset = new SInt[4];

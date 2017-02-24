@@ -37,8 +37,6 @@ public class RIFFHeaderAvih extends RIFFHeader
     public UInt dwReserved3;
 
     public RIFFHeaderAvih() {
-        super();
-
         dwMicroSecPerFrame = new UInt();
         dwMaxBytesPerSec = new UInt();
         dwPaddingGranularity = new UInt();

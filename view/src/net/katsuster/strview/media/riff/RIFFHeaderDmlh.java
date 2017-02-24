@@ -24,8 +24,6 @@ public class RIFFHeaderDmlh extends RIFFHeader
     public UInt dwTotalFrames;
 
     public RIFFHeaderDmlh() {
-        super();
-
         dwTotalFrames = new UInt();
     }
 

@@ -23,8 +23,6 @@ public class RIFFHeaderList extends RIFFHeader
     public UInt listType;
 
     public RIFFHeaderList() {
-        super();
-
         listType = new UInt();
     }
 

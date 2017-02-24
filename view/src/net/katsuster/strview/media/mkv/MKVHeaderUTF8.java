@@ -17,8 +17,6 @@ public class MKVHeaderUTF8 extends MKVHeader {
     public MemoryBitList utf8_bits;
 
     public MKVHeaderUTF8() {
-        super();
-
         utf8_bits = new MemoryBitList();
     }
 

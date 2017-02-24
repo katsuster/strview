@@ -27,8 +27,6 @@ public class SystemESInfo extends BlockAdapter
     public UInt p_std_buffer_size_bound;
 
     public SystemESInfo() {
-        super();
-
         stream_id = new UInt();
         reserved1 = new UInt();
         p_std_buffer_bound_scale = new UInt();

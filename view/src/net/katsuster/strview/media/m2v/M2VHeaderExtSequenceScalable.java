@@ -37,8 +37,6 @@ public class M2VHeaderExtSequenceScalable extends M2VHeaderExt
     public UInt picture_mux_factor;
 
     public M2VHeaderExtSequenceScalable() {
-        super();
-
         scalable_mode = new UInt();
         layer_id = new UInt();
         lower_layer_prediction_horizontal_size = new UInt();

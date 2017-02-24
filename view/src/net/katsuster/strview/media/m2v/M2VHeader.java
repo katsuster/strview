@@ -24,8 +24,6 @@ public class M2VHeader extends BlockAdapter
     public UInt start_code;
 
     public M2VHeader() {
-        super();
-
         start_code = new UInt();
     }
 

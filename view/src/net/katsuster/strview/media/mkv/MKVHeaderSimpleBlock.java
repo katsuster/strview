@@ -31,8 +31,6 @@ public class MKVHeaderSimpleBlock extends MKVHeader {
     private ArrayList<Long> lacing_sizes;
 
     public MKVHeaderSimpleBlock() {
-        super();
-
         track_number = new EBMLvalue();
         timecode = new UInt();
         keyframe = new UInt();

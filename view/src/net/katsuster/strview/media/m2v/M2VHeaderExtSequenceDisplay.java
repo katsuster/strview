@@ -33,8 +33,6 @@ public class M2VHeaderExtSequenceDisplay extends M2VHeaderExt
     public UInt display_vertical_size;
 
     public M2VHeaderExtSequenceDisplay() {
-        super();
-
         video_format = new UInt();
         colour_description = new UInt();
 
