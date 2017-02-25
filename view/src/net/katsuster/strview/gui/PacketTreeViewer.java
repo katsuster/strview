@@ -42,6 +42,7 @@ public class PacketTreeViewer extends JPanel {
         root = new DefaultMutableTreeNode();
         root.setUserObject("root");
         viewer = new JTree(root);
+        viewer.setRootVisible(false);
 
         add(viewer, BorderLayout.CENTER);
 
@@ -146,7 +147,6 @@ public class PacketTreeViewer extends JPanel {
     public void update() {
         //選択を解除する
         viewer.clearSelection();
-        root.setUserObject("root");
         root.removeAllChildren();
 
         for (long i = 0; i < getMax(); ) {
