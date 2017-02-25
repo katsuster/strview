@@ -7,7 +7,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import net.katsuster.strview.test.util.*;
 import net.katsuster.strview.test.io.*;
-import net.katsuster.strview.test.media.*;
 
 /**
  * ユニットテストクラス。
@@ -25,7 +24,6 @@ import net.katsuster.strview.test.media.*;
         SlowMemoryBitListTest.class,
         MemoryBitListTest.class,
         ByteToBitListTest.class,
-        BitBufferTest.class,
 })
 public class AllTest {
     protected AllTest() {
