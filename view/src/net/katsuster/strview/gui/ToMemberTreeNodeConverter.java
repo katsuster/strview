@@ -17,7 +17,7 @@ public class ToMemberTreeNodeConverter extends PacketWriterAdapter<MemberTreeNod
     private MemberTreeNode root;
 
     public ToMemberTreeNodeConverter() {
-        this(new MemberTreeNode("root"));
+        this(new MemberTreeNode());
     }
 
     public ToMemberTreeNodeConverter(MemberTreeNode n) {

@@ -109,6 +109,17 @@ public class MemberTreeNode extends DefaultMutableTreeNode {
 
     /**
      * <p>
+     * ノードの名前を設定します。
+     * </p>
+     *
+     * @param n ノードの名前
+     */
+    public void setName(String n) {
+        nodename = n;
+    }
+
+    /**
+     * <p>
      * ノードの値（文字列）を保持しているか否かを返します。
      * </p>
      *

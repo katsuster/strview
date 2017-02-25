@@ -31,7 +31,7 @@ public class PacketTreeViewerWindow extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private File file;
-    private LargeList<? extends Packet> list_packet;
+    private LargePacketList<?> list_packet;
 
     private BinaryViewer binaryViewer;
     private PacketTreeViewer packetTreeViewer;
@@ -42,7 +42,7 @@ public class PacketTreeViewerWindow extends JFrame {
     private MemberTreeSelListener memberTreeListener;
     private JTextArea memberTextViewer;
 
-    public PacketTreeViewerWindow(File f, LargeList<? extends Packet> l) {
+    public PacketTreeViewerWindow(File f, LargePacketList<?> l) {
         //表示するファイルを保持する
         file = f;
         list_packet = l;
@@ -205,7 +205,7 @@ public class PacketTreeViewerWindow extends JFrame {
         return file;
     }
 
-    public LargeList<? extends Packet> getPacketList() {
+    public LargePacketList<?> getPacketList() {
         return list_packet;
     }
 
@@ -338,7 +338,9 @@ public class PacketTreeViewerWindow extends JFrame {
             //ノードのツリー表現を表示する
             PacketWriter<MemberTreeNode> c = new ToMemberTreeNodeConverter();
             p.write(c);
-            memberTreeViewer.setRootTreeNode(c.getResult());
+            MemberTreeNode root = c.getResult();
+            root.setName(getPacketList().getShortName());
+            memberTreeViewer.setRootTreeNode(root);
             for (int row = 0; row < memberTreeViewer.getViewer().getRowCount(); row++) {
                 memberTreeViewer.getViewer().expandRow(row);
             }

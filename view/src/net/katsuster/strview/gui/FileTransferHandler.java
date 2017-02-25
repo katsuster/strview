@@ -98,7 +98,7 @@ public class FileTransferHandler extends TransferHandler {
 
         try {
             LargeBitList blist = new ByteToBitList(new FileByteList(tfile.getAbsolutePath()));
-            LargeList<? extends Packet> list = getPacketList(getFileType(tfile), blist);
+            LargePacketList<?> list = getPacketList(getFileType(tfile), blist);
             JFrame w;
 
             if (list != null) {
@@ -139,8 +139,8 @@ public class FileTransferHandler extends TransferHandler {
      * @param l パケットリストの元データとなるビットリスト
      * @return パケットリスト
      */
-    public LargeList<? extends Packet> getPacketList(FILE_TYPE t, LargeBitList l) {
-        LargeList<? extends Packet> list = null;
+    public LargePacketList<?> getPacketList(FILE_TYPE t, LargeBitList l) {
+        LargePacketList<?> list = null;
 
         switch (t) {
         case FT_MPEG2PS:

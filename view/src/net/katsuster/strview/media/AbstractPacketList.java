@@ -11,7 +11,8 @@ import net.katsuster.strview.util.*;
  *
  * @author katsuhiro
  */
-public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
+public abstract class AbstractPacketList<T extends Packet> extends AbstractLargeList<T>
+        implements LargePacketList<T> {
     //木構造を管理するためのスタック
     private Deque<PacketRange> stack_packet;
     //インデックスキャッシュ
@@ -26,6 +27,11 @@ public abstract class AbstractPacketList<T> extends AbstractLargeList<T> {
 
         stack_packet = new ArrayDeque<>();
         cache_packet = new TreeMap<>();
+    }
+
+    @Override
+    public String getShortName() {
+        return getClass().getName();
     }
 
     /**
