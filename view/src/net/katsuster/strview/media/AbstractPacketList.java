@@ -29,6 +29,18 @@ public abstract class AbstractPacketList<T extends Packet> extends AbstractLarge
         cache_packet = new TreeMap<>();
     }
 
+    /**
+     * <p>
+     * パケットリストの短い名前を取得します。
+     * </p>
+     *
+     * <p>
+     * クラス名 Class.getCanonicalName() を返すか、
+     * より適切な名前を返すことが推奨されます。
+     * </p>
+     *
+     * @return パケットの短い名前
+     */
     @Override
     public String getShortName() {
         return getClass().getName();
@@ -46,6 +58,7 @@ public abstract class AbstractPacketList<T extends Packet> extends AbstractLarge
      *
      * @return パケットが木構造を持つなら true、持たないなら false
      */
+    @Override
     public boolean hasTreeStructure() {
         return true;
     }

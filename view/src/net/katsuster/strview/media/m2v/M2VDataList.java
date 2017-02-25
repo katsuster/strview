@@ -37,6 +37,11 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
     }
 
     @Override
+    public String getShortName() {
+        return "MPEG2 Video";
+    }
+
+    @Override
     public boolean hasTreeStructure() {
         return false;
     }

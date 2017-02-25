@@ -24,6 +24,11 @@ public class RIFFChunkList extends AbstractPacketList<RIFFChunk> {
     }
 
     @Override
+    public String getShortName() {
+        return "RIFF (Resource Interchange File Format)";
+    }
+
+    @Override
     public void count() {
         FromBitListConverter c = new FromBitListConverter(buf);
 

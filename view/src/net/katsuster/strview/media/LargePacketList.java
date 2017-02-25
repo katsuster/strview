@@ -15,12 +15,16 @@ public interface LargePacketList<T extends Packet> extends LargeList<T> {
      * パケットリストの短い名前を取得します。
      * </p>
      *
-     * <p>
-     * クラス名 Class.getCanonicalName() を返すか、
-     * より適切な名前を返すことが推奨されます。
-     * </p>
-     *
      * @return パケットの短い名前
      */
     public String getShortName();
+
+    /**
+     * <p>
+     * パケットが木構造を持つかどうかを返します。
+     * </p>
+     *
+     * @return パケットが木構造を持つなら true、持たないなら false
+     */
+    public boolean hasTreeStructure();
 }

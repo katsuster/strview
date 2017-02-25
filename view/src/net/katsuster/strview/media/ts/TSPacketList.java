@@ -24,6 +24,11 @@ public class TSPacketList extends AbstractPacketList<TSPacket> {
     }
 
     @Override
+    public String getShortName() {
+        return "MPEG2 TS (Transport Stream)";
+    }
+
+    @Override
     public boolean hasTreeStructure() {
         return false;
     }

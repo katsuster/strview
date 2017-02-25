@@ -25,6 +25,11 @@ public class PSPackList extends AbstractPacketList<PSPack> {
     }
 
     @Override
+    public String getShortName() {
+        return "MPEG2 PS (Program Stream)";
+    }
+
+    @Override
     public boolean hasTreeStructure() {
         return false;
     }
