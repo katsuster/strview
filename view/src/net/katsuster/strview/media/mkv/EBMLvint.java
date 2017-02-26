@@ -218,29 +218,9 @@ public abstract class EBMLvint extends BlockAdapter
                     "EBMLvint is not supported over 56bits value.");
         }
 
-        if (f < ((1L << 7) - 1)) {
-            return 0;
-        }
-        if (f < ((1L << 14) - 1)) {
-            return 1;
-        }
-        if (f < ((1L << 21) - 1)) {
-            return 2;
-        }
-        if (f < ((1L << 28) - 1)) {
-            return 3;
-        }
-        if (f < ((1L << 35) - 1)) {
-            return 4;
-        }
-        if (f < ((1L << 42) - 1)) {
-            return 5;
-        }
-        if (f < ((1L << 49) - 1)) {
-            return 6;
-        }
-        if (f < ((1L << 56) - 1)) {
-            return 7;
+        int i = (64 - Long.numberOfLeadingZeros(f + 1) - 1) / 7;
+        if (i < 8) {
+            return i;
         }
 
         //over 56bit... not support
