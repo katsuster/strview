@@ -102,7 +102,15 @@ public class PSConsts {
         case STREAM_ID.FLEXMUX:
             name = "ISO 14496-1 FlexMux_stream";
             break;
-
+        case STREAM_ID.METADATA:
+            name = "metadata stream";
+            break;
+        case STREAM_ID.EXTENDED:
+            name = "extended_stream_id";
+            break;
+        case STREAM_ID.ISO_13818_RES1:
+            name = "reserved data stream";
+            break;
         case STREAM_ID.PROGRAM_STREAM_DIR:
             name = "program_stream_directory";
             break;
@@ -119,9 +127,6 @@ public class PSConsts {
                 && id <= STREAM_ID.VIDEO_END) {
             name = "H.262 or "
                     + "ISO 13818-2, 11172-2, 13818-7, 14496-2 video";
-        } else if (STREAM_ID.ISO_13818_RES1_START <= id
-                && id <= STREAM_ID.ISO_13818_RES1_END) {
-            name = "reserved data stream";
         }
 
         return name;
@@ -178,11 +183,12 @@ public class PSConsts {
         public static final int SL = 0xfa; //1111 1010
         //[ISO 13818-1] ISO 14496-1 FlexMux_stream
         public static final int FLEXMUX = 0xfb; //1111 1011
-
+        //[ISO 13818-1] metadata stream
+        public static final int METADATA = 0xfc; //1111 1100
+        //[ISO 13818-1] extended_stream_id
+        public static final int EXTENDED = 0xfd; //1111 1101
         //[ISO 13818-1] reserved data stream
-        public static final int ISO_13818_RES1_START = 0xfc; //1111 1100
-        //[ISO 13818-1] reserved data stream
-        public static final int ISO_13818_RES1_END   = 0xfe; //1111 1110
+        public static final int ISO_13818_RES1 = 0xfe; //1111 1110
 
         //[ISO 13818-1] program_stream_directory
         public static final int PROGRAM_STREAM_DIR = 0xff; //1111 1111
