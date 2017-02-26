@@ -26,7 +26,7 @@ public class PSPackList extends AbstractPacketList<PSPack> {
 
     @Override
     public String getShortName() {
-        return "MPEG2 PS (Program Stream)";
+        return "MPEG1 System / MPEG2 PS (Program Stream)";
     }
 
     @Override

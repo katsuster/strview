@@ -22,7 +22,7 @@ import net.katsuster.strview.media.*;
  */
 public class PSHeaderPack extends PSHeader
         implements Cloneable {
-    public UInt reserved1; //must be '01'
+    public UInt reserved1; //must be '0010 (MPEG1)' or '01 (MPEG2)'
     public UInt system_clock_reference_base_high;
     public UInt marker_bit1;
     public UInt system_clock_reference_base_mid;
@@ -93,6 +93,33 @@ public class PSHeaderPack extends PSHeader
 
         PSHeader.read(c, d);
 
+        if (c.peekLong(2) == 0) {
+            readMPEG1(c, d);
+        } else {
+            readMPEG2(c, d);
+        }
+
+        c.leaveBlock();
+    }
+
+    public static void readMPEG1(PacketReader<?> c,
+                                 PSHeaderPack d) {
+        d.reserved1                        = c.readUInt( 4, d.reserved1                       );
+        d.system_clock_reference_base_high = c.readUInt( 3, d.system_clock_reference_base_high);
+        d.marker_bit1                      = c.readUInt( 1, d.marker_bit1                     );
+        d.system_clock_reference_base_mid  = c.readUInt(15, d.system_clock_reference_base_mid );
+        d.marker_bit2                      = c.readUInt( 1, d.marker_bit2                     );
+        d.system_clock_reference_base_low  = c.readUInt(15, d.system_clock_reference_base_low );
+        d.marker_bit3                      = c.readUInt( 1, d.marker_bit3                     );
+        d.marker_bit4                      = c.readUInt( 1, d.marker_bit4                     );
+        d.program_mux_rate                 = c.readUInt(22, d.program_mux_rate                );
+        d.marker_bit5                      = c.readUInt( 1, d.marker_bit5                     );
+    }
+
+    public static void readMPEG2(PacketReader<?> c,
+                                 PSHeaderPack d) {
+        int size_st;
+
         d.reserved1                        = c.readUInt( 2, d.reserved1                       );
         d.system_clock_reference_base_high = c.readUInt( 3, d.system_clock_reference_base_high);
         d.marker_bit1                      = c.readUInt( 1, d.marker_bit1                     );
@@ -115,8 +142,6 @@ public class PSHeaderPack extends PSHeader
                     + "(size: " + size_st + ")");
         }
         d.stuffing_byte = c.readBitList(size_st, d.stuffing_byte);
-
-        c.leaveBlock();
     }
 
     @Override
@@ -130,6 +155,32 @@ public class PSHeaderPack extends PSHeader
 
         PSHeader.write(c, d);
 
+        if (d.reserved1.intValue() == 2) {
+            writeMPEG1(c, d);
+        } else {
+            writeMPEG2(c, d);
+        }
+
+        c.leaveBlock();
+    }
+
+    public static void writeMPEG1(PacketWriter<?> c,
+                                  PSHeaderPack d) {
+        c.writeUInt( 4, d.reserved1                       , "reserved1"                       );
+        c.writeUInt( 3, d.system_clock_reference_base_high, "system_clock_reference_base_high");
+        c.writeUInt( 1, d.marker_bit1                     , "marker_bit1"                     );
+        c.writeUInt(15, d.system_clock_reference_base_mid , "system_clock_reference_base_mid" );
+        c.writeUInt( 1, d.marker_bit2                     , "marker_bit2"                     );
+        c.writeUInt(15, d.system_clock_reference_base_low , "system_clock_reference_base_low" );
+        c.writeUInt( 1, d.marker_bit3                     , "marker_bit3"                     );
+        c.mark("scr", d.getSCRBase());
+        c.writeUInt( 1, d.marker_bit4                     , "marker_bit4"                     );
+        c.writeUInt(22, d.program_mux_rate                , "program_mux_rate"                );
+        c.writeUInt( 1, d.marker_bit5                     , "marker_bit5"                     );
+    }
+
+    public static void writeMPEG2(PacketWriter<?> c,
+                                  PSHeaderPack d) {
         c.writeUInt( 2, d.reserved1                       , "reserved1"                       );
         c.writeUInt( 3, d.system_clock_reference_base_high, "system_clock_reference_base_high");
         c.writeUInt( 1, d.marker_bit1                     , "marker_bit1"                     );
@@ -148,8 +199,6 @@ public class PSHeaderPack extends PSHeader
 
         //残りを埋める
         c.writeBitList(d.pack_stuffing_length.intValue() << 3, d.stuffing_byte, "stuffing_byte");
-
-        c.leaveBlock();
     }
 
     public long getSCRBase() {

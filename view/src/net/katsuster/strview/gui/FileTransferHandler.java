@@ -177,7 +177,7 @@ public class FileTransferHandler extends TransferHandler {
     public FILE_TYPE getFileType(File tfile) {
         String ext = getSuffix(tfile.getPath());
 
-        if (ext.equals("ps") || ext.equals("vob")) {
+        if (ext.equals("mpg") || ext.equals("ps") || ext.equals("vob")) {
             return FILE_TYPE.FT_MPEG2PS;
         }
         if (ext.equals("ts")) {

@@ -308,8 +308,66 @@ public class PSHeaderPESStream extends PSHeaderPES
 
         PSHeaderPES.read(c, d);
 
-        long pos_byte = (c.position() >>> 3);
+        //00, 01, 11: MPEG1, 10: MPEG2
+        d.const_bit = c.peekUInt( 2, d.const_bit);
+        if (d.const_bit.intValue() != 2) {
+            readMPEG1(c, d);
+        } else {
+            readMPEG2(c, d);
+        }
 
+        c.leaveBlock();
+    }
+
+    public static void readMPEG1(PacketReader<?> c,
+                                 PSHeaderPESStream d) {
+        long orgpos = c.position();
+        while (c.readLong(8) == 0xff) {
+            //Do nothing
+        }
+        int size_st = (int)(c.position() - orgpos - 8);
+        c.position(orgpos);
+        d.stuffing_byte = c.readBitList(size_st << 3, d.stuffing_byte);
+
+        if (d.const_bit.intValue() == 1) {
+            d.const_bit          = c.readUInt( 2, d.const_bit         );
+            d.p_std_buffer_scale = c.readUInt( 1, d.p_std_buffer_scale);
+            d.p_std_buffer_size  = c.readUInt(13, d.p_std_buffer_size );
+        }
+
+        //else   : 0b0000
+        //Unknwon: 0b0001
+        //PTS    : 0b0010
+        //PTS+DTS: 0b0011
+        d.const_bit2  = c.readUInt( 4, d.const_bit2 );
+        if ((d.const_bit2.intValue() & 2) == 2) {
+            d.pts_high    = c.readUInt( 3, d.pts_high   );
+            d.marker_bit1 = c.readUInt( 1, d.marker_bit1);
+            d.pts_mid     = c.readUInt(15, d.pts_mid    );
+            d.marker_bit2 = c.readUInt( 1, d.marker_bit2);
+            d.pts_low     = c.readUInt(15, d.pts_low    );
+            d.marker_bit3 = c.readUInt( 1, d.marker_bit3);
+            c.mark("PTS", d.getPTS());
+        }
+
+        if ((d.const_bit2.intValue() & 3) == 3) {
+            d.const_bit3  = c.readUInt( 4, d.const_bit3 );
+            d.dts_high    = c.readUInt( 3, d.dts_high   );
+            d.marker_bit4 = c.readUInt( 1, d.marker_bit4);
+            d.dts_mid     = c.readUInt(15, d.dts_mid    );
+            d.marker_bit5 = c.readUInt( 1, d.marker_bit5);
+            d.dts_low     = c.readUInt(15, d.dts_low    );
+            d.marker_bit6 = c.readUInt( 1, d.marker_bit6);
+            c.mark("DTS", d.getDTS());
+        }
+
+        if ((d.const_bit2.intValue() & 3) == 0) {
+            d.const_bit3  = c.readUInt( 4, d.const_bit3 );
+        }
+    }
+
+    public static void readMPEG2(PacketReader<?> c,
+                                 PSHeaderPESStream d) {
         d.const_bit                 = c.readUInt( 2, d.const_bit                );
         d.pes_scrambling_control    = c.readUInt( 2, d.pes_scrambling_control   );
         d.pes_priority              = c.readUInt( 1, d.pes_priority             );
@@ -325,7 +383,9 @@ public class PSHeaderPESStream extends PSHeaderPES
         d.pes_extension_flag        = c.readUInt( 1, d.pes_extension_flag       );
         d.pes_header_data_length    = c.readUInt( 8, d.pes_header_data_length   );
 
-        if ((d.pts_dts_flags.intValue() & 2) != 0) {
+        long pos_byte = (c.position() >>> 3);
+
+        if ((d.pts_dts_flags.intValue() & 2) == 2) {
             d.const_bit2  = c.readUInt( 4, d.const_bit2 );
             d.pts_high    = c.readUInt( 3, d.pts_high   );
             d.marker_bit1 = c.readUInt( 1, d.marker_bit1);
@@ -336,7 +396,7 @@ public class PSHeaderPESStream extends PSHeaderPES
             c.mark("PTS", d.getPTS());
         }
 
-        if ((d.pts_dts_flags.intValue() & 1) != 0) {
+        if ((d.pts_dts_flags.intValue() & 3) == 3) {
             d.const_bit3  = c.readUInt( 4, d.const_bit3 );
             d.dts_high    = c.readUInt( 3, d.dts_high   );
             d.marker_bit4 = c.readUInt( 1, d.marker_bit4);
@@ -411,9 +471,8 @@ public class PSHeaderPESStream extends PSHeaderPES
         }
 
         //pes_header_data_length から stuffing bytes の長さを得る
-        //ヘッダ先頭から pes_header_data_length までは 3バイト
         int size_st = d.pes_header_data_length.intValue()
-                - (int)((c.position() >> 3) - pos_byte - 3);
+                - (int)((c.position() >> 3) - pos_byte);
         if (size_st < 0) {
             throw new IllegalStateException("stuffing bytes have negative size"
                     + "(size: "  + size_st + "). "
@@ -426,8 +485,6 @@ public class PSHeaderPESStream extends PSHeaderPES
                     + "(size: " + size_st + " > 32)");
         }
         d.stuffing_byte = c.readBitList(size_st << 3, d.stuffing_byte);
-
-        c.leaveBlock();
     }
 
     protected static void readStreamExt(PacketReader<?> c,
@@ -495,6 +552,60 @@ public class PSHeaderPESStream extends PSHeaderPES
 
         PSHeaderPES.write(c, d);
 
+        //MPEG1  : 0b00, 0b01, 0b11
+        //MPEG2  : 0b10
+        if (d.const_bit.intValue() != 2) {
+            writeMPEG1(c, d);
+        } else {
+            writeMPEG2(c, d);
+        }
+
+        c.leaveBlock();
+    }
+
+    public static void writeMPEG1(PacketWriter<?> c,
+                                  PSHeaderPESStream d) {
+        c.writeBitList((int)d.stuffing_byte.length(), d.stuffing_byte, "stuffing_byte");
+
+        if (d.const_bit.intValue() == 1) {
+            c.writeUInt( 2, d.const_bit         , "const_bit"       );
+            c.writeUInt( 1, d.p_std_buffer_scale, "STD_buffer_scale");
+            c.writeUInt(13, d.p_std_buffer_size , "STD_buffer_size" );
+        }
+
+        //else   : 0b0000
+        //Unknwon: 0b0001
+        //PTS    : 0b0010
+        //PTS+DTS: 0b0011
+        c.writeUInt( 4, d.const_bit2 , "const_bit2" );
+        if ((d.const_bit2.intValue() & 2) == 2) {
+            c.writeUInt( 3, d.pts_high   , "PTS_high"   );
+            c.writeUInt( 1, d.marker_bit1, "marker_bit1");
+            c.writeUInt(15, d.pts_mid    , "PTS_mid"    );
+            c.writeUInt( 1, d.marker_bit2, "marker_bit2");
+            c.writeUInt(15, d.pts_low    , "PTS_low"    );
+            c.writeUInt( 1, d.marker_bit3, "marker_bit3");
+            c.mark("PTS", d.getPTS());
+        }
+
+        if ((d.const_bit2.intValue() & 3) == 3) {
+            c.writeUInt( 4, d.const_bit3 , "const_bit3" );
+            c.writeUInt( 3, d.dts_high   , "DTS_high"   );
+            c.writeUInt( 1, d.marker_bit4, "marker_bit4");
+            c.writeUInt(15, d.dts_mid    , "DTS_mid"    );
+            c.writeUInt( 1, d.marker_bit5, "marker_bit5");
+            c.writeUInt(15, d.dts_low    , "DTS_low"    );
+            c.writeUInt( 1, d.marker_bit6, "marker_bit6");
+            c.mark("DTS", d.getDTS());
+        }
+
+        if ((d.const_bit2.intValue() & 3) == 0) {
+            c.writeUInt( 4, d.const_bit3 , "const_bit3" );
+        }
+    }
+
+    public static void writeMPEG2(PacketWriter<?> c,
+                                  PSHeaderPESStream d) {
         c.writeUInt( 2, d.const_bit                , "const_bit"                );
         c.writeUInt( 2, d.pes_scrambling_control   , "PES_scrambling_control"   );
         c.writeUInt( 1, d.pes_priority             , "PES_priority"             );
@@ -510,7 +621,7 @@ public class PSHeaderPESStream extends PSHeaderPES
         c.writeUInt( 1, d.pes_extension_flag       , "PES_extension_flag"       );
         c.writeUInt( 8, d.pes_header_data_length   , "PES_header_data_length"   );
 
-        if ((d.pts_dts_flags.intValue() & 2) != 0) {
+        if ((d.pts_dts_flags.intValue() & 2) == 2) {
             c.writeUInt( 4, d.const_bit2 , "const_bit2" );
             c.writeUInt( 3, d.pts_high   , "PTS_high"   );
             c.writeUInt( 1, d.marker_bit1, "marker_bit1");
@@ -521,7 +632,7 @@ public class PSHeaderPESStream extends PSHeaderPES
             c.mark("PTS", d.getPTS());
         }
 
-        if ((d.pts_dts_flags.intValue() & 1) != 0) {
+        if ((d.pts_dts_flags.intValue() & 3) == 3) {
             c.writeUInt( 4, d.const_bit3 , "const_bit3" );
             c.writeUInt( 3, d.dts_high   , "DTS_high"   );
             c.writeUInt( 1, d.marker_bit4, "marker_bit4");
@@ -596,8 +707,6 @@ public class PSHeaderPESStream extends PSHeaderPES
         }
 
         c.writeBitList((int)d.stuffing_byte.length(), d.stuffing_byte, "stuffing_byte");
-
-        c.leaveBlock();
     }
 
     protected static void writeStreamExt(PacketWriter<?> c,
