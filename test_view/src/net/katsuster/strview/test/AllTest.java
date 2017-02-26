@@ -7,18 +7,25 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import net.katsuster.strview.test.util.*;
 import net.katsuster.strview.test.io.*;
+import net.katsuster.strview.test.media.mkv.*;
 
 /**
  * ユニットテストクラス。
  */
 @RunWith(Suite.class)
 @SuiteClasses({
+        //util
         SIntTest.class,
         UIntTest.class,
         FloatTest.class,
         SFixedTest.class,
         UFixedTest.class,
         SimpleRangeTest.class,
+
+        //media
+        EBMLvintTest.class,
+
+        //io
         MemoryByteListTest.class,
         FileByteListTest.class,
         SlowMemoryBitListTest.class,

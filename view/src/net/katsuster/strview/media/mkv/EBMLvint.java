@@ -141,6 +141,79 @@ public abstract class EBMLvint extends BlockAdapter
 
     /**
      * <p>
+     * 通常の整数を可変長整数に変換したときの種類を求めます。
+     * </p>
+     *
+     * <p>
+     * 下記のいずれかの種類を返します。
+     * </p>
+     *
+     * <dl>
+     * <dt>0</dt>
+     * <dd>8bit: 0b1xxx-xxxx</dd>
+     * <dt>1</dt>
+     * <dd>16bit: 0b01xx-xxxx xxxx-xxxx</dd>
+     * <dt>2</dt>
+     * <dd>24bit: 0b001x-xxxx xxxx-xxxx xxxx-xxxx</dd>
+     * <dt>3</dt>
+     * <dd>32bit: 0b0001-xxxx xxxx-xxxx xxxx-xxxx xxxx-xxxx</dd>
+     * <dt>4</dt>
+     * <dd>40bit: 0b0000-1xxx xxxx-xxxx xxxx-xxxx xxxx-xxxx
+     * xxxx-xxxx</dd>
+     * <dt>5</dt>
+     * <dd>48bit: 0b0000-01xx xxxx-xxxx xxxx-xxxx xxxx-xxxx
+     * xxxx-xxxx xxxx-xxxx</dd>
+     * <dt>6</dt>
+     * <dd>56bit: 0b0000-001x xxxx-xxxx xxxx-xxxx xxxx-xxxx
+     * xxxx-xxxx xxxx-xxxx xxxx-xxxx</dd>
+     * <dt>7</dt>
+     * <dd>64bit: 0b0000-0001 xxxx-xxxx xxxx-xxxx xxxx-xxxx
+     * xxxx-xxxx xxxx-xxxx xxxx-xxxx xxxx-xxxx</dd>
+     * </dl>
+     *
+     * @param f 整数
+     * @return 可変長整数の符号全体の種類
+     * @throws IllegalArgumentException どの種類にも当てはまらない場合
+     */
+    public static int parseVintType(long f) {
+        if (f < 0) {
+            //over 56bit... not support
+            throw new IllegalArgumentException(
+                    "EBMLvint is not supported over 56bits value.");
+        }
+
+        if (f < ((1L << 7) - 1)) {
+            return 0;
+        }
+        if (f < ((1L << 14) - 1)) {
+            return 1;
+        }
+        if (f < ((1L << 21) - 1)) {
+            return 2;
+        }
+        if (f < ((1L << 28) - 1)) {
+            return 3;
+        }
+        if (f < ((1L << 35) - 1)) {
+            return 4;
+        }
+        if (f < ((1L << 42) - 1)) {
+            return 5;
+        }
+        if (f < ((1L << 49) - 1)) {
+            return 6;
+        }
+        if (f < ((1L << 56) - 1)) {
+            return 7;
+        }
+
+        //over 56bit... not support
+        throw new IllegalArgumentException(
+                "EBMLvint is not supported over 56bits value.");
+    }
+
+    /**
+     * <p>
      * 可変長整数の符号全体の長さを求めます。
      * </p>
      *
