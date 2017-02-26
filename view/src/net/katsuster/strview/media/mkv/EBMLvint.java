@@ -141,6 +141,42 @@ public abstract class EBMLvint extends BlockAdapter
 
     /**
      * <p>
+     * 可変長整数の符号全体の長さを求めます。
+     * </p>
+     *
+     * @param f 可変長整数の先頭 8bit の値
+     * @return 可変長整数の符号全体の長さ（ビット単位）
+     */
+    public static int getVintSize(int f) {
+        int t = getVintType(f);
+        int s[] = {
+                8, 16, 24, 32,
+                40, 48, 56, 64,
+        };
+
+        return s[t];
+    }
+
+    /**
+     * <p>
+     * 可変長整数のうち値が占める部分の長さを求めます。
+     * </p>
+     *
+     * @param f 可変長整数の先頭 8bit の値
+     * @return 可変長整数のうち値が占める長さ（ビット単位）
+     */
+    public static int getVintContentSize(int f) {
+        int t = getVintType(f);
+        int s[] = {
+                7, 14, 21, 28,
+                35, 42, 49, 56,
+        };
+
+        return s[t];
+    }
+
+    /**
+     * <p>
      * 通常の整数を可変長整数に変換したときの種類を求めます。
      * </p>
      *
@@ -214,14 +250,14 @@ public abstract class EBMLvint extends BlockAdapter
 
     /**
      * <p>
-     * 可変長整数の符号全体の長さを求めます。
+     * 整数を可変長整数に変換したとき、符号全体の長さを求めます。
      * </p>
      *
-     * @param f 可変長整数の先頭 8bit の値
+     * @param f 整数
      * @return 可変長整数の符号全体の長さ（ビット単位）
      */
-    public static int getVintSize(int f) {
-        int t = getVintType(f);
+    public static int parseVintSize(long f) {
+        int t = parseVintType(f);
         int s[] = {
                 8, 16, 24, 32,
                 40, 48, 56, 64,
@@ -232,14 +268,14 @@ public abstract class EBMLvint extends BlockAdapter
 
     /**
      * <p>
-     * 可変長整数のうち値が占める部分の長さを求めます。
+     * 整数を可変長整数に変換したとき、値が占める部分の長さを求めます。
      * </p>
      *
-     * @param f 可変長整数の先頭 8bit の値
+     * @param f 整数
      * @return 可変長整数のうち値が占める長さ（ビット単位）
      */
-    public static int getVintContentSize(int f) {
-        int t = getVintType(f);
+    public static int parseVintContentSize(long f) {
+        int t = parseVintType(f);
         int s[] = {
                 7, 14, 21, 28,
                 35, 42, 49, 56,
