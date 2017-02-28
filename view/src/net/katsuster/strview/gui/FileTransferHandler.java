@@ -13,11 +13,12 @@ import javax.swing.*;
 import net.katsuster.strview.util.*;
 import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
-import net.katsuster.strview.media.m2v.*;
 import net.katsuster.strview.media.mkv.*;
 import net.katsuster.strview.media.ps.*;
-import net.katsuster.strview.media.riff.*;
 import net.katsuster.strview.media.ts.*;
+import net.katsuster.strview.media.riff.*;
+import net.katsuster.strview.media.m2v.*;
+import net.katsuster.strview.media.m4v.*;
 
 /**
  * <p>
@@ -123,11 +124,12 @@ public class FileTransferHandler extends TransferHandler {
 
     enum FILE_TYPE {
         FT_UNKNOWN,
+        FT_MATROSKA,
         FT_MPEG2PS,
         FT_MPEG2TS,
-        FT_MATROSKA,
         FT_RIFF,
         FT_MPEG2VIDEO,
+        FT_MPEG4VISUAL,
     }
 
     /**
@@ -143,20 +145,23 @@ public class FileTransferHandler extends TransferHandler {
         LargePacketList<?> list = null;
 
         switch (t) {
+        case FT_MATROSKA:
+            list = new MKVTagList(l);
+            break;
         case FT_MPEG2PS:
             list = new PSPackList(l);
             break;
         case FT_MPEG2TS:
             list = new TSPacketList(l);
             break;
-        case FT_MATROSKA:
-            list = new MKVTagList(l);
-            break;
         case FT_RIFF:
             list = new RIFFChunkList(l);
             break;
         case FT_MPEG2VIDEO:
             list = new M2VDataList(l);
+            break;
+        case FT_MPEG4VISUAL:
+            list = new M4VObjectList(l);
             break;
         case FT_UNKNOWN:
             list = null;
@@ -177,20 +182,23 @@ public class FileTransferHandler extends TransferHandler {
     public FILE_TYPE getFileType(File tfile) {
         String ext = getSuffix(tfile.getPath());
 
+        if (ext.equals("mkv")) {
+            return FILE_TYPE.FT_MATROSKA;
+        }
         if (ext.equals("mpg") || ext.equals("ps") || ext.equals("vob")) {
             return FILE_TYPE.FT_MPEG2PS;
         }
         if (ext.equals("ts")) {
             return FILE_TYPE.FT_MPEG2TS;
         }
-        if (ext.equals("mkv")) {
-            return FILE_TYPE.FT_MATROSKA;
-        }
         if (ext.equals("avi") || ext.equals("cur") || ext.equals("ico") || ext.equals("wav")) {
             return FILE_TYPE.FT_RIFF;
         }
         if (ext.equals("m2v")) {
             return FILE_TYPE.FT_MPEG2VIDEO;
+        }
+        if (ext.equals("m4v")) {
+            return FILE_TYPE.FT_MPEG4VISUAL;
         }
 
         return FILE_TYPE.FT_UNKNOWN;
