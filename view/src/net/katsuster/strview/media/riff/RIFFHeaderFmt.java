@@ -5,7 +5,7 @@ import net.katsuster.strview.media.*;
 
 /**
  * <p>
- * fmt チャンクヘッダ。
+ * fmt chunk
  * </p>
  *
  * <p>
@@ -57,7 +57,7 @@ public class RIFFHeaderFmt extends RIFFHeader
 
     public static void read(PacketReader<?> c,
                             RIFFHeaderFmt d) {
-        c.enterBlock("RIFF fmt chunk header");
+        c.enterBlock("fmt chunk");
 
         RIFFHeader.read(c, d);
 
@@ -78,7 +78,7 @@ public class RIFFHeaderFmt extends RIFFHeader
 
     public static void write(PacketWriter<?> c,
                              RIFFHeaderFmt d) {
-        c.enterBlock("RIFF fmt chunk header");
+        c.enterBlock("fmt chunk");
 
         RIFFHeader.write(c, d);
 

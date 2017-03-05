@@ -6,7 +6,7 @@ import net.katsuster.strview.util.UInt;
 
 /**
  * <p>
- * dmlh (Extended AVI Header) チャンクヘッダ。
+ * dmlh (Extended AVI Header)
  * </p>
  *
  * <p>
@@ -44,7 +44,7 @@ public class RIFFHeaderDmlh extends RIFFHeader
 
     public static void read(PacketReader<?> c,
                             RIFFHeaderDmlh d) {
-        c.enterBlock("RIFF dmlh chunk header");
+        c.enterBlock("dmlh chunk");
 
         RIFFHeader.read(c, d);
 
@@ -60,7 +60,7 @@ public class RIFFHeaderDmlh extends RIFFHeader
 
     public static void write(PacketWriter<?> c,
                              RIFFHeaderDmlh d) {
-        c.enterBlock("RIFF dmlh chunk header");
+        c.enterBlock("dmlh chunk");
 
         RIFFHeader.write(c, d);
 

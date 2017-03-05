@@ -57,7 +57,7 @@ public class RIFFHeader extends BlockAdapter {
 
     public static void read(PacketReader<?> c,
                             RIFFHeader d) {
-        c.enterBlock("RIFF chunk header");
+        c.enterBlock("RIFF chunk");
 
         d.ckID   = c.readUIntR(32, d.ckID);
         d.ckSize = c.readUIntR(32, d.ckSize);
@@ -72,7 +72,7 @@ public class RIFFHeader extends BlockAdapter {
 
     public static void write(PacketWriter<?> c,
                              RIFFHeader d) {
-        c.enterBlock("RIFF chunk header");
+        c.enterBlock("RIFF chunk");
 
         c.writeUIntR(32, d.ckID  , "ckID"  , d.getChunkIdName());
         c.writeUIntR(32, d.ckSize, "ckSize");

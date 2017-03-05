@@ -5,7 +5,7 @@ import net.katsuster.strview.media.*;
 
 /**
  * <p>
- * strh（AVI Stream Header）チャンクヘッダ。
+ * strh (AVI Stream Header)
  * </p>
  *
  * <p>
@@ -92,7 +92,7 @@ public class RIFFHeaderStrh extends RIFFHeader
 
     public static void read(PacketReader<?> c,
                             RIFFHeaderStrh d) {
-        c.enterBlock("RIFF strh chunk header");
+        c.enterBlock("strh chunk");
 
         RIFFHeader.read(c, d);
 
@@ -124,7 +124,7 @@ public class RIFFHeaderStrh extends RIFFHeader
 
     public static void write(PacketWriter<?> c,
                              RIFFHeaderStrh d) {
-        c.enterBlock("RIFF strh chunk header");
+        c.enterBlock("strh chunk");
 
         RIFFHeader.write(c, d);
 

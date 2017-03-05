@@ -48,7 +48,7 @@ public class RIFFHeaderList extends RIFFHeader
 
     public static void read(PacketReader<?> c,
                             RIFFHeaderList d) {
-        c.enterBlock("RIFF LIST chunk header");
+        c.enterBlock("LIST chunk");
 
         RIFFHeader.read(c, d);
 
@@ -64,7 +64,7 @@ public class RIFFHeaderList extends RIFFHeader
 
     public static void write(PacketWriter<?> c,
                              RIFFHeaderList d) {
-        c.enterBlock("RIFF LIST chunk header");
+        c.enterBlock("LIST chunk");
 
         RIFFHeader.write(c, d);
 
