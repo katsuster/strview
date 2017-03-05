@@ -160,13 +160,25 @@ public class PacketTreeViewerWindow extends JFrame {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                list_packet.count();
-                if (packetTreeViewer != null) {
-                    packetTreeViewer.setMax(1);
-                }
-                if (packetListViewer != null) {
-                    packetListViewer.setMax(1);
-                }
+                Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        list_packet.count();
+
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (packetTreeViewer != null) {
+                                    packetTreeViewer.setMax(1);
+                                }
+                                if (packetListViewer != null) {
+                                    packetListViewer.setMax(1);
+                                }
+                            }
+                        });
+                    }
+                });
+                t.start();
             }
         });
         packetTool.add(ft);
