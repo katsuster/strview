@@ -1,0 +1,76 @@
+package net.katsuster.strview.media.rmff;
+
+import net.katsuster.strview.util.*;
+import net.katsuster.strview.media.*;
+
+/**
+ * <p>
+ * RMFF(RealMedia File Format) チャンクリスト。
+ * </p>
+ *
+ * @author katsuhiro
+ */
+public class RMFFChunkList extends AbstractPacketList<RMFFChunk> {
+    private LargeBitList buf;
+
+    public RMFFChunkList() {
+        super(LENGTH_UNKNOWN);
+    }
+
+    public RMFFChunkList(LargeBitList l) {
+        super(LENGTH_UNKNOWN);
+
+        buf = l;
+    }
+
+    @Override
+    public String getShortName() {
+        return "RMFF (RealMedia File Format)";
+    }
+
+    @Override
+    public void count() {
+        FromBitListConverter c = new FromBitListConverter(buf);
+
+        countSlow(c);
+    }
+
+    @Override
+    protected RMFFChunk readNextInner(PacketReader<?> c, PacketRange pr) {
+        RMFFHeader tagh = createHeader(c, pr);
+
+        RMFFChunk packet = new RMFFChunk(tagh);
+        packet.setRange(pr);
+        packet.read(c);
+
+        return packet;
+    }
+
+    @Override
+    protected RMFFChunk getInner(long index) {
+        FromBitListConverter c = new FromBitListConverter(buf);
+
+        seek(c, index);
+
+        return (RMFFChunk)readNext(c, index);
+    }
+
+    @Override
+    protected void setInner(long index, RMFFChunk data) {
+        //TODO: not implemented yet
+    }
+
+    protected RMFFHeader createHeader(PacketReader<?> c, PacketRange pr) {
+        RMFFHeader tmph = new RMFFHeader();
+        tmph.peek(c);
+
+        RMFFHeader tagh = RMFFConsts.rmffFactory.createPacketHeader(
+                tmph.object_id.intValue());
+        if (tagh == null) {
+            //unknown
+            tagh = tmph;
+        }
+
+        return tagh;
+    }
+}
