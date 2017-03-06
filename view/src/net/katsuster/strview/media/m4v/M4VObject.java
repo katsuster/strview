@@ -37,7 +37,7 @@ public class M4VObject extends PacketAdapter
      * MPEG4 Part 2 Video オブジェクトのヘッダを取得します。
      * </p>
      *
-     * @return MPEG4 Part 2 Video オブジェクト
+     * @return MPEG4 Part 2 Video オブジェクトのヘッダ
      */
     @Override
     public M4VHeader getHeader() {
