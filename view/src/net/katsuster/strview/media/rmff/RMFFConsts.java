@@ -37,14 +37,13 @@ public class RMFFConsts {
     }
 
     //MDPR チャンクのファクトリ
-    /*public static final PacketFactory<RMFFHeaderMDPR, String> mdprFactory =
+    public static final PacketFactory<RMFFHeaderMDPR, String> mdprFactory =
             new PacketFactory<>(RMFFHeaderMDPR.class);
     static {
-        //MDPR
-        //mdprFactory.put("logical-fileinfo", RMFFHeaderMDPRLogical.class);
+        mdprFactory.put("logical-fileinfo", RMFFHeaderMDPRLogical.class);
         //mdprFactory.put("video/x-pn-realvideo", RMFFHeaderMDPRRV.class);
         //mdprFactory.put("audio/x-pn-realaudio", RMFFHeaderMDPRRA.class);
-    }*/
+    }
 
     protected RMFFConsts() {
         //do nothing

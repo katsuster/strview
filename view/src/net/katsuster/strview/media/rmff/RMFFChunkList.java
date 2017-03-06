@@ -64,8 +64,20 @@ public class RMFFChunkList extends AbstractPacketList<RMFFChunk> {
         RMFFHeader tmph = new RMFFHeader();
         tmph.peek(c);
 
-        RMFFHeader tagh = RMFFConsts.rmffFactory.createPacketHeader(
-                tmph.object_id.intValue());
+        RMFFHeader tagh;
+        int id = tmph.object_id.intValue();
+
+        if (id == RMFFConsts.OBJECT.MDPR) {
+            RMFFHeaderMDPR tmph_mdpr = new RMFFHeaderMDPRAny();
+            tmph_mdpr.peek(c);
+
+            tagh = RMFFConsts.mdprFactory.createPacketHeader(tmph_mdpr.getMimeTypeName());
+            if (tagh == null) {
+                tagh = tmph_mdpr;
+            }
+        } else {
+            tagh = RMFFConsts.rmffFactory.createPacketHeader(id);
+        }
         if (tagh == null) {
             //unknown
             tagh = tmph;
