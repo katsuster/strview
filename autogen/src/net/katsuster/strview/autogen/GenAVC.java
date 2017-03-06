@@ -48,33 +48,31 @@ public class GenAVC {
         //do nothing
     }
 
-    public static void main(String[] args) {
-        //標準入力をトークン解析する
+    public static void parseStream(InputStream in, OutputStream out) {
         BufferedReader r = new BufferedReader(
-                new InputStreamReader(System.in));
+                new InputStreamReader(in));
+        BufferedWriter w = new BufferedWriter(
+                new OutputStreamWriter(out));
         SkeltonCode h = new SkeltonCode();
-        String nameClass;
-        List<Generator> lMem;
-        int i;
 
         try {
             //クラス名の処理
-            nameClass = parseClassName(r);
+            String nameClass = parseClassName(r);
             h.setBaseClassName("AVCHeader");
             h.setClassName(nameClass);
 
             //メンバ名の処理
-            lMem = parseMemberName(r);
-            for (i = 0; i < lMem.size(); i++) {
+            List<Generator> lMem = parseMemberName(r);
+            for (int i = 0; i < lMem.size(); i++) {
                 h.addSkelton(lMem.get(i));
             }
+
+            //コードを出力する
+            w.write(h.toCode());
+            w.flush();
         } catch (IOException ex) {
             ex.printStackTrace();
-            return;
         }
-
-        //コードを出力する
-        System.out.println(h.toCode());
     }
 
     /**

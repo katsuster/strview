@@ -8,10 +8,7 @@
     <property name="build.dir"    location="${ant.dir}/build"/>
     <property name="dist.dir"     location="${ant.dir}/dist"/>
 
-    <property name="manifest.mainclass.asf"   value="net.katsuster.strview.autogen.GenASF"/>
-    <property name="manifest.mainclass.avc"   value="net.katsuster.strview.autogen.GenAVC"/>
-    <property name="manifest.mainclass.mpeg2" value="net.katsuster.strview.autogen.GenMPEG2"/>
-    <property name="manifest.mainclass.mpeg4" value="net.katsuster.strview.autogen.GenMPEG4"/>
+    <property name="manifest.mainclass.main" value="net.katsuster.strview.autogen.GenMain"/>
     <property name="manifest.classpath" value="./"/>
     <property name="manifest.title"     value="autogen"/>
     <property name="manifest.version"   value="0.1"/>
@@ -55,66 +52,12 @@
 
     <target name="dist" depends="compile">
         <echo message="----- dist in ${ant.project.name} -----"/>
-        <jar jarfile="${dist.dir}/autogen_asf.jar">
+        <jar jarfile="${dist.dir}/autogen.jar">
             <fileset dir="${build.dir}"/>
             <!-- zipfileset refid="dist.junit"/ -->
             <manifest>
                 <attribute name="Main-Class"
-                           value="${manifest.mainclass.asf}"/>
-                <attribute name="Class-Path"
-                           value="${manifest.classpath}"/>
-                <attribute name="Implementation-Title"
-                           value="${manifest.title}"/>
-                <attribute name="Implementation-Version"
-                           value="${manifest.version}"/>
-                <attribute name="Implementation-Vendor"
-                           value="${manifest.vendor}"/>
-                <attribute name="Build-Id"
-                           value="${ts} (${user.name}@${os.name} ${os.version} ${os.arch})"/>
-            </manifest>
-        </jar>
-
-        <jar jarfile="${dist.dir}/autogen_avc.jar">
-            <fileset dir="${build.dir}"/>
-            <manifest>
-                <attribute name="Main-Class"
-                           value="${manifest.mainclass.avc}"/>
-                <attribute name="Class-Path"
-                           value="${manifest.classpath}"/>
-                <attribute name="Implementation-Title"
-                           value="${manifest.title}"/>
-                <attribute name="Implementation-Version"
-                           value="${manifest.version}"/>
-                <attribute name="Implementation-Vendor"
-                           value="${manifest.vendor}"/>
-                <attribute name="Build-Id"
-                           value="${ts} (${user.name}@${os.name} ${os.version} ${os.arch})"/>
-            </manifest>
-        </jar>
-
-        <jar jarfile="${dist.dir}/autogen_mpeg2.jar">
-            <fileset dir="${build.dir}"/>
-            <manifest>
-                <attribute name="Main-Class"
-                           value="${manifest.mainclass.mpeg2}"/>
-                <attribute name="Class-Path"
-                           value="${manifest.classpath}"/>
-                <attribute name="Implementation-Title"
-                           value="${manifest.title}"/>
-                <attribute name="Implementation-Version"
-                           value="${manifest.version}"/>
-                <attribute name="Implementation-Vendor"
-                           value="${manifest.vendor}"/>
-                <attribute name="Build-Id"
-                           value="${ts} (${user.name}@${os.name} ${os.version} ${os.arch})"/>
-            </manifest>
-        </jar>
-
-        <jar jarfile="${dist.dir}/autogen_mpeg4.jar">
-            <fileset dir="${build.dir}"/>
-            <manifest>
-                <attribute name="Main-Class"
-                           value="${manifest.mainclass.mpeg4}"/>
+                           value="${manifest.mainclass.main}"/>
                 <attribute name="Class-Path"
                            value="${manifest.classpath}"/>
                 <attribute name="Implementation-Title"

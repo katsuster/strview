@@ -47,10 +47,11 @@ public class GenMPEG2 {
         //do nothing
     }
 
-    public static void main(String[] args) {
-        //標準入力をトークン解析する
+    public static void parseStream(InputStream in, OutputStream out) {
         BufferedReader r = new BufferedReader(
-                new InputStreamReader(System.in));
+                new InputStreamReader(in));
+        BufferedWriter w = new BufferedWriter(
+                new OutputStreamWriter(out));
         SkeltonCode h = new SkeltonCode();
         String nameClass;
         List<Generator> lMem;
@@ -67,13 +68,13 @@ public class GenMPEG2 {
             for (i = 0; i < lMem.size(); i++) {
                 h.addSkelton(lMem.get(i));
             }
+
+            //コードを出力する
+            w.write(h.toCode());
+            w.flush();
         } catch (IOException ex) {
             ex.printStackTrace();
-            return;
         }
-
-        //コードを出力する
-        System.out.println(h.toCode());
     }
 
     /**
