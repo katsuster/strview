@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE project>
+
+<project name="autogen" default="dist">
+    <property name="src.dir"      location="src"/>
+    <property name="lib.dir"      location="lib"/>
+    <property name="ant.dir"      location="ant"/>
+    <property name="build.dir"    location="${ant.dir}/build"/>
+    <property name="dist.dir"     location="${ant.dir}/dist"/>
+
+    <property name="manifest.mainclass.asf"   value="net.katsuster.strview.autogen.GenASF"/>
+    <property name="manifest.mainclass.avc"   value="net.katsuster.strview.autogen.GenAVC"/>
+    <property name="manifest.mainclass.mpeg2" value="net.katsuster.strview.autogen.GenMPEG2"/>
+    <property name="manifest.mainclass.mpeg4" value="net.katsuster.strview.autogen.GenMPEG4"/>
+    <property name="manifest.classpath" value="./"/>
+    <property name="manifest.title"     value="autogen"/>
+    <property name="manifest.version"   value="0.1"/>
+    <property name="manifest.vendor"    value="Katsuhiro Suzuki"/>
+    <tstamp>
+        <format property="ts" pattern="yyyyMMdd-HH:mm:ss z" />
+    </tstamp>
+
+    <!-- property name="lib.junit.path" value="${lib.dir}/junit-4.10.jar"/ -->
+
+
+    <!-- libraries for target 'build' -->
+    <path id="build.classpath">
+        <pathelement path="${lib.dir}"/>
+        <!-- pathelement location="${lib.junit.path}"/ -->
+    </path>
+
+    <!-- libraries for target 'dist' -->
+    <!-- zipfileset id="dist.junit" src="${lib.junit.path}"
+        excludes="**/META-INF/**"/ -->
+
+
+    <!-- define targets -->
+    <target name="init">
+        <echo message="----- init in ${ant.project.name} -----"/>
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <echo message="----- compile in ${ant.project.name} -----"/>
+        <javac srcdir="${src.dir}" destdir="${build.dir}" target="1.7"
+               encoding="UTF-8" includeantruntime="false">
+            <classpath refid="build.classpath"/>
+        </javac>
+    </target>
+
+    <target name="test" depends="compile">
+        <echo message="----- test in ${ant.project.name} -----"/>
+    </target>
+
+    <target name="dist" depends="compile">
+        <echo message="----- dist in ${ant.project.name} -----"/>
+        <jar jarfile="${dist.dir}/autogen_asf.jar">
+            <fileset dir="${build.dir}"/>
+            <!-- zipfileset refid="dist.junit"/ -->
+            <manifest>
+                <attribute name="Main-Class"
+                           value="${manifest.mainclass.asf}"/>
+                <attribute name="Class-Path"
+                           value="${manifest.classpath}"/>
+                <attribute name="Implementation-Title"
+                           value="${manifest.title}"/>
+                <attribute name="Implementation-Version"
+                           value="${manifest.version}"/>
+                <attribute name="Implementation-Vendor"
+                           value="${manifest.vendor}"/>
+                <attribute name="Build-Id"
+                           value="${ts} (${user.name}@${os.name} ${os.version} ${os.arch})"/>
+            </manifest>
+        </jar>
+
+        <jar jarfile="${dist.dir}/autogen_avc.jar">
+            <fileset dir="${build.dir}"/>
+            <manifest>
+                <attribute name="Main-Class"
+                           value="${manifest.mainclass.avc}"/>
+                <attribute name="Class-Path"
+                           value="${manifest.classpath}"/>
+                <attribute name="Implementation-Title"
+                           value="${manifest.title}"/>
+                <attribute name="Implementation-Version"
+                           value="${manifest.version}"/>
+                <attribute name="Implementation-Vendor"
+                           value="${manifest.vendor}"/>
+                <attribute name="Build-Id"
+                           value="${ts} (${user.name}@${os.name} ${os.version} ${os.arch})"/>
+            </manifest>
+        </jar>
+
+        <jar jarfile="${dist.dir}/autogen_mpeg2.jar">
+            <fileset dir="${build.dir}"/>
+            <manifest>
+                <attribute name="Main-Class"
+                           value="${manifest.mainclass.mpeg2}"/>
+                <attribute name="Class-Path"
+                           value="${manifest.classpath}"/>
+                <attribute name="Implementation-Title"
+                           value="${manifest.title}"/>
+                <attribute name="Implementation-Version"
+                           value="${manifest.version}"/>
+                <attribute name="Implementation-Vendor"
+                           value="${manifest.vendor}"/>
+                <attribute name="Build-Id"
+                           value="${ts} (${user.name}@${os.name} ${os.version} ${os.arch})"/>
+            </manifest>
+        </jar>
+
+        <jar jarfile="${dist.dir}/autogen_mpeg4.jar">
+            <fileset dir="${build.dir}"/>
+            <manifest>
+                <attribute name="Main-Class"
+                           value="${manifest.mainclass.mpeg4}"/>
+                <attribute name="Class-Path"
+                           value="${manifest.classpath}"/>
+                <attribute name="Implementation-Title"
+                           value="${manifest.title}"/>
+                <attribute name="Implementation-Version"
+                           value="${manifest.version}"/>
+                <attribute name="Implementation-Vendor"
+                           value="${manifest.vendor}"/>
+                <attribute name="Build-Id"
+                           value="${ts} (${user.name}@${os.name} ${os.version} ${os.arch})"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="clean">
+        <echo message="----- clean in ${ant.project.name} -----"/>
+        <delete dir="${ant.dir}"/>
+    </target>
+</project>
