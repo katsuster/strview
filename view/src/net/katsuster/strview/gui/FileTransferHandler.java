@@ -14,6 +14,7 @@ import net.katsuster.strview.util.*;
 import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
 import net.katsuster.strview.media.mkv.*;
+import net.katsuster.strview.media.mp4.*;
 import net.katsuster.strview.media.ps.*;
 import net.katsuster.strview.media.ts.*;
 import net.katsuster.strview.media.riff.*;
@@ -128,6 +129,7 @@ public class FileTransferHandler extends TransferHandler {
         FT_MATROSKA,
         FT_MPEG2PS,
         FT_MPEG2TS,
+        FT_MPEG4,
         FT_RIFF,
         FT_RMFF,
         FT_MPEG2VIDEO,
@@ -155,6 +157,9 @@ public class FileTransferHandler extends TransferHandler {
             break;
         case FT_MPEG2TS:
             list = new TSPacketList(l);
+            break;
+        case FT_MPEG4:
+            list = new MP4BoxList(l);
             break;
         case FT_RIFF:
             list = new RIFFChunkList(l);
@@ -195,6 +200,9 @@ public class FileTransferHandler extends TransferHandler {
         }
         if (ext.equals("ts")) {
             return FILE_TYPE.FT_MPEG2TS;
+        }
+        if (ext.equals("mp4") || ext.equals("mov")) {
+            return FILE_TYPE.FT_MPEG4;
         }
         if (ext.equals("avi") || ext.equals("cur") || ext.equals("ico") || ext.equals("wav")) {
             return FILE_TYPE.FT_RIFF;
