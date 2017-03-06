@@ -112,23 +112,17 @@ public class PacketTreeViewerWindow extends JFrame {
     }
 
     protected JSplitPane createPacketViewer() {
-        JSplitPane splitPacketMember;
-        JSplitPane splitMemberText;
         JScrollPane scrPacketViewer;
-        JScrollPane scrMemberViewer;
-        JScrollPane scrText;
 
         //ビューアを上下に 3分割表示する
         //真ん中、下
-        splitMemberText = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-        splitMemberText.setDividerSize(3);
-        splitMemberText.setDividerLocation(400);
+        JTabbedPane tabMembers = new JTabbedPane();
 
         //上、(真ん中、下）
-        splitPacketMember = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        JSplitPane splitPacketMember = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         splitPacketMember.setDividerSize(3);
         splitPacketMember.setDividerLocation(200);
-        splitPacketMember.setRightComponent(splitMemberText);
+        splitPacketMember.setRightComponent(tabMembers);
 
         //1番目（上側）、ストリームビューア
         FlatTextField ft = new FlatTextField();
@@ -199,16 +193,16 @@ public class PacketTreeViewerWindow extends JFrame {
         m_jt.addMouseListener(memberTreeListener);
         m_jt.setFont(new Font(Font.MONOSPACED, 0, 12));
 
-        scrMemberViewer = new JScrollPane(memberTreeViewer);
+        JScrollPane scrMemberViewer = new JScrollPane(memberTreeViewer);
         scrMemberViewer.getVerticalScrollBar().setUnitIncrement(10);
-        splitMemberText.setLeftComponent(scrMemberViewer);
+        tabMembers.addTab("Tree", scrMemberViewer);
 
         //3番目（下側の下側）、パケットビューア（文字列表現）
         memberTextViewer = new JTextArea();
         memberTextViewer.setFont(new Font(Font.MONOSPACED, 0, 12));
 
-        scrText = new JScrollPane(memberTextViewer);
-        splitMemberText.setRightComponent(scrText);
+        JScrollPane scrText = new JScrollPane(memberTextViewer);
+        tabMembers.addTab("Text", scrText);
 
         return splitPacketMember;
     }
