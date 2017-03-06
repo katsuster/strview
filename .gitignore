@@ -1,7 +1,7 @@
-/test_view/ant/build/
-/test_view/ant/dist/
+/autogen/ant/
+/autogen/javadoc/
+/test_view/ant/
 /test_view/javadoc/
-/view/ant/build/
-/view/ant/dist/
+/view/ant/
 /view/javadoc/
 /out/
