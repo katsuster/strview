@@ -1,0 +1,8 @@
+FMC_descriptor () {
+descriptor_tag 8 uimsbf
+descriptor_length 8 uimsbf
+for (i=0; i<descriptor_length; i += 3) {
+ES_ID 16 uimsbf
+FlexMuxChannel 8 uimsbf
+}
+}

@@ -1,0 +1,12 @@
+motion_vector ( r, s ) {
+motion_code[r][s][0] 1-11 vlclbf
+if ( ( f_code[s][0] != 1) && ( motion_code[r][s][0] != 0 ) )
+motion_residual[r][s][0] 1-8 uimsbf
+if (dmv == 1)
+dmvector[0] 1-2 vlclbf
+motion_code[r][s][1] 1-11 vlclbf
+if ( ( f_code[s][1] != 1) && ( motion_code[r][s][1] != 0 ) )
+motion_residual[r][s][1] 1-8 uimsbf
+if (dmv == 1)
+dmvector[1] 1-2 vlclbf
+}

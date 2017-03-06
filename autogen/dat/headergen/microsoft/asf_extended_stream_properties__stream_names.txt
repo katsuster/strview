@@ -1,0 +1,5 @@
+asf_extended_stream_properties_object__stream_names {
+Language ID Index WORD 16
+Stream Name Length WORD 16
+Stream Name WCHAR varies
+}

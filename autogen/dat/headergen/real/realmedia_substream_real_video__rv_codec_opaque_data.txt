@@ -1,0 +1,11 @@
+rv_codec_opaque_data(codec_id) {
+ SPO_extra_flags 32 uimsbf
+ bitstream_major_version 4 uimsbf
+ bitstream_minor_version 8 uimsbf
+ bitstream_release_version 8 uimsbf
+ reserved 4 uimsbf
+ frontend_version 8 uimsbf
+ if (codec_id == 0x52563430) { /* RV 9 and 10 */
+  encode_size 32 uimsbf
+ }
+}

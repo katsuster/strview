@@ -1,0 +1,65 @@
+seq_parameter_set_data( ) {
+profile_idc 0 u(8)
+constraint_set0_flag 0 u(1)
+constraint_set1_flag 0 u(1)
+constraint_set2_flag 0 u(1)
+constraint_set3_flag 0 u(1)
+constraint_set4_flag 0 u(1)
+reserved_zero_3bits /* equal to 0 */ 0 u(3)
+level_idc 0 u(8)
+seq_parameter_set_id 0 ue(v)
+if( profile_idc = = 100 | | profile_idc = = 110 | |
+profile_idc = = 122 | | profile_idc = = 244 | | profile_idc = = 44 | |
+profile_idc = = 83 | | profile_idc = = 86 | | profile_idc = = 118 ) {
+chroma_format_idc 0 ue(v)
+if( chroma_format_idc = = 3 )
+separate_colour_plane_flag 0 u(1)
+bit_depth_luma_minus8 0 ue(v)
+bit_depth_chroma_minus8 0 ue(v)
+qpprime_y_zero_transform_bypass_flag 0 u(1)
+seq_scaling_matrix_present_flag 0 u(1)
+if( seq_scaling_matrix_present_flag )
+for( i = 0; i < ( ( chroma_format_idc != 3 ) ? 8 : 12 ); i++ ) {
+seq_scaling_list_present_flag[ i ] 0 u(1)
+if( seq_scaling_list_present_flag[ i ] )
+if( i < 6 )
+scaling_list( ScalingList4x4[ i ], 16,
+UseDefaultScalingMatrix4x4Flag[ i ])
+0
+else
+scaling_list( ScalingList8x8[ i - 6 ], 64,
+UseDefaultScalingMatrix8x8Flag[ i - 6 ] )
+0
+}
+}
+log2_max_frame_num_minus4 0 ue(v)
+pic_order_cnt_type 0 ue(v)
+if( pic_order_cnt_type = = 0 )
+log2_max_pic_order_cnt_lsb_minus4 0 ue(v)
+else if( pic_order_cnt_type = = 1 ) {
+delta_pic_order_always_zero_flag 0 u(1)
+offset_for_non_ref_pic 0 se(v)
+offset_for_top_to_bottom_field 0 se(v)
+num_ref_frames_in_pic_order_cnt_cycle 0 ue(v)
+for( i = 0; i < num_ref_frames_in_pic_order_cnt_cycle; i++ )
+offset_for_ref_frame[ i ] 0 se(v)
+}
+max_num_ref_frames 0 ue(v)
+gaps_in_frame_num_value_allowed_flag 0 u(1)
+pic_width_in_mbs_minus1 0 ue(v)
+pic_height_in_map_units_minus1 0 ue(v)
+frame_mbs_only_flag 0 u(1)
+if( !frame_mbs_only_flag )
+mb_adaptive_frame_field_flag 0 u(1)
+direct_8x8_inference_flag 0 u(1)
+frame_cropping_flag 0 u(1)
+if( frame_cropping_flag ) {
+frame_crop_left_offset 0 ue(v)
+frame_crop_right_offset 0 ue(v)
+frame_crop_top_offset 0 ue(v)
+frame_crop_bottom_offset 0 ue(v)
+}
+vui_parameters_present_flag 0 u(1)
+if( vui_parameters_present_flag )
+vui_parameters( ) 0
+}

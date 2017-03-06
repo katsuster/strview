@@ -1,0 +1,6 @@
+asf_extended_stream_properties_object__payload_extension_systems {
+Extension System ID GUID 128
+Extension Data Size WORD 16
+Extension System Info Length DWORD 32
+Extension System Info BYTE varies
+}

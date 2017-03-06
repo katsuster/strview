@@ -1,0 +1,5 @@
+FLV_video_vp6_alpha_tag_header() {
+HorizontalAdjustment 4 bslbf
+VerticalAdjustment 4 bslbf
+OffsetToAlpha 24 bslbf
+}

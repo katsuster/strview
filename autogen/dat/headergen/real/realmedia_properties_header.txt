@@ -1,0 +1,21 @@
+Properties_Header()
+{
+	object_id 32 uint_b
+	size 32 uint_b
+	object_version 16 uint_b
+
+	if (object_version == 0)
+	{
+		max_bit_rate 32 uint_b
+		avg_bit_rate 32 uint_b
+		max_packet_size 32 uint_b
+		avg_packet_size 32 uint_b
+		num_packets 32 uint_b
+		duration 32 uint_b
+		preroll 32 uint_b
+		index_offset 32 uint_b
+		data_offset 32 uint_b
+		num_streams 16 uint_b
+		flags 16 uint_b
+	}
+}

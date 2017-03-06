@@ -1,0 +1,18 @@
+channel_pair_element()
+{
+element_instance_tag 4 uimsbf
+common_window 1 uimsbf
+if ( common_window ) {
+ics_info()
+ms_mask_present 2 uimsbf
+if (ms_mask_present == 1) {
+for (g = 0 g < num_window_groups g++) {
+for (sfb = 0 sfb < max_sfb sfb++) {
+ms_used[g][sfb] 1 uimsbf
+}
+}
+}
+}
+individual_channel_stream(common_window)
+individual_channel_stream(common_window)
+}

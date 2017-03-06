@@ -1,0 +1,8 @@
+asf_data_object {
+Object ID GUID 128
+Object Size QWORD  64
+File ID GUID 128
+Total Data Packets QWORD 64
+Reserved WORD 16
+Data Packets AAAA varies
+}

@@ -1,0 +1,5 @@
+MetadataSectionHeader
+{
+	object_id 32 uint_b
+	size 32 uint_b
+}

@@ -1,0 +1,31 @@
+spectral_data()
+{
+for (g = 0 g < num_window_groups g++) {
+for (i = 0 i < num_sec[g] i++) {
+if (sect_cb[g][i] != ZERO_HCB &&
+sect_cb[g][i] <= ESC_HCB) {
+for (k = sect_sfb_offset[g][sect_start[g][i]]
+k < sect_sfb_offset[g][sect_end[g][i]] ) {
+if (sect_cb[g][i]<FIRST_PAIR_HCB) {
+hcod[sect_cb[g][i]][w][x][y][z] 1..16 vlclbf
+if (unsigned_cb[sect_cb[g][i]])
+quad_sign_bits 0..4 bslbf
+k += QUAD_LEN
+}
+else {
+hcod[sect_cb[g][i]][y][z] 1..15 vlclbf
+if (unsigned_cb[sect_cb[g][i]])
+pair_sign_bits 0..2 bslbf
+k += PAIR_LEN
+if (sect_cb[g][i] == ESC_HCB) {
+if (y == ESC_FLAG)
+hcod_esc_y 5..21 vlclbf
+if (z == ESC_FLAG)
+hcod_esc_z 5..21 vlclbf
+}
+}
+}
+}
+}
+}
+}

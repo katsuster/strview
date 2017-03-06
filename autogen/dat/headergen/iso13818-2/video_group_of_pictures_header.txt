@@ -1,0 +1,7 @@
+group_of_pictures_header() {
+group_start_code 32 bslbf
+time_code 25 bslbf
+closed_gop 1 uimsbf
+broken_link 1 uimsbf
+next_start_code()
+}

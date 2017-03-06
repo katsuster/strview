@@ -1,0 +1,36 @@
+format5_header()
+ reserved 80 bslbf
+ version 16 uimsbf
+ revision 16 uimsbf
+ header_bytes 16 uimsbf
+ flavor_index 16 uimsbf
+ granularity 32 uimsbf
+ total_bytes 32 uimsbf
+ bytes_per_minute 32 uimsbf
+ bytes_per_minute2 32 uimsbf
+ interleave_factor 16 uimsbf
+ interleave_block_size 16 uimsbf
+ codec_frame_size 16 uimsbf
+ user_data 32 uimsbf
+ sample_rate 32 uimsbf
+ actual_sample_rate 32 uimsbf
+ sample_size 16 uimsbf
+ num_channels 16 uimsbf
+ interleaver_id 32 4cc
+ codec_id 32 4cc
+ is_interleaved_flag 8 uimsbf
+ can_copy_flag 8 uimsbf
+ stream_type 8 uimsbf
+ has_interleave_pattern_flag 8 uimsbf
+ if (header_has_interleave_pattern_flag != 0) {
+  num_frames_in_superblock = (interleave_factor *
+        interleave_block_size) / codec_frame_size;
+  for (i = 0; i < num_frames_in_superblock; i++) {
+   header_interleave_pattern[i] 16 uimsbf
+  }
+ }
+ codec_opaque_data_size 32 uimsbf
+ for (i = 0; i < codec_opaque_data_size; i++) {
+  codec_opaque_data_byte[i] 8 bslbf
+ }
+}

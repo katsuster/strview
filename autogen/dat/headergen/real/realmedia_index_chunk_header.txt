@@ -1,0 +1,12 @@
+Index_Chunk_Header
+{
+	object_id 32 uint_b
+	size 32 uint_b
+	object_version 16 uint_b
+	if (object_version == 0)
+	{
+		num_indices 32 uint_b
+		stream_number 16 uint_b
+		next_index_header 32 uint_b
+	}
+}

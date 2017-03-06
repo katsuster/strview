@@ -1,0 +1,4 @@
+aligned(8) class ObjectDescriptorBox
+extends FullBox(ÅeiodsÅf, version = 0, 0) {
+ObjectDescriptor OD;
+}

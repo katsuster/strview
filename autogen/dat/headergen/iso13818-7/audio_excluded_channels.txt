@@ -1,0 +1,15 @@
+excluded_channels( )
+{
+n = 0
+num_excl_chan = 70
+for (i = 0 i < 7 i++)
+exclude_mask[i] 1 uimsbf
+n++
+while (additional_excluded_chns[n-1] == 1) { 1 uimsbf
+for (i = num_excl_chan i < num_excl_chan+7 i++)
+exclude_mask[i] 1 uimsbf
+n++
+num_excl_chan += 7
+}
+return n
+}

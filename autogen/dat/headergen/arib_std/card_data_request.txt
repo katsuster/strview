@@ -1,0 +1,11 @@
+data_request_response(){
+protocol_unit_number            8 uimsbf
+unit_length                     8 uimsbf
+ic_card_instruction             16 uimsbf
+return_code                     16 uimsbf
+pdu_number                      8 uimsbf
+final_pdu_number                8 uimsbf
+upload_data                     n uimsbf
+sw1                             8 uimsbf
+sw2                             8 uimsbf
+}

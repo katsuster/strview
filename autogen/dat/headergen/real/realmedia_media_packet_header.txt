@@ -1,0 +1,25 @@
+Media_Packet_Header
+{
+	object_version 16 uint_b
+	if ((object_version == 0) || (object_version == 1))
+	{
+		length 16 uint_b
+		stream_number 16 uint_b
+		timestamp 32 uint_b
+		if (object_version == 0)
+		{
+			packet_group 8  uint_b
+			flags 8  uint_b
+		}
+		else if (object_version == 1)
+		{
+			asm_rule 16 uint_b
+			asm_flags 8  uint_b
+		}
+		data[length] 8 uint_b
+	}
+	else
+	{
+		StreamDone();
+	}
+}

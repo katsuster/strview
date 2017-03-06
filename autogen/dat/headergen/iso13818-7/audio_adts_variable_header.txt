@@ -1,0 +1,8 @@
+adts_variable_header()
+{
+copyright_identification_bit 1 bslbf
+copyright_identification_start 1 bslbf
+frame_length 13 bslbf
+adts_buffer_fullness 11 bslbf
+number_of_raw_data_blocks_in_frame 2 uimsfb
+}

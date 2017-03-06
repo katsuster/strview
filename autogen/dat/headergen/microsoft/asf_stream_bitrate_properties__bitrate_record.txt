@@ -1,0 +1,6 @@
+asf_stream_bitrate_properties_object__bitrate_record {
+Flags WORD 16
+//Stream Number  7 (LSB)
+//Reserved 9
+Average Bitrate DWORD 32
+}

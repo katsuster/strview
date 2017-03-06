@@ -1,0 +1,7 @@
+asf_extended_content_description_object__content_descriptor {
+Descriptor Name Length WORD 16
+Descriptor Name WCHAR varies
+Descriptor Value Data Type WORD 16
+Descriptor Value Length WORD 16
+Descriptor Value See text varies
+}

@@ -1,0 +1,55 @@
+gain_control_data()
+{
+max_band 2 uimsbf
+if (window_sequence == ONLY_LONG_SEQUENCE) {
+for (bd = 1 bd <= max_band bd++) {
+for (wd = 0 wd < 1 wd++) {
+adjust_num[bd][wd] 3 uimsbf
+for (ad = 0 ad < adjust_num[bd][wd] ad++) {
+alevcode[bd][wd][ad] 4 uimsbf
+aloccode[bd][wd][ad] 5 uimsbf
+}
+}
+}
+}
+else if (window_sequence == LONG_START_SEQUENCE)
+{
+for (bd = 1 bd <= max_band bd++) {
+for (wd = 0 wd < 2 wd++) {
+adjust_num[bd][wd] 3 uimsbf
+for (ad = 0 ad < adjust_num[bd][wd] ad++) {
+alevcode[bd][wd][ad] 4 uimsbf
+if (wd == 0)
+aloccode[bd][wd][ad] 4 uimsbf
+else
+aloccode[bd][wd][ad] 2 uimsbf
+}
+}
+}
+}
+else if (window_sequence == EIGHT_SHORT_SEQUENCE) {
+for (bd = 1 bd <= max_band bd++) {
+for (wd = 0 wd < 8 wd++) {
+adjust_num[bd][wd] 3 uimsbf
+for (ad = 0 ad < adjust_num[bd][wd] ad++) {
+alevcode[bd][wd][ad] 4 uimsbf
+aloccode[bd][wd][ad] 2 uimsbf
+}
+}
+}
+}
+else if (window_sequence == LONG_STOP_SEQUENCE) {
+for (bd = 1 bd <= max_band bd++) {
+for (wd = 0 wd < 2 wd++) {
+adjust_num[bd][wd] 3 uimsbf
+for (ad = 0 ad < adjust_num[bd][wd] ad++) {
+alevcode[bd][wd][ad] 4 uimsbf
+if (wd == 0)
+aloccode[bd][wd][ad] 4 uimsbf
+else
+aloccode[bd][wd][ad] 5 uimsbf
+}
+}
+}
+}
+}

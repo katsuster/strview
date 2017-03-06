@@ -1,0 +1,14 @@
+copyright_extension() {
+extension_start_code_identifier 4 uimsbf
+copyright_flag 1 bslbf
+copyright_identifier 8 uimsbf
+original_or_copy 1 bslbf
+reserved 7 uimsbf
+marker_bit 1 bslbf
+copyright_number_1 20 uimsbf
+marker_bit 1 bslbf
+copyright_number_2 22 uimsbf
+marker_bit 1 bslbf
+copyright_number_3 22 uimsbf
+next_start_code()
+}

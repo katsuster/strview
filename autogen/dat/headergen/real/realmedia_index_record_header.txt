@@ -1,0 +1,10 @@
+IndexRecord_Header
+{
+	object_version 16 uint_b
+	if (object_version == 0)
+	{
+		timestamp 32 uint_b
+		offset 32 uint_b
+		packet_count_for_this_packet 32 uint_b
+	}
+}

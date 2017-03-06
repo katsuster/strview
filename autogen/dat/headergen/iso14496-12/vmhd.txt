@@ -1,0 +1,4 @@
+aligned(8) class VideoMediaHeaderBox extends FullBox(ÅevmhdÅf, version = 0, 1) {
+template unsigned int(16) graphicsmode = 0; // copy, see below
+template unsigned int(16)[3] opcolor = {0, 0, 0};
+}

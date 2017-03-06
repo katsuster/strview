@@ -1,0 +1,7 @@
+asf_header_object {
+Object ID GUID 128
+Object Size QWORD 64
+Number of Header Objects DWORD 32
+Reserved1 BYTE 8
+Reserved2 BYTE 8
+}

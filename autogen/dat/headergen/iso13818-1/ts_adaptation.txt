@@ -1,0 +1,62 @@
+adaptation_field() {
+adaptation_field_length 8 uimsbf
+if (adaptation_field_length > 0) {
+discontinuity_indicator 1 bslbf
+random_access_indicator 1 bslbf
+elementary_stream_priority_indicator 1 bslbf
+PCR_flag 1 bslbf
+OPCR_flag 1 bslbf
+splicing_point_flag 1 bslbf
+transport_private_data_flag 1 bslbf
+adaptation_field_extension_flag 1 bslbf
+if (PCR_flag = = '1') {
+program_clock_reference_base 33 uimsbf
+reserved 6 bslbf
+program_clock_reference_extension 9 uimsbf
+}
+if (OPCR_flag = = '1') {
+original_program_clock_reference_base 33 uimsbf
+reserved 6 bslbf
+original_program_clock_reference_extension 9 uimsbf
+}
+if (splicing_point_flag = = '1') {
+splice_countdown 8 tcimsbf
+}
+if (transport_private_data_flag = = '1') {
+transport_private_data_length 8 uimsbf
+for (i = 0; i < transport_private_data_length; i++) {
+private_data_byte 8 bslbf
+}
+}
+if (adaptation_field_extension_flag = = '1') {
+adaptation_field_extension_length 8 uimsbf
+ltw_flag 1 bslbf
+piecewise_rate_flag 1 bslbf
+seamless_splice_flag 1 bslbf
+reserved 5 bslbf
+if (ltw_flag = = '1') {
+ltw_valid_flag 1 bslbf
+ltw_offset 15 uimsbf
+}
+if (piecewise_rate_flag = = '1') {
+reserved 2 bslbf
+piecewise_rate 22 uimsbf
+}
+if (seamless_splice_flag = = '1') {
+splice_type 4 bslbf
+DTS_next_AU[32..30] 3 bslbf
+marker_bit 1 bslbf
+DTS_next_AU[29..15] 15 bslbf
+marker_bit 1 bslbf
+DTS_next_AU[14..0] 15 bslbf
+marker_bit 1 bslbf
+}
+for (i = 0; i < N; i++) {
+reserved 8 bslbf
+}
+}
+for (i = 0; i < N; i++) {
+stuffing_byte 8 bslbf
+}
+}
+}

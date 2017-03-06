@@ -1,0 +1,24 @@
+ics_info()
+{
+ics_reserved_bit 1 bslbf
+window_sequence 2 uimsbf
+window_shape 1 uimsbf
+if (window_sequence == EIGHT_SHORT_SEQUENCE) {
+max_sfb 4 uimsbf
+scale_factor_grouping 7 uimsbf
+}
+else {
+max_sfb 6 uimsbf
+predictor_data_present 1 uimsbf
+if (predictor_data_present) {
+predictor_reset 1 uimsbf
+if (predictor_reset) {
+predictor_reset_group_number 5 uimsbf
+}
+for (sfb = 0 sfb < min(max_sfb,
+PRED_SFB_MAX) sfb++) {
+prediction_used[sfb] 1 uimsbf
+}
+}
+}
+}

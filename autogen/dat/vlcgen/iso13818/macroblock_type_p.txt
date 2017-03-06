@@ -1,0 +1,16 @@
+# 1st line) class name
+macroblock_type_p
+# 2nd line) VLC code max length(bits)
+6
+# 3rd line) format of the pair: <VLC code> <value>
+# available VLC type  : bin
+# available value type: bin, oct, dec, hex
+bin          dec
+# other) define the pair: <VLC code> <value>
+1            0 //MC, Coded
+01           1 //No MC, Coded
+001          2 //MC, Not Coded
+00011        3 //Intra
+00010        4 //MC, Coded, Quant
+00001        5 //No MC, Coded, Quant
+000001       6 //Intra, Quant

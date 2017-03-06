@@ -1,0 +1,23 @@
+asf_data_object__error_correction_data {
+//Error Correction Flags BYTE **8 //see below
+//Error Correction Data Length 4(LSB)
+//Opaque Data Present 1
+//Error Correction Length Type 2
+//Error Correction Present 1
+
+//Error Correction Flags
+Error Correction Present BYTE 1
+Error Correction Length Type BYTE 2
+Opaque Data Present BYTE 1
+Error Correction Data Length BYTE 4
+//end of Error Correction Flags
+
+//Error Correction Data BYTE varies
+//First byte Type BYTE 8
+//Type 4 (LSB)
+//Number 4
+Number BYTE 4
+Type BYTE 4
+Second byte Cycle BYTE 8
+//end of Error Correction Data
+}

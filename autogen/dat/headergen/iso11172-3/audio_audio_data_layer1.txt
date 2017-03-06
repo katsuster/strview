@@ -1,0 +1,36 @@
+audio_data_layer1() {
+for (sb=0; sb<bound; sb++) {
+    for (ch=0; ch<nch; ch++) {
+        allocation[ch][sb]           4 uimsbf
+    }
+}
+for (sb=bound; sb<32; sb++) {
+    allocation[0][sb]                4 uimsbf
+    allocation[1][sb]=allocation[0][sb]
+}
+for (sb=0; sb<32; sb++) {
+    for (ch=0; ch<nch; ch++) {
+        if (allocation[ch][sb]!=0) {
+            scalefactor[ch][sb]      6 uimsbf
+        }
+    }
+}
+for (s=0; s<12; s++) {
+    for (sb=0; sb<bound; sb++) {
+        for (ch=0; ch<nch; ch++) {
+            if (allocation[ch][sb]!=0) {
+                sample[ch][sb][s]    2..15 uimsbf
+                }
+            }
+        }
+    }
+    for (sb=bound; sb<32; sb++) {
+        if (allocation[0][sb]!=0) {
+            sample[0][sb][s]         2..15 uimsbf
+        }
+    }
+}
+for (b=0; b<no_of_ancillary_bits; b++) {
+    ancillary_bit    1 bslbf
+}
+}

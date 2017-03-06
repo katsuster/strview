@@ -1,0 +1,15 @@
+MetadataProperty_Header
+{
+	size 32 uint_b
+	type 32 uint_b
+	flags 32 uint_b
+	value_offset 32 uint_b
+	subproperties_offset 32 uint_b
+	num_subproperties 32 uint_b
+	name_length 32 uint_b
+	name[name_length] uint_b
+	value_length 32 uint_b
+	value[value_length] 8 uint_b
+	subproperties_list[num_subproperties] PropListEntry uint_b
+	subproperties[num_subproperties] MetadataProperty uint_b
+}

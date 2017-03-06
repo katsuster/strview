@@ -1,0 +1,18 @@
+header() {
+syncword            12 bslbf
+ID                  1 bslbf
+layer               2 bslbf
+protection_bit      1 bslbf
+bitrate_index       4 bslbf
+sampling_frequency  2 bslbf
+padding_bit         1 bslbf
+private_bit         1 bslbf
+mode                2 bslbf
+mode_extension      2 bslbf
+copyright           1 bslbf
+original_copy       1 bslbf
+emphasis            2 bslbf
+if (protection_bit == 0) {
+crc_check           16 rpchof
+}
+}

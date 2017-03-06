@@ -1,0 +1,5 @@
+adts_error_check()
+{
+if (protection_absent == Åe0Åf)
+crc_check 16 rpchof
+}

@@ -1,0 +1,16 @@
+quant_matrix_extension() {
+extension_start_code_identifier 4 uimsbf
+load_intra_quantiser_matrix 1 uimsbf
+if ( load_intra_quantiser_matrix )
+intra_quantiser_matrix[64] 8 * 64 uimsbf
+load_non_intra_quantiser_matrix 1 uimsbf
+if ( load_non_intra_quantiser_matrix )
+non_intra_quantiser_matrix[64] 8 * 64 uimsbf
+load_chroma_intra_quantiser_matrix 1 uimsbf
+if ( load_chroma_intra_quantiser_matrix )
+chroma_intra_quantiser_matrix[64] 8 * 64 uimsbf
+load_chroma_non_intra_quantiser_matrix 1 uimsbf
+if ( load_chroma_non_intra_quantiser_matrix )
+chroma_non_intra_quantiser_matrix[64] 8 * 64 uimsbf
+next_start_code()
+}

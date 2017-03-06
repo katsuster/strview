@@ -1,0 +1,9 @@
+id3_v100() {
+file_identifier  24 bslbf //"TAG"
+song_title       240 bslbf //30 characters
+artist           240 bslbf //30 characters
+album            240 bslbf //30 characters
+year             32 bslbf //4 characters
+comment          240 bslbf //30 characters
+genre            8 bslbf //1 byte
+}

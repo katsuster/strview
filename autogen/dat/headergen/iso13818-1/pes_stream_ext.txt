@@ -1,0 +1,33 @@
+PES_packet() { //pes_stream_ext_header
+PES_private_data_flag 1 bslbf
+pack_header_field_flag 1 bslbf
+program_packet_sequence_counter_flag 1 bslbf
+P-STD_buffer_flag 1 bslbf
+reserved 3 bslbf
+PES_extension_flag_2 1 bslbf
+if ( PES_private_data_flag = = '1') {
+PES_private_data 128 bslbf
+}
+if (pack_header_field_flag = = '1') {
+pack_field_length 8 uimsbf
+pack_header()
+}
+if (program_packet_sequence_counter_flag = = '1') {
+marker_bit 1 bslbf
+program_packet_sequence_counter 7 uimsbf
+marker_bit 1 bslbf
+MPEG1_MPEG2_identifier 1 bslbf
+original_stuff_length 6 uimsbf
+}
+if ( P-STD_buffer_flag = = '1') {
+'01' 2 bslbf
+P-STD_buffer_scale 1 bslbf
+P-STD_buffer_size 13 uimsbf
+}
+if ( PES_extension_flag_2 = = '1') {
+marker_bit 1 bslbf
+PES_extension_field_length 7 uimsbf
+for (i = 0; i < PES_extension_field_length; i++) {
+reserved 8 bslbf
+}
+}

@@ -1,0 +1,27 @@
+PES_packet() {
+packet_start_code_prefix 24 bslbf
+stream_id 8 uimsbf
+PES_packet_length 16 uimsbf
+if (stream_id != program_stream_map
+&& stream_id != padding_stream
+&& stream_id != private_stream_2
+&& stream_id != ECM
+&& stream_id != EMM
+&& stream_id != program_stream_directory
+&& stream_id != DSMCC_stream
+&& stream_id != ITU-T Rec. H.222.1 type E stream) {
+//pes_stream_header
+}
+else if ( stream_id = = program_stream_map
+|| stream_id = = private_stream_2
+|| stream_id = = ECM
+|| stream_id = = EMM
+|| stream_id = = program_stream_directory
+|| stream_id = = DSMCC_stream
+|| stream_id = = ITU-T Rec. H.222.1 type E stream ) {
+//pes_psi_header
+}
+else if ( stream_id = = padding_stream) {
+//pes_padding
+}
+}

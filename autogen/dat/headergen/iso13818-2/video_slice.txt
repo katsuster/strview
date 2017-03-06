@@ -1,0 +1,24 @@
+slice() {
+slice_start_code 32 bslbf
+if (vertical_size > 2800)
+slice_vertical_position_extension 3 uimsbf
+if (<sequence_scalable_extension() is present in the bitstream>) {
+if (scalable_mode == Ågdata partitioningÅh )
+priority_breakpoint 7 uimsbf
+}
+quantiser_scale_code 5 uimsbf
+if ( nextbits() == Åe1Åf ) {
+intra_slice_flag 1 bslbf
+intra_slice 1 uimsbf
+reserved_bits 7 uimsbf
+while ( nextbits() == Åe1Åf ) {
+extra_bit_slice 1 uimsbf
+extra_information_slice 8 uimsbf
+}
+}
+extra_bit_slice 1 uimsbf
+do {
+macroblock()
+} while ( nextbits() != Åe000 0000 0000 0000 0000 0000Åf )
+next_start_code()
+}

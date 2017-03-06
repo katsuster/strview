@@ -1,0 +1,5 @@
+asf_padding_object {
+Object ID GUID 128
+Object Size QWORD 64
+Padding Data BYTE varies
+}

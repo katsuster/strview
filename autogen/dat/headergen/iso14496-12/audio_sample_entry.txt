@@ -1,0 +1,8 @@
+aligned(1) class AudioSampleEntry(codingname) extends SampleEntry(codingname) {
+const unsigned int(32)[2] reserved = 0;
+template unsigned int(16) channelcount = 2;
+template unsigned int(16) samplesize = 16;
+unsigned int(16) pre_defined = 0;
+const unsigned int(16) reserved = 0 ;
+template unsigned int(32) samplerate = { default samplerate of media}<<16;
+}

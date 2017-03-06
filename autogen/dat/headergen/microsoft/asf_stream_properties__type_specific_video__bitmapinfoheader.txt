@@ -1,0 +1,14 @@
+asf_stream_properties_object__type_specific_video__bitmapinfoheader {
+Format Data Size DWORD 32
+Image Width LONG 32
+Image Height LONG 32
+Reserved WORD 16
+Bits Per Pixel Count WORD 16
+Compression ID DWORD 32
+Image Size DWORD 32
+Horizontal Pixels Per Meter LONG 32
+Vertical Pixels Per Meter LONG 32
+Colors Used Count DWORD 32
+Important Colors Count DWORD 32
+Codec Specific Data BYTE varies
+}

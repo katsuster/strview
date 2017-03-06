@@ -1,0 +1,18 @@
+sequence_header() {
+sequence_header_code 32 bslbf
+horizontal_size_value 12 uimsbf
+vertical_size_value 12 uimsbf
+aspect_ratio_information 4 uimsbf
+frame_rate_code 4 uimsbf
+bit_rate_value 18 uimsbf
+marker_bit 1 bslbf
+vbv_buffer_size_value 10 uimsbf
+constrained_parameters_flag 1 bslbf
+load_intra_quantiser_matrix 1 uimsbf
+if ( load_intra_quantiser_matrix )
+intra_quantiser_matrix[64] 8*64 uimsbf
+load_non_intra_quantiser_matrix 1 uimsbf
+if ( load_non_intra_quantiser_matrix )
+non_intra_quantiser_matrix[64] 8*64 uimsbf
+next_start_code()
+}

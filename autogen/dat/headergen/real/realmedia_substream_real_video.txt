@@ -1,0 +1,18 @@
+substream_header(int header_len) {
+ media_object_format 32 4cc
+ codec_id 32 4cc
+ frame_width 16 uimbsf
+ frame_height 16 uimsbf
+ bit_count 16 uimsbf
+ pad_width 16 uimsbf
+ pad_height 16 uimsbf
+ if (media_object_format == 0x5649444F) {
+  frame_rate 32 uimbsf
+  bytes_left = header_len - 22
+ } else {
+  bytes_left = header_len - 18
+ }
+ for (i = 0; i < bytes_left; i++) {
+  codec_opaque_data_byte[i] 8 bslbf
+ }
+}

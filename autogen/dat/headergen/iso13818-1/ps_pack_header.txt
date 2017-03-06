@@ -1,0 +1,23 @@
+pack_header() {
+pack_start_code 32 bslbf
+'01' 2 bslbf
+system_clock_reference_base [32..30] 3 bslbf
+marker_bit 1 bslbf
+system_clock_reference_base [29..15] 15 bslbf
+marker_bit 1 bslbf
+system_clock_reference_base [14..0] 15 bslbf
+marker_bit 1 bslbf
+system_clock_reference_extension 9 uimsbf
+marker_bit 1 bslbf
+program_mux_rate 22 uimsbf
+marker_bit 1 bslbf
+marker_bit 1 bslbf
+reserved 5 bslbf
+pack_stuffing_length 3 uimsbf
+for (i = 0; i < pack_stuffing_length; i+ð++) {
+stuffing_byte 8 bslbf
+}
+if (nextbits() = = system_header_start_code) {
+system_header ()
+}
+}

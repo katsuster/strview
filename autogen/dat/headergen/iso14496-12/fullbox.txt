@@ -1,0 +1,4 @@
+FullBox() extends Box(boxtype) {
+unsigned int(8) version = v;
+bit(24) flags = f;
+}

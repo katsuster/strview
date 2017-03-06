@@ -1,0 +1,20 @@
+FLV_video_h263_tag_header() {
+PictureStartCode 17 bslbf
+Version 5 bslbf
+TemporalReference 8 bslbf
+PictureSize 3 bslbf
+if (PictureSize = 000) {
+CustomWidth 8 bslbf
+CustomHeight 8 bslbf
+} else if (PictureSize = 001) {
+CustomWidth 16 bslbf
+CustomHeight 16 bslbf
+}
+PictureType 2 bslbf
+DeblockingFlag 1 bslbf
+Quantizer 5 bslbf
+ExtraInformationFlag 1 bslbf
+while (ExtraInformationFlag = 1) {
+ExtraInformation 8 bslbf
+}
+}

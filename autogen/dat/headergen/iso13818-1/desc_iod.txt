@@ -1,0 +1,7 @@
+IOD_descriptor () {
+descriptor_tag 8 uimsbf
+descriptor_length 8 uimsbf
+Scope_of_IOD_label 8 uimsbf
+IOD_label 8 uimsbf
+InitialObjectDescriptor () 8 uimsbf
+}

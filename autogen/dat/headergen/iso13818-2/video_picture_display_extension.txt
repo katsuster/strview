@@ -1,0 +1,10 @@
+picture_display_extension() {
+extension_start_code_identifier 4 uimsbf
+for ( i=0; i<number_of_frame_centre_offsets; i++ ) {
+frame_centre_horizontal_offset 16 simsbf
+marker_bit 1 bslbf
+frame_centre_vertical_offset 16 simsbf
+marker_bit 1 bslbf
+}
+next_start_code()
+}

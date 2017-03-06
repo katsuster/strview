@@ -1,0 +1,5 @@
+PropListEntry_Header
+{
+	offset 32 uint_b
+	num_props_for_name 32 uint_b
+}

@@ -1,0 +1,6 @@
+MetadataSectionFooter
+{
+	object_id 32 uint_b
+	object_version 32 uint_b
+	size 32 uint_b
+}

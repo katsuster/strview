@@ -1,0 +1,8 @@
+video_decode_control_descriptor(){
+descriptor_tag 8 uimsbf
+descriptor_length 8 uimsbf
+still_picture_flag 1 bslbf
+sequence_end_code_flag 1 bslbf
+video_encode_format 4 bslbf
+reserved_future_use 2 bslbf
+}

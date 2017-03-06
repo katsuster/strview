@@ -1,0 +1,11 @@
+ppv_program_purchase_response(){
+protocol_unit_number            8 uimsbf
+unit_length                     8 uimsbf
+ic_card_instruction             16 uimsbf
+return_code                     16 uimsbf
+ks_odd                          64 uimsbf
+ks_even                         64 uimsbf
+recording_control               8 uimsbf
+sw1                             8 uimsbf
+sw2                             8 uimsbf
+}

@@ -1,0 +1,17 @@
+RealAudio_Opaque_Data() {
+ single_or_multiple 32 uimsbf
+ if (single_or_multiple == 0x4D4C5449) { /* MLTI */
+  num_rules 16 uimsbf
+  for (i = 0; i < num_rules; i++) {
+   rule_to_substream_map[i] 16 uimbsf
+  }
+  num_substreams 16 uimbsf
+  for (i = 0; i < num_sub_streams; i++) {
+   substream_header_size[i] 32 uimbsf
+   real_audio_id 32 uimbsf
+   single_substream_header()
+  }
+ } else if (single_or_multiple == 0x2E7261FD) {
+  single_substream_header()
+ }
+}

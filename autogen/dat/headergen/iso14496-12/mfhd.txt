@@ -1,0 +1,3 @@
+aligned(8) class MovieFragmentHeaderBox extends FullBox(emfhdf, 0, 0){
+unsigned int(32) sequence_number;
+}

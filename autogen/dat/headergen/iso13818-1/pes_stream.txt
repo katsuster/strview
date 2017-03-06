@@ -1,0 +1,98 @@
+PES_packet() { //pes_stream_header
+'10' 2 bslbf
+PES_scrambling_control 2 bslbf
+PES_priority 1 bslbf
+data_alignment_indicator 1 bslbf
+copyright 1 bslbf
+original_or_copy 1 bslbf
+PTS_DTS_flags 2 bslbf
+ESCR_flag 1 bslbf
+ES_rate_flag 1 bslbf
+DSM_trick_mode_flag 1 bslbf
+additional_copy_info_flag 1 bslbf
+PES_CRC_flag 1 bslbf
+PES_extension_flag 1 bslbf
+PES_header_data_length 8 uimsbf
+if (PTS_DTS_flags = = '10') {
+'0010' 4 bslbf
+PTS[32..30] 3 bslbf
+marker_bit 1 bslbf
+PTS[29..15] 15 bslbf
+marker_bit 1 bslbf
+PTS[14..0] 15 bslbf
+marker_bit 1 bslbf
+}
+if (PTS_DTS_flags = = '11') {
+'0011' 4 bslbf
+PTS[32..30] 3 bslbf
+marker_bit 1 bslbf
+PTS[29..15] 15 bslbf
+marker_bit 1 bslbf
+PTS[14..0] 15 bslbf
+marker_bit 1 bslbf
+'0001' 4 bslbf
+DTS[32..30] 3 bslbf
+marker_bit 1 bslbf
+DTS[29..15] 15 bslbf
+marker_bit 1 bslbf
+DTS[14..0] 15 bslbf
+marker_bit 1 bslbf
+}
+if (ESCR_flag = = '1') {
+reserved 2 bslbf
+ESCR_base[32..30] 3 bslbf
+marker_bit 1 bslbf
+ESCR_base[29..15] 15 bslbf
+marker_bit 1 bslbf
+ESCR_base[14..0] 15 bslbf
+marker_bit 1 bslbf
+ESCR_extension 9 uimsbf
+marker_bit 1 bslbf
+}
+if (ES_rate_flag = = '1') {
+marker_bit 1 bslbf
+ES_rate 22 uimsbf
+marker_bit 1 bslbf
+}
+if (DSM_trick_mode_flag = = '1') {
+trick_mode_control 3 uimsbf
+if ( trick_mode_control = = fast_forward ) {
+field_id 2 bslbf
+intra_slice_refresh 1 bslbf
+frequency_truncation 2 bslbf
+}
+else if ( trick_mode_control = = slow_motion ) {
+rep_cntrl 5 uimsbf
+}
+else if ( trick_mode_control = = freeze_frame ) {
+field_id 2 uimsbf
+reserved 3 bslbf
+}
+else if ( trick_mode_control = = fast_reverse ) {
+field_id 2 bslbf
+intra_slice_refresh 1 bslbf
+frequency_truncation 2 bslbf
+else if ( trick_mode_control = = slow_reverse ) {
+rep_cntrl 5 uimsbf
+}
+else
+reserved 5 bslbf
+}
+if ( additional_copy_info_flag = = '1') {
+marker_bit 1 bslbf
+additional_copy_info 7 bslbf
+}
+if ( PES_CRC_flag = = '1') {
+previous_PES_packet_CRC 16 bslbf
+}
+if ( PES_extension_flag = = '1') {
+//pes_stream_ext_header
+}
+}
+for (i = 0; i < N1; i++) {
+stuffing_byte 8 bslbf
+}
+for (i = 0; i < N2; i++) {
+PES_packet_data_byte 8 bslbf
+}
+}

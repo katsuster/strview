@@ -1,0 +1,13 @@
+adts_fixed_header()
+{
+syncword 12 bslbf
+ID 1 bslbf
+layer 2 uimsbf
+protection_absent 1 bslbf
+profile 2 uimsbf
+sampling_frequency_index 4 uimsbf
+private_bit 1 bslbf
+channel_configuration 3 uimsbf
+original/copy 1 bslbf
+home 1 bslbf
+}

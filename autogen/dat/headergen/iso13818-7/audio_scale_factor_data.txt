@@ -1,0 +1,13 @@
+scale_factor_data()
+{
+for (g = 0 g < num_window_groups g++) {
+for (sfb = 0 sfb < max_sfb sfb++) {
+if (sfb_cb[g][sfb] != ZERO_HCB) {
+if (is_intensity(g,sfb))
+hcod_sf[dpcm_is_position[g][sfb]] 1..19 vlclbf
+else
+hcod_sf[dpcm_sf[g][sfb]] 1..19 vlclbf
+}
+}
+}
+}

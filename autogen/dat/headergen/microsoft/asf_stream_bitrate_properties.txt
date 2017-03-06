@@ -1,0 +1,6 @@
+asf_stream_bitrate_properties_object {
+Object ID GUID 128
+Object Size QWORD 64
+Bitrate Records Count WORD 16
+Bitrate Records See below varies
+}

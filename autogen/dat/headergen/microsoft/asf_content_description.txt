@@ -1,0 +1,14 @@
+asf_content_description_object {
+Object ID GUID 128
+Object Size QWORD 64
+Title Length WORD 16
+Author Length WORD 16
+Copyright Length WORD 16
+Description Length WORD 16
+Rating Length WORD 16
+Title WCHAR Varies
+Author WCHAR Varies
+Copyright WCHAR Varies
+Description WCHAR Varies
+Rating WCHAR Varies
+}

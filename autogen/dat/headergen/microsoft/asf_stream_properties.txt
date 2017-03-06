@@ -1,0 +1,16 @@
+asf_stream_properties_object {
+Object ID GUID 128
+Object Size QWORD 64
+Stream Type GUID 128
+Error Correction Type GUID 128
+Time Offset QWORD 64
+Type-Specific Data Length DWORD 32
+Error Correction Data Length DWORD 32
+Flags WORD 16
+//Stream Number 7
+//Reserved 8
+//Encrypted Content Flag 1
+Reserved DWORD 32
+Type-Specific Data BYTE varies
+Error Correction Data BYTE varies
+}

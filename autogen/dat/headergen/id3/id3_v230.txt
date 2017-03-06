@@ -1,0 +1,9 @@
+id3_v230() {
+file_identifier      24 bslbf //"ID3"
+version               8 bslbf //$03 00
+flags_unsynchronisation      1 bslbf //'a' of %abc00000
+flags_extended_header        1 bslbf //'b' of %abc00000
+flags_experimental_indicator 1 bslbf //'c' of %abc00000
+flags_reserved               5 bslbf //remain '00000' of %abc00000
+size                 32 bslbf //4 * %0xxxxxxx
+}

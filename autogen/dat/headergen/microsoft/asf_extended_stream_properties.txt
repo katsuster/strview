@@ -1,0 +1,27 @@
+asf_extended_stream_properties_object {
+Object ID GUID 128
+Object Size QWORD 64
+Start Time QWORD 64
+End Time QWORD 64
+Data Bitrate DWORD 32
+Buffer Size DWORD 32
+Initial Buffer Fullness DWORD 32
+Alternate Data Bitrate DWORD 32
+Alternate Buffer Size DWORD 32
+Alternate Initial Buffer Fullness DWORD 32
+Maximum Object Size DWORD 32
+Flags DWORD 32
+//Reliable Flag 1 (LSB)
+//Seekable Flag 1
+//No Cleanpoints Flag 1
+//Resend Live Cleanpoints Flag 1
+//Reserved Flags 28
+Stream Number WORD 16
+Stream Language ID Index WORD 16
+Average Time Per Frame QWORD 64
+Stream Name Count WORD 16
+Payload Extension System Count WORD 16
+Stream Names See below varies
+Payload Extension Systems See below varies
+Stream Properties Object See below varies
+}

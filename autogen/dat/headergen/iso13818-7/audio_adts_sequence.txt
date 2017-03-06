@@ -1,0 +1,6 @@
+adts_sequence()
+{
+while (nextbits() == syncword) {
+adts_frame()
+}
+}

@@ -1,0 +1,13 @@
+NameValueProperty
+{
+	size 32 uint_b
+	object_version 16 uint_b
+	if (object_version == 0)
+	{
+		name_length 8  uint_b
+		name[namd_length] 8 uint_b
+		type 32 sint_b
+		value_length 16 uint_b
+		value_data[value_length] 8 uint_b
+	}
+}

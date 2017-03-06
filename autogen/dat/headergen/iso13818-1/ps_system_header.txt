@@ -1,0 +1,22 @@
+system_header () {
+system_header_start_code 32 bslbf
+header_length 16 uimsbf
+marker_bit 1 bslbf
+rate_bound 22 uimsbf
+marker_bit 1 bslbf
+audio_bound 6 uimsbf
+fixed_flag 1 bslbf
+CSPS_flag 1 bslbf
+system_audio_lock_flag 1 bslbf
+system_video_lock_flag 1 bslbf
+marker_bit 1 bslbf
+video_bound 5 uimsbf
+packet_rate_restriction_flag 1 bslbf
+reserved_bits 7 bslbf
+while (nextbits () = = '1') {
+stream_id 8 uimsbf
+'11' 2 bslbf
+P-STD_buffer_bound_scale 1 bslbf
+P-STD_buffer_size_bound 13 uimsbf
+}
+}

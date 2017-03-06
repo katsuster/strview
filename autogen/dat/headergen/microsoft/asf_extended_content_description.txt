@@ -1,0 +1,6 @@
+asf_extended_content_description_object {
+Object ID GUID 128
+Object Size QWORD 64
+Content Descriptors Count WORD 16
+Content Descriptors See text varies
+}

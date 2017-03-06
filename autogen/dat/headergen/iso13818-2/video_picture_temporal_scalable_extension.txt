@@ -1,0 +1,8 @@
+picture_temporal_scalable_extension() {
+extension_start_code_identifier 4 uimsbf
+reference_select_code 2 uimsbf
+forward_temporal_reference 10 uimsbf
+marker_bit 1 bslbf
+backward_temporal_reference 10 uimsbf
+next_start_code()
+}

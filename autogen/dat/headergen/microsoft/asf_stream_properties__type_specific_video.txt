@@ -1,0 +1,7 @@
+asf_stream_properties_object__type_specific_video {
+Encoded Image Width DWORD 32
+Encoded Image Height DWORD 32
+Reserved Flags BYTE 8
+Format Data Size WORD 16
+Format Data See below varies
+}

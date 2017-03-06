@@ -1,0 +1,25 @@
+# 1st line) class name
+macroblock_type_p_spatial
+# 2nd line) VLC code max length(bits)
+7
+# 3rd line) format of the pair: <VLC code> <value>
+# available VLC type  : bin
+# available value type: bin, oct, dec, hex
+bin          dec
+# other) define the pair: <VLC code> <value>
+10           0  //MC, Coded
+011          1  //MC, Coded, Compatible
+0000100      2  //No MC, Coded
+000111       3  //No MC, Coded, Compatible
+0010         4  //MC, Not Coded
+0000111      5  //Intra
+0011         6  //MC, Not coded, Compatible
+010          7  //MC, Coded, Quant
+000100       8  //No MC, Coded, Quant
+0000110      9  //Intra, Quant
+11           10 //MC, Coded, Compatible, Quant
+000101       11 //No MC, Coded, Compatible, Quant
+000110       12 //No MC, Not Coded, Compatible
+0000101      13 //Coded, Compatible
+0000010      14 //Coded, Compatible, Quant
+0000011      15 //Not Coded, Compatible

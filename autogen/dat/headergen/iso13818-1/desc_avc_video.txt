@@ -1,0 +1,17 @@
+AVC_video_descriptor() {
+descriptor_tag 8 uimsbf
+descriptor_length 8 uimsbf
+profile_idc 8 uimsbf
+constraint_set0_flag 1 bslbf
+constraint_set1_flag 1 bslbf
+constraint_set2_flag 1 bslbf
+constraint_set3_flag 1 bslbf
+constraint_set4_flag 1 bslbf
+constraint_set5_flag 1 bslbf
+AVC_compatible_flags 2 bslbf
+level_idc 8 uimsbf
+AVC_still_present 1 bslbf
+AVC_24_hour_picture_flag 1 bslbf
+Frame_Packing_SEI_not_present_flag 1 bslbf
+reserved 5 bslbf
+}

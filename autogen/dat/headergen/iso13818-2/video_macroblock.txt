@@ -1,0 +1,20 @@
+macroblock() {
+while ( nextbits() == Åe0000 0001 000Åf )
+macroblock_escape 11 bslbf
+macroblock_address_increment 1-11 vlclbf
+macroblock_modes()
+if ( macroblock_quant )
+quantiser_scale_code 5 uimsbf
+if ( macroblock_motion_forward ||
+( macroblock_intra && concealment_motion_vectors) )
+motion_vectors( 0 )
+if ( macroblock_motion_backward )
+motion_vectors( 1 )
+if ( macroblock_intra && concealment_motion_vectors)
+marker_bit 1 bslbf
+if ( macroblock_pattern )
+coded_block_pattern()
+for ( i=0; i<block_count; i++ ) {
+block( i )
+}
+}

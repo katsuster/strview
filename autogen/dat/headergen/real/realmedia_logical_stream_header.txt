@@ -1,0 +1,15 @@
+LogicalStream
+{
+	size 32 uint_b
+	object_version 16 uint_b
+	if (object_version == 0)
+	{
+		num_physical_streams 16 uint_b
+		physical_stream_numbers[num_physical_streams] 16 uint_b
+		data_offsets[num_physical_streams] 32 uint_b
+		num_rules 16 uint_b
+		rule_to_physical_stream_number_map[num_rules] 16 uint_b
+		num_properties 16 uint_b
+		properties[num_properties] NameValueProperty uint_b
+	}
+}

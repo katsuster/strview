@@ -1,0 +1,8 @@
+apetag_v2_header() {
+Preamble 64 bslbf
+VersionNumber 32 bslbf
+TagSize 32 bslbf
+ItemCount 32 bslbf
+TagsFlags 32 bslbf
+Reserved 64 bslbf
+}

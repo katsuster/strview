@@ -1,0 +1,5 @@
+External_ES_ID_descriptor () {
+descriptor_tag 8 uimsbf
+descriptor_length 8 uimsbf
+External_ES_ID 16 uimsbf
+}

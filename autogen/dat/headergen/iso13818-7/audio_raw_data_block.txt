@@ -1,0 +1,21 @@
+raw_data_block()
+{
+while ((id = id_syn_ele) != ID_END) { 3 uimsbf
+switch (id) {
+case ID_SCE: single_channel_element()
+break
+case ID_CPE: channel_pair_element()
+break
+case ID_CCE: coupling_channel_element()
+break
+case ID_LFE: lfe_channel_element()
+break
+case ID_DSE: data_stream_element()
+break
+case ID_PCE: program_config_element()
+break
+case ID_FIL: fill_element()
+}
+}
+byte_alignment()
+}

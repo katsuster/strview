@@ -1,0 +1,16 @@
+sequence_extension() {
+extension_start_code 32 bslbf
+extension_start_code_identifier 4 uimsbf
+profile_and_level_indication 8 uimsbf
+progressive_sequence 1 uimsbf
+chroma_format 2 uimsbf
+horizontal_size_extension 2 uimsbf
+vertical_size_extension 2 uimsbf
+bit_rate_extension 12 uimsbf
+marker_bit 1 bslbf
+vbv_buffer_size_extension 8 uimsbf
+low_delay 1 uimsbf
+frame_rate_extension_n 2 uimsbf
+frame_rate_extension_d 5 uimsbf
+next_start_code()
+}

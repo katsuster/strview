@@ -1,0 +1,8 @@
+asf_header_extension_object {
+Object ID GUID 128
+Object Size QWORD 64
+Reserved Field1 GUID 128
+Reserved Field2 WORD 16
+Header Extension Data Size DWORD 32
+Header Extension Data BYTE varies
+}

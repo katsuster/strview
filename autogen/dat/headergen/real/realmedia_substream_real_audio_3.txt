@@ -1,0 +1,26 @@
+format3_header() {
+ header_bytes 16 uimsbf
+ flavor_index 16 uimsbf
+ granularity 32 uimsbf
+ bytes_per_minute 32 uimsbf
+ total_bytes 32 uimsbf
+ title_string_length 8 uimsbf
+ for (i = 0; i < title_string_length; i++) {
+  title_string_byte[i] 8 uimsbf
+ }
+ author_string_length 8 uimsbf
+ for (i = 0; i < author_string_length; i++) {
+  author_string_byte[i] 8 uimsbf
+ }
+ copyright_string_length 8 uimsbf
+ for (i = 0; i < copyright_string_length; i++) {
+  copyright_string_byte[i] 8 uimsbf
+ }
+ user_string_length 8 uimsbf
+ for (i = 0; i < user_string_length; i++) {
+  user_string_byte[i] 8 uimsbf
+ }
+ can_copy_flag 8 uimsbf
+ codec_id_length 8 uimsbf
+ codec_id 32 4cc
+}

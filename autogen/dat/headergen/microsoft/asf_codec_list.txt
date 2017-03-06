@@ -1,0 +1,7 @@
+asf_codec_list_object {
+Object ID GUID 128
+Object Size QWORD 64
+Reserved GUID 128
+Codec Entries Count DWORD 32
+Codec Entries See below varies
+}

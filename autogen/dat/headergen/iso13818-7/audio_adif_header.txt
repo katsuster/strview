@@ -1,0 +1,19 @@
+adif_header()
+{
+adif_id 32 bslbf
+copyright_id_present 1 bslbf
+if (copyright_id_present) {
+copyright_id 72 bslbf
+}
+original_copy 1 bslbf
+home 1 bslbf
+bitstream_type 1 bslbf
+bitrate 23 uimsbf
+num_program_config_elements 4 bslbf
+if (bitstream_type == Åe0Åf) {
+adif_buffer_fullness 20 uimsbf
+}
+for (i = 0 i < num_program_config_elements + 1 i++) {
+program_config_element()
+}
+}

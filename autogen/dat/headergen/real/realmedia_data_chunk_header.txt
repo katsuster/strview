@@ -1,0 +1,12 @@
+Data_Chunk_Header
+{
+	object_id 32 uint_b
+	size 32 uint_b
+	object_version 16 uint_b
+
+	if (object_version == 0)
+	{
+		num_packets 32 uint_b
+		next_data_header 32 uint_b
+	}
+}

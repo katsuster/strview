@@ -1,0 +1,40 @@
+coupling_channel_element()
+{
+element_instance_tag 4 uimsbf
+ind_sw_cce_flag 1 uimsbf
+num_coupled_elements 3 uimsbf
+num_gain_element_lists = 0
+for (c = 0 c < num_coupled_elements+1 c++) {
+num_gain_element_lists++
+cc_target_is_cpe[c] 1 uimsbf
+cc_target_tag_select[c] 4 uimsbf
+if (cc_target_is_cpe[c]) {
+cc_l[c] 1 uimsbf
+cc_r[c] 1 uimsbf
+if (cc_l[c] && cc_r[c])
+num_gain_element_lists++
+}
+}
+cc_domain 1 uimsbf
+gain_element_sign 1 uimsbf
+gain_element_scale 2 uimsbf
+individual_channel_stream(0)
+for (c = 1 c < num_gain_element_lists c++) {
+if (ind_sw_cce_flag) {
+cge = 1
+} else {
+common_gain_element_present[c] 1 uimsbf
+cge = common_gain_element_present[c]
+}
+if (cge)
+hcod_sf[common_gain_element[c]] 1..19 vlclbf
+else {
+for (g = 0 g < num_window_groups g++) {
+for (sfb = 0 sfb < max_sfb sfb++) {
+if (sfb_cb[g][sfb] != ZERO_HCB)
+hcod_sf[dpcm_gain_element[c][g][sfb]] 1..19 vlclbf
+}
+}
+}
+}
+}

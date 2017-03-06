@@ -1,0 +1,8 @@
+asf_data_object__payload_parsing_information {
+Stream Number BYTE 8
+Media Object Number DWORD 0, 8, 16, 32
+Offset Into Media Object DWORD 0, 8, 16, 32
+Replicated Data Length DWORD 0, 8, 16, 32
+Replicated Data BYTE varies
+Payload Data BYTE varies
+}

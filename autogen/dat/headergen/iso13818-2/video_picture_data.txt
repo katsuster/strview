@@ -1,0 +1,6 @@
+picture_data() {
+do {
+slice()
+} while ( nextbits() == slice_start_code )
+next_start_code()
+}

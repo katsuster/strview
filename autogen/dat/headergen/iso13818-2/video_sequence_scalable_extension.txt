@@ -1,0 +1,22 @@
+sequence_scalable_extension() {
+extension_start_code_identifier 4 uimsbf
+scalable_mode 2 uimsbf
+layer_id 4 uimsbf
+if (scalable_mode == Ågspatial scalabilityÅh) {
+lower_layer_prediction_horizontal_size 14 uimsbf
+marker_bit 1 bslbf
+lower_layer_prediction_vertical_size 14 uimsbf
+horizontal_subsampling_factor_m 5 uimsbf
+horizontal_subsampling_factor_n 5 uimsbf
+vertical_subsampling_factor_m 5 uimsbf
+vertical_subsampling_factor_n 5 uimsbf
+}
+if ( scalable_mode == Ågtemporal scalabilityÅh ) {
+picture_mux_enable 1 uimsbf
+if ( picture_mux_enable )
+mux_to_progressive_sequence 1 uimsbf
+picture_mux_order 3 uimsbf
+picture_mux_factor 3 uimsbf
+}
+next_start_code()
+}

@@ -1,0 +1,65 @@
+audio_data_layer2() {
+for (sb=0; sb<bound; sb++) {
+    for (ch=0; ch<nch; ch++) {
+        allocation[ch][sb]       2..4 uimsbf
+    }
+}
+for (sb=bound; sb<sblimit; sb++) {
+    allocation[0][sb]            2..4 uimsbf
+    allocation[1][sb]=allocation[0][sb]
+}
+for (sb=0; sb<sblimit; sb++) {
+    for (ch=0; ch<nch; ch++) {
+        if (allocation[ch][sb]!=0) {
+            scfsi[ch][sb]        2 bslbf
+        }
+    }
+}
+for (sb=0; sb<sblimit; sb++) {
+    for (ch=0; ch<nch; ch++) {
+        if (allocation[ch][sb]!=0) {
+            if (scfsi[ch][sb]==0) {
+                scalefactor[ch][sb][0]    6 uimsbf
+                scalefactor[ch][sb][1]    6 uimsbf
+                scalefactor[ch][sb][2]    6 uimsbf
+            }
+            if ((scfsi[ch][sb]==1) || (scfsi[ch][sb]==3)) (
+                scalefactor[ch][sb][0]    6 uimsbf
+                scalefactor[ch][sb][2]    6 uimsbf
+            }
+            if (scfsi[ch] [sb]==2) {
+                scalefactor[ch][sb][0]    6 uimsbf
+            }
+        }
+    }
+}
+for (gr=0; gr<12; gr++) {
+    for (sb=0; sb<bound; sb++) {
+        for (ch=0; ch<nch; ch++) {
+            if (allocation[ch][sb]!=0) {
+                if (grouping[ch][sb]) {
+                    samplecode[ch][sb][gr]        5..10 uimsbf
+                } else {
+                    for (s=0; s<3; s++) {
+                        sample[ch][sb][3*gr+s]    3..16 uimsbf
+                    }
+                }
+            }
+        }
+    }
+    for (sb=bound; sb<sblimit; sb++) {
+        if (allocation[0][sb]!=0) {
+            if (grouping[0][sb]) {
+                samplecode[0][sb][gr]        5..10 uimsbf
+            } else {
+                for (s=0; s<3; s++) {
+                    sample[0][sb][3*gr+s]    3..16 uimsbf
+                }
+            }
+        }
+    }
+}
+for (b=0; b<no_of_ancillary_bits; b++) {
+    ancillary_bit    1 bslbf
+}
+}

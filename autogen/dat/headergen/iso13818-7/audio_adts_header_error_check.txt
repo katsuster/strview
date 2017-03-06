@@ -1,0 +1,9 @@
+adts_header_error_check ()
+{
+if (protection_absent == Åe0Åf) {
+for (i = 1 i <= number_of_raw_data_blocks_in_frame i++) {
+raw_data_block_position[i] 16 uimsfb
+}
+crc_check 16 rpchof
+}
+}

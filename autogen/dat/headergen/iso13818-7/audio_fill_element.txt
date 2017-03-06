@@ -1,0 +1,9 @@
+fill_element()
+{
+cnt = count 4 uimsbf
+if (cnt == 15)
+cnt += esc_count - 1 8 uimsbf
+while (cnt > 0) {
+cnt -= extension_payload(cnt)
+}
+}

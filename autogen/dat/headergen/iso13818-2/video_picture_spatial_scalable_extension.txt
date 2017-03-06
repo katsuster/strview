@@ -1,0 +1,12 @@
+picture_spatial_scalable_extension() {
+extension_start_code_identifier 4 uimsbf
+lower_layer_temporal_reference 10 uimsbf
+marker_bit 1 bslbf
+lower_layer_horizontal_offset 15 simsbf
+marker_bit 1 bslbf
+lower_layer_vertical_offset 15 simsbf
+spatial_temporal_weight_code_table_index 2 uimsbf
+lower_layer_progressive_frame 1 uimsbf
+lower_layer_deinterlaced_field_select 1 uimsbf
+next_start_code()
+}

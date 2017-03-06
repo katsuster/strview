@@ -1,0 +1,12 @@
+RealMedia_File_Header()
+{
+	object_id 32 uint_b
+	size 32 uint_b
+	object_version 16 uint_b
+
+	if ((object_version == 0) || (object_version == 1))
+	{
+		file_version 32 uint_b
+		num_headers 32 uint_b
+	}
+}

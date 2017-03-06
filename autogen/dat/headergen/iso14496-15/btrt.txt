@@ -1,0 +1,5 @@
+aligned(1) class MPEG4BitRateBox extends Box(ebtrtf){
+unsigned int(32) bufferSizeDB;
+unsigned int(32) maxBitrate;
+unsigned int(32) avgBitrate;
+}

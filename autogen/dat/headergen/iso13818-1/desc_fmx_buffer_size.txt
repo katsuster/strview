@@ -1,0 +1,8 @@
+FmxBufferSize_descriptor () {
+descriptor_tag 8 uimsbf
+descriptor_length 8 uimsbf
+DefaultFlexMuxBufferDescriptor()
+for (i=0; i<descriptor_length; i += 4) {
+FlexMuxBufferDescriptor()
+}
+}

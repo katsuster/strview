@@ -1,0 +1,42 @@
+audio_data_layer3() {
+main_data_begin                              9 uimsbf
+if (mobe == single_channel) {
+    private_bits                             5 bslbf
+} else {
+    private_bits                             3 bslbf
+}
+for (ch=0; ch<nch; ch++) {
+    for (scfsi_band = 0; scfsi_band<4; scfsi_band++) {
+        scfsi[ch][scfsi_band]                1 bslbf
+    }
+}
+for (gr=0; gr<2; gr++) {
+    for (ch=0; ch<nch; ch++) {
+        part2_3_length[gr][ch]               12 uimsbf
+        big_values[gr][ch]                   9 uimsbf
+        global_gain[gr][ch]                  8 uimsbf
+        scalefac_compress[gr][ch]            4 bslbf
+        window_switching_flag[gr][ch]        1 bslbf
+        if (window_switchingflag[gr][ch]) {
+            block_type[gr][ch]               2 bslbf
+            mixed_block_flag[gr][ch]         1 uimsbf
+            for (region=0; region<2; region++) {
+                table_select[gr][ch][region] 5 bslbf
+            }
+            for (window=0; window<3; window++) {
+                subblock_gain[gr][ch][window] 3 uimsbf
+            }
+        } else {
+            for (region=0; region<3; region++) {
+                table_select[gr][ch][region] 5 bslbf
+            }
+            region0_count[gr][ch]            4 bslbf
+            region1_count[gr][ch]            3 bslbf
+        }
+        preflag[gr][ch]                      1 bslbf
+        scalefac_scale[gr][ch]               1 bslbf
+        count1table_select[gr][ch]           1 bslbf
+    }
+}
+main_data_layer3()
+}

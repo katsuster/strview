@@ -1,0 +1,38 @@
+dynamic_range_info()
+{
+n = 1
+drc_num_bands = 1
+pce_tag_present 1 uimsbf
+if (pce_tag_present == 1) {
+pce_ instance_tag 4 uimsbf
+drc_tag_reserved_bits 4
+n++
+}
+excluded_chns_present 1 uimsbf
+if (excluded_chns_present == 1) {
+n += excluded_channels()
+}
+drc_bands_present  1 uimsbf
+if (drc_bands_present == 1) {
+drc_band_incr 4 uimsbf
+drc_bands_reserved_bits 4 uimsbf
+n++
+drc_num_bands = drc_num_bands + drc_band_incr
+for (i = 0 i < drc_num_bands i++) {
+drc_band_top[i] 8 uimsbf
+n++
+}
+}
+prog_ref_level_present 1 uimsbf
+if (prog_ref_level_present == 1) {
+prog_ref_level 7 uimsbf
+prog_ref_level_reserved_bits 1 uimsbf
+n++
+}
+for (i = 0 i < drc_num_bands i++) {
+dyn_rng_sgn[i] 1 uimsbf
+dyn_rng_ctl[i] 7 uimsbf
+n++
+}
+return n
+}

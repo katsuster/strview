@@ -1,0 +1,21 @@
+macroblock_modes() {
+macroblock_type 1-9 vlclbf
+if ( ( spatial_temporal_weight_code_flag == 1 ) &&
+( spatial_temporal_weight_code_table_index != Åe00Åf) ) {
+spatial_temporal_weight_code 2 uimsbf
+}
+if ( macroblock_motion_forward ||
+macroblock_motion_backward ) {
+if ( picture_structure == ÅeframeÅf ) {
+if ( frame_pred_frame_dct == 0 )
+frame_motion_type 2 uimsbf
+} else {
+field_motion_type 2 uimsbf
+}
+}
+if ( ( picture_structure == ÅgFrame pictureÅh ) &&
+( frame_pred_frame_dct == 0 ) &&
+( macroblock_intra || macoblock_pattern) ){
+dct_type 1 uimsbf
+}
+}

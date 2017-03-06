@@ -1,0 +1,155 @@
+AudioSpecificConfig ()
+{
+audioObjectType = GetAudioObjectType();
+samplingFrequencyIndex 4 bslbf
+if ( samplingFrequencyIndex == 0xf ) {
+samplingFrequency 24 uimsbf
+}
+channelConfiguration 4 bslbf
+sbrPresentFlag = -1;
+psPresentFlag = -1;
+if ( audioObjectType == 5 ||
+audioObjectType == 29 ) {
+extensionAudioObjectType = 5;
+sbrPresentFlag = 1;
+if ( audioObjectType == 29 ) {
+psPresentFlag = 1;
+}
+extensionSamplingFrequencyIndex 4 uimsbf
+if ( extensionSamplingFrequencyIndex == 0xf )
+extensionSamplingFrequency 24 uimsbf
+audioObjectType = GetAudioObjectType();
+if ( audioObjectType == 22 )
+extensionChannelConfiguration 4 uimsbf
+}
+else {
+extensionAudioObjectType = 0;
+}
+switch (audioObjectType) {
+case 1:
+case 2:
+case 3:
+case 4:
+case 6:
+case 7:
+case 17:
+case 19:
+case 20:
+case 21:
+case 22:
+case 23:
+GASpecificConfig();
+break:
+case 8:
+CelpSpecificConfig();
+break;
+case 9:
+HvxcSpecificConfig();
+break:
+case 12:
+TTSSpecificConfig();
+break;
+case 13:
+case 14:
+case 15:
+case 16:
+StructuredAudioSpecificConfig();
+break;
+case 24:
+ErrorResilientCelpSpecificConfig();
+break;
+case 25:
+ErrorResilientHvxcSpecificConfig();
+break;
+case 26:
+case 27:
+ParametricSpecificConfig();
+break;
+case 28:
+SSCSpecificConfig();
+break;
+case 30:
+sacPayloadEmbedding 1 uimsbf
+SpatialSpecificConfig();
+break;
+case 32:
+case 33:
+case 34:
+MPEG_1_2_SpecificConfig();
+break;
+case 35:
+DSTSpecificConfig();
+break;
+case 36:
+fillBits 5 bslbf
+ALSSpecificConfig();
+break;
+case 37:
+case 38:
+SLSSpecificConfig();
+break;
+case 39:
+ELDSpecificConfig(channelConfiguration);
+break:
+case 40:
+case 41:
+SymbolicMusicSpecificConfig();
+break;
+default:
+/* reserved */
+}
+switch (audioObjectType) {
+case 17:
+case 19:
+case 20:
+case 21:
+case 22:
+case 23:
+case 24:
+case 25:
+case 26:
+case 27:
+case 39:
+epConfig 2 bslbf
+if ( epConfig == 2 || epConfig == 3 ) {
+ErrorProtectionSpecificConfig();
+}
+if ( epConfig == 3 ) {
+directMapping 1 bslbf
+if ( ! directMapping ) {
+/* tbd */
+}
+}
+}
+if ( extensionAudioObjectType != 5 && bits_to_decode() >= 16 ) {
+syncExtensionType 11 bslbf
+if (syncExtensionType == 0x2b7) {
+extensionAudioObjectType = GetAudioObjectType();
+if ( extensionAudioObjectType == 5 ) {
+sbrPresentFlag 1 uimsbf
+if (sbrPresentFlag == 1) {
+extensionSamplingFrequencyIndex 4 uimsbf
+if ( extensionSamplingFrequencyIndex == 0xf ) {
+extensionSamplingFrequency 24 uimsbf
+}
+if ( bits_to_decode() >= 12 ) {
+syncExtensionType 11 bslbf
+if (syncExtesionType == 0x548) {
+psPresentFlag 1 uimsbf
+}
+}
+}
+}
+if ( extensionAudioObjectType == 22 ) {
+sbrPresentFlag 1 uimsbf
+if (sbrPresentFlag == 1) {
+extensionSamplingFrequencyIndex 4 uimsbf
+if ( extensionSamplingFrequencyIndex == 0xf ) {
+extensionSamplingFrequency 24 uimsbf
+}
+}
+extensionChannelConfiguration 4 uimsbf
+}
+}
+}
+}

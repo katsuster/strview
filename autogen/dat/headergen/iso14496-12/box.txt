@@ -1,0 +1,12 @@
+Box(){
+size 32 uint_b
+type 32 uint_b
+if (size==1) {
+largesize 64 uint_b
+} else if (size==0) {
+// box extends to end of file
+}
+if (boxtype=='uuid') {
+usertype[16] 8 uint_b
+}
+}

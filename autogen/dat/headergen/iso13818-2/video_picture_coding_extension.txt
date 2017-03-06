@@ -1,0 +1,28 @@
+picture_coding_extension() {
+extension_start_code 32 bslbf
+extension_start_code_identifier 4 uimsbf
+f_code[0][0] 4 uimsbf
+f_code[0][1] 4 uimsbf
+f_code[1][0] 4 uimsbf
+f_code[1][1] 4 uimsbf
+intra_dc_precision 2 uimsbf
+picture_structure 2 uimsbf
+top_field_first 1 uimsbf
+frame_pred_frame_dct 1 uimsbf
+concealment_motion_vectors 1 uimsbf
+q_scale_type 1 uimsbf
+intra_vlc_format 1 uimsbf
+alternate_scan 1 uimsbf
+repeat_first_field 1 uimsbf
+chroma_420_type 1 uimsbf
+progressive_frame 1 uimsbf
+composite_display_flag 1 uimsbf
+if ( composite_display_flag ) {
+v_axis 1 uimsbf
+field_sequence 3 uimsbf
+sub_carrier 1 uimsbf
+burst_amplitude 7 uimsbf
+sub_carrier_phase 8 uimsbf
+}
+next_start_code()
+}

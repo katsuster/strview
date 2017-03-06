@@ -1,0 +1,12 @@
+motion_vectors ( s ) {
+if ( motion_vector_count == 1 ) {
+if (( mv_format == field ) && ( dmv != 1))
+motion_vertical_field_select[0][s] 1 uimsbf
+motion_vector( 0, s )
+} else {
+motion_vertical_field_select[0][s] 1 uimsbf
+motion_vector( 0, s )
+motion_vertical_field_select[1][s] 1 uimsbf
+motion_vector(1, s )
+}
+}

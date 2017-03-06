@@ -1,0 +1,13 @@
+ogg_page(){
+capture_stream 32 uint_l
+stream_structure_version 8 uint_l
+header_type_flag 8 uint_l
+granule_position 64 uint_l
+bitstream_serial_number 32 uint_l
+page_sequence_number 32 uint_l
+CRC_checksum 32 uint_l
+number_page_segments 8 uint_l
+for (i = 0; i < number_page_segments; i++) {
+segment_table 8 uint_l
+}
+}

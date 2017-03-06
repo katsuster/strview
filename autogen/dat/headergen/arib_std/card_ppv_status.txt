@@ -1,0 +1,14 @@
+ppv_status_request_response(){
+protocol_unit_number            8 uimsbf
+unit_length                     8 uimsbf
+ic_card_instruction             16 uimsbf
+return_code                     16 uimsbf
+broadcaster_group_identifier    8 uimsbf
+ppv_program_number              16 uimsbf
+recording_control               8 uimsbf
+ppv_viewing_fee_1               16 uimsbf
+ppv_viewing_fee_2               16 uimsbf
+min_prepaid_balance             16 uimsbf
+sw1                             8 uimsbf
+sw2                             8 uimsbf
+}

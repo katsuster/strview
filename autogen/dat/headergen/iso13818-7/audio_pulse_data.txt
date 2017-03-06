@@ -1,0 +1,8 @@
+pulse_data() {
+number_pulse 2 uimsbf
+pulse_start_sfb 6 uimsbf
+for (i = 0 i < number_pulse+1 i++) {
+pulse_offset[i] 5 uimsbf
+pulse_amp[i] 4 uimsbf
+}
+}

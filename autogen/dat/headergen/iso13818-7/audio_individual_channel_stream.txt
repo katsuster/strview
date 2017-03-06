@@ -1,0 +1,21 @@
+individual_channel_stream(common_window)
+{
+global_gain 8 uimsbf
+if (!common_window)
+ics_info()
+section_data()
+scale_factor_data()
+pulse_data_present 1 uismbf
+if (pulse_data_present) {
+pulse_data()
+}
+tns_data_present 1 uimsbf
+if (tns_data_present) {
+tns_data()
+}
+gain_control_data_present 1 uimsbf
+if (gain_control_data_present) {
+gain_control_data()
+}
+spectral_data()
+}

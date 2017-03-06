@@ -1,0 +1,6 @@
+adif_sequence()
+{
+adif_header()
+byte_alignment()
+raw_data_stream()
+}

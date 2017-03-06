@@ -1,0 +1,9 @@
+waveformatex(){
+wFormatTag 16 uint_l
+nChannels 16 uint_l
+nSamplesPerSec 32 uint_l
+nAvgBytesPerSec 32 uint_l
+nBlockAlign 16 uint_l
+wBitsPerSample 16 uint_l
+cbSize 16 uint_l
+}

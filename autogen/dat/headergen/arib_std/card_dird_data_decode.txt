@@ -1,0 +1,10 @@
+dird_data_decode_response(){
+protocol_unit_number            8 uimsbf
+unit_length                     8 uimsbf
+ic_card_instruction             16 uimsbf
+return_code                     16 uimsbf
+pdu_number                      8 uimsbf
+dird_response_data              n uimsbf
+sw1                             8 uimsbf
+sw2                             8 uimsbf
+}

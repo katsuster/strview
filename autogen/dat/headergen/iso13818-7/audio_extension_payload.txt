@@ -1,0 +1,24 @@
+extension_payload(cnt)
+{
+extension_type 4 uimsbf
+switch (extension_type) {
+case EXT_DYNAMIC_RANGE:
+n = dynamic_range_info()
+return n
+case EXT_SBR_DATA:
+return sbr_extension_data(id_aac, 0) Note 1
+case EXT_SBR_DATA_CRC:
+return sbr_extension_data(id_aac, 1) Note 1
+case EXT_FILL_DATA:
+fill_nibble /* must be Åe0000Åf */ 4 uimsbf
+for (i = 0 i < cnt-1 i++)
+fill_byte[i] /* must be Åe10100101Åf */ 8 uimsbf
+return cnt
+case default:
+for (i = 0 i < 8*(cnt-1)+4 i++)
+other_bits[i] 1 uimsbf
+return cnt
+}
+}
+Note 1: id_aac is the id_syn_ele of the corresponding AAC element
+(ID_SCE or ID_CPE) or ID_SCE in case of CCE.

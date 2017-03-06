@@ -1,0 +1,9 @@
+asf_simple_index {
+Object ID GUID 128
+Object Size QWORD 64
+File ID GUID 128
+Index Entry Time Interval QWORD 64
+Maximum Packet Count DWORD 32
+Index Entries Count DWORD 32
+Index Entries See below varies
+}

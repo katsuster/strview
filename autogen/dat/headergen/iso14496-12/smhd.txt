@@ -1,0 +1,4 @@
+aligned(8) class SoundMediaHeaderBox extends FullBox(esmhdf, version = 0, 0) {
+template int(16) balance = 0;
+const unsigned int(16) reserved = 0;
+}

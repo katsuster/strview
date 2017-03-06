@@ -1,0 +1,26 @@
+section_data()
+{
+if (window_sequence == EIGHT_SHORT_SEQUENCE)
+sect_esc_val = (1<<3) - 1
+else
+sect_esc_val = (1<<5) - 1
+for (g = 0 g < num_window_groups g++) {
+k = 0
+i = 0
+while (k < max_sfb) {
+sect_cb[g][i] 4 uimsbf
+sect_len = 0
+while (sect_len_incr == sect_esc_val) { {35} uimsbf
+sect_len += sect_esc_val
+}
+sect_len += sect_len_incr
+sect_start[g][i] = k
+sect_end[g][i] = k+sect_len
+for (sfb = k sfb < k+sect_len sfb++)
+sfb_cb[g][sfb] = sect_cb[g][i]
+k += sect_len
+i++
+}
+num_sec[g] = i
+}
+}

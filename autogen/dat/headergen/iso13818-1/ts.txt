@@ -1,0 +1,18 @@
+transport_packet(){
+sync_byte 8 bslbf
+transport_error_indicator 1 bslbf
+payload_unit_start_indicator 1 bslbf
+transport_priority 1 bslbf
+PID 13 uimsbf
+transport_scrambling_control 2 bslbf
+adaptation_field_control 2 bslbf
+continuity_counter 4 uimsbf
+if(adaptation_field_control = = '10' || adaptation_field_control = = '11'){
+adaptation_field()
+}
+if(adaptation_field_control = = '01' || adaptation_field_control = = '11') {
+for (i = 0; i < N; i++){
+data_byte 8 bslbf
+}
+}
+}

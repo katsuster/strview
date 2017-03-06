@@ -1,0 +1,20 @@
+block( i ) {
+if ( pattern_code[i] ) {
+if ( macroblock_intra ) {
+if ( i<4 ) {
+dct_dc_size_luminance 2-9 vlclbf
+if(dct_dc_size_luminance != 0)
+dct_dc_differential 1-11 uimsbf
+} else {
+dct_dc_size_chrominance 2-10 vlclbf
+if(dct_dc_size_chrominance !=0)
+dct_dc_differential 1-11 uimsbf
+}
+} else {
+First DCT coefficient 2-24
+}
+while ( nextbits() != End of block )
+Subsequent DCT coefficients 3-24
+End of block 2 or 4 vlclbf
+}
+}

@@ -1,0 +1,18 @@
+tns_data()
+{
+for (w = 0 w < num_windows w++) {
+n_filt[w] 1..2 uimsbf
+if (n_filt[w])
+coef_res[w] 1 uimsbf
+for (filt = 0 filt < n_filt[w] filt++) {
+length[w][filt] {46} uimsbf
+order[w][filt] {35} uimsbf
+if (order[w][filt]) {
+direction[w][filt] 1 uimsbf
+coef_compress[w][filt] 1 uimsbf
+for (i = 0 i < order[w][filt] i++)
+coef[w][filt][i] 2..4 uimsbf
+}
+}
+}
+}

@@ -1,0 +1,21 @@
+riff_avistreamheader(){
+fcc 32 uint_l
+cb 32 uint_l
+fccType 32 uint_l
+fccHandler 32 uint_l
+dwFlags 32 uint_l
+wPriority 16 uint_l
+wLanguage 16 uint_l
+dwInitialFrames 32 uint_l
+dwScale 32 uint_l
+dwRate 32 uint_l
+dwStart 32 uint_l
+dwLength 32 uint_l
+dwSuggestedBufferSize 32 uint_l
+dwQuality 32 uint_l
+dwSampleSize 32 uint_l
+left 16 sint_l
+top 16 sint_l
+right 16 sint_l
+bottom 16 sint_l
+}

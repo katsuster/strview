@@ -1,0 +1,18 @@
+asf_file_properties_object {
+Object ID GUID 128
+Object Size QWORD 64
+File ID GUID 128
+File Size QWORD 64
+Creation Date QWORD 64
+Data Packets Count QWORD 64
+Play Duration QWORD 64
+Send Duration QWORD 64
+Preroll QWORD 64
+Flags DWORD 32
+//Broadcast Flag 1
+//Seekable Flag 1
+//Reserved 30
+Minimum Data Packet Size DWORD 32
+Maximum Data Packet Size DWORD 32
+Maximum Bitrate DWORD 32
+}

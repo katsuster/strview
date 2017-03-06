@@ -1,0 +1,15 @@
+class ObjectDescriptor extends ObjectDescriptorBase : bit(8) tag=ObjectDescrTag {
+bit(10) ObjectDescriptorID;
+bit(1) URL_Flag;
+const bit(5) reserved=0b1111.1;
+if (URL_Flag) {
+bit(8) URLlength;
+bit(8) URLstring[URLlength];
+} else {
+ES_Descriptor esDescr[1 .. 255];
+OCI_Descriptor ociDescr[0 .. 255];
+IPMP_DescriptorPointer ipmpDescrPtr[0 .. 255];
+IPMP_Descriptor ipmpDescr [0 .. 255];
+}
+ExtensionDescriptor extDescr[0 .. 255];
+}

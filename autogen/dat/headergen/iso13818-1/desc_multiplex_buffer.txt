@@ -1,0 +1,6 @@
+MultiplexBuffer_descriptor () {
+descriptor_tag 8 uimsbf
+descriptor_length 8 uimsbf
+MB_buffer_size 24 uimsbf
+TB_leak_rate 24 uimsbf
+}

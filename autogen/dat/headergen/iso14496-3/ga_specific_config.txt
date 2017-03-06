@@ -1,0 +1,30 @@
+GASpecificConfig (samplingFrequencyIndex, channelConfiguration, audioObjectType)
+{
+frameLengthFlag 1 bslbf
+dependsOnCoreCoder 1 bslbf
+if (dependsOnCoreCoder) {
+coreCoderDelay 14 uimsbf
+}
+extensionFlag 1 bslbf
+if (! channelConfiguration) {
+program_config_element ()
+}
+if ((audioObjectType == 6) || (audioObjectType == 20)) {
+layerNr 3 uimsbf
+}
+if (extensionFlag) {
+if (audioObjectType == 22) {
+numOfSubFrame 5 bslbf
+layer_length 11 bslbf
+}
+if (audioObjectType == 17 || audioObjectType == 19 ||
+audioObjectType == 20 || audioObjectType == 23) {
+aacSectionDataResilienceFlag 1 bslbf
+aacScalefactorDataResilienceFlag 1 bslbf
+aacSpectralDataResilienceFlag 1 bslbf
+}
+extensionFlag3 1 bslbf
+if (extensionFlag3) {
+/* tbd in version 3 */
+}
+}

@@ -1,0 +1,10 @@
+asf_stream_properties_object__type_specific_audio {
+Codec ID / Format Tag WORD 16
+Number of Channels WORD 16
+Samples Per Second DWORD 32
+Average Number of Bytes Per Second DWORD 32
+Block Alignment WORD 16
+Bits Per Sample WORD 16
+Codec Specific Data Size WORD 16
+Codec Specific Data BYTE varies
+}

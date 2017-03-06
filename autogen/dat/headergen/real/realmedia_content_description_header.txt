@@ -1,0 +1,18 @@
+Content_Description
+{
+	object_id 32 uint_b
+	size 32 uint_b
+	object_version 16 uint_b
+
+	if (object_version == 0)
+	{
+		title_len 16 uint_b
+		title[title_len] 8 uint_b
+		author_len 16 uint_b
+		author[author_len] 8 uint_b
+		copyright_len 16 uint_b
+		copyright[copyright_len] 8 uint_b
+		comment_len 16 uint_b
+		comment[comment_len] 8 uint_b
+	}
+}

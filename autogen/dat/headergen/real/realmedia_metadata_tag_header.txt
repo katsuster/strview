@@ -1,0 +1,6 @@
+MetadataTag_Header
+{
+	object_id 32 uint_b
+	object_version 32 uint_b
+	properties[] 8 uint_b
+}

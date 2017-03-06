@@ -1,0 +1,6 @@
+raw_data_stream()
+{
+while ( data_available() ) {
+raw_data_block()
+}
+}

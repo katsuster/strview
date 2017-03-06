@@ -1,0 +1,7 @@
+apetag_v2_item() {
+ItemValueSize 32 bslbf
+ItemFlags 32 bslbf
+ItemKey m bslbf
+ItemKeyTerminator 8 bslbf
+ItemValue l bslbf
+}

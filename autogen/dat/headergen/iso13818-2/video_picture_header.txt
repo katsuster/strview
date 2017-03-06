@@ -1,0 +1,20 @@
+picture_header() {
+picture_start_code 32 bslbf
+temporal_reference 10 uimsbf
+picture_coding_type 3 uimsbf
+vbv_delay 16 uimsbf
+if ( picture_coding_type == 2 || picture_coding_type == 3) {
+full_pel_forward_vector 1 bslbf
+forward_f_code 3 bslbf
+}
+if ( picture_coding_type == 3 ) {
+full_pel_backward_vector 1 bslbf
+backward_f_code 3 bslbf
+}
+while ( nextbits() == Åe1Åf ) {
+extra_bit_picture 1 uimsbf
+extra_information_picture 8 uimsbf
+}
+extra_bit_picture 1 uimsbf
+next_start_code()
+}

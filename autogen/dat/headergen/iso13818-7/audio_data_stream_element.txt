@@ -1,0 +1,15 @@
+data_stream_element()
+{
+element_instance_tag 4 uimsbf
+data_byte_align_flag 1 uimsbf
+cnt = count 8 uimsbf
+if (cnt == 255) {
+cnt += esc_count 8 uimsbf
+}
+if (data_byte_align_flag) {
+byte_alignment()
+}
+for (i = 0 i < cnt i++) {
+data_stream_byte[element_instance_tag][i] 8 uimsbf
+}
+}

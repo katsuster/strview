@@ -1,0 +1,35 @@
+asf_data_object__payload_parsing_information {
+//Length Type Flags BYTE **8 //see below
+//Multiple Payloads Present 1 (LSB)
+//Sequence Type 2
+//Padding Length Type 2
+//Packet Length Type 2
+//Error Correction Present 1
+
+//start Length Type Flags
+Error Correction Present BYTE 1
+Packet Length Type BYTE 2
+Padding Length Type BYTE 2
+Sequence Type BYTE 2
+Multiple Payloads Present BYTE 1
+//end Length Type Flags
+
+//Property Flags BYTE **8 //see below
+//Replicated Data Length Type 2 (LSB)
+//Offset Into Media Object Length Type 2
+//Media Object Number Length Type 2
+//Stream Number Length Type 2
+
+//start Property Flags
+Stream Number Length Type BYTE 2
+Media Object Number Length Type BYTE 2
+Offset Into Media Object Length Type BYTE 2
+Replicated Data Length Type BYTE 2
+//end Property Flags
+
+Packet Length DWORD 0, 8, 16, 32
+Sequence DWORD 0, 8, 16, 32
+Padding Length DWORD 0, 8, 16, 32
+Send Time DWORD 32
+Duration WORD 16
+}
