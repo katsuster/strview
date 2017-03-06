@@ -62,8 +62,8 @@ public class MKVHeaderUTF8 extends MKVHeader {
 
         MKVHeader.write(c, d);
 
-        c.writeBitList((int)d.tag_len.getValue() << 3, d.utf8_bits, "utf8_bits");
-        c.mark("utf8_val", d.getUTF8Name());
+        c.writeBitList((int)d.tag_len.getValue() << 3, d.utf8_bits,
+                "utf8_bits", d.getUTF8Name());
 
         c.leaveBlock();
     }

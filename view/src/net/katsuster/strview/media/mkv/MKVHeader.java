@@ -73,8 +73,8 @@ public class MKVHeader extends EBMLHeader {
 
         EBMLHeader.write(c, d);
 
-        c.mark("type", d.tag_spec.type, d.getTagTypeName());
-        c.mark("name", d.tag_spec.name, d.getTagIdName());
+        c.mark("type", d.getTagType(), d.getTagTypeName());
+        c.mark("name", d.getTagIdName());
 
         c.leaveBlock();
     }

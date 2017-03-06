@@ -62,8 +62,8 @@ public class MKVHeaderString extends MKVHeader {
 
         MKVHeader.write(c, d);
 
-        c.writeBitList((int)d.tag_len.getValue() << 3, d.string_bits, "string_bits");
-        c.mark("string_val", d.getStringName());
+        c.writeBitList((int)d.tag_len.getValue() << 3, d.string_bits,
+                "string_bits", d.getStringName());
 
         c.leaveBlock();
     }

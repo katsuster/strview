@@ -68,22 +68,18 @@ public class RMFFHeaderCONT extends RMFFHeader
             d.title_len = c.readUInt(16, d.title_len);
             checkNegative("title_len", d.title_len);
             d.title     = c.readBitList(d.title_len.intValue() << 3, d.title);
-            c.mark("title_val", d.getTitleName());
 
             d.author_len = c.readUInt(16, d.author_len);
             checkNegative("author_len", d.author_len);
             d.author     = c.readBitList(d.author_len.intValue() << 3, d.author);
-            c.mark("author_val", d.getAuthorName());
 
             d.copyright_len = c.readUInt(16, d.copyright_len);
             checkNegative("copyright_len", d.copyright_len);
             d.copyright     = c.readBitList(d.copyright_len.intValue() << 3, d.copyright);
-            c.mark("copyright_val", d.getCopyrightName());
 
             d.comment_len = c.readUInt(16, d.comment_len);
             checkNegative("comment_len", d.comment_len);
             d.comment     = c.readBitList(d.comment_len.intValue() << 3, d.comment);
-            c.mark("comment_val", d.getCommentName());
         }
 
         c.leaveBlock();
@@ -102,20 +98,20 @@ public class RMFFHeaderCONT extends RMFFHeader
 
         if (d.object_version.intValue() == 0) {
             c.writeUInt(16, d.title_len    , "title_len"    );
-            c.writeBitList(d.title_len.intValue() << 3    , d.title    , "title"    );
-            c.mark("title_val", d.getTitleName());
+            c.writeBitList(d.title_len.intValue() << 3    , d.title,
+                    "title", d.getTitleName());
 
             c.writeUInt(16, d.author_len   , "author_len"   );
-            c.writeBitList(d.author_len.intValue() << 3   , d.author   , "author"   );
-            c.mark("author_val", d.getAuthorName());
+            c.writeBitList(d.author_len.intValue() << 3   , d.author,
+                    "author", d.getAuthorName());
 
             c.writeUInt(16, d.copyright_len, "copyright_len");
-            c.writeBitList(d.copyright_len.intValue() << 3, d.copyright, "copyright");
-            c.mark("copyright_val", d.getCopyrightName());
+            c.writeBitList(d.copyright_len.intValue() << 3, d.copyright,
+                    "copyright", d.getCopyrightName());
 
             c.writeUInt(16, d.comment_len  , "comment_len"  );
-            c.writeBitList(d.comment_len.intValue() << 3  , d.comment  , "comment"  );
-            c.mark("comment_val", d.getCommentName());
+            c.writeBitList(d.comment_len.intValue() << 3  , d.comment,
+                    "comment", d.getCommentName());
         }
 
         c.leaveBlock();

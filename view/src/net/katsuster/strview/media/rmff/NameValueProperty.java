@@ -97,16 +97,18 @@ public class NameValueProperty extends BlockAdapter
 
         if (d.object_version.intValue() == 0) {
             c.writeUInt( 8, d.name_length, "name_length");
-            c.writeBitList(d.name_length.intValue() << 3, d.name, "name");
-            c.mark("name_val", d.getNameName());
+            c.writeBitList(d.name_length.intValue() << 3, d.name,
+                    "name", d.getNameName());
 
             c.writeSInt(32, d.type, "type", d.getTypeName());
 
             c.writeUInt(16, d.value_length, "value_length");
-            c.writeBitList(d.value_length.intValue() << 3, d.value_data, "value_data");
             if (d.type.intValue() == TYPE.STRING) {
-                //string
-                c.mark("value_data", d.getValueDataName());
+                c.writeBitList(d.value_length.intValue() << 3, d.value_data,
+                        "value_data", d.getValueDataName());
+            } else {
+                c.writeBitList(d.value_length.intValue() << 3, d.value_data,
+                        "value_data");
             }
         }
 

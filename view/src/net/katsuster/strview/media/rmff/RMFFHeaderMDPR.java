@@ -119,12 +119,12 @@ public class RMFFHeaderMDPR extends RMFFHeader
             c.writeUInt(32, d.duration        , "duration"        );
 
             c.writeUInt( 8, d.stream_name_size, "stream_name_size");
-            c.writeBitList(d.stream_name_size.intValue() << 3, d.stream_name, "stream_name");
-            c.mark("stream_name_val", d.getStreamNameName());
+            c.writeBitList(d.stream_name_size.intValue() << 3, d.stream_name,
+                    "stream_name", d.getStreamNameName());
 
             c.writeUInt( 8, d.mime_type_size  , "mime_type_size"  );
-            c.writeBitList(d.mime_type_size.intValue() << 3, d.mime_type, "mime_type");
-            c.mark("mime_type_val"  , d.getMimeTypeName());
+            c.writeBitList(d.mime_type_size.intValue() << 3, d.mime_type,
+                    "mime_type", d.getMimeTypeName());
         }
 
         c.leaveBlock();
