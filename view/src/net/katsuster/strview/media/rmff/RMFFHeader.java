@@ -41,9 +41,9 @@ public class RMFFHeader extends BlockAdapter
             throws CloneNotSupportedException {
         RMFFHeader obj = (RMFFHeader)super.clone();
 
-        obj.object_id = object_id.clone();
-        obj.size = size.clone();
-        obj.object_version = object_version.clone();
+        obj.object_id = (UInt)object_id.clone();
+        obj.size = (UInt)size.clone();
+        obj.object_version = (UInt)object_version.clone();
 
         return obj;
     }

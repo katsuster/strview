@@ -50,13 +50,13 @@ public class MKVHeaderBlock extends MKVHeader {
         MKVHeaderBlock obj = (MKVHeaderBlock)super.clone();
 
         obj.track_number = track_number.clone();
-        obj.timecode = timecode.clone();
-        obj.reserved1 = reserved1.clone();
-        obj.invisible = invisible.clone();
-        obj.lacing = lacing.clone();
-        obj.reserved2 = reserved1.clone();
+        obj.timecode = (UInt)timecode.clone();
+        obj.reserved1 = (UInt)reserved1.clone();
+        obj.invisible = (UInt)invisible.clone();
+        obj.lacing = (UInt)lacing.clone();
+        obj.reserved2 = (UInt)reserved1.clone();
 
-        obj.lacing_head = lacing_head.clone();
+        obj.lacing_head = (UInt)lacing_head.clone();
         obj.lacing_size0 = lacing_size0.clone();
 
         obj.lacing_diffs = new ArrayList<>();

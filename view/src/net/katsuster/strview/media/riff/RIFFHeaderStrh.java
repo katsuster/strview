@@ -64,19 +64,19 @@ public class RIFFHeaderStrh extends RIFFHeader
             throws CloneNotSupportedException {
         RIFFHeaderStrh obj = (RIFFHeaderStrh)super.clone();
 
-        obj.fccType = fccType.clone();
-        obj.fccHandler = fccHandler.clone();
-        obj.dwFlags = dwFlags.clone();
-        obj.wPriority = wPriority.clone();
-        obj.wLanguage = wLanguage.clone();
-        obj.dwInitialFrames = dwInitialFrames.clone();
-        obj.dwScale = dwScale.clone();
-        obj.dwRate = dwRate.clone();
-        obj.dwStart = dwStart.clone();
-        obj.dwLength = dwLength.clone();
-        obj.dwSuggestedBufferSize = dwSuggestedBufferSize.clone();
-        obj.dwQuality = dwQuality.clone();
-        obj.dwSampleSize = dwSampleSize.clone();
+        obj.fccType = (UInt)fccType.clone();
+        obj.fccHandler = (UInt)fccHandler.clone();
+        obj.dwFlags = (UInt)dwFlags.clone();
+        obj.wPriority = (UInt)wPriority.clone();
+        obj.wLanguage = (UInt)wLanguage.clone();
+        obj.dwInitialFrames = (UInt)dwInitialFrames.clone();
+        obj.dwScale = (UInt)dwScale.clone();
+        obj.dwRate = (UInt)dwRate.clone();
+        obj.dwStart = (UInt)dwStart.clone();
+        obj.dwLength = (UInt)dwLength.clone();
+        obj.dwSuggestedBufferSize = (UInt)dwSuggestedBufferSize.clone();
+        obj.dwQuality = (UInt)dwQuality.clone();
+        obj.dwSampleSize = (UInt)dwSampleSize.clone();
         obj.left = (SInt)left.clone();
         obj.top = (SInt)top.clone();
         obj.right = (SInt)right.clone();

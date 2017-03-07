@@ -44,13 +44,13 @@ public class NameValueProperty extends BlockAdapter
             throws CloneNotSupportedException {
         NameValueProperty obj = (NameValueProperty)super.clone();
 
-        obj.size = size.clone();
-        obj.object_version = object_version.clone();
+        obj.size = (UInt)size.clone();
+        obj.object_version = (UInt)object_version.clone();
 
-        obj.name_length = name_length.clone();
+        obj.name_length = (UInt)name_length.clone();
         obj.name = (LargeBitList)name.clone();
         obj.type = (SInt)type.clone();
-        obj.value_length = value_length.clone();
+        obj.value_length = (UInt)value_length.clone();
         obj.value_data = (LargeBitList)value_data.clone();
 
         return obj;

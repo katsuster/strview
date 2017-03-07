@@ -88,16 +88,16 @@ public class M2VHeaderSlice extends M2VHeader
             throws CloneNotSupportedException {
         M2VHeaderSlice obj = (M2VHeaderSlice)super.clone();
 
-        obj.slice_vertical_position_extension = slice_vertical_position_extension.clone();
-        obj.priority_breakpoint = priority_breakpoint.clone();
-        obj.quantiser_scale_code = quantiser_scale_code.clone();
-        obj.slice_extension_flag = slice_extension_flag.clone();
-        obj.intra_slice = intra_slice.clone();
-        obj.slice_picture_id_enable = slice_picture_id_enable.clone();
-        obj.slice_picture_id = slice_picture_id.clone();
-        obj.extra_bit_slice_1 = extra_bit_slice_1.clone();
-        obj.extra_information_slice = extra_information_slice.clone();
-        obj.extra_bit_slice_0 = extra_bit_slice_0.clone();
+        obj.slice_vertical_position_extension = (UInt)slice_vertical_position_extension.clone();
+        obj.priority_breakpoint = (UInt)priority_breakpoint.clone();
+        obj.quantiser_scale_code = (UInt)quantiser_scale_code.clone();
+        obj.slice_extension_flag = (UInt)slice_extension_flag.clone();
+        obj.intra_slice = (UInt)intra_slice.clone();
+        obj.slice_picture_id_enable = (UInt)slice_picture_id_enable.clone();
+        obj.slice_picture_id = (UInt)slice_picture_id.clone();
+        obj.extra_bit_slice_1 = (UInt)extra_bit_slice_1.clone();
+        obj.extra_information_slice = (UInt)extra_information_slice.clone();
+        obj.extra_bit_slice_0 = (UInt)extra_bit_slice_0.clone();
 
         return obj;
     }

@@ -57,19 +57,19 @@ public class M2VHeaderExtSequenceScalable extends M2VHeaderExt
             throws CloneNotSupportedException {
         M2VHeaderExtSequenceScalable obj = (M2VHeaderExtSequenceScalable)super.clone();
 
-        obj.scalable_mode = scalable_mode.clone();
-        obj.layer_id = layer_id.clone();
-        obj.lower_layer_prediction_horizontal_size = lower_layer_prediction_horizontal_size.clone();
-        obj.marker_bit = marker_bit.clone();
-        obj.lower_layer_prediction_vertical_size = lower_layer_prediction_vertical_size.clone();
-        obj.horizontal_subsampling_factor_m = horizontal_subsampling_factor_m.clone();
-        obj.horizontal_subsampling_factor_n = horizontal_subsampling_factor_n.clone();
-        obj.vertical_subsampling_factor_m = vertical_subsampling_factor_m.clone();
-        obj.vertical_subsampling_factor_n = vertical_subsampling_factor_n.clone();
-        obj.picture_mux_enable = picture_mux_enable.clone();
-        obj.mux_to_progressive_sequence = mux_to_progressive_sequence.clone();
-        obj.picture_mux_order = picture_mux_order.clone();
-        obj.picture_mux_factor = picture_mux_factor.clone();
+        obj.scalable_mode = (UInt)scalable_mode.clone();
+        obj.layer_id = (UInt)layer_id.clone();
+        obj.lower_layer_prediction_horizontal_size = (UInt)lower_layer_prediction_horizontal_size.clone();
+        obj.marker_bit = (UInt)marker_bit.clone();
+        obj.lower_layer_prediction_vertical_size = (UInt)lower_layer_prediction_vertical_size.clone();
+        obj.horizontal_subsampling_factor_m = (UInt)horizontal_subsampling_factor_m.clone();
+        obj.horizontal_subsampling_factor_n = (UInt)horizontal_subsampling_factor_n.clone();
+        obj.vertical_subsampling_factor_m = (UInt)vertical_subsampling_factor_m.clone();
+        obj.vertical_subsampling_factor_n = (UInt)vertical_subsampling_factor_n.clone();
+        obj.picture_mux_enable = (UInt)picture_mux_enable.clone();
+        obj.mux_to_progressive_sequence = (UInt)mux_to_progressive_sequence.clone();
+        obj.picture_mux_order = (UInt)picture_mux_order.clone();
+        obj.picture_mux_factor = (UInt)picture_mux_factor.clone();
 
         return obj;
     }

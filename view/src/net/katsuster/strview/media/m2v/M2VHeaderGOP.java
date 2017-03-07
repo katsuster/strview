@@ -46,14 +46,14 @@ public class M2VHeaderGOP extends M2VHeader
             throws CloneNotSupportedException {
         M2VHeaderGOP obj = (M2VHeaderGOP)super.clone();
 
-        obj.drop_frame = drop_frame.clone();
-        obj.time_code_hours = time_code_hours.clone();
-        obj.time_code_minutes = time_code_minutes.clone();
-        obj.marker_bit = marker_bit.clone();
-        obj.time_code_seconds = time_code_seconds.clone();
-        obj.time_code_pictures = time_code_pictures.clone();
-        obj.closed_gop = closed_gop.clone();
-        obj.broken_link = broken_link.clone();
+        obj.drop_frame = (UInt)drop_frame.clone();
+        obj.time_code_hours = (UInt)time_code_hours.clone();
+        obj.time_code_minutes = (UInt)time_code_minutes.clone();
+        obj.marker_bit = (UInt)marker_bit.clone();
+        obj.time_code_seconds = (UInt)time_code_seconds.clone();
+        obj.time_code_pictures = (UInt)time_code_pictures.clone();
+        obj.closed_gop = (UInt)closed_gop.clone();
+        obj.broken_link = (UInt)broken_link.clone();
 
         return obj;
     }

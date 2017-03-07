@@ -41,13 +41,13 @@ public class RMFFHeaderCONT extends RMFFHeader
         RMFFHeaderCONT obj =
                 (RMFFHeaderCONT)super.clone();
 
-        obj.title_len = title_len.clone();
+        obj.title_len = (UInt)title_len.clone();
         obj.title = (LargeBitList)title.clone();
-        obj.author_len = author_len.clone();
+        obj.author_len = (UInt)author_len.clone();
         obj.author = (LargeBitList)author.clone();
-        obj.copyright_len = copyright_len.clone();
+        obj.copyright_len = (UInt)copyright_len.clone();
         obj.copyright = (LargeBitList)copyright.clone();
-        obj.comment_len = comment_len.clone();
+        obj.comment_len = (UInt)comment_len.clone();
         obj.comment = (LargeBitList)comment.clone();
 
         return obj;

@@ -31,7 +31,7 @@ public class RIFFHeaderList extends RIFFHeader
             throws CloneNotSupportedException {
         RIFFHeaderList obj = (RIFFHeaderList)super.clone();
 
-        obj.listType = listType.clone();
+        obj.listType = (UInt)listType.clone();
 
         return obj;
     }

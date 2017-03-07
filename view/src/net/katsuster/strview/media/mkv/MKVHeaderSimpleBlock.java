@@ -52,14 +52,14 @@ public class MKVHeaderSimpleBlock extends MKVHeader {
         MKVHeaderSimpleBlock obj = (MKVHeaderSimpleBlock)super.clone();
 
         obj.track_number = track_number.clone();
-        obj.timecode = timecode.clone();
-        obj.keyframe = keyframe.clone();
-        obj.reserved1 = reserved1.clone();
-        obj.invisible = invisible.clone();
-        obj.lacing = lacing.clone();
-        obj.discardable = discardable.clone();
+        obj.timecode = (UInt)timecode.clone();
+        obj.keyframe = (UInt)keyframe.clone();
+        obj.reserved1 = (UInt)reserved1.clone();
+        obj.invisible = (UInt)invisible.clone();
+        obj.lacing = (UInt)lacing.clone();
+        obj.discardable = (UInt)discardable.clone();
 
-        obj.lacing_head = lacing_head.clone();
+        obj.lacing_head = (UInt)lacing_head.clone();
         obj.lacing_size0 = lacing_size0.clone();
 
         obj.lacing_diffs = new ArrayList<EBMLlacing>();

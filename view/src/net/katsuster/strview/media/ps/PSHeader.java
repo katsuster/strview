@@ -34,8 +34,8 @@ public class PSHeader extends BlockAdapter
             throws CloneNotSupportedException {
         PSHeader obj = (PSHeader)super.clone();
 
-        obj.packet_start_code_prefix = packet_start_code_prefix.clone();
-        obj.stream_id = stream_id.clone();
+        obj.packet_start_code_prefix = (UInt)packet_start_code_prefix.clone();
+        obj.stream_id = (UInt)stream_id.clone();
 
         return obj;
     }

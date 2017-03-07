@@ -38,10 +38,10 @@ public class SystemESInfo extends BlockAdapter
             throws CloneNotSupportedException {
         SystemESInfo obj = (SystemESInfo)super.clone();
 
-        stream_id = stream_id.clone();
-        reserved1 = reserved1.clone();
-        p_std_buffer_bound_scale = p_std_buffer_bound_scale.clone();
-        p_std_buffer_size_bound = p_std_buffer_size_bound.clone();
+        stream_id = (UInt)stream_id.clone();
+        reserved1 = (UInt)reserved1.clone();
+        p_std_buffer_bound_scale = (UInt)p_std_buffer_bound_scale.clone();
+        p_std_buffer_size_bound = (UInt)p_std_buffer_size_bound.clone();
 
         return obj;
     }

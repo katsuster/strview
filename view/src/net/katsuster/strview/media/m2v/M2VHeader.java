@@ -32,7 +32,7 @@ public class M2VHeader extends BlockAdapter
             throws CloneNotSupportedException {
         M2VHeader obj = (M2VHeader)super.clone();
 
-        obj.start_code = start_code.clone();
+        obj.start_code = (UInt)start_code.clone();
 
         return obj;
     }

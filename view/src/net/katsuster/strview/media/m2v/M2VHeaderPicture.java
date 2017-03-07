@@ -50,16 +50,16 @@ public class M2VHeaderPicture extends M2VHeader
             throws CloneNotSupportedException {
         M2VHeaderPicture obj = (M2VHeaderPicture)super.clone();
 
-        obj.temporal_reference = temporal_reference.clone();
-        obj.picture_coding_type = picture_coding_type.clone();
-        obj.vbv_delay = vbv_delay.clone();
-        obj.full_pel_forward_vector = full_pel_forward_vector.clone();
-        obj.forward_f_code = forward_f_code.clone();
-        obj.full_pel_backward_vector = full_pel_backward_vector.clone();
-        obj.backward_f_code = backward_f_code.clone();
-        obj.extra_bit_picture_1 = extra_bit_picture_1.clone();
-        obj.extra_information_picture = extra_information_picture.clone();
-        obj.extra_bit_picture_0 = extra_bit_picture_0.clone();
+        obj.temporal_reference = (UInt)temporal_reference.clone();
+        obj.picture_coding_type = (UInt)picture_coding_type.clone();
+        obj.vbv_delay = (UInt)vbv_delay.clone();
+        obj.full_pel_forward_vector = (UInt)full_pel_forward_vector.clone();
+        obj.forward_f_code = (UInt)forward_f_code.clone();
+        obj.full_pel_backward_vector = (UInt)full_pel_backward_vector.clone();
+        obj.backward_f_code = (UInt)backward_f_code.clone();
+        obj.extra_bit_picture_1 = (UInt)extra_bit_picture_1.clone();
+        obj.extra_information_picture = (UInt)extra_information_picture.clone();
+        obj.extra_bit_picture_0 = (UInt)extra_bit_picture_0.clone();
 
         return obj;
     }

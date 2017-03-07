@@ -50,16 +50,16 @@ public class M2VHeaderExtSequenceDisplay extends M2VHeaderExt
             throws CloneNotSupportedException {
         M2VHeaderExtSequenceDisplay obj = (M2VHeaderExtSequenceDisplay)super.clone();
 
-        obj.video_format = video_format.clone();
-        obj.colour_description = colour_description.clone();
+        obj.video_format = (UInt)video_format.clone();
+        obj.colour_description = (UInt)colour_description.clone();
 
-        obj.colour_primaries = colour_primaries.clone();
-        obj.transfer_characteristics = transfer_characteristics.clone();
-        obj.matrix_coefficients = matrix_coefficients.clone();
+        obj.colour_primaries = (UInt)colour_primaries.clone();
+        obj.transfer_characteristics = (UInt)transfer_characteristics.clone();
+        obj.matrix_coefficients = (UInt)matrix_coefficients.clone();
 
-        obj.display_horizontal_size = display_horizontal_size.clone();
-        obj.marker_bit = marker_bit.clone();
-        obj.display_vertical_size = display_vertical_size.clone();
+        obj.display_horizontal_size = (UInt)display_horizontal_size.clone();
+        obj.marker_bit = (UInt)marker_bit.clone();
+        obj.display_vertical_size = (UInt)display_vertical_size.clone();
 
         return obj;
     }

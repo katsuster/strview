@@ -44,9 +44,9 @@ public class MP4Header extends BlockAdapter
             throws CloneNotSupportedException {
         MP4Header obj = (MP4Header)super.clone();
 
-        obj.size = size.clone();
-        obj.type = type.clone();
-        obj.largesize = largesize.clone();
+        obj.size = (UInt)size.clone();
+        obj.type = (UInt)type.clone();
+        obj.largesize = (UInt)largesize.clone();
         obj.usertype = (LargeBitList)usertype.clone();
 
         return obj;

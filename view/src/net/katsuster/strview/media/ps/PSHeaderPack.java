@@ -61,20 +61,20 @@ public class PSHeaderPack extends PSHeader
             throws CloneNotSupportedException {
         PSHeaderPack obj = (PSHeaderPack)super.clone();
 
-        obj.reserved1 = reserved1.clone();
-        obj.system_clock_reference_base_high = system_clock_reference_base_high.clone();
-        obj.marker_bit1 = marker_bit1.clone();
-        obj.system_clock_reference_base_mid = system_clock_reference_base_mid.clone();
-        obj.marker_bit2 = marker_bit2.clone();
-        obj.system_clock_reference_base_low = system_clock_reference_base_low.clone();
-        obj.marker_bit3 = marker_bit3.clone();
-        obj.system_clock_reference_extension = system_clock_reference_extension.clone();
-        obj.marker_bit4 = marker_bit4.clone();
-        obj.program_mux_rate = program_mux_rate.clone();
-        obj.marker_bit5 = marker_bit5.clone();
-        obj.marker_bit6 = marker_bit6.clone();
-        obj.reserved2 = reserved2.clone();
-        obj.pack_stuffing_length = pack_stuffing_length.clone();
+        obj.reserved1 = (UInt)reserved1.clone();
+        obj.system_clock_reference_base_high = (UInt)system_clock_reference_base_high.clone();
+        obj.marker_bit1 = (UInt)marker_bit1.clone();
+        obj.system_clock_reference_base_mid = (UInt)system_clock_reference_base_mid.clone();
+        obj.marker_bit2 = (UInt)marker_bit2.clone();
+        obj.system_clock_reference_base_low = (UInt)system_clock_reference_base_low.clone();
+        obj.marker_bit3 = (UInt)marker_bit3.clone();
+        obj.system_clock_reference_extension = (UInt)system_clock_reference_extension.clone();
+        obj.marker_bit4 = (UInt)marker_bit4.clone();
+        obj.program_mux_rate = (UInt)program_mux_rate.clone();
+        obj.marker_bit5 = (UInt)marker_bit5.clone();
+        obj.marker_bit6 = (UInt)marker_bit6.clone();
+        obj.reserved2 = (UInt)reserved2.clone();
+        obj.pack_stuffing_length = (UInt)pack_stuffing_length.clone();
         obj.stuffing_byte = (LargeBitList)stuffing_byte.clone();
 
         return obj;

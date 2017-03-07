@@ -58,20 +58,20 @@ public class RIFFHeaderAvih extends RIFFHeader
             throws CloneNotSupportedException {
         RIFFHeaderAvih obj = (RIFFHeaderAvih)super.clone();
 
-        obj.dwMicroSecPerFrame = dwMicroSecPerFrame.clone();
-        obj.dwMaxBytesPerSec = dwMaxBytesPerSec.clone();
-        obj.dwPaddingGranularity = dwPaddingGranularity.clone();
-        obj.dwFlags = dwFlags.clone();
-        obj.dwTotalFrames = dwTotalFrames.clone();
-        obj.dwInitialFrames = dwInitialFrames.clone();
-        obj.dwStreams = dwStreams.clone();
-        obj.dwSuggestedBufferSize = dwSuggestedBufferSize.clone();
-        obj.dwWidth = dwWidth.clone();
-        obj.dwHeight = dwHeight.clone();
-        obj.dwReserved0 = dwReserved0.clone();
-        obj.dwReserved1 = dwReserved1.clone();
-        obj.dwReserved2 = dwReserved2.clone();
-        obj.dwReserved3 = dwReserved3.clone();
+        obj.dwMicroSecPerFrame = (UInt)dwMicroSecPerFrame.clone();
+        obj.dwMaxBytesPerSec = (UInt)dwMaxBytesPerSec.clone();
+        obj.dwPaddingGranularity = (UInt)dwPaddingGranularity.clone();
+        obj.dwFlags = (UInt)dwFlags.clone();
+        obj.dwTotalFrames = (UInt)dwTotalFrames.clone();
+        obj.dwInitialFrames = (UInt)dwInitialFrames.clone();
+        obj.dwStreams = (UInt)dwStreams.clone();
+        obj.dwSuggestedBufferSize = (UInt)dwSuggestedBufferSize.clone();
+        obj.dwWidth = (UInt)dwWidth.clone();
+        obj.dwHeight = (UInt)dwHeight.clone();
+        obj.dwReserved0 = (UInt)dwReserved0.clone();
+        obj.dwReserved1 = (UInt)dwReserved1.clone();
+        obj.dwReserved2 = (UInt)dwReserved2.clone();
+        obj.dwReserved3 = (UInt)dwReserved3.clone();
 
         return obj;
     }

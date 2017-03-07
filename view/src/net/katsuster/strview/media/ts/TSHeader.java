@@ -50,14 +50,14 @@ public class TSHeader extends BlockAdapter
             throws CloneNotSupportedException {
         TSHeader obj = (TSHeader)super.clone();
 
-        obj.sync_byte = sync_byte.clone();
-        obj.transport_error_indicator = transport_error_indicator.clone();
-        obj.payload_unit_start_indicator = payload_unit_start_indicator.clone();
-        obj.transport_priority = transport_priority.clone();
-        obj.pid = pid.clone();
-        obj.transport_scrambling_control = transport_scrambling_control.clone();
-        obj.adaptation_field_control = adaptation_field_control.clone();
-        obj.continuity_counter = continuity_counter.clone();
+        obj.sync_byte = (UInt)sync_byte.clone();
+        obj.transport_error_indicator = (UInt)transport_error_indicator.clone();
+        obj.payload_unit_start_indicator = (UInt)payload_unit_start_indicator.clone();
+        obj.transport_priority = (UInt)transport_priority.clone();
+        obj.pid = (UInt)pid.clone();
+        obj.transport_scrambling_control = (UInt)transport_scrambling_control.clone();
+        obj.adaptation_field_control = (UInt)adaptation_field_control.clone();
+        obj.continuity_counter = (UInt)continuity_counter.clone();
 
         obj.adapt = adapt.clone();
 

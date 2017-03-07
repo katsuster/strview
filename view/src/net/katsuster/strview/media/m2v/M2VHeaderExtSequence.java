@@ -55,17 +55,17 @@ public class M2VHeaderExtSequence extends M2VHeaderExt
             throws CloneNotSupportedException {
         M2VHeaderExtSequence obj = (M2VHeaderExtSequence)super.clone();
 
-        obj.profile_and_level_indication = profile_and_level_indication.clone();
-        obj.progressive_sequence = progressive_sequence.clone();
-        obj.chroma_format = chroma_format.clone();
-        obj.horizontal_size_extension = horizontal_size_extension.clone();
-        obj.vertical_size_extension = vertical_size_extension.clone();
-        obj.bit_rate_extension = bit_rate_extension.clone();
-        obj.marker_bit = marker_bit.clone();
-        obj.vbv_buffer_size_extension = vbv_buffer_size_extension.clone();
-        obj.low_delay = low_delay.clone();
-        obj.frame_rate_extension_n = frame_rate_extension_n.clone();
-        obj.frame_rate_extension_d = frame_rate_extension_d.clone();
+        obj.profile_and_level_indication = (UInt)profile_and_level_indication.clone();
+        obj.progressive_sequence = (UInt)progressive_sequence.clone();
+        obj.chroma_format = (UInt)chroma_format.clone();
+        obj.horizontal_size_extension = (UInt)horizontal_size_extension.clone();
+        obj.vertical_size_extension = (UInt)vertical_size_extension.clone();
+        obj.bit_rate_extension = (UInt)bit_rate_extension.clone();
+        obj.marker_bit = (UInt)marker_bit.clone();
+        obj.vbv_buffer_size_extension = (UInt)vbv_buffer_size_extension.clone();
+        obj.low_delay = (UInt)low_delay.clone();
+        obj.frame_rate_extension_n = (UInt)frame_rate_extension_n.clone();
+        obj.frame_rate_extension_d = (UInt)frame_rate_extension_d.clone();
 
         return obj;
     }

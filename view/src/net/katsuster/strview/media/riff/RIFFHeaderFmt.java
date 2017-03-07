@@ -40,12 +40,12 @@ public class RIFFHeaderFmt extends RIFFHeader
             throws CloneNotSupportedException {
         RIFFHeaderFmt obj = (RIFFHeaderFmt)super.clone();
 
-        obj.wFormatTag = wFormatTag.clone();
-        obj.nChannels = nChannels.clone();
-        obj.nSamplesPerSec = nSamplesPerSec.clone();
-        obj.nAvgBytesPerSec = nAvgBytesPerSec.clone();
-        obj.nBlockAlign = nBlockAlign.clone();
-        obj.wBitsPerSample = wBitsPerSample.clone();
+        obj.wFormatTag = (UInt)wFormatTag.clone();
+        obj.nChannels = (UInt)nChannels.clone();
+        obj.nSamplesPerSec = (UInt)nSamplesPerSec.clone();
+        obj.nAvgBytesPerSec = (UInt)nAvgBytesPerSec.clone();
+        obj.nBlockAlign = (UInt)nBlockAlign.clone();
+        obj.wBitsPerSample = (UInt)wBitsPerSample.clone();
 
         return obj;
     }

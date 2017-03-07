@@ -33,21 +33,6 @@ public class UInt extends Num
 
     /**
      * <p>
-     * 値をコピーした新たなオブジェクトを返します。
-     * </p>
-     *
-     * @return コピーされたオブジェクト
-     * @throws CloneNotSupportedException インスタンスを複製できない場合
-     */
-    @Override
-    public UInt clone() throws CloneNotSupportedException {
-        UInt obj = (UInt)super.clone();
-
-        return obj;
-    }
-
-    /**
-     * <p>
      * オブジェクトを指定されたオブジェクトと比較します。
      * 結果が true になるのは、引数が null ではなく、
      * このオブジェクトと同じ long 値を含む

@@ -33,7 +33,7 @@ public class M4VHeader extends BlockAdapter
             throws CloneNotSupportedException {
         M4VHeader obj = (M4VHeader)super.clone();
 
-        obj.start_code = start_code.clone();
+        obj.start_code = (UInt)start_code.clone();
 
         return obj;
     }

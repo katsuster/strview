@@ -32,7 +32,7 @@ public class PSHeaderPES extends PSHeader
             throws CloneNotSupportedException {
         PSHeaderPES obj = (PSHeaderPES)super.clone();
 
-        obj.pes_packet_length = pes_packet_length.clone();
+        obj.pes_packet_length = (UInt)pes_packet_length.clone();
 
         return obj;
     }

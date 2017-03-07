@@ -27,8 +27,8 @@ public class RMFFHeaderRMF extends RMFFHeader
             throws CloneNotSupportedException {
         RMFFHeaderRMF obj = (RMFFHeaderRMF)super.clone();
 
-        obj.file_version = file_version.clone();
-        obj.num_headers = num_headers.clone();
+        obj.file_version = (UInt)file_version.clone();
+        obj.num_headers = (UInt)num_headers.clone();
 
         return obj;
     }

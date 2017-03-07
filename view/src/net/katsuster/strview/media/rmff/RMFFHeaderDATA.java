@@ -27,8 +27,8 @@ public class RMFFHeaderDATA extends RMFFHeader
             throws CloneNotSupportedException {
         RMFFHeaderDATA obj = (RMFFHeaderDATA)super.clone();
 
-        obj.num_packets = num_packets.clone();
-        obj.next_data_header = next_data_header.clone();
+        obj.num_packets = (UInt)num_packets.clone();
+        obj.next_data_header = (UInt)next_data_header.clone();
 
         return obj;
     }

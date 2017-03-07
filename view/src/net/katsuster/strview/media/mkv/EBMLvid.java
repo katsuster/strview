@@ -46,7 +46,7 @@ public class EBMLvid extends EBMLvint
             throws CloneNotSupportedException {
         EBMLvid obj = (EBMLvid)super.clone();
 
-        obj.vint_tag = vint_tag.clone();
+        obj.vint_tag = (UInt)vint_tag.clone();
 
         return obj;
     }

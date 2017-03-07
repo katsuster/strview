@@ -32,8 +32,8 @@ public class RIFFHeader extends BlockAdapter {
             throws CloneNotSupportedException {
         RIFFHeader obj = (RIFFHeader)super.clone();
 
-        obj.ckID = ckID.clone();
-        obj.ckSize = ckSize.clone();
+        obj.ckID = (UInt)ckID.clone();
+        obj.ckSize = (UInt)ckSize.clone();
 
         return obj;
     }

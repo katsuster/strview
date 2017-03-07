@@ -46,7 +46,7 @@ public class UIntTest {
         assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
         try {
-            UInt vc = va.clone();
+            UInt vc = (UInt)va.clone();
 
             assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
             assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());

@@ -60,8 +60,8 @@ public class EBMLvalue extends EBMLvint
             throws CloneNotSupportedException {
         EBMLvalue obj = (EBMLvalue)super.clone();
 
-        obj.vint_head = vint_head.clone();
-        obj.vint_val = vint_val.clone();
+        obj.vint_head = (UInt)vint_head.clone();
+        obj.vint_val = (UInt)vint_val.clone();
 
         return obj;
     }

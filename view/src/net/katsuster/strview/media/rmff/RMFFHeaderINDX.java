@@ -29,9 +29,9 @@ public class RMFFHeaderINDX extends RMFFHeader
             throws CloneNotSupportedException {
         RMFFHeaderINDX obj = (RMFFHeaderINDX)super.clone();
 
-        obj.num_indices = num_indices.clone();
-        obj.stream_number = stream_number.clone();
-        obj.next_index_header = next_index_header.clone();
+        obj.num_indices = (UInt)num_indices.clone();
+        obj.stream_number = (UInt)stream_number.clone();
+        obj.next_index_header = (UInt)next_index_header.clone();
 
         return obj;
     }

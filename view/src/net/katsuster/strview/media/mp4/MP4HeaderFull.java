@@ -37,8 +37,8 @@ public class MP4HeaderFull extends MP4Header
             throws CloneNotSupportedException {
         MP4HeaderFull obj = (MP4HeaderFull)super.clone();
 
-        obj.version = version.clone();
-        obj.flags = flags.clone();
+        obj.version = (UInt)version.clone();
+        obj.flags = (UInt)flags.clone();
 
         return obj;
     }

@@ -76,27 +76,27 @@ public class M2VHeaderExtPictureCoding extends M2VHeaderExt
         obj.f_code = f_code.clone();
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
-                obj.f_code[i][j] = f_code[i][j].clone();
+                obj.f_code[i][j] = (UInt)f_code[i][j].clone();
             }
         }
-        obj.intra_dc_precision = intra_dc_precision.clone();
-        obj.picture_structure = picture_structure.clone();
-        obj.top_field_first = top_field_first.clone();
-        obj.frame_pred_frame_dct = frame_pred_frame_dct.clone();
-        obj.concealment_motion_vectors = concealment_motion_vectors.clone();
-        obj.q_scale_type = q_scale_type.clone();
-        obj.intra_vlc_format = intra_vlc_format.clone();
-        obj.alternate_scan = alternate_scan.clone();
-        obj.repeat_first_field = repeat_first_field.clone();
-        obj.chroma_420_type = chroma_420_type.clone();
-        obj.progressive_frame = progressive_frame.clone();
-        obj.composite_display_flag = composite_display_flag.clone();
+        obj.intra_dc_precision = (UInt)intra_dc_precision.clone();
+        obj.picture_structure = (UInt)picture_structure.clone();
+        obj.top_field_first = (UInt)top_field_first.clone();
+        obj.frame_pred_frame_dct = (UInt)frame_pred_frame_dct.clone();
+        obj.concealment_motion_vectors = (UInt)concealment_motion_vectors.clone();
+        obj.q_scale_type = (UInt)q_scale_type.clone();
+        obj.intra_vlc_format = (UInt)intra_vlc_format.clone();
+        obj.alternate_scan = (UInt)alternate_scan.clone();
+        obj.repeat_first_field = (UInt)repeat_first_field.clone();
+        obj.chroma_420_type = (UInt)chroma_420_type.clone();
+        obj.progressive_frame = (UInt)progressive_frame.clone();
+        obj.composite_display_flag = (UInt)composite_display_flag.clone();
 
-        obj.v_axis = v_axis.clone();
-        obj.field_sequence = field_sequence.clone();
-        obj.sub_carrier = sub_carrier.clone();
-        obj.burst_amplitude = burst_amplitude.clone();
-        obj.sub_carrier_phase = sub_carrier_phase.clone();
+        obj.v_axis = (UInt)v_axis.clone();
+        obj.field_sequence = (UInt)field_sequence.clone();
+        obj.sub_carrier = (UInt)sub_carrier.clone();
+        obj.burst_amplitude = (UInt)burst_amplitude.clone();
+        obj.sub_carrier_phase = (UInt)sub_carrier_phase.clone();
 
         return obj;
     }

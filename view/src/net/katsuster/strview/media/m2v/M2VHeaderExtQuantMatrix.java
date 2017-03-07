@@ -49,13 +49,13 @@ public class M2VHeaderExtQuantMatrix extends M2VHeaderExt
             throws CloneNotSupportedException {
         M2VHeaderExtQuantMatrix obj = (M2VHeaderExtQuantMatrix) super.clone();
 
-        obj.load_intra_quantiser_matrix = load_intra_quantiser_matrix.clone();
+        obj.load_intra_quantiser_matrix = (UInt)load_intra_quantiser_matrix.clone();
         obj.intra_quantiser_matrix = (LargeBitList)intra_quantiser_matrix.clone();
-        obj.load_non_intra_quantiser_matrix = load_non_intra_quantiser_matrix.clone();
+        obj.load_non_intra_quantiser_matrix = (UInt)load_non_intra_quantiser_matrix.clone();
         obj.non_intra_quantiser_matrix = (LargeBitList)non_intra_quantiser_matrix.clone();
-        obj.load_chroma_intra_quantiser_matrix = load_chroma_intra_quantiser_matrix.clone();
+        obj.load_chroma_intra_quantiser_matrix = (UInt)load_chroma_intra_quantiser_matrix.clone();
         obj.chroma_intra_quantiser_matrix = (LargeBitList)chroma_intra_quantiser_matrix.clone();
-        obj.load_chroma_non_intra_quantiser_matrix = load_chroma_non_intra_quantiser_matrix.clone();
+        obj.load_chroma_non_intra_quantiser_matrix = (UInt)load_chroma_non_intra_quantiser_matrix.clone();
         obj.chroma_non_intra_quantiser_matrix = (LargeBitList)chroma_non_intra_quantiser_matrix.clone();
 
         return obj;

@@ -32,7 +32,7 @@ public class M2VHeaderExt extends M2VHeader
             throws CloneNotSupportedException {
         M2VHeaderExt obj = (M2VHeaderExt)super.clone();
 
-        obj.extension_start_code_identifier = extension_start_code_identifier.clone();
+        obj.extension_start_code_identifier = (UInt)extension_start_code_identifier.clone();
 
         return obj;
     }

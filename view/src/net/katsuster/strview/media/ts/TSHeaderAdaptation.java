@@ -123,49 +123,49 @@ public class TSHeaderAdaptation extends BlockAdapter
             throws CloneNotSupportedException {
         TSHeaderAdaptation obj = (TSHeaderAdaptation)super.clone();
 
-        obj.adaptation_field_length = adaptation_field_length.clone();
+        obj.adaptation_field_length = (UInt)adaptation_field_length.clone();
 
-        obj.discontinuity_indicator = discontinuity_indicator.clone();
-        obj.random_access_indicator = random_access_indicator.clone();
-        obj.elementary_stream_priority_indicator = elementary_stream_priority_indicator.clone();
-        obj.pcr_flag = pcr_flag.clone();
-        obj.opcr_flag = opcr_flag.clone();
-        obj.splicing_point_flag = splicing_point_flag.clone();
-        obj.transport_private_data_flag = transport_private_data_flag.clone();
-        obj.adaptation_field_extension_flag = adaptation_field_extension_flag.clone();
+        obj.discontinuity_indicator = (UInt)discontinuity_indicator.clone();
+        obj.random_access_indicator = (UInt)random_access_indicator.clone();
+        obj.elementary_stream_priority_indicator = (UInt)elementary_stream_priority_indicator.clone();
+        obj.pcr_flag = (UInt)pcr_flag.clone();
+        obj.opcr_flag = (UInt)opcr_flag.clone();
+        obj.splicing_point_flag = (UInt)splicing_point_flag.clone();
+        obj.transport_private_data_flag = (UInt)transport_private_data_flag.clone();
+        obj.adaptation_field_extension_flag = (UInt)adaptation_field_extension_flag.clone();
 
-        obj.program_clock_reference_base = program_clock_reference_base.clone();
-        obj.reserved = reserved.clone();
-        obj.program_clock_reference_extension = program_clock_reference_extension.clone();
+        obj.program_clock_reference_base = (UInt)program_clock_reference_base.clone();
+        obj.reserved = (UInt)reserved.clone();
+        obj.program_clock_reference_extension = (UInt)program_clock_reference_extension.clone();
 
-        obj.original_program_clock_reference_base = original_program_clock_reference_base.clone();
-        obj.reserved2 = reserved2.clone();
-        obj.original_program_clock_reference_extension = original_program_clock_reference_extension.clone();
+        obj.original_program_clock_reference_base = (UInt)original_program_clock_reference_base.clone();
+        obj.reserved2 = (UInt)reserved2.clone();
+        obj.original_program_clock_reference_extension = (UInt)original_program_clock_reference_extension.clone();
 
-        obj.splice_countdown = splice_countdown.clone();
+        obj.splice_countdown = (UInt)splice_countdown.clone();
 
-        obj.transport_private_data_length = transport_private_data_length.clone();
+        obj.transport_private_data_length = (UInt)transport_private_data_length.clone();
         obj.private_data_byte = (LargeBitList)private_data_byte.clone();
 
-        obj.adaptation_field_extension_length = adaptation_field_extension_length.clone();
-        obj.ltw_flag = ltw_flag.clone();
-        obj.piecewise_rate_flag = piecewise_rate_flag.clone();
-        obj.seamless_splice_flag = seamless_splice_flag.clone();
-        obj.reserved3 = reserved3.clone();
+        obj.adaptation_field_extension_length = (UInt)adaptation_field_extension_length.clone();
+        obj.ltw_flag = (UInt)ltw_flag.clone();
+        obj.piecewise_rate_flag = (UInt)piecewise_rate_flag.clone();
+        obj.seamless_splice_flag = (UInt)seamless_splice_flag.clone();
+        obj.reserved3 = (UInt)reserved3.clone();
 
-        obj.ltw_valid_flag = ltw_valid_flag.clone();
-        obj.ltw_offset = ltw_offset.clone();
+        obj.ltw_valid_flag = (UInt)ltw_valid_flag.clone();
+        obj.ltw_offset = (UInt)ltw_offset.clone();
 
-        obj.reserved4 = reserved4.clone();
-        obj.piecewise_rate = piecewise_rate.clone();
+        obj.reserved4 = (UInt)reserved4.clone();
+        obj.piecewise_rate = (UInt)piecewise_rate.clone();
 
-        obj.splice_type = splice_type.clone();
-        obj.dts_next_au_high = dts_next_au_high.clone();
-        obj.marker_bit = marker_bit.clone();
-        obj.dts_next_au_mid = dts_next_au_mid.clone();
-        obj.marker_bit2 = marker_bit2.clone();
-        obj.dts_next_au_low = dts_next_au_low.clone();
-        obj.marker_bit3 = marker_bit3.clone();
+        obj.splice_type = (UInt)splice_type.clone();
+        obj.dts_next_au_high = (UInt)dts_next_au_high.clone();
+        obj.marker_bit = (UInt)marker_bit.clone();
+        obj.dts_next_au_mid = (UInt)dts_next_au_mid.clone();
+        obj.marker_bit2 = (UInt)marker_bit2.clone();
+        obj.dts_next_au_low = (UInt)dts_next_au_low.clone();
+        obj.marker_bit3 = (UInt)marker_bit3.clone();
 
         obj.reserved_byte = (LargeBitList)reserved_byte.clone();
         obj.stuffing_byte = (LargeBitList)stuffing_byte.clone();

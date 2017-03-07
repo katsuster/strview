@@ -62,19 +62,19 @@ public class PSHeaderSystem extends PSHeader {
         PSHeaderSystem obj = (PSHeaderSystem)super.clone();
         int i;
 
-        obj.header_length = header_length.clone();
-        obj.marker_bit1 = marker_bit1.clone();
-        obj.rate_bound = rate_bound.clone();
-        obj.marker_bit2 = marker_bit2.clone();
-        obj.audio_bound = audio_bound.clone();
-        obj.fixed_flag = fixed_flag.clone();
-        obj.csps_flag = csps_flag.clone();
-        obj.system_audio_lock_flag = system_audio_lock_flag.clone();
-        obj.system_video_lock_flag = system_video_lock_flag.clone();
-        obj.marker_bit3 = marker_bit3.clone();
-        obj.video_bound = video_bound.clone();
-        obj.packet_rate_restriction_flag = packet_rate_restriction_flag.clone();
-        obj.reserved_bits = reserved_bits.clone();
+        obj.header_length = (UInt)header_length.clone();
+        obj.marker_bit1 = (UInt)marker_bit1.clone();
+        obj.rate_bound = (UInt)rate_bound.clone();
+        obj.marker_bit2 = (UInt)marker_bit2.clone();
+        obj.audio_bound = (UInt)audio_bound.clone();
+        obj.fixed_flag = (UInt)fixed_flag.clone();
+        obj.csps_flag = (UInt)csps_flag.clone();
+        obj.system_audio_lock_flag = (UInt)system_audio_lock_flag.clone();
+        obj.system_video_lock_flag = (UInt)system_video_lock_flag.clone();
+        obj.marker_bit3 = (UInt)marker_bit3.clone();
+        obj.video_bound = (UInt)video_bound.clone();
+        obj.packet_rate_restriction_flag = (UInt)packet_rate_restriction_flag.clone();
+        obj.reserved_bits = (UInt)reserved_bits.clone();
 
         obj.es_info = new ArrayList<SystemESInfo>();
         for (i = 0; i < es_info.size(); i++) {

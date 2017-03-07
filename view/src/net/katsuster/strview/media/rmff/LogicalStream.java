@@ -44,24 +44,24 @@ public class LogicalStream extends BlockAdapter
         LogicalStream obj = (LogicalStream)super.clone();
         int i;
 
-        obj.size = size.clone();
-        obj.object_version = object_version.clone();
+        obj.size = (UInt)size.clone();
+        obj.object_version = (UInt)object_version.clone();
 
-        obj.num_physical_streams = num_physical_streams.clone();
+        obj.num_physical_streams = (UInt)num_physical_streams.clone();
         obj.physical_stream_numbers = physical_stream_numbers.clone();
         for (i = 0; i < obj.physical_stream_numbers.length; i++) {
-            obj.physical_stream_numbers[i] = physical_stream_numbers[i].clone();
+            obj.physical_stream_numbers[i] = (UInt)physical_stream_numbers[i].clone();
         }
         obj.data_offsets = data_offsets.clone();
         for (i = 0; i < obj.data_offsets.length; i++) {
-            obj.data_offsets[i] = data_offsets[i].clone();
+            obj.data_offsets[i] = (UInt)data_offsets[i].clone();
         }
         obj.rule_to_physical_stream_number_map = rule_to_physical_stream_number_map.clone();
         for (i = 0; i < obj.rule_to_physical_stream_number_map.length; i++) {
-            obj.rule_to_physical_stream_number_map[i] = rule_to_physical_stream_number_map[i].clone();
+            obj.rule_to_physical_stream_number_map[i] = (UInt)rule_to_physical_stream_number_map[i].clone();
         }
 
-        obj.num_properties = num_properties.clone();
+        obj.num_properties = (UInt)num_properties.clone();
         obj.properties = properties.clone();
         for (i = 0; i < obj.properties.length; i++) {
             obj.properties[i] = properties[i].clone();

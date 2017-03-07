@@ -48,17 +48,17 @@ public class RMFFHeaderMDPR extends RMFFHeader
             throws CloneNotSupportedException {
         RMFFHeaderMDPR obj = (RMFFHeaderMDPR)super.clone();
 
-        obj.stream_number = stream_number.clone();
-        obj.max_bit_rate = max_bit_rate.clone();
-        obj.avg_bit_rate = avg_bit_rate.clone();
-        obj.max_packet_size = max_packet_size.clone();
-        obj.avg_packet_size = avg_packet_size.clone();
-        obj.start_time = start_time.clone();
-        obj.preroll = preroll.clone();
-        obj.duration = duration.clone();
-        obj.stream_name_size = stream_name_size.clone();
+        obj.stream_number = (UInt)stream_number.clone();
+        obj.max_bit_rate = (UInt)max_bit_rate.clone();
+        obj.avg_bit_rate = (UInt)avg_bit_rate.clone();
+        obj.max_packet_size = (UInt)max_packet_size.clone();
+        obj.avg_packet_size = (UInt)avg_packet_size.clone();
+        obj.start_time = (UInt)start_time.clone();
+        obj.preroll = (UInt)preroll.clone();
+        obj.duration = (UInt)duration.clone();
+        obj.stream_name_size = (UInt)stream_name_size.clone();
         obj.stream_name = (LargeBitList)stream_name.clone();
-        obj.mime_type_size = mime_type_size.clone();
+        obj.mime_type_size = (UInt)mime_type_size.clone();
         obj.mime_type = (LargeBitList)mime_type.clone();
 
         return obj;

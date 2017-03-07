@@ -32,7 +32,7 @@ public class RIFFHeaderDmlh extends RIFFHeader
             throws CloneNotSupportedException {
         RIFFHeaderDmlh obj = (RIFFHeaderDmlh)super.clone();
 
-        obj.dwTotalFrames = dwTotalFrames.clone();
+        obj.dwTotalFrames = (UInt)dwTotalFrames.clone();
 
         return obj;
     }

@@ -22,7 +22,7 @@ public class MKVHeaderUInt extends MKVHeader {
             throws CloneNotSupportedException {
         MKVHeaderUInt obj = (MKVHeaderUInt)super.clone();
 
-        obj.uint_val = uint_val.clone();
+        obj.uint_val = (UInt)uint_val.clone();
 
         return obj;
     }

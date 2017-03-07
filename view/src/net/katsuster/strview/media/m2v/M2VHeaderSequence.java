@@ -60,23 +60,23 @@ public class M2VHeaderSequence
             throws CloneNotSupportedException {
         M2VHeaderSequence obj = (M2VHeaderSequence)super.clone();
 
-        obj.horizontal_size_value = horizontal_size_value.clone();
-        obj.vertical_size_value = vertical_size_value.clone();
-        obj.aspect_ratio_information = aspect_ratio_information.clone();
-        obj.frame_rate_code = frame_rate_code.clone();
-        obj.bit_rate_value = bit_rate_value.clone();
-        obj.marker_bit = marker_bit.clone();
-        obj.vbv_buffer_size_value = vbv_buffer_size_value.clone();
-        obj.constrained_parameters_flag = constrained_parameters_flag.clone();
-        obj.load_intra_quantiser_matrix = load_intra_quantiser_matrix.clone();
+        obj.horizontal_size_value = (UInt)horizontal_size_value.clone();
+        obj.vertical_size_value = (UInt)vertical_size_value.clone();
+        obj.aspect_ratio_information = (UInt)aspect_ratio_information.clone();
+        obj.frame_rate_code = (UInt)frame_rate_code.clone();
+        obj.bit_rate_value = (UInt)bit_rate_value.clone();
+        obj.marker_bit = (UInt)marker_bit.clone();
+        obj.vbv_buffer_size_value = (UInt)vbv_buffer_size_value.clone();
+        obj.constrained_parameters_flag = (UInt)constrained_parameters_flag.clone();
+        obj.load_intra_quantiser_matrix = (UInt)load_intra_quantiser_matrix.clone();
         obj.intra_quantiser_matrix = intra_quantiser_matrix.clone();
         for (int i = 0; i < obj.intra_quantiser_matrix.length; i++) {
-            obj.intra_quantiser_matrix[i] = intra_quantiser_matrix[i].clone();
+            obj.intra_quantiser_matrix[i] = (UInt)intra_quantiser_matrix[i].clone();
         }
-        obj.load_non_intra_quantiser_matrix = load_non_intra_quantiser_matrix.clone();
+        obj.load_non_intra_quantiser_matrix = (UInt)load_non_intra_quantiser_matrix.clone();
         obj.non_intra_quantiser_matrix = non_intra_quantiser_matrix.clone();
         for (int i = 0; i < obj.non_intra_quantiser_matrix.length; i++) {
-            obj.non_intra_quantiser_matrix[i] = non_intra_quantiser_matrix[i].clone();
+            obj.non_intra_quantiser_matrix[i] = (UInt)non_intra_quantiser_matrix[i].clone();
         }
 
         return obj;

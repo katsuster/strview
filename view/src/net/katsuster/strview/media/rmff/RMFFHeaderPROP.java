@@ -45,17 +45,17 @@ public class RMFFHeaderPROP extends RMFFHeader
             throws CloneNotSupportedException {
         RMFFHeaderPROP obj = (RMFFHeaderPROP)super.clone();
 
-        obj.max_bit_rate = max_bit_rate.clone();
-        obj.avg_bit_rate = avg_bit_rate.clone();
-        obj.max_packet_size = max_packet_size.clone();
-        obj.avg_packet_size = avg_packet_size.clone();
-        obj.num_packets = num_packets.clone();
-        obj.duration = duration.clone();
-        obj.preroll = preroll.clone();
-        obj.index_offset = index_offset.clone();
-        obj.data_offset = data_offset.clone();
-        obj.num_streams = num_streams.clone();
-        obj.flags = flags.clone();
+        obj.max_bit_rate = (UInt)max_bit_rate.clone();
+        obj.avg_bit_rate = (UInt)avg_bit_rate.clone();
+        obj.max_packet_size = (UInt)max_packet_size.clone();
+        obj.avg_packet_size = (UInt)avg_packet_size.clone();
+        obj.num_packets = (UInt)num_packets.clone();
+        obj.duration = (UInt)duration.clone();
+        obj.preroll = (UInt)preroll.clone();
+        obj.index_offset = (UInt)index_offset.clone();
+        obj.data_offset = (UInt)data_offset.clone();
+        obj.num_streams = (UInt)num_streams.clone();
+        obj.flags = (UInt)flags.clone();
 
         return obj;
     }

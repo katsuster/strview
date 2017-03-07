@@ -207,90 +207,90 @@ public class PSHeaderPESStream extends PSHeaderPES
             throws CloneNotSupportedException {
         PSHeaderPESStream obj = (PSHeaderPESStream)super.clone();
 
-        obj.const_bit = const_bit.clone();
-        obj.pes_scrambling_control = pes_scrambling_control.clone();
-        obj.pes_priority = pes_priority.clone();
-        obj.data_alignment_indicator = data_alignment_indicator.clone();
-        obj.copyright = copyright.clone();
-        obj.original_or_copy = original_or_copy.clone();
-        obj.pts_dts_flags = pts_dts_flags.clone();
-        obj.escr_flag = escr_flag.clone();
-        obj.es_rate_flag = es_rate_flag.clone();
-        obj.dsm_trick_mode_flag = dsm_trick_mode_flag.clone();
-        obj.additional_copy_info_flag = additional_copy_info_flag.clone();
-        obj.pes_crc_flag = pes_crc_flag.clone();
-        obj.pes_extension_flag = pes_extension_flag.clone();
-        obj.pes_header_data_length = pes_header_data_length.clone();
+        obj.const_bit = (UInt)const_bit.clone();
+        obj.pes_scrambling_control = (UInt)pes_scrambling_control.clone();
+        obj.pes_priority = (UInt)pes_priority.clone();
+        obj.data_alignment_indicator = (UInt)data_alignment_indicator.clone();
+        obj.copyright = (UInt)copyright.clone();
+        obj.original_or_copy = (UInt)original_or_copy.clone();
+        obj.pts_dts_flags = (UInt)pts_dts_flags.clone();
+        obj.escr_flag = (UInt)escr_flag.clone();
+        obj.es_rate_flag = (UInt)es_rate_flag.clone();
+        obj.dsm_trick_mode_flag = (UInt)dsm_trick_mode_flag.clone();
+        obj.additional_copy_info_flag = (UInt)additional_copy_info_flag.clone();
+        obj.pes_crc_flag = (UInt)pes_crc_flag.clone();
+        obj.pes_extension_flag = (UInt)pes_extension_flag.clone();
+        obj.pes_header_data_length = (UInt)pes_header_data_length.clone();
 
-        obj.const_bit2 = const_bit2.clone();
-        obj.marker_bit1 = marker_bit1.clone();
-        obj.pts_high = pts_high.clone();
-        obj.marker_bit2 = marker_bit2.clone();
-        obj.pts_mid = pts_mid.clone();
-        obj.marker_bit3 = marker_bit3.clone();
-        obj.pts_low = pts_low.clone();
-        obj.const_bit3 = const_bit3.clone();
-        obj.marker_bit4 = marker_bit4.clone();
-        obj.dts_high = dts_high.clone();
-        obj.marker_bit5 = marker_bit5.clone();
-        obj.dts_mid = dts_mid.clone();
-        obj.marker_bit6 = marker_bit6.clone();
-        obj.dts_low = dts_low.clone();
+        obj.const_bit2 = (UInt)const_bit2.clone();
+        obj.marker_bit1 = (UInt)marker_bit1.clone();
+        obj.pts_high = (UInt)pts_high.clone();
+        obj.marker_bit2 = (UInt)marker_bit2.clone();
+        obj.pts_mid = (UInt)pts_mid.clone();
+        obj.marker_bit3 = (UInt)marker_bit3.clone();
+        obj.pts_low = (UInt)pts_low.clone();
+        obj.const_bit3 = (UInt)const_bit3.clone();
+        obj.marker_bit4 = (UInt)marker_bit4.clone();
+        obj.dts_high = (UInt)dts_high.clone();
+        obj.marker_bit5 = (UInt)marker_bit5.clone();
+        obj.dts_mid = (UInt)dts_mid.clone();
+        obj.marker_bit6 = (UInt)marker_bit6.clone();
+        obj.dts_low = (UInt)dts_low.clone();
 
-        obj.reserved = reserved.clone();
-        obj.escr_base_high = escr_base_high.clone();
-        obj.marker_bit7 = marker_bit7.clone();
-        obj.escr_base_mid = escr_base_mid.clone();
-        obj.marker_bit8 = marker_bit8.clone();
-        obj.escr_base_low = escr_base_low.clone();
-        obj.marker_bit9 = marker_bit9.clone();
-        obj.escr_extension = escr_extension.clone();
-        obj.marker_bit10 = marker_bit10.clone();
+        obj.reserved = (UInt)reserved.clone();
+        obj.escr_base_high = (UInt)escr_base_high.clone();
+        obj.marker_bit7 = (UInt)marker_bit7.clone();
+        obj.escr_base_mid = (UInt)escr_base_mid.clone();
+        obj.marker_bit8 = (UInt)marker_bit8.clone();
+        obj.escr_base_low = (UInt)escr_base_low.clone();
+        obj.marker_bit9 = (UInt)marker_bit9.clone();
+        obj.escr_extension = (UInt)escr_extension.clone();
+        obj.marker_bit10 = (UInt)marker_bit10.clone();
 
-        obj.marker_bit11 = marker_bit11.clone();
-        obj.es_rate = es_rate.clone();
-        obj.marker_bit12 = marker_bit12.clone();
+        obj.marker_bit11 = (UInt)marker_bit11.clone();
+        obj.es_rate = (UInt)es_rate.clone();
+        obj.marker_bit12 = (UInt)marker_bit12.clone();
 
-        obj.trick_mode_control = trick_mode_control.clone();
-        obj.field_id = field_id.clone();
-        obj.intra_slice_refresh = intra_slice_refresh.clone();
-        obj.frequency_truncation = frequency_truncation.clone();
-        obj.rep_cntrl = rep_cntrl.clone();
-        obj.reserved2 = reserved2.clone();
+        obj.trick_mode_control = (UInt)trick_mode_control.clone();
+        obj.field_id = (UInt)field_id.clone();
+        obj.intra_slice_refresh = (UInt)intra_slice_refresh.clone();
+        obj.frequency_truncation = (UInt)frequency_truncation.clone();
+        obj.rep_cntrl = (UInt)rep_cntrl.clone();
+        obj.reserved2 = (UInt)reserved2.clone();
 
-        obj.marker_bit13 = marker_bit13.clone();
-        obj.additional_copy_info = additional_copy_info.clone();
+        obj.marker_bit13 = (UInt)marker_bit13.clone();
+        obj.additional_copy_info = (UInt)additional_copy_info.clone();
 
-        obj.previous_pes_packet_crc = previous_pes_packet_crc.clone();
+        obj.previous_pes_packet_crc = (UInt)previous_pes_packet_crc.clone();
 
         obj.stuffing_byte = (LargeBitList)stuffing_byte.clone();
 
         //pes_stream_ext
-        obj.pes_private_data_flag = pes_private_data_flag.clone();
-        obj.pack_header_field_flag = pack_header_field_flag.clone();
-        obj.program_packet_sequence_counter_flag = program_packet_sequence_counter_flag.clone();
-        obj.p_std_buffer_flag = p_std_buffer_flag.clone();
-        obj.reserved3 = reserved3.clone();
-        obj.pes_extension_flag_2 = pes_extension_flag_2.clone();
+        obj.pes_private_data_flag = (UInt)pes_private_data_flag.clone();
+        obj.pack_header_field_flag = (UInt)pack_header_field_flag.clone();
+        obj.program_packet_sequence_counter_flag = (UInt)program_packet_sequence_counter_flag.clone();
+        obj.p_std_buffer_flag = (UInt)p_std_buffer_flag.clone();
+        obj.reserved3 = (UInt)reserved3.clone();
+        obj.pes_extension_flag_2 = (UInt)pes_extension_flag_2.clone();
 
         obj.pes_private_data = (LargeBitList)pes_private_data.clone();
 
-        obj.pack_field_length = pack_field_length.clone();
+        obj.pack_field_length = (UInt)pack_field_length.clone();
 
-        obj.marker_bit14 = marker_bit14.clone();
-        obj.program_packet_sequence_counter = program_packet_sequence_counter.clone();
-        obj.marker_bit15 = marker_bit15.clone();
-        obj.mpeg1_mpeg2_identifier = mpeg1_mpeg2_identifier.clone();
-        obj.original_stuff_length = original_stuff_length.clone();
+        obj.marker_bit14 = (UInt)marker_bit14.clone();
+        obj.program_packet_sequence_counter = (UInt)program_packet_sequence_counter.clone();
+        obj.marker_bit15 = (UInt)marker_bit15.clone();
+        obj.mpeg1_mpeg2_identifier = (UInt)mpeg1_mpeg2_identifier.clone();
+        obj.original_stuff_length = (UInt)original_stuff_length.clone();
 
-        obj.const_bit4 = const_bit4.clone(); //must be '0b01'
-        obj.p_std_buffer_scale = p_std_buffer_scale.clone();
-        obj.p_std_buffer_size = p_std_buffer_size.clone();
+        obj.const_bit4 = (UInt)const_bit4.clone(); //must be '0b01'
+        obj.p_std_buffer_scale = (UInt)p_std_buffer_scale.clone();
+        obj.p_std_buffer_size = (UInt)p_std_buffer_size.clone();
 
-        obj.marker_bit16 = marker_bit16.clone();
-        obj.pes_extension_field_length = pes_extension_field_length.clone();
-        obj.stream_id_extension_flag = stream_id_extension_flag.clone();
-        obj.stream_id_extension = stream_id_extension.clone();
+        obj.marker_bit16 = (UInt)marker_bit16.clone();
+        obj.pes_extension_field_length = (UInt)pes_extension_field_length.clone();
+        obj.stream_id_extension_flag = (UInt)stream_id_extension_flag.clone();
+        obj.stream_id_extension = (UInt)stream_id_extension.clone();
 
         obj.extension_field_data_byte = (LargeBitList)extension_field_data_byte.clone();
 
