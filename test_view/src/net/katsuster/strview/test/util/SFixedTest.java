@@ -46,7 +46,7 @@ public class SFixedTest {
         assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
         try {
-            SFixed8_8 vc = va.clone();
+            SFixed8_8 vc = (SFixed8_8)va.clone();
 
             assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
             assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
@@ -82,7 +82,7 @@ public class SFixedTest {
         assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
         try {
-            SFixed16_16 vc = va.clone();
+            SFixed16_16 vc = (SFixed16_16)va.clone();
 
             assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
             assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());

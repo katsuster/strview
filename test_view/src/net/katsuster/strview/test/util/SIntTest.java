@@ -46,7 +46,7 @@ public class SIntTest {
         assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
         try {
-            SInt vc = va.clone();
+            SInt vc = (SInt)va.clone();
 
             assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
             assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());

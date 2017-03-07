@@ -24,8 +24,8 @@ public class MKVHeaderFloat extends MKVHeader {
             throws CloneNotSupportedException {
         MKVHeaderFloat obj = (MKVHeaderFloat)super.clone();
 
-        obj.float_bits = float_bits.clone();
-        obj.double_bits = double_bits.clone();
+        obj.float_bits = (Float32)float_bits.clone();
+        obj.double_bits = (Float64)double_bits.clone();
 
         return obj;
     }

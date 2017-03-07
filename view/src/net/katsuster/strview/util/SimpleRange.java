@@ -12,7 +12,7 @@ package net.katsuster.strview.util;
  * @author katsuhiro
  */
 public class SimpleRange
-        implements Range, Cloneable {
+        implements Range {
     private long start;
     private long length;
 
@@ -64,7 +64,8 @@ public class SimpleRange
      * @return コピーされたオブジェクト
      * @throws CloneNotSupportedException インスタンスを複製できない場合
      */
-    public SimpleRange clone() throws CloneNotSupportedException {
+    public Object clone()
+            throws CloneNotSupportedException {
         SimpleRange obj = (SimpleRange)super.clone();
 
         return obj;

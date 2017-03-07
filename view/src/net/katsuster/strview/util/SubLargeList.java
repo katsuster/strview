@@ -37,12 +37,11 @@ public class SubLargeList<T> extends AbstractLargeListBase<T>
     }
 
     @Override
-    public SubLargeList<T> clone()
+    public Object clone()
             throws CloneNotSupportedException {
         SubLargeList<T> obj = (SubLargeList<T>)super.clone();
 
-        obj.list = list;
-        obj.offset = offset;
+        obj.list = (LargeList<T>)list.clone();
 
         return obj;
     }

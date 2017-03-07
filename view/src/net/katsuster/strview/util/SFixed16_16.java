@@ -31,21 +31,6 @@ public class SFixed16_16 extends Num {
 
     /**
      * <p>
-     * 値をコピーした新たなオブジェクトを返します。
-     * </p>
-     *
-     * @return コピーされたオブジェクト
-     * @throws CloneNotSupportedException インスタンスを複製できない場合
-     */
-    @Override
-    public SFixed16_16 clone() throws CloneNotSupportedException {
-        SFixed16_16 obj = (SFixed16_16)super.clone();
-
-        return obj;
-    }
-
-    /**
-     * <p>
      * オブジェクトを指定されたオブジェクトと比較します。
      * 結果が true になるのは、引数が null ではなく、
      * このオブジェクトと同じ int 値を含む

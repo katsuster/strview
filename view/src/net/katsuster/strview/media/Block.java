@@ -23,7 +23,7 @@ public interface Block extends Cloneable {
      * @return このブロックのコピー
      * @throws CloneNotSupportedException clone をサポートしていない場合にスローされます。
      */
-    public Block clone()
+    public Object clone()
             throws CloneNotSupportedException;
 
     /**

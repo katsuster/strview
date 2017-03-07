@@ -64,9 +64,9 @@ public class M2VHeaderExtPictureDisplay extends M2VHeaderExt
         obj.frame_centre_vertical_offset = frame_centre_vertical_offset.clone();
         obj.marker_bit1 = marker_bit1.clone();
         for (int i = 0; i < obj.frame_centre_horizontal_offset.length; i++) {
-            obj.frame_centre_horizontal_offset[i] = frame_centre_horizontal_offset[i].clone();
+            obj.frame_centre_horizontal_offset[i] = (SInt)frame_centre_horizontal_offset[i].clone();
             obj.marker_bit0[i] = marker_bit0[i].clone();
-            obj.frame_centre_vertical_offset[i] = frame_centre_vertical_offset[i].clone();
+            obj.frame_centre_vertical_offset[i] = (SInt)frame_centre_vertical_offset[i].clone();
             obj.marker_bit1[i] = marker_bit1[i].clone();
         }
 

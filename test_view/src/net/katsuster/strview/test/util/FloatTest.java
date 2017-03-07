@@ -46,7 +46,7 @@ public class FloatTest {
         assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
         try {
-            Float32 vc = va.clone();
+            Float32 vc = (Float32)va.clone();
 
             assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
             assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
@@ -82,7 +82,7 @@ public class FloatTest {
         assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
         try {
-            Float64 vc = va.clone();
+            Float64 vc = (Float64)va.clone();
 
             assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
             assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());

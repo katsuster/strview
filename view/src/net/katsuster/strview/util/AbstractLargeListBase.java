@@ -56,10 +56,11 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
     }
 
     @Override
-    public AbstractLargeListBase clone() throws CloneNotSupportedException {
+    public Object clone()
+            throws CloneNotSupportedException {
         AbstractLargeListBase obj = (AbstractLargeListBase)super.clone();
 
-        obj.r = r.clone();
+        obj.r = (Range)r.clone();
 
         return obj;
     }

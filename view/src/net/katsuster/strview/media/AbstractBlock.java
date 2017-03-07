@@ -42,7 +42,7 @@ public abstract class AbstractBlock implements Block {
     }
 
     @Override
-    public AbstractBlock clone()
+    public Object clone()
             throws CloneNotSupportedException {
         AbstractBlock obj = (AbstractBlock)super.clone();
 

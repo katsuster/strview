@@ -18,7 +18,7 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public interface Range {
+public interface Range extends Cloneable {
     //size() および length() メソッドで長さが分からないときに返される値です
     public static long LENGTH_UNKNOWN = -1;
 
@@ -28,7 +28,7 @@ public interface Range {
      * @return この範囲のコピー
      * @throws CloneNotSupportedException clone をサポートしていない場合にスローされます。
      */
-    public Range clone()
+    public Object clone()
             throws CloneNotSupportedException;
 
     /**

@@ -76,10 +76,11 @@ public abstract class Num
      * @return コピーされたオブジェクト
      * @throws CloneNotSupportedException インスタンスを複製できない場合
      */
-    public Num clone() throws CloneNotSupportedException {
+    public Object clone()
+            throws CloneNotSupportedException {
         Num obj = (Num)super.clone();
 
-        obj.r = r.clone();
+        obj.r = (Range)r.clone();
 
         return obj;
     }

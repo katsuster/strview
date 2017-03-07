@@ -48,8 +48,8 @@ public class NameValueProperty extends BlockAdapter
         obj.object_version = object_version.clone();
 
         obj.name_length = name_length.clone();
-        obj.name = name;
-        obj.type = type.clone();
+        obj.name = (LargeBitList)name.clone();
+        obj.type = (SInt)type.clone();
         obj.value_length = value_length.clone();
         obj.value_data = value_data;
 

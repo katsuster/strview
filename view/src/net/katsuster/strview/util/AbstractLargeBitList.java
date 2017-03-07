@@ -12,7 +12,7 @@ package net.katsuster.strview.util;
  * @author katsuhiro
  */
 public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
-        implements LargeBitList, Cloneable {
+        implements LargeBitList {
     /**
      * <p>
      * 指定された長さのビット列を作成します。
@@ -34,13 +34,6 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
      */
     public AbstractLargeBitList(long l) {
         super(l);
-    }
-
-    @Override
-    public AbstractLargeBitList clone() throws CloneNotSupportedException {
-        AbstractLargeBitList obj = (AbstractLargeBitList)super.clone();
-
-        return obj;
     }
 
     @Override

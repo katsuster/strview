@@ -93,8 +93,8 @@ public class SimpleRangeTest {
     public void testClone() throws Exception {
         String msg1 = "clone() failed.";
         SimpleRange va = new SimpleRange(20, 30);
-        SimpleRange va_a = va.clone();
-        SimpleRange va_b = va.clone();
+        SimpleRange va_a = (SimpleRange)va.clone();
+        SimpleRange va_b = (SimpleRange)va.clone();
 
         va_b.setStart(100);
         va_b.setLength(200);

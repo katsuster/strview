@@ -10,7 +10,7 @@ package net.katsuster.strview.media;
  * </p>
  *
  * <ul>
- *     <li>タグ本体に別のタグを含められません。</li>
+ *     <li>パケット本体に別のパケットを含められません。</li>
  *     <li>read 関数は何も読み込みません。</li>
  *     <li>write 関数は何も書き込みません。</li>
  * </ul>

@@ -46,7 +46,7 @@ public class UFixedTest {
         assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
         try {
-            UFixed8_8 vc = va.clone();
+            UFixed8_8 vc = (UFixed8_8)va.clone();
 
             assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
             assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
@@ -82,7 +82,7 @@ public class UFixedTest {
         assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
         try {
-            UFixed16_16 vc = va.clone();
+            UFixed16_16 vc = (UFixed16_16)va.clone();
 
             assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
             assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());

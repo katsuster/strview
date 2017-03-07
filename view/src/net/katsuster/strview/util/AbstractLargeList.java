@@ -32,13 +32,6 @@ public abstract class AbstractLargeList<T> extends AbstractLargeListBase<T> {
     }
 
     @Override
-    public AbstractLargeList clone() throws CloneNotSupportedException {
-        AbstractLargeList obj = (AbstractLargeList)super.clone();
-
-        return obj;
-    }
-
-    @Override
     public T get(long index) {
         checkIndex(index);
 

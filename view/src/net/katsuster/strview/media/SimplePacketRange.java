@@ -12,7 +12,7 @@ import net.katsuster.strview.util.*;
  * @author katsuhiro
  */
 public class SimplePacketRange extends SimpleRange
-        implements PacketRange, Cloneable {
+        implements PacketRange {
     //パケットの通し番号
     private long number;
     //パケットのヘッダの長さ（ビット単位）
@@ -88,7 +88,7 @@ public class SimplePacketRange extends SimpleRange
     }
 
     @Override
-    public SimplePacketRange clone()
+    public Object clone()
             throws CloneNotSupportedException {
         SimplePacketRange obj = (SimplePacketRange)super.clone();
 

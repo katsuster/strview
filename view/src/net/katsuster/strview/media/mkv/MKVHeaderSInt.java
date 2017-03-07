@@ -22,7 +22,7 @@ public class MKVHeaderSInt extends MKVHeader {
             throws CloneNotSupportedException {
         MKVHeaderSInt obj = (MKVHeaderSInt)super.clone();
 
-        obj.sint_val = sint_val.clone();
+        obj.sint_val = (SInt)sint_val.clone();
 
         return obj;
     }

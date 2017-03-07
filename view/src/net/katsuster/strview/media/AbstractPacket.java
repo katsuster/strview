@@ -124,14 +124,14 @@ public abstract class AbstractPacket extends AbstractBlock
     }
 
     @Override
-    public AbstractPacket clone()
+    public Object clone()
             throws CloneNotSupportedException {
         AbstractPacket obj = (AbstractPacket)super.clone();
 
         obj.setRange(getRange());
-        obj.head = head.clone();
-        obj.body = body;
-        obj.foot = foot.clone();
+        obj.head = (Block)head.clone();
+        obj.body = (LargeBitList)body.clone();
+        obj.foot = (Block)foot.clone();
         obj.raw_packet = raw_packet;
 
         return obj;

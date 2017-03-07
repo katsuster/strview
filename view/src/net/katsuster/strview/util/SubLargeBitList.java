@@ -37,9 +37,11 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
     }
 
     @Override
-    public SubLargeBitList clone()
+    public Object clone()
             throws CloneNotSupportedException {
         SubLargeBitList obj = (SubLargeBitList)super.clone();
+
+        obj.list = (LargeBitList)list.clone();
 
         return obj;
     }

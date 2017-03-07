@@ -77,10 +77,10 @@ public class RIFFHeaderStrh extends RIFFHeader
         obj.dwSuggestedBufferSize = dwSuggestedBufferSize.clone();
         obj.dwQuality = dwQuality.clone();
         obj.dwSampleSize = dwSampleSize.clone();
-        obj.left = left.clone();
-        obj.top = top.clone();
-        obj.right = right.clone();
-        obj.bottom = bottom.clone();
+        obj.left = (SInt)left.clone();
+        obj.top = (SInt)top.clone();
+        obj.right = (SInt)right.clone();
+        obj.bottom = (SInt)bottom.clone();
 
         return obj;
     }
