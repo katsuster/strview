@@ -1,5 +1,6 @@
 package net.katsuster.strview.gui;
 
+import java.util.*;
 import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -137,6 +138,7 @@ public class PacketTreeViewerWindow extends JFrame {
 
         packetToolText = new FlatTextField();
         packetToolText.setPreferredSize(new Dimension(150, 22));
+        packetToolText.getTextField().addKeyListener(new ActionGotoPacket(""));
         packetTool.add(packetToolText);
 
         JButton btnGo = new JButton(new ActionGotoPacket("Go"));
@@ -147,16 +149,20 @@ public class PacketTreeViewerWindow extends JFrame {
         if (getPacketList().hasTreeStructure()) {
             packetTreeViewer = new PacketTreeViewer(getPacketList());
             packetTreeListener = new PacketTreeSelListener();
-            packetTreeViewer.getViewer().addMouseListener(packetTreeListener);
-            packetTreeViewer.getViewer().addTreeSelectionListener(packetTreeListener);
+
+            JTree lview = packetTreeViewer.getViewer();
+            lview.addTreeSelectionListener(packetTreeListener);
+            lview.addMouseListener(packetTreeListener);
 
             scrPacketViewer = new JScrollPane(packetTreeViewer);
             scrPacketViewer.getVerticalScrollBar().setUnitIncrement(10);
         } else {
             packetListViewer = new PacketListViewer(getPacketList());
             packetListListener = new PacketListSelListener();
-            packetListViewer.getViewer().addMouseListener(packetListListener);
-            packetListViewer.getViewer().addListSelectionListener(packetListListener);
+
+            JList lview = packetListViewer.getViewer();
+            lview.addListSelectionListener(packetListListener);
+            lview.addMouseListener(packetListListener);
 
             scrPacketViewer = new JScrollPane(packetListViewer);
             scrPacketViewer.getVerticalScrollBar().setUnitIncrement(10);
@@ -229,7 +235,8 @@ public class PacketTreeViewerWindow extends JFrame {
         }
     }
 
-    public class ActionGotoPacket extends AbstractAction {
+    public class ActionGotoPacket extends AbstractAction
+            implements KeyListener {
         private static final long serialVersionUID = 1L;
 
         public ActionGotoPacket(String name) {
@@ -242,6 +249,28 @@ public class PacketTreeViewerWindow extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            go();
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+            //Do nothing
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                go();
+                e.consume();
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            //Do nothing
+        }
+
+        public void go() {
             packetToolText.setForeground(Color.BLACK);
 
             try {
@@ -249,17 +278,49 @@ public class PacketTreeViewerWindow extends JFrame {
                         packetToolText.getTextField().getText(), 10);
 
                 if (getPacketList().hasTreeStructure()) {
-                    //TODO: not implemented
+                    JTree tview = packetTreeViewer.getViewer();
+                    DefaultTreeModel model = (DefaultTreeModel)tview.getModel();
+                    DefaultMutableTreeNode n = (DefaultMutableTreeNode)model.getRoot();
+                    DefaultMutableTreeNode f = findNodeFromIndex(n, num);
+                    if (f == null) {
+                        throw new IllegalArgumentException("Not found node:" + num);
+                    }
 
-                    //packetTreeViewer
+                    TreePath tp = new TreePath(model.getPathToRoot(f));
+                    tview.setSelectionPath(tp);
+                    tview.scrollPathToVisible(tp);
                 } else {
-                    //TODO: not implemented
+                    JList lview = packetListViewer.getViewer();
 
-                    //packetListViewer.getViewer().setSelectedIndex((int)num);
+                    lview.setSelectedIndex((int)num);
+                    lview.ensureIndexIsVisible((int)num);
+                    if (lview.getSelectedIndex() != num) {
+                        throw new IllegalArgumentException("Not found item:" + num);
+                    }
                 }
             } catch (NumberFormatException ex) {
                 packetToolText.setForeground(Color.RED);
+            } catch (IllegalArgumentException ex) {
+                packetToolText.setForeground(Color.RED);
             }
+        }
+
+        private DefaultMutableTreeNode findNodeFromIndex(DefaultMutableTreeNode n, long num) {
+            Enumeration e = n.depthFirstEnumeration();
+
+            while (e.hasMoreElements()) {
+                DefaultMutableTreeNode cn = (DefaultMutableTreeNode)e.nextElement();
+                if (!(cn.getUserObject() instanceof PacketTreeNode)) {
+                    continue;
+                }
+
+                PacketTreeNode pn = (PacketTreeNode)cn.getUserObject();
+                if (pn.getRange().getNumber() == num) {
+                    return cn;
+                }
+            }
+
+            return null;
         }
     }
 
@@ -386,8 +447,11 @@ public class PacketTreeViewerWindow extends JFrame {
             implements ListSelectionListener {
         @Override
         public void valueChanged(ListSelectionEvent e) {
-            JList l = (JList)e.getSource();
+            if (e.getValueIsAdjusting()) {
+                return;
+            }
 
+            JList l = (JList)e.getSource();
             onLeftSingleClick(l.getLeadSelectionIndex());
         }
 
@@ -414,7 +478,33 @@ public class PacketTreeViewerWindow extends JFrame {
         }
     }
 
-    public class SelListener extends MouseAdapter {
+    public class SelListener
+            implements MouseListener {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            //Do nothing
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            //Do nothing
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            //Do nothing
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            //Do nothing
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            //Do nothing
+        }
+
         public void onLeftSingleClick(long selRow) {
             Packet p = getPacketFromEvent(selRow);
             if (p == null) {

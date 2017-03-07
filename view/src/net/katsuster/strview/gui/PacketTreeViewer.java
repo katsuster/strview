@@ -25,24 +25,24 @@ import net.katsuster.strview.media.*;
 public class PacketTreeViewer extends JPanel {
     private static final long serialVersionUID = 1L;
 
-    private DefaultMutableTreeNode root;
     private JTree viewer;
+    private DefaultMutableTreeNode root;
 
     //表示させるパケットリスト
-    private LargeList<? extends Packet> list;
+    private LargePacketList<?> list;
 
     //今まで取得成功したパケット番号の最大値
     private long n_max = 0;
 
-    public PacketTreeViewer(LargeList<? extends Packet> l) {
+    public PacketTreeViewer(LargePacketList<?> l) {
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
 
         //ルートのみを持つツリービューアを作成する
         root = new DefaultMutableTreeNode();
-        root.setUserObject("root");
+        root.setUserObject(l.getShortName());
         viewer = new JTree(root);
-        viewer.setRootVisible(false);
+        viewer.setRootVisible(true);
 
         add(viewer, BorderLayout.CENTER);
 
@@ -59,6 +59,21 @@ public class PacketTreeViewer extends JPanel {
         }
     }
 
+    public JTree getViewer() {
+        return viewer;
+    }
+
+    /**
+     * <p>
+     * ルートノードを取得します。
+     * </p>
+     *
+     * @return ルートノード
+     */
+    public DefaultMutableTreeNode getRootTreeNode() {
+        return root;
+    }
+
     /**
      * <p>
      * 表示するパケットリストを取得します。
@@ -66,7 +81,7 @@ public class PacketTreeViewer extends JPanel {
      *
      * @return 表示するパケットリスト
      */
-    public LargeList<? extends Packet> getPacketList() {
+    public LargePacketList<?> getPacketList() {
         return list;
     }
 
@@ -77,7 +92,7 @@ public class PacketTreeViewer extends JPanel {
      *
      * @param l 表示するパケットリスト
      */
-    public void setPacketList(LargeList<? extends Packet> l) {
+    public void setPacketList(LargePacketList<?> l) {
         list = l;
 
         //とりあえず 100 要素取ってみる
@@ -133,10 +148,6 @@ public class PacketTreeViewer extends JPanel {
         if (viewer != null) {
             update();
         }
-    }
-
-    public JTree getViewer() {
-        return viewer;
     }
 
     /**
