@@ -107,6 +107,7 @@ public class PacketTreeViewerWindow extends JFrame {
 
         binaryToolText = new FlatTextField();
         binaryToolText.setPreferredSize(new Dimension(150, 22));
+        binaryToolText.getTextField().addKeyListener(new ActionGotoBinary(""));
         binaryTool.add(binaryToolText);
 
         JButton btnGo = new JButton(new ActionGotoBinary("Go"));
@@ -359,7 +360,8 @@ public class PacketTreeViewerWindow extends JFrame {
         }
     }
 
-    public class ActionGotoBinary extends AbstractAction {
+    public class ActionGotoBinary extends AbstractAction
+            implements KeyListener {
         private static final long serialVersionUID = 1L;
 
         public ActionGotoBinary(String name) {
@@ -372,6 +374,28 @@ public class PacketTreeViewerWindow extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            go();
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+            //Do nothing
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                go();
+                e.consume();
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            //Do nothing
+        }
+
+        public void go() {
             binaryToolText.setForeground(Color.BLACK);
 
             try {
