@@ -154,6 +154,7 @@ public class PacketTreeViewerWindow extends JFrame {
             JTree lview = packetTreeViewer.getViewer();
             lview.addTreeSelectionListener(packetTreeListener);
             lview.addMouseListener(packetTreeListener);
+            lview.addKeyListener(packetTreeListener);
 
             scrPacketViewer = new JScrollPane(packetTreeViewer);
             scrPacketViewer.getVerticalScrollBar().setUnitIncrement(10);
@@ -164,6 +165,7 @@ public class PacketTreeViewerWindow extends JFrame {
             JList lview = packetListViewer.getViewer();
             lview.addListSelectionListener(packetListListener);
             lview.addMouseListener(packetListListener);
+            lview.addKeyListener(packetListListener);
 
             scrPacketViewer = new JScrollPane(packetListViewer);
             scrPacketViewer.getVerticalScrollBar().setUnitIncrement(10);
@@ -445,6 +447,20 @@ public class PacketTreeViewerWindow extends JFrame {
             }
         }
 
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                JTree tree = (JTree)e.getSource();
+                TreePath selPath = tree.getLeadSelectionPath();
+                long selRow = getIndexFromEvent(selPath);
+
+                if (selRow != -1) {
+                    onLeftDoubleClick(selRow);
+                }
+                e.consume();
+            }
+        }
+
         protected long getIndexFromEvent(TreePath selPath) {
             if (selPath == null || !(selPath.getLastPathComponent()
                     instanceof DefaultMutableTreeNode)) {
@@ -500,10 +516,23 @@ public class PacketTreeViewerWindow extends JFrame {
                 }
             }
         }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                JList l = (JList)e.getSource();
+                long selRow = l.getLeadSelectionIndex();
+
+                if (selRow != -1) {
+                    onLeftDoubleClick(selRow);
+                }
+                e.consume();
+            }
+        }
     }
 
     public class SelListener
-            implements MouseListener {
+            implements MouseListener, KeyListener {
         @Override
         public void mouseClicked(MouseEvent e) {
             //Do nothing
@@ -526,6 +555,21 @@ public class PacketTreeViewerWindow extends JFrame {
 
         @Override
         public void mouseExited(MouseEvent e) {
+            //Do nothing
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+            //Do nothing
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            //Do nothing
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
             //Do nothing
         }
 

@@ -3,6 +3,7 @@ package net.katsuster.strview.gui;
 import java.awt.*;
 
 import javax.swing.*;
+import javax.swing.text.*;
 
 import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
@@ -32,7 +33,12 @@ public class PacketListViewer extends JPanel {
 
         //リストボックスを追加する
         model = new PacketListModel();
-        viewer = new JList();
+        viewer = new JList() {
+            @Override
+            public int getNextMatch(String prefix, int startIndex, Position.Bias bias) {
+                return -1;
+            }
+        };
         viewer.setFixedCellWidth(200);
         viewer.setFixedCellHeight(16);
         viewer.setModel(model);
