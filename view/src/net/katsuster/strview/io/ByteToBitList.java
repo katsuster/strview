@@ -74,12 +74,11 @@ public class ByteToBitList extends AbstractLargeBitList {
     }
 
     @Override
-    public ByteToBitList clone()
+    public Object clone()
             throws CloneNotSupportedException {
         ByteToBitList obj = (ByteToBitList)super.clone();
 
-        obj.buf = buf;
-        getRange().setLength(length());
+        obj.buf = (LargeByteList)buf.clone();
 
         return obj;
     }

@@ -14,7 +14,7 @@ import net.katsuster.strview.media.*;
  * @author katsuhiro
  */
 public class MKVHeaderString extends MKVHeader {
-    public MemoryBitList string_bits;
+    public LargeBitList string_bits;
 
     public MKVHeaderString() {
         string_bits = new MemoryBitList();
@@ -25,7 +25,7 @@ public class MKVHeaderString extends MKVHeader {
             throws CloneNotSupportedException {
         MKVHeaderString obj = (MKVHeaderString)super.clone();
 
-        obj.string_bits = string_bits.clone();
+        obj.string_bits = (LargeBitList)string_bits.clone();
 
         return obj;
     }
@@ -46,7 +46,7 @@ public class MKVHeaderString extends MKVHeader {
 
         MKVHeader.read(c, d);
 
-        d.string_bits = (MemoryBitList)c.readBitList((int)d.tag_len.getValue() << 3, d.string_bits);
+        d.string_bits = c.readBitList((int)d.tag_len.getValue() << 3, d.string_bits);
 
         c.leaveBlock();
     }

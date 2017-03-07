@@ -47,7 +47,7 @@ public class MP4Header extends BlockAdapter
         obj.size = size.clone();
         obj.type = type.clone();
         obj.largesize = largesize.clone();
-        obj.usertype = usertype;
+        obj.usertype = (LargeBitList)usertype.clone();
 
         return obj;
     }

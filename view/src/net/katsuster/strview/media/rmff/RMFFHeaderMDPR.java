@@ -57,9 +57,9 @@ public class RMFFHeaderMDPR extends RMFFHeader
         obj.preroll = preroll.clone();
         obj.duration = duration.clone();
         obj.stream_name_size = stream_name_size.clone();
-        obj.stream_name = stream_name;
+        obj.stream_name = (LargeBitList)stream_name.clone();
         obj.mime_type_size = mime_type_size.clone();
-        obj.mime_type = mime_type;
+        obj.mime_type = (LargeBitList)mime_type.clone();
 
         return obj;
     }

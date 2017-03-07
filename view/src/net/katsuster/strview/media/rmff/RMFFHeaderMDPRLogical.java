@@ -33,7 +33,7 @@ public class RMFFHeaderMDPRLogical extends RMFFHeaderMDPR
         RMFFHeaderMDPRLogical obj = (RMFFHeaderMDPRLogical)super.clone();
 
         obj.type_specific_len = type_specific_len.clone();
-        obj.type_specific_data = type_specific_data;
+        obj.type_specific_data = (LargeBitList)type_specific_data.clone();
 
         obj.logical_stream = logical_stream.clone();
 

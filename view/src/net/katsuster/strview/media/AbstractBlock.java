@@ -46,7 +46,7 @@ public abstract class AbstractBlock implements Block {
             throws CloneNotSupportedException {
         AbstractBlock obj = (AbstractBlock)super.clone();
 
-        obj.setRange(new SimpleRange(getRange()));
+        obj.pos = (Range)pos.clone();
 
         return obj;
     }

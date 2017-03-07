@@ -263,7 +263,7 @@ public class PSHeaderPESStream extends PSHeaderPES
 
         obj.previous_pes_packet_crc = previous_pes_packet_crc.clone();
 
-        obj.stuffing_byte = stuffing_byte;
+        obj.stuffing_byte = (LargeBitList)stuffing_byte.clone();
 
         //pes_stream_ext
         obj.pes_private_data_flag = pes_private_data_flag.clone();
@@ -273,7 +273,7 @@ public class PSHeaderPESStream extends PSHeaderPES
         obj.reserved3 = reserved3.clone();
         obj.pes_extension_flag_2 = pes_extension_flag_2.clone();
 
-        obj.pes_private_data = pes_private_data;
+        obj.pes_private_data = (LargeBitList)pes_private_data.clone();
 
         obj.pack_field_length = pack_field_length.clone();
 
@@ -292,7 +292,7 @@ public class PSHeaderPESStream extends PSHeaderPES
         obj.stream_id_extension_flag = stream_id_extension_flag.clone();
         obj.stream_id_extension = stream_id_extension.clone();
 
-        obj.extension_field_data_byte = extension_field_data_byte;
+        obj.extension_field_data_byte = (LargeBitList)extension_field_data_byte.clone();
 
         return obj;
     }

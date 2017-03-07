@@ -39,9 +39,9 @@ public class MKVHeaderBlock extends MKVHeader {
 
         lacing_head = new UInt();
         lacing_size0 = new EBMLvalue();
-        lacing_diffs = new ArrayList<EBMLlacing>();
+        lacing_diffs = new ArrayList<>();
 
-        lacing_sizes = new ArrayList<Long>();
+        lacing_sizes = new ArrayList<>();
     }
 
     @Override
@@ -59,12 +59,12 @@ public class MKVHeaderBlock extends MKVHeader {
         obj.lacing_head = lacing_head.clone();
         obj.lacing_size0 = lacing_size0.clone();
 
-        obj.lacing_diffs = new ArrayList<EBMLlacing>();
+        obj.lacing_diffs = new ArrayList<>();
         for (EBMLlacing v : lacing_diffs) {
             obj.lacing_diffs.add(v.clone());
         }
 
-        lacing_sizes = new ArrayList<Long>();
+        lacing_sizes = new ArrayList<>();
         for (Long v : lacing_sizes) {
             obj.lacing_sizes.add(new Long(v));
         }

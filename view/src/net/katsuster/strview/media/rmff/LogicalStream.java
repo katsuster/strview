@@ -58,8 +58,7 @@ public class LogicalStream extends BlockAdapter
         }
         obj.rule_to_physical_stream_number_map = rule_to_physical_stream_number_map.clone();
         for (i = 0; i < obj.rule_to_physical_stream_number_map.length; i++) {
-            obj.rule_to_physical_stream_number_map[i] =
-                    rule_to_physical_stream_number_map[i].clone();
+            obj.rule_to_physical_stream_number_map[i] = rule_to_physical_stream_number_map[i].clone();
         }
 
         obj.num_properties = num_properties.clone();

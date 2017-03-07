@@ -145,7 +145,7 @@ public class TSHeaderAdaptation extends BlockAdapter
         obj.splice_countdown = splice_countdown.clone();
 
         obj.transport_private_data_length = transport_private_data_length.clone();
-        obj.private_data_byte = private_data_byte;
+        obj.private_data_byte = (LargeBitList)private_data_byte.clone();
 
         obj.adaptation_field_extension_length = adaptation_field_extension_length.clone();
         obj.ltw_flag = ltw_flag.clone();
@@ -167,8 +167,8 @@ public class TSHeaderAdaptation extends BlockAdapter
         obj.dts_next_au_low = dts_next_au_low.clone();
         obj.marker_bit3 = marker_bit3.clone();
 
-        obj.reserved_byte = reserved_byte;
-        obj.stuffing_byte = stuffing_byte;
+        obj.reserved_byte = (LargeBitList)reserved_byte.clone();
+        obj.stuffing_byte = (LargeBitList)stuffing_byte.clone();
 
         return obj;
     }

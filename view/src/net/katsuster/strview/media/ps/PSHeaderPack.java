@@ -75,7 +75,7 @@ public class PSHeaderPack extends PSHeader
         obj.marker_bit6 = marker_bit6.clone();
         obj.reserved2 = reserved2.clone();
         obj.pack_stuffing_length = pack_stuffing_length.clone();
-        obj.stuffing_byte = stuffing_byte;
+        obj.stuffing_byte = (LargeBitList)stuffing_byte.clone();
 
         return obj;
     }

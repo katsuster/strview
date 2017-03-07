@@ -51,7 +51,7 @@ public class NameValueProperty extends BlockAdapter
         obj.name = (LargeBitList)name.clone();
         obj.type = (SInt)type.clone();
         obj.value_length = value_length.clone();
-        obj.value_data = value_data;
+        obj.value_data = (LargeBitList)value_data.clone();
 
         return obj;
     }

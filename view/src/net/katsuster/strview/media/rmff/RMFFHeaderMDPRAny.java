@@ -29,7 +29,7 @@ public class RMFFHeaderMDPRAny extends RMFFHeaderMDPR
         RMFFHeaderMDPRAny obj = (RMFFHeaderMDPRAny)super.clone();
 
         obj.type_specific_len = type_specific_len.clone();
-        obj.type_specific_data = type_specific_data;
+        obj.type_specific_data = (LargeBitList)type_specific_data.clone();
 
         return obj;
     }

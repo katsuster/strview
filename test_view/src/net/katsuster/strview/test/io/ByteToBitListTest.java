@@ -73,12 +73,16 @@ public class ByteToBitListTest {
         assertEquals(msg1, true, a1.get(0));
 
         try {
-            ByteToBitList a2 = a1.clone();
+            ByteToBitList a2 = (ByteToBitList)a1.clone();
             assertNotNull(msg1, a2);
+            assertEquals(msg1, a1.length(), a2.length());
 
             a2.set(0, false);
-            assertEquals(msg1, false, a1.get(0));
+            assertEquals(msg1, true, a1.get(0));
             assertEquals(msg1, false, a2.get(0));
+
+            a2.length(a2.length() - 1);
+            assertNotEquals(msg1, a1.length(), a2.length());
         } catch (CloneNotSupportedException ex) {
             fail(msg1);
         }
