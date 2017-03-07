@@ -8,7 +8,6 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.tree.*;
 
-import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -370,8 +369,7 @@ public class PacketTreeViewerWindow extends JFrame {
             }
 
             //ノードが指すデータの先頭にジャンプする
-            binaryViewer.setRaw(
-                    (p.getRange().getStart() >>> 3) / binaryViewer.getLengthOfRaw());
+            binaryViewer.setAddress(p.getRange().getStart() >>> 3);
             binaryViewer.repaint();
         }
 
@@ -413,7 +411,6 @@ public class PacketTreeViewerWindow extends JFrame {
 
         public void onLeftSingleClick(int selRow, TreePath selPath) {
             MemberTreeNode ptn = getPacketTreeNodeFromEvent(selPath);
-
             if (ptn == null) {
                 return;
             }
@@ -438,21 +435,19 @@ public class PacketTreeViewerWindow extends JFrame {
             } else {
                 binaryViewer.setHighlightMemberRange(0, 0);
             }
+
             binaryViewer.repaint();
         }
 
         public void onLeftDoubleClick(int selRow, TreePath selPath) {
             MemberTreeNode ptn = getPacketTreeNodeFromEvent(selPath);
-
             if (ptn == null) {
                 return;
             }
 
             //ノードが指すデータの先頭にジャンプする
             if (ptn.hasNumData() || ptn.hasArrayData()) {
-                binaryViewer.setRaw(
-                        (ptn.getDataStart() >>> 3) / binaryViewer.getLengthOfRaw());
-
+                binaryViewer.setAddress(ptn.getDataStart() >>> 3);
                 binaryViewer.repaint();
             }
         }

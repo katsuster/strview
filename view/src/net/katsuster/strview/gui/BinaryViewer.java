@@ -30,7 +30,7 @@ public class BinaryViewer extends JPanel {
     private LargeBitList buf = null;
 
     //表示開始するアドレス（バイト単位）
-    private long addr_start = 0;
+    private long drawAddress = 0;
     //1列に表示させるバイト数
     private int length_raw = 16;
     //1列の高さ（ピクセル）
@@ -180,13 +180,55 @@ public class BinaryViewer extends JPanel {
 
     /**
      * <p>
+     * 描画開始するアドレスを取得します。
+     * </p>
+     *
+     * @return 描画開始するアドレス（バイト単位）
+     */
+    protected long getDrawAddress() {
+        return drawAddress;
+    }
+
+    /**
+     * <p>
+     * 描画開始するアドレスを設定します。
+     * </p>
+     *
+     * @param addr 描画開始するアドレス（バイト単位）
+     */
+    protected void setDrawAddress(long addr) {
+        if (getLength() < addr) {
+            addr = getLength();
+        }
+
+        drawAddress = addr;
+    }
+
+    /**
+     * <p>
+     * 列から描画開始アドレス（バイト単位）を取得します。
+     * </p>
+     *
+     * @param raw 列
+     * @param max 列の最大値
+     * @return 列の先頭アドレス
+     */
+    protected long rawToAddress(long raw, long max) {
+        long lines = getLength() / getLengthOfRaw() + 1;
+        double pos = (double)lines * raw / max;
+
+        return (long)(pos * getLengthOfRaw());
+    }
+
+    /**
+     * <p>
      * 表示開始するアドレスを取得します。
      * </p>
      *
-     * @return 表示開始するアドレス（バイト単位）
+     * @return 表示開始するアドレス
      */
     public long getAddress() {
-        return addr_start;
+        return drawAddress;
     }
 
     /**
@@ -194,51 +236,10 @@ public class BinaryViewer extends JPanel {
      * 表示開始するアドレスを設定します。
      * </p>
      *
-     * @param addr 表示開始するアドレス（バイト単位）
+     * @param addr 表示開始するアドレス
      */
     public void setAddress(long addr) {
-        if (getLength() < addr) {
-            addr = getLength();
-        }
-
-        addr_start = addr;
-    }
-
-    /**
-     * <p>
-     * 指定した列の先頭アドレス（バイト単位）を取得します。
-     * </p>
-     *
-     * @param raw 列
-     * @return 列の先頭アドレス
-     */
-    protected long rawToAddress(long raw) {
-        long lines = getLength() / getLengthOfRaw() + 1;
-        double pos = (double)lines * scr.getValue() / scr.getMaximum();
-
-        return (long)(pos * getLengthOfRaw());
-    }
-
-    /**
-     * <p>
-     * 表示開始する列を取得します。
-     * </p>
-     *
-     * @return 表示開始する行
-     */
-    public long getRaw() {
-        return scr.getValue();
-    }
-
-    /**
-     * <p>
-     * 表示開始する列を設定します。
-     * </p>
-     *
-     * @param raw 表示開始する行
-     */
-    public void setRaw(long raw) {
-        scr.setValue((int)raw);
+        scr.setValue((int)addr / getLengthOfRaw());
     }
 
     /**
@@ -874,7 +875,7 @@ public class BinaryViewer extends JPanel {
 
         @Override
         public void stateChanged(ChangeEvent e) {
-            setAddress(rawToAddress(scr.getValue()));
+            setDrawAddress(rawToAddress(scr.getValue(), scr.getMaximum()));
 
             repaint();
         }
@@ -891,7 +892,7 @@ public class BinaryViewer extends JPanel {
             Graphics2D g2 = (Graphics2D)g.create();
             g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                     RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            drawAll(g2, getAddress());
+            drawAll(g2, getDrawAddress());
         }
     }
 
