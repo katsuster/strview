@@ -188,6 +188,7 @@ public class PacketTreeViewerWindow extends JFrame {
         JTree m_jt = memberTreeViewer.getViewer();
         m_jt.addTreeSelectionListener(memberTreeListener);
         m_jt.addMouseListener(memberTreeListener);
+        m_jt.addKeyListener(memberTreeListener);
         m_jt.setFont(new Font(Font.MONOSPACED, 0, 12));
 
         JScrollPane scrMemberViewer = new JScrollPane(memberTreeViewer);
@@ -622,7 +623,7 @@ public class PacketTreeViewerWindow extends JFrame {
     }
 
     public class MemberTreeSelListener extends MouseAdapter
-            implements TreeSelectionListener {
+            implements TreeSelectionListener, KeyListener {
         @Override
         public void valueChanged(TreeSelectionEvent e) {
             onLeftSingleClick(0, e.getPath());
@@ -650,6 +651,29 @@ public class PacketTreeViewerWindow extends JFrame {
                     onLeftDoubleClick(selRow, selPath);
                 }
             }
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+            //Do nothing
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                JTree tree = (JTree)e.getSource();
+                TreePath selPath = tree.getLeadSelectionPath();
+
+                if (selPath != null) {
+                    onLeftDoubleClick(0, selPath);
+                }
+                e.consume();
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            //Do nothing
         }
 
         public void onLeftSingleClick(int selRow, TreePath selPath) {
