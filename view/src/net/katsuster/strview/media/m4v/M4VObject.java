@@ -9,22 +9,13 @@ import net.katsuster.strview.media.*;
  *
  * @author katsuhiro
  */
-public class M4VObject extends PacketAdapter
-        implements Cloneable {
+public class M4VObject extends PacketAdapter {
     public M4VObject() {
         this(new M4VHeader());
     }
 
     public M4VObject(M4VHeader h) {
         super(h);
-    }
-
-    @Override
-    public M4VObject clone()
-            throws CloneNotSupportedException {
-        M4VObject obj = (M4VObject)super.clone();
-
-        return obj;
     }
 
     @Override

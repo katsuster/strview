@@ -9,8 +9,7 @@ import net.katsuster.strview.media.*;
  *
  * @author katsuhiro
  */
-public class TSPacket extends PacketAdapter
-        implements Cloneable {
+public class TSPacket extends PacketAdapter {
     //TS パケットのサイズ（byte 単位）
     public static final int PACKET_SIZE = 188;
 
@@ -20,14 +19,6 @@ public class TSPacket extends PacketAdapter
 
     public TSPacket(TSHeader h) {
         super(h);
-    }
-
-    @Override
-    public TSPacket clone()
-            throws CloneNotSupportedException {
-        TSPacket obj = (TSPacket)super.clone();
-
-        return obj;
     }
 
     @Override

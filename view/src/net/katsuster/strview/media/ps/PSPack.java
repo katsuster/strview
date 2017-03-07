@@ -9,8 +9,7 @@ import net.katsuster.strview.media.*;
  *
  * @author katsuhiro
  */
-public class PSPack extends PacketAdapter
-        implements Cloneable {
+public class PSPack extends PacketAdapter {
     //PS パケットのヘッダサイズ（byte 単位）
     public static final int PACKET_HEADER_SIZE = 6;
 
@@ -20,14 +19,6 @@ public class PSPack extends PacketAdapter
 
     public PSPack(PSHeader h) {
         super(h);
-    }
-
-    @Override
-    public PSPack clone()
-            throws CloneNotSupportedException {
-        PSPack obj = (PSPack)super.clone();
-
-        return obj;
     }
 
     @Override

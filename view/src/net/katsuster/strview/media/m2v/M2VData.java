@@ -9,22 +9,13 @@ import net.katsuster.strview.media.*;
  *
  * @author katsuhiro
  */
-public class M2VData extends PacketAdapter
-        implements Cloneable {
+public class M2VData extends PacketAdapter {
     public M2VData() {
         this(new M2VHeader());
     }
 
     public M2VData(M2VHeader h) {
         super(h);
-    }
-
-    @Override
-    public M2VData clone()
-            throws CloneNotSupportedException {
-        M2VData obj = (M2VData)super.clone();
-
-        return obj;
     }
 
     @Override

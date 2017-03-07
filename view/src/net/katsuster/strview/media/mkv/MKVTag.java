@@ -9,8 +9,7 @@ import net.katsuster.strview.media.*;
  *
  * @author katsuhiro
  */
-public class MKVTag extends PacketAdapter
-        implements Cloneable {
+public class MKVTag extends PacketAdapter {
     //Matroska タグ最小ヘッダサイズ（byte 単位、id と size の最小値）
     public static final int TAG_HEADER_SIZE = 2;
 
@@ -20,14 +19,6 @@ public class MKVTag extends PacketAdapter
 
     public MKVTag(MKVHeader h) {
         super(h);
-    }
-
-    @Override
-    public MKVTag clone()
-            throws CloneNotSupportedException {
-        MKVTag obj = (MKVTag)super.clone();
-
-        return obj;
     }
 
     @Override

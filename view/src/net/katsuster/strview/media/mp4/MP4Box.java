@@ -22,14 +22,6 @@ public class MP4Box extends PacketAdapter {
     }
 
     @Override
-    public MP4Box clone()
-            throws CloneNotSupportedException {
-        MP4Box obj = (MP4Box)super.clone();
-
-        return obj;
-    }
-
-    @Override
     public String getShortName() {
         return getHeader().getTypeName();
     }
