@@ -32,7 +32,10 @@ public class PacketTreeViewerWindow extends JFrame {
     private File file;
     private LargePacketList<?> list_packet;
 
+    private FlatTextField binaryToolText;
     private BinaryViewer binaryViewer;
+
+    private FlatTextField packetToolText;
     private PacketTreeViewer packetTreeViewer;
     private PacketTreeSelListener packetTreeListener;
     private PacketListViewer packetListViewer;
@@ -54,49 +57,59 @@ public class PacketTreeViewerWindow extends JFrame {
 
         //メニューを作成する
         JMenuBar topMenuBar = new JMenuBar();
+        setJMenuBar(topMenuBar);
         JMenu menuFile = new JMenu("ファイル(F)");
         menuFile.setMnemonic('f');
-        JMenu menuSetting = new JMenu("設定(S)");
-        menuSetting.setMnemonic('s');
+        topMenuBar.add(menuFile);
 
+        Action actionOpen = new MenuActionFileOpen(this, "開く(O)...");
+        actionOpen.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_O);
+        menuFile.add(actionOpen);
+        Action actionCount = new ActionCount("全てカウント(A)");
+        actionCount.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_A);
+        menuFile.add(actionCount);
+        menuFile.addSeparator();
         Action actionClose = new MenuActionClose(this, "閉じる(C)");
         actionClose.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_C);
         menuFile.add(actionClose);
 
-        Action actionFont = new MenuActionFont(this, "フォント(F)...");
+        JMenu menuSetting = new JMenu("設定(S)");
+        menuSetting.setMnemonic('s');
+        topMenuBar.add(menuSetting);
+
+        Action actionFont = new ActionFont(this, "フォント(F)...");
         actionFont.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_F);
         menuSetting.add(actionFont);
 
-        topMenuBar.add(menuFile);
-        topMenuBar.add(menuSetting);
-        setJMenuBar(topMenuBar);
-
         //ビューアペインを作成し追加する
-        JSplitPane strViewer = createStreamViewer();
+        JSplitPane strViewer = createViewers();
         getContentPane().add(strViewer);
     }
 
-    protected JSplitPane createStreamViewer() {
+    protected JSplitPane createViewers() {
         JSplitPane splitStreamViewer;
         JSplitPane splitPacketViewer;
 
         //ビューアを左右に分割表示する
         splitStreamViewer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        splitStreamViewer.setDividerSize(6);
+        splitStreamViewer.setDividerSize(5);
         splitStreamViewer.setDividerLocation(500);
 
-        //左側、ツリービューア
+        //左側、パケットビューア
         splitPacketViewer = createPacketViewer();
         splitStreamViewer.setLeftComponent(splitPacketViewer);
 
         //右側、バイナリビューア
-        FlatTextField ft = new FlatTextField();
-        ft.setPreferredSize(new Dimension(150, 22));
-
         JPanel binaryTool = new JPanel();
         binaryTool.setLayout(new FlowLayout(FlowLayout.LEFT));
         //binaryTool.add(new JLabel("Find: "));
-        binaryTool.add(ft);
+
+        binaryToolText = new FlatTextField();
+        binaryToolText.setPreferredSize(new Dimension(150, 22));
+        binaryTool.add(binaryToolText);
+
+        JButton btnGo = new JButton(new ActionGotoBinary("Go"));
+        binaryTool.add(btnGo);
 
         binaryViewer = new BinaryViewer(getFile());
         binaryViewer.setFont(new Font(Font.MONOSPACED, 0, 12));
@@ -113,23 +126,25 @@ public class PacketTreeViewerWindow extends JFrame {
     protected JSplitPane createPacketViewer() {
         JScrollPane scrPacketViewer;
 
-        //ビューアを上下に 3分割表示する
-        //真ん中、下
-        JTabbedPane tabMembers = new JTabbedPane();
-
-        //上、(真ん中、下）
+        //ビューアを上下に表示する
         JSplitPane splitPacketMember = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-        splitPacketMember.setDividerSize(3);
+        splitPacketMember.setDividerSize(5);
         splitPacketMember.setDividerLocation(200);
-        splitPacketMember.setRightComponent(tabMembers);
 
-        //1番目（上側）、ストリームビューア
-        FlatTextField ft = new FlatTextField();
-        ft.setPreferredSize(new Dimension(150, 22));
+        //上側、パケットツリーまたはパケットリスト
+        JPanel packetTool = new JPanel();
+        packetTool.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        //FIXME: tentative use cast to AbstaractList
-        AbstractPacketList l = (AbstractPacketList)getPacketList();
-        if (l.hasTreeStructure()) {
+        packetToolText = new FlatTextField();
+        packetToolText.setPreferredSize(new Dimension(150, 22));
+        packetTool.add(packetToolText);
+
+        JButton btnGo = new JButton(new ActionGotoPacket("Go"));
+        packetTool.add(btnGo);
+        JButton btnCount = new JButton(new ActionCount("Count"));
+        packetTool.add(btnCount);
+
+        if (getPacketList().hasTreeStructure()) {
             packetTreeViewer = new PacketTreeViewer(getPacketList());
             packetTreeListener = new PacketTreeSelListener();
             packetTreeViewer.getViewer().addMouseListener(packetTreeListener);
@@ -147,36 +162,6 @@ public class PacketTreeViewerWindow extends JFrame {
             scrPacketViewer.getVerticalScrollBar().setUnitIncrement(10);
         }
 
-        JPanel packetTool = new JPanel();
-        packetTool.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JButton btn = new JButton("Count");
-        btn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Thread t = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        list_packet.count();
-
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (packetTreeViewer != null) {
-                                    packetTreeViewer.setMax(1);
-                                }
-                                if (packetListViewer != null) {
-                                    packetListViewer.setMax(1);
-                                }
-                            }
-                        });
-                    }
-                });
-                t.start();
-            }
-        });
-        packetTool.add(ft);
-        packetTool.add(btn);
-
         JPanel packetPanel = new JPanel();
         packetPanel.setLayout(new BorderLayout());
         packetPanel.add(packetTool, BorderLayout.NORTH);
@@ -184,7 +169,11 @@ public class PacketTreeViewerWindow extends JFrame {
 
         splitPacketMember.setLeftComponent(packetPanel);
 
-        //2番目（下側の上側）、パケットビューア
+        //下側、メンバービューア（ツリー、テキストをタブで切り替え）
+        JTabbedPane tabMembers = new JTabbedPane();
+        splitPacketMember.setRightComponent(tabMembers);
+
+        //メンバービューア（ツリー）
         memberTreeViewer = new MemberTreeViewer();
         memberTreeListener = new MemberTreeSelListener();
         JTree m_jt = memberTreeViewer.getViewer();
@@ -196,7 +185,7 @@ public class PacketTreeViewerWindow extends JFrame {
         scrMemberViewer.getVerticalScrollBar().setUnitIncrement(10);
         tabMembers.addTab("Tree", scrMemberViewer);
 
-        //3番目（下側の下側）、パケットビューア（文字列表現）
+        //メンバービューア（テキスト）
         memberTextViewer = new JTextArea();
         memberTextViewer.setFont(new Font(Font.MONOSPACED, 0, 12));
 
@@ -214,16 +203,16 @@ public class PacketTreeViewerWindow extends JFrame {
         return list_packet;
     }
 
-    public class MenuActionFont extends AbstractAction {
+    public class ActionFont extends AbstractAction {
         private static final long serialVersionUID = 1L;
         private JFrame parent;
 
-        public MenuActionFont(JFrame f, String name) {
+        public ActionFont(JFrame f, String name) {
             super(name);
             parent = f;
         }
 
-        public MenuActionFont(JFrame f, String name, Icon icon) {
+        public ActionFont(JFrame f, String name, Icon icon) {
             super(name, icon);
             parent = f;
         }
@@ -236,6 +225,102 @@ public class PacketTreeViewerWindow extends JFrame {
             int res = chooser.showDialog(parent);
             if (res == JFontChooser.OK_OPTION) {
                 binaryViewer.setFont(chooser.getSelectedFont());
+            }
+        }
+    }
+
+    public class ActionGotoPacket extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+
+        public ActionGotoPacket(String name) {
+            super(name);
+        }
+
+        public ActionGotoPacket(String name, Icon icon) {
+            super(name, icon);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            packetToolText.setForeground(Color.BLACK);
+
+            try {
+                long num = Long.parseLong(
+                        packetToolText.getTextField().getText(), 10);
+
+                if (getPacketList().hasTreeStructure()) {
+                    //TODO: not implemented
+
+                    //packetTreeViewer
+                } else {
+                    //TODO: not implemented
+
+                    //packetListViewer.getViewer().setSelectedIndex((int)num);
+                }
+            } catch (NumberFormatException ex) {
+                packetToolText.setForeground(Color.RED);
+            }
+        }
+    }
+
+    public class ActionCount extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+
+        public ActionCount(String name) {
+            super(name);
+        }
+
+        public ActionCount(String name, Icon icon) {
+            super(name, icon);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    list_packet.count();
+
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (packetTreeViewer != null) {
+                                packetTreeViewer.setMax(1);
+                            }
+                            if (packetListViewer != null) {
+                                packetListViewer.setMax(1);
+                            }
+                        }
+                    });
+                }
+            });
+            t.start();
+        }
+    }
+
+    public class ActionGotoBinary extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+
+        public ActionGotoBinary(String name) {
+            super(name);
+        }
+
+        public ActionGotoBinary(String name, Icon icon) {
+            super(name, icon);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            binaryToolText.setForeground(Color.BLACK);
+
+            try {
+                long addr = Long.parseLong(
+                        binaryToolText.getTextField().getText(), 16);
+
+                binaryViewer.setAddress(addr);
+                binaryViewer.repaint();
+            } catch (NumberFormatException ex) {
+                binaryToolText.setForeground(Color.RED);
             }
         }
     }
