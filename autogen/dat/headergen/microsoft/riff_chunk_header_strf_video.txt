@@ -1,0 +1,13 @@
+riff_BITMAPINFOHEADER {
+  biSize            32 DWORD
+  biWidth           32 LONG
+  biHeight          32 LONG
+  biPlanes          16 WORD
+  biBitCount        16 WORD
+  biCompression     32 DWORD
+  biSizeImage       32 DWORD
+  biXPelsPerMeter   32 LONG
+  biYPelsPerMeter   32 LONG
+  biClrUsed         32 DWORD
+  biClrImportant    32 DWORD
+}

@@ -1,18 +1,18 @@
-riff_avimainheader(){
-fcc 32 uint_l
-cb 32 uint_l
-dwMicroSecPerFrame 32 uint_l
-dwMaxBytesPerSec 32 uint_l
-dwPaddingGranularity 32 uint_l
-dwFlags 32 uint_l
-dwTotalFrames 32 uint_l
-dwInitialFrames 32 uint_l
-dwStreams 32 uint_l
-dwSuggestedBufferSize 32 uint_l
-dwWidth 32 uint_l
-dwHeight 32 uint_l
-dwReserved0 32 uint_l
-dwReserved1 32 uint_l
-dwReserved2 32 uint_l
-dwReserved3 32 uint_l
+riff_AVIMAINHEADER {
+  fcc                   32 FOURCC
+  cb                    32 DWORD
+  dwMicroSecPerFrame    32 DWORD
+  dwMaxBytesPerSec      32 DWORD
+  dwPaddingGranularity  32 DWORD
+  dwFlags               32 DWORD
+  dwTotalFrames         32 DWORD
+  dwInitialFrames       32 DWORD
+  dwStreams             32 DWORD
+  dwSuggestedBufferSize 32 DWORD
+  dwWidth               32 DWORD
+  dwHeight              32 DWORD
+  dwReserved0           32 DWORD
+  dwReserved1           32 DWORD
+  dwReserved2           32 DWORD
+  dwReserved3           32 DWORD
 }

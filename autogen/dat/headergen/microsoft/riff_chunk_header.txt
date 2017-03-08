@@ -1,4 +1,4 @@
-riff_chunk(){
-ckid 32 uint_l
-cksize 32 uint_l
+riff_chunk {
+  ckID   32 uint_l
+  ckSize 32 uint_l
 }
