@@ -42,7 +42,7 @@ public class FileTransferHandler extends TransferHandler {
     public boolean importData(TransferSupport support) {
         Transferable trans = support.getTransferable();
         Object tdata;
-        List<Object> tlist;
+        List<?> tlist;
 
         try {
             //ファイルリスト以外を渡された場合はドロップを拒否します
@@ -52,7 +52,7 @@ public class FileTransferHandler extends TransferHandler {
 
             //ファイルリストの取得ができなければドロップを拒否します
             tdata = trans.getTransferData(DataFlavor.javaFileListFlavor);
-            tlist = (List<Object>)tdata;
+            tlist = (List<?>)tdata;
         } catch (Exception ex) {
             DebugInfo.printFunctionName(this);
             ex.printStackTrace();
@@ -192,7 +192,7 @@ public class FileTransferHandler extends TransferHandler {
     public FILE_TYPE getFileType(File tfile) {
         String ext = getSuffix(tfile.getPath());
 
-        if (ext.equals("mkv")) {
+        if (ext.equals("mkv") || ext.equals("webm")) {
             return FILE_TYPE.FT_MATROSKA;
         }
         if (ext.equals("mpg") || ext.equals("ps") || ext.equals("vob")) {
