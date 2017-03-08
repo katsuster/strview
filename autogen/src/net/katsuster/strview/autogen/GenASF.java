@@ -149,7 +149,7 @@ public class GenASF {
             //2: 型      (アルファベット、数字、アンダースコア)
             //3: ビット長(数字または 'varies')
             m = Pattern.compile("((?:[a-zA-Z_][a-zA-Z0-9_]*\\s+)*)"
-                    + "([a-zA-Z_][a-zA-Z0-9_]*) "
+                    + "([a-zA-Z_][a-zA-Z0-9_]*) +"
                     + "([0-9]+)").
                     matcher(l);
             result = m.find();
@@ -165,7 +165,7 @@ public class GenASF {
             //showAllMatches(m);
 
             //create list
-            lToken = new ArrayList<Token>();
+            lToken = new ArrayList<>();
             lToken.add(new Token(m.group(1)));
             lToken.add(new Token(m.group(2)));
             lToken.add(new Token(m.group(3)));
@@ -174,7 +174,7 @@ public class GenASF {
             //メンバ名は小文字とし、スペースはアンダースコアに変換する
             lToken.get(0).sval = lToken.get(0).sval.toLowerCase();
             lToken.get(0).sval = lToken.get(0).sval.replace(' ', '_');
-            lToken.get(0).sval = lToken.get(0).sval.replaceAll("_$", "");
+            lToken.get(0).sval = lToken.get(0).sval.replaceAll("_+$", "");
 
             //型チェック
             if (lToken.get(0).f_num != false) {

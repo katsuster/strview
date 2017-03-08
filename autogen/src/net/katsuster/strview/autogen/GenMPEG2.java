@@ -145,13 +145,13 @@ public class GenMPEG2 {
             //1: メンバ名(アルファベット、数字、アンダースコア)
             //2: ビット長(数字)
             //3: 型      (アルファベット、数字、アンダースコア)
-            m = Pattern.compile("([a-zA-Z_][a-zA-Z0-9_]*)\\s+"
+            m = Pattern.compile("\\s*([a-zA-Z_][a-zA-Z0-9_]*)\\s+"
                     + "([0-9]+)\\s+"
                     + "([a-zA-Z_][a-zA-Z0-9_]*)").
                     matcher(l);
             result = m.find();
 
-            if (result == false || m.groupCount() < 3) {
+            if (!result || m.groupCount() < 3) {
                 //マッチしないので、コメント扱いにする
                 lMem.add(new CommentGenerator(l));
                 continue;
@@ -168,15 +168,15 @@ public class GenMPEG2 {
             lToken.add(new Token(m.group(3)));
 
             //型チェック
-            if (!lToken.get(0).f_num != false) {
+            if (lToken.get(0).f_num) {
                 //メンバ名のトークンが異常なので、コメント扱いにする
                 isComment = true;
             }
-            if (lToken.get(1).f_num != true) {
+            if (!lToken.get(1).f_num) {
                 //ビット長のトークンが異常なので、コメント扱いにする
                 isComment = true;
             }
-            if (lToken.get(2).f_num != false) {
+            if (lToken.get(2).f_num) {
                 //型名のトークンが異常なので、コメント扱いにする
                 isComment = true;
             }
