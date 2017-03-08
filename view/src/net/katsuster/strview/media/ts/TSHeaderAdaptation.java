@@ -189,8 +189,8 @@ public class TSHeaderAdaptation extends BlockAdapter
 
         //アダプテーションフィールドの長さを得る
         d.adaptation_field_length = c.readUInt( 8, d.adaptation_field_length);
-        if (d.adaptation_field_length.intValue() < 0
-                || TSPacket.PACKET_SIZE < d.adaptation_field_length.intValue()) {
+        checkNegative("adaptation_field_length", d.adaptation_field_extension_length);
+        if (TSPacket.PACKET_SIZE < d.adaptation_field_length.intValue()) {
             throw new IllegalStateException("adaptation_field is too long"
                     + "(size: " + d.adaptation_field_length + ")");
         }
@@ -232,10 +232,8 @@ public class TSHeaderAdaptation extends BlockAdapter
         if (d.transport_private_data_flag.intValue() == 1) {
             //プライベートデータの長さ
             d.transport_private_data_length = c.readUInt( 8, d.transport_private_data_length);
-
-            //プライベートデータ
-            if (d.transport_private_data_length.intValue() < 0
-                    || TSPacket.PACKET_SIZE < d.transport_private_data_length.intValue()) {
+            checkNegative("transport_private_data_length", d.transport_private_data_length);
+            if (TSPacket.PACKET_SIZE < d.transport_private_data_length.intValue()) {
                 throw new IllegalStateException("private_data are too long"
                         + "(size: " + d.transport_private_data_length + ")");
             }

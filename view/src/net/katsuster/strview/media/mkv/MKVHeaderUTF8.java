@@ -69,20 +69,6 @@ public class MKVHeaderUTF8 extends MKVHeader {
     }
 
     public String getUTF8Name() {
-        return getUTF8Name(utf8_bits);
-    }
-
-    public static String getUTF8Name(LargeBitList dat) {
-        String name;
-
-        try {
-            byte[] buf = new byte[(int)dat.length() >>> 3];
-            dat.getPackedByteArray(0, buf, 0, (int)dat.length() & ~0x7);
-            name = new String(buf, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            name = "..unknown..";
-        }
-
-        return name;
+        return getArrayName(utf8_bits, "UTF-8");
     }
 }

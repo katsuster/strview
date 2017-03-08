@@ -69,20 +69,6 @@ public class MKVHeaderString extends MKVHeader {
     }
 
     public String getStringName() {
-        return getStringName(string_bits);
-    }
-
-    public static String getStringName(LargeBitList dat) {
-        String name;
-
-        try {
-            byte[] buf = new byte[(int)dat.length() >>> 3];
-            dat.getPackedByteArray(0, buf, 0, (int)dat.length() & ~0x7);
-            name = new String(buf, "US-ASCII");
-        } catch (UnsupportedEncodingException e) {
-            name = "..unknown..";
-        }
-
-        return name;
+        return getArrayName(string_bits, "US-ASCII");
     }
 }

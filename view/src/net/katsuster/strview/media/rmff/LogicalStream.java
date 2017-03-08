@@ -86,7 +86,7 @@ public class LogicalStream extends BlockAdapter
 
         if (d.object_version.intValue() == 0) {
             d.num_physical_streams = c.readUInt(16, d.num_physical_streams);
-            RMFFHeader.checkNegative("num_physical_streams", d.num_physical_streams);
+            checkNegative("num_physical_streams", d.num_physical_streams);
             d.physical_stream_numbers = new UInt[d.num_physical_streams.intValue()];
             d.data_offsets            = new UInt[d.num_physical_streams.intValue()];
             for (i = 0; i < d.num_physical_streams.intValue(); i++) {
@@ -95,14 +95,14 @@ public class LogicalStream extends BlockAdapter
             }
 
             d.num_rules = c.readUInt(16, d.num_rules);
-            RMFFHeader.checkNegative("num_rules", d.num_rules);
+            checkNegative("num_rules", d.num_rules);
             d.rule_to_physical_stream_number_map = new UInt[d.num_rules.intValue()];
             for (i = 0; i < d.num_rules.intValue(); i++) {
                 d.rule_to_physical_stream_number_map[i] = c.readUInt(16, d.rule_to_physical_stream_number_map[i]);
             }
 
             d.num_properties = c.readUInt(16, d.num_properties);
-            RMFFHeader.checkNegative("num_properties", d.num_properties);
+            checkNegative("num_properties", d.num_properties);
             d.properties = new NameValueProperty[d.num_properties.intValue()];
             for (i = 0; i < d.num_properties.intValue(); i++) {
                 d.properties[i] = new NameValueProperty();

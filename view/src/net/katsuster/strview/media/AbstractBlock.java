@@ -1,5 +1,7 @@
 package net.katsuster.strview.media;
 
+import java.io.*;
+
 import net.katsuster.strview.util.*;
 
 /**
@@ -110,5 +112,44 @@ public abstract class AbstractBlock implements Block {
         write(c);
 
         return c.getResult().toString();
+    }
+
+    /**
+     * <p>
+     * 値が負の値だった場合、例外をスローします。
+     * </p>
+     *
+     * @param name 名前
+     * @param v    値
+     */
+    protected static void checkNegative(String name, UInt v) {
+        if (v.intValue() < 0) {
+            throw new IllegalStateException(
+                    name + " has negative size"
+                            + "(len:" + v + ")");
+        }
+    }
+
+    /**
+     * <p>
+     * ビットリストを指定されたエンコードの文字列と解釈して、変換します。
+     * </p>
+     *
+     * @param v ビットリスト
+     * @param enc エンコード
+     * @return 文字列
+     */
+    protected static String getArrayName(LargeBitList v, String enc) {
+        String name;
+
+        try {
+            byte[] buf = new byte[(int)v.length() >>> 3];
+            v.getPackedByteArray(0, buf, 0, (int)v.length() & ~0x7);
+            name = new String(buf, enc);
+        } catch (UnsupportedEncodingException e) {
+            name = "..unknown..";
+        }
+
+        return name;
     }
 }

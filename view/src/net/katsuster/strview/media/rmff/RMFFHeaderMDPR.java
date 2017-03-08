@@ -131,10 +131,10 @@ public class RMFFHeaderMDPR extends RMFFHeader
     }
 
     public String getStreamNameName() {
-        return getArrayName(stream_name);
+        return getArrayName(stream_name, "US-ASCII");
     }
 
     public String getMimeTypeName() {
-        return getArrayName(mime_type);
+        return getArrayName(mime_type, "US-ASCII");
     }
 }

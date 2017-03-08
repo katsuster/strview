@@ -118,35 +118,18 @@ public class RMFFHeaderCONT extends RMFFHeader
     }
 
     public String getTitleName() {
-        return getArrayName(title);
-    }
-
-    public static String getTitleName(RMFFHeaderCONT d) {
-        return getArrayName(d.title);
+        return getArrayName(title, "US-ASCII");
     }
 
     public String getAuthorName() {
-        return getArrayName(author);
-    }
-
-    public static String getAuthorName(RMFFHeaderCONT d) {
-        return getArrayName(d.author);
+        return getArrayName(author, "US-ASCII");
     }
 
     public String getCopyrightName() {
-        return getArrayName(copyright);
-    }
-
-    public static String getCopyrightName(RMFFHeaderCONT d) {
-        return getArrayName(d.copyright);
+        return getArrayName(copyright, "US-ASCII");
     }
 
     public String getCommentName() {
-        return getArrayName(comment);
+        return getArrayName(comment, "US-ASCII");
     }
-
-    public static String getCommentName(RMFFHeaderCONT d) {
-        return getArrayName(d.comment);
-    }
-
 }

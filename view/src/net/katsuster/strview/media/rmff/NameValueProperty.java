@@ -70,13 +70,13 @@ public class NameValueProperty extends BlockAdapter
 
         if (d.object_version.intValue() == 0) {
             d.name_length = c.readUInt( 8, d.name_length);
-            RMFFHeader.checkNegative("name_length", d.name_length);
+            checkNegative("name_length", d.name_length);
             d.name = c.readBitList(d.name_length.intValue() << 3, d.name);
 
             d.type = c.readSInt(32, d.type);
 
             d.value_length = c.readUInt(16, d.value_length);
-            RMFFHeader.checkNegative("value_length", d.value_length);
+            checkNegative("value_length", d.value_length);
             d.value_data = c.readBitList(d.value_length.intValue() << 3, d.value_data);
         }
 
@@ -116,7 +116,7 @@ public class NameValueProperty extends BlockAdapter
     }
 
     public String getNameName() {
-        return RMFFHeader.getArrayName(name);
+        return getArrayName(name, "US-ASCII");
     }
 
     public String getTypeName() {
@@ -154,6 +154,6 @@ public class NameValueProperty extends BlockAdapter
     }
 
     public String getValueDataName() {
-        return RMFFHeader.getArrayName(value_data);
+        return getArrayName(value_data, "US-ASCII");
     }
 }

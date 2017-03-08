@@ -1,7 +1,5 @@
 package net.katsuster.strview.media.rmff;
 
-import java.io.*;
-
 import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
@@ -94,43 +92,5 @@ public class RMFFHeader extends BlockAdapter
 
     public String getObjectIdName() {
         return RMFFConsts.getObjectIdName(object_id.intValue());
-    }
-
-    /**
-     * <p>
-     * 値が負の値だった場合、例外をスローします。
-     * </p>
-     *
-     * @param name 名前
-     * @param v    値
-     */
-    protected static void checkNegative(String name, UInt v) {
-        if (v.intValue() < 0) {
-            throw new IllegalStateException(
-                    name + " has negative size"
-                            + "(len:" + v + ")");
-        }
-    }
-
-    /**
-     * <p>
-     * ビットリストを ASCII 文字列と解釈して、変換します。
-     * </p>
-     *
-     * @param v ビットリスト
-     * @return 文字列
-     */
-    protected static String getArrayName(LargeBitList v) {
-        String name;
-
-        try {
-            byte[] buf = new byte[(int)v.length() >>> 3];
-            v.getPackedByteArray(0, buf, 0, (int)v.length() & ~0x7);
-            name = new String(buf, "US-ASCII");
-        } catch (UnsupportedEncodingException e) {
-            name = "..unknown..";
-        }
-
-        return name;
     }
 }
