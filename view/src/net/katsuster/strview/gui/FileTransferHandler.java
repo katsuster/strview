@@ -5,8 +5,6 @@ import java.util.*;
 
 import java.awt.HeadlessException;
 import java.awt.datatransfer.*;
-import java.awt.event.*;
-import java.awt.datatransfer.*;
 
 import javax.swing.*;
 
@@ -31,6 +29,8 @@ import net.katsuster.strview.media.m4v.*;
  */
 public class FileTransferHandler extends TransferHandler {
     private static final long serialVersionUID = 1L;
+
+    private String fileType = "Auto";
 
     @Override
     public boolean canImport(TransferSupport support) {
@@ -83,6 +83,36 @@ public class FileTransferHandler extends TransferHandler {
 
     /**
      * <p>
+     * ファイル形式を取得します。
+     * </p>
+     *
+     * <p>
+     * ファイル名から判定する場合は "Auto" を指定します。
+     * </p>
+     *
+     * @return ファイル形式
+     */
+    public String getFileType() {
+        return fileType;
+    }
+
+    /**
+     * <p>
+     * ファイル形式を設定します。
+     * </p>
+     *
+     * <p>
+     * ファイル名から判定する場合は "Auto" を指定します。
+     * </p>
+     *
+     * @param t ファイル形式
+     */
+    public void setFileType(String t) {
+        fileType = t;
+    }
+
+    /**
+     * <p>
      * ファイルを開きます。
      * </p>
      *
@@ -101,7 +131,7 @@ public class FileTransferHandler extends TransferHandler {
 
         try {
             LargeBitList blist = new ByteToBitList(new FileByteList(tfile.getAbsolutePath()));
-            LargePacketList<?> list = getPacketList(getFileType(tfile), blist);
+            LargePacketList<?> list = getPacketList(getFileType(fileType, tfile), blist);
             JFrame w;
 
             if (list != null) {
@@ -145,7 +175,7 @@ public class FileTransferHandler extends TransferHandler {
      * @param l パケットリストの元データとなるビットリスト
      * @return パケットリスト
      */
-    public LargePacketList<?> getPacketList(FILE_TYPE t, LargeBitList l) {
+    public static LargePacketList<?> getPacketList(FILE_TYPE t, LargeBitList l) {
         LargePacketList<?> list = null;
 
         switch (t) {
@@ -183,13 +213,58 @@ public class FileTransferHandler extends TransferHandler {
 
     /**
      * <p>
+     * ファイル形式名からファイル形式を取得します。
+     * </p>
+     *
+     * <p>
+     * 自動 (Auto) を指定した場合は、ファイル名から類推します。
+     * </p>
+     *
+     * @param type ファイル形式
+     * @param file ファイル
+     * @return ファイル形式
+     */
+    public static FILE_TYPE getFileType(String type, File file) {
+        if (type.equalsIgnoreCase("Matroska")) {
+            return FILE_TYPE.FT_MATROSKA;
+        }
+        if (type.equalsIgnoreCase("MPEG2 PS")) {
+            return FILE_TYPE.FT_MPEG2PS;
+        }
+        if (type.equalsIgnoreCase("MPEG2 TS")) {
+            return FILE_TYPE.FT_MPEG2TS;
+        }
+        if (type.equalsIgnoreCase("MPEG4")) {
+            return FILE_TYPE.FT_MPEG4;
+        }
+        if (type.equalsIgnoreCase("RIFF")) {
+            return FILE_TYPE.FT_RIFF;
+        }
+        if (type.equalsIgnoreCase("RealMedia")) {
+            return FILE_TYPE.FT_RMFF;
+        }
+        if (type.equalsIgnoreCase("MPEG2 Visual")) {
+            return FILE_TYPE.FT_MPEG2VIDEO;
+        }
+        if (type.equalsIgnoreCase("MPEG4 Part2 Visual")) {
+            return FILE_TYPE.FT_MPEG4VISUAL;
+        }
+        if (type.equalsIgnoreCase("Auto")) {
+            return getFileTypeAuto(file);
+        }
+
+        return FILE_TYPE.FT_UNKNOWN;
+    }
+
+    /**
+     * <p>
      * ファイル形式を類推します。
      * </p>
      *
      * @param tfile ファイル
      * @return ファイル形式
      */
-    public FILE_TYPE getFileType(File tfile) {
+    public static FILE_TYPE getFileTypeAuto(File tfile) {
         String ext = getSuffix(tfile.getPath());
 
         if (ext.equals("mkv") || ext.equals("webm")) {
@@ -228,7 +303,7 @@ public class FileTransferHandler extends TransferHandler {
      * @param n ファイル名
      * @return ファイルの拡張子、なければ空文字列
      */
-    public String getSuffix(String n) {
+    public static String getSuffix(String n) {
         if (n == null) {
             return null;
         }

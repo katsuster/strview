@@ -4,16 +4,16 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
-public class MenuActionFileOpen extends AbstractAction {
+public class ActionFileOpen extends AbstractAction {
     private static final long serialVersionUID = 1L;
     private JFrame parent;
 
-    public MenuActionFileOpen(JFrame f, String name) {
+    public ActionFileOpen(JFrame f, String name) {
         super(name);
         parent = f;
     }
 
-    public MenuActionFileOpen(JFrame f, String name, Icon icon) {
+    public ActionFileOpen(JFrame f, String name, Icon icon) {
         super(name, icon);
         parent = f;
     }

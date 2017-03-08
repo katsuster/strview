@@ -11,16 +11,16 @@ import javax.swing.*;
  *
  * @author katsuhiro
  */
-public class MenuActionClose extends AbstractAction {
+public class ActionClose extends AbstractAction {
     private static final long serialVersionUID = 1L;
     private JFrame parent;
 
-    public MenuActionClose(JFrame f, String name) {
+    public ActionClose(JFrame f, String name) {
         super(name);
         parent = f;
     }
 
-    public MenuActionClose(JFrame f, String name, Icon icon) {
+    public ActionClose(JFrame f, String name, Icon icon) {
         super(name, icon);
         parent = f;
     }

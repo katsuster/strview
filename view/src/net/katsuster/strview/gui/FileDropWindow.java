@@ -1,10 +1,9 @@
 package net.katsuster.strview.gui;
 
-import java.awt.FlowLayout;
+import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
-import javax.swing.filechooser.*;
 
 /**
  * <p>
@@ -16,59 +15,70 @@ import javax.swing.filechooser.*;
 public class FileDropWindow extends JFrame {
     private static final long serialVersionUID = 1L;
 
-    private JMenuBar topMenuBar;
-    private JMenu menuFile;
-    private Action actionOpen, actionExit;
-    private Action actionGC;
-    private JButton btnGC;
+    private FileTransferHandler trHandler;
+    private JComboBox<String> cmbType;
     private JLabel lblHeapWatcher;
-    private Action actHeapWatcher;
+    private JButton btnGC;
     private javax.swing.Timer timHeapWatcher;
 
     public FileDropWindow() {
         setResizable(true);
         setLayout(new FlowLayout(FlowLayout.LEFT));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTransferHandler(new FileTransferHandler());
+        trHandler = new FileTransferHandler();
+        setTransferHandler(trHandler);
 
         //メニューを作成する
-        topMenuBar = new JMenuBar();
-        menuFile = new JMenu("ファイル(F)");
-        menuFile.setMnemonic('f');
-
-        actionOpen = new MenuActionFileOpen(this, "開く(O)...");
-        actionOpen.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_O);
-        menuFile.add(actionOpen);
-        actionExit = new MenuActionExit("終了(X)");
-        actionExit.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_X);
-        menuFile.addSeparator();
-        menuFile.add(actionExit);
-
-        topMenuBar.add(menuFile);
+        JMenuBar topMenuBar = new JMenuBar();
         setJMenuBar(topMenuBar);
 
+        JMenu menuFile = new JMenu("ファイル(F)");
+        menuFile.setMnemonic('f');
+        topMenuBar.add(menuFile);
 
-        //ラベルを追加する
+        Action actionOpen = new ActionFileOpen(this, "開く(O)...");
+        actionOpen.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_O);
+        menuFile.add(actionOpen);
+        menuFile.addSeparator();
+        Action actionExit = new ActionExit("終了(X)");
+        actionExit.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_X);
+        menuFile.add(actionExit);
+
+        //ファイル種別ボックス
+        cmbType = new JComboBox<>();
+        cmbType.setPreferredSize(new Dimension(100, 20));
+        cmbType.addItem("Auto");
+        cmbType.addItem("Matroska");
+        cmbType.addItem("MPEG2 TS");
+        cmbType.addItem("MPEG2 PS");
+        cmbType.addItem("MPEG4");
+        cmbType.addItem("RIFF");
+        cmbType.addItem("RealMedia");
+        cmbType.addItem("MPEG2 Visual");
+        cmbType.addItem("MPEG4 Part2 Visual");
+        cmbType.addItemListener(new FileTypeChanged());
+        getContentPane().add(cmbType);
+
+        //ヒープ使用量と GC ボタンを追加する
         lblHeapWatcher = new JLabel();
-        actHeapWatcher = new HeapWatcher(lblHeapWatcher);
+        getContentPane().add(lblHeapWatcher);
+        Action actHeapWatcher = new ActionWatchHeap(lblHeapWatcher);
         timHeapWatcher = new javax.swing.Timer(1000, actHeapWatcher);
         timHeapWatcher.start();
-        getContentPane().add(lblHeapWatcher);
 
-        //GC ボタンを追加する
-        actionGC = new ButtonActionGC("GC");
+        Action actionGC = new ActionGC("GC");
         btnGC = new JButton(actionGC);
         getContentPane().add(btnGC);
     }
 
-    public class MenuActionExit extends AbstractAction {
+    public class ActionExit extends AbstractAction {
         private static final long serialVersionUID = 1L;
 
-        public MenuActionExit(String name) {
+        public ActionExit(String name) {
             super(name);
         }
 
-        public MenuActionExit(String name, Icon icon) {
+        public ActionExit(String name, Icon icon) {
             super(name, icon);
         }
 
@@ -78,14 +88,24 @@ public class FileDropWindow extends JFrame {
         }
     }
 
-    public class ButtonActionGC extends AbstractAction {
+    public class FileTypeChanged implements ItemListener {
         private static final long serialVersionUID = 1L;
 
-        public ButtonActionGC(String name) {
+        public void itemStateChanged(ItemEvent e) {
+            String s = (String)e.getItem();
+
+            trHandler.setFileType(s);
+        }
+    }
+
+    public class ActionGC extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+
+        public ActionGC(String name) {
             super(name);
         }
 
-        public ButtonActionGC(String name, Icon icon) {
+        public ActionGC(String name, Icon icon) {
             super(name, icon);
         }
 
@@ -95,11 +115,11 @@ public class FileDropWindow extends JFrame {
         }
     }
 
-    public class HeapWatcher extends AbstractAction {
+    public class ActionWatchHeap extends AbstractAction {
         private static final long serialVersionUID = 1L;
         private JLabel lbl;
 
-        public HeapWatcher(JLabel l) {
+        public ActionWatchHeap(JLabel l) {
             lbl = l;
         }
 

@@ -59,18 +59,19 @@ public class PacketTreeViewerWindow extends JFrame {
         //メニューを作成する
         JMenuBar topMenuBar = new JMenuBar();
         setJMenuBar(topMenuBar);
+
         JMenu menuFile = new JMenu("ファイル(F)");
         menuFile.setMnemonic('f');
         topMenuBar.add(menuFile);
 
-        Action actionOpen = new MenuActionFileOpen(this, "開く(O)...");
+        Action actionOpen = new ActionFileOpen(this, "開く(O)...");
         actionOpen.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_O);
         menuFile.add(actionOpen);
         Action actionCount = new ActionCount("全てカウント(A)");
         actionCount.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_A);
         menuFile.add(actionCount);
         menuFile.addSeparator();
-        Action actionClose = new MenuActionClose(this, "閉じる(C)");
+        Action actionClose = new ActionClose(this, "閉じる(C)");
         actionClose.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_C);
         menuFile.add(actionClose);
 
