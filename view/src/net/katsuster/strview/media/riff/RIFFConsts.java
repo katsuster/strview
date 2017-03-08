@@ -31,6 +31,29 @@ public class RIFFConsts {
         riffFactory.put(CHUNK_ID.AVIH, RIFFHeaderAvih.class);
         riffFactory.put(CHUNK_ID.STRH, RIFFHeaderStrh.class);
         riffFactory.put(CHUNK_ID.DMLH, RIFFHeaderDmlh.class);
+        riffFactory.put(CHUNK_ID.IARL, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.IART, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.ICMS, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.ICMT, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.ICOP, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.ICRD, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.ICRP, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.IDIM, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.IDPI, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.IENG, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.IGNR, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.IKEY, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.ILGT, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.IMED, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.INAM, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.IPLT, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.IPRD, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.ISBJ, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.ISFT, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.ISHP, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.ISRC, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.ISRF, RIFFHeaderInfo.class);
+        riffFactory.put(CHUNK_ID.ITCH, RIFFHeaderInfo.class);
     }
 
     protected RIFFConsts() {
