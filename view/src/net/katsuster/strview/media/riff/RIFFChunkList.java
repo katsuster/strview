@@ -1,7 +1,10 @@
 package net.katsuster.strview.media.riff;
 
+import java.util.*;
+
 import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.media.riff.RIFFConsts.*;
 
 /**
  * <p>
@@ -13,6 +16,8 @@ import net.katsuster.strview.media.*;
 public class RIFFChunkList extends AbstractPacketList<RIFFChunk> {
     private LargeBitList buf;
 
+    private NavigableMap<Long, RIFFHeaderStrh> cacheStrh;
+
     public RIFFChunkList() {
         super(LENGTH_UNKNOWN);
     }
@@ -21,6 +26,8 @@ public class RIFFChunkList extends AbstractPacketList<RIFFChunk> {
         super(LENGTH_UNKNOWN);
 
         buf = l;
+
+        cacheStrh = new TreeMap<>();
     }
 
     @Override
@@ -46,6 +53,8 @@ public class RIFFChunkList extends AbstractPacketList<RIFFChunk> {
         //終端は必ず 2バイト境界なので、2バイト境界まで読み飛ばす
         c.alignShort();
 
+        cachePacket(packet);
+
         return packet;
     }
 
@@ -64,16 +73,53 @@ public class RIFFChunkList extends AbstractPacketList<RIFFChunk> {
     }
 
     protected RIFFHeader createHeader(PacketReader<?> c, PacketRange pr) {
+        RIFFHeader tagh;
+
         RIFFHeader tmph = new RIFFHeader();
         tmph.peek(c);
 
-        RIFFHeader tagh = RIFFConsts.riffFactory.createPacketHeader(
-                tmph.ckID.intValue());
+        int id = tmph.ckID.intValue();
+
+        if (id == CHUNK_ID.STRF) {
+            tagh = createHeaderStrf(c, pr);
+        } else {
+            tagh = RIFFConsts.riffFactory.createPacketHeader(id);
+        }
         if (tagh == null) {
             //unknown
             tagh = tmph;
         }
 
         return tagh;
+    }
+
+    protected RIFFHeader createHeaderStrf(PacketReader<?> c, PacketRange pr) {
+        Map.Entry<Long, RIFFHeaderStrh> entStrh = cacheStrh.floorEntry(pr.getNumber());
+        if (entStrh == null) {
+            return null;
+        }
+
+        int fccType = entStrh.getValue().fccType.intValue();
+        RIFFHeader tagh = null;
+
+        switch (fccType) {
+        case FCC_TYPE.AUDS:
+            tagh = new RIFFHeaderStrfA();
+            break;
+        case FCC_TYPE.VIDS:
+            tagh = new RIFFHeaderStrfV();
+            break;
+        }
+
+        return tagh;
+    }
+
+    protected void cachePacket(RIFFChunk packet) {
+        RIFFHeader h = packet.getHeader();
+        PacketRange pr = packet.getRange();
+
+        if (h instanceof RIFFHeaderStrh) {
+            cacheStrh.put(pr.getNumber(), (RIFFHeaderStrh)h);
+        }
     }
 }

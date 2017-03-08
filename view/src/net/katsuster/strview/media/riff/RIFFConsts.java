@@ -66,6 +66,8 @@ public class RIFFConsts {
         public static final int AVIH = 0x68697661;
         //strh: AVI Stream Header
         public static final int STRH = 0x68727473;
+        //strf: AVI Stream Format
+        public static final int STRF = 0x66727473;
         //dmlh: Extended AVI Header
         public static final int DMLH = 0x686c6d64;
 
