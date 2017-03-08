@@ -127,6 +127,8 @@ public class MemberGenerator implements Generator {
     private String type;
     //メンバ名
     private String name;
+    //フルネーム
+    private String fullName;
     //メンバのビット長
     private int bits;
 
@@ -143,6 +145,7 @@ public class MemberGenerator implements Generator {
 
         setType("????");
         setName("????");
+        setFullName("????");
         setBits(1);
     }
 
@@ -157,10 +160,26 @@ public class MemberGenerator implements Generator {
      * @param b メンバのビット長
      */
     public MemberGenerator(String t, String n, int b) {
+        this(t, n, n, b);
+    }
+
+    /**
+     * <p>
+     * コンストラクタです。
+     * メンバの型、メンバ名、フルネーム、メンバのビット長を設定します。
+     * </p>
+     *
+     * @param t メンバの型名
+     * @param n メンバ名
+     * @param f フルネーム
+     * @param b メンバのビット長
+     */
+    public MemberGenerator(String t, String n, String f, int b) {
         super();
 
         setType(t);
         setName(n);
+        setFullName(n);
         setBits(b);
     }
 
@@ -258,6 +277,28 @@ public class MemberGenerator implements Generator {
 
     /**
      * <p>
+     * フルネームを取得します。
+     * </p>
+     *
+     * @return フルネーム
+     */
+    public String getFullName() {
+        return fullName;
+    }
+
+    /**
+     * <p>
+     * フルネームを設定します。
+     * </p>
+     *
+     * @param f フルネーム
+     */
+    public void setFullName(String f) {
+        fullName = f;
+    }
+
+    /**
+     * <p>
      * メンバのビット長を取得します。
      * </p>
      *
@@ -308,50 +349,46 @@ public class MemberGenerator implements Generator {
 
     public String toConstructorCode() {
         String str_javatype;
-        String str_javabits;
 
         if (isUnsignedType(getType())) {
             str_javatype = "UInt";
         } else {
             str_javatype = "SInt";
         }
-
-        if (bits <= 64) {
-            str_javabits = "";
-        } else {
-            str_javabits = "??";
+        if (bits > 64) {
+            str_javatype += "??";
         }
 
         return String.format(
                 "%s = new %-4s();",
-                name, str_javatype + str_javabits);
+                name, str_javatype);
     }
 
     public String toCloneCode() {
+        String str_javatype;
+
+        if (isUnsignedType(getType())) {
+            str_javatype = "UInt";
+        } else {
+            str_javatype = "SInt";
+        }
+        if (bits > 64) {
+            str_javatype += "??";
+        }
+
         return String.format(
-                "obj.%s = %s.clone();",
-                name, name);
+                "obj.%s = (%s)%s.clone();",
+                name, str_javatype, name);
     }
 
     public String toReaderCode() {
         String str_gettype;
-        String str_getbits;
         String str_reverse;
 
         if (isUnsignedType(getType())) {
             str_gettype = "U";
         } else {
             str_gettype = "S";
-        }
-
-        if (bits <= 16) {
-            str_getbits = "16";
-        } else if (bits <= 32) {
-            str_getbits = "32";
-        } else if (bits <= 64) {
-            str_getbits = "64";
-        } else {
-            str_getbits = "??";
         }
 
         if (isBigEndianType(getType()) || bits <= 8) {
@@ -367,7 +404,6 @@ public class MemberGenerator implements Generator {
 
     public String toWriterCode() {
         String str_puttype;
-        String str_putbits;
         String str_reverse;
 
         if (isUnsignedType(getType())) {
@@ -376,24 +412,14 @@ public class MemberGenerator implements Generator {
             str_puttype = "S";
         }
 
-        if (bits <= 16) {
-            str_putbits = "16";
-        } else if (bits <= 32) {
-            str_putbits = "32";
-        } else if (bits <= 64) {
-            str_putbits = "64";
-        } else {
-            str_putbits = "??";
-        }
-
         if (isBigEndianType(getType()) || bits <= 8) {
             str_reverse = "Int";
         } else {
             str_reverse = "IntR";
         }
 
-        return String.format("c.write%s%s(%2d, d.%-24s, \"%s\");",
+        return String.format("c.write%s%s(%2d, d.%-24s, %-24s);",
                 str_puttype, str_reverse,
-                bits, name, name);
+                bits, name, "\"" + fullName + "\"");
     }
 }
