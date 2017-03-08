@@ -72,11 +72,29 @@ public class SystemESInfo extends BlockAdapter
                              SystemESInfo d) {
         c.enterBlock("PS system_header es_info");
 
-        c.writeUInt( 8, d.stream_id               , "stream_id"               );
+        c.writeUInt( 8, d.stream_id               , "stream_id"               , d.getStreamIdNameSystemHeader());
         c.writeUInt( 2, d.reserved1               , "reserved1"               );
         c.writeUInt( 1, d.p_std_buffer_bound_scale, "P-STD_buffer_bound_scale");
         c.writeUInt(13, d.p_std_buffer_size_bound , "P-STD_buffer_size_bound" );
+        c.mark("P-STD_buffer_size", d.getStdBufferSize());
 
         c.leaveBlock();
+    }
+
+    public String getStreamIdNameSystemHeader() {
+        return PSConsts.getStreamIdNameSystemHeader(stream_id.intValue());
+    }
+
+    public long getStdBufferSize() {
+        return getStdBufferSize(p_std_buffer_bound_scale.intValue(),
+                p_std_buffer_size_bound.intValue());
+    }
+
+    public static long getStdBufferSize(int scale, int bound) {
+        if (scale == 0) {
+            return bound * 128;
+        } else {
+            return bound * 1024;
+        }
     }
 }

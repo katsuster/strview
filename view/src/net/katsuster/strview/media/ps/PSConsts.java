@@ -132,7 +132,42 @@ public class PSConsts {
         return name;
     }
 
+    public static String getStreamIdNameSystemHeader(int id) {
+        String name = "..unknown..";
+
+        if (id >= 0xbc) {
+            return getStreamIdName(id);
+        }
+
+        switch (id) {
+        case STREAM_ID.SYSH_FOR_AUDIO:
+            name = "for all audio";
+            break;
+        case STREAM_ID.SYSH_FOR_VIDEO:
+            name = "for all video";
+            break;
+        case STREAM_ID.SYSH_FOR_ALL:
+            name = "for all elementary";
+            break;
+        case STREAM_ID.SYSH_EXTENSION:
+            name = "stream_id_extension";
+            break;
+        }
+
+        return name;
+    }
+
+    //Table 2-22: stream_id assignments
     public static class STREAM_ID {
+        //system_header(): For all audio streams
+        public static final int SYSH_FOR_AUDIO = 0xb8; //1011 1000
+        //system_header(): For all video streams
+        public static final int SYSH_FOR_VIDEO = 0xb9; //1011 1001
+        //system_header(): For all elementary streams
+        public static final int SYSH_FOR_ALL = 0xfd; //1111 1101
+        //system_header(): stream_id_extension
+        public static final int SYSH_EXTENSION = 0xb7; //1011 0111
+
         //[ISO 13818-1] MPEG_program_end_code
         public static final int MPEG_PROGRAM_END = 0xb9; //1011 1001
         //[ISO 13818-1] pack_start_code
