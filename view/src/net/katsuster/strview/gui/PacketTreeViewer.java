@@ -178,6 +178,7 @@ public class PacketTreeViewer extends JPanel {
      *
      * @param pt 追加先のノード
      * @param pr 追加したいノード
+     * @return 追加したノード数
      */
     protected long addAllChildren(DefaultMutableTreeNode pt, PacketRange pr) {
         long cnt = 0;

@@ -122,10 +122,11 @@ public class GenASF {
     /**
      * <p>
      * 定義ファイルからメンバ名を抽出し、
-     * テンプレートコード生成クラスに登録します。
+     * リストを返します。
      * </p>
      *
      * @param r ストリーム
+     * @return メンバ名コードジェネレータのリスト
      * @throws IOException 入出力エラーが発生した場合
      */
     protected static List<Generator> parseMemberName(BufferedReader r)

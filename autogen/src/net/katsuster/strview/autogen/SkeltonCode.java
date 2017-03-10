@@ -11,21 +11,35 @@ import java.util.*;
  */
 public class SkeltonCode {
     //継承元のクラス名です
-    protected String name_baseclass = "??????";
+    protected String name_baseclass;
     //クラス名です
-    protected String name_class = "??????";
+    protected String name_class;
     //クラスを構成するメンバ、コメントなどのリストです
-    protected List<Generator> list_skeltons =
-            new ArrayList<Generator>();
+    protected List<Generator> list_skeltons;
 
     /**
      * <p>
-     * デフォルトコンストラクタです。
+     * スケルトンコードを生成します。
      * クラス名は "??????"、リストは空のリストで初期化されます。
      * </p>
      */
     public SkeltonCode() {
-        //do nothing
+        this("??????", "??????");
+    }
+
+    /**
+     * <p>
+     * スケルトンコードを生成します。
+     * 指定したクラス名と、空のリストで初期化されます。
+     * </p>
+     *
+     * @param base 継承元のクラス名
+     * @param name クラス名
+     */
+    public SkeltonCode(String base, String name) {
+        name_baseclass = base;
+        name_class = name;
+        list_skeltons = new ArrayList<>();
     }
 
     /**
@@ -106,7 +120,8 @@ public class SkeltonCode {
 
     /**
      * <p>
-     * クラスの構成要素（メンバやコメントなど）を追加します。
+     * クラスの構成要素（メンバやコメントなど）を生成するための、
+     * スケルトンコード生成用オブジェクトを追加します。
      * </p>
      *
      * @param m
@@ -117,7 +132,7 @@ public class SkeltonCode {
 
     /**
      * <p>
-     * クラスを記述するためのスケルトンコードを取得します。
+     * スケルトンコードを取得します。
      * </p>
      *
      * @return クラスのスケルトンコード
