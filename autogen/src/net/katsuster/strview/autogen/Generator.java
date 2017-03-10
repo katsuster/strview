@@ -2,7 +2,7 @@ package net.katsuster.strview.autogen;
 
 /**
  * <p>
- * クラスの構成要素を定義するためのインタフェースです。
+ * クラス構成要素のスケルトンコードを生成するクラスです。
  * </p>
  *
  * @author katsuhiro

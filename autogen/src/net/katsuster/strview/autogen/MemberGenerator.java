@@ -3,7 +3,7 @@ package net.katsuster.strview.autogen;
 /**
  * <p>
  * クラスの構成要素のうち、
- * メンバを定義するためのクラスです。
+ * メンバ変数のスケルトンコードを生成するクラスです。
  * </p>
  *
  * @author katsuhiro
@@ -326,6 +326,7 @@ public class MemberGenerator implements Generator {
         bits = b;
     }
 
+    @Override
     public String toDefineCode() {
         String str_javatype;
         String str_javabits;
@@ -347,6 +348,7 @@ public class MemberGenerator implements Generator {
                 str_javatype + str_javabits, name);
     }
 
+    @Override
     public String toConstructorCode() {
         String str_javatype;
 
@@ -364,6 +366,7 @@ public class MemberGenerator implements Generator {
                 name, str_javatype);
     }
 
+    @Override
     public String toCloneCode() {
         String str_javatype;
 
@@ -381,6 +384,7 @@ public class MemberGenerator implements Generator {
                 name, str_javatype, name);
     }
 
+    @Override
     public String toReaderCode() {
         String str_gettype;
         String str_reverse;
@@ -402,6 +406,7 @@ public class MemberGenerator implements Generator {
                 bits, name);
     }
 
+    @Override
     public String toWriterCode() {
         String str_puttype;
         String str_reverse;

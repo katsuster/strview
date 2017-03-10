@@ -129,10 +129,12 @@ public class M2VHeaderExtPictureDisplay extends M2VHeaderExt
 
     /**
      * <p>
-     * number_of_frame_centre_offsets
+     * number_of_frame_centre_offsets を計算します。
      * </p>
      *
-     * @return number_of_frame_centre_offsets
+     * @param eseq sequence extension
+     * @param epic picture coding extension
+     * @return number_of_frame_centre_offsets の値
      */
     public static int getNumberOfFrameCentreOffsets(M2VHeaderExtSequence eseq, M2VHeaderExtPictureCoding epic) {
         if (eseq.progressive_sequence.intValue() == 1) {

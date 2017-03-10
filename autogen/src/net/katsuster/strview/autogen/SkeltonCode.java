@@ -124,7 +124,7 @@ public class SkeltonCode {
      * スケルトンコード生成用オブジェクトを追加します。
      * </p>
      *
-     * @param m
+     * @param m スケルトンコード生成用オブジェクト
      */
     public void addSkelton(Generator m) {
         list_skeltons.add(m);

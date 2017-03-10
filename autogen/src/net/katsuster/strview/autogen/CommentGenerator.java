@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * <p>
  * クラスの構成要素のうち、
- * コメントを定義するためのクラスです。
+ * コメントを生成するクラスです。
  * </p>
  *
  * @author katsuhiro
@@ -91,26 +91,31 @@ public class CommentGenerator implements Generator {
         }
     }
 
+    @Override
     public String toDefineCode() {
         return "";
     }
 
+    @Override
     public String toConstructorCode() {
         return "";
     }
 
+    @Override
     public String toCloneCode() {
         return String.format(
                 "//%s",
                 comment.toString());
     }
 
+    @Override
     public String toReaderCode() {
         return String.format(
                 "//%s",
                 comment.toString());
     }
 
+    @Override
     public String toWriterCode() {
         return String.format(
                 "//%s",
