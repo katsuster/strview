@@ -197,6 +197,16 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
     }
 
     @Override
+    public ExtraInfo getExtraInfo(long index) {
+        return null;
+    }
+
+    @Override
+    public void setExtraInfo(long index, ExtraInfo info) {
+        //Do nothing
+    }
+
+    @Override
     public LargeBitList subLargeList(long from, long len) {
         return new SubLargeBitList(this, from, len);
     }

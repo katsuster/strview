@@ -154,4 +154,14 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
 
         list.setPackedByteArray(index + offsetList, src, off, n);
     }
+
+    @Override
+    public ExtraInfo getExtraInfo(long index) {
+        return list.getExtraInfo(index + offsetList);
+    }
+
+    @Override
+    public void setExtraInfo(long index, ExtraInfo info) {
+        list.setExtraInfo(index + offsetList, info);
+    }
 }
