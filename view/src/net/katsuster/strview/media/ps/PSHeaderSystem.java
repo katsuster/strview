@@ -53,14 +53,13 @@ public class PSHeaderSystem extends PSHeader {
         packet_rate_restriction_flag = new UInt();
         reserved_bits = new UInt();
 
-        es_info = new ArrayList<SystemESInfo>();
+        es_info = new ArrayList<>();
     }
 
     @Override
     public PSHeaderSystem clone()
             throws CloneNotSupportedException {
         PSHeaderSystem obj = (PSHeaderSystem)super.clone();
-        int i;
 
         obj.header_length = (UInt)header_length.clone();
         obj.marker_bit1 = (UInt)marker_bit1.clone();
@@ -76,9 +75,9 @@ public class PSHeaderSystem extends PSHeader {
         obj.packet_rate_restriction_flag = (UInt)packet_rate_restriction_flag.clone();
         obj.reserved_bits = (UInt)reserved_bits.clone();
 
-        obj.es_info = new ArrayList<SystemESInfo>();
-        for (i = 0; i < es_info.size(); i++) {
-            obj.es_info.add(es_info.get(i).clone());
+        obj.es_info = new ArrayList<>();
+        for (SystemESInfo e : es_info) {
+            obj.es_info.add(e.clone());
         }
 
         return obj;
