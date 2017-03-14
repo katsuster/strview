@@ -31,6 +31,8 @@ public class RIFFConsts {
         riffFactory.put(CHUNK_ID.AVIH, RIFFHeaderAvih.class);
         riffFactory.put(CHUNK_ID.STRH, RIFFHeaderStrh.class);
         riffFactory.put(CHUNK_ID.DMLH, RIFFHeaderDmlh.class);
+        riffFactory.put(CHUNK_ID.IDX1, RIFFHeaderIdx1.class);
+
         riffFactory.put(CHUNK_ID.IARL, RIFFHeaderInfo.class);
         riffFactory.put(CHUNK_ID.IART, RIFFHeaderInfo.class);
         riffFactory.put(CHUNK_ID.ICMS, RIFFHeaderInfo.class);
@@ -93,6 +95,8 @@ public class RIFFConsts {
         public static final int STRF = 0x66727473;
         //dmlh: Extended AVI Header
         public static final int DMLH = 0x686c6d64;
+        //idx1: AVI 1.0 Index
+        public static final int IDX1 = 0x31786469;
 
         //IARL: Archival Location
         public static final int IARL = 0x4c524149;
