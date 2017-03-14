@@ -48,6 +48,7 @@ public class FileDropWindow extends JFrame {
         cmbType = new JComboBox<>();
         cmbType.setPreferredSize(new Dimension(100, 20));
         cmbType.addItem("Auto");
+        cmbType.addItem("FLV");
         cmbType.addItem("Matroska");
         cmbType.addItem("MPEG2 TS");
         cmbType.addItem("MPEG2 PS");

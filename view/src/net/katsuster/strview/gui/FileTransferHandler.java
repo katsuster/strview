@@ -11,6 +11,7 @@ import javax.swing.*;
 import net.katsuster.strview.util.*;
 import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.media.flv.*;
 import net.katsuster.strview.media.mkv.*;
 import net.katsuster.strview.media.mp4.*;
 import net.katsuster.strview.media.ps.*;
@@ -156,6 +157,7 @@ public class FileTransferHandler extends TransferHandler {
 
     enum FILE_TYPE {
         FT_UNKNOWN,
+        FT_FLV,
         FT_MATROSKA,
         FT_MPEG2PS,
         FT_MPEG2TS,
@@ -179,6 +181,9 @@ public class FileTransferHandler extends TransferHandler {
         LargePacketList<?> list = null;
 
         switch (t) {
+        case FT_FLV:
+            list = new FLVTagList(l);
+            break;
         case FT_MATROSKA:
             list = new MKVTagList(l);
             break;
@@ -225,6 +230,9 @@ public class FileTransferHandler extends TransferHandler {
      * @return ファイル形式
      */
     public static FILE_TYPE getFileType(String type, File file) {
+        if (type.equalsIgnoreCase("FLV")) {
+            return FILE_TYPE.FT_FLV;
+        }
         if (type.equalsIgnoreCase("Matroska")) {
             return FILE_TYPE.FT_MATROSKA;
         }
@@ -267,6 +275,9 @@ public class FileTransferHandler extends TransferHandler {
     public static FILE_TYPE getFileTypeAuto(File tfile) {
         String ext = getSuffix(tfile.getPath());
 
+        if (ext.equals("flv")) {
+            return FILE_TYPE.FT_FLV;
+        }
         if (ext.equals("mkv") || ext.equals("webm")) {
             return FILE_TYPE.FT_MATROSKA;
         }
