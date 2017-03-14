@@ -1,0 +1,10 @@
+riff_AVIOLDINDEX {
+  fcc           32 FOURCC
+  cb            32 DWORD
+  struct _avioldindex_entry {
+    dwChunkId   32 DWORD
+    dwFlags     32 DWORD
+    dwOffset    32 DWORD
+    dwSize      32 DWORD
+  } aIndex[]
+}
