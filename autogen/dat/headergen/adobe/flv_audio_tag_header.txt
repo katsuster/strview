@@ -1,9 +1,9 @@
 FLV_audio_tag_header() {
-sound_format 4 bslbf
-sound_rate 2 bslbf
-sound_size 1 bslbf
-sound_type 1 bslbf
-if (sound_format == 10) {
-aac_packet_type 8 uimsbf
+SoundFormat 4 bslbf
+SoundRate 2 bslbf
+SoundSize 1 bslbf
+SoundType 1 bslbf
+if (SoundFormat == 10) {
+AACPacketType 8 uimsbf
 }
 }

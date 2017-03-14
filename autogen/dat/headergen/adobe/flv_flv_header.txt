@@ -1,11 +1,11 @@
 FLV_header() {
-signature[0] 8 uimsbf
-signature[1] 8 uimsbf
-signature[2] 8 uimsbf
-version 8 uimsbf
-type_flags_reserved 5 bslbf
-type_flags_audio 1 bslbf
-type_flags_reserved 1 bslbf
-type_flags_video 1 bslbf
-data_offset 32 uimsbf
+Signature[0] 8 uimsbf
+Signature[1] 8 uimsbf
+Signature[2] 8 uimsbf
+Version 8 uimsbf
+TypeFlagsReserved 5 bslbf
+TypeFlagsAudio 1 bslbf
+TypeFlagsReserved 1 bslbf
+TypeFlagsVideo 1 bslbf
+DataOffset 32 uimsbf
 }

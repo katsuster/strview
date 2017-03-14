@@ -1,28 +1,28 @@
 FLV_tag_header() {
-previous_tag_size 32 uimsbf
+PreviousTagSize 32 uimsbf
 
-reserved 2 bslbf
-filter 1 bslbf
-tag_type 5 bslbf
-data_size 24 uimsbf
-timestamp 24 uimsbf
-timestamp_extended 8 uimsbf
-stream_id 24 uimsbf
-if (tag_type == 8) {
+Reserved 2 bslbf
+Filter 1 bslbf
+TagType 5 bslbf
+DataSize 24 uimsbf
+Timestamp 24 uimsbf
+TimestampExtended 8 uimsbf
+StreamED 24 uimsbf
+if (TagType == 8) {
 AudioTagHeader
-} else if (tag_type == 9) {
+} else if (TagType == 9) {
 VideoTagHeader
 }
-if (filter == 1) {
+if (Filter == 1) {
 EncryptionTagHeader
 FilterParams
 }
 
-if (tag_type == 8) {
+if (TagType == 8) {
 AUDIODATA
-} else if (tag_type == 9) {
+} else if (TagType == 9) {
 VIDEODATA
-} else if (tag_type == 18) {
+} else if (TagType == 18) {
 SCRIPTDATA
 }
 }

@@ -1,10 +1,10 @@
 FLV_video_tag_header() {
-frame_type 4 bslbf
-codec_id 4 bslbf
+FrameType 4 bslbf
+CodecID 4 bslbf
 
-if (codec_id == 7) {
-avc_packet_type 8 bslbf
-composition_time 24 uimsbf
+if (CodecID == 7) {
+AVCPacketType 8 bslbf
+CompositionTime 24 uimsbf
 }
 
 }
