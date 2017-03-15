@@ -27,8 +27,6 @@ public class RMFFHeader extends BlockAdapter
     public UInt object_version;
 
     public RMFFHeader() {
-        super();
-
         object_id = new UInt();
         size = new UInt();
         object_version = new UInt();

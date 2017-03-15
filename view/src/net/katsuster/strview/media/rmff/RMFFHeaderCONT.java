@@ -23,8 +23,6 @@ public class RMFFHeaderCONT extends RMFFHeader
     public LargeBitList comment;
 
     public RMFFHeaderCONT() {
-        super();
-
         title_len = new UInt();
         title = new MemoryBitList();
         author_len = new UInt();

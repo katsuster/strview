@@ -17,8 +17,6 @@ public class RMFFHeaderMDPRAny extends RMFFHeaderMDPR
     public LargeBitList type_specific_data;
 
     public RMFFHeaderMDPRAny() {
-        super();
-
         type_specific_len = new UInt();
         type_specific_data = new MemoryBitList();
     }

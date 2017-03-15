@@ -16,8 +16,6 @@ public class RMFFHeaderRMF extends RMFFHeader
     public UInt num_headers;
 
     public RMFFHeaderRMF() {
-        super();
-
         file_version = new UInt();
         num_headers = new UInt();
     }

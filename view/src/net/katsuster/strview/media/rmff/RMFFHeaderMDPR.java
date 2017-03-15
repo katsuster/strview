@@ -27,8 +27,6 @@ public class RMFFHeaderMDPR extends RMFFHeader
     public LargeBitList mime_type;
 
     public RMFFHeaderMDPR() {
-        super();
-
         stream_number = new UInt();
         max_bit_rate = new UInt();
         avg_bit_rate = new UInt();

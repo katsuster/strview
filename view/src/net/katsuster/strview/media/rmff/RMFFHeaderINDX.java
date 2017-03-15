@@ -17,8 +17,6 @@ public class RMFFHeaderINDX extends RMFFHeader
     public UInt next_index_header;
 
     public RMFFHeaderINDX() {
-        super();
-
         num_indices = new UInt();
         stream_number = new UInt();
         next_index_header = new UInt();

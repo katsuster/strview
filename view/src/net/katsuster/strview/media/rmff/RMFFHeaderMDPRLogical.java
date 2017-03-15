@@ -19,8 +19,6 @@ public class RMFFHeaderMDPRLogical extends RMFFHeaderMDPR
     public LogicalStream logical_stream;
 
     public RMFFHeaderMDPRLogical() {
-        super();
-
         type_specific_len = new UInt();
         type_specific_data = new MemoryBitList();
 

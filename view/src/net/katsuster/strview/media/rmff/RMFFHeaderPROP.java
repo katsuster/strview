@@ -25,8 +25,6 @@ public class RMFFHeaderPROP extends RMFFHeader
     public UInt flags;
 
     public RMFFHeaderPROP() {
-        super();
-
         max_bit_rate = new UInt();
         avg_bit_rate = new UInt();
         max_packet_size = new UInt();

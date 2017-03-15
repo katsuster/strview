@@ -16,8 +16,6 @@ public class RMFFHeaderDATA extends RMFFHeader
     public UInt next_data_header;
 
     public RMFFHeaderDATA() {
-        super();
-
         num_packets = new UInt();
         next_data_header = new UInt();
     }
