@@ -38,21 +38,20 @@ public class FLVScriptDataValue extends BlockAdapter
 
     public static void read(PacketReader<?> c,
                             FLVScriptDataValue d) {
-        d.type = c.readUInt( 8, d.type);
+        c.enterBlock("SCRIPTDATAVALUE");
 
-        //FIXME: REFERENCE と LONGSTRING は未対応
-        if (d.type.intValue() == FLVConsts.SCRIPT_DATA_TYPE.REFERENCE
-                || d.type.intValue() == FLVConsts.SCRIPT_DATA_TYPE.LONGSTRING) {
-            throw new IllegalArgumentException("unknown FLVSCRIPTDATAVALUE "
-                    + "type: " + d.type.intValue() + ".");
-        }
+        d.type = c.readUInt( 8, d.type);
 
         d.val = FLVConsts.flvDatFactory.createPacketHeader(
                 d.type.intValue());
         if (d.val == null) {
-            d.val = new FLVScriptData();
+            throw new IllegalArgumentException("unknown FLVSCRIPTDATAVALUE "
+                    + "type: " + d.type.intValue()
+                    + "(" + d.getScriptDataTypeName() + ").");
         }
         d.val.read(c);
+
+        c.leaveBlock();
     }
 
     @Override
@@ -62,9 +61,12 @@ public class FLVScriptDataValue extends BlockAdapter
 
     public static void write(PacketWriter<?> c,
                              FLVScriptDataValue d) {
-        c.writeUInt( 8, d.type, "Type", d.getScriptDataTypeName());
+        c.enterBlock("SCRIPTDATAVALUE");
 
+        c.writeUInt( 8, d.type, "Type", d.getScriptDataTypeName());
         d.val.write(c);
+
+        c.leaveBlock();
     }
 
     public String getScriptDataTypeName() {

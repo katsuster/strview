@@ -43,18 +43,20 @@ public class FLVConsts {
     public static final PacketFactory<FLVScriptData, Integer> flvDatFactory =
             new PacketFactory<>(FLVScriptData.class);
     static {
-        //flvDatFactory.put(SCRIPT_DATA_TYPE.NUMBER, FLVScriptDataDouble.class);
-        //flvDatFactory.put(SCRIPT_DATA_TYPE.BOOLEAN, FLVScriptDataUint8.class);
-        //flvDatFactory.put(SCRIPT_DATA_TYPE.STRING, FLVScriptDataString.class);
-        //flvDatFactory.put(SCRIPT_DATA_TYPE.OBJECT, FLVScriptDataObject.class);
+        //FIXME: REFERENCE と LONGSTRING は未対応
+
+        flvDatFactory.put(SCRIPT_DATA_TYPE.NUMBER, FLVScriptDataDouble.class);
+        flvDatFactory.put(SCRIPT_DATA_TYPE.BOOLEAN, FLVScriptDataUI8.class);
+        flvDatFactory.put(SCRIPT_DATA_TYPE.STRING, FLVScriptDataString.class);
+        flvDatFactory.put(SCRIPT_DATA_TYPE.OBJECT, FLVScriptDataObject.class);
         //flvDatFactory.put(SCRIPT_DATA_TYPE.MOVIECLIP, FLVScriptData.class);
         //flvDatFactory.put(SCRIPT_DATA_TYPE.NULL, FLVScriptData.class);
         //flvDatFactory.put(SCRIPT_DATA_TYPE.UNDEFINED, FLVScriptData.class);
         ////flvDatFactory.put(SCRIPT_DATA_TYPE.REFERENCE, );
-        //flvDatFactory.put(SCRIPT_DATA_TYPE.ECMAARRAY, FLVScriptDataECMAArray.class);
+        flvDatFactory.put(SCRIPT_DATA_TYPE.ECMAARRAY, FLVScriptDataECMAArray.class);
         //flvDatFactory.put(SCRIPT_DATA_TYPE.OBJECTEND, FLVScriptData.class);
-        //flvDatFactory.put(SCRIPT_DATA_TYPE.STRICTARRAY, FLVScriptDataStrictArray.class);
-        //flvDatFactory.put(SCRIPT_DATA_TYPE.DATE, FLVScriptDataDate.class);
+        flvDatFactory.put(SCRIPT_DATA_TYPE.STRICTARRAY, FLVScriptDataStrictArray.class);
+        flvDatFactory.put(SCRIPT_DATA_TYPE.DATE, FLVScriptDataDate.class);
         ////flvDatFactory.put(SCRIPT_DATA_TYPE.LONGSTRING, );
     }
 

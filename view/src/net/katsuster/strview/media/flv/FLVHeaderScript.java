@@ -41,10 +41,7 @@ public class FLVHeaderScript extends FLVHeaderES
 
         FLVHeaderES.read(c, d);
 
-        d.name = new FLVScriptDataValue();
         d.name.read(c);
-
-        d.value = new FLVScriptDataValue();
         d.value.read(c);
 
         c.leaveBlock();
