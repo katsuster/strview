@@ -23,13 +23,13 @@ public class FLVTag extends PacketAdapter {
 
     @Override
     public String getShortName() {
-        /*if (getHeader() instanceof FLVHeaderAudio) {
+        if (getHeader() instanceof FLVHeaderAudio) {
             return "Audio";
         } else if (getHeader() instanceof FLVHeaderScript) {
             return "Script";
         } else if (getHeader() instanceof FLVHeaderVideo) {
             return "Video";
-        } else */if (getHeader() instanceof FLVHeaderFile) {
+        } else if (getHeader() instanceof FLVHeaderFile) {
             return "File";
         }
 
