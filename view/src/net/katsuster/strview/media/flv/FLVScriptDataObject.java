@@ -15,9 +15,16 @@ import net.katsuster.strview.media.*;
 public class FLVScriptDataObject extends FLVScriptData
         implements Cloneable {
     public List<FLVScriptDataObjectProperty> object_properties;
+    //SCRIPTDATAOBJECT が Script タグの終端にある場合、省略されることがある
     public FLVScriptDataObjectEnd list_terminator;
 
     public FLVScriptDataObject() {
+        this(LIMIT_INVALID);
+    }
+
+    public FLVScriptDataObject(long l) {
+        super(l);
+
         object_properties = new ArrayList<>();
         list_terminator = new FLVScriptDataObjectEnd();
     }
@@ -49,19 +56,29 @@ public class FLVScriptDataObject extends FLVScriptData
         FLVScriptData.read(c, d);
 
         d.object_properties = new ArrayList<>();
-        while (!isTerminated(c)) {
+        while (!isTerminated(c, d)) {
             FLVScriptDataObjectProperty prop = new FLVScriptDataObjectProperty();
+            prop.setLimit(d.getLimit());
             prop.read(c);
             d.object_properties.add(prop);
         }
-
-        d.list_terminator.read(c);
+        if (c.peekLong(24) == 0x000009) {
+            d.list_terminator.read(c);
+        }
 
         c.leaveBlock();
     }
 
-    protected static boolean isTerminated(PacketReader<?> c) {
-        return c.peekLong(24) == 0x000009;
+    protected static boolean isTerminated(PacketReader<?> c,
+                                          FLVScriptDataObject d) {
+        if (c.peekLong(24) == 0x000009) {
+            return true;
+        }
+        if (d.getLimit() != LIMIT_INVALID && d.getLimit() <= c.position()) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override

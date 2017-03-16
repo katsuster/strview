@@ -41,7 +41,11 @@ public class FLVHeaderScript extends FLVHeaderES
 
         FLVHeaderES.read(c, d);
 
+        long limit = c.position() + (d.data_size.intValue() << 3);
+
+        d.name.setLimit(limit);
         d.name.read(c);
+        d.value.setLimit(limit);
         d.value.read(c);
 
         c.leaveBlock();

@@ -41,7 +41,9 @@ public class FLVScriptDataObjectProperty extends FLVScriptData
 
         FLVScriptData.read(c, d);
 
+        d.property_name.setLimit(d.getLimit());
         d.property_name.read(c);
+        d.property_data.setLimit(d.getLimit());
         d.property_data.read(c);
 
         c.leaveBlock();

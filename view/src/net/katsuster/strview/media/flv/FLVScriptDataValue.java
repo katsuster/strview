@@ -10,12 +10,18 @@ import net.katsuster.strview.media.*;
  *
  * @author katsuhiro
  */
-public class FLVScriptDataValue extends BlockAdapter
+public class FLVScriptDataValue extends FLVScriptData
         implements Cloneable {
     public UInt type;
     public FLVScriptData val;
 
     public FLVScriptDataValue() {
+        this(LIMIT_INVALID);
+    }
+
+    public FLVScriptDataValue(long l) {
+        super(l);
+
         type = new UInt();
         val = new FLVScriptData();
     }
@@ -49,6 +55,7 @@ public class FLVScriptDataValue extends BlockAdapter
                     + "type: " + d.type.intValue()
                     + "(" + d.getScriptDataTypeName() + ").");
         }
+        d.val.setLimit(d.getLimit());
         d.val.read(c);
 
         c.leaveBlock();

@@ -49,15 +49,15 @@ public class FLVConsts {
         flvDatFactory.put(SCRIPT_DATA_TYPE.BOOLEAN, FLVScriptDataUI8.class);
         flvDatFactory.put(SCRIPT_DATA_TYPE.STRING, FLVScriptDataString.class);
         flvDatFactory.put(SCRIPT_DATA_TYPE.OBJECT, FLVScriptDataObject.class);
-        //flvDatFactory.put(SCRIPT_DATA_TYPE.MOVIECLIP, FLVScriptData.class);
-        //flvDatFactory.put(SCRIPT_DATA_TYPE.NULL, FLVScriptData.class);
-        //flvDatFactory.put(SCRIPT_DATA_TYPE.UNDEFINED, FLVScriptData.class);
-        ////flvDatFactory.put(SCRIPT_DATA_TYPE.REFERENCE, );
+        //flvDatFactory.put(SCRIPT_DATA_TYPE.MOVIECLIP, );
+        //flvDatFactory.put(SCRIPT_DATA_TYPE.NULL, );
+        //flvDatFactory.put(SCRIPT_DATA_TYPE.UNDEFINED, );
+        //flvDatFactory.put(SCRIPT_DATA_TYPE.REFERENCE, FLVScriptDataUI16.class);
         flvDatFactory.put(SCRIPT_DATA_TYPE.ECMAARRAY, FLVScriptDataECMAArray.class);
-        //flvDatFactory.put(SCRIPT_DATA_TYPE.OBJECTEND, FLVScriptData.class);
+        //flvDatFactory.put(SCRIPT_DATA_TYPE.OBJECTEND, );
         flvDatFactory.put(SCRIPT_DATA_TYPE.STRICTARRAY, FLVScriptDataStrictArray.class);
         flvDatFactory.put(SCRIPT_DATA_TYPE.DATE, FLVScriptDataDate.class);
-        ////flvDatFactory.put(SCRIPT_DATA_TYPE.LONGSTRING, );
+        //flvDatFactory.put(SCRIPT_DATA_TYPE.LONGSTRING, FLVScriptDataLongString.class);
     }
 
     protected FLVConsts() {

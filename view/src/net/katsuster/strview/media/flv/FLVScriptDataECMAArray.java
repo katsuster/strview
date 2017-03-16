@@ -16,20 +16,13 @@ public class FLVScriptDataECMAArray extends FLVScriptData
         implements Cloneable {
     public UInt ecma_array_length;
     public List<FLVScriptDataObjectProperty> variables;
-    //TODO: 仕様書の意味がわからない…。
-    //list_terminator を読み出すと位置がずれてしまい、後続データが読めない。
-    //FLVTagHeaderES の data_size で数えられていないし、
-    //ストリーム中にデータも入っていない。
-    //仕様書も 0, 0, '9' と書いてあるが、そんなデータはないし（間違っている？）
-    //意味がわからん…。
-    //YouTube のストリームがおかしいだけかもしれないので、
-    //とりあえずコメントで残しておく。
-    //public FLVScriptDataObjectEnd list_terminator;
+    //SCRIPTDATAECMAARRAY が Script タグの終端にある場合、省略されることがある
+    public FLVScriptDataObjectEnd list_terminator;
 
     public FLVScriptDataECMAArray() {
         ecma_array_length = new UInt();
         variables = new ArrayList<>();
-        //list_terminator = new FLVScriptDataObjectEnd();
+        list_terminator = new FLVScriptDataObjectEnd();
     }
 
     @Override
@@ -45,7 +38,7 @@ public class FLVScriptDataECMAArray extends FLVScriptData
             obj.variables.add(v.clone());
         }
 
-        //obj.list_terminator = list_terminator.clone();
+        obj.list_terminator = list_terminator.clone();
 
         return obj;
     }
@@ -63,10 +56,16 @@ public class FLVScriptDataECMAArray extends FLVScriptData
 
         d.ecma_array_length = c.readUInt(32, d.ecma_array_length);
 
-        d.variables = readObjectList(c, d.ecma_array_length.intValue(),
-                d.variables, FLVScriptDataObjectProperty.class);
-
-        //d.list_terminator.read(b);
+        d.variables.clear();
+        for (int i = 0; i < d.ecma_array_length.intValue(); i++) {
+            FLVScriptDataObjectProperty v = new FLVScriptDataObjectProperty();
+            v.setLimit(d.getLimit());
+            v.read(c);
+            d.variables.add(v);
+        }
+        if (c.peekLong(24) == 0x000009) {
+            d.list_terminator.read(c);
+        }
 
         c.leaveBlock();
     }
@@ -84,10 +83,10 @@ public class FLVScriptDataECMAArray extends FLVScriptData
 
         c.writeUInt(32, d.ecma_array_length, "ECMAArrayLength");
 
-        writeObjectList(c, d.ecma_array_length.intValue(),
+        writeObjectList(c, d.variables.size() /*d.ecma_array_length.intValue()*/,
                 d.variables, "Variables");
 
-        //d.list_terminator.write(b);
+        d.list_terminator.write(c);
 
         c.leaveBlock();
     }
