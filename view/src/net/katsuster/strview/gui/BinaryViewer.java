@@ -40,6 +40,8 @@ public class BinaryViewer extends JPanel {
     private Range[] ranges;
     //アドレスの色
     private Color color_addr;
+    //フォーカスを示す色
+    private Color color_focus;
     //表示する色
     private Color[] colors;
 
@@ -82,6 +84,7 @@ public class BinaryViewer extends JPanel {
 
         //フォントの色を初期化する
         color_addr = Color.BLACK;
+        color_focus = Color.GRAY;
         colors = new Color[PRIORITY.MAX];
         for (int i = 0; i < PRIORITY.MAX; i++) {
             colors[i] = Color.BLACK;
@@ -89,6 +92,9 @@ public class BinaryViewer extends JPanel {
         setDataColor(Color.BLACK);
         setHighlightColor(Color.RED);
         setHighlightMemberColor(Color.BLUE);
+        setBackground(Color.WHITE);
+
+        setColorsFromUI();
 
         //表示領域を初期化する
         box_all = new ContentBox();
@@ -106,15 +112,17 @@ public class BinaryViewer extends JPanel {
         box_data_area.setPadding(5, 0, 5, 0);
         box_ascii_area.setPadding(5, 0, 5, 0);
 
-
-        setBackground(Color.WHITE);
+        setFocusable(true);
         setLayout(new BorderLayout());
 
+        addKeyListener(new BinaryViewerKeyListener());
+        addMouseListener(new BinaryViewerMouseListener());
         addMouseWheelListener(new BinaryViewerWheelListener());
         addComponentListener(new BinaryViewerComponentListener());
+        addFocusListener(new BinaryViewerFocusListener());
 
         //中央にバイナリデータ表示パネルを配置する
-        viewer = new BinaryViewerInner();
+        viewer = new BinaryViewerInner(this);
         add(viewer, BorderLayout.CENTER);
 
         //右端にスクロールバーを配置する
@@ -125,6 +133,39 @@ public class BinaryViewer extends JPanel {
         //表示するファイルを設定する
         //スクロールバーの最大値をいじるので、GUI 作成の後でないとだめ
         setBinary(l);
+    }
+
+    /**
+     * <p>
+     * UI の Look & feel が使用する色に合わせます。
+     * </p>
+     */
+    public void setColorsFromUI() {
+        Color c;
+
+        //"EditorPane.background"
+        //"EditorPane.caretForeground"
+        //"EditorPane.foreground"
+        //"EditorPane.inactiveBackground"
+        //"EditorPane.inactiveForeground"
+        //"EditorPane.selectionBackground"
+        //"EditorPane.selectionForeground"
+
+        c = UIManager.getColor("EditorPane.background");
+        if (c != null) {
+            setBackground(c);
+        }
+
+        c = UIManager.getColor("EditorPane.foreground");
+        if (c != null) {
+            color_addr = c;
+            setDataColor(c);
+        }
+
+        c = UIManager.getColor("EditorPane.selectionBackground");
+        if (c != null) {
+            color_focus = c;
+        }
     }
 
     /**
@@ -478,6 +519,35 @@ public class BinaryViewer extends JPanel {
         setHighlightMemberRange(new SimpleRange(s, l));
     }
 
+    protected class BinaryViewerKeyListener extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            int lines = Math.max(1, viewer.getDataLines() - 3);
+
+            switch (e.getKeyCode()) {
+            case KeyEvent.VK_PAGE_UP:
+                scr.setValue(scr.getValue() - lines);
+                break;
+            case KeyEvent.VK_PAGE_DOWN:
+                scr.setValue(scr.getValue() + lines);
+                break;
+            case KeyEvent.VK_UP:
+                scr.setValue(scr.getValue() - 1);
+                break;
+            case KeyEvent.VK_DOWN:
+                scr.setValue(scr.getValue() + 1);
+                break;
+            }
+        }
+    }
+
+    protected class BinaryViewerMouseListener extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            requestFocus();
+        }
+    }
+
     protected class BinaryViewerWheelListener
             implements MouseWheelListener {
         @Override
@@ -506,6 +576,19 @@ public class BinaryViewer extends JPanel {
         }
     }
 
+    protected class BinaryViewerFocusListener
+            implements FocusListener {
+        @Override
+        public void focusGained(FocusEvent e) {
+            viewer.repaint();
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            viewer.repaint();
+        }
+    }
+
     /**
      * <p>
      * バイナリデータを描画するパネルです。
@@ -517,8 +600,23 @@ public class BinaryViewer extends JPanel {
             implements ChangeListener {
         private static final long serialVersionUID = 1L;
 
-        public BinaryViewerInner() {
-            //Do nothing
+        private BinaryViewer parent;
+
+        public BinaryViewerInner(BinaryViewer p) {
+            parent = p;
+        }
+
+        public int getDataLines() {
+            Rectangle all_data = box_data_area.getContents();
+            int dy = all_data.y;
+            int lines = 0;
+
+            while (dy < all_data.height) {
+                dy += box_data_raw.getHeight();
+                lines++;
+            }
+
+            return lines;
         }
 
         protected void drawAll(Graphics2D g, long addr) {
@@ -732,7 +830,7 @@ public class BinaryViewer extends JPanel {
             Rectangle one_data = box_data.getContents();
 
             //その他のデータの色に設定する
-            g.setColor(Color.BLACK);
+            g.setColor(color_addr);
 
             //描画する
             //drawString の Y 座標は文字のベースラインの位置のため、
@@ -890,6 +988,14 @@ public class BinaryViewer extends JPanel {
             }
 
             Graphics2D g2 = (Graphics2D)g.create();
+            if (parent.isFocusOwner()) {
+                int w = 2;
+                g2.setColor(color_focus);
+                Rectangle r = box_all.getBounds();
+                g2.drawRoundRect(w, w, r.width - w * 2, r.height - w * 2, 0, 0);
+            }
+
+            g2 = (Graphics2D)g.create();
             g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                     RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             drawAll(g2, getDrawAddress());
