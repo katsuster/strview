@@ -141,8 +141,6 @@ public class MemberGenerator implements Generator {
      * </p>
      */
     public MemberGenerator() {
-        super();
-
         setType("????");
         setName("????");
         setFullName("????");
@@ -175,8 +173,6 @@ public class MemberGenerator implements Generator {
      * @param b メンバのビット長
      */
     public MemberGenerator(String t, String n, String f, int b) {
-        super();
-
         setType(t);
         setName(n);
         setFullName(n);

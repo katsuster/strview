@@ -164,9 +164,7 @@ public class SkeltonCode {
         }
 
         //コンストラクタ
-        s.append("\t" + "public " + getJavaClassName() + "() {\n"
-                + "\t\tsuper();\n"
-                + "\t\t\n");
+        s.append("\t" + "public " + getJavaClassName() + "() {\n");
         f_cont_empty = true;
         for (i = 0; i < list_skeltons.size(); i++) {
             //空白の連続を圧縮する

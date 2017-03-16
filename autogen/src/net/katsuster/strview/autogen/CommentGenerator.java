@@ -21,8 +21,6 @@ public class CommentGenerator implements Generator {
      * </p>
      */
     public CommentGenerator() {
-        super();
-
         comment = new StringBuilder();
     }
 
@@ -35,8 +33,6 @@ public class CommentGenerator implements Generator {
      * @param s コメントに設定する文字列
      */
     public CommentGenerator(String s) {
-        this();
-
         setComment(s);
     }
 
@@ -49,8 +45,6 @@ public class CommentGenerator implements Generator {
      * @param l コメント行を構成するトークンのリスト
      */
     public CommentGenerator(List<Token> l) {
-        this();
-
         setComment(l);
     }
 
