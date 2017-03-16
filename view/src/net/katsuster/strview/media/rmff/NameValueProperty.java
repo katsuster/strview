@@ -19,7 +19,6 @@ public class NameValueProperty extends BlockAdapter
         implements Cloneable {
     public UInt size;
     public UInt object_version;
-
     public UInt name_length;
     public LargeBitList name;
     public SInt type;
@@ -27,11 +26,8 @@ public class NameValueProperty extends BlockAdapter
     public LargeBitList value_data;
 
     public NameValueProperty() {
-        super();
-
         size = new UInt();
         object_version = new UInt();
-
         name_length = new UInt();
         name = new MemoryBitList();
         type = new SInt();
@@ -46,7 +42,6 @@ public class NameValueProperty extends BlockAdapter
 
         obj.size = (UInt)size.clone();
         obj.object_version = (UInt)object_version.clone();
-
         obj.name_length = (UInt)name_length.clone();
         obj.name = (LargeBitList)name.clone();
         obj.type = (SInt)type.clone();

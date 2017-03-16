@@ -14,7 +14,6 @@ public class LogicalStream extends BlockAdapter
         implements Cloneable {
     public UInt size;
     public UInt object_version;
-
     public UInt num_physical_streams;
     public UInt[] physical_stream_numbers;
     public UInt[] data_offsets;
@@ -24,11 +23,8 @@ public class LogicalStream extends BlockAdapter
     public NameValueProperty[] properties;
 
     public LogicalStream() {
-        super();
-
         size = new UInt();
         object_version = new UInt();
-
         num_physical_streams = new UInt();
         physical_stream_numbers = new UInt[0];
         data_offsets = new UInt[0];

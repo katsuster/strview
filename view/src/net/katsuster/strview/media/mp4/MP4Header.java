@@ -23,19 +23,13 @@ public class MP4Header extends BlockAdapter
         implements Cloneable {
     public UInt size;
     public UInt type;
-
     public UInt largesize;
-
     public LargeBitList usertype;
 
     public MP4Header() {
-        super();
-
         size = new UInt();
         type = new UInt();
-
         largesize = new UInt();
-
         usertype = new MemoryBitList();
     }
 

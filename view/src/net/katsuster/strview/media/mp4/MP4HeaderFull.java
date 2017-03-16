@@ -26,8 +26,6 @@ public class MP4HeaderFull extends MP4Header
     public UInt flags;
 
     public MP4HeaderFull() {
-        super();
-
         version = new UInt();
         flags = new UInt();
     }

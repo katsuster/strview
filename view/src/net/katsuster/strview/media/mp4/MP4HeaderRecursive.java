@@ -23,7 +23,6 @@ import net.katsuster.strview.media.*;
 public class MP4HeaderRecursive extends MP4Header
         implements Cloneable {
     public MP4HeaderRecursive() {
-        super();
     }
 
     @Override
