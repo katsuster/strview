@@ -21,10 +21,10 @@ import net.katsuster.strview.media.*;
  */
 public class RIFFHeaderIdx1 extends RIFFHeader
         implements Cloneable {
-    public List<IndexEntry> entries;
+    public List<IndexEntry> aIndex;
 
     public RIFFHeaderIdx1() {
-        entries = new ArrayList<>();
+        aIndex = new ArrayList<>();
     }
 
     @Override
@@ -32,9 +32,9 @@ public class RIFFHeaderIdx1 extends RIFFHeader
             throws CloneNotSupportedException {
         RIFFHeaderIdx1 obj = (RIFFHeaderIdx1)super.clone();
 
-        obj.entries = new ArrayList<>();
-        for (IndexEntry e : entries) {
-            obj.entries.add(e.clone());
+        obj.aIndex = new ArrayList<>();
+        for (IndexEntry e : aIndex) {
+            obj.aIndex.add(e.clone());
         }
 
         return obj;
@@ -53,13 +53,8 @@ public class RIFFHeaderIdx1 extends RIFFHeader
 
         //16 is size of IndexEntry
         int cnt = d.ckSize.intValue() / 16;
-
-        d.entries.clear();
-        for (int i = 0; i < cnt; i++) {
-            IndexEntry e = new IndexEntry();
-            e.read(c);
-            d.entries.add(e);
-        }
+        d.aIndex = readObjectList(c, cnt, d.aIndex,
+                IndexEntry.class);
 
         c.leaveBlock();
     }
@@ -75,10 +70,8 @@ public class RIFFHeaderIdx1 extends RIFFHeader
 
         RIFFHeader.write(c, d);
 
-        for (int i = 0; i < d.entries.size(); i++) {
-            c.mark("entry[" + i + "]", i);
-            d.entries.get(i).write(c);
-        }
+        writeObjectList(c, d.aIndex.size(), d.aIndex,
+                "aIndex");
 
         c.leaveBlock();
     }
