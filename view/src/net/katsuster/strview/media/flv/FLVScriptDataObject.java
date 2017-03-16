@@ -55,7 +55,7 @@ public class FLVScriptDataObject extends FLVScriptData
 
         FLVScriptData.read(c, d);
 
-        d.object_properties = new ArrayList<>();
+        d.object_properties.clear();
         while (!isTerminated(c, d)) {
             FLVScriptDataObjectProperty prop = new FLVScriptDataObjectProperty();
             prop.setLimit(d.getLimit());
