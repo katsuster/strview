@@ -54,7 +54,7 @@ public class FLVConsts {
         //flvDatFactory.put(SCRIPT_DATA_TYPE.UNDEFINED, );
         //flvDatFactory.put(SCRIPT_DATA_TYPE.REFERENCE, FLVScriptDataUI16.class);
         flvDatFactory.put(SCRIPT_DATA_TYPE.ECMAARRAY, FLVScriptDataECMAArray.class);
-        //flvDatFactory.put(SCRIPT_DATA_TYPE.OBJECTEND, );
+        flvDatFactory.put(SCRIPT_DATA_TYPE.OBJECTEND, FLVScriptData.class);
         flvDatFactory.put(SCRIPT_DATA_TYPE.STRICTARRAY, FLVScriptDataStrictArray.class);
         flvDatFactory.put(SCRIPT_DATA_TYPE.DATE, FLVScriptDataDate.class);
         //flvDatFactory.put(SCRIPT_DATA_TYPE.LONGSTRING, FLVScriptDataLongString.class);
