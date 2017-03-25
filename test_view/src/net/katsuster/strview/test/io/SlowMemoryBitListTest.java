@@ -331,9 +331,9 @@ public class SlowMemoryBitListTest {
         }
 
         try {
-            a1.subLargeList(4, -1);
+            a1.subLargeList(4, -2);
             fail(msg2);
-        } catch (IllegalArgumentException ex) {
+        } catch (NegativeArraySizeException ex) {
             //OK
         }
     }
