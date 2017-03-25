@@ -47,12 +47,12 @@ public class MemoryBitList extends AbstractLargeBitList {
      * </p>
      */
     public MemoryBitList() {
-        this(0);
+        this(0, 0);
     }
 
     /**
      * <p>
-     * 長さ n のビット列を作成します。
+     * 指定された長さのビット列を作成します。
      * </p>
      *
      * <p>
@@ -60,21 +60,39 @@ public class MemoryBitList extends AbstractLargeBitList {
      * つまり (2^31 - 1) * 32 / 8 ≒ 約 8[GB] です。
      * </p>
      *
-     * @param size 作成するビット列の長さ（ビット単位）
+     * @param len 作成するビット列の長さ（ビット単位）
      * @throws NegativeArraySizeException 負のサイズを指定した場合
      * @throws IllegalArgumentException 最大サイズを超えていた場合
      */
-    public MemoryBitList(long size) {
-        super(size);
+    public MemoryBitList(long len) {
+        this(0, len);
+    }
 
-        if (((long)Integer.MAX_VALUE * ELEM_BITS) < size) {
+    /**
+     * <p>
+     * 指定された長さのビット列を作成します。
+     * </p>
+     *
+     * <p>
+     * 指定できる最大サイズは Integer.MAX_VALUE * ELEM_BITS [bits] まで、
+     * つまり (2^31 - 1) * 32 / 8 ≒ 約 8[GB] です。
+     * </p>
+     *
+     * @param from 開始点（ビット単位）
+     * @param len  ビット列の長さ（ビット単位）
+     * @throws NegativeArraySizeException 負のサイズを指定した場合
+     * @throws IllegalArgumentException 最大サイズを超えていた場合
+     */
+    public MemoryBitList(long from, long len) {
+        super(from, len);
+
+        if (((long)Integer.MAX_VALUE * ELEM_BITS) < len) {
             throw new IllegalArgumentException(
-                    "size:" + size + " is too large.");
+                    "len:" + len + " is too large.");
         }
 
-        buf = new int[getBufferElementPosition(size + ELEM_MASK)];
-        length(size);
-        getRange().setLength(size);
+        buf = new int[getBufferElementPosition(len + ELEM_MASK)];
+        length(len);
     }
 
     /**
