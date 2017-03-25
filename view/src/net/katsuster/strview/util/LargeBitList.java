@@ -195,34 +195,6 @@ public interface LargeBitList extends LargeList<Boolean> {
 
     /**
      * <p>
-     * 指定された位置の追加情報を取得します。
-     * </p>
-     *
-     * <p>
-     * 位置に対応する追加情報が存在しない場合 null を返します。
-     * </p>
-     *
-     * @param index 追加情報を取得したい位置
-     * @return 追加情報
-     */
-    public ExtraInfo getExtraInfo(long index);
-
-    /**
-     * <p>
-     * 指定された位置の追加情報を設定します。
-     * </p>
-     *
-     * <p>
-     * 追加情報に null を許容するか否かは実装依存です。
-     * </p>
-     *
-     * @param index 追加情報を取得したい位置
-     * @param info  追加情報
-     */
-    public void setExtraInfo(long index, ExtraInfo info);
-
-    /**
-     * <p>
      * リストの from（この要素を含む）から len の長さの、
      * 部分列を返します。返された部分列への変更は、元のリストと連動します。
      * </p>

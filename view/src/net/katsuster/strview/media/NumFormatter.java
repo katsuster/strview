@@ -156,7 +156,7 @@ public class NumFormatter {
             pos = 0;
             len_bit = 0;
         } else {
-            pos = v.getRange().getStart() + v.getOffsetHint();
+            pos = v.getRange().getStart();
             len_bit = v.getRange().getLength();
         }
         len_byte = len_bit >>> 3;
@@ -214,7 +214,7 @@ public class NumFormatter {
             pos = 0;
             len_bit = 0;
         } else {
-            pos = v.getRange().getStart() + v.getOffsetHint();
+            pos = v.getRange().getStart();
             len_bit = v.getRange().getLength() << 3;
         }
         len_byte = len_bit >>> 3;

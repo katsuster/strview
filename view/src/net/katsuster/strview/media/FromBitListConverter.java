@@ -185,9 +185,8 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
     @Override
     public LargeBitList readBitList(int nbit, LargeBitList val, String desc) {
         if (val == null || val.length() < nbit) {
-            val = new MemoryBitList(nbit);
+            val = new MemoryBitList(pos, nbit);
         }
-        val.setOffsetHint(pos);
         buf.get(pos, val, 0, nbit);
         pos += nbit;
 

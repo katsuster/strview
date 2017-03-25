@@ -49,32 +49,6 @@ public interface LargeList<T> extends Cloneable, List<T> {
 
     /**
      * <p>
-     * リストの位置のヒントを返します。
-     * </p>
-     *
-     * <p>
-     * リストが別のリストの一部に含まれる場合などに使用します。
-     * </p>
-     *
-     * @return リストの位置のヒント
-     */
-    public long getOffsetHint();
-
-    /**
-     * <p>
-     * リストの位置のヒントを設定します。
-     * </p>
-     *
-     * <p>
-     * リストが別のリストの一部に含まれる場合などに使用します。
-     * </p>
-     *
-     * @param h リストの位置のヒント
-     */
-    public void setOffsetHint(long h);
-
-    /**
-     * <p>
      * 指定された位置の要素を取得します。
      * </p>
      *
@@ -197,4 +171,32 @@ public interface LargeList<T> extends Cloneable, List<T> {
      * @param range リストが存在する範囲
      */
     public void setRange(Range range);
+
+    /**
+     * <p>
+     * 指定された位置の追加情報を取得します。
+     * </p>
+     *
+     * <p>
+     * 位置に対応する追加情報が存在しない場合 null を返します。
+     * </p>
+     *
+     * @param index 追加情報を取得したい位置
+     * @return 追加情報
+     */
+    public ExtraInfo getExtraInfo(long index);
+
+    /**
+     * <p>
+     * 指定された位置の追加情報を設定します。
+     * </p>
+     *
+     * <p>
+     * 追加情報に null を許容するか否かは実装依存です。
+     * </p>
+     *
+     * @param index 追加情報を取得したい位置
+     * @param info  追加情報
+     */
+    public void setExtraInfo(long index, ExtraInfo info);
 }

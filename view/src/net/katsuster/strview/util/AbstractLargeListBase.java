@@ -13,10 +13,10 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
         implements LargeList<T>, Cloneable {
     //リストの長さ
     private long len;
-    //リストの位置のヒント
-    private long offsetHint;
     //リストが存在する範囲
     private Range r;
+    //追加情報
+    private ExtraInfo extInfo;
 
     /**
      * <p>
@@ -31,12 +31,13 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
             throw new IndexOutOfBoundsException("from:" + from
                     + " is negative.");
         }
-        if (l < 0) {
-            throw new IllegalArgumentException("len:" + l
+        if (l < 0 && l != LENGTH_UNKNOWN) {
+            throw new NegativeArraySizeException("len:" + l
                     + " is negative.");
         }
         len = l;
         r = new SimpleRange(from, l);
+        extInfo = new SimpleExtraInfo();
     }
 
     /**
@@ -53,6 +54,7 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
         }
         len = l;
         r = new SimpleRange(0, l);
+        extInfo = new SimpleExtraInfo();
     }
 
     @Override
@@ -102,16 +104,6 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
     }
 
     @Override
-    public long getOffsetHint() {
-        return offsetHint;
-    }
-
-    @Override
-    public void setOffsetHint(long h) {
-        offsetHint = h;
-    }
-
-    @Override
     public LargeList<T> subLargeList(long from, long len) {
         return new SubLargeList<T>(this, from, len);
     }
@@ -124,6 +116,24 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
     @Override
     public void setRange(Range range) {
         r = range;
+    }
+
+    @Override
+    public ExtraInfo getExtraInfo(long index) {
+        if (index != 0) {
+            throw new IllegalArgumentException("index:" + index + " != 0");
+        }
+
+        return extInfo;
+    }
+
+    @Override
+    public void setExtraInfo(long index, ExtraInfo info) {
+        if (index != 0) {
+            throw new IllegalArgumentException("index:" + index + " != 0");
+        }
+
+        extInfo = info;
     }
 
     /**

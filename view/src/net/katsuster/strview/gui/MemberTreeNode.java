@@ -256,7 +256,7 @@ public class MemberTreeNode extends DefaultMutableTreeNode {
         if (hasNumData()) {
             pos = getNumData().getRange().getStart();
         } else if (hasArrayData()) {
-            pos = getArrayData().getRange().getStart() + getArrayData().getOffsetHint();
+            pos = getArrayData().getRange().getStart();
         } else {
             throw new IllegalStateException("Node does not have "
                     + "start position.");
@@ -283,7 +283,7 @@ public class MemberTreeNode extends DefaultMutableTreeNode {
         if (hasNumData()) {
             pos = getNumData().getRange().getEnd();
         } else if (hasArrayData()) {
-            pos = getArrayData().getRange().getEnd() + getArrayData().getOffsetHint();
+            pos = getArrayData().getRange().getEnd();
         } else {
             throw new IllegalStateException("Node does not have "
                     + "start position.");
