@@ -6,8 +6,11 @@
         <XML>
           <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
         </XML>
+        <codeStyleSettings language="JAVA">
+          <option name="INDENT_CASE_FROM_SWITCH" value="false" />
+        </codeStyleSettings>
       </value>
     </option>
-    <option name="PREFERRED_PROJECT_CODE_STYLE" value="Default_mod" />
+    <option name="USE_PER_PROJECT_SETTINGS" value="true" />
   </component>
 </project>
