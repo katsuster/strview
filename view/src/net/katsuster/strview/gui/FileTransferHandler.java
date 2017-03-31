@@ -11,6 +11,7 @@ import javax.swing.*;
 import net.katsuster.strview.util.*;
 import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.media.asf.*;
 import net.katsuster.strview.media.flv.*;
 import net.katsuster.strview.media.mkv.*;
 import net.katsuster.strview.media.mp4.*;
@@ -157,6 +158,7 @@ public class FileTransferHandler extends TransferHandler {
 
     enum FILE_TYPE {
         FT_UNKNOWN,
+        FT_ASF,
         FT_FLV,
         FT_MATROSKA,
         FT_MPEG2PS,
@@ -181,6 +183,9 @@ public class FileTransferHandler extends TransferHandler {
         LargePacketList<?> list = null;
 
         switch (t) {
+        case FT_ASF:
+            list = new ASFObjectList(l);
+            break;
         case FT_FLV:
             list = new FLVTagList(l);
             break;
@@ -230,6 +235,9 @@ public class FileTransferHandler extends TransferHandler {
      * @return ファイル形式
      */
     public static FILE_TYPE getFileType(String type, File file) {
+        if (type.equalsIgnoreCase("ASF")) {
+            return FILE_TYPE.FT_ASF;
+        }
         if (type.equalsIgnoreCase("FLV")) {
             return FILE_TYPE.FT_FLV;
         }
@@ -275,6 +283,9 @@ public class FileTransferHandler extends TransferHandler {
     public static FILE_TYPE getFileTypeAuto(File tfile) {
         String ext = getSuffix(tfile.getPath());
 
+        if (ext.equals("asf") || ext.equals("wma") || ext.equals("wmv")) {
+            return FILE_TYPE.FT_ASF;
+        }
         if (ext.equals("flv")) {
             return FILE_TYPE.FT_FLV;
         }
