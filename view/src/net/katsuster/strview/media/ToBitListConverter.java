@@ -78,6 +78,9 @@ public class ToBitListConverter extends PacketWriterAdapter<LargeBitList> {
         long rawval = val.getBitsValue();
 
         switch (nbit) {
+        case 8:
+            //Do nothing
+            break;
         case 16:
             rawval = Short.reverseBytes((short)rawval);
             break;
@@ -101,6 +104,9 @@ public class ToBitListConverter extends PacketWriterAdapter<LargeBitList> {
         long rawval = val.getBitsValue();
 
         switch (nbit) {
+        case 8:
+            //Do nothing
+            break;
         case 16:
             rawval = Short.reverseBytes((short)rawval);
             break;

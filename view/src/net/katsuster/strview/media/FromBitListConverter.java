@@ -101,6 +101,9 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
         }
 
         switch (nbit) {
+        case 8:
+            rawval = buf.getPackedLong(pos, nbit);
+            break;
         case 16:
             rawval = Short.reverseBytes((short)buf.getPackedLong(pos, nbit));
             break;
@@ -132,6 +135,9 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
         }
 
         switch (nbit) {
+        case 8:
+            rawval = buf.getPackedLong(pos, nbit);
+            break;
         case 16:
             rawval = Short.reverseBytes((short)buf.getPackedLong(pos, nbit)) & 0xffffL;
             break;
