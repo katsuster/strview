@@ -34,6 +34,10 @@ public interface LargeList<T> extends Cloneable, List<T> {
      * リストの長さを返します。
      * </p>
      *
+     * <p>
+     * リストの長さが不明な場合は LENGTH_UNKNOWN を返します。
+     * </p>
+     *
      * @return リストの長さ
      */
     public long length();
