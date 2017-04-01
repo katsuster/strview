@@ -53,7 +53,7 @@ public class ASFHeaderHeader extends ASFHeader
 
     public static void read(PacketReader<?> c,
                             ASFHeaderHeader d) {
-        c.enterBlock("ASF header object");
+        c.enterBlock("Header Object");
 
         ASFHeader.read(c, d);
 
@@ -71,7 +71,7 @@ public class ASFHeaderHeader extends ASFHeader
 
     public static void write(PacketWriter<?> c,
                              ASFHeaderHeader d) {
-        c.enterBlock("ASF header object");
+        c.enterBlock("Header Object");
 
         ASFHeader.write(c, d);
 

@@ -55,6 +55,8 @@ public class ASFHeaderHeaderExtension extends ASFHeader
 
     public static void read(PacketReader<?> c,
                             ASFHeaderHeaderExtension d) {
+        c.enterBlock("Header Extension Object");
+
         ASFHeader.read(c, d);
 
         c.mark("Reserved Field 1", "");
@@ -62,6 +64,8 @@ public class ASFHeaderHeaderExtension extends ASFHeader
         d.reserved_field2            = c.readUIntR(16, d.reserved_field2           );
         d.header_extension_data_size = c.readUIntR(32, d.header_extension_data_size);
         checkNegative("Header Extension Data Size", d.header_extension_data_size);
+
+        c.leaveBlock();
     }
 
     @Override
@@ -71,11 +75,15 @@ public class ASFHeaderHeaderExtension extends ASFHeader
 
     public static void write(PacketWriter<?> c,
                              ASFHeaderHeaderExtension d) {
+        c.enterBlock("Header Extension Object");
+
         ASFHeader.write(c, d);
 
         c.mark("Reserved Field 1", "");
         d.reserved_field1.write(c);
         c.writeUIntR(16, d.reserved_field2           , "Reserved Field 2");
         c.writeUIntR(32, d.header_extension_data_size, "Header Extension Data Size");
+
+        c.leaveBlock();
     }
 }
