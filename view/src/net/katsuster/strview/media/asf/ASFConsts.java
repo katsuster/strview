@@ -23,12 +23,12 @@ public class ASFConsts {
             new PacketFactory<>(ASFHeader.class);
     static {
         asfFactory.put(OBJECT_GUID.ASF_HEADER_OBJECT, ASFHeaderHeader.class);
-        //asfFactory.put(OBJECT_GUID.ASF_FILE_PROPERTIES_OBJECT, ASFHeaderFileProperties.class);
+        asfFactory.put(OBJECT_GUID.ASF_FILE_PROPERTIES_OBJECT, ASFHeaderFileProperties.class);
         //asfFactory.put(OBJECT_GUID.ASF_STREAM_PROPERTIES_OBJECT, ASFHeaderStreamProperties.class);
         asfFactory.put(OBJECT_GUID.ASF_HEADER_EXTENSION_OBJECT, ASFHeaderHeaderExtension.class);
         //asfFactory.put(OBJECT_GUID.ASF_CODEC_LIST_OBJECT, ASFHeaderCodecList.class);
-        //asfFactory.put(OBJECT_GUID.ASF_CONTENT_DESCRIPTION_OBJECT, ASFHeaderContentDescription.class);
-        //asfFactory.put(OBJECT_GUID.ASF_EXTENDED_CONTENT_DESCRIPTION_OBJECT, ASFHeaderExtendedContentDescription.class);
+        asfFactory.put(OBJECT_GUID.ASF_CONTENT_DESCRIPTION_OBJECT, ASFHeaderContentDescription.class);
+        asfFactory.put(OBJECT_GUID.ASF_EXTENDED_CONTENT_DESCRIPTION_OBJECT, ASFHeaderExtendedContentDescription.class);
         //asfFactory.put(OBJECT_GUID.ASF_STREAM_BITRATE_PROPERTIES_OBJECT, ASFHeaderStreamBitrateProperties.class);
         //asfFactory.put(OBJECT_GUID.ASF_PADDING_OBJECT, ASFHeaderPadding.class);
         //asfFactory.put(OBJECT_GUID.ASF_EXTENDED_STREAM_PROPERTIES_OBJECT, ASFHeaderExtendedStreamProperties.class);
@@ -285,7 +285,9 @@ public class ASFConsts {
         return name;
     }
 
-    //Object GUID
+    /**
+     * 10. ASF GUIDS
+     */
     public static class OBJECT_GUID {
         //10.1 Top-level ASF object ASFGUIDS
         public static final ASFGUID ASF_HEADER_OBJECT =
