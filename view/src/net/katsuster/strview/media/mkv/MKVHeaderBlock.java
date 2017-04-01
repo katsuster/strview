@@ -97,14 +97,14 @@ public class MKVHeaderBlock extends MKVHeader {
 
         d.track_number.read(c);
 
-        c.readUInt(16, d.timecode );
-        c.readUInt( 4, d.reserved1);
-        c.readUInt( 1, d.invisible);
-        c.readUInt( 2, d.lacing   );
-        c.readUInt( 1, d.reserved2);
+        d.timecode  = c.readUInt(16, d.timecode );
+        d.reserved1 = c.readUInt( 4, d.reserved1);
+        d.invisible = c.readUInt( 1, d.invisible);
+        d.lacing    = c.readUInt( 2, d.lacing   );
+        d.reserved2 = c.readUInt( 1, d.reserved2);
 
         if (d.lacing.intValue() == LACING.EBML) {
-            c.readUInt( 8, d.lacing_head);
+            d.lacing_head = c.readUInt( 8, d.lacing_head);
             d.lacing_size0.read(c);
 
             //最初のフレームサイズは絶対値
@@ -128,7 +128,7 @@ public class MKVHeaderBlock extends MKVHeader {
                     - ((c.position() - pos) >> 3);
             d.lacing_sizes.add(frame_size);
         } else if (d.lacing.intValue() == LACING.FIXED_SIZE) {
-            c.readUInt( 8, d.lacing_head);
+            d.lacing_head = c.readUInt( 8, d.lacing_head);
         }
 
         c.leaveBlock();
