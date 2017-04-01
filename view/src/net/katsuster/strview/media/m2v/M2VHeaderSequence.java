@@ -105,14 +105,14 @@ public class M2VHeaderSequence
         d.load_intra_quantiser_matrix     = c.readUInt( 1, d.load_intra_quantiser_matrix);
         if (d.load_intra_quantiser_matrix.intValue() == 1) {
             for (int i = 0; i < d.intra_quantiser_matrix.length; i++) {
-                c.readUInt( 8, d.intra_quantiser_matrix[i]);
+                d.intra_quantiser_matrix[i] = c.readUInt( 8, d.intra_quantiser_matrix[i]);
             }
         }
 
         d.load_non_intra_quantiser_matrix = c.readUInt( 1, d.load_non_intra_quantiser_matrix);
         if (d.load_non_intra_quantiser_matrix.intValue() == 1) {
             for (int i = 0; i < d.non_intra_quantiser_matrix.length; i++) {
-                c.readUInt(8, d.non_intra_quantiser_matrix[i]);
+                d.non_intra_quantiser_matrix[i] = c.readUInt(8, d.non_intra_quantiser_matrix[i]);
             }
         }
 
