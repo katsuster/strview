@@ -8,7 +8,7 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public class SFixed8_8 extends Num {
+public class SFixed8_8 extends AbstractNum {
     private short val;
 
     public SFixed8_8() {
@@ -20,7 +20,7 @@ public class SFixed8_8 extends Num {
     }
 
     public SFixed8_8(short v, int l, long p) {
-        super(l, p);
+        super(p, l);
         setBitsValue(v);
     }
 

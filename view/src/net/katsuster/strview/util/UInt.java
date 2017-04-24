@@ -9,7 +9,7 @@ import java.util.*;
  *
  * @author katsuhiro
  */
-public class UInt extends Num
+public class UInt extends AbstractNum
         implements Comparable<UInt> {
     private long val;
 
@@ -22,7 +22,7 @@ public class UInt extends Num
     }
 
     public UInt(long v, int l, long p) {
-        super(l, p);
+        super(p, l);
         setBitsValue(v);
     }
 

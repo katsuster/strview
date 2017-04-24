@@ -9,7 +9,7 @@ import java.util.*;
  *
  * @author katsuhiro
  */
-public class SInt extends Num
+public class SInt extends AbstractNum
         implements Comparable<SInt> {
     private long val;
 
@@ -22,7 +22,7 @@ public class SInt extends Num
     }
 
     public SInt(long v, int l, long p) {
-        super(l, p);
+        super(p, l);
         setBitsValue(v);
     }
 

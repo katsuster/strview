@@ -7,7 +7,7 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public class Float32 extends Num {
+public class Float32 extends AbstractNum {
     private int val;
 
     public Float32() {
@@ -23,7 +23,7 @@ public class Float32 extends Num {
     }
 
     public Float32(int v, int l, long p) {
-        super(l, p);
+        super(p, l);
         setBitsValue(v);
     }
 

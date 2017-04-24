@@ -8,7 +8,7 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public class UFixed16_16 extends Num {
+public class UFixed16_16 extends AbstractNum {
     private int val;
 
     public UFixed16_16() {
@@ -20,7 +20,7 @@ public class UFixed16_16 extends Num {
     }
 
     public UFixed16_16(int v, int l, long p) {
-        super(l, p);
+        super(p, l);
         setBitsValue(v);
     }
 
