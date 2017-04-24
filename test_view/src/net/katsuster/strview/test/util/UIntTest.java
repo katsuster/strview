@@ -28,6 +28,17 @@ public class UIntTest {
     }
 
     @Test
+    public final void testUIntLongLongInt() {
+        String msg1 = "UInt(long, long, int) failed.";
+        String msg2 = "UInt(long, long, int) illegal arguments check failed.";
+        UInt va = new UInt(1, 2, 3);
+
+        assertEquals(msg1, 1, va.getBitsValue());
+        assertEquals(msg1, 2, va.getRange().getStart());
+        assertEquals(msg1, 3, va.getRange().getLength());
+    }
+
+    @Test
     public final void testUIntUInt() {
         String msg1 = "UInt(UInt) failed.";
         String msg2 = "UInt.clone() failed.";

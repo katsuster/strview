@@ -21,7 +21,7 @@ public class UInt extends AbstractNum
         this(v, 0, 0);
     }
 
-    public UInt(long v, int l, long p) {
+    public UInt(long v, long p, int l) {
         super(p, l);
         setBitsValue(v);
     }

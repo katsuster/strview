@@ -19,7 +19,7 @@ public class SFixed16_16 extends AbstractNum {
         this(v, 0, 0);
     }
 
-    public SFixed16_16(int v, int l, long p) {
+    public SFixed16_16(int v, long p, int l) {
         super(p, l);
         setBitsValue(v);
     }

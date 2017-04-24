@@ -19,7 +19,7 @@ public class SFixed8_8 extends AbstractNum {
         this(v, 0, 0);
     }
 
-    public SFixed8_8(short v, int l, long p) {
+    public SFixed8_8(short v, long p, int l) {
         super(p, l);
         setBitsValue(v);
     }

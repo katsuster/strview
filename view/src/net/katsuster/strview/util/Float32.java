@@ -18,11 +18,11 @@ public class Float32 extends AbstractNum {
         this(v, 0, 0);
     }
 
-    public Float32(float v, int l, long p) {
-        this(Float.floatToRawIntBits(v), l, p);
+    public Float32(float v, long p, int l) {
+        this(Float.floatToRawIntBits(v), p, l);
     }
 
-    public Float32(int v, int l, long p) {
+    public Float32(int v, long p, int l) {
         super(p, l);
         setBitsValue(v);
     }

@@ -21,7 +21,7 @@ public class SInt extends AbstractNum
         this(v, 0, 0);
     }
 
-    public SInt(long v, int l, long p) {
+    public SInt(long v, long p, int l) {
         super(p, l);
         setBitsValue(v);
     }

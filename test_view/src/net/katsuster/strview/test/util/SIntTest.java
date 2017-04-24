@@ -28,6 +28,17 @@ public class SIntTest {
     }
 
     @Test
+    public final void testSIntLongLongInt() {
+        String msg1 = "SInt(long, long, int) failed.";
+        String msg2 = "SInt(long, long, int) illegal arguments check failed.";
+        SInt va = new SInt(1, 2, 3);
+
+        assertEquals(msg1, 1, va.getBitsValue());
+        assertEquals(msg1, 2, va.getRange().getStart());
+        assertEquals(msg1, 3, va.getRange().getLength());
+    }
+
+    @Test
     public final void testSIntSInt() {
         String msg1 = "SInt(SInt) failed.";
         String msg2 = "SInt.clone() failed.";

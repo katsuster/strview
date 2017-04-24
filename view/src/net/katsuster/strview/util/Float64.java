@@ -18,11 +18,11 @@ public class Float64 extends AbstractNum {
         this(v, 0, 0);
     }
 
-    public Float64(double v, int l, long p) {
-        this(Double.doubleToRawLongBits(v), l, p);
+    public Float64(double v, long p, int l) {
+        this(Double.doubleToRawLongBits(v), p, l);
     }
 
-    public Float64(long v, int l, long p) {
+    public Float64(long v, long p, int l) {
         super(p, l);
         setBitsValue(v);
     }

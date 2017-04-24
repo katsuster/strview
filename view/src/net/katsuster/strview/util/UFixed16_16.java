@@ -19,7 +19,7 @@ public class UFixed16_16 extends AbstractNum {
         this(v, 0, 0);
     }
 
-    public UFixed16_16(int v, int l, long p) {
+    public UFixed16_16(int v, long p, int l) {
         super(p, l);
         setBitsValue(v);
     }

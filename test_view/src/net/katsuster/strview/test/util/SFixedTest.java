@@ -28,39 +28,14 @@ public class SFixedTest {
     }
 
     @Test
-    public final void testSFixed8_8SFixed8_8() {
-        String msg1 = "SFixed8_8(SFixed8_8) failed.";
-        String msg2 = "SFixed8_8.clone() failed.";
-        SFixed8_8 va = new SFixed8_8((short)1, 2, 3);
-        SFixed8_8 vb = new SFixed8_8(va);
+    public final void testSFixed16_16IntLongInt() {
+        String msg1 = "SFixed16_16(int, long, int) failed.";
+        String msg2 = "SFixed16_16(int, long, int) illegal arguments check failed.";
+        SFixed16_16 va = new SFixed16_16(1, 2, 3);
 
-        assertEquals(msg1, va.getBitsValue(), vb.getBitsValue());
-        assertEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
-        assertEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
-
-        vb.setBitsValue((short)10);
-        vb.getRange().setStart(20);
-        vb.getRange().setEnd(30);
-        assertNotEquals(msg1, va.getBitsValue(), vb.getBitsValue());
-        assertNotEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
-        assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
-
-        try {
-            SFixed8_8 vc = (SFixed8_8)va.clone();
-
-            assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
-            assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
-            assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
-
-            vc.setBitsValue((short)100);
-            vc.getRange().setStart(200);
-            vc.getRange().setEnd(300);
-            assertNotEquals(msg2, va.getBitsValue(), vc.getBitsValue());
-            assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
-            assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
-        } catch (Exception ex) {
-            fail(msg2);
-        }
+        assertEquals(msg1, 1, va.getBitsValue());
+        assertEquals(msg1, 2, va.getRange().getStart());
+        assertEquals(msg1, 3, va.getRange().getLength());
     }
 
     @Test
@@ -268,7 +243,54 @@ public class SFixedTest {
     }
 
     @Test
-    public final void testFixed8_8ByteValue() {
+    public final void testSFixed8_8ShortLongInt() {
+        String msg1 = "SFixed8_8(short, long, int) failed.";
+        String msg2 = "SFixed8_8(short, long, int) illegal arguments check failed.";
+        SFixed8_8 va = new SFixed8_8((short)1, 2, 3);
+
+        assertEquals(msg1, 1, va.getBitsValue());
+        assertEquals(msg1, 2, va.getRange().getStart());
+        assertEquals(msg1, 3, va.getRange().getLength());
+    }
+
+    @Test
+    public final void testSFixed8_8SFixed8_8() {
+        String msg1 = "SFixed8_8(SFixed8_8) failed.";
+        String msg2 = "SFixed8_8.clone() failed.";
+        SFixed8_8 va = new SFixed8_8((short)1, 2, 3);
+        SFixed8_8 vb = new SFixed8_8(va);
+
+        assertEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+
+        vb.setBitsValue((short)10);
+        vb.getRange().setStart(20);
+        vb.getRange().setEnd(30);
+        assertNotEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertNotEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+
+        try {
+            SFixed8_8 vc = (SFixed8_8)va.clone();
+
+            assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+
+            vc.setBitsValue((short)100);
+            vc.getRange().setStart(200);
+            vc.getRange().setEnd(300);
+            assertNotEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+        } catch (Exception ex) {
+            fail(msg2);
+        }
+    }
+
+    @Test
+    public final void testSFixed8_8ByteValue() {
         String msg1 = "SFixed8_8.byteValue() failed.";
         SFixed8_8 vz0 = new SFixed8_8((short)0x0000, 0, 0);
         SFixed8_8 vp1 = new SFixed8_8((short)0x0100, 0, 0);
@@ -292,7 +314,7 @@ public class SFixedTest {
     }
 
     @Test
-    public final void testFixed8_8ShortValue() {
+    public final void testSFixed8_8ShortValue() {
         String msg1 = "SFixed8_8.shortValue() failed.";
         SFixed8_8 vz0 = new SFixed8_8((short)0x0000, 0, 0);
         SFixed8_8 vp1 = new SFixed8_8((short)0x0100, 0, 0);
@@ -316,7 +338,7 @@ public class SFixedTest {
     }
 
     @Test
-    public final void testFixed8_8IntValue() {
+    public final void testSFixed8_8IntValue() {
         String msg1 = "SFixed8_8.intValue() failed.";
         SFixed8_8 vz0 = new SFixed8_8((short)0x0000, 0, 0);
         SFixed8_8 vp1 = new SFixed8_8((short)0x0100, 0, 0);
@@ -340,7 +362,7 @@ public class SFixedTest {
     }
 
     @Test
-    public final void testFixed8_8LongValue() {
+    public final void testSFixed8_8LongValue() {
         String msg1 = "SFixed8_8.longValue() failed.";
         SFixed8_8 vz0 = new SFixed8_8((short)0x0000, 0, 0);
         SFixed8_8 vp1 = new SFixed8_8((short)0x0100, 0, 0);
@@ -364,7 +386,7 @@ public class SFixedTest {
     }
 
     @Test
-    public final void testFixed8_8FloatValue() {
+    public final void testSFixed8_8FloatValue() {
         String msg1 = "SFixed8_8.floatValue() failed.";
         SFixed8_8 vz0 = new SFixed8_8((short)0x0000, 0, 0);
         SFixed8_8 vp1 = new SFixed8_8((short)0x0100, 0, 0);
@@ -388,7 +410,7 @@ public class SFixedTest {
     }
 
     @Test
-    public final void testFixed8_8DoubleValue() {
+    public final void testSFixed8_8DoubleValue() {
         String msg1 = "SFixed8_8.doubleValue() failed.";
         SFixed8_8 vz0 = new SFixed8_8((short)0x0000, 0, 0);
         SFixed8_8 vp1 = new SFixed8_8((short)0x0100, 0, 0);
@@ -412,7 +434,7 @@ public class SFixedTest {
     }
 
     @Test
-    public final void testFixed8_8ToString() {
+    public final void testSFixed8_8ToString() {
         String msg1 = "SFixed8_8.toString() failed.";
         SFixed8_8 vz0 = new SFixed8_8((short)0x0000, 0, 0);
         SFixed8_8 vp1 = new SFixed8_8((short)0x0100, 0, 0);
