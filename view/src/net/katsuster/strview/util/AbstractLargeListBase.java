@@ -11,8 +11,6 @@ import java.util.AbstractList;
  */
 public abstract class AbstractLargeListBase<T> extends AbstractList<T>
         implements LargeList<T>, Cloneable {
-    //リストの長さ
-    private long len;
     //リストが存在する範囲
     private Range r;
     //追加情報
@@ -35,7 +33,6 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
             throw new NegativeArraySizeException("len:" + l
                     + " is negative.");
         }
-        len = l;
         r = new SimpleRange(from, l);
         extInfo = new SimpleExtraInfo();
     }
@@ -52,7 +49,6 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
             throw new NegativeArraySizeException("len:" + l
                     + " is negative.");
         }
-        len = l;
         r = new SimpleRange(0, l);
         extInfo = new SimpleExtraInfo();
     }
@@ -95,12 +91,12 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
 
     @Override
     public long length() {
-        return len;
+        return r.getLength();
     }
 
     @Override
     public void length(long l) {
-        len = l;
+        r.setLength(l);
     }
 
     @Override

@@ -20,7 +20,7 @@ package net.katsuster.strview.util;
  */
 public interface Range extends Cloneable {
     //size() および length() メソッドで長さが分からないときに返される値です
-    public static long LENGTH_UNKNOWN = -1;
+    public static final long LENGTH_UNKNOWN = -1;
 
     /**
      * オブジェクトのコピーを作成し、返します。

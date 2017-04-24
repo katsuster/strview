@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface LargeList<T> extends Cloneable, List<T> {
     //size() および length() メソッドで長さが分からないときに返される値です
-    public static long LENGTH_UNKNOWN = Range.LENGTH_UNKNOWN;
+    public static final long LENGTH_UNKNOWN = Range.LENGTH_UNKNOWN;
 
     /**
      * オブジェクトのコピーを作成し、返します。
