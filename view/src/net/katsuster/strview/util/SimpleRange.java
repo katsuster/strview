@@ -2,7 +2,7 @@ package net.katsuster.strview.util;
 
 /**
  * <p>
- * 半開区間 [start, end) を表すクラスです。
+ * バッファ上の半開区間 [start, end) を表すクラスです。
  * </p>
  *
  * <p>
@@ -13,33 +13,48 @@ package net.katsuster.strview.util;
  */
 public class SimpleRange
         implements Range {
+    private LargeBitList buffer;
     private long start;
     private long length;
 
     /**
      * <p>
-     * 開始点と終了点を指定せず半開区間を構築します。
+     * バッファ、開始点、終了点を指定せず半開区間を構築します。
      * </p>
      */
     public SimpleRange() {
-        this(0, 0);
+        this(null, 0, 0);
     }
 
     /**
      * <p>
-     * 開始点と終了点を指定して半開区間を構築します。
+     * バッファを指定せず、開始点と終了点を指定して半開区間を構築します。
      * </p>
      *
      * @param s 区間の開始地点
      * @param l 区間の長さ
      */
     public SimpleRange(long s, long l) {
+        this(null, s, l);
+    }
+
+    /**
+     * <p>
+     * バッファ、開始点、終了点を指定して半開区間を構築します。
+     * </p>
+     *
+     * @param b バッファ
+     * @param s 区間の開始地点
+     * @param l 区間の長さ
+     */
+    public SimpleRange(LargeBitList b, long s, long l) {
         if (s < 0) {
             throw new IllegalArgumentException("start:" + s + " is negative.");
         }
         if (l != Range.LENGTH_UNKNOWN && l < 0) {
             throw new NegativeArraySizeException("length:" + l + " is negative.");
         }
+        buffer = b;
         start = s;
         length = l;
     }
@@ -52,7 +67,7 @@ public class SimpleRange
      * @param obj 区間
      */
     public SimpleRange(Range obj) {
-        this(obj.getStart(), obj.getLength());
+        this(obj.getBuffer(), obj.getStart(), obj.getLength());
     }
 
     /**
@@ -91,7 +106,8 @@ public class SimpleRange
         }
         objp = (SimpleRange)obj;
 
-        if ((start != objp.start)
+        if ((buffer != objp.buffer)
+                || (start != objp.start)
                 || (length != objp.length)) {
             return false;
         }
@@ -104,14 +120,33 @@ public class SimpleRange
      * オブジェクトのハッシュコードを返します。
      * </p>
      *
-     * @return オブジェクトが保持する start, length を、
-     * 変換式 (val ^ (val &gt;&gt; 32)) にて int に変換した値を
+     * @return オブジェクトが保持する buffer のハッシュコードと、
+     * start, length を変換式 (val ^ (val &gt;&gt; 32)) にて int に変換した値を
      * 全て xor した値
      */
     @Override
     public int hashCode() {
-        return (int)((start ^ (start >> 32))
+        int h;
+
+        if (buffer == null) {
+            h = 0;
+        } else {
+            h = buffer.hashCode();
+        }
+
+        return (int)(h
+                ^ (start ^ (start >> 32))
                 ^ (length ^ (length >> 32)));
+    }
+
+    @Override
+    public LargeBitList getBuffer() {
+        return buffer;
+    }
+
+    @Override
+    public void setBuffer(LargeBitList b) {
+        buffer = b;
     }
 
     @Override

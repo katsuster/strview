@@ -2,7 +2,7 @@ package net.katsuster.strview.util;
 
 /**
  * <p>
- * 半開区間 [start, end) を表すインタフェースです。
+ * バッファ上の半開区間 [start, end) を表すインタフェースです。
  * </p>
  *
  * <p>
@@ -30,6 +30,24 @@ public interface Range extends Cloneable {
      */
     public Object clone()
             throws CloneNotSupportedException;
+
+    /**
+     * <p>
+     * バッファを取得します。
+     * </p>
+     *
+     * @return バッファ
+     */
+    public LargeBitList getBuffer();
+
+    /**
+     * <p>
+     * バッファを設定します。
+     * </p>
+     *
+     * @param b バッファ
+     */
+    public void setBuffer(LargeBitList b);
 
     /**
      * <p>
