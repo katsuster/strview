@@ -19,12 +19,12 @@ import net.katsuster.strview.media.*;
  * @author katsuhiro
  */
 public class RIFFHeader extends BlockAdapter {
-    public UInt ckID;
-    public UInt ckSize;
+    public UIntR ckID;
+    public UIntR ckSize;
 
     public RIFFHeader() {
-        ckID = new UInt();
-        ckSize = new UInt();
+        ckID = new UIntR();
+        ckSize = new UIntR();
     }
 
     @Override
@@ -32,8 +32,8 @@ public class RIFFHeader extends BlockAdapter {
             throws CloneNotSupportedException {
         RIFFHeader obj = (RIFFHeader)super.clone();
 
-        obj.ckID = (UInt)ckID.clone();
-        obj.ckSize = (UInt)ckSize.clone();
+        obj.ckID = (UIntR)ckID.clone();
+        obj.ckSize = (UIntR)ckSize.clone();
 
         return obj;
     }

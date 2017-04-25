@@ -88,12 +88,12 @@ public class PacketReaderAdapter<T> extends AbstractPacketReader<T>
     }
 
     @Override
-    public SInt readSIntR(int nbit, SInt val, String desc) {
+    public SIntR readSIntR(int nbit, SIntR val, String desc) {
         return val;
     }
 
     @Override
-    public UInt readUIntR(int nbit, UInt val, String desc) {
+    public UIntR readUIntR(int nbit, UIntR val, String desc) {
         return val;
     }
 

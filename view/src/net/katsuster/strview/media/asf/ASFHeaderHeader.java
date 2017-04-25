@@ -19,14 +19,14 @@ import net.katsuster.strview.media.*;
  */
 public class ASFHeaderHeader extends ASFHeader
         implements Cloneable {
-    public UInt number_of_header_objects;
-    public UInt reserved1;
-    public UInt reserved2;
+    public UIntR number_of_header_objects;
+    public UIntR reserved1;
+    public UIntR reserved2;
 
     public ASFHeaderHeader() {
-        number_of_header_objects = new UInt();
-        reserved1 = new UInt();
-        reserved2 = new UInt();
+        number_of_header_objects = new UIntR();
+        reserved1 = new UIntR();
+        reserved2 = new UIntR();
     }
 
     @Override
@@ -34,9 +34,9 @@ public class ASFHeaderHeader extends ASFHeader
             throws CloneNotSupportedException {
         ASFHeaderHeader obj = (ASFHeaderHeader)super.clone();
 
-        obj.number_of_header_objects = (UInt)number_of_header_objects.clone();
-        obj.reserved1 = (UInt)reserved1.clone();
-        obj.reserved2 = (UInt)reserved2.clone();
+        obj.number_of_header_objects = (UIntR)number_of_header_objects.clone();
+        obj.reserved1 = (UIntR)reserved1.clone();
+        obj.reserved2 = (UIntR)reserved2.clone();
 
         return obj;
     }

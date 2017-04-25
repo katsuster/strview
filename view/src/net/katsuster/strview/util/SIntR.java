@@ -2,33 +2,37 @@ package net.katsuster.strview.util;
 
 /**
  * <p>
- * 64bit の符号あり整数
+ * 64bit の符号あり整数、リトルエンディアン
+ * </p>
+ *
+ * <p>
+ * 8, 16, 32, 64bit のみ有効です。
  * </p>
  *
  * @author katsuhiro
  */
-public class SInt extends BaseInt
-        implements Comparable<SInt> {
-    public SInt() {
+public class SIntR extends BaseInt
+        implements Comparable<SIntR> {
+    public SIntR() {
         this(0);
     }
 
-    public SInt(long v) {
+    public SIntR(long v) {
         super();
 
         setBitsValue(v);
     }
 
-    public SInt(LargeBitList b, long p, int l) {
+    public SIntR(LargeBitList b, long p, int l) {
         super(b, p, l);
     }
 
-    public SInt(SInt obj) {
+    public SIntR(SIntR obj) {
         super(obj);
     }
 
     @Override
-    public int compareTo(SInt obj) {
+    public int compareTo(SIntR obj) {
         return compareAsSInt(getBitsValue(), obj.getBitsValue());
     }
 
@@ -46,20 +50,22 @@ public class SInt extends BaseInt
     protected long getV() {
         Range r = getRange();
         LargeBitList buf = r.getBuffer();
+        int nbit = (int)r.getLength();
 
         if (r.getBuffer() == null) {
             return 0;
         }
 
-        return buf.getPackedLong(r.getStart(), (int) r.getLength());
+        return reverseNum(buf.getPackedLong(r.getStart(), nbit), nbit);
     }
 
     @Override
     protected void setV(long v) {
         Range r = getRange();
         LargeBitList buf = r.getBuffer();
+        int nbit = (int)r.getLength();
 
-        buf.setPackedLong(r.getStart(), (int) r.getLength(), v);
+        buf.setPackedLong(r.getStart(), nbit, reverseNum(v, nbit));
     }
 
     /**

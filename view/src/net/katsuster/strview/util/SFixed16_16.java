@@ -8,7 +8,7 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public class SFixed16_16 extends AbstractNum {
+public class SFixed16_16 extends AbstractNumOld {
     private int val;
 
     public SFixed16_16() {
@@ -119,48 +119,7 @@ public class SFixed16_16 extends AbstractNum {
         upper = (val >> 16);
         lower = (val >>  0) & 0x0000ffff;
 
-        return Integer.toString(upper) + "." + fractionToString(lower);
-    }
-
-    protected String fractionToString(int n) {
-        long dec[] = {
-                152587890625L,
-                305175781250L,
-                610351562500L,
-                1220703125000L,
-                2441406250000L,
-                4882812500000L,
-                9765625000000L,
-                19531250000000L,
-                39062500000000L,
-                78125000000000L,
-                156250000000000L,
-                312500000000000L,
-                625000000000000L,
-                1250000000000000L,
-                2500000000000000L,
-                5000000000000000L,
-        };
-        long result;
-        int dig;
-
-        result = 0;
-        for (dig = 0; dig < dec.length; dig++) {
-            if (((n >> dig) & 1) == 1) {
-                result += dec[dig];
-            }
-        }
-        while ((result != 0) && (result % 10000000 == 0)) {
-            result /= 10000000;
-        }
-        while ((result != 0) && (result % 1000 == 0)) {
-            result /= 1000;
-        }
-        while ((result != 0) && (result % 10 == 0)) {
-            result /= 10;
-        }
-
-        return Long.toString(result);
+        return Integer.toString(upper) + "." + fraction16ToString(lower);
     }
 
     /**

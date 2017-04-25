@@ -51,13 +51,13 @@ public class ToStringConverter extends PacketWriterAdapter<StringBuilder> {
     }
 
     @Override
-    public void writeSIntR(int nbit, SInt val, String name, String desc) {
+    public void writeSIntR(int nbit, SIntR val, String name, String desc) {
         sb.append(NumFormatter.numToDecHexCaption(
                 name, val, desc));
     }
 
     @Override
-    public void writeUIntR(int nbit, UInt val, String name, String desc) {
+    public void writeUIntR(int nbit, UIntR val, String name, String desc) {
         sb.append(NumFormatter.numToDecHexCaption(
                 name, val, desc));
     }

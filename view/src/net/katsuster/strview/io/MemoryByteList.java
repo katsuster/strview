@@ -66,7 +66,7 @@ public class MemoryByteList extends AbstractLargeList<Byte>
      * @throws IllegalArgumentException null を指定した場合
      */
     public MemoryByteList(byte[] array) {
-        super(0, 0);
+        super(0);
 
         if (array == null) {
             throw new IllegalArgumentException(
@@ -75,7 +75,6 @@ public class MemoryByteList extends AbstractLargeList<Byte>
 
         buf = array;
         length(array.length);
-        getRange().setLength(array.length << 3);
     }
 
     /**
@@ -89,7 +88,7 @@ public class MemoryByteList extends AbstractLargeList<Byte>
      * @throws IllegalArgumentException null を指定した場合
      */
     public MemoryByteList(byte[] array, long st, long len) {
-        super(st, len);
+        super(len);
 
         if (array == null) {
             throw new IllegalArgumentException(

@@ -66,28 +66,28 @@ public abstract class AbstractPacketReader<T> extends AbstractPacketConverter<T>
     }
 
     @Override
-    public SInt peekSIntR(int nbit, SInt val) {
+    public SIntR peekSIntR(int nbit, SIntR val) {
         long orgpos = position();
-        SInt res = readSIntR(nbit, val, null);
+        SIntR res = readSIntR(nbit, val, null);
         position(orgpos);
         return res;
     }
 
     @Override
-    public SInt readSIntR(int nbit, SInt val) {
+    public SIntR readSIntR(int nbit, SIntR val) {
         return readSIntR(nbit, val, null);
     }
 
     @Override
-    public UInt peekUIntR(int nbit, UInt val) {
+    public UIntR peekUIntR(int nbit, UIntR val) {
         long orgpos = position();
-        UInt res = readUIntR(nbit, val, null);
+        UIntR res = readUIntR(nbit, val, null);
         position(orgpos);
         return res;
     }
 
     @Override
-    public UInt readUIntR(int nbit, UInt val) {
+    public UIntR readUIntR(int nbit, UIntR val) {
         return readUIntR(nbit, val, null);
     }
 

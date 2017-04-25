@@ -7,7 +7,7 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public class Float32 extends AbstractNum {
+public class Float32 extends AbstractNumOld {
     private int val;
 
     public Float32() {

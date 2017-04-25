@@ -8,7 +8,7 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public class UFixed8_8 extends AbstractNum {
+public class UFixed8_8 extends AbstractNumOld {
     private short val;
 
     public UFixed8_8() {

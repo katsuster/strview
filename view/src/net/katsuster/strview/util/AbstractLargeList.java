@@ -13,18 +13,6 @@ public abstract class AbstractLargeList<T> extends AbstractLargeListBase<T> {
      * 指定された長さのリストを作成します。
      * </p>
      *
-     * @param from リストの開始点
-     * @param len  リストの長さ
-     */
-    public AbstractLargeList(long from, long len) {
-        super(from, len);
-    }
-
-    /**
-     * <p>
-     * 指定された長さのリストを作成します。
-     * </p>
-     *
      * @param l リストの長さ
      */
     public AbstractLargeList(long l) {

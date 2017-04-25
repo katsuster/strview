@@ -185,7 +185,7 @@ public abstract class AbstractBlock implements Block {
      * @param name 名前
      * @param v    値
      */
-    protected static void checkNegative(String name, UInt v) {
+    protected static void checkNegative(String name, Num v) {
         if (v.intValue() < 0) {
             throw new IllegalStateException(
                     name + " has negative size"

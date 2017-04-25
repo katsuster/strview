@@ -70,9 +70,9 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
             val = new SInt();
         }
 
+        val.getRange().setBuffer(buf);
         val.getRange().setStart(pos);
         val.getRange().setLength(nbit);
-        val.setBitsValue(buf.getPackedLong(pos, nbit));
         pos += nbit;
 
         return val;
@@ -84,77 +84,37 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
             val = new UInt();
         }
 
+        val.getRange().setBuffer(buf);
         val.getRange().setStart(pos);
         val.getRange().setLength(nbit);
-        val.setBitsValue(buf.getPackedLong(pos, nbit));
         pos += nbit;
 
         return val;
     }
 
     @Override
-    public SInt readSIntR(int nbit, SInt val, String desc) {
-        long rawval;
-
+    public SIntR readSIntR(int nbit, SIntR val, String desc) {
         if (val == null) {
-            val = new SInt();
+            val = new SIntR();
         }
 
-        switch (nbit) {
-        case 8:
-            rawval = buf.getPackedLong(pos, nbit);
-            break;
-        case 16:
-            rawval = Short.reverseBytes((short)buf.getPackedLong(pos, nbit));
-            break;
-        case 32:
-            rawval = Integer.reverseBytes((int)buf.getPackedLong(pos, nbit));
-            break;
-        case 64:
-            rawval = Long.reverseBytes(buf.getPackedLong(pos, nbit));
-            break;
-        default:
-            throw new IllegalArgumentException(
-                    "readSIntR() not support " + nbit + "bits.");
-        }
-
+        val.getRange().setBuffer(buf);
         val.getRange().setStart(pos);
         val.getRange().setLength(nbit);
-        val.setBitsValue(rawval);
         pos += nbit;
 
         return val;
     }
 
     @Override
-    public UInt readUIntR(int nbit, UInt val, String desc) {
-        long rawval;
-
+    public UIntR readUIntR(int nbit, UIntR val, String desc) {
         if (val == null) {
-            val = new UInt();
+            val = new UIntR();
         }
 
-        switch (nbit) {
-        case 8:
-            rawval = buf.getPackedLong(pos, nbit);
-            break;
-        case 16:
-            rawval = Short.reverseBytes((short)buf.getPackedLong(pos, nbit)) & 0xffffL;
-            break;
-        case 32:
-            rawval = Integer.reverseBytes((int)buf.getPackedLong(pos, nbit)) & 0xffffffffL;
-            break;
-        case 64:
-            rawval = Long.reverseBytes(buf.getPackedLong(pos, nbit));
-            break;
-        default:
-            throw new IllegalArgumentException(
-                    "readUIntR() not support " + nbit + "bits.");
-        }
-
+        val.getRange().setBuffer(buf);
         val.getRange().setStart(pos);
         val.getRange().setLength(nbit);
-        val.setBitsValue(rawval);
         pos += nbit;
 
         return val;
@@ -166,6 +126,7 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
             val = new Float32();
         }
 
+        val.getRange().setBuffer(buf);
         val.getRange().setStart(pos);
         val.getRange().setLength(nbit);
         val.setBitsValue(buf.getPackedInt(pos, nbit));
@@ -180,6 +141,7 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
             val = new Float64();
         }
 
+        val.getRange().setBuffer(buf);
         val.getRange().setStart(pos);
         val.getRange().setLength(nbit);
         val.setBitsValue(buf.getPackedLong(pos, nbit));

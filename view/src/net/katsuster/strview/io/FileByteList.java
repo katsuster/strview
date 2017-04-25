@@ -87,7 +87,7 @@ public class FileByteList extends AbstractLargeList<Byte>
 
         try {
             File f = new File(path);
-            buf = new RandomAccessFile(f.getAbsolutePath(), "rw");
+            buf = new RandomAccessFile(f.getAbsolutePath(), "r");
             buf.seek(0);
             cache = new byte[4096];
             cacheRange = new SimpleRange(0, Range.LENGTH_UNKNOWN);

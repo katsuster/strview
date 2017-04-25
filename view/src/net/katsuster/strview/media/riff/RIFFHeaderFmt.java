@@ -19,20 +19,20 @@ import net.katsuster.strview.media.*;
  */
 public class RIFFHeaderFmt extends RIFFHeader
         implements Cloneable {
-    public UInt wFormatTag;
-    public UInt nChannels;
-    public UInt nSamplesPerSec;
-    public UInt nAvgBytesPerSec;
-    public UInt nBlockAlign;
-    public UInt wBitsPerSample;
+    public UIntR wFormatTag;
+    public UIntR nChannels;
+    public UIntR nSamplesPerSec;
+    public UIntR nAvgBytesPerSec;
+    public UIntR nBlockAlign;
+    public UIntR wBitsPerSample;
 
     public RIFFHeaderFmt() {
-        wFormatTag = new UInt();
-        nChannels = new UInt();
-        nSamplesPerSec = new UInt();
-        nAvgBytesPerSec = new UInt();
-        nBlockAlign = new UInt();
-        wBitsPerSample = new UInt();
+        wFormatTag = new UIntR();
+        nChannels = new UIntR();
+        nSamplesPerSec = new UIntR();
+        nAvgBytesPerSec = new UIntR();
+        nBlockAlign = new UIntR();
+        wBitsPerSample = new UIntR();
     }
 
     @Override
@@ -40,12 +40,12 @@ public class RIFFHeaderFmt extends RIFFHeader
             throws CloneNotSupportedException {
         RIFFHeaderFmt obj = (RIFFHeaderFmt)super.clone();
 
-        obj.wFormatTag = (UInt)wFormatTag.clone();
-        obj.nChannels = (UInt)nChannels.clone();
-        obj.nSamplesPerSec = (UInt)nSamplesPerSec.clone();
-        obj.nAvgBytesPerSec = (UInt)nAvgBytesPerSec.clone();
-        obj.nBlockAlign = (UInt)nBlockAlign.clone();
-        obj.wBitsPerSample = (UInt)wBitsPerSample.clone();
+        obj.wFormatTag = (UIntR)wFormatTag.clone();
+        obj.nChannels = (UIntR)nChannels.clone();
+        obj.nSamplesPerSec = (UIntR)nSamplesPerSec.clone();
+        obj.nAvgBytesPerSec = (UIntR)nAvgBytesPerSec.clone();
+        obj.nBlockAlign = (UIntR)nBlockAlign.clone();
+        obj.wBitsPerSample = (UIntR)wBitsPerSample.clone();
 
         return obj;
     }

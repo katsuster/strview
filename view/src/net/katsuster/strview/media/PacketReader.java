@@ -157,7 +157,7 @@ public interface PacketReader<T> extends PacketConverter<T> {
      * @return 変換対象の符号付き数値オブジェクト
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public SInt peekSIntR(int nbit, SInt val);
+    public SIntR peekSIntR(int nbit, SIntR val);
 
     /**
      * <p>
@@ -174,7 +174,7 @@ public interface PacketReader<T> extends PacketConverter<T> {
      * @return 変換対象の符号付き数値オブジェクト
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public SInt readSIntR(int nbit, SInt val);
+    public SIntR readSIntR(int nbit, SIntR val);
 
     /**
      * <p>
@@ -193,7 +193,7 @@ public interface PacketReader<T> extends PacketConverter<T> {
      * @return 変換対象の符号付き数値オブジェクト
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public SInt readSIntR(int nbit, SInt val, String desc);
+    public SIntR readSIntR(int nbit, SIntR val, String desc);
 
     /**
      * <p>
@@ -210,7 +210,7 @@ public interface PacketReader<T> extends PacketConverter<T> {
      * @return 変換対象の符号無し数値オブジェクト
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public UInt peekUIntR(int nbit, UInt val);
+    public UIntR peekUIntR(int nbit, UIntR val);
 
     /**
      * <p>
@@ -227,7 +227,7 @@ public interface PacketReader<T> extends PacketConverter<T> {
      * @return 変換対象の符号無し数値オブジェクト
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public UInt readUIntR(int nbit, UInt val);
+    public UIntR readUIntR(int nbit, UIntR val);
 
     /**
      * <p>
@@ -246,7 +246,7 @@ public interface PacketReader<T> extends PacketConverter<T> {
      * @return 変換対象の符号無し数値オブジェクト
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public UInt readUIntR(int nbit, UInt val, String desc);
+    public UIntR readUIntR(int nbit, UIntR val, String desc);
 
     /**
      * <p>

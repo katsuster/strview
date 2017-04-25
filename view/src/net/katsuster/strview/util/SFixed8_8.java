@@ -8,7 +8,7 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public class SFixed8_8 extends AbstractNum {
+public class SFixed8_8 extends AbstractNumOld {
     private short val;
 
     public SFixed8_8() {
@@ -119,37 +119,7 @@ public class SFixed8_8 extends AbstractNum {
         upper = (val >> 8);
         lower = (val >> 0) & 0x00ff;
 
-        return Integer.toString(upper) + "." + fractionToString(lower);
-    }
-
-    protected String fractionToString(int n) {
-        long dec[] = {
-                390625L,
-                781250L,
-                1562500L,
-                3125000L,
-                6250000L,
-                12500000L,
-                25000000L,
-                50000000L,
-        };
-        long result;
-        int dig;
-
-        result = 0;
-        for (dig = 0; dig < dec.length; dig++) {
-            if (((n >> dig) & 1) == 1) {
-                result += dec[dig];
-            }
-        }
-        while ((result != 0) && (result % 1000 == 0)) {
-            result /= 1000;
-        }
-        while ((result != 0) && (result % 10 == 0)) {
-            result /= 10;
-        }
-
-        return Long.toString(result);
+        return Integer.toString(upper) + "." + fraction8ToString(lower);
     }
 
     /**

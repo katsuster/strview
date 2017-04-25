@@ -31,9 +31,9 @@ import net.katsuster.strview.media.*;
  */
 public class ASFGUID extends BlockAdapter
         implements Cloneable, Comparable<ASFGUID> {
-    private UInt la;
-    private UInt lb;
-    private UInt lc;
+    private UIntR la;
+    private UIntR lb;
+    private UIntR lc;
     private UInt bd;
     private UInt be;
 
@@ -58,9 +58,9 @@ public class ASFGUID extends BlockAdapter
      * @param e パート E、下位 48bit のみ使用されます。
      */
     public ASFGUID(int a, int b, int c, int d, long e) {
-        la = new UInt(a & 0xffffffffL);
-        lb = new UInt(b & 0xffffL);
-        lc = new UInt(c & 0xffffL);
+        la = new UIntR(a & 0xffffffffL);
+        lb = new UIntR(b & 0xffffL);
+        lc = new UIntR(c & 0xffffL);
         bd = new UInt(d & 0xffffL);
         be = new UInt(e & 0xffffffffffffL);
     }
@@ -69,9 +69,9 @@ public class ASFGUID extends BlockAdapter
     public ASFGUID clone() throws CloneNotSupportedException {
         ASFGUID obj = (ASFGUID)super.clone();
 
-        obj.la = (UInt)la.clone();
-        obj.lb = (UInt)lb.clone();
-        obj.lc = (UInt)lc.clone();
+        obj.la = (UIntR)la.clone();
+        obj.lb = (UIntR)lb.clone();
+        obj.lc = (UIntR)lc.clone();
         obj.bd = (UInt)bd.clone();
         obj.be = (UInt)be.clone();
 

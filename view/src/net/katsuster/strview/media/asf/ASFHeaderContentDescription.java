@@ -20,11 +20,11 @@ import net.katsuster.strview.media.*;
  */
 public class ASFHeaderContentDescription extends ASFHeader
         implements Cloneable {
-    public UInt title_length;
-    public UInt author_length;
-    public UInt copyright_length;
-    public UInt description_length;
-    public UInt rating_length;
+    public UIntR title_length;
+    public UIntR author_length;
+    public UIntR copyright_length;
+    public UIntR description_length;
+    public UIntR rating_length;
     public LargeBitList title;
     public LargeBitList author;
     public LargeBitList copyright;
@@ -32,11 +32,11 @@ public class ASFHeaderContentDescription extends ASFHeader
     public LargeBitList rating;
 
     public ASFHeaderContentDescription() {
-        title_length = new UInt();
-        author_length = new UInt();
-        copyright_length = new UInt();
-        description_length = new UInt();
-        rating_length = new UInt();
+        title_length = new UIntR();
+        author_length = new UIntR();
+        copyright_length = new UIntR();
+        description_length = new UIntR();
+        rating_length = new UIntR();
         title = new MemoryBitList();
         author = new MemoryBitList();
         copyright = new MemoryBitList();
@@ -49,11 +49,11 @@ public class ASFHeaderContentDescription extends ASFHeader
             throws CloneNotSupportedException {
         ASFHeaderContentDescription obj = (ASFHeaderContentDescription)super.clone();
 
-        obj.title_length = (UInt)title_length.clone();
-        obj.author_length = (UInt)author_length.clone();
-        obj.copyright_length = (UInt)copyright_length.clone();
-        obj.description_length = (UInt)description_length.clone();
-        obj.rating_length = (UInt)rating_length.clone();
+        obj.title_length = (UIntR)title_length.clone();
+        obj.author_length = (UIntR)author_length.clone();
+        obj.copyright_length = (UIntR)copyright_length.clone();
+        obj.description_length = (UIntR)description_length.clone();
+        obj.rating_length = (UIntR)rating_length.clone();
         obj.title = (LargeBitList)title.clone();
         obj.author = (LargeBitList)author.clone();
         obj.copyright = (LargeBitList)copyright.clone();

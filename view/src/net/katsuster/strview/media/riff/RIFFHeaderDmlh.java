@@ -1,8 +1,7 @@
 package net.katsuster.strview.media.riff;
 
-import net.katsuster.strview.media.PacketReader;
-import net.katsuster.strview.media.PacketWriter;
-import net.katsuster.strview.util.UInt;
+import net.katsuster.strview.util.*;
+import net.katsuster.strview.media.*;
 
 /**
  * <p>
@@ -21,10 +20,10 @@ import net.katsuster.strview.util.UInt;
  */
 public class RIFFHeaderDmlh extends RIFFHeader
         implements Cloneable {
-    public UInt dwTotalFrames;
+    public UIntR dwTotalFrames;
 
     public RIFFHeaderDmlh() {
-        dwTotalFrames = new UInt();
+        dwTotalFrames = new UIntR();
     }
 
     @Override
@@ -32,7 +31,7 @@ public class RIFFHeaderDmlh extends RIFFHeader
             throws CloneNotSupportedException {
         RIFFHeaderDmlh obj = (RIFFHeaderDmlh)super.clone();
 
-        obj.dwTotalFrames = (UInt)dwTotalFrames.clone();
+        obj.dwTotalFrames = (UIntR)dwTotalFrames.clone();
 
         return obj;
     }

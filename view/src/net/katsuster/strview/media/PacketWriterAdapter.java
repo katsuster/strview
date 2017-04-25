@@ -88,12 +88,12 @@ public class PacketWriterAdapter<T> extends AbstractPacketWriter<T>
     }
 
     @Override
-    public void writeSIntR(int nbit, SInt val, String name, String desc) {
+    public void writeSIntR(int nbit, SIntR val, String name, String desc) {
         //do nothing
     }
 
     @Override
-    public void writeUIntR(int nbit, UInt val, String name, String desc) {
+    public void writeUIntR(int nbit, UIntR val, String name, String desc) {
         //do nothing
     }
 

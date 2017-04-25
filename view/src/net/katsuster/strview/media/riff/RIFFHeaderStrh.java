@@ -21,42 +21,42 @@ import net.katsuster.strview.media.*;
  */
 public class RIFFHeaderStrh extends RIFFHeader
         implements Cloneable {
-    public UInt fccType;
-    public UInt fccHandler;
-    public UInt dwFlags;
-    public UInt wPriority;
-    public UInt wLanguage;
-    public UInt dwInitialFrames;
-    public UInt dwScale;
-    public UInt dwRate;
-    public UInt dwStart;
-    public UInt dwLength;
-    public UInt dwSuggestedBufferSize;
-    public UInt dwQuality;
-    public UInt dwSampleSize;
-    public SInt left;
-    public SInt top;
-    public SInt right;
-    public SInt bottom;
+    public UIntR fccType;
+    public UIntR fccHandler;
+    public UIntR dwFlags;
+    public UIntR wPriority;
+    public UIntR wLanguage;
+    public UIntR dwInitialFrames;
+    public UIntR dwScale;
+    public UIntR dwRate;
+    public UIntR dwStart;
+    public UIntR dwLength;
+    public UIntR dwSuggestedBufferSize;
+    public UIntR dwQuality;
+    public UIntR dwSampleSize;
+    public SIntR left;
+    public SIntR top;
+    public SIntR right;
+    public SIntR bottom;
 
     public RIFFHeaderStrh() {
-        fccType = new UInt();
-        fccHandler = new UInt();
-        dwFlags = new UInt();
-        wPriority = new UInt();
-        wLanguage = new UInt();
-        dwInitialFrames = new UInt();
-        dwScale = new UInt();
-        dwRate = new UInt();
-        dwStart = new UInt();
-        dwLength = new UInt();
-        dwSuggestedBufferSize = new UInt();
-        dwQuality = new UInt();
-        dwSampleSize = new UInt();
-        left = new SInt();
-        top = new SInt();
-        right = new SInt();
-        bottom = new SInt();
+        fccType = new UIntR();
+        fccHandler = new UIntR();
+        dwFlags = new UIntR();
+        wPriority = new UIntR();
+        wLanguage = new UIntR();
+        dwInitialFrames = new UIntR();
+        dwScale = new UIntR();
+        dwRate = new UIntR();
+        dwStart = new UIntR();
+        dwLength = new UIntR();
+        dwSuggestedBufferSize = new UIntR();
+        dwQuality = new UIntR();
+        dwSampleSize = new UIntR();
+        left = new SIntR();
+        top = new SIntR();
+        right = new SIntR();
+        bottom = new SIntR();
     }
 
     @Override
@@ -64,23 +64,23 @@ public class RIFFHeaderStrh extends RIFFHeader
             throws CloneNotSupportedException {
         RIFFHeaderStrh obj = (RIFFHeaderStrh)super.clone();
 
-        obj.fccType = (UInt)fccType.clone();
-        obj.fccHandler = (UInt)fccHandler.clone();
-        obj.dwFlags = (UInt)dwFlags.clone();
-        obj.wPriority = (UInt)wPriority.clone();
-        obj.wLanguage = (UInt)wLanguage.clone();
-        obj.dwInitialFrames = (UInt)dwInitialFrames.clone();
-        obj.dwScale = (UInt)dwScale.clone();
-        obj.dwRate = (UInt)dwRate.clone();
-        obj.dwStart = (UInt)dwStart.clone();
-        obj.dwLength = (UInt)dwLength.clone();
-        obj.dwSuggestedBufferSize = (UInt)dwSuggestedBufferSize.clone();
-        obj.dwQuality = (UInt)dwQuality.clone();
-        obj.dwSampleSize = (UInt)dwSampleSize.clone();
-        obj.left = (SInt)left.clone();
-        obj.top = (SInt)top.clone();
-        obj.right = (SInt)right.clone();
-        obj.bottom = (SInt)bottom.clone();
+        obj.fccType = (UIntR)fccType.clone();
+        obj.fccHandler = (UIntR)fccHandler.clone();
+        obj.dwFlags = (UIntR)dwFlags.clone();
+        obj.wPriority = (UIntR)wPriority.clone();
+        obj.wLanguage = (UIntR)wLanguage.clone();
+        obj.dwInitialFrames = (UIntR)dwInitialFrames.clone();
+        obj.dwScale = (UIntR)dwScale.clone();
+        obj.dwRate = (UIntR)dwRate.clone();
+        obj.dwStart = (UIntR)dwStart.clone();
+        obj.dwLength = (UIntR)dwLength.clone();
+        obj.dwSuggestedBufferSize = (UIntR)dwSuggestedBufferSize.clone();
+        obj.dwQuality = (UIntR)dwQuality.clone();
+        obj.dwSampleSize = (UIntR)dwSampleSize.clone();
+        obj.left = (SIntR)left.clone();
+        obj.top = (SIntR)top.clone();
+        obj.right = (SIntR)right.clone();
+        obj.bottom = (SIntR)bottom.clone();
 
         return obj;
     }

@@ -21,11 +21,11 @@ import net.katsuster.strview.media.*;
  */
 public class ASFHeaderExtendedContentDescription extends ASFHeader
         implements Cloneable {
-    public UInt content_descriptors_count;
+    public UIntR content_descriptors_count;
     public List<ContentDescriptor> content_descriptors;
 
     public ASFHeaderExtendedContentDescription() {
-        content_descriptors_count = new UInt();
+        content_descriptors_count = new UIntR();
         content_descriptors = new ArrayList<>();
     }
 
@@ -34,7 +34,7 @@ public class ASFHeaderExtendedContentDescription extends ASFHeader
             throws CloneNotSupportedException {
         ASFHeaderExtendedContentDescription obj = (ASFHeaderExtendedContentDescription)super.clone();
 
-        obj.content_descriptors_count = (UInt)content_descriptors_count.clone();
+        obj.content_descriptors_count = (UIntR)content_descriptors_count.clone();
         obj.content_descriptors = new ArrayList<>();
         for (ContentDescriptor i : content_descriptors) {
             obj.content_descriptors.add(i.clone());

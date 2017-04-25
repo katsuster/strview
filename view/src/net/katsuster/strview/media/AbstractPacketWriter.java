@@ -63,26 +63,26 @@ public abstract class AbstractPacketWriter<T> extends AbstractPacketConverter<T>
     }
 
     @Override
-    public void pokeSIntR(int nbit, SInt val, String name) {
+    public void pokeSIntR(int nbit, SIntR val, String name) {
         long orgpos = position();
         writeSIntR(nbit, val, name, null);
         position(orgpos);
     }
 
     @Override
-    public void writeSIntR(int nbit, SInt val, String name) {
+    public void writeSIntR(int nbit, SIntR val, String name) {
         writeSIntR(nbit, val, name, null);
     }
 
     @Override
-    public void pokeUIntR(int nbit, UInt val, String name) {
+    public void pokeUIntR(int nbit, UIntR val, String name) {
         long orgpos = position();
         writeUIntR(nbit, val, name, null);
         position(orgpos);
     }
 
     @Override
-    public void writeUIntR(int nbit, UInt val, String name) {
+    public void writeUIntR(int nbit, UIntR val, String name) {
         writeUIntR(nbit, val, name, null);
     }
 

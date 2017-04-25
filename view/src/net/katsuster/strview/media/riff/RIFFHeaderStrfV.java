@@ -21,47 +21,47 @@ import net.katsuster.strview.media.*;
  */
 public class RIFFHeaderStrfV extends RIFFHeader
         implements Cloneable {
-    public UInt biSize;
-    public SInt biWidth;
-    public SInt biHeight;
-    public UInt biPlanes;
-    public UInt biBitCount;
-    public UInt biCompression;
-    public UInt biSizeImage;
-    public SInt biXPelsPerMeter;
-    public SInt biYPelsPerMeter;
-    public UInt biClrUsed;
-    public UInt biClrImportant;
+    public UIntR biSize;
+    public SIntR biWidth;
+    public SIntR biHeight;
+    public UIntR biPlanes;
+    public UIntR biBitCount;
+    public UIntR biCompression;
+    public UIntR biSizeImage;
+    public SIntR biXPelsPerMeter;
+    public SIntR biYPelsPerMeter;
+    public UIntR biClrUsed;
+    public UIntR biClrImportant;
 
     public RIFFHeaderStrfV() {
-        biSize = new UInt();
-        biWidth = new SInt();
-        biHeight = new SInt();
-        biPlanes = new UInt();
-        biBitCount = new UInt();
-        biCompression = new UInt();
-        biSizeImage = new UInt();
-        biXPelsPerMeter = new SInt();
-        biYPelsPerMeter = new SInt();
-        biClrUsed = new UInt();
-        biClrImportant = new UInt();
+        biSize = new UIntR();
+        biWidth = new SIntR();
+        biHeight = new SIntR();
+        biPlanes = new UIntR();
+        biBitCount = new UIntR();
+        biCompression = new UIntR();
+        biSizeImage = new UIntR();
+        biXPelsPerMeter = new SIntR();
+        biYPelsPerMeter = new SIntR();
+        biClrUsed = new UIntR();
+        biClrImportant = new UIntR();
     }
 
     public RIFFHeaderStrfV clone()
             throws CloneNotSupportedException {
         RIFFHeaderStrfV obj = (RIFFHeaderStrfV)super.clone();
 
-        obj.biSize = (UInt)biSize.clone();
-        obj.biWidth = (SInt)biWidth.clone();
-        obj.biHeight = (SInt)biHeight.clone();
-        obj.biPlanes = (UInt)biPlanes.clone();
-        obj.biBitCount = (UInt)biBitCount.clone();
-        obj.biCompression = (UInt)biCompression.clone();
-        obj.biSizeImage = (UInt)biSizeImage.clone();
-        obj.biXPelsPerMeter = (SInt)biXPelsPerMeter.clone();
-        obj.biYPelsPerMeter = (SInt)biYPelsPerMeter.clone();
-        obj.biClrUsed = (UInt)biClrUsed.clone();
-        obj.biClrImportant = (UInt)biClrImportant.clone();
+        obj.biSize = (UIntR)biSize.clone();
+        obj.biWidth = (SIntR)biWidth.clone();
+        obj.biHeight = (SIntR)biHeight.clone();
+        obj.biPlanes = (UIntR)biPlanes.clone();
+        obj.biBitCount = (UIntR)biBitCount.clone();
+        obj.biCompression = (UIntR)biCompression.clone();
+        obj.biSizeImage = (UIntR)biSizeImage.clone();
+        obj.biXPelsPerMeter = (SIntR)biXPelsPerMeter.clone();
+        obj.biYPelsPerMeter = (SIntR)biYPelsPerMeter.clone();
+        obj.biClrUsed = (UIntR)biClrUsed.clone();
+        obj.biClrImportant = (UIntR)biClrImportant.clone();
 
         return obj;
     }

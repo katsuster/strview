@@ -73,19 +73,6 @@ public interface LargeBitList extends LargeList<Boolean> {
      * int 型の LSB 側に詰めた値を取得します。
      * </p>
      *
-     * <pre>
-     * (例)
-     *
-     * bit position | 0  1  2  3  4  5  6  7| 8  9 10 11 12 13 14 15|16
-     * -------------+-----------------------+-----------------------+--
-     * value        | 1  0  1  0  1  0  0  1| 1  0  0  0  0  1  0  1| 1
-     *
-     * 1. n =  5, index =  0 : return   21(0b10101)
-     * 2. n =  5, index =  2 : return   20(0b10100)
-     * 3. n =  5, index =  5 : return    6(0b00110)
-     * 4. n = 12, index =  2 : return 2657(0b101001100001)
-     * </pre>
-     *
      * @param index 読み出しを開始する位置（ビット単位）
      * @param n     取得するビット数（32 ビットまで）
      * @return ビット列から取得した n ビットの数値
@@ -99,6 +86,19 @@ public interface LargeBitList extends LargeList<Boolean> {
      * 指定された位置から 0 ～ 64 ビットまでの任意のビット数を読み出し、
      * long 型の LSB 側に詰めた値を取得します。
      * </p>
+     *
+     * <pre>
+     * (例)
+     *
+     * bit position | 0  1  2  3  4  5  6  7| 8  9 10 11 12 13 14 15|16
+     * -------------+-----------------------+-----------------------+--
+     * value        | 1  0  1  0  1  0  0  1| 1  0  0  0  0  1  0  1| 1
+     *
+     * 1. n =  5, index =  0 : return   21(0b10101)
+     * 2. n =  5, index =  2 : return   20(0b10100)
+     * 3. n =  5, index =  5 : return    6(0b00110)
+     * 4. n = 12, index =  2 : return 2657(0b101001100001)
+     * </pre>
      *
      * @param index 読み出しを開始する位置（ビット単位）
      * @param n     取得するビット数（64 ビットまで）
@@ -204,4 +204,38 @@ public interface LargeBitList extends LargeList<Boolean> {
      * @return リストの部分列
      */
     public LargeBitList subLargeList(long from, long len);
+
+    /**
+     * <p>
+     * リストが存在する範囲を取得します。
+     * </p>
+     *
+     * <p>
+     * 範囲の単位はリストによって意味が異なります。
+     * またその範囲から完全にリストを再現できるとは限りません。
+     * </p>
+     *
+     * <p>
+     * 例えば、このリストが別のビット列 A から生成された場合、
+     * リスト A の何ビット目から生成されたかを示します。
+     * </p>
+     *
+     * @return リストが存在する範囲
+     */
+    public Range getRange();
+
+    /**
+     * <p>
+     * リストが存在する範囲を設定します。
+     * </p>
+     *
+     * <p>
+     * 範囲の単位はリストによって意味が異なります。
+     * またその範囲から完全にリストを再現できるとは限りません。
+     * </p>
+     *
+     * @param r リストが存在する範囲
+     */
+    public void setRange(Range r);
+
 }

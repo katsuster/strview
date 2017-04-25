@@ -11,31 +11,10 @@ import java.util.AbstractList;
  */
 public abstract class AbstractLargeListBase<T> extends AbstractList<T>
         implements LargeList<T>, Cloneable {
-    //リストが存在する範囲
-    private Range r;
+    //リストの長さ
+    private long len;
     //追加情報
     private ExtraInfo extInfo;
-
-    /**
-     * <p>
-     * 指定された長さのリストを作成します。
-     * </p>
-     *
-     * @param from リストの開始点
-     * @param l    リストの長さ
-     */
-    public AbstractLargeListBase(long from, long l) {
-        if (from < 0) {
-            throw new IndexOutOfBoundsException("from:" + from
-                    + " is negative.");
-        }
-        if (l < 0 && l != LENGTH_UNKNOWN) {
-            throw new NegativeArraySizeException("len:" + l
-                    + " is negative.");
-        }
-        r = new SimpleRange(from, l);
-        extInfo = new SimpleExtraInfo();
-    }
 
     /**
      * <p>
@@ -49,7 +28,7 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
             throw new NegativeArraySizeException("len:" + l
                     + " is negative.");
         }
-        r = new SimpleRange(0, l);
+        len = l;
         extInfo = new SimpleExtraInfo();
     }
 
@@ -57,8 +36,6 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
     public Object clone()
             throws CloneNotSupportedException {
         AbstractLargeListBase obj = (AbstractLargeListBase)super.clone();
-
-        obj.r = (Range)r.clone();
 
         return obj;
     }
@@ -86,32 +63,22 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
 
     @Override
     public void count() {
-
+        //do nothing
     }
 
     @Override
     public long length() {
-        return r.getLength();
+        return len;
     }
 
     @Override
     public void length(long l) {
-        r.setLength(l);
+        len = l;
     }
 
     @Override
     public LargeList<T> subLargeList(long from, long len) {
         return new SubLargeList<T>(this, from, len);
-    }
-
-    @Override
-    public Range getRange() {
-        return r;
-    }
-
-    @Override
-    public void setRange(Range range) {
-        r = range;
     }
 
     @Override

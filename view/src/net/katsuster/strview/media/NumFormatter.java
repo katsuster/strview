@@ -200,11 +200,11 @@ public class NumFormatter {
         return sb.toString();
     }
 
-    public static String byteListToHex(String name, LargeByteList v) {
+    /*public static String byteListToHex(String name, LargeByteList v) {
         return byteListToHexCaption(name, v, null);
-    }
+    }*/
 
-    public static String byteListToHexCaption(String name, LargeByteList v,
+    /*public static String byteListToHexCaption(String name, LargeByteList v,
                                               String caption) {
         StringBuilder sb = new StringBuilder();
         long i, t, w = 16;
@@ -256,5 +256,5 @@ public class NumFormatter {
         }
 
         return sb.toString();
-    }
+    }*/
 }

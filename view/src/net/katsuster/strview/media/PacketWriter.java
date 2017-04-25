@@ -160,7 +160,7 @@ public interface PacketWriter<T> extends PacketConverter<T> {
      * @param name 変換対象の名前
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void pokeSIntR(int nbit, SInt val, String name);
+    public void pokeSIntR(int nbit, SIntR val, String name);
 
     /**
      * <p>
@@ -177,7 +177,7 @@ public interface PacketWriter<T> extends PacketConverter<T> {
      * @param name 変換対象の名前
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void writeSIntR(int nbit, SInt val, String name);
+    public void writeSIntR(int nbit, SIntR val, String name);
 
     /**
      * <p>
@@ -196,7 +196,7 @@ public interface PacketWriter<T> extends PacketConverter<T> {
      * @param desc 変換対象の符号付き数値の意味、説明など
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void writeSIntR(int nbit, SInt val, String name, String desc);
+    public void writeSIntR(int nbit, SIntR val, String name, String desc);
 
     /**
      * <p>
@@ -213,7 +213,7 @@ public interface PacketWriter<T> extends PacketConverter<T> {
      * @param name 変換対象の名前
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void pokeUIntR(int nbit, UInt val, String name);
+    public void pokeUIntR(int nbit, UIntR val, String name);
 
     /**
      * <p>
@@ -230,7 +230,7 @@ public interface PacketWriter<T> extends PacketConverter<T> {
      * @param name 変換対象の名前
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void writeUIntR(int nbit, UInt val, String name);
+    public void writeUIntR(int nbit, UIntR val, String name);
 
     /**
      * <p>
@@ -249,7 +249,7 @@ public interface PacketWriter<T> extends PacketConverter<T> {
      * @param desc 変換対象の符号無し数値の意味、説明など
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void writeUIntR(int nbit, UInt val, String name, String desc);
+    public void writeUIntR(int nbit, UIntR val, String name, String desc);
 
     /**
      * <p>

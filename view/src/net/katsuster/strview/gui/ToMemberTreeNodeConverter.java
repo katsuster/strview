@@ -79,28 +79,28 @@ public class ToMemberTreeNodeConverter extends PacketWriterAdapter<MemberTreeNod
     public void writeSInt(int nbit, SInt val, String name, String desc) {
         MemberTreeNode top = stack_node.peek();
 
-        top.add(new MemberTreeNode(val, name, desc));
+        top.add(new MemberTreeNode((Num)val, name, desc));
     }
 
     @Override
     public void writeUInt(int nbit, UInt val, String name, String desc) {
         MemberTreeNode top = stack_node.peek();
 
-        top.add(new MemberTreeNode(val, name, desc));
+        top.add(new MemberTreeNode((Num)val, name, desc));
     }
 
     @Override
-    public void writeSIntR(int nbit, SInt val, String name, String desc) {
+    public void writeSIntR(int nbit, SIntR val, String name, String desc) {
         MemberTreeNode top = stack_node.peek();
 
-        top.add(new MemberTreeNode(val, name, desc));
+        top.add(new MemberTreeNode((Num)val, name, desc));
     }
 
     @Override
-    public void writeUIntR(int nbit, UInt val, String name, String desc) {
+    public void writeUIntR(int nbit, UIntR val, String name, String desc) {
         MemberTreeNode top = stack_node.peek();
 
-        top.add(new MemberTreeNode(val, name, desc));
+        top.add(new MemberTreeNode((Num)val, name, desc));
     }
 
     @Override

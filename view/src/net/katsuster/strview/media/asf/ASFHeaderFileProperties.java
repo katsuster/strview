@@ -23,31 +23,31 @@ import net.katsuster.strview.media.*;
 public class ASFHeaderFileProperties extends ASFHeader
         implements Cloneable {
     public ASFGUID file_id;
-    public UInt file_size;
-    public UInt creation_date;
-    public UInt data_packets_count;
-    public UInt play_duration;
-    public UInt send_duration;
-    public UInt preroll;
-    public UInt flags;
+    public UIntR file_size;
+    public UIntR creation_date;
+    public UIntR data_packets_count;
+    public UIntR play_duration;
+    public UIntR send_duration;
+    public UIntR preroll;
+    public UIntR flags;
 
-    public UInt minimum_data_packet_size;
-    public UInt maximum_data_packet_size;
-    public UInt maximum_bitrate;
+    public UIntR minimum_data_packet_size;
+    public UIntR maximum_data_packet_size;
+    public UIntR maximum_bitrate;
 
     public ASFHeaderFileProperties() {
         file_id = new ASFGUID();
-        file_size = new UInt();
-        creation_date = new UInt();
-        data_packets_count = new UInt();
-        play_duration = new UInt();
-        send_duration = new UInt();
-        preroll = new UInt();
-        flags = new UInt();
+        file_size = new UIntR();
+        creation_date = new UIntR();
+        data_packets_count = new UIntR();
+        play_duration = new UIntR();
+        send_duration = new UIntR();
+        preroll = new UIntR();
+        flags = new UIntR();
 
-        minimum_data_packet_size = new UInt();
-        maximum_data_packet_size = new UInt();
-        maximum_bitrate = new UInt();
+        minimum_data_packet_size = new UIntR();
+        maximum_data_packet_size = new UIntR();
+        maximum_bitrate = new UIntR();
     }
 
     @Override
@@ -56,19 +56,19 @@ public class ASFHeaderFileProperties extends ASFHeader
         ASFHeaderFileProperties obj = (ASFHeaderFileProperties)super.clone();
 
         obj.file_id = file_id.clone();
-        obj.file_size = (UInt)file_size.clone();
-        obj.creation_date = (UInt)creation_date.clone();
-        obj.data_packets_count = (UInt)data_packets_count.clone();
-        obj.play_duration = (UInt)play_duration.clone();
-        obj.send_duration = (UInt)send_duration.clone();
-        obj.preroll = (UInt)preroll.clone();
-        obj.flags = (UInt)flags.clone();
+        obj.file_size = (UIntR)file_size.clone();
+        obj.creation_date = (UIntR)creation_date.clone();
+        obj.data_packets_count = (UIntR)data_packets_count.clone();
+        obj.play_duration = (UIntR)play_duration.clone();
+        obj.send_duration = (UIntR)send_duration.clone();
+        obj.preroll = (UIntR)preroll.clone();
+        obj.flags = (UIntR)flags.clone();
         ////Broadcast Flag 1
         ////Seekable Flag 1
         ////Reserved 30
-        obj.minimum_data_packet_size = (UInt)minimum_data_packet_size.clone();
-        obj.maximum_data_packet_size = (UInt)maximum_data_packet_size.clone();
-        obj.maximum_bitrate = (UInt)maximum_bitrate.clone();
+        obj.minimum_data_packet_size = (UIntR)minimum_data_packet_size.clone();
+        obj.maximum_data_packet_size = (UIntR)maximum_data_packet_size.clone();
+        obj.maximum_bitrate = (UIntR)maximum_bitrate.clone();
 
         return obj;
     }

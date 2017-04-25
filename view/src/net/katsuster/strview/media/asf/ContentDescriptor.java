@@ -21,17 +21,17 @@ import net.katsuster.strview.media.*;
  */
 public class ContentDescriptor extends BlockAdapter
         implements Cloneable {
-    public UInt descriptor_name_length;
+    public UIntR descriptor_name_length;
     public LargeBitList descriptor_name;
-    public UInt descriptor_value_data_type;
-    public UInt descriptor_value_length;
+    public UIntR descriptor_value_data_type;
+    public UIntR descriptor_value_length;
     public LargeBitList descriptor_value;
 
     public ContentDescriptor() {
-        descriptor_name_length = new UInt();
+        descriptor_name_length = new UIntR();
         descriptor_name = new MemoryBitList();
-        descriptor_value_data_type = new UInt();
-        descriptor_value_length = new UInt();
+        descriptor_value_data_type = new UIntR();
+        descriptor_value_length = new UIntR();
         descriptor_value = new MemoryBitList();
     }
 
@@ -40,10 +40,10 @@ public class ContentDescriptor extends BlockAdapter
             throws CloneNotSupportedException {
         ContentDescriptor obj = (ContentDescriptor)super.clone();
 
-        obj.descriptor_name_length = (UInt)descriptor_name_length.clone();
+        obj.descriptor_name_length = (UIntR)descriptor_name_length.clone();
         obj.descriptor_name = (LargeBitList)descriptor_name.clone();
-        obj.descriptor_value_data_type = (UInt)descriptor_value_data_type.clone();
-        obj.descriptor_value_length = (UInt)descriptor_value_length.clone();
+        obj.descriptor_value_data_type = (UIntR)descriptor_value_data_type.clone();
+        obj.descriptor_value_length = (UIntR)descriptor_value_length.clone();
         obj.descriptor_value = (LargeBitList)descriptor_value.clone();
 
         return obj;

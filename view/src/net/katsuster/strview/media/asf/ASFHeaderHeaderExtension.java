@@ -20,15 +20,15 @@ import net.katsuster.strview.media.*;
 public class ASFHeaderHeaderExtension extends ASFHeader
         implements Cloneable {
     public ASFGUID reserved_field1;
-    public UInt reserved_field2;
-    public UInt header_extension_data_size;
+    public UIntR reserved_field2;
+    public UIntR header_extension_data_size;
     //下記はパケットの body として扱う
     //public ByteArray header_extension_data;
 
     public ASFHeaderHeaderExtension() {
         reserved_field1 = new ASFGUID();
-        reserved_field2 = new UInt();
-        header_extension_data_size = new UInt();
+        reserved_field2 = new UIntR();
+        header_extension_data_size = new UIntR();
     }
 
     @Override
@@ -37,8 +37,8 @@ public class ASFHeaderHeaderExtension extends ASFHeader
         ASFHeaderHeaderExtension obj = (ASFHeaderHeaderExtension)super.clone();
 
         obj.reserved_field1 = reserved_field1.clone();
-        obj.reserved_field2 = (UInt)reserved_field2.clone();
-        obj.header_extension_data_size = (UInt)header_extension_data_size.clone();
+        obj.reserved_field2 = (UIntR)reserved_field2.clone();
+        obj.header_extension_data_size = (UIntR)header_extension_data_size.clone();
 
         return obj;
     }

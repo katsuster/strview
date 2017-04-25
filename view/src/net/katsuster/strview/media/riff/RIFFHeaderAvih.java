@@ -21,36 +21,36 @@ import net.katsuster.strview.media.*;
  */
 public class RIFFHeaderAvih extends RIFFHeader
         implements Cloneable {
-    public UInt dwMicroSecPerFrame;
-    public UInt dwMaxBytesPerSec;
-    public UInt dwPaddingGranularity;
-    public UInt dwFlags;
-    public UInt dwTotalFrames;
-    public UInt dwInitialFrames;
-    public UInt dwStreams;
-    public UInt dwSuggestedBufferSize;
-    public UInt dwWidth;
-    public UInt dwHeight;
-    public UInt dwReserved0;
-    public UInt dwReserved1;
-    public UInt dwReserved2;
-    public UInt dwReserved3;
+    public UIntR dwMicroSecPerFrame;
+    public UIntR dwMaxBytesPerSec;
+    public UIntR dwPaddingGranularity;
+    public UIntR dwFlags;
+    public UIntR dwTotalFrames;
+    public UIntR dwInitialFrames;
+    public UIntR dwStreams;
+    public UIntR dwSuggestedBufferSize;
+    public UIntR dwWidth;
+    public UIntR dwHeight;
+    public UIntR dwReserved0;
+    public UIntR dwReserved1;
+    public UIntR dwReserved2;
+    public UIntR dwReserved3;
 
     public RIFFHeaderAvih() {
-        dwMicroSecPerFrame = new UInt();
-        dwMaxBytesPerSec = new UInt();
-        dwPaddingGranularity = new UInt();
-        dwFlags = new UInt();
-        dwTotalFrames = new UInt();
-        dwInitialFrames = new UInt();
-        dwStreams = new UInt();
-        dwSuggestedBufferSize = new UInt();
-        dwWidth = new UInt();
-        dwHeight = new UInt();
-        dwReserved0 = new UInt();
-        dwReserved1 = new UInt();
-        dwReserved2 = new UInt();
-        dwReserved3 = new UInt();
+        dwMicroSecPerFrame = new UIntR();
+        dwMaxBytesPerSec = new UIntR();
+        dwPaddingGranularity = new UIntR();
+        dwFlags = new UIntR();
+        dwTotalFrames = new UIntR();
+        dwInitialFrames = new UIntR();
+        dwStreams = new UIntR();
+        dwSuggestedBufferSize = new UIntR();
+        dwWidth = new UIntR();
+        dwHeight = new UIntR();
+        dwReserved0 = new UIntR();
+        dwReserved1 = new UIntR();
+        dwReserved2 = new UIntR();
+        dwReserved3 = new UIntR();
     }
 
     @Override
@@ -58,20 +58,20 @@ public class RIFFHeaderAvih extends RIFFHeader
             throws CloneNotSupportedException {
         RIFFHeaderAvih obj = (RIFFHeaderAvih)super.clone();
 
-        obj.dwMicroSecPerFrame = (UInt)dwMicroSecPerFrame.clone();
-        obj.dwMaxBytesPerSec = (UInt)dwMaxBytesPerSec.clone();
-        obj.dwPaddingGranularity = (UInt)dwPaddingGranularity.clone();
-        obj.dwFlags = (UInt)dwFlags.clone();
-        obj.dwTotalFrames = (UInt)dwTotalFrames.clone();
-        obj.dwInitialFrames = (UInt)dwInitialFrames.clone();
-        obj.dwStreams = (UInt)dwStreams.clone();
-        obj.dwSuggestedBufferSize = (UInt)dwSuggestedBufferSize.clone();
-        obj.dwWidth = (UInt)dwWidth.clone();
-        obj.dwHeight = (UInt)dwHeight.clone();
-        obj.dwReserved0 = (UInt)dwReserved0.clone();
-        obj.dwReserved1 = (UInt)dwReserved1.clone();
-        obj.dwReserved2 = (UInt)dwReserved2.clone();
-        obj.dwReserved3 = (UInt)dwReserved3.clone();
+        obj.dwMicroSecPerFrame = (UIntR)dwMicroSecPerFrame.clone();
+        obj.dwMaxBytesPerSec = (UIntR)dwMaxBytesPerSec.clone();
+        obj.dwPaddingGranularity = (UIntR)dwPaddingGranularity.clone();
+        obj.dwFlags = (UIntR)dwFlags.clone();
+        obj.dwTotalFrames = (UIntR)dwTotalFrames.clone();
+        obj.dwInitialFrames = (UIntR)dwInitialFrames.clone();
+        obj.dwStreams = (UIntR)dwStreams.clone();
+        obj.dwSuggestedBufferSize = (UIntR)dwSuggestedBufferSize.clone();
+        obj.dwWidth = (UIntR)dwWidth.clone();
+        obj.dwHeight = (UIntR)dwHeight.clone();
+        obj.dwReserved0 = (UIntR)dwReserved0.clone();
+        obj.dwReserved1 = (UIntR)dwReserved1.clone();
+        obj.dwReserved2 = (UIntR)dwReserved2.clone();
+        obj.dwReserved3 = (UIntR)dwReserved3.clone();
 
         return obj;
     }

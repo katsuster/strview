@@ -9,6 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import net.katsuster.strview.util.*;
+import net.katsuster.strview.io.*;
 
 public class UIntTest {
     @BeforeClass
@@ -31,9 +32,10 @@ public class UIntTest {
     public final void testUIntLongLongInt() {
         String msg1 = "UInt(long, long, int) failed.";
         String msg2 = "UInt(long, long, int) illegal arguments check failed.";
-        UInt va = new UInt(1, 2, 3);
+        LargeBitList la = new MemoryBitList(64);
+        UInt va = new UInt(la, 2, 3);
 
-        assertEquals(msg1, 1, va.getBitsValue());
+        assertEquals(msg1, 0, va.getBitsValue());
         assertEquals(msg1, 2, va.getRange().getStart());
         assertEquals(msg1, 3, va.getRange().getLength());
     }
@@ -42,7 +44,8 @@ public class UIntTest {
     public final void testUIntUInt() {
         String msg1 = "UInt(UInt) failed.";
         String msg2 = "UInt.clone() failed.";
-        UInt va = new UInt(1, 2, 3);
+        LargeBitList la = new MemoryBitList(64);
+        UInt va = new UInt(la, 2, 3);
         UInt vb = new UInt(va);
 
         assertEquals(msg1, va.getBitsValue(), vb.getBitsValue());
@@ -64,8 +67,8 @@ public class UIntTest {
             assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
 
             vc.setBitsValue(100);
-            vc.getRange().setStart(200);
-            vc.getRange().setEnd(300);
+            vc.getRange().setStart(4);
+            vc.getRange().setEnd(10);
             assertNotEquals(msg2, va.getBitsValue(), vc.getBitsValue());
             assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
             assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
@@ -77,24 +80,24 @@ public class UIntTest {
     @Test
     public final void testUIntEquals() {
         String msg1 = "UInt.equals(Object) failed.";
-        UInt vz0_1 = new UInt(0L, 0, 0);
-        UInt vz0_2 = new UInt(0L, 0, 0);
-        UInt vp1_1 = new UInt(1L, 0, 0);
-        UInt vp1_2 = new UInt(1L, 0, 0);
-        UInt vp2_1 = new UInt(2L, 0, 0);
-        UInt vp2_2 = new UInt(2L, 0, 0);
-        UInt vm1_1 = new UInt(-1L, 0, 0);
-        UInt vm1_2 = new UInt(-1L, 0, 0);
-        UInt vm2_1 = new UInt(-2L, 0, 0);
-        UInt vm2_2 = new UInt(-2L, 0, 0);
-        UInt vh1_1 = new UInt(0x7ffffffffffffffeL, 0, 0);
-        UInt vh1_2 = new UInt(0x7ffffffffffffffeL, 0, 0);
-        UInt vh2_1 = new UInt(0x7fffffffffffffffL, 0, 0);
-        UInt vh2_2 = new UInt(0x7fffffffffffffffL, 0, 0);
-        UInt vh3_1 = new UInt(0x8000000000000000L, 0, 0);
-        UInt vh3_2 = new UInt(0x8000000000000000L, 0, 0);
-        UInt vh4_1 = new UInt(0x8000000000000001L, 0, 0);
-        UInt vh4_2 = new UInt(0x8000000000000001L, 0, 0);
+        UInt vz0_1 = new UInt(0L);
+        UInt vz0_2 = new UInt(0L);
+        UInt vp1_1 = new UInt(1L);
+        UInt vp1_2 = new UInt(1L);
+        UInt vp2_1 = new UInt(2L);
+        UInt vp2_2 = new UInt(2L);
+        UInt vm1_1 = new UInt(-1L);
+        UInt vm1_2 = new UInt(-1L);
+        UInt vm2_1 = new UInt(-2L);
+        UInt vm2_2 = new UInt(-2L);
+        UInt vh1_1 = new UInt(0x7ffffffffffffffeL);
+        UInt vh1_2 = new UInt(0x7ffffffffffffffeL);
+        UInt vh2_1 = new UInt(0x7fffffffffffffffL);
+        UInt vh2_2 = new UInt(0x7fffffffffffffffL);
+        UInt vh3_1 = new UInt(0x8000000000000000L);
+        UInt vh3_2 = new UInt(0x8000000000000000L);
+        UInt vh4_1 = new UInt(0x8000000000000001L);
+        UInt vh4_2 = new UInt(0x8000000000000001L);
 
         assertEquals(msg1, true, vz0_1.equals(vz0_1));
         assertEquals(msg1, true, vp1_1.equals(vp1_1));
@@ -130,24 +133,24 @@ public class UIntTest {
     @Test
     public final void testUIntCompareTo() {
         String msg1 = "UInt.compareTo(UInt) failed.";
-        UInt vz0_1 = new UInt(0L, 0, 0);
-        UInt vz0_2 = new UInt(0L, 0, 0);
-        UInt vp1_1 = new UInt(1L, 0, 0);
-        UInt vp1_2 = new UInt(1L, 0, 0);
-        UInt vp2_1 = new UInt(2L, 0, 0);
-        UInt vp2_2 = new UInt(2L, 0, 0);
-        UInt vm1_1 = new UInt(-1L, 0, 0);
-        UInt vm1_2 = new UInt(-1L, 0, 0);
-        UInt vm2_1 = new UInt(-2L, 0, 0);
-        UInt vm2_2 = new UInt(-2L, 0, 0);
-        UInt vh1_1 = new UInt(0x7ffffffffffffffeL, 0, 0);
-        UInt vh1_2 = new UInt(0x7ffffffffffffffeL, 0, 0);
-        UInt vh2_1 = new UInt(0x7fffffffffffffffL, 0, 0);
-        UInt vh2_2 = new UInt(0x7fffffffffffffffL, 0, 0);
-        UInt vh3_1 = new UInt(0x8000000000000000L, 0, 0);
-        UInt vh3_2 = new UInt(0x8000000000000000L, 0, 0);
-        UInt vh4_1 = new UInt(0x8000000000000001L, 0, 0);
-        UInt vh4_2 = new UInt(0x8000000000000001L, 0, 0);
+        UInt vz0_1 = new UInt(0L);
+        UInt vz0_2 = new UInt(0L);
+        UInt vp1_1 = new UInt(1L);
+        UInt vp1_2 = new UInt(1L);
+        UInt vp2_1 = new UInt(2L);
+        UInt vp2_2 = new UInt(2L);
+        UInt vm1_1 = new UInt(-1L);
+        UInt vm1_2 = new UInt(-1L);
+        UInt vm2_1 = new UInt(-2L);
+        UInt vm2_2 = new UInt(-2L);
+        UInt vh1_1 = new UInt(0x7ffffffffffffffeL);
+        UInt vh1_2 = new UInt(0x7ffffffffffffffeL);
+        UInt vh2_1 = new UInt(0x7fffffffffffffffL);
+        UInt vh2_2 = new UInt(0x7fffffffffffffffL);
+        UInt vh3_1 = new UInt(0x8000000000000000L);
+        UInt vh3_2 = new UInt(0x8000000000000000L);
+        UInt vh4_1 = new UInt(0x8000000000000001L);
+        UInt vh4_2 = new UInt(0x8000000000000001L);
 
         assertEquals(msg1, true, vz0_1.compareTo(vz0_1) == 0);
         assertEquals(msg1, true, vp1_1.compareTo(vp1_1) == 0);
@@ -188,15 +191,15 @@ public class UIntTest {
     @Test
     public final void testUIntByteValue() {
         String msg1 = "UInt.byteValue() failed.";
-        UInt vz0 = new UInt(0L, 0, 0);
-        UInt vp1 = new UInt(1L, 0, 0);
-        UInt vp2 = new UInt(2L, 0, 0);
-        UInt vm1 = new UInt(-1L, 0, 0);
-        UInt vm2 = new UInt(-2L, 0, 0);
-        UInt vh1 = new UInt(0x7ffffffffffffffeL, 0, 0);
-        UInt vh2 = new UInt(0x7fffffffffffffffL, 0, 0);
-        UInt vh3 = new UInt(0x8000000000000000L, 0, 0);
-        UInt vh4 = new UInt(0x8000000000000001L, 0, 0);
+        UInt vz0 = new UInt(0L);
+        UInt vp1 = new UInt(1L);
+        UInt vp2 = new UInt(2L);
+        UInt vm1 = new UInt(-1L);
+        UInt vm2 = new UInt(-2L);
+        UInt vh1 = new UInt(0x7ffffffffffffffeL);
+        UInt vh2 = new UInt(0x7fffffffffffffffL);
+        UInt vh3 = new UInt(0x8000000000000000L);
+        UInt vh4 = new UInt(0x8000000000000001L);
 
         assertEquals(msg1, (byte)0x00, vz0.byteValue());
         assertEquals(msg1, (byte)0x01, vp1.byteValue());
@@ -212,15 +215,15 @@ public class UIntTest {
     @Test
     public final void testUIntShortValue() {
         String msg1 = "UInt.shortValue() failed.";
-        UInt vz0 = new UInt(0L, 0, 0);
-        UInt vp1 = new UInt(1L, 0, 0);
-        UInt vp2 = new UInt(2L, 0, 0);
-        UInt vm1 = new UInt(-1L, 0, 0);
-        UInt vm2 = new UInt(-2L, 0, 0);
-        UInt vh1 = new UInt(0x7ffffffffffffffeL, 0, 0);
-        UInt vh2 = new UInt(0x7fffffffffffffffL, 0, 0);
-        UInt vh3 = new UInt(0x8000000000000000L, 0, 0);
-        UInt vh4 = new UInt(0x8000000000000001L, 0, 0);
+        UInt vz0 = new UInt(0L);
+        UInt vp1 = new UInt(1L);
+        UInt vp2 = new UInt(2L);
+        UInt vm1 = new UInt(-1L);
+        UInt vm2 = new UInt(-2L);
+        UInt vh1 = new UInt(0x7ffffffffffffffeL);
+        UInt vh2 = new UInt(0x7fffffffffffffffL);
+        UInt vh3 = new UInt(0x8000000000000000L);
+        UInt vh4 = new UInt(0x8000000000000001L);
 
         assertEquals(msg1, (short)0x0000, vz0.shortValue());
         assertEquals(msg1, (short)0x0001, vp1.shortValue());
@@ -236,15 +239,15 @@ public class UIntTest {
     @Test
     public final void testUIntIntValue() {
         String msg1 = "UInt.intValue() failed.";
-        UInt vz0 = new UInt(0L, 0, 0);
-        UInt vp1 = new UInt(1L, 0, 0);
-        UInt vp2 = new UInt(2L, 0, 0);
-        UInt vm1 = new UInt(-1L, 0, 0);
-        UInt vm2 = new UInt(-2L, 0, 0);
-        UInt vh1 = new UInt(0x7ffffffffffffffeL, 0, 0);
-        UInt vh2 = new UInt(0x7fffffffffffffffL, 0, 0);
-        UInt vh3 = new UInt(0x8000000000000000L, 0, 0);
-        UInt vh4 = new UInt(0x8000000000000001L, 0, 0);
+        UInt vz0 = new UInt(0L);
+        UInt vp1 = new UInt(1L);
+        UInt vp2 = new UInt(2L);
+        UInt vm1 = new UInt(-1L);
+        UInt vm2 = new UInt(-2L);
+        UInt vh1 = new UInt(0x7ffffffffffffffeL);
+        UInt vh2 = new UInt(0x7fffffffffffffffL);
+        UInt vh3 = new UInt(0x8000000000000000L);
+        UInt vh4 = new UInt(0x8000000000000001L);
 
         assertEquals(msg1, 0x00000000, vz0.intValue());
         assertEquals(msg1, 0x00000001, vp1.intValue());
@@ -260,15 +263,15 @@ public class UIntTest {
     @Test
     public final void testUIntLongValue() {
         String msg1 = "UInt.longValue() failed.";
-        UInt vz0 = new UInt(0L, 0, 0);
-        UInt vp1 = new UInt(1L, 0, 0);
-        UInt vp2 = new UInt(2L, 0, 0);
-        UInt vm1 = new UInt(-1L, 0, 0);
-        UInt vm2 = new UInt(-2L, 0, 0);
-        UInt vh1 = new UInt(0x7ffffffffffffffeL, 0, 0);
-        UInt vh2 = new UInt(0x7fffffffffffffffL, 0, 0);
-        UInt vh3 = new UInt(0x8000000000000000L, 0, 0);
-        UInt vh4 = new UInt(0x8000000000000001L, 0, 0);
+        UInt vz0 = new UInt(0L);
+        UInt vp1 = new UInt(1L);
+        UInt vp2 = new UInt(2L);
+        UInt vm1 = new UInt(-1L);
+        UInt vm2 = new UInt(-2L);
+        UInt vh1 = new UInt(0x7ffffffffffffffeL);
+        UInt vh2 = new UInt(0x7fffffffffffffffL);
+        UInt vh3 = new UInt(0x8000000000000000L);
+        UInt vh4 = new UInt(0x8000000000000001L);
 
         assertEquals(msg1, 0x0000000000000000L, vz0.longValue());
         assertEquals(msg1, 0x0000000000000001L, vp1.longValue());
@@ -284,15 +287,15 @@ public class UIntTest {
     @Test
     public final void testUIntFloatValue() {
         String msg1 = "UInt.floatValue() failed.";
-        UInt vz0 = new UInt(0L, 0, 0);
-        UInt vp1 = new UInt(1L, 0, 0);
-        UInt vp2 = new UInt(2L, 0, 0);
-        UInt vm1 = new UInt(-1L, 0, 0);
-        UInt vm2 = new UInt(-2L, 0, 0);
-        UInt vh1 = new UInt(0x7ffffffffffffffeL, 0, 0);
-        UInt vh2 = new UInt(0x7fffffffffffffffL, 0, 0);
-        UInt vh3 = new UInt(0x8000000000000000L, 0, 0);
-        UInt vh4 = new UInt(0x8000000000000001L, 0, 0);
+        UInt vz0 = new UInt(0L);
+        UInt vp1 = new UInt(1L);
+        UInt vp2 = new UInt(2L);
+        UInt vm1 = new UInt(-1L);
+        UInt vm2 = new UInt(-2L);
+        UInt vh1 = new UInt(0x7ffffffffffffffeL);
+        UInt vh2 = new UInt(0x7fffffffffffffffL);
+        UInt vh3 = new UInt(0x8000000000000000L);
+        UInt vh4 = new UInt(0x8000000000000001L);
 
         assertTrue(msg1,                    0.0F <= vz0.floatValue());
         assertTrue(msg1,                    1.0F <= vp1.floatValue());
@@ -308,15 +311,15 @@ public class UIntTest {
     @Test
     public final void testUIntDoubleValue() {
         String msg1 = "UInt.doubleValue() failed.";
-        UInt vz0 = new UInt(0L, 0, 0);
-        UInt vp1 = new UInt(1L, 0, 0);
-        UInt vp2 = new UInt(2L, 0, 0);
-        UInt vm1 = new UInt(-1L, 0, 0);
-        UInt vm2 = new UInt(-2L, 0, 0);
-        UInt vh1 = new UInt(0x7ffffffffffffffeL, 0, 0);
-        UInt vh2 = new UInt(0x7fffffffffffffffL, 0, 0);
-        UInt vh3 = new UInt(0x8000000000000000L, 0, 0);
-        UInt vh4 = new UInt(0x8000000000000001L, 0, 0);
+        UInt vz0 = new UInt(0L);
+        UInt vp1 = new UInt(1L);
+        UInt vp2 = new UInt(2L);
+        UInt vm1 = new UInt(-1L);
+        UInt vm2 = new UInt(-2L);
+        UInt vh1 = new UInt(0x7ffffffffffffffeL);
+        UInt vh2 = new UInt(0x7fffffffffffffffL);
+        UInt vh3 = new UInt(0x8000000000000000L);
+        UInt vh4 = new UInt(0x8000000000000001L);
 
         assertTrue(msg1,                    0.0D <= vz0.doubleValue());
         assertTrue(msg1,                    1.0D <= vp1.doubleValue());
@@ -332,15 +335,15 @@ public class UIntTest {
     @Test
     public final void testUIntToString() {
         String msg1 = "UInt.toString() failed.";
-        UInt vz0 = new UInt(0L, 0, 0);
-        UInt vp1 = new UInt(1L, 0, 0);
-        UInt vp2 = new UInt(2L, 0, 0);
-        UInt vm1 = new UInt(-1L, 0, 0);
-        UInt vm2 = new UInt(-2L, 0, 0);
-        UInt vh1 = new UInt(0x7ffffffffffffffeL, 0, 0);
-        UInt vh2 = new UInt(0x7fffffffffffffffL, 0, 0);
-        UInt vh3 = new UInt(0x8000000000000000L, 0, 0);
-        UInt vh4 = new UInt(0x8000000000000001L, 0, 0);
+        UInt vz0 = new UInt(0L);
+        UInt vp1 = new UInt(1L);
+        UInt vp2 = new UInt(2L);
+        UInt vm1 = new UInt(-1L);
+        UInt vm2 = new UInt(-2L);
+        UInt vh1 = new UInt(0x7ffffffffffffffeL);
+        UInt vh2 = new UInt(0x7fffffffffffffffL);
+        UInt vh3 = new UInt(0x8000000000000000L);
+        UInt vh4 = new UInt(0x8000000000000001L);
 
         assertEquals(msg1,                    "0", vz0.toString());
         assertEquals(msg1,                    "1", vp1.toString());

@@ -13,17 +13,8 @@ package net.katsuster.strview.util;
  */
 public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
         implements LargeBitList {
-    /**
-     * <p>
-     * 指定された長さのビット列を作成します。
-     * </p>
-     *
-     * @param from ビット列の開始点
-     * @param len  ビット列の長さ
-     */
-    public AbstractLargeBitList(long from, long len) {
-        super(from, len);
-    }
+    //ビット列の存在する範囲
+    private Range range;
 
     /**
      * <p>
@@ -33,7 +24,57 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
      * @param l ビット列の長さ
      */
     public AbstractLargeBitList(long l) {
-        super(l);
+        this(null, 0, l);
+    }
+
+    /**
+     * <p>
+     * 指定された長さのビット列を作成します。
+     * </p>
+     *
+     * @param from ビット列の開始点
+     * @param len  ビット列の長さ
+     */
+    public AbstractLargeBitList(long from, long len) {
+        this(null, from, len);
+    }
+
+    /**
+     * <p>
+     * 指定されたバッファ上の指定された長さのビット列を作成します。
+     * </p>
+     *
+     * @param buf  バッファ
+     * @param from ビット列の開始点
+     * @param len  ビット列の長さ
+     */
+    public AbstractLargeBitList(LargeBitList buf, long from, long len) {
+        super(len);
+
+        range = new SimpleRange(buf, from, len);
+    }
+
+    /**
+     * <p>
+     * 指定されたバッファ上の指定された長さのビット列を作成します。
+     * </p>
+     *
+     * @param r 範囲
+     */
+    public AbstractLargeBitList(Range r) {
+        super(r.getLength());
+
+        range = new SimpleRange(r);
+    }
+
+    @Override
+    public Object clone()
+            throws CloneNotSupportedException {
+        AbstractLargeBitList obj = (AbstractLargeBitList)super.clone();
+
+        obj.range = (Range)range.clone();
+
+        return obj;
     }
 
     @Override
@@ -197,8 +238,28 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
     }
 
     @Override
+    public long length() {
+        return getRange().getLength();
+    }
+
+    @Override
+    public void length(long l) {
+        getRange().setLength(l);
+    }
+
+    @Override
     public LargeBitList subLargeList(long from, long len) {
         return new SubLargeBitList(this, from, len);
+    }
+
+    @Override
+    public Range getRange() {
+        return range;
+    }
+
+    @Override
+    public void setRange(Range r) {
+        range = r;
     }
 
     /**

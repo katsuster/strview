@@ -20,10 +20,10 @@ import net.katsuster.strview.media.*;
  */
 public class RIFFHeaderList extends RIFFHeader
         implements Cloneable {
-    public UInt listType;
+    public UIntR listType;
 
     public RIFFHeaderList() {
-        listType = new UInt();
+        listType = new UIntR();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class RIFFHeaderList extends RIFFHeader
             throws CloneNotSupportedException {
         RIFFHeaderList obj = (RIFFHeaderList)super.clone();
 
-        obj.listType = (UInt)listType.clone();
+        obj.listType = (UIntR)listType.clone();
 
         return obj;
     }

@@ -7,7 +7,7 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public class Float64 extends AbstractNum {
+public class Float64 extends AbstractNumOld {
     private long val;
 
     public Float64() {

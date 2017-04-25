@@ -20,11 +20,11 @@ import net.katsuster.strview.media.*;
 public class ASFHeader extends BlockAdapter
         implements Cloneable {
     public ASFGUID object_id;
-    public UInt object_size;
+    public UIntR object_size;
 
     public ASFHeader() {
         object_id = new ASFGUID();
-        object_size = new UInt();
+        object_size = new UIntR();
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ASFHeader extends BlockAdapter
         ASFHeader obj = (ASFHeader)super.clone();
 
         obj.object_id = object_id.clone();
-        obj.object_size = (UInt)object_size.clone();
+        obj.object_size = (UIntR)object_size.clone();
 
         return obj;
     }

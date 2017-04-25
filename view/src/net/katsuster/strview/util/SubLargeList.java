@@ -25,7 +25,7 @@ public class SubLargeList<T> extends AbstractLargeListBase<T>
      * @param len  部分列の長さ
      */
     public SubLargeList(LargeList<T> buf, long from, long len) {
-        super(from, len);
+        super(len);
 
         if (from + len > buf.length()) {
             throw new IndexOutOfBoundsException("from:" + from

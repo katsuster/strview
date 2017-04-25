@@ -18,16 +18,16 @@ import net.katsuster.strview.media.*;
  * @author katsuhiro
  */
 public class IndexEntry extends BlockAdapter {
-    public UInt dwChunkId;
-    public UInt dwFlags;
-    public UInt dwOffset;
-    public UInt dwSize;
+    public UIntR dwChunkId;
+    public UIntR dwFlags;
+    public UIntR dwOffset;
+    public UIntR dwSize;
 
     public IndexEntry() {
-        dwChunkId = new UInt();
-        dwFlags = new UInt();
-        dwOffset = new UInt();
-        dwSize = new UInt();
+        dwChunkId = new UIntR();
+        dwFlags = new UIntR();
+        dwOffset = new UIntR();
+        dwSize = new UIntR();
     }
 
     @Override
@@ -35,10 +35,10 @@ public class IndexEntry extends BlockAdapter {
             throws CloneNotSupportedException {
         IndexEntry obj = (IndexEntry)super.clone();
 
-        obj.dwChunkId = (UInt)dwChunkId.clone();
-        obj.dwFlags = (UInt)dwFlags.clone();
-        obj.dwOffset = (UInt)dwOffset.clone();
-        obj.dwSize = (UInt)dwSize.clone();
+        obj.dwChunkId = (UIntR)dwChunkId.clone();
+        obj.dwFlags = (UIntR)dwFlags.clone();
+        obj.dwOffset = (UIntR)dwOffset.clone();
+        obj.dwSize = (UIntR)dwSize.clone();
 
         return obj;
     }
