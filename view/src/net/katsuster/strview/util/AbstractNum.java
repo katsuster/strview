@@ -61,26 +61,88 @@ public abstract class AbstractNum extends SubLargeBitList
         return obj;
     }
 
+    /**
+     * <p>
+     * オブジェクトを指定されたオブジェクトと比較します。
+     * 結果が true になるのは、引数が null ではなく、
+     * このオブジェクトと同じ long 値を含む
+     * オブジェクトである場合だけです。
+     * </p>
+     *
+     * @param o 比較対象のオブジェクト
+     * @return オブジェクトが同じである場合は true、そうでない場合は false
+     */
     @Override
-    public abstract byte byteValue();
+    public boolean equals(Object o) {
+        if (o instanceof AbstractNum) {
+            return (((AbstractNum)o).getValue() == getValue());
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * <p>
+     * オブジェクトのハッシュコードを返します。
+     * </p>
+     *
+     * @return オブジェクトの値 val を、
+     * 変換式 (val ^ (val &gt;&gt;&gt; 32)) にて int に変換した値に等しい
+     */
+    @Override
+    public int hashCode() {
+        return (int)(getValue() ^ (getValue() >>> 32));
+    }
 
     @Override
-    public abstract short shortValue();
+    public byte byteValue() {
+        return (byte) getValue();
+    }
 
     @Override
-    public abstract int intValue();
+    public short shortValue() {
+        return (short) getValue();
+    }
 
     @Override
-    public abstract long longValue();
+    public int intValue() {
+        return (int) getValue();
+    }
 
     @Override
-    public abstract float floatValue();
+    public long longValue() {
+        return getValue();
+    }
 
     @Override
-    public abstract double doubleValue();
+    public float floatValue() {
+        return (float) getValue();
+    }
 
     @Override
-    public abstract long getBitsValue();
+    public double doubleValue() {
+        return (double) getValue();
+    }
+
+    @Override
+    public long getValue() {
+        return getRaw();
+    }
+
+    @Override
+    public void setValue(long v) {
+        setRaw(v);
+    }
+
+    @Override
+    public long getRaw() {
+        return getPackedLong(getRange());
+    }
+
+    @Override
+    public void setRaw(long v) {
+        setPackedLong(getRange(), v);
+    }
 
     /**
      * <p>

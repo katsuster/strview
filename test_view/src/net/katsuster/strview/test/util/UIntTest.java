@@ -35,7 +35,7 @@ public class UIntTest {
         LargeBitList la = new MemoryBitList(64);
         UInt va = new UInt(la, 2, 3);
 
-        assertEquals(msg1, 0, va.getBitsValue());
+        assertEquals(msg1, 0, va.getRaw());
         assertEquals(msg1, 2, va.getRange().getStart());
         assertEquals(msg1, 3, va.getRange().getLength());
     }
@@ -48,28 +48,28 @@ public class UIntTest {
         UInt va = new UInt(la, 2, 3);
         UInt vb = new UInt(va);
 
-        assertEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertEquals(msg1, va.getRaw(), vb.getRaw());
         assertEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
         assertEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
-        vb.setBitsValue(10);
+        vb.setRaw(10);
         vb.getRange().setStart(20);
         vb.getRange().setEnd(30);
-        assertNotEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertNotEquals(msg1, va.getRaw(), vb.getRaw());
         assertNotEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
         assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
         try {
             UInt vc = (UInt)va.clone();
 
-            assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertEquals(msg2, va.getRaw(), vc.getRaw());
             assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
             assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
 
-            vc.setBitsValue(100);
+            vc.setRaw(100);
             vc.getRange().setStart(4);
             vc.getRange().setEnd(10);
-            assertNotEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertNotEquals(msg2, va.getRaw(), vc.getRaw());
             assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
             assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
         } catch (Exception ex) {

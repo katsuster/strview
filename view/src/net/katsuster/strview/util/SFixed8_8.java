@@ -26,7 +26,7 @@ public class SFixed8_8 extends AbstractNumOld {
 
     public SFixed8_8(SFixed8_8 obj) {
         super(obj);
-        setBitsValue((short)obj.getBitsValue());
+        setBitsValue((short)obj.getRaw());
     }
 
     /**
@@ -92,7 +92,7 @@ public class SFixed8_8 extends AbstractNumOld {
     }
 
     @Override
-    public long getBitsValue() {
+    public long getRaw() {
         return val & 0xffffL;
     }
 

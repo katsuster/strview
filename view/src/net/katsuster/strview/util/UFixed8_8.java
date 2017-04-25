@@ -26,7 +26,7 @@ public class UFixed8_8 extends AbstractNumOld {
 
     public UFixed8_8(UFixed8_8 obj) {
         super(obj);
-        setBitsValue((short)obj.getBitsValue());
+        setBitsValue((short)obj.getRaw());
     }
 
     /**
@@ -92,7 +92,7 @@ public class UFixed8_8 extends AbstractNumOld {
     }
 
     @Override
-    public long getBitsValue() {
+    public long getRaw() {
         return val & 0xffffL;
     }
 

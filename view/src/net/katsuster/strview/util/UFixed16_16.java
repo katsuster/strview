@@ -26,7 +26,7 @@ public class UFixed16_16 extends AbstractNumOld {
 
     public UFixed16_16(UFixed16_16 obj) {
         super(obj);
-        setBitsValue((int)obj.getBitsValue());
+        setBitsValue((int)obj.getRaw());
     }
 
     /**
@@ -92,7 +92,7 @@ public class UFixed16_16 extends AbstractNumOld {
     }
 
     @Override
-    public long getBitsValue() {
+    public long getRaw() {
         return val & 0xffffffffL;
     }
 

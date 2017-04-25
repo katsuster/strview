@@ -129,7 +129,6 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
         val.getRange().setBuffer(buf);
         val.getRange().setStart(pos);
         val.getRange().setLength(nbit);
-        val.setBitsValue(buf.getPackedInt(pos, nbit));
         pos += nbit;
 
         return val;
@@ -144,7 +143,6 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
         val.getRange().setBuffer(buf);
         val.getRange().setStart(pos);
         val.getRange().setLength(nbit);
-        val.setBitsValue(buf.getPackedLong(pos, nbit));
         pos += nbit;
 
         return val;

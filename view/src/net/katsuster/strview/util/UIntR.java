@@ -11,7 +11,7 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public class UIntR extends BaseInt
+public class UIntR extends AbstractNum
         implements Comparable<UIntR> {
     public UIntR() {
         this(0);
@@ -19,8 +19,7 @@ public class UIntR extends BaseInt
 
     public UIntR(long v) {
         super();
-
-        setReverseBitsValue(v);
+        setValue(v);
     }
 
     public UIntR(LargeBitList b, long p, int l) {
@@ -32,47 +31,32 @@ public class UIntR extends BaseInt
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o instanceof UIntR) {
-            return (((UIntR)o).getReverseBitsValue() == getReverseBitsValue());
-        } else {
-            return false;
-        }
-    }
-
-    @Override
     public int compareTo(UIntR obj) {
-        return compareAsUInt(getReverseBitsValue(), obj.getReverseBitsValue());
-    }
-
-    @Override
-    public byte byteValue() {
-        return (byte) getReverseBitsValue();
-    }
-
-    @Override
-    public short shortValue() {
-        return (short) getReverseBitsValue();
-    }
-
-    @Override
-    public int intValue() {
-        return (int) getReverseBitsValue();
-    }
-
-    @Override
-    public long longValue() {
-        return getReverseBitsValue();
+        return compareAsUInt(getValue(), obj.getValue());
     }
 
     @Override
     public float floatValue() {
-        return uint64ToFloat(getReverseBitsValue());
+        return uint64ToFloat(getValue());
     }
 
     @Override
     public double doubleValue() {
-        return uint64ToDouble(getReverseBitsValue());
+        return uint64ToDouble(getValue());
+    }
+
+    @Override
+    public long getValue() {
+        int nbit = (int) getRange().getLength();
+
+        return reverseNum(getRaw(), nbit);
+    }
+
+    @Override
+    public void setValue(long v) {
+        int nbit = (int) getRange().getLength();
+
+        setRaw(reverseNum(v, nbit));
     }
 
     /**
@@ -82,6 +66,6 @@ public class UIntR extends BaseInt
      */
     @Override
     public String toString() {
-        return uint64ToString(getReverseBitsValue());
+        return uint64ToString(getValue());
     }
 }

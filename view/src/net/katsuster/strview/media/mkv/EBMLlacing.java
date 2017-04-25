@@ -124,7 +124,7 @@ public class EBMLlacing extends EBMLvint
 
         //マイナス値を作る
         minus = ((long)1 << (size_c - 1)) - 1;
-        d.lacing_val = d.vint_val.getBitsValue() - minus;
+        d.lacing_val = d.vint_val.getRaw() - minus;
 
         c.leaveBlock();
     }

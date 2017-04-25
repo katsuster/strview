@@ -26,7 +26,7 @@ public class SFixed16_16 extends AbstractNumOld {
 
     public SFixed16_16(SFixed16_16 obj) {
         super(obj);
-        setBitsValue((int)obj.getBitsValue());
+        setBitsValue((int)obj.getRaw());
     }
 
     /**
@@ -92,7 +92,7 @@ public class SFixed16_16 extends AbstractNumOld {
     }
 
     @Override
-    public long getBitsValue() {
+    public long getRaw() {
         return val & 0xffffffffL;
     }
 

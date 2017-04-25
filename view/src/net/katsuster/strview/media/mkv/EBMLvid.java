@@ -53,13 +53,13 @@ public class EBMLvid extends EBMLvint
 
     @Override
     public long getValue() {
-        return vint_tag.getBitsValue();
+        return vint_tag.getRaw();
     }
 
     @Override
     protected void setValue(long v) {
         //TODO: not implemented
-        vint_tag.setBitsValue(v);
+        vint_tag.setRaw(v);
 
         throw new UnsupportedOperationException(
                 "setValue() is not implemented.");

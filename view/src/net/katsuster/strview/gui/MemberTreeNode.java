@@ -356,7 +356,7 @@ public class MemberTreeNode extends DefaultMutableTreeNode {
 
             valuename = String.format(
                     "0x%0" + digits + "x(0x%0" + digits + "x, %s)\n",
-                    v.getBitsValue(), v.longValue(), v.toString());
+                    v.getRaw(), v.getValue(), v.toString());
         } else if (hasArrayData()) {
             valuename = "array";
         } else {

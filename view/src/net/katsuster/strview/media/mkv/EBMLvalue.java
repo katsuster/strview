@@ -68,13 +68,13 @@ public class EBMLvalue extends EBMLvint
 
     @Override
     public long getValue() {
-        return vint_val.getBitsValue();
+        return vint_val.getRaw();
     }
 
     @Override
     protected void setValue(long v) {
         //TODO: not implemented
-        vint_val.setBitsValue(v);
+        vint_val.setRaw(v);
 
         throw new UnsupportedOperationException(
                 "setValue() is not implemented.");

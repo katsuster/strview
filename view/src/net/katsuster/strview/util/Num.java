@@ -116,11 +116,39 @@ public interface Num {
 
     /**
      * <p>
+     * 数値を long 型として返します。
+     * </p>
+     *
+     * @return このオブジェクトが表す数値を long 型に変換した値
+     */
+    public long getValue();
+
+    /**
+     * <p>
+     * long 型の数値を設定します。
+     * </p>
+     *
+     * @param v このオブジェクトに設定する long 型の値
+     */
+    public void setValue(long v);
+
+    /**
+     * <p>
      * 数値を表すビットデータを long 型として返します。
-     * 符号拡張はしません。
+     * バイト順の並び替え、符号拡張はしません。
      * </p>
      *
      * @return このオブジェクトが表すビットデータを long 型に変換した値
      */
-    public long getBitsValue();
+    public long getRaw();
+
+    /**
+     * <p>
+     * 数値を表すビットデータを long 型として返します。
+     * バイト順の並び替え、符号拡張はしません。
+     * </p>
+     *
+     * @param v このオブジェクトが表すビットデータを long 型に変換した値
+     */
+    public void setRaw(long v);
 }

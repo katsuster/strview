@@ -33,7 +33,7 @@ public class UFixedTest {
         String msg2 = "UFixed16_16(int, long, int) illegal arguments check failed.";
         UFixed16_16 va = new UFixed16_16(1, 2, 3);
 
-        assertEquals(msg1, 1, va.getBitsValue());
+        assertEquals(msg1, 1, va.getRaw());
         assertEquals(msg1, 2, va.getRange().getStart());
         assertEquals(msg1, 3, va.getRange().getLength());
     }
@@ -45,28 +45,28 @@ public class UFixedTest {
         UFixed16_16 va = new UFixed16_16(1, 2, 3);
         UFixed16_16 vb = new UFixed16_16(va);
 
-        assertEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertEquals(msg1, va.getRaw(), vb.getRaw());
         assertEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
         assertEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
         vb.setBitsValue(10);
         vb.getRange().setStart(20);
         vb.getRange().setEnd(30);
-        assertNotEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertNotEquals(msg1, va.getRaw(), vb.getRaw());
         assertNotEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
         assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
         try {
             UFixed16_16 vc = (UFixed16_16)va.clone();
 
-            assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertEquals(msg2, va.getRaw(), vc.getRaw());
             assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
             assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
 
             vc.setBitsValue(100);
             vc.getRange().setStart(200);
             vc.getRange().setEnd(300);
-            assertNotEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertNotEquals(msg2, va.getRaw(), vc.getRaw());
             assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
             assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
         } catch (Exception ex) {
@@ -248,7 +248,7 @@ public class UFixedTest {
         String msg2 = "UFixed8_8(short, long, int) illegal arguments check failed.";
         UFixed8_8 va = new UFixed8_8((short)1, 2, 3);
 
-        assertEquals(msg1, 1, va.getBitsValue());
+        assertEquals(msg1, 1, va.getRaw());
         assertEquals(msg1, 2, va.getRange().getStart());
         assertEquals(msg1, 3, va.getRange().getLength());
     }
@@ -260,28 +260,28 @@ public class UFixedTest {
         UFixed8_8 va = new UFixed8_8((short)1, 2, 3);
         UFixed8_8 vb = new UFixed8_8(va);
 
-        assertEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertEquals(msg1, va.getRaw(), vb.getRaw());
         assertEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
         assertEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
         vb.setBitsValue((short)10);
         vb.getRange().setStart(20);
         vb.getRange().setEnd(30);
-        assertNotEquals(msg1, va.getBitsValue(), vb.getBitsValue());
+        assertNotEquals(msg1, va.getRaw(), vb.getRaw());
         assertNotEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
         assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
         try {
             UFixed8_8 vc = (UFixed8_8)va.clone();
 
-            assertEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertEquals(msg2, va.getRaw(), vc.getRaw());
             assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
             assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
 
             vc.setBitsValue((short)100);
             vc.getRange().setStart(200);
             vc.getRange().setEnd(300);
-            assertNotEquals(msg2, va.getBitsValue(), vc.getBitsValue());
+            assertNotEquals(msg2, va.getRaw(), vc.getRaw());
             assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
             assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
         } catch (Exception ex) {

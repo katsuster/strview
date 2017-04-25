@@ -92,7 +92,32 @@ public abstract class AbstractNumOld
     public abstract double doubleValue();
 
     @Override
-    public abstract long getBitsValue();
+    public long getValue() {
+        return getRaw();
+    }
+
+    @Override
+    public void setValue(long v) {
+        setRaw(v);
+    }
+
+    @Override
+    public long getRaw() {
+        return getPackedLong(getRange());
+    }
+
+    @Override
+    public void setRaw(long v) {
+        setPackedLong(getRange(), v);
+    }
+
+    public static long getPackedLong(Range r) {
+        return r.getBuffer().getPackedLong(r.getStart(), (int) r.getLength());
+    }
+
+    public static void setPackedLong(Range r, long val) {
+        r.getBuffer().setPackedLong(r.getStart(), (int) r.getLength(), val);
+    }
 
     /**
      * <p>

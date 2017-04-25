@@ -7,7 +7,7 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public class UInt extends BaseInt
+public class UInt extends AbstractNum
         implements Comparable<UInt> {
     public UInt() {
         this(0);
@@ -15,8 +15,7 @@ public class UInt extends BaseInt
 
     public UInt(long v) {
         super();
-
-        setBitsValue(v);
+        setValue(v);
     }
 
     public UInt(LargeBitList b, long p, int l) {
@@ -29,17 +28,17 @@ public class UInt extends BaseInt
 
     @Override
     public int compareTo(UInt obj) {
-        return compareAsUInt(getBitsValue(), obj.getBitsValue());
+        return compareAsUInt(getValue(), obj.getValue());
     }
 
     @Override
     public float floatValue() {
-        return uint64ToFloat(getBitsValue());
+        return uint64ToFloat(getValue());
     }
 
     @Override
     public double doubleValue() {
-        return uint64ToDouble(getBitsValue());
+        return uint64ToDouble(getValue());
     }
 
     /**
@@ -49,6 +48,6 @@ public class UInt extends BaseInt
      */
     @Override
     public String toString() {
-        return uint64ToString(getBitsValue());
+        return uint64ToString(getValue());
     }
 }

@@ -85,7 +85,7 @@ public class NumFormatter {
 
         sb.append(addressAndName(v.getRange(), name));
         sb.append(String.format("0x%0" + digits + "x(0x%0" + digits + "x, %s)",
-                v.getBitsValue(), v.longValue(), v.toString()));
+                v.getRaw(), v.getValue(), v.toString()));
         if (caption == null) {
             sb.append("\n");
         } else {

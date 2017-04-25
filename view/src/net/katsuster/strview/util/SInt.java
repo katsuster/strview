@@ -7,7 +7,7 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public class SInt extends BaseInt
+public class SInt extends AbstractNum
         implements Comparable<SInt> {
     public SInt() {
         this(0);
@@ -15,8 +15,7 @@ public class SInt extends BaseInt
 
     public SInt(long v) {
         super();
-
-        setBitsValue(v);
+        setValue(v);
     }
 
     public SInt(LargeBitList b, long p, int l) {
@@ -29,7 +28,7 @@ public class SInt extends BaseInt
 
     @Override
     public int compareTo(SInt obj) {
-        return compareAsSInt(getBitsValue(), obj.getBitsValue());
+        return compareAsSInt(getValue(), obj.getValue());
     }
 
     /**
@@ -39,6 +38,6 @@ public class SInt extends BaseInt
      */
     @Override
     public String toString() {
-        return Long.toString(getBitsValue());
+        return Long.toString(getValue());
     }
 }

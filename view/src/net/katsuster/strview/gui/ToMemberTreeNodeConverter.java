@@ -107,14 +107,14 @@ public class ToMemberTreeNodeConverter extends PacketWriterAdapter<MemberTreeNod
     public void writeFloat32(int nbit, Float32 val, String name, String desc) {
         MemberTreeNode top = stack_node.peek();
 
-        top.add(new MemberTreeNode(val, name, desc));
+        top.add(new MemberTreeNode((Num)val, name, desc));
     }
 
     @Override
     public void writeFloat64(int nbit, Float64 val, String name, String desc) {
         MemberTreeNode top = stack_node.peek();
 
-        top.add(new MemberTreeNode(val, name, desc));
+        top.add(new MemberTreeNode((Num)val, name, desc));
     }
 
     @Override

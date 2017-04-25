@@ -7,49 +7,27 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public class Float32 extends AbstractNumOld {
-    private int val;
-
+public class Float32 extends AbstractNum {
     public Float32() {
-        this(0, 0, 0);
+        this(0);
     }
 
     public Float32(int v) {
-        this(v, 0, 0);
+        super();
+        setValue(v);
     }
 
-    public Float32(float v, long p, int l) {
-        this(Float.floatToRawIntBits(v), p, l);
+    public Float32(float v) {
+        super();
+        setValue(Float.floatToRawIntBits(v));
     }
 
-    public Float32(int v, long p, int l) {
-        super(p, l);
-        setBitsValue(v);
+    public Float32(LargeBitList b, long p, int l) {
+        super(b, p, l);
     }
 
     public Float32(Float32 obj) {
         super(obj);
-        setBitsValue((int)obj.getBitsValue());
-    }
-
-    /**
-     * <p>
-     * オブジェクトを指定されたオブジェクトと比較します。
-     * 結果が true になるのは、引数が null ではなく、
-     * このオブジェクトと同じ int 値を含む
-     * Float32 オブジェクトである場合だけです。
-     * </p>
-     *
-     * @param o 比較対象のオブジェクト
-     * @return オブジェクトが同じである場合は true、そうでない場合は false
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof Float32) {
-            return (((Float32)o).val == val);
-        } else {
-            return false;
-        }
     }
 
     /**
@@ -61,53 +39,47 @@ public class Float32 extends AbstractNumOld {
      */
     @Override
     public int hashCode() {
-        return val;
+        return (int) getValue();
     }
 
     @Override
     public byte byteValue() {
-        return (byte)Float.intBitsToFloat(val);
+        return (byte)Float.intBitsToFloat((int) getValue());
     }
 
     @Override
     public short shortValue() {
-        return (short)Float.intBitsToFloat(val);
+        return (short)Float.intBitsToFloat((int) getValue());
     }
 
     @Override
     public int intValue() {
-        return (int)Float.intBitsToFloat(val);
+        return (int)Float.intBitsToFloat((int) getValue());
     }
 
     @Override
     public long longValue() {
-        return (long)Float.intBitsToFloat(val);
+        return (long)Float.intBitsToFloat((int) getValue());
     }
 
     @Override
     public float floatValue() {
-        return Float.intBitsToFloat(val);
+        return Float.intBitsToFloat((int) getValue());
     }
 
     @Override
     public double doubleValue() {
-        return (double)Float.intBitsToFloat(val);
+        return (double)Float.intBitsToFloat((int) getValue());
     }
 
     @Override
-    public long getBitsValue() {
-        return val & 0xffffffffL;
+    public long getValue() {
+        return getRaw() & 0xffffffffL;
     }
 
-    /**
-     * <p>
-     * ビット列を設定する。
-     * </p>
-     *
-     * @param v ビット列
-     */
-    public void setBitsValue(int v) {
-        val = v;
+    @Override
+    public void setValue(long v) {
+        setRaw(v & 0xffffffffL);
     }
 
     /**
@@ -117,6 +89,6 @@ public class Float32 extends AbstractNumOld {
      */
     @Override
     public String toString() {
-        return Float.toString(Float.intBitsToFloat(val));
+        return Float.toString(Float.intBitsToFloat((int) getValue()));
     }
 }

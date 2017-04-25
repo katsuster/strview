@@ -63,37 +63,37 @@ public class ToBitListConverter extends PacketWriterAdapter<LargeBitList> {
 
     @Override
     public void writeSInt(int nbit, SInt val, String name, String desc) {
-        buf.setPackedLong(pos, nbit, val.getBitsValue());
+        buf.setPackedLong(pos, nbit, val.getRaw());
         pos += nbit;
     }
 
     @Override
     public void writeUInt(int nbit, UInt val, String name, String desc) {
-        buf.setPackedLong(pos, nbit, val.getBitsValue());
+        buf.setPackedLong(pos, nbit, val.getRaw());
         pos += nbit;
     }
 
     @Override
     public void writeSIntR(int nbit, SIntR val, String name, String desc) {
-        buf.setPackedLong(pos, nbit, val.getBitsValue());
+        buf.setPackedLong(pos, nbit, val.getRaw());
         pos += nbit;
     }
 
     @Override
     public void writeUIntR(int nbit, UIntR val, String name, String desc) {
-        buf.setPackedLong(pos, nbit, val.getBitsValue());
+        buf.setPackedLong(pos, nbit, val.getRaw());
         pos += nbit;
     }
 
     @Override
     public void writeFloat32(int nbit, Float32 val, String name, String desc) {
-        buf.setPackedLong(pos, nbit, val.getBitsValue());
+        buf.setPackedLong(pos, nbit, val.getRaw());
         pos += nbit;
     }
 
     @Override
     public void writeFloat64(int nbit, Float64 val, String name, String desc) {
-        buf.setPackedLong(pos, nbit, val.getBitsValue());
+        buf.setPackedLong(pos, nbit, val.getRaw());
         pos += nbit;
     }
 
