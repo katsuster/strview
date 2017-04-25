@@ -178,6 +178,26 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
         r.getBuffer().getPackedByteArray(index + r.getStart(), dst, off, n);
     }
 
+    public static byte getPackedByte(Range r) {
+        return r.getBuffer().getPackedByte(r.getStart(), (int) r.getLength());
+    }
+
+    public static short getPackedShort(Range r) {
+        return r.getBuffer().getPackedShort(r.getStart(), (int) r.getLength());
+    }
+
+    public static int getPackedInt(Range r) {
+        return r.getBuffer().getPackedInt(r.getStart(), (int) r.getLength());
+    }
+
+    public static long getPackedLong(Range r) {
+        return r.getBuffer().getPackedLong(r.getStart(), (int) r.getLength());
+    }
+
+    public static void getPackedByteArray(Range r, byte[] dst, int off) {
+        r.getBuffer().getPackedByteArray(r.getStart(), dst, off, (int) r.getLength());
+    }
+
     @Override
     public void setPackedByte(long index, int n, byte val) {
         Range r = getRange();
@@ -221,6 +241,26 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
         checkRemaining(index, n);
 
         r.getBuffer().setPackedByteArray(index + r.getStart(), src, off, n);
+    }
+
+    public static void setPackedByte(Range r, byte val) {
+        r.getBuffer().setPackedByte(r.getStart(), (int) r.getLength(), val);
+    }
+
+    public static void setPackedShort(Range r, short val) {
+        r.getBuffer().setPackedShort(r.getStart(), (int) r.getLength(), val);
+    }
+
+    public static void setPackedInt(Range r, int val) {
+        r.getBuffer().setPackedInt(r.getStart(), (int) r.getLength(), val);
+    }
+
+    public static void setPackedLong(Range r, long val) {
+        r.getBuffer().setPackedLong(r.getStart(), (int) r.getLength(), val);
+    }
+
+    public static void setPackedByteArray(Range r, byte[] src, int off) {
+        r.getBuffer().setPackedByteArray(r.getStart(), src, off, (int) r.getLength());
     }
 
     @Override

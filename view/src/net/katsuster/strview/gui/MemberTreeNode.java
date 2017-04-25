@@ -355,8 +355,8 @@ public class MemberTreeNode extends DefaultMutableTreeNode {
             String digits = NumFormatter.numToDigits(v);
 
             valuename = String.format(
-                    "0x%0" + digits + "x(%s)\n",
-                    v.getBitsValue(), v.toString());
+                    "0x%0" + digits + "x(0x%0" + digits + "x, %s)\n",
+                    v.getBitsValue(), v.longValue(), v.toString());
         } else if (hasArrayData()) {
             valuename = "array";
         } else {

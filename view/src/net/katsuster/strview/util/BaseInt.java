@@ -72,8 +72,18 @@ public abstract class BaseInt extends AbstractNum {
     }
 
     @Override
+    public float floatValue() {
+        return (float) getBitsValue();
+    }
+
+    @Override
+    public double doubleValue() {
+        return (double) getBitsValue();
+    }
+
+    @Override
     public long getBitsValue() {
-        return getV();
+        return getPackedLong(getRange());
     }
 
     /**
@@ -84,24 +94,18 @@ public abstract class BaseInt extends AbstractNum {
      * @param v ビット列
      */
     public void setBitsValue(long v) {
-        setV(v);
+        setPackedLong(getRange(), v);
     }
 
-    /**
-     * <p>
-     * 加工前の整数を取得する。
-     * </p>
-     *
-     * @return 加工前の整数値
-     */
-    protected abstract long getV();
+    protected long getReverseBitsValue() {
+        int nbit = (int) getRange().getLength();
 
-    /**
-     * <p>
-     * 加工前の整数を設定する。
-     * </p>
-     *
-     * @param v 加工前の整数値
-     */
-    protected abstract void setV(long v);
+        return reverseNum(getBitsValue(), nbit);
+    }
+
+    protected void setReverseBitsValue(long v) {
+        int nbit = (int) getRange().getLength();
+
+        setBitsValue(reverseNum(v, nbit));
+    }
 }

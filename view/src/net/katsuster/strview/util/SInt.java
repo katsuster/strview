@@ -32,36 +32,6 @@ public class SInt extends BaseInt
         return compareAsSInt(getBitsValue(), obj.getBitsValue());
     }
 
-    @Override
-    public float floatValue() {
-        return (float) getBitsValue();
-    }
-
-    @Override
-    public double doubleValue() {
-        return (double) getBitsValue();
-    }
-
-    @Override
-    protected long getV() {
-        Range r = getRange();
-        LargeBitList buf = r.getBuffer();
-
-        if (r.getBuffer() == null) {
-            return 0;
-        }
-
-        return buf.getPackedLong(r.getStart(), (int) r.getLength());
-    }
-
-    @Override
-    protected void setV(long v) {
-        Range r = getRange();
-        LargeBitList buf = r.getBuffer();
-
-        buf.setPackedLong(r.getStart(), (int) r.getLength(), v);
-    }
-
     /**
      * 値を表す String オブジェクトを返します。
      *

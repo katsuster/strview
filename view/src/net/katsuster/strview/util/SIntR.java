@@ -20,7 +20,7 @@ public class SIntR extends BaseInt
     public SIntR(long v) {
         super();
 
-        setBitsValue(v);
+        setReverseBitsValue(v);
     }
 
     public SIntR(LargeBitList b, long p, int l) {
@@ -32,40 +32,47 @@ public class SIntR extends BaseInt
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (o instanceof SIntR) {
+            return (((SIntR)o).getReverseBitsValue() == getReverseBitsValue());
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public int compareTo(SIntR obj) {
-        return compareAsSInt(getBitsValue(), obj.getBitsValue());
+        return compareAsSInt(getReverseBitsValue(), obj.getReverseBitsValue());
+    }
+
+    @Override
+    public byte byteValue() {
+        return (byte) getReverseBitsValue();
+    }
+
+    @Override
+    public short shortValue() {
+        return (short) getReverseBitsValue();
+    }
+
+    @Override
+    public int intValue() {
+        return (int) getReverseBitsValue();
+    }
+
+    @Override
+    public long longValue() {
+        return getReverseBitsValue();
     }
 
     @Override
     public float floatValue() {
-        return (float) getBitsValue();
+        return (float) getReverseBitsValue();
     }
 
     @Override
     public double doubleValue() {
-        return (double) getBitsValue();
-    }
-
-    @Override
-    protected long getV() {
-        Range r = getRange();
-        LargeBitList buf = r.getBuffer();
-        int nbit = (int)r.getLength();
-
-        if (r.getBuffer() == null) {
-            return 0;
-        }
-
-        return reverseNum(buf.getPackedLong(r.getStart(), nbit), nbit);
-    }
-
-    @Override
-    protected void setV(long v) {
-        Range r = getRange();
-        LargeBitList buf = r.getBuffer();
-        int nbit = (int)r.getLength();
-
-        buf.setPackedLong(r.getStart(), nbit, reverseNum(v, nbit));
+        return (double) getReverseBitsValue();
     }
 
     /**
@@ -75,6 +82,6 @@ public class SIntR extends BaseInt
      */
     @Override
     public String toString() {
-        return Long.toString(getBitsValue());
+        return Long.toString(getReverseBitsValue());
     }
 }

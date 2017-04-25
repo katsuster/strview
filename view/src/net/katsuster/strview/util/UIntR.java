@@ -20,7 +20,7 @@ public class UIntR extends BaseInt
     public UIntR(long v) {
         super();
 
-        setBitsValue(v);
+        setReverseBitsValue(v);
     }
 
     public UIntR(LargeBitList b, long p, int l) {
@@ -32,40 +32,47 @@ public class UIntR extends BaseInt
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (o instanceof UIntR) {
+            return (((UIntR)o).getReverseBitsValue() == getReverseBitsValue());
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public int compareTo(UIntR obj) {
-        return compareAsUInt(getBitsValue(), obj.getBitsValue());
+        return compareAsUInt(getReverseBitsValue(), obj.getReverseBitsValue());
+    }
+
+    @Override
+    public byte byteValue() {
+        return (byte) getReverseBitsValue();
+    }
+
+    @Override
+    public short shortValue() {
+        return (short) getReverseBitsValue();
+    }
+
+    @Override
+    public int intValue() {
+        return (int) getReverseBitsValue();
+    }
+
+    @Override
+    public long longValue() {
+        return getReverseBitsValue();
     }
 
     @Override
     public float floatValue() {
-        return uint64ToFloat(getBitsValue());
+        return uint64ToFloat(getReverseBitsValue());
     }
 
     @Override
     public double doubleValue() {
-        return uint64ToDouble(getBitsValue());
-    }
-
-    @Override
-    protected long getV() {
-        Range r = getRange();
-        LargeBitList buf = r.getBuffer();
-        int nbit = (int)r.getLength();
-
-        if (r.getBuffer() == null) {
-            return 0;
-        }
-
-        return reverseNum(buf.getPackedLong(r.getStart(), nbit), nbit);
-    }
-
-    @Override
-    protected void setV(long v) {
-        Range r = getRange();
-        LargeBitList buf = r.getBuffer();
-        int nbit = (int)r.getLength();
-
-        buf.setPackedLong(r.getStart(), nbit, reverseNum(v, nbit));
+        return uint64ToDouble(getReverseBitsValue());
     }
 
     /**
@@ -75,6 +82,6 @@ public class UIntR extends BaseInt
      */
     @Override
     public String toString() {
-        return uint64ToString(getBitsValue());
+        return uint64ToString(getReverseBitsValue());
     }
 }

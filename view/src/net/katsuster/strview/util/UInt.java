@@ -42,26 +42,6 @@ public class UInt extends BaseInt
         return uint64ToDouble(getBitsValue());
     }
 
-    @Override
-    protected long getV() {
-        Range r = getRange();
-        LargeBitList buf = r.getBuffer();
-
-        if (r.getBuffer() == null) {
-            return 0;
-        }
-
-        return buf.getPackedLong(r.getStart(), (int) r.getLength());
-    }
-
-    @Override
-    protected void setV(long v) {
-        Range r = getRange();
-        LargeBitList buf = r.getBuffer();
-
-        buf.setPackedLong(r.getStart(), (int) r.getLength(), v);
-    }
-
     /**
      * 値を表す String オブジェクトを返します。
      *
