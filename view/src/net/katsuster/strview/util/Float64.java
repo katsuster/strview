@@ -13,12 +13,12 @@ public class Float64 extends AbstractNum {
     }
 
     public Float64(long v) {
-        super();
+        super(64);
         setValue(v);
     }
 
     public Float64(double v) {
-        super();
+        super(64);
         setValue(Double.doubleToRawLongBits(v));
     }
 

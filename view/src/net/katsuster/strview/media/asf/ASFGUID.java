@@ -58,11 +58,11 @@ public class ASFGUID extends BlockAdapter
      * @param e パート E、下位 48bit のみ使用されます。
      */
     public ASFGUID(int a, int b, int c, int d, long e) {
-        la = new UIntR(a & 0xffffffffL);
-        lb = new UIntR(b & 0xffffL);
-        lc = new UIntR(c & 0xffffL);
-        bd = new UInt(d & 0xffffL);
-        be = new UInt(e & 0xffffffffffffL);
+        la = new UIntR(a & 0xffffffffL, 32);
+        lb = new UIntR(b & 0xffffL, 16);
+        lc = new UIntR(c & 0xffffL, 16);
+        bd = new UInt(d & 0xffffL, 16);
+        be = new UInt(e & 0xffffffffffffL, 48);
     }
 
     @Override

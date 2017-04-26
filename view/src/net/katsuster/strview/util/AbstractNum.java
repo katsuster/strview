@@ -18,13 +18,13 @@ public abstract class AbstractNum extends SubLargeBitList
 
     /**
      * <p>
-     * 数値の長さ（ビット単位）を 64 に、
+     * 指定された数値の長さ（ビット単位）を持ち、
      * 数値が存在する位置（ビット単位）を 0 に設定した、
      * 新たな数値を構築します。
      * </p>
      */
-    public AbstractNum() {
-        super(new MemoryBitList(64), 0, 64);
+    public AbstractNum(int l) {
+        super(new MemoryBitList(64), 0, l);
     }
 
     /**
@@ -171,6 +171,31 @@ public abstract class AbstractNum extends SubLargeBitList
             throw new IllegalArgumentException(
                     "reverseNum() not support " + nbit + "bits.");
         }
+    }
+
+    /**
+     * <p>
+     * 指定されたビット数の数値とみなし、64bit に符号拡張を行います。
+     * </p>
+     *
+     * @param v 値
+     * @param n ビット数
+     */
+    long signext(long v, int n) {
+        long sb, mb;
+
+        if (n == 0) {
+            return 0;
+        }
+
+        sb = 1L << (n - 1);
+        mb = (-1L << (n - 1)) << 1;
+        v &= ~mb;
+        if ((v & sb) != 0) {
+            v = mb + v;
+        }
+
+        return v;
     }
 
     /**

@@ -10,11 +10,11 @@ package net.katsuster.strview.util;
 public class UInt extends AbstractNum
         implements Comparable<UInt> {
     public UInt() {
-        this(0);
+        this(0, 0);
     }
 
-    public UInt(long v) {
-        super();
+    public UInt(long v, int l) {
+        super(l);
         setValue(v);
     }
 

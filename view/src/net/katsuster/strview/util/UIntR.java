@@ -14,11 +14,11 @@ package net.katsuster.strview.util;
 public class UIntR extends AbstractNum
         implements Comparable<UIntR> {
     public UIntR() {
-        this(0);
+        this(0, 0);
     }
 
-    public UIntR(long v) {
-        super();
+    public UIntR(long v, int l) {
+        super(l);
         setValue(v);
     }
 

@@ -10,11 +10,11 @@ package net.katsuster.strview.util;
 public class SInt extends AbstractNum
         implements Comparable<SInt> {
     public SInt() {
-        this(0);
+        this(0, 0);
     }
 
-    public SInt(long v) {
-        super();
+    public SInt(long v, int l) {
+        super(l);
         setValue(v);
     }
 
@@ -29,6 +29,13 @@ public class SInt extends AbstractNum
     @Override
     public int compareTo(SInt obj) {
         return compareAsSInt(getValue(), obj.getValue());
+    }
+
+    @Override
+    public long getValue() {
+        int nbit = (int) getRange().getLength();
+
+        return signext(getRaw(), nbit);
     }
 
     /**

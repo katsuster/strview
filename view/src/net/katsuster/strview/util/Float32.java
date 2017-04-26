@@ -13,12 +13,12 @@ public class Float32 extends AbstractNum {
     }
 
     public Float32(int v) {
-        super();
+        super(32);
         setValue(v);
     }
 
     public Float32(float v) {
-        super();
+        super(32);
         setValue(Float.floatToRawIntBits(v));
     }
 
@@ -28,18 +28,6 @@ public class Float32 extends AbstractNum {
 
     public Float32(Float32 obj) {
         super(obj);
-    }
-
-    /**
-     * <p>
-     * オブジェクトのハッシュコードを返します。
-     * </p>
-     *
-     * @return オブジェクトが保持する値を int に変換した値に等しい
-     */
-    @Override
-    public int hashCode() {
-        return (int) getValue();
     }
 
     @Override

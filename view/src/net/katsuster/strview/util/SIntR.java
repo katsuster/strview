@@ -14,11 +14,11 @@ package net.katsuster.strview.util;
 public class SIntR extends AbstractNum
         implements Comparable<SIntR> {
     public SIntR() {
-        this(0);
+        this(0, 0);
     }
 
-    public SIntR(long v) {
-        super();
+    public SIntR(long v, int l) {
+        super(l);
         setValue(v);
     }
 
@@ -39,7 +39,7 @@ public class SIntR extends AbstractNum
     public long getValue() {
         int nbit = (int) getRange().getLength();
 
-        return reverseNum(getRaw(), nbit);
+        return signext(reverseNum(getRaw(), nbit), nbit);
     }
 
     @Override
