@@ -8,103 +8,63 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public class SFixed16_16 extends AbstractNumOld {
-    private int val;
-
+public class SFixed16_16 extends AbstractNum {
     public SFixed16_16() {
-        this(0, 0, 0);
+        this(0);
     }
 
     public SFixed16_16(int v) {
-        this(v, 0, 0);
+        super(32);
+        setValue(v);
     }
 
-    public SFixed16_16(int v, long p, int l) {
-        super(p, l);
-        setBitsValue(v);
+    public SFixed16_16(LargeBitList b, long p, int l) {
+        super(b, p, l);
     }
 
     public SFixed16_16(SFixed16_16 obj) {
         super(obj);
-        setBitsValue((int)obj.getRaw());
-    }
-
-    /**
-     * <p>
-     * オブジェクトを指定されたオブジェクトと比較します。
-     * 結果が true になるのは、引数が null ではなく、
-     * このオブジェクトと同じ int 値を含む
-     * SFixed16_16 オブジェクトである場合だけです。
-     * </p>
-     *
-     * @param o 比較対象のオブジェクト
-     * @return オブジェクトが同じである場合は true、そうでない場合は false
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof SFixed16_16) {
-            return (((SFixed16_16)o).val == val);
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * <p>
-     * オブジェクトのハッシュコードを返します。
-     * </p>
-     *
-     * @return オブジェクトが保持する値を int に変換した値に等しい
-     */
-    @Override
-    public int hashCode() {
-        return val;
     }
 
     @Override
     public byte byteValue() {
-        return (byte)toFloat(val);
+        return (byte) sfixed16_16ToFloat((int) getValue());
     }
 
     @Override
     public short shortValue() {
-        return (short)toFloat(val);
+        return (short) sfixed16_16ToFloat((int) getValue());
     }
 
     @Override
     public int intValue() {
-        return (int)toFloat(val);
+        return (int) sfixed16_16ToFloat((int) getValue());
     }
 
     @Override
     public long longValue() {
-        return (long)toFloat(val);
+        return (long) sfixed16_16ToFloat((int) getValue());
     }
 
     @Override
     public float floatValue() {
-        return toFloat(val);
+        return sfixed16_16ToFloat((int) getValue());
     }
 
     @Override
     public double doubleValue() {
-        return (double)toFloat(val);
+        return (double) sfixed16_16ToFloat((int) getValue());
     }
 
     @Override
-    public long getRaw() {
-        return val & 0xffffffffL;
+    public long getValue() {
+        //Need sign extension
+        return (int)getRaw();
     }
 
-    /**
-     * <p>
-     * ビット列を設定する。
-     * </p>
-     *
-     * @param v ビット列
-     */
-    public void setBitsValue(int v) {
-        val = v;
+    @Override
+    public void setValue(long v) {
+        setRaw(v & 0xffffffffL);
     }
 
     /**
@@ -116,8 +76,8 @@ public class SFixed16_16 extends AbstractNumOld {
     public String toString() {
         int upper, lower;
 
-        upper = (val >> 16);
-        lower = (val >>  0) & 0x0000ffff;
+        upper = (int)(getValue() >> 16);
+        lower = (int)(getValue() >>  0) & 0x0000ffff;
 
         return Integer.toString(upper) + "." + fraction16ToString(lower);
     }
@@ -131,7 +91,7 @@ public class SFixed16_16 extends AbstractNumOld {
      * @param bits 整数値
      * @return 同じビットパターンを持つ固定小数点値を、浮動小数点に変換した値
      */
-    protected float toFloat(int bits) {
+    protected float sfixed16_16ToFloat(int bits) {
         int decimal;
         float fraction;
 

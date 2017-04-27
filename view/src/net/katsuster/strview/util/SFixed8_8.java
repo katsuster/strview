@@ -8,103 +8,63 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public class SFixed8_8 extends AbstractNumOld {
-    private short val;
-
+public class SFixed8_8 extends AbstractNum {
     public SFixed8_8() {
-        this((short)0, 0, 0);
+        this((short) 0);
     }
 
     public SFixed8_8(short v) {
-        this(v, 0, 0);
+        super(16);
+        setValue(v);
     }
 
-    public SFixed8_8(short v, long p, int l) {
-        super(p, l);
-        setBitsValue(v);
+    public SFixed8_8(LargeBitList b, long p, int l) {
+        super(b, p, l);
     }
 
     public SFixed8_8(SFixed8_8 obj) {
         super(obj);
-        setBitsValue((short)obj.getRaw());
-    }
-
-    /**
-     * <p>
-     * オブジェクトを指定されたオブジェクトと比較します。
-     * 結果が true になるのは、引数が null ではなく、
-     * このオブジェクトと同じ short 値を含む
-     * SFixed8_8 オブジェクトである場合だけです。
-     * </p>
-     *
-     * @param o 比較対象のオブジェクト
-     * @return オブジェクトが同じである場合は true、そうでない場合は false
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof SFixed8_8) {
-            return (((SFixed8_8)o).val == val);
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * <p>
-     * オブジェクトのハッシュコードを返します。
-     * </p>
-     *
-     * @return オブジェクトが保持する値を int に変換した値に等しい
-     */
-    @Override
-    public int hashCode() {
-        return val;
     }
 
     @Override
     public byte byteValue() {
-        return (byte)toFloat(val);
+        return (byte) sfixed8_8ToFloat((short) getValue());
     }
 
     @Override
     public short shortValue() {
-        return (short)toFloat(val);
+        return (short) sfixed8_8ToFloat((short) getValue());
     }
 
     @Override
     public int intValue() {
-        return (int)toFloat(val);
+        return (int) sfixed8_8ToFloat((short) getValue());
     }
 
     @Override
     public long longValue() {
-        return (long)toFloat(val);
+        return (long) sfixed8_8ToFloat((short) getValue());
     }
 
     @Override
     public float floatValue() {
-        return toFloat(val);
+        return sfixed8_8ToFloat((short) getValue());
     }
 
     @Override
     public double doubleValue() {
-        return (double)toFloat(val);
+        return (double) sfixed8_8ToFloat((short) getValue());
     }
 
     @Override
-    public long getRaw() {
-        return val & 0xffffL;
+    public long getValue() {
+        //Need sign extension
+        return (short)getRaw();
     }
 
-    /**
-     * <p>
-     * ビット列を設定する。
-     * </p>
-     *
-     * @param v ビット列
-     */
-    public void setBitsValue(short v) {
-        val = v;
+    @Override
+    public void setValue(long v) {
+        setRaw(v & 0xffffL);
     }
 
     /**
@@ -116,8 +76,8 @@ public class SFixed8_8 extends AbstractNumOld {
     public String toString() {
         int upper, lower;
 
-        upper = (val >> 8);
-        lower = (val >> 0) & 0x00ff;
+        upper = (int)(getValue() >> 8);
+        lower = (int)(getValue() >> 0) & 0x00ff;
 
         return Integer.toString(upper) + "." + fraction8ToString(lower);
     }
@@ -131,7 +91,7 @@ public class SFixed8_8 extends AbstractNumOld {
      * @param bits 整数値
      * @return 同じビットパターンを持つ固定小数点値を、浮動小数点に変換した値
      */
-    protected static float toFloat(short bits) {
+    protected static float sfixed8_8ToFloat(short bits) {
         int decimal;
         float fraction;
 

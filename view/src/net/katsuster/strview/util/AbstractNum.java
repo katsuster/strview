@@ -181,7 +181,7 @@ public abstract class AbstractNum extends SubLargeBitList
      * @param v 値
      * @param n ビット数
      */
-    long signext(long v, int n) {
+    protected static long signext(long v, int n) {
         long sb, mb;
 
         if (n == 0) {

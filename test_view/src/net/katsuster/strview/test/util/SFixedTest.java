@@ -9,6 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import net.katsuster.strview.util.*;
+import net.katsuster.strview.io.*;
 
 public class SFixedTest {
     @BeforeClass
@@ -31,9 +32,10 @@ public class SFixedTest {
     public final void testSFixed16_16IntLongInt() {
         String msg1 = "SFixed16_16(int, long, int) failed.";
         String msg2 = "SFixed16_16(int, long, int) illegal arguments check failed.";
-        SFixed16_16 va = new SFixed16_16(1, 2, 3);
+        LargeBitList la = new MemoryBitList(64);
+        SFixed16_16 va = new SFixed16_16(la, 2, 3);
 
-        assertEquals(msg1, 1, va.getRaw());
+        assertEquals(msg1, 0, va.getRaw());
         assertEquals(msg1, 2, va.getRange().getStart());
         assertEquals(msg1, 3, va.getRange().getLength());
     }
@@ -42,14 +44,15 @@ public class SFixedTest {
     public final void testSFixed16_16SFixed16_16() {
         String msg1 = "SFixed16_16(SFixed16_16) failed.";
         String msg2 = "SFixed16_16.clone() failed.";
-        SFixed16_16 va = new SFixed16_16(1, 2, 3);
+        LargeBitList la = new MemoryBitList(64);
+        SFixed16_16 va = new SFixed16_16(la, 2, 3);
         SFixed16_16 vb = new SFixed16_16(va);
 
         assertEquals(msg1, va.getRaw(), vb.getRaw());
         assertEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
         assertEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
-        vb.setBitsValue(10);
+        vb.setRaw(10);
         vb.getRange().setStart(20);
         vb.getRange().setEnd(30);
         assertNotEquals(msg1, va.getRaw(), vb.getRaw());
@@ -63,9 +66,9 @@ public class SFixedTest {
             assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
             assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
 
-            vc.setBitsValue(100);
-            vc.getRange().setStart(200);
-            vc.getRange().setEnd(300);
+            vc.setRaw(100);
+            vc.getRange().setStart(4);
+            vc.getRange().setEnd(10);
             assertNotEquals(msg2, va.getRaw(), vc.getRaw());
             assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
             assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
@@ -77,15 +80,15 @@ public class SFixedTest {
     @Test
     public final void testSFixed16_16ByteValue() {
         String msg1 = "SFixed16_16.byteValue() failed.";
-        SFixed16_16 vz0 = new SFixed16_16(0x00000000, 0, 0);
-        SFixed16_16 vp1 = new SFixed16_16(0x00010000, 0, 0);
-        SFixed16_16 vp2 = new SFixed16_16(0x00020000, 0, 0);
-        SFixed16_16 vm1 = new SFixed16_16(0xffff0000, 0, 0);
-        SFixed16_16 vm2 = new SFixed16_16(0xfffe0000, 0, 0);
-        SFixed16_16 vh1 = new SFixed16_16(0x7ffe8000, 0, 0);
-        SFixed16_16 vh2 = new SFixed16_16(0x7fff8000, 0, 0);
-        SFixed16_16 vh3 = new SFixed16_16(0x8000c000, 0, 0);
-        SFixed16_16 vh4 = new SFixed16_16(0x8001c000, 0, 0);
+        SFixed16_16 vz0 = new SFixed16_16(0x00000000);
+        SFixed16_16 vp1 = new SFixed16_16(0x00010000);
+        SFixed16_16 vp2 = new SFixed16_16(0x00020000);
+        SFixed16_16 vm1 = new SFixed16_16(0xffff0000);
+        SFixed16_16 vm2 = new SFixed16_16(0xfffe0000);
+        SFixed16_16 vh1 = new SFixed16_16(0x7ffe8000);
+        SFixed16_16 vh2 = new SFixed16_16(0x7fff8000);
+        SFixed16_16 vh3 = new SFixed16_16(0x8000c000);
+        SFixed16_16 vh4 = new SFixed16_16(0x8001c000);
 
         assertEquals(msg1, (byte)0x00, vz0.byteValue());
         assertEquals(msg1, (byte)0x01, vp1.byteValue());
@@ -101,15 +104,15 @@ public class SFixedTest {
     @Test
     public final void testSFixed16_16ShortValue() {
         String msg1 = "SFixed16_16.shortValue() failed.";
-        SFixed16_16 vz0 = new SFixed16_16(0x00000000, 0, 0);
-        SFixed16_16 vp1 = new SFixed16_16(0x00010000, 0, 0);
-        SFixed16_16 vp2 = new SFixed16_16(0x00020000, 0, 0);
-        SFixed16_16 vm1 = new SFixed16_16(0xffff0000, 0, 0);
-        SFixed16_16 vm2 = new SFixed16_16(0xfffe0000, 0, 0);
-        SFixed16_16 vh1 = new SFixed16_16(0x7ffe8000, 0, 0);
-        SFixed16_16 vh2 = new SFixed16_16(0x7fff8000, 0, 0);
-        SFixed16_16 vh3 = new SFixed16_16(0x8000c000, 0, 0);
-        SFixed16_16 vh4 = new SFixed16_16(0x8001c000, 0, 0);
+        SFixed16_16 vz0 = new SFixed16_16(0x00000000);
+        SFixed16_16 vp1 = new SFixed16_16(0x00010000);
+        SFixed16_16 vp2 = new SFixed16_16(0x00020000);
+        SFixed16_16 vm1 = new SFixed16_16(0xffff0000);
+        SFixed16_16 vm2 = new SFixed16_16(0xfffe0000);
+        SFixed16_16 vh1 = new SFixed16_16(0x7ffe8000);
+        SFixed16_16 vh2 = new SFixed16_16(0x7fff8000);
+        SFixed16_16 vh3 = new SFixed16_16(0x8000c000);
+        SFixed16_16 vh4 = new SFixed16_16(0x8001c000);
 
         assertEquals(msg1, (short)0x0000, vz0.shortValue());
         assertEquals(msg1, (short)0x0001, vp1.shortValue());
@@ -125,15 +128,15 @@ public class SFixedTest {
     @Test
     public final void testSFixed16_16IntValue() {
         String msg1 = "SFixed16_16.intValue() failed.";
-        SFixed16_16 vz0 = new SFixed16_16(0x00000000, 0, 0);
-        SFixed16_16 vp1 = new SFixed16_16(0x00010000, 0, 0);
-        SFixed16_16 vp2 = new SFixed16_16(0x00020000, 0, 0);
-        SFixed16_16 vm1 = new SFixed16_16(0xffff0000, 0, 0);
-        SFixed16_16 vm2 = new SFixed16_16(0xfffe0000, 0, 0);
-        SFixed16_16 vh1 = new SFixed16_16(0x7ffe8000, 0, 0);
-        SFixed16_16 vh2 = new SFixed16_16(0x7fff8000, 0, 0);
-        SFixed16_16 vh3 = new SFixed16_16(0x8000c000, 0, 0);
-        SFixed16_16 vh4 = new SFixed16_16(0x8001c000, 0, 0);
+        SFixed16_16 vz0 = new SFixed16_16(0x00000000);
+        SFixed16_16 vp1 = new SFixed16_16(0x00010000);
+        SFixed16_16 vp2 = new SFixed16_16(0x00020000);
+        SFixed16_16 vm1 = new SFixed16_16(0xffff0000);
+        SFixed16_16 vm2 = new SFixed16_16(0xfffe0000);
+        SFixed16_16 vh1 = new SFixed16_16(0x7ffe8000);
+        SFixed16_16 vh2 = new SFixed16_16(0x7fff8000);
+        SFixed16_16 vh3 = new SFixed16_16(0x8000c000);
+        SFixed16_16 vh4 = new SFixed16_16(0x8001c000);
 
         assertEquals(msg1, 0x00000000, vz0.intValue());
         assertEquals(msg1, 0x00000001, vp1.intValue());
@@ -149,15 +152,15 @@ public class SFixedTest {
     @Test
     public final void testSFixed16_16LongValue() {
         String msg1 = "SFixed16_16.longValue() failed.";
-        SFixed16_16 vz0 = new SFixed16_16(0x00000000, 0, 0);
-        SFixed16_16 vp1 = new SFixed16_16(0x00010000, 0, 0);
-        SFixed16_16 vp2 = new SFixed16_16(0x00020000, 0, 0);
-        SFixed16_16 vm1 = new SFixed16_16(0xffff0000, 0, 0);
-        SFixed16_16 vm2 = new SFixed16_16(0xfffe0000, 0, 0);
-        SFixed16_16 vh1 = new SFixed16_16(0x7ffe8000, 0, 0);
-        SFixed16_16 vh2 = new SFixed16_16(0x7fff8000, 0, 0);
-        SFixed16_16 vh3 = new SFixed16_16(0x8000c000, 0, 0);
-        SFixed16_16 vh4 = new SFixed16_16(0x8001c000, 0, 0);
+        SFixed16_16 vz0 = new SFixed16_16(0x00000000);
+        SFixed16_16 vp1 = new SFixed16_16(0x00010000);
+        SFixed16_16 vp2 = new SFixed16_16(0x00020000);
+        SFixed16_16 vm1 = new SFixed16_16(0xffff0000);
+        SFixed16_16 vm2 = new SFixed16_16(0xfffe0000);
+        SFixed16_16 vh1 = new SFixed16_16(0x7ffe8000);
+        SFixed16_16 vh2 = new SFixed16_16(0x7fff8000);
+        SFixed16_16 vh3 = new SFixed16_16(0x8000c000);
+        SFixed16_16 vh4 = new SFixed16_16(0x8001c000);
 
         assertEquals(msg1, 0x0000000000000000L, vz0.longValue());
         assertEquals(msg1, 0x0000000000000001L, vp1.longValue());
@@ -173,15 +176,15 @@ public class SFixedTest {
     @Test
     public final void testSFixed16_16FloatValue() {
         String msg1 = "SFixed16_16.floatValue() failed.";
-        SFixed16_16 vz0 = new SFixed16_16(0x00000000, 0, 0);
-        SFixed16_16 vp1 = new SFixed16_16(0x00010000, 0, 0);
-        SFixed16_16 vp2 = new SFixed16_16(0x00020000, 0, 0);
-        SFixed16_16 vm1 = new SFixed16_16(0xffff0000, 0, 0);
-        SFixed16_16 vm2 = new SFixed16_16(0xfffe0000, 0, 0);
-        SFixed16_16 vh1 = new SFixed16_16(0x7ffe8000, 0, 0);
-        SFixed16_16 vh2 = new SFixed16_16(0x7fff8000, 0, 0);
-        SFixed16_16 vh3 = new SFixed16_16(0x8000c000, 0, 0);
-        SFixed16_16 vh4 = new SFixed16_16(0x8001c000, 0, 0);
+        SFixed16_16 vz0 = new SFixed16_16(0x00000000);
+        SFixed16_16 vp1 = new SFixed16_16(0x00010000);
+        SFixed16_16 vp2 = new SFixed16_16(0x00020000);
+        SFixed16_16 vm1 = new SFixed16_16(0xffff0000);
+        SFixed16_16 vm2 = new SFixed16_16(0xfffe0000);
+        SFixed16_16 vh1 = new SFixed16_16(0x7ffe8000);
+        SFixed16_16 vh2 = new SFixed16_16(0x7fff8000);
+        SFixed16_16 vh3 = new SFixed16_16(0x8000c000);
+        SFixed16_16 vh4 = new SFixed16_16(0x8001c000);
 
         assertTrue(msg1,       0.0F == vz0.floatValue());
         assertTrue(msg1,       1.0F == vp1.floatValue());
@@ -197,15 +200,15 @@ public class SFixedTest {
     @Test
     public final void testSFixed16_16DoubleValue() {
         String msg1 = "SFixed16_16.doubleValue() failed.";
-        SFixed16_16 vz0 = new SFixed16_16(0x00000000, 0, 0);
-        SFixed16_16 vp1 = new SFixed16_16(0x00010000, 0, 0);
-        SFixed16_16 vp2 = new SFixed16_16(0x00020000, 0, 0);
-        SFixed16_16 vm1 = new SFixed16_16(0xffff0000, 0, 0);
-        SFixed16_16 vm2 = new SFixed16_16(0xfffe0000, 0, 0);
-        SFixed16_16 vh1 = new SFixed16_16(0x7ffe8000, 0, 0);
-        SFixed16_16 vh2 = new SFixed16_16(0x7fff8000, 0, 0);
-        SFixed16_16 vh3 = new SFixed16_16(0x8000c000, 0, 0);
-        SFixed16_16 vh4 = new SFixed16_16(0x8001c000, 0, 0);
+        SFixed16_16 vz0 = new SFixed16_16(0x00000000);
+        SFixed16_16 vp1 = new SFixed16_16(0x00010000);
+        SFixed16_16 vp2 = new SFixed16_16(0x00020000);
+        SFixed16_16 vm1 = new SFixed16_16(0xffff0000);
+        SFixed16_16 vm2 = new SFixed16_16(0xfffe0000);
+        SFixed16_16 vh1 = new SFixed16_16(0x7ffe8000);
+        SFixed16_16 vh2 = new SFixed16_16(0x7fff8000);
+        SFixed16_16 vh3 = new SFixed16_16(0x8000c000);
+        SFixed16_16 vh4 = new SFixed16_16(0x8001c000);
 
         assertTrue(msg1,       0.0D == vz0.doubleValue());
         assertTrue(msg1,       1.0D == vp1.doubleValue());
@@ -221,15 +224,15 @@ public class SFixedTest {
     @Test
     public final void testSFixed16_16ToString() {
         String msg1 = "SFixed16_16.toString() failed.";
-        SFixed16_16 vz0 = new SFixed16_16(0x00000000, 0, 0);
-        SFixed16_16 vp1 = new SFixed16_16(0x00010000, 0, 0);
-        SFixed16_16 vp2 = new SFixed16_16(0x00020000, 0, 0);
-        SFixed16_16 vm1 = new SFixed16_16(0xffff0000, 0, 0);
-        SFixed16_16 vm2 = new SFixed16_16(0xfffe0000, 0, 0);
-        SFixed16_16 vh1 = new SFixed16_16(0x7ffe8000, 0, 0);
-        SFixed16_16 vh2 = new SFixed16_16(0x7fff8000, 0, 0);
-        SFixed16_16 vh3 = new SFixed16_16(0x8000c000, 0, 0);
-        SFixed16_16 vh4 = new SFixed16_16(0x8001c000, 0, 0);
+        SFixed16_16 vz0 = new SFixed16_16(0x00000000);
+        SFixed16_16 vp1 = new SFixed16_16(0x00010000);
+        SFixed16_16 vp2 = new SFixed16_16(0x00020000);
+        SFixed16_16 vm1 = new SFixed16_16(0xffff0000);
+        SFixed16_16 vm2 = new SFixed16_16(0xfffe0000);
+        SFixed16_16 vh1 = new SFixed16_16(0x7ffe8000);
+        SFixed16_16 vh2 = new SFixed16_16(0x7fff8000);
+        SFixed16_16 vh3 = new SFixed16_16(0x8000c000);
+        SFixed16_16 vh4 = new SFixed16_16(0x8001c000);
 
         assertEquals(msg1,       "0.0", vz0.toString());
         assertEquals(msg1,       "1.0", vp1.toString());
@@ -246,9 +249,10 @@ public class SFixedTest {
     public final void testSFixed8_8ShortLongInt() {
         String msg1 = "SFixed8_8(short, long, int) failed.";
         String msg2 = "SFixed8_8(short, long, int) illegal arguments check failed.";
-        SFixed8_8 va = new SFixed8_8((short)1, 2, 3);
+        LargeBitList la = new MemoryBitList(64);
+        SFixed8_8 va = new SFixed8_8(la, 2, 3);
 
-        assertEquals(msg1, 1, va.getRaw());
+        assertEquals(msg1, 0, va.getRaw());
         assertEquals(msg1, 2, va.getRange().getStart());
         assertEquals(msg1, 3, va.getRange().getLength());
     }
@@ -257,14 +261,15 @@ public class SFixedTest {
     public final void testSFixed8_8SFixed8_8() {
         String msg1 = "SFixed8_8(SFixed8_8) failed.";
         String msg2 = "SFixed8_8.clone() failed.";
-        SFixed8_8 va = new SFixed8_8((short)1, 2, 3);
+        LargeBitList la = new MemoryBitList(64);
+        SFixed8_8 va = new SFixed8_8(la, 2, 3);
         SFixed8_8 vb = new SFixed8_8(va);
 
         assertEquals(msg1, va.getRaw(), vb.getRaw());
         assertEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
         assertEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
-        vb.setBitsValue((short)10);
+        vb.setRaw(10);
         vb.getRange().setStart(20);
         vb.getRange().setEnd(30);
         assertNotEquals(msg1, va.getRaw(), vb.getRaw());
@@ -278,9 +283,9 @@ public class SFixedTest {
             assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
             assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
 
-            vc.setBitsValue((short)100);
-            vc.getRange().setStart(200);
-            vc.getRange().setEnd(300);
+            vc.setRaw(100);
+            vc.getRange().setStart(4);
+            vc.getRange().setEnd(10);
             assertNotEquals(msg2, va.getRaw(), vc.getRaw());
             assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
             assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
@@ -292,15 +297,15 @@ public class SFixedTest {
     @Test
     public final void testSFixed8_8ByteValue() {
         String msg1 = "SFixed8_8.byteValue() failed.";
-        SFixed8_8 vz0 = new SFixed8_8((short)0x0000, 0, 0);
-        SFixed8_8 vp1 = new SFixed8_8((short)0x0100, 0, 0);
-        SFixed8_8 vp2 = new SFixed8_8((short)0x0200, 0, 0);
-        SFixed8_8 vm1 = new SFixed8_8((short)0xff00, 0, 0);
-        SFixed8_8 vm2 = new SFixed8_8((short)0xfe00, 0, 0);
-        SFixed8_8 vh1 = new SFixed8_8((short)0x7e80, 0, 0);
-        SFixed8_8 vh2 = new SFixed8_8((short)0x7f80, 0, 0);
-        SFixed8_8 vh3 = new SFixed8_8((short)0x80c0, 0, 0);
-        SFixed8_8 vh4 = new SFixed8_8((short)0x81c0, 0, 0);
+        SFixed8_8 vz0 = new SFixed8_8((short)0x0000);
+        SFixed8_8 vp1 = new SFixed8_8((short)0x0100);
+        SFixed8_8 vp2 = new SFixed8_8((short)0x0200);
+        SFixed8_8 vm1 = new SFixed8_8((short)0xff00);
+        SFixed8_8 vm2 = new SFixed8_8((short)0xfe00);
+        SFixed8_8 vh1 = new SFixed8_8((short)0x7e80);
+        SFixed8_8 vh2 = new SFixed8_8((short)0x7f80);
+        SFixed8_8 vh3 = new SFixed8_8((short)0x80c0);
+        SFixed8_8 vh4 = new SFixed8_8((short)0x81c0);
 
         assertEquals(msg1, (byte)0x00, vz0.byteValue());
         assertEquals(msg1, (byte)0x01, vp1.byteValue());
@@ -316,15 +321,15 @@ public class SFixedTest {
     @Test
     public final void testSFixed8_8ShortValue() {
         String msg1 = "SFixed8_8.shortValue() failed.";
-        SFixed8_8 vz0 = new SFixed8_8((short)0x0000, 0, 0);
-        SFixed8_8 vp1 = new SFixed8_8((short)0x0100, 0, 0);
-        SFixed8_8 vp2 = new SFixed8_8((short)0x0200, 0, 0);
-        SFixed8_8 vm1 = new SFixed8_8((short)0xff00, 0, 0);
-        SFixed8_8 vm2 = new SFixed8_8((short)0xfe00, 0, 0);
-        SFixed8_8 vh1 = new SFixed8_8((short)0x7e80, 0, 0);
-        SFixed8_8 vh2 = new SFixed8_8((short)0x7f80, 0, 0);
-        SFixed8_8 vh3 = new SFixed8_8((short)0x80c0, 0, 0);
-        SFixed8_8 vh4 = new SFixed8_8((short)0x81c0, 0, 0);
+        SFixed8_8 vz0 = new SFixed8_8((short)0x0000);
+        SFixed8_8 vp1 = new SFixed8_8((short)0x0100);
+        SFixed8_8 vp2 = new SFixed8_8((short)0x0200);
+        SFixed8_8 vm1 = new SFixed8_8((short)0xff00);
+        SFixed8_8 vm2 = new SFixed8_8((short)0xfe00);
+        SFixed8_8 vh1 = new SFixed8_8((short)0x7e80);
+        SFixed8_8 vh2 = new SFixed8_8((short)0x7f80);
+        SFixed8_8 vh3 = new SFixed8_8((short)0x80c0);
+        SFixed8_8 vh4 = new SFixed8_8((short)0x81c0);
 
         assertEquals(msg1, (short)0x0000, vz0.shortValue());
         assertEquals(msg1, (short)0x0001, vp1.shortValue());
@@ -340,15 +345,15 @@ public class SFixedTest {
     @Test
     public final void testSFixed8_8IntValue() {
         String msg1 = "SFixed8_8.intValue() failed.";
-        SFixed8_8 vz0 = new SFixed8_8((short)0x0000, 0, 0);
-        SFixed8_8 vp1 = new SFixed8_8((short)0x0100, 0, 0);
-        SFixed8_8 vp2 = new SFixed8_8((short)0x0200, 0, 0);
-        SFixed8_8 vm1 = new SFixed8_8((short)0xff00, 0, 0);
-        SFixed8_8 vm2 = new SFixed8_8((short)0xfe00, 0, 0);
-        SFixed8_8 vh1 = new SFixed8_8((short)0x7e80, 0, 0);
-        SFixed8_8 vh2 = new SFixed8_8((short)0x7f80, 0, 0);
-        SFixed8_8 vh3 = new SFixed8_8((short)0x80c0, 0, 0);
-        SFixed8_8 vh4 = new SFixed8_8((short)0x81c0, 0, 0);
+        SFixed8_8 vz0 = new SFixed8_8((short)0x0000);
+        SFixed8_8 vp1 = new SFixed8_8((short)0x0100);
+        SFixed8_8 vp2 = new SFixed8_8((short)0x0200);
+        SFixed8_8 vm1 = new SFixed8_8((short)0xff00);
+        SFixed8_8 vm2 = new SFixed8_8((short)0xfe00);
+        SFixed8_8 vh1 = new SFixed8_8((short)0x7e80);
+        SFixed8_8 vh2 = new SFixed8_8((short)0x7f80);
+        SFixed8_8 vh3 = new SFixed8_8((short)0x80c0);
+        SFixed8_8 vh4 = new SFixed8_8((short)0x81c0);
 
         assertEquals(msg1, 0x00000000, vz0.intValue());
         assertEquals(msg1, 0x00000001, vp1.intValue());
@@ -364,15 +369,15 @@ public class SFixedTest {
     @Test
     public final void testSFixed8_8LongValue() {
         String msg1 = "SFixed8_8.longValue() failed.";
-        SFixed8_8 vz0 = new SFixed8_8((short)0x0000, 0, 0);
-        SFixed8_8 vp1 = new SFixed8_8((short)0x0100, 0, 0);
-        SFixed8_8 vp2 = new SFixed8_8((short)0x0200, 0, 0);
-        SFixed8_8 vm1 = new SFixed8_8((short)0xff00, 0, 0);
-        SFixed8_8 vm2 = new SFixed8_8((short)0xfe00, 0, 0);
-        SFixed8_8 vh1 = new SFixed8_8((short)0x7e80, 0, 0);
-        SFixed8_8 vh2 = new SFixed8_8((short)0x7f80, 0, 0);
-        SFixed8_8 vh3 = new SFixed8_8((short)0x80c0, 0, 0);
-        SFixed8_8 vh4 = new SFixed8_8((short)0x81c0, 0, 0);
+        SFixed8_8 vz0 = new SFixed8_8((short)0x0000);
+        SFixed8_8 vp1 = new SFixed8_8((short)0x0100);
+        SFixed8_8 vp2 = new SFixed8_8((short)0x0200);
+        SFixed8_8 vm1 = new SFixed8_8((short)0xff00);
+        SFixed8_8 vm2 = new SFixed8_8((short)0xfe00);
+        SFixed8_8 vh1 = new SFixed8_8((short)0x7e80);
+        SFixed8_8 vh2 = new SFixed8_8((short)0x7f80);
+        SFixed8_8 vh3 = new SFixed8_8((short)0x80c0);
+        SFixed8_8 vh4 = new SFixed8_8((short)0x81c0);
 
         assertEquals(msg1, 0x0000000000000000L, vz0.longValue());
         assertEquals(msg1, 0x0000000000000001L, vp1.longValue());
@@ -388,15 +393,15 @@ public class SFixedTest {
     @Test
     public final void testSFixed8_8FloatValue() {
         String msg1 = "SFixed8_8.floatValue() failed.";
-        SFixed8_8 vz0 = new SFixed8_8((short)0x0000, 0, 0);
-        SFixed8_8 vp1 = new SFixed8_8((short)0x0100, 0, 0);
-        SFixed8_8 vp2 = new SFixed8_8((short)0x0200, 0, 0);
-        SFixed8_8 vm1 = new SFixed8_8((short)0xff00, 0, 0);
-        SFixed8_8 vm2 = new SFixed8_8((short)0xfe00, 0, 0);
-        SFixed8_8 vh1 = new SFixed8_8((short)0x7e80, 0, 0);
-        SFixed8_8 vh2 = new SFixed8_8((short)0x7f80, 0, 0);
-        SFixed8_8 vh3 = new SFixed8_8((short)0x80c0, 0, 0);
-        SFixed8_8 vh4 = new SFixed8_8((short)0x81c0, 0, 0);
+        SFixed8_8 vz0 = new SFixed8_8((short)0x0000);
+        SFixed8_8 vp1 = new SFixed8_8((short)0x0100);
+        SFixed8_8 vp2 = new SFixed8_8((short)0x0200);
+        SFixed8_8 vm1 = new SFixed8_8((short)0xff00);
+        SFixed8_8 vm2 = new SFixed8_8((short)0xfe00);
+        SFixed8_8 vh1 = new SFixed8_8((short)0x7e80);
+        SFixed8_8 vh2 = new SFixed8_8((short)0x7f80);
+        SFixed8_8 vh3 = new SFixed8_8((short)0x80c0);
+        SFixed8_8 vh4 = new SFixed8_8((short)0x81c0);
 
         assertTrue(msg1,       0.0F == vz0.floatValue());
         assertTrue(msg1,       1.0F == vp1.floatValue());
@@ -412,15 +417,15 @@ public class SFixedTest {
     @Test
     public final void testSFixed8_8DoubleValue() {
         String msg1 = "SFixed8_8.doubleValue() failed.";
-        SFixed8_8 vz0 = new SFixed8_8((short)0x0000, 0, 0);
-        SFixed8_8 vp1 = new SFixed8_8((short)0x0100, 0, 0);
-        SFixed8_8 vp2 = new SFixed8_8((short)0x0200, 0, 0);
-        SFixed8_8 vm1 = new SFixed8_8((short)0xff00, 0, 0);
-        SFixed8_8 vm2 = new SFixed8_8((short)0xfe00, 0, 0);
-        SFixed8_8 vh1 = new SFixed8_8((short)0x7e80, 0, 0);
-        SFixed8_8 vh2 = new SFixed8_8((short)0x7f80, 0, 0);
-        SFixed8_8 vh3 = new SFixed8_8((short)0x80c0, 0, 0);
-        SFixed8_8 vh4 = new SFixed8_8((short)0x81c0, 0, 0);
+        SFixed8_8 vz0 = new SFixed8_8((short)0x0000);
+        SFixed8_8 vp1 = new SFixed8_8((short)0x0100);
+        SFixed8_8 vp2 = new SFixed8_8((short)0x0200);
+        SFixed8_8 vm1 = new SFixed8_8((short)0xff00);
+        SFixed8_8 vm2 = new SFixed8_8((short)0xfe00);
+        SFixed8_8 vh1 = new SFixed8_8((short)0x7e80);
+        SFixed8_8 vh2 = new SFixed8_8((short)0x7f80);
+        SFixed8_8 vh3 = new SFixed8_8((short)0x80c0);
+        SFixed8_8 vh4 = new SFixed8_8((short)0x81c0);
 
         assertTrue(msg1,       0.0D == vz0.doubleValue());
         assertTrue(msg1,       1.0D == vp1.doubleValue());
@@ -436,15 +441,15 @@ public class SFixedTest {
     @Test
     public final void testSFixed8_8ToString() {
         String msg1 = "SFixed8_8.toString() failed.";
-        SFixed8_8 vz0 = new SFixed8_8((short)0x0000, 0, 0);
-        SFixed8_8 vp1 = new SFixed8_8((short)0x0100, 0, 0);
-        SFixed8_8 vp2 = new SFixed8_8((short)0x0200, 0, 0);
-        SFixed8_8 vm1 = new SFixed8_8((short)0xff00, 0, 0);
-        SFixed8_8 vm2 = new SFixed8_8((short)0xfe00, 0, 0);
-        SFixed8_8 vh1 = new SFixed8_8((short)0x7e80, 0, 0);
-        SFixed8_8 vh2 = new SFixed8_8((short)0x7f80, 0, 0);
-        SFixed8_8 vh3 = new SFixed8_8((short)0x80c0, 0, 0);
-        SFixed8_8 vh4 = new SFixed8_8((short)0x81c0, 0, 0);
+        SFixed8_8 vz0 = new SFixed8_8((short)0x0000);
+        SFixed8_8 vp1 = new SFixed8_8((short)0x0100);
+        SFixed8_8 vp2 = new SFixed8_8((short)0x0200);
+        SFixed8_8 vm1 = new SFixed8_8((short)0xff00);
+        SFixed8_8 vm2 = new SFixed8_8((short)0xfe00);
+        SFixed8_8 vh1 = new SFixed8_8((short)0x7e80);
+        SFixed8_8 vh2 = new SFixed8_8((short)0x7f80);
+        SFixed8_8 vh3 = new SFixed8_8((short)0x80c0);
+        SFixed8_8 vh4 = new SFixed8_8((short)0x81c0);
 
         assertEquals(msg1,       "0.0", vz0.toString());
         assertEquals(msg1,       "1.0", vp1.toString());
