@@ -41,48 +41,6 @@ public interface LargeBitList extends LargeList<Boolean> {
 
     /**
      * <p>
-     * 指定された位置から 0 ～ 8 ビットまでの任意のビット数を読み出し、
-     * byte 型の LSB 側に詰めた値を取得します。
-     * </p>
-     *
-     * @param index 読み出しを開始する位置（ビット単位）
-     * @param n     取得するビット数（8 ビットまで）
-     * @return ビット列から取得した n ビットの数値
-     * @throws IllegalArgumentException 読み出すビット数が不適切だった
-     * @throws IndexOutOfBoundsException ビット列の範囲外を読みだそうとした
-     */
-    public byte getPackedByte(long index, int n);
-
-    /**
-     * <p>
-     * 指定された位置から 0 ～ 16 ビットまでの任意のビット数を読み出し、
-     * short 型の LSB 側に詰めた値を取得します。
-     * </p>
-     *
-     * @param index 読み出しを開始する位置（ビット単位）
-     * @param n     取得するビット数（16 ビットまで）
-     * @return ビット列から取得した n ビットの数値
-     * @throws IllegalArgumentException 読み出すビット数が不適切だった
-     * @throws IndexOutOfBoundsException ビット列の範囲外を読みだそうとした
-     */
-    public short getPackedShort(long index, int n);
-
-    /**
-     * <p>
-     * 指定された位置から 0 ～ 32 ビットまでの任意のビット数を読み出し、
-     * int 型の LSB 側に詰めた値を取得します。
-     * </p>
-     *
-     * @param index 読み出しを開始する位置（ビット単位）
-     * @param n     取得するビット数（32 ビットまで）
-     * @return ビット列から取得した n ビットの数値
-     * @throws IllegalArgumentException 読み出すビット数が不適切だった
-     * @throws IndexOutOfBoundsException ビット列の範囲外を読みだそうとした
-     */
-    public int getPackedInt(long index, int n);
-
-    /**
-     * <p>
      * 指定された位置から 0 ～ 64 ビットまでの任意のビット数を読み出し、
      * long 型の LSB 側に詰めた値を取得します。
      * </p>
@@ -122,48 +80,6 @@ public interface LargeBitList extends LargeList<Boolean> {
      * @throws IndexOutOfBoundsException ビット列の範囲外を読みだそうとした
      */
     public void getPackedByteArray(long index, byte[] dst, int off, int n);
-
-    /**
-     * <p>
-     * 指定された位置から val の LSB 側から 0 ～ 8 ビットまでの、
-     * 任意のビット数をビット列に書き込みます。
-     * </p>
-     *
-     * @param index 書き込みを開始する位置（ビット単位）
-     * @param n     書き込むビット数（8 ビットまで）
-     * @param val   書き込むビットを含んだ整数値
-     * @throws IllegalArgumentException 書き込むビット数が不適切だった
-     * @throws IndexOutOfBoundsException ビット列のの範囲外に書き込もうとした
-     */
-    public void setPackedByte(long index, int n, byte val);
-
-    /**
-     * <p>
-     * 指定された位置から val の LSB 側から 0 ～ 16 ビットまでの、
-     * 任意のビット数をビット列に書き込みます。
-     * </p>
-     *
-     * @param index 書き込みを開始する位置（ビット単位）
-     * @param n     書き込むビット数（16 ビットまで）
-     * @param val   書き込むビットを含んだ整数値
-     * @throws IllegalArgumentException 書き込むビット数が不適切だった
-     * @throws IndexOutOfBoundsException ビット列のの範囲外に書き込もうとした
-     */
-    public void setPackedShort(long index, int n, short val);
-
-    /**
-     * <p>
-     * 指定された位置から val の LSB 側から 0 ～ 32 ビットまでの、
-     * 任意のビット数をビット列に書き込みます。
-     * </p>
-     *
-     * @param index 書き込みを開始する位置（ビット単位）
-     * @param n     書き込むビット数（32 ビットまで）
-     * @param val   書き込むビットを含んだ整数値
-     * @throws IllegalArgumentException 書き込むビット数が不適切だった
-     * @throws IndexOutOfBoundsException ビット列のの範囲外に書き込もうとした
-     */
-    public void setPackedInt(long index, int n, int val);
 
     /**
      * <p>

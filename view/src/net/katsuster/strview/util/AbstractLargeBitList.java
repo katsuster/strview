@@ -92,51 +92,6 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
     }
 
     @Override
-    public byte getPackedByte(long index, int n) {
-        byte result;
-
-        if (n < 0 || 8 < n) {
-            throw new IllegalArgumentException("getPackedByte() cannot get more than 8 bits."
-                    + "(" + n + "bits)");
-        }
-        checkRemaining(index, n);
-
-        result = (byte)getPackedIntInner(index, n);
-
-        return result;
-    }
-
-    @Override
-    public short getPackedShort(long index, int n) {
-        short result;
-
-        if (n < 0 || 16 < n) {
-            throw new IllegalArgumentException("getPackedShort() cannot get more than 16 bits."
-                    + "(" + n + "bits)");
-        }
-        checkRemaining(index, n);
-
-        result = (short)getPackedIntInner(index, n);
-
-        return result;
-    }
-
-    @Override
-    public int getPackedInt(long index, int n) {
-        int result;
-
-        if (n < 0 || 32 < n) {
-            throw new IllegalArgumentException("getPackedInt() cannot get more than 32 bits."
-                    + "(" + n + "bits)");
-        }
-        checkRemaining(index, n);
-
-        result = getPackedIntInner(index, n);
-
-        return result;
-    }
-
-    @Override
     public long getPackedLong(long index, int n) {
         long result;
 
@@ -170,39 +125,6 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
         checkRemaining(index, n);
 
         getPackedByteArrayInner(index, dst, off, n);
-    }
-
-    @Override
-    public void setPackedByte(long index, int n, byte val) {
-        if (n < 0 || 8 < n) {
-            throw new IllegalArgumentException("setPackedByte() cannot set more than 8 bits."
-                    + "(" + n + "bits)");
-        }
-        checkRemaining(index, n);
-
-        setPackedIntInner(index, n, val);
-    }
-
-    @Override
-    public void setPackedShort(long index, int n, short val) {
-        if (n < 0 || 16 < n) {
-            throw new IllegalArgumentException("setPackedShort() cannot set more than 16 bits."
-                    + "(" + n + "bits)");
-        }
-        checkRemaining(index, n);
-
-        setPackedIntInner(index, n, val);
-    }
-
-    @Override
-    public void setPackedInt(long index, int n, int val) {
-        if (n < 0 || 32 < n) {
-            throw new IllegalArgumentException("setPackedInt() cannot set more than 32 bits."
-                    + "(" + n + "bits)");
-        }
-        checkRemaining(index, n);
-
-        setPackedIntInner(index, n, val);
     }
 
     @Override
@@ -375,41 +297,6 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
 
     /**
      * <p>
-     * 指定した位置から 0 ～ 32 ビットまでの任意のビット数を読み出し、
-     * int 型の LSB 側に詰めた値を取得します。
-     * </p>
-     *
-     * <p>
-     * この関数は指定された位置をチェックしません。
-     * ビット列の範囲内の位置を指定する必要があります。
-     * 範囲外を指定した場合の動作は不定です。
-     * </p>
-     *
-     * <p>
-     * get() メソッドにより boolean 型配列を取得した後、
-     * 整数値に変換する実装になっています。
-     * </p>
-     *
-     * <p>
-     * 派生クラスにてより高速な実装が可能であれば、
-     * オーバライドすることを推奨します。
-     * </p>
-     *
-     * @param index 読み出しを開始する位置
-     * @param n     取得するビット数（32 ビットまで）
-     * @return バッファから取得した n ビットの数値
-     */
-    protected int getPackedIntInner(long index, int n) {
-        boolean[] a;
-
-        a = new boolean[n];
-        getInner(index, a, 0, n);
-
-        return packBitsInt(a);
-    }
-
-    /**
-     * <p>
      * 指定した位置から 0 ～ 64 ビットまでの任意のビット数を読み出し、
      * int 型の LSB 側に詰めた値を取得します。
      * </p>
@@ -479,7 +366,7 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
         //bytes
         int dst_off;
         //buffer
-        int buf;
+        long buf;
 
         position = index;
         rem = n;
@@ -491,24 +378,28 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
             off = 0;
 
             //1st byte
-            dst[dst_off] = (byte)getPackedIntInner(position, bits);
+            dst[dst_off] = (byte) getPackedLongInner(position, bits);
             position += bits;
             rem -= bits;
             dst_off += 1;
 
             //mid bytes
-            while (rem >= 32) {
-                buf = getPackedIntInner(position, 32);
-                dst[dst_off + 0] = (byte)(buf >>> 24);
-                dst[dst_off + 1] = (byte)(buf >>> 16);
-                dst[dst_off + 2] = (byte)(buf >>> 8);
-                dst[dst_off + 3] = (byte)(buf >>> 0);
-                position += 32;
-                rem -= 32;
-                dst_off += 4;
+            while (rem >= 64) {
+                buf = getPackedLongInner(position, 64);
+                dst[dst_off + 0] = (byte)(buf >>> 56);
+                dst[dst_off + 1] = (byte)(buf >>> 48);
+                dst[dst_off + 2] = (byte)(buf >>> 40);
+                dst[dst_off + 3] = (byte)(buf >>> 32);
+                dst[dst_off + 4] = (byte)(buf >>> 24);
+                dst[dst_off + 5] = (byte)(buf >>> 16);
+                dst[dst_off + 6] = (byte)(buf >>> 8);
+                dst[dst_off + 7] = (byte)(buf >>> 0);
+                position += 64;
+                rem -= 64;
+                dst_off += 8;
             }
             while (rem >= 8) {
-                dst[dst_off] = (byte)getPackedIntInner(position, 8);
+                dst[dst_off] = (byte) getPackedLongInner(position, 8);
                 position += 8;
                 rem -= 8;
                 dst_off += 1;
@@ -518,43 +409,8 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
         //last byte
         if (rem > 0) {
             dst[dst_off] =
-                    (byte)(getPackedIntInner(position, rem) << (8 - rem - (off & 0x07)));
+                    (byte)(getPackedLongInner(position, rem) << (8 - rem - (off & 0x07)));
         }
-    }
-
-    /**
-     * <p>
-     * 指定された位置から val の LSB 側から 0 ～ 32 ビットまでの、
-     * 任意のビット数をビット列に書き込みます。
-     * </p>
-     *
-     * <p>
-     * この関数は指定された位置をチェックしません。
-     * ビット列の範囲内の位置を指定する必要があります。
-     * 範囲外を指定した場合の動作は不定です。
-     * </p>
-     *
-     * <p>
-     * boolean 型配列を整数値に変換した後、
-     * set() にて書き込む実装になっています。
-     * </p>
-     *
-     * <p>
-     * 派生クラスにてより高速な実装が可能であれば、
-     * オーバライドすることを推奨します。
-     * </p>
-     *
-     * @param index 書き込みを開始する位置（ビット単位）
-     * @param n     書き込むビット数（32 ビットまで）
-     * @param val   書き込むビットを含んだ整数値
-     */
-    protected void setPackedIntInner(long index, int n, int val) {
-        boolean[] a;
-
-        a = new boolean[n];
-        unpackBitsInt(val, a);
-
-        setInner(index, a, 0, n);
     }
 
     /**
@@ -637,24 +493,28 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
             off = 0;
 
             //1st byte
-            setPackedIntInner(position, bits, src[src_off]);
+            setPackedLongInner(position, bits, src[src_off]);
             position += bits;
             rem -= bits;
             src_off += 1;
 
             //mid bytes
-            while (rem >= 32) {
-                setPackedIntInner(position, 32,
-                        (src[src_off + 0] << 24)
-                                | (src[src_off + 1] << 16)
-                                | (src[src_off + 2] << 8)
-                                | (src[src_off + 3] << 0));
-                position += 32;
-                rem -= 32;
-                src_off += 4;
+            while (rem >= 64) {
+                setPackedLongInner(position, 64,
+                        ((long) src[src_off + 0] << 56)
+                                | ((long) src[src_off + 1] << 48)
+                                | ((long) src[src_off + 2] << 40)
+                                | ((long) src[src_off + 3] << 32)
+                                | ((long) src[src_off + 4] << 24)
+                                | ((long) src[src_off + 5] << 16)
+                                | ((long) src[src_off + 6] << 8)
+                                | ((long) src[src_off + 7] << 0));
+                position += 64;
+                rem -= 64;
+                src_off += 8;
             }
             while (rem >= 8) {
-                setPackedIntInner(position, 8, src[src_off]);
+                setPackedLongInner(position, 8, src[src_off]);
                 position += 8;
                 rem -= 8;
                 src_off += 1;
@@ -663,7 +523,7 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
 
         //last byte
         if (rem > 0) {
-            setPackedIntInner(position, rem, src[src_off] >>> (8 - rem - (off & 0x07)));
+            setPackedLongInner(position, rem, src[src_off] >>> (8 - rem - (off & 0x07)));
         }
     }
 

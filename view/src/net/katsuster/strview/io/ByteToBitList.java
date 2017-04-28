@@ -132,36 +132,6 @@ public class ByteToBitList extends AbstractLargeBitList {
     }
 
     @Override
-    protected int getPackedIntInner(long index, int n) {
-        long epos;
-        int remain;
-        byte elem;
-        int result = 0;
-
-        epos = getBufferElementPosition(index);
-        remain = ELEM_BITS - getElementBitPosition(index);
-        elem = getElement(epos);
-
-        while (n > remain) {
-            //バッファに残っているビットを全部追加する
-            n -= remain;
-            result |= (getRightBits32(remain, elem) << n);
-            //次の要素を読み出す
-            epos += 1;
-            elem = getElement(epos);
-            //残りは ELEM_BITS ビット
-            remain = ELEM_BITS;
-        }
-
-        if (n > 0) {
-            //現在位置から n ビット読む
-            result |= getRightBits32(n, elem >>> (remain - n));
-        }
-
-        return result;
-    }
-
-    @Override
     protected long getPackedLongInner(long index, int n) {
         long epos;
         int remain;
@@ -189,37 +159,6 @@ public class ByteToBitList extends AbstractLargeBitList {
         }
 
         return result;
-    }
-
-    @Override
-    protected void setPackedIntInner(long index, int n, int val) {
-        long epos;
-        int remain;
-        byte elem;
-
-        epos = getBufferElementPosition(index);
-        remain = ELEM_BITS - getElementBitPosition(index);
-        elem = getElement(epos);
-
-        while (n > remain) {
-            //バッファの空きビット全てに書く
-            n -= remain;
-            elem &= ~(getRightBits32(remain, 0xffffffff));
-            elem |= getRightBits32(remain, val >>> n);
-            setElement(epos, elem);
-            //次の要素を読み出す
-            epos += 1;
-            elem = getElement(epos);
-            //残りは ELEM_BITS ビット
-            remain = ELEM_BITS;
-        }
-
-        if (n > 0) {
-            //現在位置から n ビット書く
-            elem &= ~(getRightBits32(n, 0xffffffff) << (remain - n));
-            elem |= getRightBits32(n, val) << (remain - n);
-            setElement(epos, elem);
-        }
     }
 
     @Override

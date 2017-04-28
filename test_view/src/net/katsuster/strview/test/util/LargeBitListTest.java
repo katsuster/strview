@@ -47,7 +47,6 @@ public class LargeBitListTest {
         Random ra = new Random();
         boolean[] buf_set = new boolean[unit];
         boolean[] buf_get = new boolean[unit];
-        int iset = 0, iget = 0;
         long lset = 0, lget = 0;
         long start, elapse_set, elapse_get;
         int i;
@@ -59,42 +58,25 @@ public class LargeBitListTest {
             for (int j = 0; j < buf_set.length; j++) {
                 buf_set[j] = (ra.nextInt(255) % 2 == 0);
             }
-            if (buf_set.length > 32) {
-                lset = AbstractLargeBitList.packBitsLong(buf_set);
-            } else {
-                iset = AbstractLargeBitList.packBitsInt(buf_set);
-            }
+            lset = AbstractLargeBitList.packBitsLong(buf_set);
 
             //set
             start = System.nanoTime();
             for (int j = 0; j < target.length(); j += buf_set.length) {
-                if (buf_set.length > 32) {
-                    target.setPackedLong(j, buf_set.length, lset);
-                } else {
-                    target.setPackedInt(j, buf_set.length, iset);
-                }
+                target.setPackedLong(j, buf_set.length, lset);
             }
             elapse_set += (System.nanoTime() - start);
 
             //get
             start = System.nanoTime();
             for (int j = 0; j < target.length(); j += buf_get.length) {
-                if (buf_get.length > 32) {
-                    lget = target.getPackedLong(j, buf_get.length);
-                } else {
-                    iget = target.getPackedInt(j, buf_get.length);
-                }
+                lget = target.getPackedLong(j, buf_get.length);
             }
             elapse_get += (System.nanoTime() - start);
 
             //verify
-            if (buf_get.length > 32) {
-                assertEquals("failed to verify",
-                        lset, lget);
-            } else {
-                assertEquals("failed to verify",
-                        iset, iget);
-            }
+            assertEquals("failed to verify",
+                    lset, lget);
         }
 
         LargeBitListTest.printBenchResult(name + "(rd)",

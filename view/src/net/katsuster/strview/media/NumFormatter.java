@@ -184,9 +184,9 @@ public class NumFormatter {
             t = Math.min(i + w, len_show);
             for (; i < t; i++) {
                 if (isCenter(i, 8, w)) {
-                    sb.append(String.format("%02x-", v.getPackedByte(i * 8, 8)));
+                    sb.append(String.format("%02x-", v.getPackedLong(i * 8, 8)));
                 } else {
-                    sb.append(String.format("%02x ", v.getPackedByte(i * 8, 8)));
+                    sb.append(String.format("%02x ", v.getPackedLong(i * 8, 8)));
                 }
             }
 
