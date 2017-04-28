@@ -14,7 +14,7 @@ package net.katsuster.strview.util;
 public class SIntR extends AbstractNum
         implements Comparable<SIntR> {
     public SIntR() {
-        this(0, 0);
+        this(0, 64);
     }
 
     public SIntR(long v, int l) {

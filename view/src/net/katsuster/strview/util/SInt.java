@@ -10,7 +10,7 @@ package net.katsuster.strview.util;
 public class SInt extends AbstractNum
         implements Comparable<SInt> {
     public SInt() {
-        this(0, 0);
+        this(0, 64);
     }
 
     public SInt(long v, int l) {
