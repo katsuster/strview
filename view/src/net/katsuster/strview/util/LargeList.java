@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author katsuhiro
  */
-public interface LargeList<T> extends Cloneable, List<T> {
+public interface LargeList<T> extends Cloneable/*, List<T>*/ {
     //size() および length() メソッドで長さが分からないときに返される値です
     public static final long LENGTH_UNKNOWN = Range.LENGTH_UNKNOWN;
 

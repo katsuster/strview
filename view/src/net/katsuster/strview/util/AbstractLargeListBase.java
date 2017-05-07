@@ -9,7 +9,7 @@ import java.util.AbstractList;
  *
  * @author katsuhiro
  */
-public abstract class AbstractLargeListBase<T> extends AbstractList<T>
+public abstract class AbstractLargeListBase<T> /*extends AbstractList<T>*/
         implements LargeList<T>, Cloneable {
     //リストの長さ
     private long len;
@@ -40,7 +40,7 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
         return obj;
     }
 
-    @Override
+    //@Override
     public int size() {
         if (length() > Integer.MAX_VALUE) {
             return Integer.MAX_VALUE;
@@ -49,12 +49,12 @@ public abstract class AbstractLargeListBase<T> extends AbstractList<T>
         }
     }
 
-    @Override
+    //@Override
     public T get(int index) {
         return get((long)index);
     }
 
-    @Override
+    //@Override
     public T set(int index, T element) {
         T before = get(index);
         set((long)index, element);
