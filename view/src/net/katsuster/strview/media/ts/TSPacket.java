@@ -52,7 +52,7 @@ public class TSPacket extends PacketAdapter {
 
         //ヘッダ以降の本体を読み込む
         size_f -= getHeaderLength();
-        setBody(c.readSubList(size_f, getBody()));
+        setBody(c.readBitList(size_f, getBody()));
     }
 
     @Override
@@ -69,6 +69,6 @@ public class TSPacket extends PacketAdapter {
 
         //ヘッダ以降の本体を書き込む
         size_f -= getHeaderLength();
-        c.writeSubList(size_f, getBody(), "body");
+        c.writeBitList(size_f, getBody(), "body");
     }
 }

@@ -1,7 +1,6 @@
 package net.katsuster.strview.media.rmff;
 
 import net.katsuster.strview.util.*;
-import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -29,10 +28,10 @@ public class NameValueProperty extends BlockAdapter
         size = new UInt();
         object_version = new UInt();
         name_length = new UInt();
-        name = new MemoryBitList();
+        name = new SubLargeBitList();
         type = new SInt();
         value_length = new UInt();
-        value_data = new MemoryBitList();
+        value_data = new SubLargeBitList();
     }
 
     @Override

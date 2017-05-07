@@ -98,13 +98,8 @@ public class ToBitListConverter extends PacketWriterAdapter<LargeBitList> {
     }
 
     @Override
-    public void writeBitList(int nbit, LargeBitList val, String name, String desc) {
-        buf.set(pos, val, 0, nbit);
-        pos += nbit;
-    }
-
-    @Override
-    public void writeSubList(long nbit, LargeBitList val, String name, String desc) {
+    public void writeBitList(long nbit, LargeBitList val, String name, String desc) {
+        //buf.set(pos, val, 0, nbit);
         pos += nbit;
     }
 

@@ -118,7 +118,7 @@ public abstract class AbstractPacketReader<T> extends AbstractPacketConverter<T>
     }
 
     @Override
-    public LargeBitList peekBitList(int nbit, LargeBitList val) {
+    public LargeBitList peekBitList(long nbit, LargeBitList val) {
         long orgpos = position();
         LargeBitList res = readBitList(nbit, val, null);
         position(orgpos);
@@ -126,20 +126,7 @@ public abstract class AbstractPacketReader<T> extends AbstractPacketConverter<T>
     }
 
     @Override
-    public LargeBitList readBitList(int nbit, LargeBitList val) {
+    public LargeBitList readBitList(long nbit, LargeBitList val) {
         return readBitList(nbit, val, null);
-    }
-
-    @Override
-    public LargeBitList peekSubList(long nbit, LargeBitList val) {
-        long orgpos = position();
-        LargeBitList res = readSubList(nbit, val, null);
-        position(orgpos);
-        return res;
-    }
-
-    @Override
-    public LargeBitList readSubList(long nbit, LargeBitList val) {
-        return readSubList(nbit, val, null);
     }
 }

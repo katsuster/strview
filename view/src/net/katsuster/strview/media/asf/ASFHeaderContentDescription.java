@@ -1,7 +1,6 @@
 package net.katsuster.strview.media.asf;
 
 import net.katsuster.strview.util.*;
-import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -37,11 +36,11 @@ public class ASFHeaderContentDescription extends ASFHeader
         copyright_length = new UIntR();
         description_length = new UIntR();
         rating_length = new UIntR();
-        title = new MemoryBitList();
-        author = new MemoryBitList();
-        copyright = new MemoryBitList();
-        description = new MemoryBitList();
-        rating = new MemoryBitList();
+        title = new SubLargeBitList();
+        author = new SubLargeBitList();
+        copyright = new SubLargeBitList();
+        description = new SubLargeBitList();
+        rating = new SubLargeBitList();
     }
 
     @Override

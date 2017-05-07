@@ -121,6 +121,40 @@ public interface LargeBitList extends LargeList<Boolean> {
      */
     public LargeBitList subLargeList(long from, long len);
 
+    /**
+     * <p>
+     * 参照先の範囲を取得します。
+     * </p>
+     *
+     * <p>
+     * このリストが参照する範囲は 1つかつ連続である必要があります。
+     * もし参照する範囲が複数、または非連続の場合は例外がスローされます。
+     * このリストが独立していて、他のリストを参照していないときは、
+     * 例外がスローされます。
+     * </p>
+     *
+     * @return 参照先の範囲
+     * @throws IllegalStateException 参照先が複数、または非連続のとき
+     * @throws TranslationFaultException 参照先のリストが存在しないとき
+     */
+    //public Range getSource();
+
+    /**
+     * <p>
+     * 参照先の範囲を設定します。
+     * </p>
+     *
+     * <p>
+     * このリストが参照する範囲は 1つかつ連続である必要があります。
+     * もし参照する範囲が複数、または非連続の場合は例外がスローされます。
+     * このリストが独立していて、他のリストを参照していないときは、
+     * 例外がスローされます。
+     * </p>
+     *
+     * @param r 参照先の範囲
+     * @throws IllegalStateException 参照先が複数、または非連続のとき
+     * @throws TranslationFaultException 参照先のリストが存在しないとき
+     */
     //public void setSource(Range r);
 
     /**

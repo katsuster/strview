@@ -1,7 +1,6 @@
 package net.katsuster.strview.media.ps;
 
 import net.katsuster.strview.util.*;
-import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -53,7 +52,7 @@ public class PSHeaderPack extends PSHeader
         marker_bit6 = new UInt();
         reserved2 = new UInt();
         pack_stuffing_length = new UInt();
-        stuffing_byte = new MemoryBitList();
+        stuffing_byte = new SubLargeBitList();
     }
 
     @Override

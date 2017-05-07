@@ -118,14 +118,7 @@ public class ToMemberTreeNodeConverter extends PacketWriterAdapter<MemberTreeNod
     }
 
     @Override
-    public void writeBitList(int nbit, LargeBitList val, String name, String desc) {
-        MemberTreeNode top = stack_node.peek();
-
-        top.add(new MemberTreeNode(val, name, desc));
-    }
-
-    @Override
-    public void writeSubList(long nbit, LargeBitList val, String name, String desc) {
+    public void writeBitList(long nbit, LargeBitList val, String name, String desc) {
         MemberTreeNode top = stack_node.peek();
 
         top.add(new MemberTreeNode(val, name, desc));

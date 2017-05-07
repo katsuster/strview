@@ -1,9 +1,6 @@
 package net.katsuster.strview.media.riff;
 
-import java.io.*;
-
 import net.katsuster.strview.util.*;
-import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -27,7 +24,7 @@ public class RIFFHeaderInfo  extends RIFFHeader
     public LargeBitList strz;
 
     public RIFFHeaderInfo() {
-        strz = new MemoryBitList();
+        strz = new SubLargeBitList();
     }
 
     @Override

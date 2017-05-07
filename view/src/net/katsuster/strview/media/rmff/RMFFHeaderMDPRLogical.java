@@ -1,7 +1,6 @@
 package net.katsuster.strview.media.rmff;
 
 import net.katsuster.strview.util.*;
-import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -20,7 +19,7 @@ public class RMFFHeaderMDPRLogical extends RMFFHeaderMDPR
 
     public RMFFHeaderMDPRLogical() {
         type_specific_len = new UInt();
-        type_specific_data = new MemoryBitList();
+        type_specific_data = new SubLargeBitList();
 
         logical_stream = new LogicalStream();
     }
@@ -59,7 +58,7 @@ public class RMFFHeaderMDPRLogical extends RMFFHeaderMDPR
 
             long remain = (d.type_specific_len.intValue() << 3) - (int)(ed - st);
             if (remain > 0) {
-                d.type_specific_data = c.readSubList(remain, d.type_specific_data);
+                d.type_specific_data = c.readBitList(remain, d.type_specific_data);
             }
         }
 
@@ -82,7 +81,7 @@ public class RMFFHeaderMDPRLogical extends RMFFHeaderMDPR
 
             d.logical_stream.write(c);
 
-            c.writeSubList(d.type_specific_len.intValue() << 3, d.type_specific_data, "type_specific_data");
+            c.writeBitList(d.type_specific_len.intValue() << 3, d.type_specific_data, "type_specific_data");
         }
 
         c.leaveBlock();

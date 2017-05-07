@@ -1,9 +1,6 @@
 package net.katsuster.strview.media.m2v;
 
-import java.util.*;
-
 import net.katsuster.strview.util.*;
-import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -35,13 +32,13 @@ public class M2VHeaderExtQuantMatrix extends M2VHeaderExt
 
     public M2VHeaderExtQuantMatrix() {
         load_intra_quantiser_matrix = new UInt();
-        intra_quantiser_matrix = new MemoryBitList();
+        intra_quantiser_matrix = new SubLargeBitList();
         load_non_intra_quantiser_matrix = new UInt();
-        non_intra_quantiser_matrix = new MemoryBitList();
+        non_intra_quantiser_matrix = new SubLargeBitList();
         load_chroma_intra_quantiser_matrix = new UInt();
-        chroma_intra_quantiser_matrix = new MemoryBitList();
+        chroma_intra_quantiser_matrix = new SubLargeBitList();
         load_chroma_non_intra_quantiser_matrix = new UInt();
-        chroma_non_intra_quantiser_matrix = new MemoryBitList();
+        chroma_non_intra_quantiser_matrix = new SubLargeBitList();
     }
 
     @Override

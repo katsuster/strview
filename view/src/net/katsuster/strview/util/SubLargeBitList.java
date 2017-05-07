@@ -12,6 +12,10 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
     //ビット列の存在する範囲
     private Range range;
 
+    public SubLargeBitList() {
+        this(null, 0, 0);
+    }
+
     /**
      * <p>
      * 指定されたビット列の
@@ -25,7 +29,12 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
     public SubLargeBitList(LargeBitList bits, long from, long len) {
         super(len);
 
-        if (from < 0 || from + len > bits.length()) {
+        long bitsLen = 0;
+        if (bits != null) {
+            bitsLen = bits.length();
+        }
+
+        if (from < 0 || from + len > bitsLen) {
             throw new IndexOutOfBoundsException("from:" + from
                     + ", len:" + len + " is too large.");
         }

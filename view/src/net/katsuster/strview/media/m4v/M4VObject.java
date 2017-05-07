@@ -61,7 +61,7 @@ public class M4VObject extends PacketAdapter {
         size_f = (int)(c.position() - orgpos - stepback);
         c.position(orgpos);
 
-        setBody(c.readSubList(size_f, getBody()));
+        setBody(c.readBitList(size_f, getBody()));
     }
 
     @Override
@@ -74,6 +74,6 @@ public class M4VObject extends PacketAdapter {
         long size_f = getBody().length();
 
         //FIXME: tentative
-        c.writeSubList(size_f, getBody(), "body");
+        c.writeBitList(size_f, getBody(), "body");
     }
 }

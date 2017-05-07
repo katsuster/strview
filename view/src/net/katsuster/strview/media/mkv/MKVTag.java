@@ -81,7 +81,7 @@ public class MKVTag extends PacketAdapter {
                 + (getTagLength() << 3);
 
         size_f -= getHeaderLength();
-        setBody(c.readSubList(size_f, getBody()));
+        setBody(c.readBitList(size_f, getBody()));
     }
 
     @Override
@@ -94,6 +94,6 @@ public class MKVTag extends PacketAdapter {
         long size_f = getBody().length();
 
         //FIXME: tentative
-        c.writeSubList(size_f, getBody(), "body");
+        c.writeBitList(size_f, getBody(), "body");
     }
 }

@@ -1,7 +1,6 @@
 package net.katsuster.strview.media.mp4;
 
 import net.katsuster.strview.util.*;
-import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
 import net.katsuster.strview.media.mp4.MP4Consts.*;
 
@@ -30,7 +29,7 @@ public class MP4Header extends BlockAdapter
         size = new UInt();
         type = new UInt();
         largesize = new UInt();
-        usertype = new MemoryBitList();
+        usertype = new SubLargeBitList();
     }
 
     @Override

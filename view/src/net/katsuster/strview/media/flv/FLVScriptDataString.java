@@ -1,7 +1,6 @@
 package net.katsuster.strview.media.flv;
 
 import net.katsuster.strview.util.*;
-import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -18,7 +17,7 @@ public class FLVScriptDataString extends FLVScriptData
 
     public FLVScriptDataString() {
         string_length = new UInt();
-        string_data = new MemoryBitList();
+        string_data = new SubLargeBitList();
     }
 
     @Override

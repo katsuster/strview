@@ -1,7 +1,6 @@
 package net.katsuster.strview.media.ps;
 
 import net.katsuster.strview.util.*;
-import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -170,7 +169,7 @@ public class PSHeaderPESStream extends PSHeaderPES
 
         previous_pes_packet_crc = new UInt();
 
-        stuffing_byte = new MemoryBitList();
+        stuffing_byte = new SubLargeBitList();
 
         //pes_stream_ext
         pes_private_data_flag = new UInt();
@@ -180,7 +179,7 @@ public class PSHeaderPESStream extends PSHeaderPES
         reserved3 = new UInt();
         pes_extension_flag_2 = new UInt();
 
-        pes_private_data = new MemoryBitList();
+        pes_private_data = new SubLargeBitList();
 
         pack_field_length = new UInt();
 
@@ -199,7 +198,7 @@ public class PSHeaderPESStream extends PSHeaderPES
         stream_id_extension_flag = new UInt();
         stream_id_extension = new UInt();
 
-        extension_field_data_byte = new MemoryBitList();
+        extension_field_data_byte = new SubLargeBitList();
     }
 
     @Override

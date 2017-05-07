@@ -1,7 +1,6 @@
 package net.katsuster.strview.media.ts;
 
 import net.katsuster.strview.util.*;
-import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -92,7 +91,7 @@ public class TSHeaderAdaptation extends BlockAdapter
         splice_countdown = new UInt();
 
         transport_private_data_length = new UInt();
-        private_data_byte = new MemoryBitList();
+        private_data_byte = new SubLargeBitList();
 
         adaptation_field_extension_length = new UInt();
         ltw_flag = new UInt();
@@ -114,8 +113,8 @@ public class TSHeaderAdaptation extends BlockAdapter
         dts_next_au_low = new UInt();
         marker_bit3 = new UInt();
 
-        reserved_byte = new MemoryBitList();
-        stuffing_byte = new MemoryBitList();
+        reserved_byte = new SubLargeBitList();
+        stuffing_byte = new SubLargeBitList();
     }
 
     @Override

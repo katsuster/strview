@@ -1,7 +1,6 @@
 package net.katsuster.strview.media.rmff;
 
 import net.katsuster.strview.util.*;
-import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -36,9 +35,9 @@ public class RMFFHeaderMDPR extends RMFFHeader
         preroll = new UInt();
         duration = new UInt();
         stream_name_size = new UInt();
-        stream_name = new MemoryBitList();
+        stream_name = new SubLargeBitList();
         mime_type_size = new UInt();
-        mime_type = new MemoryBitList();
+        mime_type = new SubLargeBitList();
     }
 
     @Override

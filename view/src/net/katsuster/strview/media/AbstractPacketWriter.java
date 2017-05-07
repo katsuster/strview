@@ -111,26 +111,14 @@ public abstract class AbstractPacketWriter<T> extends AbstractPacketConverter<T>
     }
 
     @Override
-    public void pokeBitList(int nbit, LargeBitList val, String name) {
+    public void pokeBitList(long nbit, LargeBitList val, String name) {
         long orgpos = position();
         writeBitList(nbit, val, name, null);
         position(orgpos);
     }
 
     @Override
-    public void writeBitList(int nbit, LargeBitList val, String name) {
+    public void writeBitList(long nbit, LargeBitList val, String name) {
         writeBitList(nbit, val, name, null);
-    }
-
-    @Override
-    public void pokeSubList(long nbit, LargeBitList val, String name) {
-        long orgpos = position();
-        writeSubList(nbit, val, name, null);
-        position(orgpos);
-    }
-
-    @Override
-    public void writeSubList(long nbit, LargeBitList val, String name) {
-        writeSubList(nbit, val, name, null);
     }
 }

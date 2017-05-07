@@ -337,7 +337,7 @@ public interface PacketWriter<T> extends PacketConverter<T> {
      * @param name 変換対象の名前
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void pokeBitList(int nbit, LargeBitList val, String name);
+    public void pokeBitList(long nbit, LargeBitList val, String name);
 
     /**
      * <p>
@@ -349,7 +349,7 @@ public interface PacketWriter<T> extends PacketConverter<T> {
      * @param name 変換対象の名前
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void writeBitList(int nbit, LargeBitList val, String name);
+    public void writeBitList(long nbit, LargeBitList val, String name);
 
     /**
      * <p>
@@ -363,55 +363,5 @@ public interface PacketWriter<T> extends PacketConverter<T> {
      * @param desc 変換対象のビットリストの意味、説明など
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void writeBitList(int nbit, LargeBitList val, String name, String desc);
-
-    /**
-     * <p>
-     * ビットリストの部分列を書き込みます。
-     * </p>
-     *
-     * <p>
-     * 取得した部分列を変更すると、取得元のデータも変化する場合は、この関数は何もしません。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象のビットリスト
-     * @param name 変換対象の名前
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void pokeSubList(long nbit, LargeBitList val, String name);
-
-    /**
-     * <p>
-     * ビットリストの部分列を書き込みます。
-     * </p>
-     *
-     * <p>
-     * 取得した部分列を変更すると、取得元のデータも変化する場合は、この関数は何もしません。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象のビットリスト
-     * @param name 変換対象の名前
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeSubList(long nbit, LargeBitList val, String name);
-
-    /**
-     * <p>
-     * ビットリストの部分列を書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * <p>
-     * 取得した部分列を変更すると、取得元のデータも変化する場合は、この関数は何もしません。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象のビットリスト
-     * @param name 変換対象の名前
-     * @param desc 変換対象のビットリストの意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeSubList(long nbit, LargeBitList val, String name, String desc);
+    public void writeBitList(long nbit, LargeBitList val, String name, String desc);
 }

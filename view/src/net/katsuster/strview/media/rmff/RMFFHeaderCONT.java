@@ -1,7 +1,6 @@
 package net.katsuster.strview.media.rmff;
 
 import net.katsuster.strview.util.*;
-import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -24,13 +23,13 @@ public class RMFFHeaderCONT extends RMFFHeader
 
     public RMFFHeaderCONT() {
         title_len = new UInt();
-        title = new MemoryBitList();
+        title = new SubLargeBitList();
         author_len = new UInt();
-        author = new MemoryBitList();
+        author = new SubLargeBitList();
         copyright_len = new UInt();
-        copyright = new MemoryBitList();
+        copyright = new SubLargeBitList();
         comment_len = new UInt();
-        comment = new MemoryBitList();
+        comment = new SubLargeBitList();
     }
 
     @Override

@@ -277,7 +277,7 @@ public abstract class AbstractPacket extends AbstractBlock
             len = 0;
         }
 
-        body = b.subLargeList(from, len);
+        body = new SubLargeBitList(b, from, len);
     }
 
     @Override
@@ -382,7 +382,7 @@ public abstract class AbstractPacket extends AbstractBlock
 
         org_pos = c.position();
         c.position(getStart());
-        raw_packet = c.readSubList(getLength(), raw_packet, "raw_packet");
+        raw_packet = c.readBitList(getLength(), raw_packet, "raw_packet");
         c.position(org_pos);
     }
 
@@ -398,7 +398,7 @@ public abstract class AbstractPacket extends AbstractBlock
      * @param c 各メンバの変換を実施するオブジェクト
      */
     protected void writeRawPacket(PacketWriter<?> c) {
-        c.writeSubList(getLength(), raw_packet, "raw_packet");
+        c.writeBitList(getLength(), raw_packet, "raw_packet");
     }
 
     /**

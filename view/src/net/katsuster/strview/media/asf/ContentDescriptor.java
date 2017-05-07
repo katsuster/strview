@@ -1,7 +1,6 @@
 package net.katsuster.strview.media.asf;
 
 import net.katsuster.strview.util.*;
-import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -29,10 +28,10 @@ public class ContentDescriptor extends BlockAdapter
 
     public ContentDescriptor() {
         descriptor_name_length = new UIntR();
-        descriptor_name = new MemoryBitList();
+        descriptor_name = new SubLargeBitList();
         descriptor_value_data_type = new UIntR();
         descriptor_value_length = new UIntR();
-        descriptor_value = new MemoryBitList();
+        descriptor_value = new SubLargeBitList();
     }
 
     @Override

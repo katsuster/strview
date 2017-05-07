@@ -108,13 +108,8 @@ public class PacketReaderAdapter<T> extends AbstractPacketReader<T>
     }
 
     @Override
-    public LargeBitList readBitList(int nbit, LargeBitList val, String desc) {
+    public LargeBitList readBitList(long nbit, LargeBitList val, String desc) {
         return val;
-    }
-
-    @Override
-    public LargeBitList readSubList(long nbit, LargeBitList val, String desc) {
-        return null;
     }
 
     @Override

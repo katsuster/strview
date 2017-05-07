@@ -292,7 +292,7 @@ public class SlowMemoryBitListTest {
         SlowMemoryBitList a1 = new SlowMemoryBitList(a_a);
 
         off = 0;
-        LargeBitList s1 = a1.subLargeList(off, 5);
+        LargeBitList s1 = new SubLargeBitList(a1, off, 5);
         assertNotNull(msg1, s1);
         assertEquals(msg1, 5, s1.length());
         for (int i = 0; i < s1.length(); i++) {

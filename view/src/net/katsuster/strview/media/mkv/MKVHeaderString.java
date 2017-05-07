@@ -1,8 +1,5 @@
 package net.katsuster.strview.media.mkv;
 
-import java.io.*;
-
-import net.katsuster.strview.io.*;
 import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
@@ -17,7 +14,7 @@ public class MKVHeaderString extends MKVHeader {
     public LargeBitList string_bits;
 
     public MKVHeaderString() {
-        string_bits = new MemoryBitList();
+        string_bits = new SubLargeBitList();
     }
 
     @Override
@@ -46,7 +43,7 @@ public class MKVHeaderString extends MKVHeader {
 
         MKVHeader.read(c, d);
 
-        d.string_bits = c.readBitList((int)d.tag_len.getValue() << 3, d.string_bits);
+        d.string_bits = c.readBitList(d.tag_len.getValue() << 3, d.string_bits);
 
         c.leaveBlock();
     }
@@ -62,7 +59,7 @@ public class MKVHeaderString extends MKVHeader {
 
         MKVHeader.write(c, d);
 
-        c.writeBitList((int)d.tag_len.getValue() << 3, d.string_bits,
+        c.writeBitList(d.tag_len.getValue() << 3, d.string_bits,
                 "string_bits", d.getStringName());
 
         c.leaveBlock();
