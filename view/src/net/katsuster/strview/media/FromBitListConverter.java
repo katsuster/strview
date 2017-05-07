@@ -70,9 +70,9 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
             val = new SInt();
         }
 
-        val.getRange().setBuffer(buf);
-        val.getRange().setStart(pos);
-        val.getRange().setLength(nbit);
+        val.setSourceBuffer(buf);
+        val.setSourceStart(pos);
+        val.length(nbit);
         pos += nbit;
 
         return val;
@@ -84,9 +84,9 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
             val = new UInt();
         }
 
-        val.getRange().setBuffer(buf);
-        val.getRange().setStart(pos);
-        val.getRange().setLength(nbit);
+        val.setSourceBuffer(buf);
+        val.setSourceStart(pos);
+        val.length(nbit);
         pos += nbit;
 
         return val;
@@ -98,9 +98,9 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
             val = new SIntR();
         }
 
-        val.getRange().setBuffer(buf);
-        val.getRange().setStart(pos);
-        val.getRange().setLength(nbit);
+        val.setSourceBuffer(buf);
+        val.setSourceStart(pos);
+        val.length(nbit);
         pos += nbit;
 
         return val;
@@ -112,9 +112,9 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
             val = new UIntR();
         }
 
-        val.getRange().setBuffer(buf);
-        val.getRange().setStart(pos);
-        val.getRange().setLength(nbit);
+        val.setSourceBuffer(buf);
+        val.setSourceStart(pos);
+        val.length(nbit);
         pos += nbit;
 
         return val;
@@ -126,9 +126,9 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
             val = new Float32();
         }
 
-        val.getRange().setBuffer(buf);
-        val.getRange().setStart(pos);
-        val.getRange().setLength(nbit);
+        val.setSourceBuffer(buf);
+        val.setSourceStart(pos);
+        val.length(nbit);
         pos += nbit;
 
         return val;
@@ -140,9 +140,9 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
             val = new Float64();
         }
 
-        val.getRange().setBuffer(buf);
-        val.getRange().setStart(pos);
-        val.getRange().setLength(nbit);
+        val.setSourceBuffer(buf);
+        val.setSourceStart(pos);
+        val.length(nbit);
         pos += nbit;
 
         return val;

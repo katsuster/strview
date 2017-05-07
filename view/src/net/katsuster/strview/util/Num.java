@@ -7,7 +7,7 @@ package net.katsuster.strview.util;
  *
  * @author katsuhiro
  */
-public interface Num {
+public interface Num extends LargeBitList {
     /**
      * <p>
      * 数値の長さ（ビット単位）と、
@@ -20,39 +20,6 @@ public interface Num {
      */
     public Object clone()
             throws CloneNotSupportedException;
-
-    /**
-     * <p>
-     * 数値が存在する範囲を取得します。
-     * </p>
-     *
-     * <p>
-     * 範囲の単位は数値によって意味が異なります。
-     * またその範囲から完全に数値を再現できるとは限りません。
-     * </p>
-     *
-     * <p>
-     * 例えば、この数値が別のビット列 A から生成された場合、
-     * リスト A の何ビット目から生成されたかを示します。
-     * </p>
-     *
-     * @return 数値が存在する範囲
-     */
-    public Range getRange();
-
-    /**
-     * <p>
-     * 数値が存在する範囲を設定します。
-     * </p>
-     *
-     * <p>
-     * 範囲の単位は数値によって意味が異なります。
-     * またその範囲から完全に数値を再現できるとは限りません。
-     * </p>
-     *
-     * @param range 数値が存在する範囲
-     */
-    public void setRange(Range range);
 
     /**
      * <p>

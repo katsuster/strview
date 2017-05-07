@@ -109,31 +109,6 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
     }
 
     @Override
-    public long length() {
-        return getRange().getLength();
-    }
-
-    @Override
-    public void length(long l) {
-        getRange().setLength(l);
-    }
-
-    @Override
-    public LargeBitList subLargeList(long from, long len) {
-        return new SubLargeBitList(this, from, len);
-    }
-
-    @Override
-    public Range getRange() {
-        return range;
-    }
-
-    @Override
-    public void setRange(Range r) {
-        range = r;
-    }
-
-    @Override
     public long getPackedLong(long index, int n) {
         Range r = getRange();
 
@@ -183,6 +158,59 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
 
     public static void setPackedByteArray(Range r, byte[] src, int off) {
         r.getBuffer().setPackedByteArray(r.getStart(), src, off, (int) r.getLength());
+    }
+
+    @Override
+    public long length() {
+        return getRange().getLength();
+    }
+
+    @Override
+    public void length(long l) {
+        getRange().setLength(l);
+    }
+
+    @Override
+    public LargeBitList subLargeList(long from, long len) {
+        return new SubLargeBitList(this, from, len);
+    }
+
+    @Override
+    public LargeBitList getSourceBuffer() {
+        return getRange().getBuffer();
+    }
+
+    @Override
+    public void setSourceBuffer(LargeBitList buf) {
+        getRange().setBuffer(buf);
+    }
+
+    @Override
+    public long getSourceStart() {
+        return getRange().getStart();
+    }
+
+    @Override
+    public void setSourceStart(long index) {
+        getRange().setStart(index);
+    }
+
+    @Override
+    public long getSourceEnd() {
+        return getRange().getEnd();
+    }
+
+    @Override
+    public void setSourceEnd(long index) {
+        getRange().setEnd(index);
+    }
+
+    protected Range getRange() {
+        return range;
+    }
+
+    protected void setRange(Range r) {
+        range = r;
     }
 
     @Override

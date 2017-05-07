@@ -36,8 +36,8 @@ public class UFixedTest {
         UFixed16_16 va = new UFixed16_16(la, 2, 3);
 
         assertEquals(msg1, 0, va.getRaw());
-        assertEquals(msg1, 2, va.getRange().getStart());
-        assertEquals(msg1, 3, va.getRange().getLength());
+        assertEquals(msg1, 2, va.getSourceStart());
+        assertEquals(msg1, 3, va.length());
     }
 
     @Test
@@ -49,29 +49,29 @@ public class UFixedTest {
         UFixed16_16 vb = new UFixed16_16(va);
 
         assertEquals(msg1, va.getRaw(), vb.getRaw());
-        assertEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
-        assertEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+        assertEquals(msg1, va.getSourceStart(), vb.getSourceStart());
+        assertEquals(msg1, va.getSourceEnd(), vb.getSourceEnd());
 
         vb.setRaw(10);
-        vb.getRange().setStart(20);
-        vb.getRange().setEnd(30);
+        vb.setSourceStart(20);
+        vb.setSourceEnd(30);
         assertNotEquals(msg1, va.getRaw(), vb.getRaw());
-        assertNotEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
-        assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+        assertNotEquals(msg1, va.getSourceStart(), vb.getSourceStart());
+        assertNotEquals(msg1, va.getSourceEnd(), vb.getSourceEnd());
 
         try {
             UFixed16_16 vc = (UFixed16_16)va.clone();
 
             assertEquals(msg2, va.getRaw(), vc.getRaw());
-            assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
-            assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+            assertEquals(msg2, va.getSourceStart(), vc.getSourceStart());
+            assertEquals(msg2, va.getSourceEnd(), vc.getSourceEnd());
 
             vc.setRaw(100);
-            vc.getRange().setStart(4);
-            vc.getRange().setEnd(10);
+            vc.setSourceStart(4);
+            vc.setSourceEnd(10);
             assertNotEquals(msg2, va.getRaw(), vc.getRaw());
-            assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
-            assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+            assertNotEquals(msg2, va.getSourceStart(), vc.getSourceStart());
+            assertNotEquals(msg2, va.getSourceEnd(), vc.getSourceEnd());
         } catch (Exception ex) {
             fail(msg2);
         }
@@ -253,8 +253,8 @@ public class UFixedTest {
         UFixed8_8 va = new UFixed8_8(la, 2, 3);
 
         assertEquals(msg1, 0, va.getRaw());
-        assertEquals(msg1, 2, va.getRange().getStart());
-        assertEquals(msg1, 3, va.getRange().getLength());
+        assertEquals(msg1, 2, va.getSourceStart());
+        assertEquals(msg1, 3, va.length());
     }
 
     @Test
@@ -266,29 +266,29 @@ public class UFixedTest {
         UFixed8_8 vb = new UFixed8_8(va);
 
         assertEquals(msg1, va.getRaw(), vb.getRaw());
-        assertEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
-        assertEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+        assertEquals(msg1, va.getSourceStart(), vb.getSourceStart());
+        assertEquals(msg1, va.getSourceEnd(), vb.getSourceEnd());
 
         vb.setRaw((short)10);
-        vb.getRange().setStart(20);
-        vb.getRange().setEnd(30);
+        vb.setSourceStart(20);
+        vb.setSourceEnd(30);
         assertNotEquals(msg1, va.getRaw(), vb.getRaw());
-        assertNotEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
-        assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
+        assertNotEquals(msg1, va.getSourceStart(), vb.getSourceStart());
+        assertNotEquals(msg1, va.getSourceEnd(), vb.getSourceEnd());
 
         try {
             UFixed8_8 vc = (UFixed8_8)va.clone();
 
             assertEquals(msg2, va.getRaw(), vc.getRaw());
-            assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
-            assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+            assertEquals(msg2, va.getSourceStart(), vc.getSourceStart());
+            assertEquals(msg2, va.getSourceEnd(), vc.getSourceEnd());
 
             vc.setRaw((short)100);
-            vc.getRange().setStart(4);
-            vc.getRange().setEnd(10);
+            vc.setSourceStart(4);
+            vc.setSourceEnd(10);
             assertNotEquals(msg2, va.getRaw(), vc.getRaw());
-            assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
-            assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
+            assertNotEquals(msg2, va.getSourceStart(), vc.getSourceStart());
+            assertNotEquals(msg2, va.getSourceEnd(), vc.getSourceEnd());
         } catch (Exception ex) {
             fail(msg2);
         }

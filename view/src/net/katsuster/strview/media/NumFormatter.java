@@ -46,7 +46,7 @@ public class NumFormatter {
      * @return 16進数で表現した時の最低桁数
      */
     public static String numToDigits(Num v) {
-        if (v.getRange().getLength() == 0) {
+        if (v.length() == 0) {
             return "1";
         }
 
@@ -64,7 +64,7 @@ public class NumFormatter {
 		 * 9 | "3"    | 2                   | 2
 		 * 10| "3"    | 2                   | 2
 		 */
-        return Integer.toString(((int)(v.getRange().getLength() - 1) >> 2) + 1);
+        return Integer.toString(((int)(v.length() - 1) >> 2) + 1);
     }
 
     protected static String addressAndName(Range r, String name) {
@@ -83,7 +83,8 @@ public class NumFormatter {
         String digits = numToDigits(v);
         StringBuilder sb = new StringBuilder();
 
-        sb.append(addressAndName(v.getRange(), name));
+        //TODO: 参照先が非連続の場合の対応
+        sb.append(addressAndName(new SimpleRange(v.getSourceStart(), v.length()), name));
         sb.append(String.format("0x%0" + digits + "x(0x%0" + digits + "x, %s)",
                 v.getRaw(), v.getValue(), v.toString()));
         if (caption == null) {
@@ -156,8 +157,8 @@ public class NumFormatter {
             pos = 0;
             len_bit = 0;
         } else {
-            pos = v.getRange().getStart();
-            len_bit = v.getRange().getLength();
+            pos = v.getSourceStart();
+            len_bit = v.length();
         }
         len_byte = len_bit >>> 3;
         len_show = Math.min(len_byte, 32);

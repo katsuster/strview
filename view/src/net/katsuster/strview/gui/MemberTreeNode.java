@@ -254,9 +254,9 @@ public class MemberTreeNode extends DefaultMutableTreeNode {
         long pos;
 
         if (hasNumData()) {
-            pos = getNumData().getRange().getStart();
+            pos = getNumData().getSourceStart();
         } else if (hasArrayData()) {
-            pos = getArrayData().getRange().getStart();
+            pos = getArrayData().getSourceStart();
         } else {
             throw new IllegalStateException("Node does not have "
                     + "start position.");
@@ -281,9 +281,11 @@ public class MemberTreeNode extends DefaultMutableTreeNode {
         long pos;
 
         if (hasNumData()) {
-            pos = getNumData().getRange().getEnd();
+            //TODO: 参照先が非連続の場合の対応
+            pos = getNumData().getSourceEnd();
         } else if (hasArrayData()) {
-            pos = getArrayData().getRange().getEnd();
+            //TODO: 参照先が非連続の場合の対応
+            pos = getArrayData().getSourceEnd();
         } else {
             throw new IllegalStateException("Node does not have "
                     + "start position.");
@@ -308,9 +310,9 @@ public class MemberTreeNode extends DefaultMutableTreeNode {
         long len;
 
         if (hasNumData()) {
-            len = getNumData().getRange().getLength();
+            len = getNumData().length();
         } else if (hasArrayData()) {
-            len = getArrayData().getRange().getLength();
+            len = getArrayData().length();
         } else {
             throw new IllegalStateException("Node does not have "
                     + "end position.");

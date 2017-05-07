@@ -121,37 +121,122 @@ public interface LargeBitList extends LargeList<Boolean> {
      */
     public LargeBitList subLargeList(long from, long len);
 
-    /**
-     * <p>
-     * リストが存在する範囲を取得します。
-     * </p>
-     *
-     * <p>
-     * 範囲の単位はリストによって意味が異なります。
-     * またその範囲から完全にリストを再現できるとは限りません。
-     * </p>
-     *
-     * <p>
-     * 例えば、このリストが別のビット列 A から生成された場合、
-     * リスト A の何ビット目から生成されたかを示します。
-     * </p>
-     *
-     * @return リストが存在する範囲
-     */
-    public Range getRange();
+    //public void setSource(Range r);
 
     /**
      * <p>
-     * リストが存在する範囲を設定します。
+     * 参照先のリストを取得します。
      * </p>
      *
      * <p>
-     * 範囲の単位はリストによって意味が異なります。
-     * またその範囲から完全にリストを再現できるとは限りません。
+     * このリストが参照する範囲は 1つかつ連続である必要があります。
+     * もし参照する範囲が複数、または非連続の場合は例外がスローされます。
+     * このリストが独立していて、他のリストを参照していないときは、
+     * 例外がスローされます。
      * </p>
      *
-     * @param r リストが存在する範囲
+     * @return 参照先のリスト
+     * @throws IllegalStateException 参照先が複数、または非連続のとき
+     * @throws TranslationFaultException 参照先のリストが存在しないとき
      */
-    public void setRange(Range r);
+    public LargeBitList getSourceBuffer();
 
+    /**
+     * <p>
+     * 参照先のリストを設定します。
+     * </p>
+     *
+     * <p>
+     * このリストが参照する範囲は 1つかつ連続である必要があります。
+     * もし参照する範囲が複数、または非連続の場合は例外がスローされます。
+     * このリストが独立していて、他のリストを参照していないときは、
+     * 例外がスローされます。
+     * </p>
+     *
+     * @param buf 参照先のリスト
+     * @throws IllegalStateException 参照先が複数、または非連続のとき
+     * @throws TranslationFaultException 参照先のリストが存在しないとき
+     */
+    public void setSourceBuffer(LargeBitList buf);
+
+    /**
+     * <p>
+     * 参照先のインデックスを取得します。
+     * インデックスはこのリストが参照する範囲の先頭を指します。
+     * </p>
+     *
+     * <p>
+     * このリストが参照する範囲は 1つかつ連続である必要があります。
+     * もし参照する範囲が複数、または非連続の場合は例外がスローされます。
+     * このリストが独立していて、他のリストを参照していないときは、
+     * 例外がスローされます。
+     * </p>
+     *
+     * @return 参照先のインデックス
+     * @throws IllegalStateException 参照先が複数、または非連続のとき
+     * @throws TranslationFaultException 参照先のリストが存在しない、インデックスが範囲外のとき
+     */
+    public long getSourceStart();
+
+    /**
+     * <p>
+     * 参照先のインデックスを設定します。
+     * インデックスはこのリストが参照する範囲の先頭を指します。
+     * </p>
+     *
+     * <p>
+     * このリストが参照する範囲は 1つかつ連続である必要があります。
+     * もし参照する範囲が複数、または非連続の場合は例外がスローされます。
+     * このリストが独立していて、他のリストを参照していないときは、
+     * 例外がスローされます。
+     * </p>
+     *
+     * @param index 参照先のインデックス
+     * @throws IllegalStateException 参照先が複数、または非連続のとき
+     * @throws TranslationFaultException 参照先のリストが存在しない、インデックスが範囲外のとき
+     */
+    public void setSourceStart(long index);
+
+    /**
+     * <p>
+     * 参照先のインデックスを取得します。
+     * インデックスはこのリストが参照する範囲の終端を指します。
+     * </p>
+     *
+     * <p>
+     * このリストが参照する範囲は 1つかつ連続である必要があります。
+     * もし参照する範囲が複数、または非連続の場合は例外がスローされます。
+     * このリストが独立していて、他のリストを参照していないときは、
+     * 例外がスローされます。
+     * </p>
+     *
+     * @return 参照先のインデックス
+     * @throws IllegalStateException 参照先が複数、または非連続のとき
+     * @throws TranslationFaultException 参照先のリストが存在しない、インデックスが範囲外のとき
+     */
+    public long getSourceEnd();
+
+    /**
+     * <p>
+     * 参照先のインデックスを設定します。
+     * インデックスはこのリストが参照する範囲の終端を指します。
+     * </p>
+     *
+     * <p>
+     * 終了点を設定しても、開始点は変更されず、
+     * 長さが適切な値に変更されます。
+     * </p>
+     *
+     * <p>
+     * このリストが参照する範囲は 1つかつ連続である必要があります。
+     * もし参照する範囲が複数、または非連続の場合は例外がスローされます。
+     * このリストが独立していて、他のリストを参照していないときは、
+     * 例外がスローされます。
+     * </p>
+     *
+     * @param index 参照先のインデックス
+     * @throws IllegalStateException 参照先が複数、または非連続のとき
+     * @throws TranslationFaultException 参照先のリストが存在しない、インデックスが範囲外のとき
+     */
+    public void setSourceEnd(long index);
 }

@@ -175,12 +175,40 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
     }
 
     @Override
-    public Range getRange() {
-        return range;
+    public LargeBitList getSourceBuffer() {
+        throw new TranslationFaultException();
     }
 
     @Override
-    public void setRange(Range r) {
+    public void setSourceBuffer(LargeBitList buf) {
+        throw new IllegalStateException();
+    }
+
+    @Override
+    public long getSourceStart() {
+        throw new TranslationFaultException();
+    }
+
+    @Override
+    public void setSourceStart(long index) {
+        throw new IllegalStateException();
+    }
+
+    @Override
+    public long getSourceEnd() {
+        throw new TranslationFaultException();
+    }
+
+    @Override
+    public void setSourceEnd(long index) {
+        throw new IllegalStateException();
+    }
+
+    protected Range getRange() {
+        return range;
+    }
+
+    protected void setRange(Range r) {
         range = r;
     }
 
