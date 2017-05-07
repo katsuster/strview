@@ -150,7 +150,7 @@ public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
     @Override
     public LargeBitList readBitList(long nbit, LargeBitList val, String desc) {
         if (val == null) {
-            val = new SubLargeBitList(buf, pos, nbit);
+            val = new SubLargeBitList();
         }
 
         val.setSourceBuffer(buf);
