@@ -18,7 +18,7 @@ import net.katsuster.strview.media.*;
 public class PacketListViewer extends JPanel {
     private static final long serialVersionUID = 1L;
 
-    private JList viewer;
+    private JList<String> viewer;
     private PacketListModel model;
 
     //表示させるパケットリスト
@@ -33,7 +33,7 @@ public class PacketListViewer extends JPanel {
 
         //リストボックスを追加する
         model = new PacketListModel();
-        viewer = new JList() {
+        viewer = new JList<String>() {
             @Override
             public int getNextMatch(String prefix, int startIndex, Position.Bias bias) {
                 return -1;
@@ -49,14 +49,14 @@ public class PacketListViewer extends JPanel {
         setPacketList(l);
     }
 
-    protected class PacketListModel extends AbstractListModel {
+    protected class PacketListModel extends AbstractListModel<String> {
         @Override
         public int getSize() {
             return (int)getMax();
         }
 
         @Override
-        public Object getElementAt(int index) {
+        public String getElementAt(int index) {
             return index + ": " + list.get(index).getShortName();
         }
 
