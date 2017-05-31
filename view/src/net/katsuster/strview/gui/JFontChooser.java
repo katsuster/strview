@@ -311,7 +311,7 @@ public class JFontChooser extends JComponent
      * Set the family name of the selected font.
      * @param name  the family name of the selected font.
      *
-     * @see getSelectedFontFamily
+     * @see #getSelectedFontFamily
      **/
     public void setSelectedFontFamily(String name) {
         String[] names = getFontFamilies();
