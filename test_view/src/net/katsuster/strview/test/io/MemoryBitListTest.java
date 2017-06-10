@@ -35,7 +35,7 @@ public class MemoryBitListTest {
     }
 
     @Test
-    public final void testNewMemoryArray() {
+    public final void testMemoryBitList() {
         String msg1 = "MemoryBitList() failed.";
         //String msg2 = "MemoryBitList() illegal arguments check failed.";
 
@@ -44,33 +44,7 @@ public class MemoryBitListTest {
     }
 
     @Test
-    public final void testClone() {
-        String msg1 = "clone() failed.";
-        //String msg2 = "clone() illegal arguments check failed.";
-
-        boolean[] a_a = {
-                false, false, true, true,
-        };
-        MemoryBitList a1 = new MemoryBitList(a_a);
-        assertNotNull(msg1, a1);
-
-        a1.set(0, true);
-        assertEquals(msg1, true, a1.get(0));
-
-        try {
-            MemoryBitList a2 = a1.clone();
-            assertNotNull(msg1, a2);
-
-            a2.set(0, false);
-            assertEquals(msg1, true, a1.get(0));
-            assertEquals(msg1, false, a2.get(0));
-        } catch (CloneNotSupportedException ex) {
-            fail(msg1);
-        }
-    }
-
-    @Test
-    public final void testNewMemoryArrayLong() {
+    public final void testMemoryBitListLong() {
         String msg1 = "MemoryBitList(long) failed.";
         String msg2 = "MemoryBitList(long) illegal arguments check failed.";
 
@@ -96,7 +70,7 @@ public class MemoryBitListTest {
     }
 
     @Test
-    public final void testNewMemoryArrayBooleanArray() {
+    public final void testMemoryBitListBooleanArray() {
         String msg1 = "MemoryBitList(boolean[]) failed.";
         String msg2 = "MemoryBitList(boolean[]) illegal arguments check failed.";
 
@@ -116,6 +90,32 @@ public class MemoryBitListTest {
             fail(msg2);
         } catch (IllegalArgumentException ex) {
             //OK
+        }
+    }
+
+    @Test
+    public final void testClone() {
+        String msg1 = "clone() failed.";
+        //String msg2 = "clone() illegal arguments check failed.";
+
+        boolean[] a_a = {
+                false, false, true, true,
+        };
+        MemoryBitList a1 = new MemoryBitList(a_a);
+        assertNotNull(msg1, a1);
+
+        a1.set(0, true);
+        assertEquals(msg1, true, a1.get(0));
+
+        try {
+            MemoryBitList a2 = a1.clone();
+            assertNotNull(msg1, a2);
+
+            a2.set(0, false);
+            assertEquals(msg1, true, a1.get(0));
+            assertEquals(msg1, false, a2.get(0));
+        } catch (CloneNotSupportedException ex) {
+            fail(msg1);
         }
     }
 
