@@ -562,41 +562,6 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
      *
      * <p>
      * ブール値の true が整数値の 1、false が 0 に対応します。
-     * boolean 型配列の長さが 32 に満たない場合、残りのビットは 0 で埋められます。
-     * </p>
-     *
-     * @param array boolean 型配列
-     * @return boolean 型配列を整数値に右詰め（LSB 側に詰める）した値
-     * @throws IllegalArgumentException 配列が長すぎた
-     */
-    public static int packBitsInt(boolean[] array) {
-        int result;
-        int i;
-
-        if (array.length > 32) {
-            throw new IllegalArgumentException("packBitsInt() cannot get more than 32 bits."
-                    + "(" + array.length + "bits)");
-        }
-
-        result = 0;
-        for (i = 0; i < array.length; i++) {
-            result <<= 1;
-
-            if (array[i]) {
-                result |= 1;
-            }
-        }
-
-        return result;
-    }
-
-    /**
-     * <p>
-     * boolean 型配列を整数値に右詰め（LSB 側に詰める）した値を返します。
-     * </p>
-     *
-     * <p>
-     * ブール値の true が整数値の 1、false が 0 に対応します。
      * boolean 型配列の長さが 64 に満たない場合、残りのビットは 0 で埋められます。
      * </p>
      *
@@ -623,34 +588,6 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
         }
 
         return result;
-    }
-
-    /**
-     * <p>
-     * 右詰め（LSB 側に詰める）された整数値を boolean 型配列に変換します。
-     * </p>
-     *
-     * <p>
-     * 整数値の 1 がブール値の true、0 が false に対応します。
-     * boolean 型配列の要素分だけビットが変換され、他の値は無視されます。
-     * </p>
-     *
-     * @param val   整数値
-     * @param array boolean 型配列
-     * @throws IllegalArgumentException 変換するビット数が長すぎた
-     */
-    public static void unpackBitsInt(int val, boolean[] array) {
-        int i;
-
-        if (array.length > 32) {
-            throw new IllegalArgumentException("unpackBitsInt() cannot get more than 32 bits."
-                    + "(" + array.length + "bits)");
-        }
-
-        for (i = array.length - 1; i >= 0; i--) {
-            array[i] = ((val & 1) == 1);
-            val >>>= 1;
-        }
     }
 
     /**
