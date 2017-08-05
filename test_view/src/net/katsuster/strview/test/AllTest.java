@@ -31,6 +31,7 @@ import net.katsuster.strview.test.media.mkv.*;
         SlowMemoryBitListTest.class,
         MemoryBitListTest.class,
         ByteToBitListTest.class,
+        SequenceBitListTest.class,
 })
 public class AllTest {
     protected AllTest() {
