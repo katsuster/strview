@@ -21,6 +21,7 @@ import net.katsuster.strview.media.riff.*;
 import net.katsuster.strview.media.rmff.*;
 import net.katsuster.strview.media.m2v.*;
 import net.katsuster.strview.media.m4v.*;
+import net.katsuster.strview.media.test.*;
 
 /**
  * <p>
@@ -168,6 +169,9 @@ public class FileTransferHandler extends TransferHandler {
         FT_RMFF,
         FT_MPEG2VIDEO,
         FT_MPEG4VISUAL,
+
+        //For test
+        FT_TEST_FIXED,
     }
 
     /**
@@ -212,6 +216,9 @@ public class FileTransferHandler extends TransferHandler {
             break;
         case FT_MPEG4VISUAL:
             list = new M4VObjectList(l);
+            break;
+        case FT_TEST_FIXED:
+            list = new FixedSizePacketList(l);
             break;
         case FT_UNKNOWN:
             list = null;
@@ -267,6 +274,10 @@ public class FileTransferHandler extends TransferHandler {
         }
         if (type.equalsIgnoreCase("Auto")) {
             return getFileTypeAuto(file);
+        }
+
+        if (type.equalsIgnoreCase("TEST: Fixed Size Packet")) {
+            return FILE_TYPE.FT_TEST_FIXED;
         }
 
         return FILE_TYPE.FT_UNKNOWN;
