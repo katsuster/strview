@@ -525,6 +525,9 @@ public class BinaryViewer extends JPanel {
             int lines = Math.max(1, viewer.getDataLines() - 3);
 
             switch (e.getKeyCode()) {
+            case KeyEvent.VK_HOME:
+                scr.setValue(scr.getMinimum());
+                break;
             case KeyEvent.VK_PAGE_UP:
                 scr.setValue(scr.getValue() - lines);
                 break;
@@ -536,6 +539,9 @@ public class BinaryViewer extends JPanel {
                 break;
             case KeyEvent.VK_DOWN:
                 scr.setValue(scr.getValue() + 1);
+                break;
+            case KeyEvent.VK_END:
+                scr.setValue(scr.getMaximum());
                 break;
             }
         }
