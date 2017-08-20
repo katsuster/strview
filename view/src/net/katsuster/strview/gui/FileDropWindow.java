@@ -58,6 +58,7 @@ public class FileDropWindow extends JFrame {
         cmbType.addItem("MPEG2 Visual");
         cmbType.addItem("MPEG4 Part2 Visual");
         cmbType.addItem("TEST: Fixed Size Packet");
+        cmbType.addItem("TEST: Marked Packet");
         cmbType.addItemListener(new FileTypeChanged());
         getContentPane().add(cmbType);
 

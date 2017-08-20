@@ -172,6 +172,7 @@ public class FileTransferHandler extends TransferHandler {
 
         //For test
         FT_TEST_FIXED,
+        FT_TEST_MARKED,
     }
 
     /**
@@ -219,6 +220,9 @@ public class FileTransferHandler extends TransferHandler {
             break;
         case FT_TEST_FIXED:
             list = new FixedPacketList(l);
+            break;
+        case FT_TEST_MARKED:
+            list = new MarkedPacketList(l);
             break;
         case FT_UNKNOWN:
             list = null;
@@ -278,6 +282,9 @@ public class FileTransferHandler extends TransferHandler {
 
         if (type.equalsIgnoreCase("TEST: Fixed Size Packet")) {
             return FILE_TYPE.FT_TEST_FIXED;
+        }
+        if (type.equalsIgnoreCase("TEST: Marked Packet")) {
+            return FILE_TYPE.FT_TEST_MARKED;
         }
 
         return FILE_TYPE.FT_UNKNOWN;
