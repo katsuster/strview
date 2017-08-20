@@ -218,7 +218,7 @@ public class FileTransferHandler extends TransferHandler {
             list = new M4VObjectList(l);
             break;
         case FT_TEST_FIXED:
-            list = new FixedSizePacketList(l);
+            list = new FixedPacketList(l);
             break;
         case FT_UNKNOWN:
             list = null;

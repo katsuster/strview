@@ -9,15 +9,15 @@ import net.katsuster.strview.media.*;
  *
  * @author katsuhiro
  */
-public class FixedSizePacket extends PacketAdapter {
+public class FixedPacket extends PacketAdapter {
     //パケットのサイズ（byte 単位）
     public static final int PACKET_SIZE = 64;
 
-    public FixedSizePacket() {
+    public FixedPacket() {
         this(new FixedHeader());
     }
 
-    public FixedSizePacket(FixedHeader h) {
+    public FixedPacket(FixedHeader h) {
         super(h);
     }
 
@@ -26,13 +26,6 @@ public class FixedSizePacket extends PacketAdapter {
         return "Fixed Size Packet(a:" + getHeader().data_a + ")";
     }
 
-    /**
-     * <p>
-     * TS パケットヘッダを取得します。
-     * </p>
-     *
-     * @return TS パケットヘッダ
-     */
     @Override
     public FixedHeader getHeader() {
         return (FixedHeader)super.getHeader();

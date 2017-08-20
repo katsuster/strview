@@ -10,16 +10,16 @@ import net.katsuster.strview.media.*;
  *
  * @author katsuhiro
  */
-public class FixedSizePacketList extends AbstractPacketList<FixedSizePacket> {
-    public static int PACKET_SIZE = FixedSizePacket.PACKET_SIZE;
+public class FixedPacketList extends AbstractPacketList<FixedPacket> {
+    public static int PACKET_SIZE = FixedPacket.PACKET_SIZE;
 
     private LargeBitList buf;
 
-    public FixedSizePacketList() {
+    public FixedPacketList() {
         super(LENGTH_UNKNOWN);
     }
 
-    public FixedSizePacketList(LargeBitList l) {
+    public FixedPacketList(LargeBitList l) {
         super(LENGTH_UNKNOWN);
 
         buf = l;
@@ -37,17 +37,17 @@ public class FixedSizePacketList extends AbstractPacketList<FixedSizePacket> {
 
     @Override
     public void count() {
-        length(buf.length() / FixedSizePacket.PACKET_SIZE / 8);
+        length(buf.length() / FixedPacket.PACKET_SIZE / 8);
     }
 
     @Override
     protected void seek(PacketReader<?> c, long index) {
-        c.position(index * FixedSizePacket.PACKET_SIZE * 8);
+        c.position(index * FixedPacket.PACKET_SIZE * 8);
     }
 
     @Override
     protected Packet readNextInner(PacketReader<?> c, PacketRange pr) {
-        FixedSizePacket packet = new FixedSizePacket(new FixedHeader());
+        FixedPacket packet = new FixedPacket(new FixedHeader());
         packet.setRange(pr);
         packet.read(c);
 
@@ -55,16 +55,16 @@ public class FixedSizePacketList extends AbstractPacketList<FixedSizePacket> {
     }
 
     @Override
-    protected FixedSizePacket getInner(long index) {
+    protected FixedPacket getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
         seek(c, index);
 
-        return (FixedSizePacket)readNext(c, index);
+        return (FixedPacket)readNext(c, index);
     }
 
     @Override
-    protected void setInner(long index, FixedSizePacket data) {
+    protected void setInner(long index, FixedPacket data) {
         //TODO: not implemented yet
     }
 }
