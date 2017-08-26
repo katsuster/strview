@@ -1,7 +1,6 @@
 package net.katsuster.strview.gui;
 
 import java.util.*;
-import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -9,11 +8,12 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.tree.*;
 
+import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
  * <p>
- * ストリームの構造を表示するウインドウです。
+ * ストリームの構造を表示するパネルです。
  * </p>
  *
  * <p>
@@ -27,107 +27,25 @@ import net.katsuster.strview.media.*;
  *
  * @author katsuhiro
  */
-public class PacketTreeViewerWindow extends JFrame {
+public class PacketTreeViewerWindow extends ViewerPanel {
     private static final long serialVersionUID = 1L;
 
-    private File file;
     private LargePacketList<?> list_packet;
-
-    private FlatTextField binaryToolText;
-    private BinaryViewer binaryViewer;
 
     private FlatTextField packetToolText;
     private PacketTreeViewer packetTreeViewer;
-    private PacketTreeSelListener packetTreeListener;
     private PacketListViewer packetListViewer;
-    private PacketListSelListener packetListListener;
     private MemberTreeViewer memberTreeViewer;
-    private MemberTreeSelListener memberTreeListener;
     private JTextArea memberTextViewer;
 
-    public PacketTreeViewerWindow(File f, LargePacketList<?> l) {
+    public PacketTreeViewerWindow(LargePacketList<?> l) {
+        JScrollPane scrPacketViewer;
+
         //表示するファイルを保持する
-        file = f;
         list_packet = l;
 
-        setTitle(f.getAbsolutePath());
-        setResizable(true);
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTransferHandler(new FileTransferHandler());
-
-        //メニューを作成する
-        JMenuBar topMenuBar = new JMenuBar();
-        setJMenuBar(topMenuBar);
-
-        JMenu menuFile = new JMenu("ファイル(F)");
-        menuFile.setMnemonic('f');
-        topMenuBar.add(menuFile);
-
-        Action actionOpen = new ActionFileOpen(this, "開く(O)...");
-        actionOpen.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_O);
-        menuFile.add(actionOpen);
-        Action actionCount = new ActionCount("全てカウント(A)");
-        actionCount.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_A);
-        menuFile.add(actionCount);
-        menuFile.addSeparator();
-        Action actionClose = new ActionClose(this, "閉じる(C)");
-        actionClose.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_C);
-        menuFile.add(actionClose);
-
-        JMenu menuSetting = new JMenu("設定(S)");
-        menuSetting.setMnemonic('s');
-        topMenuBar.add(menuSetting);
-
-        Action actionFont = new ActionFont(this, "フォント(F)...");
-        actionFont.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_F);
-        menuSetting.add(actionFont);
-
-        //ビューアペインを作成し追加する
-        JSplitPane strViewer = createViewers();
-        getContentPane().add(strViewer);
-    }
-
-    protected JSplitPane createViewers() {
-        JSplitPane splitStreamViewer;
-        JSplitPane splitPacketViewer;
-
-        //ビューアを左右に分割表示する
-        splitStreamViewer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        splitStreamViewer.setDividerSize(5);
-        splitStreamViewer.setDividerLocation(500);
-
-        //左側、パケットビューア
-        splitPacketViewer = createPacketViewer();
-        splitStreamViewer.setLeftComponent(splitPacketViewer);
-
-        //右側、バイナリビューア
-        JPanel binaryTool = new JPanel();
-        binaryTool.setLayout(new FlowLayout(FlowLayout.LEFT));
-        //binaryTool.add(new JLabel("Find: "));
-
-        binaryToolText = new FlatTextField();
-        binaryToolText.setPreferredSize(new Dimension(150, 22));
-        binaryToolText.getTextField().addKeyListener(new ActionGotoBinary(""));
-        binaryTool.add(binaryToolText);
-
-        JButton btnGo = new JButton(new ActionGotoBinary("Go"));
-        binaryTool.add(btnGo);
-
-        binaryViewer = new BinaryViewer(getFile());
-        binaryViewer.setFont(new Font(Font.MONOSPACED, 0, 12));
-
-        JPanel binaryPanel = new JPanel();
-        binaryPanel.setLayout(new BorderLayout());
-        binaryPanel.add(binaryTool, BorderLayout.NORTH);
-        binaryPanel.add(binaryViewer, BorderLayout.CENTER);
-        splitStreamViewer.setRightComponent(binaryPanel);
-
-        return splitStreamViewer;
-    }
-
-    protected JSplitPane createPacketViewer() {
-        JScrollPane scrPacketViewer;
 
         //ビューアを上下に表示する
         JSplitPane splitPacketMember = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
@@ -140,17 +58,17 @@ public class PacketTreeViewerWindow extends JFrame {
 
         packetToolText = new FlatTextField();
         packetToolText.setPreferredSize(new Dimension(150, 22));
-        packetToolText.getTextField().addKeyListener(new ActionGotoPacket(""));
+        packetToolText.getTextField().addKeyListener(new ActionGoto(""));
         packetTool.add(packetToolText);
 
-        JButton btnGo = new JButton(new ActionGotoPacket("Go"));
+        JButton btnGo = new JButton(new ActionGoto("Go"));
         packetTool.add(btnGo);
         JButton btnCount = new JButton(new ActionCount("Count"));
         packetTool.add(btnCount);
 
         if (getPacketList().hasTreeStructure()) {
             packetTreeViewer = new PacketTreeViewer(getPacketList());
-            packetTreeListener = new PacketTreeSelListener();
+            PacketTreeSelListener packetTreeListener = new PacketTreeSelListener();
 
             JTree lview = packetTreeViewer.getViewer();
             lview.addTreeSelectionListener(packetTreeListener);
@@ -161,7 +79,7 @@ public class PacketTreeViewerWindow extends JFrame {
             scrPacketViewer.getVerticalScrollBar().setUnitIncrement(10);
         } else {
             packetListViewer = new PacketListViewer(getPacketList());
-            packetListListener = new PacketListSelListener();
+            PacketListSelListener packetListListener = new PacketListSelListener();
 
             JList lview = packetListViewer.getViewer();
             lview.addListSelectionListener(packetListListener);
@@ -185,7 +103,7 @@ public class PacketTreeViewerWindow extends JFrame {
 
         //メンバービューア（ツリー）
         memberTreeViewer = new MemberTreeViewer();
-        memberTreeListener = new MemberTreeSelListener();
+        MemberTreeSelListener memberTreeListener = new MemberTreeSelListener();
         JTree m_jt = memberTreeViewer.getViewer();
         m_jt.addTreeSelectionListener(memberTreeListener);
         m_jt.addMouseListener(memberTreeListener);
@@ -203,52 +121,42 @@ public class PacketTreeViewerWindow extends JFrame {
         JScrollPane scrText = new JScrollPane(memberTextViewer);
         tabMembers.addTab("Text", scrText);
 
-        return splitPacketMember;
+        add(splitPacketMember, BorderLayout.CENTER);
     }
 
-    public File getFile() {
-        return file;
+    @Override
+    public void setFont(Font f) {
+        super.setFont(f);
+
+        if (packetTreeViewer != null) {
+            packetTreeViewer.setFont(f);
+        }
+        if (packetListViewer != null) {
+            packetListViewer.setFont(f);
+        }
+        if (memberTreeViewer != null) {
+            memberTreeViewer.setFont(f);
+        }
+    }
+
+    @Override
+    public String getShortName() {
+        return list_packet.getShortName();
     }
 
     public LargePacketList<?> getPacketList() {
         return list_packet;
     }
 
-    public class ActionFont extends AbstractAction {
-        private static final long serialVersionUID = 1L;
-        private JFrame parent;
-
-        public ActionFont(JFrame f, String name) {
-            super(name);
-            parent = f;
-        }
-
-        public ActionFont(JFrame f, String name, Icon icon) {
-            super(name, icon);
-            parent = f;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JFontChooser chooser = new JFontChooser();
-
-            chooser.setSelectedFont(binaryViewer.getFont());
-            int res = chooser.showDialog(parent);
-            if (res == JFontChooser.OK_OPTION) {
-                binaryViewer.setFont(chooser.getSelectedFont());
-            }
-        }
-    }
-
-    public class ActionGotoPacket extends AbstractAction
+    public class ActionGoto extends AbstractAction
             implements KeyListener {
         private static final long serialVersionUID = 1L;
 
-        public ActionGotoPacket(String name) {
+        public ActionGoto(String name) {
             super(name);
         }
 
-        public ActionGotoPacket(String name, Icon icon) {
+        public ActionGoto(String name, Icon icon) {
             super(name, icon);
         }
 
@@ -361,56 +269,6 @@ public class PacketTreeViewerWindow extends JFrame {
                 }
             });
             t.start();
-        }
-    }
-
-    public class ActionGotoBinary extends AbstractAction
-            implements KeyListener {
-        private static final long serialVersionUID = 1L;
-
-        public ActionGotoBinary(String name) {
-            super(name);
-        }
-
-        public ActionGotoBinary(String name, Icon icon) {
-            super(name, icon);
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            go();
-        }
-
-        @Override
-        public void keyTyped(KeyEvent e) {
-            //Do nothing
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                go();
-                e.consume();
-            }
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-            //Do nothing
-        }
-
-        public void go() {
-            binaryToolText.setForeground(Color.BLACK);
-
-            try {
-                long addr = Long.parseLong(
-                        binaryToolText.getTextField().getText(), 16);
-
-                binaryViewer.setAddress(addr);
-                binaryViewer.repaint();
-            } catch (NumberFormatException ex) {
-                binaryToolText.setForeground(Color.RED);
-            }
         }
     }
 
@@ -600,10 +458,9 @@ public class PacketTreeViewerWindow extends JFrame {
             if (p.getRawPacket() != null) {
                 PacketRange pr = p.getRange();
 
-                binaryViewer.setHighlightMemberRange(0, 0);
-                binaryViewer.setHighlightRange(
-                        pr.getStart() >>> 3, pr.getLength() >>> 3);
-                binaryViewer.repaint();
+                LinkEvent e = new LinkEvent(list_packet, LinkEvent.Type.NODE,
+                        new SimpleRange(null, pr.getStart(), pr.getLength()));
+                fireLinkChange(e);
             }
         }
 
@@ -614,8 +471,9 @@ public class PacketTreeViewerWindow extends JFrame {
             }
 
             //ノードが指すデータの先頭にジャンプする
-            binaryViewer.setAddress(p.getRange().getStart() >>> 3);
-            binaryViewer.repaint();
+            LinkEvent e = new LinkEvent(list_packet, LinkEvent.Type.JUMP,
+                    new SimpleRange(null, p.getRange().getStart(), 0));
+            fireLinkChange(e);
         }
 
         protected Packet getPacketFromEvent(long selRow) {
@@ -679,6 +537,8 @@ public class PacketTreeViewerWindow extends JFrame {
 
         public void onLeftSingleClick(int selRow, TreePath selPath) {
             MemberTreeNode ptn = getPacketTreeNodeFromEvent(selPath);
+            LinkEvent e;
+
             if (ptn == null) {
                 return;
             }
@@ -698,13 +558,14 @@ public class PacketTreeViewerWindow extends JFrame {
                     len += 7;
                 }
 
-                binaryViewer.setHighlightMemberRange(
-                        ptn.getDataStart() >>> 3, len >>> 3);
+                e = new LinkEvent(list_packet, LinkEvent.Type.MEMBER,
+                        new SimpleRange(null, ptn.getDataStart(), len));
             } else {
-                binaryViewer.setHighlightMemberRange(0, 0);
+                e = new LinkEvent(list_packet, LinkEvent.Type.MEMBER,
+                        new SimpleRange(null, 0, 0));
             }
 
-            binaryViewer.repaint();
+            fireLinkChange(e);
         }
 
         public void onLeftDoubleClick(int selRow, TreePath selPath) {
@@ -715,8 +576,9 @@ public class PacketTreeViewerWindow extends JFrame {
 
             //ノードが指すデータの先頭にジャンプする
             if (ptn.hasNumData() || ptn.hasArrayData()) {
-                binaryViewer.setAddress(ptn.getDataStart() >>> 3);
-                binaryViewer.repaint();
+                LinkEvent e = new LinkEvent(list_packet, LinkEvent.Type.JUMP,
+                        new SimpleRange(null, ptn.getDataStart(), 0));
+                fireLinkChange(e);
             }
         }
 

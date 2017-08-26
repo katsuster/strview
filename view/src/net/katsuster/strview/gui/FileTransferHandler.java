@@ -135,18 +135,19 @@ public class FileTransferHandler extends TransferHandler {
         try {
             LargeBitList blist = new ByteToBitList(new FileByteList(tfile.getAbsolutePath()));
             LargePacketList<?> list = getPacketList(getFileType(fileType, tfile), blist);
-            JFrame w;
+
+            BinaryViewerWindow bw = new BinaryViewerWindow(tfile);
+            ViewerWindow vbw = new ViewerWindow(bw);
+            vbw.setSize(600, 720);
+            vbw.setVisible(true);
 
             if (list != null) {
-                PacketTreeViewerWindow pw = new PacketTreeViewerWindow(tfile, list);
-                w = pw;
-            } else {
-                BinaryViewerWindow bw = new BinaryViewerWindow(tfile);
-                w = bw;
+                PacketTreeViewerWindow pw = new PacketTreeViewerWindow(list);
+                ViewerWindow vpw = new ViewerWindow(pw);
+                vpw.addHelperViewer(vbw);
+                vpw.setSize(800, 720);
+                vpw.setVisible(true);
             }
-
-            w.setSize(1024, 720);
-            w.setVisible(true);
         } catch (HeadlessException ex) {
 
         } catch (Exception ex) {

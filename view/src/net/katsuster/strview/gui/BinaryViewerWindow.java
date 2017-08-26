@@ -1,90 +1,140 @@
 package net.katsuster.strview.gui;
 
 import java.io.*;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
 
+import net.katsuster.strview.util.*;
+
 /**
  * <p>
- * バイナリデータを表示するウインドウです。
+ * バイナリデータを表示するパネルです。
  * </p>
  *
  * @author katsuhiro
  */
-public class BinaryViewerWindow extends JFrame {
+public class BinaryViewerWindow extends ViewerPanel {
     private static final long serialVersionUID = 1L;
 
     private File file;
 
+    private FlatTextField binaryToolText;
     private BinaryViewer binaryViewer;
 
     public BinaryViewerWindow(File f) {
         //表示するファイルを保持する
         file = f;
 
-        setTitle(f.getAbsolutePath());
-        setResizable(true);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(new BorderLayout());
         setTransferHandler(new FileTransferHandler());
 
-        //メニューを作成する
-        JMenuBar topMenuBar = new JMenuBar();
-        JMenu menuFile = new JMenu("ファイル(F)");
-        menuFile.setMnemonic('f');
-
-        Action actionOpen = new ActionFileOpen(this, "開く(O)...");
-        actionOpen.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_O);
-        menuFile.add(actionOpen);
-        menuFile.addSeparator();
-        Action actionClose = new ActionClose(this, "閉じる(C)");
-        actionClose.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_C);
-        menuFile.add(actionClose);
-
-        JMenu menuSetting = new JMenu("設定(S)");
-        menuSetting.setMnemonic('s');
-
-        Action actionFont = new MenuActionFont(this, "フォント(F)...");
-        actionFont.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_F);
-        menuSetting.add(actionFont);
-
-        topMenuBar.add(menuFile);
-        topMenuBar.add(menuSetting);
-        setJMenuBar(topMenuBar);
-
         //バイナリビューア
+        JPanel binaryTool = new JPanel();
+        binaryTool.setLayout(new FlowLayout(FlowLayout.LEFT));
+        //binaryTool.add(new JLabel("Find: "));
+
+        binaryToolText = new FlatTextField();
+        binaryToolText.setPreferredSize(new Dimension(150, 22));
+        binaryToolText.getTextField().addKeyListener(new ActionGoto(""));
+        binaryTool.add(binaryToolText);
+
+        JButton btnGo = new JButton(new ActionGoto("Go"));
+        binaryTool.add(btnGo);
+
         binaryViewer = new BinaryViewer(f);
         binaryViewer.setFont(new Font(Font.MONOSPACED, 0, 12));
-        getContentPane().add(binaryViewer);
+
+        JPanel binaryPanel = new JPanel();
+        binaryPanel.setLayout(new BorderLayout());
+        binaryPanel.add(binaryTool, BorderLayout.NORTH);
+        binaryPanel.add(binaryViewer, BorderLayout.CENTER);
+
+        add(binaryPanel, BorderLayout.CENTER);
+    }
+
+    @Override
+    public void setFont(Font f) {
+        super.setFont(f);
+
+        if (binaryViewer != null) {
+            binaryViewer.setFont(f);
+        }
+    }
+
+    @Override
+    public String getShortName() {
+        return file.getAbsolutePath();
+    }
+
+    @Override
+    protected void processLinkEvent(LinkEvent e) {
+        Range r = e.getRange();
+
+        if (e.getEventType() == LinkEvent.Type.NODE) {
+            binaryViewer.setHighlightMemberRange(0, 0);
+            binaryViewer.setHighlightRange(r.getStart() >>> 3, r.getLength() >>> 3);
+        } else if (e.getEventType() == LinkEvent.Type.MEMBER) {
+            binaryViewer.setHighlightMemberRange(
+                    r.getStart() >>> 3, r.getLength() >>> 3);
+        } else if (e.getEventType() == LinkEvent.Type.JUMP) {
+            binaryViewer.setAddress(r.getStart() >>> 3);
+        }
+
+        binaryViewer.repaint();
     }
 
     public File getFile() {
         return file;
     }
 
-    public class MenuActionFont extends AbstractAction {
+    public class ActionGoto extends AbstractAction
+            implements KeyListener {
         private static final long serialVersionUID = 1L;
-        private JFrame parent;
 
-        public MenuActionFont(JFrame f, String name) {
+        public ActionGoto(String name) {
             super(name);
-            parent = f;
         }
 
-        public MenuActionFont(JFrame f, String name, Icon icon) {
+        public ActionGoto(String name, Icon icon) {
             super(name, icon);
-            parent = f;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JFontChooser chooser = new JFontChooser();
+            go();
+        }
 
-            chooser.setSelectedFont(binaryViewer.getFont());
-            int res = chooser.showDialog(parent);
-            if (res == JFontChooser.OK_OPTION) {
-                binaryViewer.setFont(chooser.getSelectedFont());
+        @Override
+        public void keyTyped(KeyEvent e) {
+            //Do nothing
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                go();
+                e.consume();
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            //Do nothing
+        }
+
+        public void go() {
+            binaryToolText.setForeground(Color.BLACK);
+
+            try {
+                long addr = Long.parseLong(
+                        binaryToolText.getTextField().getText(), 16);
+
+                binaryViewer.setAddress(addr);
+                binaryViewer.repaint();
+            } catch (NumberFormatException ex) {
+                binaryToolText.setForeground(Color.RED);
             }
         }
     }
