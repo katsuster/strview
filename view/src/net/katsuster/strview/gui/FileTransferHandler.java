@@ -136,14 +136,14 @@ public class FileTransferHandler extends TransferHandler {
             LargeBitList blist = new ByteToBitList(new FileByteList(tfile.getAbsolutePath()));
             LargePacketList<?> list = getPacketList(getFileType(fileType, tfile), blist);
 
-            BinaryViewerWindow bw = new BinaryViewerWindow(tfile);
-            ViewerWindow vbw = new ViewerWindow(bw);
+            BinaryViewerPanel bp = new BinaryViewerPanel(tfile);
+            ViewerWindow vbw = new ViewerWindow(bp);
             vbw.setSize(600, 720);
             vbw.setVisible(true);
 
             if (list != null) {
-                PacketTreeViewerWindow pw = new PacketTreeViewerWindow(list);
-                ViewerWindow vpw = new ViewerWindow(pw);
+                PacketTreeViewerPanel pp = new PacketTreeViewerPanel(list);
+                ViewerWindow vpw = new ViewerWindow(pp);
                 vpw.addHelperViewer(vbw);
                 vpw.setSize(800, 720);
                 vpw.setVisible(true);

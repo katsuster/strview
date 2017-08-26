@@ -15,7 +15,7 @@ import net.katsuster.strview.util.*;
  *
  * @author katsuhiro
  */
-public class BinaryViewerWindow extends ViewerPanel {
+public class BinaryViewerPanel extends ViewerPanel {
     private static final long serialVersionUID = 1L;
 
     private File file;
@@ -23,7 +23,7 @@ public class BinaryViewerWindow extends ViewerPanel {
     private FlatTextField binaryToolText;
     private BinaryViewer binaryViewer;
 
-    public BinaryViewerWindow(File f) {
+    public BinaryViewerPanel(File f) {
         //表示するファイルを保持する
         file = f;
 

@@ -27,7 +27,7 @@ import net.katsuster.strview.media.*;
  *
  * @author katsuhiro
  */
-public class PacketTreeViewerWindow extends ViewerPanel {
+public class PacketTreeViewerPanel extends ViewerPanel {
     private static final long serialVersionUID = 1L;
 
     private LargePacketList<?> list_packet;
@@ -38,7 +38,7 @@ public class PacketTreeViewerWindow extends ViewerPanel {
     private MemberTreeViewer memberTreeViewer;
     private JTextArea memberTextViewer;
 
-    public PacketTreeViewerWindow(LargePacketList<?> l) {
+    public PacketTreeViewerPanel(LargePacketList<?> l) {
         JScrollPane scrPacketViewer;
 
         //表示するファイルを保持する
