@@ -33,7 +33,7 @@ import net.katsuster.strview.media.test.*;
 public class FileTransferHandler extends TransferHandler {
     private static final long serialVersionUID = 1L;
 
-    private String fileType = "Auto";
+    private FILE_TYPE fileType = FILE_TYPE.FT_AUTO;
 
     @Override
     public boolean canImport(TransferSupport support) {
@@ -90,12 +90,12 @@ public class FileTransferHandler extends TransferHandler {
      * </p>
      *
      * <p>
-     * ファイル名から判定する場合は "Auto" を指定します。
+     * ファイル名から判定する場合は FT_AUTO を指定します。
      * </p>
      *
      * @return ファイル形式
      */
-    public String getFileType() {
+    public FILE_TYPE getFileType() {
         return fileType;
     }
 
@@ -105,12 +105,12 @@ public class FileTransferHandler extends TransferHandler {
      * </p>
      *
      * <p>
-     * ファイル名から判定する場合は "Auto" を指定します。
+     * ファイル名から判定する場合は FT_AUTO を指定します。
      * </p>
      *
      * @param t ファイル形式
      */
-    public void setFileType(String t) {
+    public void setFileType(FILE_TYPE t) {
         fileType = t;
     }
 
@@ -160,6 +160,8 @@ public class FileTransferHandler extends TransferHandler {
 
     enum FILE_TYPE {
         FT_UNKNOWN,
+        FT_AUTO,
+
         FT_ASF,
         FT_FLV,
         FT_MATROSKA,
@@ -246,49 +248,12 @@ public class FileTransferHandler extends TransferHandler {
      * @param file ファイル
      * @return ファイル形式
      */
-    public static FILE_TYPE getFileType(String type, File file) {
-        if (type.equalsIgnoreCase("ASF")) {
-            return FILE_TYPE.FT_ASF;
-        }
-        if (type.equalsIgnoreCase("FLV")) {
-            return FILE_TYPE.FT_FLV;
-        }
-        if (type.equalsIgnoreCase("Matroska")) {
-            return FILE_TYPE.FT_MATROSKA;
-        }
-        if (type.equalsIgnoreCase("MPEG2 PS")) {
-            return FILE_TYPE.FT_MPEG2PS;
-        }
-        if (type.equalsIgnoreCase("MPEG2 TS")) {
-            return FILE_TYPE.FT_MPEG2TS;
-        }
-        if (type.equalsIgnoreCase("MPEG4")) {
-            return FILE_TYPE.FT_MPEG4;
-        }
-        if (type.equalsIgnoreCase("RIFF")) {
-            return FILE_TYPE.FT_RIFF;
-        }
-        if (type.equalsIgnoreCase("RealMedia")) {
-            return FILE_TYPE.FT_RMFF;
-        }
-        if (type.equalsIgnoreCase("MPEG2 Visual")) {
-            return FILE_TYPE.FT_MPEG2VIDEO;
-        }
-        if (type.equalsIgnoreCase("MPEG4 Part2 Visual")) {
-            return FILE_TYPE.FT_MPEG4VISUAL;
-        }
-        if (type.equalsIgnoreCase("Auto")) {
+    public static FILE_TYPE getFileType(FILE_TYPE type, File file) {
+        if (type == FILE_TYPE.FT_AUTO) {
             return getFileTypeAuto(file);
         }
 
-        if (type.equalsIgnoreCase("TEST: Fixed Size Packet")) {
-            return FILE_TYPE.FT_TEST_FIXED;
-        }
-        if (type.equalsIgnoreCase("TEST: Marked Packet")) {
-            return FILE_TYPE.FT_TEST_MARKED;
-        }
-
-        return FILE_TYPE.FT_UNKNOWN;
+        return type;
     }
 
     /**

@@ -5,6 +5,8 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import net.katsuster.strview.gui.FileTransferHandler.*;
+
 /**
  * <p>
  * ファイルを開くためのウインドウです。ドラッグ＆ドロップを受け付けます。
@@ -16,7 +18,7 @@ public class FileDropWindow extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private FileTransferHandler trHandler;
-    private JComboBox<String> cmbType;
+    private JComboBox<FileTypeItem> cmbType;
     private JLabel lblHeapWatcher;
     private JButton btnGC;
     private javax.swing.Timer timHeapWatcher;
@@ -47,18 +49,18 @@ public class FileDropWindow extends JFrame {
         //ファイル種別ボックス
         cmbType = new JComboBox<>();
         cmbType.setPreferredSize(new Dimension(100, 20));
-        cmbType.addItem("Auto");
-        cmbType.addItem("FLV");
-        cmbType.addItem("Matroska");
-        cmbType.addItem("MPEG2 TS");
-        cmbType.addItem("MPEG2 PS");
-        cmbType.addItem("MPEG4");
-        cmbType.addItem("RIFF");
-        cmbType.addItem("RealMedia");
-        cmbType.addItem("MPEG2 Visual");
-        cmbType.addItem("MPEG4 Part2 Visual");
-        cmbType.addItem("TEST: Fixed Size Packet");
-        cmbType.addItem("TEST: Marked Packet");
+        cmbType.addItem(new FileTypeItem("Auto", FILE_TYPE.FT_AUTO));
+        cmbType.addItem(new FileTypeItem("FLV", FILE_TYPE.FT_FLV));
+        cmbType.addItem(new FileTypeItem("Matroska", FILE_TYPE.FT_MATROSKA));
+        cmbType.addItem(new FileTypeItem("MPEG2 TS", FILE_TYPE.FT_MPEG2TS));
+        cmbType.addItem(new FileTypeItem("MPEG2 PS", FILE_TYPE.FT_MPEG2PS));
+        cmbType.addItem(new FileTypeItem("MPEG4", FILE_TYPE.FT_MPEG4));
+        cmbType.addItem(new FileTypeItem("RIFF", FILE_TYPE.FT_RIFF));
+        cmbType.addItem(new FileTypeItem("RealMedia", FILE_TYPE.FT_RMFF));
+        cmbType.addItem(new FileTypeItem("MPEG2 Visual", FILE_TYPE.FT_MPEG2VIDEO));
+        cmbType.addItem(new FileTypeItem("MPEG4 Part2 Visual", FILE_TYPE.FT_MPEG4VISUAL));
+        cmbType.addItem(new FileTypeItem("TEST: Fixed Size Packet", FILE_TYPE.FT_TEST_FIXED));
+        cmbType.addItem(new FileTypeItem("TEST: Marked Packet", FILE_TYPE.FT_TEST_MARKED));
         cmbType.addItemListener(new FileTypeChanged());
         getContentPane().add(cmbType);
 
@@ -72,6 +74,29 @@ public class FileDropWindow extends JFrame {
         Action actionGC = new ActionGC("GC");
         btnGC = new JButton(actionGC);
         getContentPane().add(btnGC);
+    }
+
+    public class FileTypeItem {
+        private String name;
+        private FileTransferHandler.FILE_TYPE type;
+
+        public FileTypeItem(String n, FileTransferHandler.FILE_TYPE t) {
+            name = n;
+            type = t;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public FileTransferHandler.FILE_TYPE getType() {
+            return type;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 
     public class ActionExit extends AbstractAction {
@@ -95,9 +120,9 @@ public class FileDropWindow extends JFrame {
         private static final long serialVersionUID = 1L;
 
         public void itemStateChanged(ItemEvent e) {
-            String s = (String)e.getItem();
+            FileTypeItem s = (FileTypeItem)e.getItem();
 
-            trHandler.setFileType(s);
+            trHandler.setFileType(s.getType());
         }
     }
 
