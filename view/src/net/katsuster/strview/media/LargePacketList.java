@@ -40,5 +40,5 @@ public interface LargePacketList<T extends Packet> extends LargeList<T> {
      *
      * @return ビット列、ビット列への変換ができない場合は null
      */
-    public LargeBitList toBitList();
+    //public LargeBitList toBitList();
 }

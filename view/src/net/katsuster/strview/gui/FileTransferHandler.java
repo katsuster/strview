@@ -101,6 +101,26 @@ public class FileTransferHandler extends TransferHandler {
 
     /**
      * <p>
+     * ファイル名をヒントにファイル形式を取得します。
+     * </p>
+     *
+     * <p>
+     * 自動 (Auto) を指定した場合は、ファイル名から類推します。
+     * </p>
+     *
+     * @param file ファイル
+     * @return ファイル形式
+     */
+    public FILE_TYPE getFileTypeByFileName(File file) {
+        if (fileType == FILE_TYPE.FT_AUTO) {
+            return guessFileType(file);
+        }
+
+        return fileType;
+    }
+
+    /**
+     * <p>
      * ファイル形式を設定します。
      * </p>
      *
@@ -134,7 +154,7 @@ public class FileTransferHandler extends TransferHandler {
 
         try {
             LargeBitList blist = new ByteToBitList(new FileByteList(tfile.getAbsolutePath()));
-            LargePacketList<?> list = getPacketList(getFileType(fileType, tfile), blist);
+            LargePacketList<?> list = getPacketList(getFileTypeByFileName(tfile), blist);
 
             BinaryViewerPanel bp = new BinaryViewerPanel(tfile);
             ViewerWindow vbw = new ViewerWindow(bp);
@@ -174,6 +194,7 @@ public class FileTransferHandler extends TransferHandler {
         FT_MPEG4VISUAL,
 
         //For test
+        FT_TEST_SRC,
         FT_TEST_FIXED,
         FT_TEST_MARKED,
     }
@@ -221,6 +242,10 @@ public class FileTransferHandler extends TransferHandler {
         case FT_MPEG4VISUAL:
             list = new M4VObjectList(l);
             break;
+        case FT_TEST_SRC:
+            //Cannot create from BitList
+            list = null;
+            break;
         case FT_TEST_FIXED:
             list = new FixedPacketList(l);
             break;
@@ -237,34 +262,13 @@ public class FileTransferHandler extends TransferHandler {
 
     /**
      * <p>
-     * ファイル形式名からファイル形式を取得します。
-     * </p>
-     *
-     * <p>
-     * 自動 (Auto) を指定した場合は、ファイル名から類推します。
-     * </p>
-     *
-     * @param type ファイル形式
-     * @param file ファイル
-     * @return ファイル形式
-     */
-    public static FILE_TYPE getFileType(FILE_TYPE type, File file) {
-        if (type == FILE_TYPE.FT_AUTO) {
-            return getFileTypeAuto(file);
-        }
-
-        return type;
-    }
-
-    /**
-     * <p>
      * ファイル形式を類推します。
      * </p>
      *
      * @param tfile ファイル
      * @return ファイル形式
      */
-    public static FILE_TYPE getFileTypeAuto(File tfile) {
+    public static FILE_TYPE guessFileType(File tfile) {
         String ext = getSuffix(tfile.getPath());
 
         if (ext.equals("asf") || ext.equals("wma") || ext.equals("wmv")) {

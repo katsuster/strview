@@ -59,6 +59,7 @@ public class FileDropWindow extends JFrame {
         cmbType.addItem(new FileTypeItem("RealMedia", FILE_TYPE.FT_RMFF));
         cmbType.addItem(new FileTypeItem("MPEG2 Visual", FILE_TYPE.FT_MPEG2VIDEO));
         cmbType.addItem(new FileTypeItem("MPEG4 Part2 Visual", FILE_TYPE.FT_MPEG4VISUAL));
+        cmbType.addItem(new FileTypeItem("TEST: Source Packet", FILE_TYPE.FT_TEST_SRC));
         cmbType.addItem(new FileTypeItem("TEST: Fixed Size Packet", FILE_TYPE.FT_TEST_FIXED));
         cmbType.addItem(new FileTypeItem("TEST: Marked Packet", FILE_TYPE.FT_TEST_MARKED));
         cmbType.addItemListener(new FileTypeChanged());
