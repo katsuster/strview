@@ -3,6 +3,7 @@ package net.katsuster.strview.media;
 import java.util.*;
 
 import net.katsuster.strview.util.*;
+import net.katsuster.strview.io.*;
 
 /**
  * <p>
@@ -52,6 +53,7 @@ public abstract class AbstractPacketList<T extends Packet> extends AbstractLarge
      * </p>
      *
      * <p>
+     * デフォルトの実装では常に true を返します。
      * シーク時に木構造の管理が不要であれば、
      * このメソッドをオーバライドし false を返してください。
      * </p>
@@ -61,6 +63,26 @@ public abstract class AbstractPacketList<T extends Packet> extends AbstractLarge
     @Override
     public boolean hasTreeStructure() {
         return true;
+    }
+
+    /**
+     * <p>
+     * ビット列に変換します。
+     * </p>
+     *
+     * <p>
+     * パケット列とメソッドが返すビット列は等価ではありません。
+     * すなわちビット列はパケット列の全ての情報を表しているとは限りません。
+     * </p>
+     *
+     * <p>
+     * デフォルトの実装では常に null を返します。
+     * </p>
+     *
+     * @return ビット列、ビット列への変換ができない場合は null
+     */
+    public LargeBitList toBitList() {
+        return null;
     }
 
     /**
