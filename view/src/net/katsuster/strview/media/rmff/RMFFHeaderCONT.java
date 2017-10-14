@@ -51,11 +51,11 @@ public class RMFFHeaderCONT extends RMFFHeader
     }
 
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         read(c, this);
     }
 
-    public static void read(PacketReader<?> c,
+    public static void read(StreamReader<?> c,
                             RMFFHeaderCONT d) {
         c.enterBlock("CONT chunk");
 
@@ -83,11 +83,11 @@ public class RMFFHeaderCONT extends RMFFHeader
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         write(c, this);
     }
 
-    public static void write(PacketWriter<?> c,
+    public static void write(StreamWriter<?> c,
                              RMFFHeaderCONT d) {
         c.enterBlock("CONT chunk");
 

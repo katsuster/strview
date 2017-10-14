@@ -41,12 +41,12 @@ public class FixedPacketList extends AbstractPacketList<FixedPacket> {
     }
 
     @Override
-    protected void seek(PacketReader<?> c, long index) {
+    protected void seek(StreamReader<?> c, long index) {
         c.position(index * FixedPacket.PACKET_SIZE * 8);
     }
 
     @Override
-    protected Packet readNextInner(PacketReader<?> c, PacketRange pr) {
+    protected Packet readNextInner(StreamReader<?> c, PacketRange pr) {
         FixedPacket packet = new FixedPacket(new FixedHeader());
         packet.setRange(pr);
         packet.read(c);

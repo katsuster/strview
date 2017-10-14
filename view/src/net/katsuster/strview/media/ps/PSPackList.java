@@ -2,7 +2,6 @@ package net.katsuster.strview.media.ps;
 
 import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
-import net.katsuster.strview.media.ps.PSConsts.*;
 
 /**
  * <p>
@@ -42,7 +41,7 @@ public class PSPackList extends AbstractPacketList<PSPack> {
     }
 
     @Override
-    protected PSPack readNextInner(PacketReader<?> c, PacketRange pr) {
+    protected PSPack readNextInner(StreamReader<?> c, PacketRange pr) {
         PSHeader tagh = createHeader(c, pr);
 
         PSPack packet = new PSPack(tagh);
@@ -66,7 +65,7 @@ public class PSPackList extends AbstractPacketList<PSPack> {
         //TODO: not implemented yet
     }
 
-    protected PSHeader createHeader(PacketReader<?> c, PacketRange pr) {
+    protected PSHeader createHeader(StreamReader<?> c, PacketRange pr) {
         PSHeader tagh;
 
         PSHeader tmph = new PSHeader();

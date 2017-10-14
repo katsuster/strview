@@ -9,7 +9,7 @@ import net.katsuster.strview.util.*;
  *
  * @author katsuhiro
  */
-public class ToStringConverter extends PacketWriterAdapter<StringBuilder> {
+public class ToStringConverter extends StreamWriterAdapter<StringBuilder> {
     private StringBuilder sb;
 
     public ToStringConverter() {

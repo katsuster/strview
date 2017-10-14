@@ -36,7 +36,7 @@ public class MP4BoxList extends AbstractPacketList<MP4Box> {
     }
 
     @Override
-    protected MP4Box readNextInner(PacketReader<?> c, PacketRange pr) {
+    protected MP4Box readNextInner(StreamReader<?> c, PacketRange pr) {
         MP4Header tagh = createHeader(c, pr);
 
         MP4Box packet = new MP4Box(tagh);
@@ -60,7 +60,7 @@ public class MP4BoxList extends AbstractPacketList<MP4Box> {
         //TODO: not implemented yet
     }
 
-    protected MP4Header createHeader(PacketReader<?> c, PacketRange pr) {
+    protected MP4Header createHeader(StreamReader<?> c, PacketRange pr) {
         MP4Header tmph = new MP4Header();
         tmph.peek(c);
 

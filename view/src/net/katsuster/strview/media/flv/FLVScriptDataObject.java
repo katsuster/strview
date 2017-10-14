@@ -2,7 +2,6 @@ package net.katsuster.strview.media.flv;
 
 import java.util.*;
 
-import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -45,11 +44,11 @@ public class FLVScriptDataObject extends FLVScriptData
     }
 
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         read(c, this);
     }
 
-    public static void read(PacketReader<?> c,
+    public static void read(StreamReader<?> c,
                             FLVScriptDataObject d) {
         c.enterBlock("SCRIPTDATAOBJECT");
 
@@ -69,7 +68,7 @@ public class FLVScriptDataObject extends FLVScriptData
         c.leaveBlock();
     }
 
-    protected static boolean isTerminated(PacketReader<?> c,
+    protected static boolean isTerminated(StreamReader<?> c,
                                           FLVScriptDataObject d) {
         if (c.peekLong(24) == 0x000009) {
             return true;
@@ -82,11 +81,11 @@ public class FLVScriptDataObject extends FLVScriptData
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         write(c, this);
     }
 
-    public static void write(PacketWriter<?> c,
+    public static void write(StreamWriter<?> c,
                              FLVScriptDataObject d) {
         c.enterBlock("SCRIPTDATAOBJECT");
 

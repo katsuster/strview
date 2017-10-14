@@ -49,11 +49,11 @@ public class ASFHeaderHeaderExtension extends ASFHeader
     }
 
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         read(c, this);
     }
 
-    public static void read(PacketReader<?> c,
+    public static void read(StreamReader<?> c,
                             ASFHeaderHeaderExtension d) {
         c.enterBlock("Header Extension Object");
 
@@ -69,11 +69,11 @@ public class ASFHeaderHeaderExtension extends ASFHeader
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         write(c, this);
     }
 
-    public static void write(PacketWriter<?> c,
+    public static void write(StreamWriter<?> c,
                              ASFHeaderHeaderExtension d) {
         c.enterBlock("Header Extension Object");
 

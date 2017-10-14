@@ -38,11 +38,11 @@ public class FLVHeaderAudio extends FLVHeaderES
     }
 
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         read(c, this);
     }
 
-    public static void read(PacketReader<?> c,
+    public static void read(StreamReader<?> c,
                             FLVHeaderAudio d) {
         c.enterBlock("FLV tag (Audio)");
 
@@ -57,11 +57,11 @@ public class FLVHeaderAudio extends FLVHeaderES
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         write(c, this);
     }
 
-    public static void write(PacketWriter<?> c,
+    public static void write(StreamWriter<?> c,
                              FLVHeaderAudio d) {
         c.enterBlock("FLV tag (Audio)");
 

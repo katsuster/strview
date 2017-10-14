@@ -13,7 +13,7 @@ import net.katsuster.strview.util.*;
  *
  * <ul>
  *     <li>位置は常に 0</li>
- *     <li>無限に読み込み（hasNext が常にtrue）</li>
+ *     <li>無限に書き込み可能（hasNext が常にtrue）</li>
  *     <li>マークは全て無視する</li>
  *     <li>変換対象は全て無視する</li>
  *     <li>結果は常に null を返す</li>
@@ -21,9 +21,9 @@ import net.katsuster.strview.util.*;
  *
  * @author katsuhiro
  */
-public class PacketReaderAdapter<T> extends AbstractPacketReader<T>
-        implements PacketReader<T> {
-    public PacketReaderAdapter() {
+public class StreamWriterAdapter<T> extends AbstractStreamWriter<T>
+        implements StreamWriter<T> {
+    public StreamWriterAdapter() {
         //do nothing
     }
 
@@ -73,43 +73,43 @@ public class PacketReaderAdapter<T> extends AbstractPacketReader<T>
     }
 
     @Override
-    public long readLong(int nbit, String desc) {
-        return 0;
+    public void writeLong(int nbit, long val, String name, String desc) {
+        //do nothing
     }
 
     @Override
-    public SInt readSInt(int nbit, SInt val, String desc) {
-        return val;
+    public void writeSInt(int nbit, SInt val, String name, String desc) {
+        //do nothing
     }
 
     @Override
-    public UInt readUInt(int nbit, UInt val, String desc) {
-        return val;
+    public void writeUInt(int nbit, UInt val, String name, String desc) {
+        //do nothing
     }
 
     @Override
-    public SIntR readSIntR(int nbit, SIntR val, String desc) {
-        return val;
+    public void writeSIntR(int nbit, SIntR val, String name, String desc) {
+        //do nothing
     }
 
     @Override
-    public UIntR readUIntR(int nbit, UIntR val, String desc) {
-        return val;
+    public void writeUIntR(int nbit, UIntR val, String name, String desc) {
+        //do nothing
     }
 
     @Override
-    public Float32 readFloat32(int nbit, Float32 val, String desc) {
-        return val;
+    public void writeFloat32(int nbit, Float32 val, String name, String desc) {
+        //do nothing
     }
 
     @Override
-    public Float64 readFloat64(int nbit, Float64 val, String desc) {
-        return val;
+    public void writeFloat64(int nbit, Float64 val, String name, String desc) {
+        //do nothing
     }
 
     @Override
-    public LargeBitList readBitList(long nbit, LargeBitList val, String desc) {
-        return val;
+    public void writeBitList(long nbit, LargeBitList val, String name, String desc) {
+        //do nothing
     }
 
     @Override

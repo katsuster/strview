@@ -444,7 +444,7 @@ public class PacketTreeViewerPanel extends ViewerPanel {
             memberTextViewer.repaint();
 
             //ノードのツリー表現を表示する
-            PacketWriter<MemberTreeNode> c = new ToMemberTreeNodeConverter();
+            StreamWriter<MemberTreeNode> c = new ToMemberTreeNodeConverter();
             p.write(c);
             MemberTreeNode root = c.getResult();
             root.setName(getPacketList().getShortName());

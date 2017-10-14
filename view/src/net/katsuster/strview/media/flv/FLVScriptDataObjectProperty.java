@@ -31,11 +31,11 @@ public class FLVScriptDataObjectProperty extends FLVScriptData
     }
 
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         read(c, this);
     }
 
-    public static void read(PacketReader<?> c,
+    public static void read(StreamReader<?> c,
                             FLVScriptDataObjectProperty d) {
         c.enterBlock("SCRIPTDATAOBJECTPROPERTY");
 
@@ -50,11 +50,11 @@ public class FLVScriptDataObjectProperty extends FLVScriptData
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         write(c, this);
     }
 
-    public static void write(PacketWriter<?> c,
+    public static void write(StreamWriter<?> c,
                              FLVScriptDataObjectProperty d) {
         c.enterBlock("SCRIPTDATAOBJECTPROPERTY");
 

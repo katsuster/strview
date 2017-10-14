@@ -1,7 +1,5 @@
 package net.katsuster.strview.media;
 
-import net.katsuster.strview.util.*;
-
 /**
  * <p>
  * パケットを別の形式に変換、または別の形式からパケットに変換するインタフェースです。
@@ -19,7 +17,7 @@ import net.katsuster.strview.util.*;
  * <pre>
  * Packet p;
  * SomeObject r;
- * PacketConverter&lt;SomeObject&gt; c = new SomeConverter(new SomeObject());
+ * StreamConverter&lt;SomeObject&gt; c = new SomeConverter(new SomeObject());
  *
  * //add members of packet
  * p.convert(c);
@@ -27,10 +25,10 @@ import net.katsuster.strview.util.*;
  * r = c.getResult();
  * </pre>
  *
- * @see AbstractPacketConverter
+ * @see AbstractStreamConverter
  * @author katsuhiro
  */
-public interface PacketConverter<T> {
+public interface StreamConverter<T> {
     /**
      * <p>
      * パケットの変換を開始します。

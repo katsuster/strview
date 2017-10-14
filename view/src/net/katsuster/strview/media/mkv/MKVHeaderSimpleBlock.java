@@ -81,11 +81,11 @@ public class MKVHeaderSimpleBlock extends MKVHeader {
     }
 
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         read(c, this);
     }
 
-    public static void read(PacketReader<?> c,
+    public static void read(StreamReader<?> c,
                             MKVHeaderSimpleBlock d) {
         EBMLlacing val;
         long pos;
@@ -139,11 +139,11 @@ public class MKVHeaderSimpleBlock extends MKVHeader {
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         write(c, this);
     }
 
-    public static void write(PacketWriter<?> c,
+    public static void write(StreamWriter<?> c,
                              MKVHeaderSimpleBlock d) {
         int i;
 

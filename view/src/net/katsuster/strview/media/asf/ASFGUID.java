@@ -124,11 +124,11 @@ public class ASFGUID extends BlockAdapter
     }
 
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         read(c, this);
     }
 
-    public static void read(PacketReader<?> c,
+    public static void read(StreamReader<?> c,
                             ASFGUID d) {
         c.enterBlock("GUID");
 
@@ -142,11 +142,11 @@ public class ASFGUID extends BlockAdapter
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         write(c, this);
     }
 
-    public static void write(PacketWriter<?> c,
+    public static void write(StreamWriter<?> c,
                              ASFGUID d) {
         c.enterBlock("GUID");
 

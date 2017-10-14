@@ -32,11 +32,11 @@ public class RMFFHeaderMDPRAny extends RMFFHeaderMDPR
     }
 
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         read(c, this);
     }
 
-    public static void read(PacketReader<?> c,
+    public static void read(StreamReader<?> c,
                             RMFFHeaderMDPRAny d) {
         c.enterBlock("MDPR(unknown type_specific_data) chunk");
 
@@ -53,11 +53,11 @@ public class RMFFHeaderMDPRAny extends RMFFHeaderMDPR
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         write(c, this);
     }
 
-    public static void write(PacketWriter<?> c,
+    public static void write(StreamWriter<?> c,
                              RMFFHeaderMDPRAny d) {
         c.enterBlock("MDPR(unknown type_specific_data) chunk");
 

@@ -19,7 +19,7 @@ import net.katsuster.strview.util.*;
  * <pre>
  * Packet p;
  * SomeObject r;
- * PacketReader&lt;SomeObject&gt; c = new SomeReader(new SomeObject());
+ * StreamReader&lt;SomeObject&gt; c = new SomeReader(new SomeObject());
  *
  * //add members of packet
  * p.read(c);
@@ -27,10 +27,10 @@ import net.katsuster.strview.util.*;
  * r = c.getResult();
  * </pre>
  *
- * @see PacketReaderAdapter
+ * @see StreamReaderAdapter
  * @author katsuhiro
  */
-public interface PacketReader<T> extends PacketConverter<T> {
+public interface StreamReader<T> extends StreamConverter<T> {
     /**
      * <p>
      * 現在位置を更新せずに、数値を読み出します。

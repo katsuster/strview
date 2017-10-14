@@ -100,11 +100,11 @@ public class EBMLlacing extends EBMLvint
     }
 
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         read(c, this);
     }
 
-    public static void read(PacketReader<?> c,
+    public static void read(StreamReader<?> c,
                             EBMLlacing d) {
         int f, size_all, size_c;
         long minus;
@@ -130,11 +130,11 @@ public class EBMLlacing extends EBMLvint
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         write(c, this);
     }
 
-    public static void write(PacketWriter<?> c,
+    public static void write(StreamWriter<?> c,
                              EBMLlacing d) {
         c.enterBlock("EBML lacing");
 

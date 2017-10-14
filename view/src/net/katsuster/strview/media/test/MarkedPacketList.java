@@ -42,7 +42,7 @@ public class MarkedPacketList extends AbstractPacketList<MarkedPacket> {
     }
 
     @Override
-    protected Packet readNextInner(PacketReader<?> c, PacketRange pr) {
+    protected Packet readNextInner(StreamReader<?> c, PacketRange pr) {
         MarkedPacket packet = new MarkedPacket(new MarkedHeader());
         packet.setRange(pr);
         packet.read(c);

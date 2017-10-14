@@ -67,32 +67,32 @@ public class PacketAdapter extends AbstractPacket {
     }
 
     @Override
-    protected void readHeader(PacketReader<?> c) {
+    protected void readHeader(StreamReader<?> c) {
         //do nothing
     }
 
     @Override
-    protected void readBody(PacketReader<?> c) {
+    protected void readBody(StreamReader<?> c) {
         //do nothing
     }
 
     @Override
-    protected void readFooter(PacketReader<?> c) {
+    protected void readFooter(StreamReader<?> c) {
         //do nothing
     }
 
     @Override
-    protected void writeHeader(PacketWriter<?> c) {
+    protected void writeHeader(StreamWriter<?> c) {
         //do nothing
     }
 
     @Override
-    protected void writeBody(PacketWriter<?> c) {
+    protected void writeBody(StreamWriter<?> c) {
         //do nothing
     }
 
     @Override
-    protected void writeFooter(PacketWriter<?> c) {
+    protected void writeFooter(StreamWriter<?> c) {
         //do nothing
     }
 }

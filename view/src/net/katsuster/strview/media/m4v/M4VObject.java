@@ -36,12 +36,12 @@ public class M4VObject extends PacketAdapter {
     }
 
     @Override
-    protected void readHeader(PacketReader<?> c) {
+    protected void readHeader(StreamReader<?> c) {
         getHeader().read(c);
     }
 
     @Override
-    protected void readBody(PacketReader<?> c) {
+    protected void readBody(StreamReader<?> c) {
         long orgpos;
         int size_f = 0;
         int stepback = 0;
@@ -65,12 +65,12 @@ public class M4VObject extends PacketAdapter {
     }
 
     @Override
-    protected void writeHeader(PacketWriter<?> c) {
+    protected void writeHeader(StreamWriter<?> c) {
         getHeader().write(c);
     }
 
     @Override
-    protected void writeBody(PacketWriter<?> c) {
+    protected void writeBody(StreamWriter<?> c) {
         long size_f = getBody().length();
 
         //FIXME: tentative

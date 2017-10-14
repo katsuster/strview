@@ -43,7 +43,7 @@ public class RIFFChunkList extends AbstractPacketList<RIFFChunk> {
     }
 
     @Override
-    protected RIFFChunk readNextInner(PacketReader<?> c, PacketRange pr) {
+    protected RIFFChunk readNextInner(StreamReader<?> c, PacketRange pr) {
         RIFFHeader tagh = createHeader(c, pr);
 
         RIFFChunk packet = new RIFFChunk(tagh);
@@ -72,7 +72,7 @@ public class RIFFChunkList extends AbstractPacketList<RIFFChunk> {
         //TODO: not implemented yet
     }
 
-    protected RIFFHeader createHeader(PacketReader<?> c, PacketRange pr) {
+    protected RIFFHeader createHeader(StreamReader<?> c, PacketRange pr) {
         RIFFHeader tagh;
 
         RIFFHeader tmph = new RIFFHeader();
@@ -93,7 +93,7 @@ public class RIFFChunkList extends AbstractPacketList<RIFFChunk> {
         return tagh;
     }
 
-    protected RIFFHeader createHeaderStrf(PacketReader<?> c, PacketRange pr) {
+    protected RIFFHeader createHeaderStrf(StreamReader<?> c, PacketRange pr) {
         Map.Entry<Long, RIFFHeaderStrh> entStrh = cacheStrh.floorEntry(pr.getNumber());
         if (entStrh == null) {
             return null;

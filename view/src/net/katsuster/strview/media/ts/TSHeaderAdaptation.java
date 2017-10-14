@@ -173,11 +173,11 @@ public class TSHeaderAdaptation extends BlockAdapter
     }
 
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         read(c, this);
     }
 
-    public static void read(PacketReader<?> c,
+    public static void read(StreamReader<?> c,
                             TSHeaderAdaptation d) {
         c.enterBlock("TS packet header(adaptation field)");
 
@@ -260,7 +260,7 @@ public class TSHeaderAdaptation extends BlockAdapter
         c.leaveBlock();
     }
 
-    protected static void readExtensions(PacketReader<?> c,
+    protected static void readExtensions(StreamReader<?> c,
                                          TSHeaderAdaptation d) {
         long pos_byte;
         int size_rs;
@@ -318,11 +318,11 @@ public class TSHeaderAdaptation extends BlockAdapter
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         write(c, this);
     }
 
-    public static void write(PacketWriter<?> c,
+    public static void write(StreamWriter<?> c,
                              TSHeaderAdaptation d) {
         c.enterBlock("TS packet header(adaptation field)");
 
@@ -407,7 +407,7 @@ public class TSHeaderAdaptation extends BlockAdapter
         c.leaveBlock();
     }
 
-    protected static void writeExtensions(PacketWriter<?> c,
+    protected static void writeExtensions(StreamWriter<?> c,
                                           TSHeaderAdaptation d) {
         long pos_byte;
         int size_rs;

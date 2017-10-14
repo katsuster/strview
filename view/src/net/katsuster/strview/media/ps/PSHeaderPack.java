@@ -80,11 +80,11 @@ public class PSHeaderPack extends PSHeader
     }
 
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         read(c, this);
     }
 
-    public static void read(PacketReader<?> c,
+    public static void read(StreamReader<?> c,
                             PSHeaderPack d) {
         int size_st;
 
@@ -101,7 +101,7 @@ public class PSHeaderPack extends PSHeader
         c.leaveBlock();
     }
 
-    public static void readMPEG1(PacketReader<?> c,
+    public static void readMPEG1(StreamReader<?> c,
                                  PSHeaderPack d) {
         d.reserved1                        = c.readUInt( 4, d.reserved1                       );
         d.system_clock_reference_base_high = c.readUInt( 3, d.system_clock_reference_base_high);
@@ -115,7 +115,7 @@ public class PSHeaderPack extends PSHeader
         d.marker_bit5                      = c.readUInt( 1, d.marker_bit5                     );
     }
 
-    public static void readMPEG2(PacketReader<?> c,
+    public static void readMPEG2(StreamReader<?> c,
                                  PSHeaderPack d) {
         int size_st;
 
@@ -144,11 +144,11 @@ public class PSHeaderPack extends PSHeader
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         write(c, this);
     }
 
-    public static void write(PacketWriter<?> c,
+    public static void write(StreamWriter<?> c,
                              PSHeaderPack d) {
         c.enterBlock("PS pack header");
 
@@ -163,7 +163,7 @@ public class PSHeaderPack extends PSHeader
         c.leaveBlock();
     }
 
-    public static void writeMPEG1(PacketWriter<?> c,
+    public static void writeMPEG1(StreamWriter<?> c,
                                   PSHeaderPack d) {
         c.writeUInt( 4, d.reserved1                       , "reserved1"                       );
         c.writeUInt( 3, d.system_clock_reference_base_high, "system_clock_reference_base_high");
@@ -178,7 +178,7 @@ public class PSHeaderPack extends PSHeader
         c.writeUInt( 1, d.marker_bit5                     , "marker_bit5"                     );
     }
 
-    public static void writeMPEG2(PacketWriter<?> c,
+    public static void writeMPEG2(StreamWriter<?> c,
                                   PSHeaderPack d) {
         c.writeUInt( 2, d.reserved1                       , "reserved1"                       );
         c.writeUInt( 3, d.system_clock_reference_base_high, "system_clock_reference_base_high");

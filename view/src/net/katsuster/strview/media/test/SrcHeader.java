@@ -1,7 +1,6 @@
 package net.katsuster.strview.media.test;
 
 import net.katsuster.strview.media.*;
-import net.katsuster.strview.util.*;
 
 /**
  * <p>
@@ -29,11 +28,11 @@ public class SrcHeader extends BlockAdapter
     }
 
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         read(c, this);
     }
 
-    public static void read(PacketReader<?> c,
+    public static void read(StreamReader<?> c,
                             SrcHeader d) {
         c.enterBlock("Source Packet header");
 
@@ -41,11 +40,11 @@ public class SrcHeader extends BlockAdapter
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         write(c, this);
     }
 
-    public static void write(PacketWriter<?> c,
+    public static void write(StreamWriter<?> c,
                              SrcHeader d) {
         c.enterBlock("Source Packet header");
 

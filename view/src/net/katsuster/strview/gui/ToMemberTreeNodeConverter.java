@@ -12,7 +12,7 @@ import net.katsuster.strview.media.*;
  *
  * @author katsuhiro
  */
-public class ToMemberTreeNodeConverter extends PacketWriterAdapter<MemberTreeNode> {
+public class ToMemberTreeNodeConverter extends StreamWriterAdapter<MemberTreeNode> {
     private Deque<MemberTreeNode> stack_node;
     private MemberTreeNode root;
 

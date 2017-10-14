@@ -36,7 +36,7 @@ public class RMFFChunkList extends AbstractPacketList<RMFFChunk> {
     }
 
     @Override
-    protected RMFFChunk readNextInner(PacketReader<?> c, PacketRange pr) {
+    protected RMFFChunk readNextInner(StreamReader<?> c, PacketRange pr) {
         RMFFHeader tagh = createHeader(c, pr);
 
         RMFFChunk packet = new RMFFChunk(tagh);
@@ -60,7 +60,7 @@ public class RMFFChunkList extends AbstractPacketList<RMFFChunk> {
         //TODO: not implemented yet
     }
 
-    protected RMFFHeader createHeader(PacketReader<?> c, PacketRange pr) {
+    protected RMFFHeader createHeader(StreamReader<?> c, PacketRange pr) {
         RMFFHeader tmph = new RMFFHeader();
         tmph.peek(c);
 

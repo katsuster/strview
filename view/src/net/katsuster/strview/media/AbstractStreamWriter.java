@@ -20,9 +20,9 @@ import net.katsuster.strview.util.*;
  *
  * @author katsuhiro
  */
-public abstract class AbstractPacketWriter<T> extends AbstractPacketConverter<T>
-        implements PacketWriter<T> {
-    public AbstractPacketWriter() {
+public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
+        implements StreamWriter<T> {
+    public AbstractStreamWriter() {
         //do nothing
     }
 

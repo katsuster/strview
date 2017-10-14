@@ -86,11 +86,11 @@ public class RIFFHeaderStrh extends RIFFHeader
     }
 
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         read(c, this);
     }
 
-    public static void read(PacketReader<?> c,
+    public static void read(StreamReader<?> c,
                             RIFFHeaderStrh d) {
         c.enterBlock("strh chunk");
 
@@ -118,11 +118,11 @@ public class RIFFHeaderStrh extends RIFFHeader
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         write(c, this);
     }
 
-    public static void write(PacketWriter<?> c,
+    public static void write(StreamWriter<?> c,
                              RIFFHeaderStrh d) {
         c.enterBlock("strh chunk");
 

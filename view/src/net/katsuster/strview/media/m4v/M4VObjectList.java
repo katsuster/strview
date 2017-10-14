@@ -1,10 +1,7 @@
 package net.katsuster.strview.media.m4v;
 
-import java.util.*;
-
 import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
-import net.katsuster.strview.media.m4v.M4VConsts.*;
 
 /**
  * <p>
@@ -44,7 +41,7 @@ public class M4VObjectList extends AbstractPacketList<M4VObject> {
     }
 
     @Override
-    protected M4VObject readNextInner(PacketReader<?> c, PacketRange pr) {
+    protected M4VObject readNextInner(StreamReader<?> c, PacketRange pr) {
         M4VHeader tagh = createHeader(c, pr);
 
         M4VObject packet = new M4VObject(tagh);
@@ -68,7 +65,7 @@ public class M4VObjectList extends AbstractPacketList<M4VObject> {
         //TODO: not implemented yet
     }
 
-    protected M4VHeader createHeader(PacketReader<?> c, PacketRange pr) {
+    protected M4VHeader createHeader(StreamReader<?> c, PacketRange pr) {
         M4VHeader tagh;
 
         M4VHeader tmph = new M4VHeader();

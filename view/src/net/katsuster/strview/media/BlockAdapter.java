@@ -18,12 +18,12 @@ package net.katsuster.strview.media;
  */
 public class BlockAdapter extends AbstractBlock {
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         //do nothing
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         //do nothing
     }
 }

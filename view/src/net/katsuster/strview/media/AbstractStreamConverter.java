@@ -1,7 +1,5 @@
 package net.katsuster.strview.media;
 
-import net.katsuster.strview.util.*;
-
 /**
  * <p>
  * 何もしないコンバータクラスです。
@@ -20,8 +18,8 @@ import net.katsuster.strview.util.*;
  *
  * @author katsuhiro
  */
-public abstract class AbstractPacketConverter<T> implements PacketConverter<T> {
-    public AbstractPacketConverter() {
+public abstract class AbstractStreamConverter<T> implements StreamConverter<T> {
+    public AbstractStreamConverter() {
         //do nothing
     }
 

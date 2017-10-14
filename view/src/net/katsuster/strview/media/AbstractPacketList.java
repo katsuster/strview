@@ -3,7 +3,6 @@ package net.katsuster.strview.media;
 import java.util.*;
 
 import net.katsuster.strview.util.*;
-import net.katsuster.strview.io.*;
 
 /**
  * <p>
@@ -180,7 +179,7 @@ public abstract class AbstractPacketList<T extends Packet> extends AbstractLarge
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected void countSlow(PacketReader<?> c) {
+    protected void countSlow(StreamReader<?> c) {
         long cnt = 0;
 
         getPacketStack().clear();
@@ -208,7 +207,7 @@ public abstract class AbstractPacketList<T extends Packet> extends AbstractLarge
      * @param c 各メンバの変換を実施するオブジェクト
      * @param index シークする位置のパケット ID
      */
-    protected void seek(PacketReader<?> c, long index) {
+    protected void seek(StreamReader<?> c, long index) {
         long start;
 
         start = seekNearest(c, index);
@@ -224,7 +223,7 @@ public abstract class AbstractPacketList<T extends Packet> extends AbstractLarge
      * @param index シークする位置のパケット ID
      * @return シークした位置
      */
-    protected long seekNearest(PacketReader<?> c, long index) {
+    protected long seekNearest(StreamReader<?> c, long index) {
         Map.Entry<Long, PacketRange> ent = cache_packet.floorEntry(index);
         PacketRange pr;
 
@@ -267,7 +266,7 @@ public abstract class AbstractPacketList<T extends Packet> extends AbstractLarge
      * @param start 開始位置のパケット ID
      * @param index シークする位置のパケット ID
      */
-    protected void seekSlow(PacketReader<?> c, long start, long index) {
+    protected void seekSlow(StreamReader<?> c, long start, long index) {
         for (long i = start; i < index; i++) {
             readNext(c, i);
         }
@@ -282,7 +281,7 @@ public abstract class AbstractPacketList<T extends Packet> extends AbstractLarge
      * @param index パケットに付与する ID
      * @return パケット
      */
-    protected Packet readNext(PacketReader<?> c, long index) {
+    protected Packet readNext(StreamReader<?> c, long index) {
         PacketRange pr;
 
         pr = getPacketRange(index);
@@ -298,5 +297,5 @@ public abstract class AbstractPacketList<T extends Packet> extends AbstractLarge
      * @param pr パケットの存在する範囲
      * @return パケット
      */
-    protected abstract Packet readNextInner(PacketReader<?> c, PacketRange pr);
+    protected abstract Packet readNextInner(StreamReader<?> c, PacketRange pr);
 }

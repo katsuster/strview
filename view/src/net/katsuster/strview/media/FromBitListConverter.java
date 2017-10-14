@@ -9,7 +9,7 @@ import net.katsuster.strview.util.*;
  *
  * @author katsuhiro
  */
-public class FromBitListConverter extends PacketReaderAdapter<LargeBitList> {
+public class FromBitListConverter extends StreamReaderAdapter<LargeBitList> {
     private LargeBitList buf;
     private long pos;
 

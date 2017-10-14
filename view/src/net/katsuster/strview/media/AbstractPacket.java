@@ -319,7 +319,7 @@ public abstract class AbstractPacket extends AbstractBlock
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected abstract void readHeader(PacketReader<?> c);
+    protected abstract void readHeader(StreamReader<?> c);
 
     /**
      * <p>
@@ -328,7 +328,7 @@ public abstract class AbstractPacket extends AbstractBlock
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected abstract void readBody(PacketReader<?> c);
+    protected abstract void readBody(StreamReader<?> c);
 
     /**
      * <p>
@@ -337,7 +337,7 @@ public abstract class AbstractPacket extends AbstractBlock
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected abstract void readFooter(PacketReader<?> c);
+    protected abstract void readFooter(StreamReader<?> c);
 
     /**
      * <p>
@@ -346,7 +346,7 @@ public abstract class AbstractPacket extends AbstractBlock
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected abstract void writeHeader(PacketWriter<?> c);
+    protected abstract void writeHeader(StreamWriter<?> c);
 
     /**
      * <p>
@@ -355,7 +355,7 @@ public abstract class AbstractPacket extends AbstractBlock
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected abstract void writeBody(PacketWriter<?> c);
+    protected abstract void writeBody(StreamWriter<?> c);
 
     /**
      * <p>
@@ -364,7 +364,7 @@ public abstract class AbstractPacket extends AbstractBlock
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected abstract void writeFooter(PacketWriter<?> c);
+    protected abstract void writeFooter(StreamWriter<?> c);
 
     /**
      * <p>
@@ -377,7 +377,7 @@ public abstract class AbstractPacket extends AbstractBlock
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected void readRawPacket(PacketReader<?> c) {
+    protected void readRawPacket(StreamReader<?> c) {
         long org_pos;
 
         org_pos = c.position();
@@ -397,7 +397,7 @@ public abstract class AbstractPacket extends AbstractBlock
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected void writeRawPacket(PacketWriter<?> c) {
+    protected void writeRawPacket(StreamWriter<?> c) {
         c.writeBitList(getLength(), raw_packet, "raw_packet");
     }
 
@@ -413,7 +413,7 @@ public abstract class AbstractPacket extends AbstractBlock
      * @param c 各メンバの変換を実施するオブジェクト
      */
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         c.enterPacket(getShortName());
 
         convHeader(c, this);
@@ -449,7 +449,7 @@ public abstract class AbstractPacket extends AbstractBlock
      * @param c 各メンバの変換を実施するオブジェクト
      */
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         c.enterPacket(getShortName());
 
         convHeader(c, this);
@@ -462,7 +462,7 @@ public abstract class AbstractPacket extends AbstractBlock
         c.leavePacket();
     }
 
-    private static void convHeader(PacketConverter<?> c,
+    private static void convHeader(StreamConverter<?> c,
                              AbstractPacket d) {
         c.enterBlock("common");
 

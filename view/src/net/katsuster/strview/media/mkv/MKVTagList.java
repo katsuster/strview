@@ -60,7 +60,7 @@ public class MKVTagList extends AbstractPacketList<MKVTag> {
     }
 
     @Override
-    protected MKVTag readNextInner(PacketReader<?> c, PacketRange pr) {
+    protected MKVTag readNextInner(StreamReader<?> c, PacketRange pr) {
         MKVHeader tagh = createHeader(c, pr);
 
         MKVTag packet = new MKVTag(tagh);
@@ -84,7 +84,7 @@ public class MKVTagList extends AbstractPacketList<MKVTag> {
         //TODO: not implemented yet
     }
 
-    protected MKVHeader createHeader(PacketReader<?> c, PacketRange pr) {
+    protected MKVHeader createHeader(StreamReader<?> c, PacketRange pr) {
         MKVHeader tmph = new MKVHeader();
         tmph.peek(c);
 

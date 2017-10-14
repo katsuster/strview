@@ -93,14 +93,14 @@ public abstract class AbstractBlock implements Block {
     }
 
     @Override
-    public void peek(PacketReader<?> c) {
+    public void peek(StreamReader<?> c) {
         long orgpos = c.position();
         read(c);
         c.position(orgpos);
     }
 
     @Override
-    public void poke(PacketWriter<?> c) {
+    public void poke(StreamWriter<?> c) {
         long orgpos = c.position();
         write(c);
         c.position(orgpos);
@@ -134,7 +134,7 @@ public abstract class AbstractBlock implements Block {
      * @throws IllegalArgumentException 読み出すオブジェクト数が不適切であるとき
      * @throws IndexOutOfBoundsException 現在位置がリミット以上である場合
      */
-    public static <T extends Block> List<T> readObjectList(PacketReader<?> c, int n, List<T> lst, Class<? extends T> cls) {
+    public static <T extends Block> List<T> readObjectList(StreamReader<?> c, int n, List<T> lst, Class<? extends T> cls) {
         try {
             if (lst == null) {
                 lst = new ArrayList<>();
@@ -170,7 +170,7 @@ public abstract class AbstractBlock implements Block {
      * @throws IllegalArgumentException ビット数が不適切であるとき
      * @throws IndexOutOfBoundsException 現在位置がリミット以上である場合
      */
-    public static <T extends Block> void writeObjectList(PacketWriter<?> c, int n, List<T> lst, String name) {
+    public static <T extends Block> void writeObjectList(StreamWriter<?> c, int n, List<T> lst, String name) {
         for (int i = 0; i < n; i++) {
             c.mark(name, i);
             lst.get(i).write(c);

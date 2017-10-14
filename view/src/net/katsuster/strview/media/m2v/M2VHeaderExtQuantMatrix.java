@@ -59,11 +59,11 @@ public class M2VHeaderExtQuantMatrix extends M2VHeaderExt
     }
 
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         read(c, this);
     }
 
-    public static void read(PacketReader<?> c,
+    public static void read(StreamReader<?> c,
                             M2VHeaderExtQuantMatrix d) {
         c.enterBlock("M2V quant_matrix_extension()");
 
@@ -93,11 +93,11 @@ public class M2VHeaderExtQuantMatrix extends M2VHeaderExt
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         write(c, this);
     }
 
-    public static void write(PacketWriter<?> c,
+    public static void write(StreamWriter<?> c,
                              M2VHeaderExtQuantMatrix d) {
         c.enterBlock("M2V quant_matrix_extension()");
 

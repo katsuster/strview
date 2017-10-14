@@ -19,7 +19,7 @@ import net.katsuster.strview.util.*;
  * <pre>
  * Packet p;
  * SomeObject r;
- * PacketWriter&lt;SomeObject&gt; c = new SomeWriter(new SomeObject());
+ * StreamWriter&lt;SomeObject&gt; c = new SomeWriter(new SomeObject());
  *
  * //add members of packet
  * p.convert(c);
@@ -27,10 +27,10 @@ import net.katsuster.strview.util.*;
  * r = c.getResult();
  * </pre>
  *
- * @see PacketWriterAdapter
+ * @see StreamWriterAdapter
  * @author katsuhiro
  */
-public interface PacketWriter<T> extends PacketConverter<T> {
+public interface StreamWriter<T> extends StreamConverter<T> {
     /**
      * <p>
      * 現在位置を更新せずに、数値を書き込みます。

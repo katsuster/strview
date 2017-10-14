@@ -2,7 +2,6 @@ package net.katsuster.strview.media.flv;
 
 import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
-import net.katsuster.strview.media.flv.FLVConsts.*;
 
 /**
  * Created by katsuhiro on 2017/03/15.
@@ -38,7 +37,7 @@ public class FLVTagList extends AbstractPacketList<FLVTag> {
     }
 
     @Override
-    protected FLVTag readNextInner(PacketReader<?> c, PacketRange pr) {
+    protected FLVTag readNextInner(StreamReader<?> c, PacketRange pr) {
         FLVHeader tagh = createHeader(c, pr);
 
         FLVTag packet = new FLVTag(tagh);
@@ -62,7 +61,7 @@ public class FLVTagList extends AbstractPacketList<FLVTag> {
         //TODO: not implemented yet
     }
 
-    protected FLVHeader createHeader(PacketReader<?> c, PacketRange pr) {
+    protected FLVHeader createHeader(StreamReader<?> c, PacketRange pr) {
         FLVHeader tagh;
 
         if (pr.getNumber() == 0) {

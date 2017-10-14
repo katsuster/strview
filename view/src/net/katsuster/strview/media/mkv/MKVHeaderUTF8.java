@@ -33,11 +33,11 @@ public class MKVHeaderUTF8 extends MKVHeader {
     }
 
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         read(c, this);
     }
 
-    public static void read(PacketReader<?> c,
+    public static void read(StreamReader<?> c,
                             MKVHeaderUTF8 d) {
         c.enterBlock("Matroska utf-8 string");
 
@@ -49,11 +49,11 @@ public class MKVHeaderUTF8 extends MKVHeader {
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         write(c, this);
     }
 
-    public static void write(PacketWriter<?> c,
+    public static void write(StreamWriter<?> c,
                              MKVHeaderUTF8 d) {
         c.enterBlock("Matroska utf-8 string");
 

@@ -2,7 +2,6 @@ package net.katsuster.strview.media.asf;
 
 import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
-import net.katsuster.strview.media.asf.*;
 
 /**
  * <p>
@@ -37,7 +36,7 @@ public class ASFObjectList extends AbstractPacketList<ASFObject> {
     }
 
     @Override
-    protected ASFObject readNextInner(PacketReader<?> c, PacketRange pr) {
+    protected ASFObject readNextInner(StreamReader<?> c, PacketRange pr) {
         ASFHeader tagh = createHeader(c, pr);
 
         ASFObject packet = new ASFObject(tagh);
@@ -61,7 +60,7 @@ public class ASFObjectList extends AbstractPacketList<ASFObject> {
         //TODO: not implemented yet
     }
 
-    protected ASFHeader createHeader(PacketReader<?> c, PacketRange pr) {
+    protected ASFHeader createHeader(StreamReader<?> c, PacketRange pr) {
         ASFHeader tmph = new ASFHeader();
         tmph.peek(c);
 

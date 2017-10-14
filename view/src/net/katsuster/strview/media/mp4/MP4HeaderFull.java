@@ -47,11 +47,11 @@ public class MP4HeaderFull extends MP4Header
     }
 
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         read(c, this);
     }
 
-    public static void read(PacketReader<?> c,
+    public static void read(StreamReader<?> c,
                             MP4HeaderFull d) {
         c.enterBlock("FullBox");
 
@@ -64,11 +64,11 @@ public class MP4HeaderFull extends MP4Header
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         write(c, this);
     }
 
-    public static void write(PacketWriter<?> c,
+    public static void write(StreamWriter<?> c,
                              MP4HeaderFull d) {
         c.enterBlock("FullBox");
 

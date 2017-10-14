@@ -66,11 +66,11 @@ public class EBMLvid extends EBMLvint
     }
 
     @Override
-    public void read(PacketReader<?> c) {
+    public void read(StreamReader<?> c) {
         read(c, this);
     }
 
-    public static void read(PacketReader<?> c,
+    public static void read(StreamReader<?> c,
                             EBMLvid d) {
         int f, size;
 
@@ -88,11 +88,11 @@ public class EBMLvid extends EBMLvint
     }
 
     @Override
-    public void write(PacketWriter<?> c) {
+    public void write(StreamWriter<?> c) {
         write(c, this);
     }
 
-    public static void write(PacketWriter<?> c,
+    public static void write(StreamWriter<?> c,
                              EBMLvid d) {
         c.enterBlock("EBML vid");
 
