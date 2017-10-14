@@ -4,8 +4,6 @@ package net.katsuster.strview.util;
  * <p>
  * 64bit の符号あり整数
  * </p>
- *
- * @author katsuhiro
  */
 public class SInt extends AbstractNum
         implements Comparable<SInt> {

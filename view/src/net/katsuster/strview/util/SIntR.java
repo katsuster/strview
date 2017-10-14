@@ -8,8 +8,6 @@ package net.katsuster.strview.util;
  * <p>
  * 8, 16, 32, 64bit のみ有効です。
  * </p>
- *
- * @author katsuhiro
  */
 public class SIntR extends AbstractNum
         implements Comparable<SIntR> {

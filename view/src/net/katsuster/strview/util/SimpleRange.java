@@ -8,8 +8,6 @@ package net.katsuster.strview.util;
  * <p>
  * end = start + length です。
  * </p>
- *
- * @author katsuhiro
  */
 public class SimpleRange
         implements Range {

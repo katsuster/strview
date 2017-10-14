@@ -4,8 +4,6 @@ package net.katsuster.strview.util;
  * <p>
  * int 型で扱える長さを超えるリストの共通動作を定義します。
  * </p>
- *
- * @author katsuhiro
  */
 public abstract class AbstractLargeList<T> extends AbstractLargeListBase<T> {
     /**

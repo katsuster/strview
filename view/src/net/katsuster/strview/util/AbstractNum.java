@@ -6,8 +6,6 @@ import net.katsuster.strview.io.*;
  * <p>
  * 数値、位置、長さを格納するクラスの基底クラス。
  * </p>
- *
- * @author katsuhiro
  */
 public abstract class AbstractNum extends SubLargeBitList
         implements Num, Cloneable {

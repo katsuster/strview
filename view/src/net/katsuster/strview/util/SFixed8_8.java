@@ -5,8 +5,6 @@ package net.katsuster.strview.util;
  * 8bit.8bit の固定小数点数、位置、長さを格納するクラス。
  * 整数部分は符号付として扱います。
  * </p>
- *
- * @author katsuhiro
  */
 public class SFixed8_8 extends AbstractNum {
     public SFixed8_8() {

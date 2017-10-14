@@ -8,8 +8,6 @@ package net.katsuster.strview.util;
  * <p>
  * ビット列から整数、byte 型配列を読み出すための補助メソッドを実装しています。
  * </p>
- *
- * @author katsuhiro
  */
 public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
         implements LargeBitList {

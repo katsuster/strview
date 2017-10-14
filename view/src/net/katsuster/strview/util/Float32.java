@@ -4,8 +4,6 @@ package net.katsuster.strview.util;
  * <p>
  * 32bit の浮動小数点数、位置、長さを格納するクラス。
  * </p>
- *
- * @author katsuhiro
  */
 public class Float32 extends AbstractNum {
     public Float32() {

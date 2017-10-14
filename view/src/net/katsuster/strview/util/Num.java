@@ -4,8 +4,6 @@ package net.katsuster.strview.util;
  * <p>
  * 数値、位置、長さを格納するクラスの基底クラス。
  * </p>
- *
- * @author katsuhiro
  */
 public interface Num extends LargeBitList {
     /**

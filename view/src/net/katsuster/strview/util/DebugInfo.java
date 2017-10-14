@@ -4,8 +4,6 @@ package net.katsuster.strview.util;
  * <p>
  * デバッグ用ユーティリティ関数群を定義するためのクラスです。
  * </p>
- *
- * @author katsuhiro
  */
 public class DebugInfo {
     protected DebugInfo() {

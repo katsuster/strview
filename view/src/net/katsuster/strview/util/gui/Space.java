@@ -4,8 +4,6 @@ package net.katsuster.strview.util.gui;
  * <p>
  * 上下、左右の空白の大きさを表すクラスです。
  * </p>
- *
- * @author katsuhiro
  */
 public class Space {
     //左側の空白の大きさ

@@ -15,8 +15,6 @@ package net.katsuster.strview.util;
  * isHit(1) は true、isHit(5) も true ですが、
  * isHit(6) は false、isHit(7) も false です。
  * </p>
- *
- * @author katsuhiro
  */
 public interface Range extends Cloneable {
     //size() および length() メソッドで長さが分からないときに返される値です

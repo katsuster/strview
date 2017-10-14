@@ -4,8 +4,6 @@ package net.katsuster.strview.util;
  * <p>
  * 64bit の符号無し整数
  * </p>
- *
- * @author katsuhiro
  */
 public class UInt extends AbstractNum
         implements Comparable<UInt> {

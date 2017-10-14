@@ -5,8 +5,6 @@ package net.katsuster.strview.util;
  * 16bit.16bit の固定小数点数、位置、長さを格納するクラス。
  * 整数部分は符号付として扱います。
  * </p>
- *
- * @author katsuhiro
  */
 public class SFixed16_16 extends AbstractNum {
     public SFixed16_16() {

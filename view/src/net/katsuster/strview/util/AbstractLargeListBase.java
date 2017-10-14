@@ -6,8 +6,6 @@ import java.util.AbstractList;
  * <p>
  * int 型で扱える長さを超えるリストの共通動作を定義します。
  * </p>
- *
- * @author katsuhiro
  */
 public abstract class AbstractLargeListBase<T> /*extends AbstractList<T>*/
         implements LargeList<T>, Cloneable {

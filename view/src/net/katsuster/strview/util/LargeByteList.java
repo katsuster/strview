@@ -4,8 +4,6 @@ package net.katsuster.strview.util;
  * <p>
  * int 型で扱える長さを超えるバイト列のインタフェースです。
  * </p>
- *
- * @author katsuhiro
  */
 public interface LargeByteList extends LargeList<Byte> {
     /**

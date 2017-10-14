@@ -4,8 +4,6 @@ package net.katsuster.strview.util;
  * <p>
  * int 型で扱える長さを超えるビット列の部分列を表します。
  * </p>
- *
- * @author katsuhiro
  */
 public class SubLargeBitList extends AbstractLargeListBase<Boolean>
         implements LargeBitList, Cloneable {

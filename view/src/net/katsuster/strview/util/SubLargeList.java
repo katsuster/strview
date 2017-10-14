@@ -4,8 +4,6 @@ package net.katsuster.strview.util;
  * <p>
  * int 型で扱える長さを超えるリストの部分列を表します。
  * </p>
- *
- * @author katsuhiro
  */
 public class SubLargeList<T> extends AbstractLargeListBase<T>
         implements LargeList<T>, Cloneable {
