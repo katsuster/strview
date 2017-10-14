@@ -14,8 +14,6 @@ import net.katsuster.strview.media.*;
  * <ul>
  * <li>Matroska: http://www.matroska.org/technical/specs/index.html</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class MKVConsts {
     //MKV タグのファクトリ

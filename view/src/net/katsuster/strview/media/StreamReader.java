@@ -28,7 +28,6 @@ import net.katsuster.strview.util.*;
  * </pre>
  *
  * @see StreamReaderAdapter
- * @author katsuhiro
  */
 public interface StreamReader<T> extends StreamConverter<T> {
     /**

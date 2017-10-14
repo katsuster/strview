@@ -10,8 +10,6 @@ import net.katsuster.strview.media.mkv.MKVConsts.*;
  * <p>
  * Matroska Block タグヘッダ。
  * </p>
- *
- * @author katsuhiro
  */
 public class MKVHeaderBlock extends MKVHeader {
     public EBMLvalue track_number;

@@ -10,8 +10,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * SCRIPTDATADATE
  * </p>
- *
- * @author katsuhiro
  */
 public class FLVScriptDataDate extends FLVScriptData
         implements Cloneable {

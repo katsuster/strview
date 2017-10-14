@@ -35,7 +35,6 @@ import net.katsuster.strview.util.*;
  * </dl>
  *
  * @see BlockAdapter
- * @author katsuhiro
  */
 public abstract class AbstractBlock implements Block {
     private Range pos;

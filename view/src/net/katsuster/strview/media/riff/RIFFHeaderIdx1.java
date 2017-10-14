@@ -15,8 +15,6 @@ import net.katsuster.strview.media.*;
  * <ul>
  * <li>MSDN: AVIOLDINDEX struct</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class RIFFHeaderIdx1 extends RIFFHeader
         implements Cloneable {

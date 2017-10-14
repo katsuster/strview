@@ -16,8 +16,6 @@ import net.katsuster.strview.media.*;
  * <ul>
  * <li>Advanced Systems Format (ASF) Specification: Revision 01.20.06</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class ASFHeaderExtendedContentDescription extends ASFHeader
         implements Cloneable {

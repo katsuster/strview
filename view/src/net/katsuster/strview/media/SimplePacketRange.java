@@ -8,8 +8,6 @@ import net.katsuster.strview.util.*;
  * <p>
  * パケットの位置。
  * </p>
- *
- * @author katsuhiro
  */
 public class SimplePacketRange extends SimpleRange
         implements PacketRange {

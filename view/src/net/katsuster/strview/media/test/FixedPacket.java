@@ -6,8 +6,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * 固定長パケット。
  * </p>
- *
- * @author katsuhiro
  */
 public class FixedPacket extends PacketAdapter {
     //パケットのサイズ（byte 単位）

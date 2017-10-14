@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * CONT チャンクヘッダ。
  * </p>
- *
- * @author katsuhiro
  */
 public class RMFFHeaderCONT extends RMFFHeader
         implements Cloneable {

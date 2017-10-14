@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * INDX チャンクヘッダ。
  * </p>
- *
- * @author katsuhiro
  */
 public class RMFFHeaderINDX extends RMFFHeader
         implements Cloneable {

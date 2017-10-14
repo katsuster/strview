@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * MP4 Box リスト。
  * </p>
- *
- * @author katsuhiro
  */
 public class MP4BoxList extends AbstractPacketList<MP4Box> {
     private LargeBitList buf;

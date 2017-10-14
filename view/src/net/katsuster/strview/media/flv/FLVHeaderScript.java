@@ -6,8 +6,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * SCRIPTDATA
  * </p>
- *
- * @author katsuhiro
  */
 public class FLVHeaderScript extends FLVHeaderES
         implements Cloneable {

@@ -6,8 +6,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * MPEG2-PS (Program Stream) パック。
  * </p>
- *
- * @author katsuhiro
  */
 public class PSPack extends PacketAdapter {
     //PS パケットのヘッダサイズ（byte 単位）

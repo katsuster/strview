@@ -6,8 +6,6 @@ import net.katsuster.strview.util.*;
  * <p>
  * Num クラスの文字列表現を生成するためのユーティリティクラスです。
  * </p>
- *
- * @author katsuhiro
  */
 public class NumFormatter {
     public static final String FORMAT_ADDRESS = "%6x.%d-%6x.%d" + ": ";

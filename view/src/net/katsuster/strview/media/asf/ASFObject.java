@@ -6,8 +6,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * ASF (Advanced Systems Format) Object
  * </p>
- *
- * @author katsuhiro
  */
 public class ASFObject extends PacketAdapter {
     //ASF Object 最小ヘッダサイズ（byte 単位、ID と size のみ）

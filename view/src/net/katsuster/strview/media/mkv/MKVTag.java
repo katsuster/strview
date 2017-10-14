@@ -6,8 +6,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * Matroska タグ。
  * </p>
- *
- * @author katsuhiro
  */
 public class MKVTag extends PacketAdapter {
     //Matroska タグ最小ヘッダサイズ（byte 単位、id と size の最小値）

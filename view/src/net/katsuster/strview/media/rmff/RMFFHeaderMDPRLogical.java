@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * MDPR LogicalStream Structure
  * </p>
- *
- * @author katsuhiro
  */
 public class RMFFHeaderMDPRLogical extends RMFFHeaderMDPR
         implements Cloneable {

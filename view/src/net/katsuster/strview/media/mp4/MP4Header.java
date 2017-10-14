@@ -15,8 +15,6 @@ import net.katsuster.strview.media.mp4.MP4Consts.*;
  * <ul>
  * <li>ISO/IEC 14496-12: ISO base media file format</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class MP4Header extends BlockAdapter
         implements Cloneable {

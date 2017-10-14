@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * 先頭にマーカーのあるパケットヘッダ。
  * </p>
- *
- * @author katsuhiro
  */
 public class MarkedHeader extends BlockAdapter
         implements Cloneable {

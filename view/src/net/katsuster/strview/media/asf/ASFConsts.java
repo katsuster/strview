@@ -14,8 +14,6 @@ import net.katsuster.strview.media.*;
  * <ul>
  * <li>Advanced Systems Format (ASF) Specification: Revision 01.20.05</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class ASFConsts {
     //ASF オブジェクトのファクトリ

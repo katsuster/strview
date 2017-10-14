@@ -8,8 +8,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * MPEG4 media file format 規格由来の定数、定数名定義用のクラス。
  * </p>
- *
- * @author katsuhiro
  */
 public class MP4Consts {
     //MP4 ボックスのファクトリ

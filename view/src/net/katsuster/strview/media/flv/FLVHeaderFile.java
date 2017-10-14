@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * Flash Video ヘッダ。
  * </p>
- *
- * @author katsuhiro
  */
 public class FLVHeaderFile extends FLVHeader
         implements Cloneable {

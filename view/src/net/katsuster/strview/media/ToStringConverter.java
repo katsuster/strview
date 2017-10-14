@@ -6,8 +6,6 @@ import net.katsuster.strview.util.*;
  * <p>
  * パケットの各メンバを文字列に変換するコンバータクラスです。
  * </p>
- *
- * @author katsuhiro
  */
 public class ToStringConverter extends StreamWriterAdapter<StringBuilder> {
     private StringBuilder sb;

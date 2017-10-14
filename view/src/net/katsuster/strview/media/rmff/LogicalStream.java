@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * LogicalStream Structure
  * </p>
- *
- * @author katsuhiro
  */
 public class LogicalStream extends BlockAdapter
         implements Cloneable {

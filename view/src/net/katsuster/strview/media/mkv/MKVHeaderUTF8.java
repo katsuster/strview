@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * Matroska UTF-8 string
  * </p>
- *
- * @author katsuhiro
  */
 public class MKVHeaderUTF8 extends MKVHeader {
     public LargeBitList utf8_bits;

@@ -6,8 +6,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * ソースパケット。
  * </p>
- *
- * @author katsuhiro
  */
 public class SrcPacket extends PacketAdapter {
     public SrcPacket() {

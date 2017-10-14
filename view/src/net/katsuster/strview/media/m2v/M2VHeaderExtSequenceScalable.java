@@ -17,8 +17,6 @@ import net.katsuster.strview.media.m2v.M2VConsts.*;
  * Information technology - Generic coding of moving pictures and
  * associated audio information: Video</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class M2VHeaderExtSequenceScalable extends M2VHeaderExt
         implements Cloneable {

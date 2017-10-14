@@ -6,8 +6,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * RMFF(RealMedia File Format) チャンク。
  * </p>
- *
- * @author katsuhiro
  */
 public class RMFFChunk extends PacketAdapter {
     public RMFFChunk() {

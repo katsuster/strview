@@ -11,8 +11,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * 名前、値のタイプ、値、の 3つで構成される。
  * </p>
- *
- * @author katsuhiro
  */
 public class NameValueProperty extends BlockAdapter
         implements Cloneable {

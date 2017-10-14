@@ -14,8 +14,6 @@ package net.katsuster.strview.media;
  *     <li>read 関数は何も読み込みません。</li>
  *     <li>write 関数は何も書き込みません。</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class PacketAdapter extends AbstractPacket {
     /**

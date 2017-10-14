@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * MDPR チャンクヘッダ。
  * </p>
- *
- * @author katsuhiro
  */
 public class RMFFHeaderMDPR extends RMFFHeader
         implements Cloneable {

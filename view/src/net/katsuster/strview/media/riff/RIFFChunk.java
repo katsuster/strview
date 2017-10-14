@@ -6,8 +6,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * RIFF (Resource Interchange File Format) チャンク。
  * </p>
- *
- * @author katsuhiro
  */
 public class RIFFChunk extends PacketAdapter {
     //RIFF チャンクのヘッダサイズ（byte 単位、ckSize を含まない）

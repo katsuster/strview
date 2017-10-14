@@ -15,8 +15,6 @@ import net.katsuster.strview.media.*;
  * <ul>
  * <li>Advanced Systems Format (ASF) Specification: Revision 01.20.06</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class ContentDescriptor extends BlockAdapter
         implements Cloneable {

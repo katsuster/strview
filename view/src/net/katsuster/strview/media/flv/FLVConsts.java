@@ -6,8 +6,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * Flash Video 規格由来の定数、定数名定義用のクラス。
  * </p>
- *
- * @author katsuhiro
  */
 public class FLVConsts {
     //FLV タグのファクトリ

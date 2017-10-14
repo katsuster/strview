@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * ASF (Advanced Systems Format) Object リスト。
  * </p>
- *
- * @author katsuhiro
  */
 public class ASFObjectList extends AbstractPacketList<ASFObject> {
     private LargeBitList buf;

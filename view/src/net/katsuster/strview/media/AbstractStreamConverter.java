@@ -15,8 +15,6 @@ package net.katsuster.strview.media;
  *     <li>変換対象は全て無視する</li>
  *     <li>結果は常に null を返す</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public abstract class AbstractStreamConverter<T> implements StreamConverter<T> {
     public AbstractStreamConverter() {

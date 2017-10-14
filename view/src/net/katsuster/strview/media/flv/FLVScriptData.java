@@ -6,8 +6,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * Base class of SCRIPTDATAxxxx
  * </p>
- *
- * @author katsuhiro
  */
 public class FLVScriptData extends BlockAdapter
         implements Cloneable {

@@ -6,8 +6,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * 先頭にマーカーのあるパケット。
  * </p>
- *
- * @author katsuhiro
  */
 public class MarkedPacket extends PacketAdapter {
     public MarkedPacket() {

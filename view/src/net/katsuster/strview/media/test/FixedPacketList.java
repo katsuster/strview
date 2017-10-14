@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * 固定長パケットリスト。ビットリストから固定長パケットを読み出すテスト用。
  * </p>
- *
- * @author katsuhiro
  */
 public class FixedPacketList extends AbstractPacketList<FixedPacket> {
     public static int PACKET_SIZE = FixedPacket.PACKET_SIZE;

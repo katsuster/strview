@@ -26,7 +26,6 @@ package net.katsuster.strview.media;
  * </pre>
  *
  * @see AbstractStreamConverter
- * @author katsuhiro
  */
 public interface StreamConverter<T> {
     /**

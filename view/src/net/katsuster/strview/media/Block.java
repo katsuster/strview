@@ -14,7 +14,6 @@ import net.katsuster.strview.util.*;
  * </p>
  *
  * @see BlockAdapter
- * @author katsuhiro
  */
 public interface Block extends Cloneable {
     /**

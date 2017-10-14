@@ -31,8 +31,6 @@ import net.katsuster.strview.media.*;
  * <dd>2001-01-01T00:00:00,000000000 UTC からの経過時間を、
  * ナノ秒で表した符号付き整数を含むタグ。</dd>
  * </dl>
- *
- * @author katsuhiro
  */
 public class MKVTagList extends AbstractPacketList<MKVTag> {
     private LargeBitList buf;

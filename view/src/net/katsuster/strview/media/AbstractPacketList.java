@@ -8,8 +8,6 @@ import net.katsuster.strview.util.*;
  * <p>
  * パケットリスト。
  * </p>
- *
- * @author katsuhiro
  */
 public abstract class AbstractPacketList<T extends Packet> extends AbstractLargeList<T>
         implements LargePacketList<T> {

@@ -14,8 +14,6 @@ import net.katsuster.strview.media.*;
  * <li>Adobe Flash Video File Format Specification</li>
  * <li>Adobe SWF File Format Specification</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class FLVHeader extends BlockAdapter
         implements Cloneable {

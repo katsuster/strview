@@ -15,8 +15,6 @@ import net.katsuster.strview.media.*;
  * Information technology - Generic coding of moving pictures and
  * associated audio information: Video</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class M2VConsts {
     //MPEG2 Video データのファクトリ

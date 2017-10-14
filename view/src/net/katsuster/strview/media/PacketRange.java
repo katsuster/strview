@@ -8,8 +8,6 @@ import net.katsuster.strview.util.*;
  * <p>
  * パケットの存在する範囲と木構造を表すインタフェースです。
  * </p>
- *
- * @author katsuhiro
  */
 public interface PacketRange extends Range {
     /**

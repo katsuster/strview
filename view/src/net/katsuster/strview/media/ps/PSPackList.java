@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * MPEG2-PS (Program Stream) パックリスト。
  * </p>
- *
- * @author katsuhiro
  */
 public class PSPackList extends AbstractPacketList<PSPack> {
     private LargeBitList buf;

@@ -13,7 +13,6 @@ import net.katsuster.strview.util.*;
  * </p>
  *
  * @see PacketAdapter
- * @author katsuhiro
  */
 public interface Packet extends Block {
     /**

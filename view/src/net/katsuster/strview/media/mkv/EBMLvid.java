@@ -30,7 +30,6 @@ import net.katsuster.strview.media.*;
  * タグの場合、value メンバはこのビットを含んだ値が格納される。
  * </p>
  *
- * @author katsuhiro
  * @see EBMLvalue
  */
 public class EBMLvid extends EBMLvint

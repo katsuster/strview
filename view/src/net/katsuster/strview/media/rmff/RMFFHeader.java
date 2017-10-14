@@ -17,8 +17,6 @@ import net.katsuster.strview.media.*;
  * - Appendix E: RealMedia File Format (RMFF) Reference
  * (https://www.helixcommunity.org/projects/common/2003/HCS_SDK_r5/htmfiles/rmff.htm)</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class RMFFHeader extends BlockAdapter
         implements Cloneable {

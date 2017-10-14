@@ -8,8 +8,6 @@ import net.katsuster.strview.media.*;
  * 先頭にマーカーのあるパケットリスト。
  * ビットリストからマーカーのあるパケットを読み出すテスト用。
  * </p>
- *
- * @author katsuhiro
  */
 public class MarkedPacketList extends AbstractPacketList<MarkedPacket> {
     private LargeBitList buf;

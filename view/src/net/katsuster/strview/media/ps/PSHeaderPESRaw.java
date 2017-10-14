@@ -15,8 +15,6 @@ import net.katsuster.strview.media.*;
  * Information technology – Generic coding of moving pictures and
  * associated audio information: Systems</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class PSHeaderPESRaw extends PSHeaderPES
         implements Cloneable {

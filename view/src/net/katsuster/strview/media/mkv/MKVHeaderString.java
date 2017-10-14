@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * Matroska string
  * </p>
- *
- * @author katsuhiro
  */
 public class MKVHeaderString extends MKVHeader {
     public LargeBitList string_bits;

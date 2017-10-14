@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * SCRIPTDATAVALUE
  * </p>
- *
- * @author katsuhiro
  */
 public class FLVScriptDataValue extends FLVScriptData
         implements Cloneable {

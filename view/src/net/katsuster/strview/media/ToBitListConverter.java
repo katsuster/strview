@@ -6,8 +6,6 @@ import net.katsuster.strview.util.*;
  * <p>
  * ビット列に書き込むコンバータクラスです。
  * </p>
- *
- * @author katsuhiro
  */
 public class ToBitListConverter extends StreamWriterAdapter<LargeBitList> {
     private LargeBitList buf;

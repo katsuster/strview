@@ -6,8 +6,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * Flash Video Tag
  * </p>
- *
- * @author katsuhiro
  */
 public class FLVTag extends PacketAdapter {
     //FLV タグのヘッダサイズ（byte 単位）

@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * Matroska signed integer
  * </p>
- *
- * @author katsuhiro
  */
 public class MKVHeaderSInt extends MKVHeader {
     public SInt sint_val;

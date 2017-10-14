@@ -6,8 +6,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * ソースパケットヘッダ。
  * </p>
- *
- * @author katsuhiro
  */
 public class SrcHeader extends BlockAdapter
         implements Cloneable {

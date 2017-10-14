@@ -15,8 +15,6 @@ import net.katsuster.strview.media.*;
  * Information technology - Coding of audio-visual objects
  * Part 2: Video</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class M4VConsts {
     //MPEG4 Part2 Video データのファクトリ

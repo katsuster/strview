@@ -16,8 +16,6 @@ import net.katsuster.strview.media.*;
  * <li>OpenDML AVI File Format Extensions: Version 1.02</li>
  * <li>MSDN: AVISTREAMHEADER struct</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class RIFFHeaderStrh extends RIFFHeader
         implements Cloneable {

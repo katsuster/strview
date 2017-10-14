@@ -10,8 +10,6 @@ import net.katsuster.strview.media.m2v.M2VConsts.*;
  * <p>
  * MPEG2 Video データリスト。
  * </p>
- *
- * @author katsuhiro
  */
 public class M2VDataList extends AbstractPacketList<M2VData> {
     private LargeBitList buf;

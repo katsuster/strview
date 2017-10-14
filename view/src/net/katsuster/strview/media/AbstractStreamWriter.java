@@ -17,8 +17,6 @@ import net.katsuster.strview.util.*;
  *     <li>変換対象は全て無視する</li>
  *     <li>結果は常に null を返す</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
         implements StreamWriter<T> {

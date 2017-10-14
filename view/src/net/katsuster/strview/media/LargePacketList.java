@@ -6,8 +6,6 @@ import net.katsuster.strview.util.*;
  * <p>
  * int 型で扱える長さを超えるパケットリストのインタフェースです。
  * </p>
- *
- * @author katsuhiro
  */
 public interface LargePacketList<T extends Packet> extends LargeList<T> {
     /**

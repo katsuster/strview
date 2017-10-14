@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * 固定長パケットヘッダ。
  * </p>
- *
- * @author katsuhiro
  */
 public class FixedHeader extends BlockAdapter
         implements Cloneable {

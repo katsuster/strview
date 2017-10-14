@@ -11,8 +11,6 @@ import net.katsuster.strview.media.*;
  * ソースパケットリスト。
  * ビットリストではないデータからビットリストを生成するテスト用。
  * </p>
- *
- * @author katsuhiro
  */
 public class SrcPacketList extends AbstractPacketList<SrcPacket> {
     private List<File> buf;

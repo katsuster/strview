@@ -11,8 +11,6 @@ package net.katsuster.strview.media.mkv;
  * <ul>
  * <li>Matroska: http://www.matroska.org/technical/specs/index.html</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class MKVTagSpec {
     public int id;

@@ -7,7 +7,6 @@ import net.katsuster.strview.media.*;
  * EBML の UTF-8 風可変長整数値の基底クラス。
  * </p>
  *
- * @author katsuhiro
  * @see EBMLvid
  * @see EBMLvalue
  */

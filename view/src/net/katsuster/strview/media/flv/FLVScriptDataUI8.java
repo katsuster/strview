@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * UI8
  * </p>
- *
- * @author katsuhiro
  */
 public class FLVScriptDataUI8 extends FLVScriptData
         implements Cloneable {

@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * AUDIODATA
  * </p>
- *
- * @author katsuhiro
  */
 public class FLVHeaderAudio extends FLVHeaderES
         implements Cloneable {

@@ -64,7 +64,6 @@ import net.katsuster.strview.util.*;
  * </dl>
  *
  * @see PacketAdapter
- * @author katsuhiro
  */
 public abstract class AbstractPacket extends AbstractBlock
         implements Packet, Cloneable {

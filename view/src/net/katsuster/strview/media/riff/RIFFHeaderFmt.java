@@ -14,8 +14,6 @@ import net.katsuster.strview.media.*;
  * <ul>
  * <li>MSDN: WAVEFORMATEX struct</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class RIFFHeaderFmt extends RIFFHeader
         implements Cloneable {

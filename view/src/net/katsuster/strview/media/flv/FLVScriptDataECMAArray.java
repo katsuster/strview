@@ -9,8 +9,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * SCRIPTDATAECMAARRAY
  * </p>
- *
- * @author katsuhiro
  */
 public class FLVScriptDataECMAArray extends FLVScriptData
         implements Cloneable {

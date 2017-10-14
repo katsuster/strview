@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * RMFF(RealMedia File Format) チャンクリスト。
  * </p>
- *
- * @author katsuhiro
  */
 public class RMFFChunkList extends AbstractPacketList<RMFFChunk> {
     private LargeBitList buf;

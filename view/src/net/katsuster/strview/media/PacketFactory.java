@@ -45,8 +45,6 @@ import java.lang.reflect.*;
  *
  * @param <H> ファクトリが生成するパケットのヘッダの型
  * @param <K> パケットのヘッダを識別する ID の型
- *
- * @author katsuhiro
  */
 public class PacketFactory<H extends Block, K extends Object> {
     //このファクトリクラスで生成するパケットのヘッダのクラス

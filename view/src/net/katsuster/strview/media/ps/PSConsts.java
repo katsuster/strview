@@ -6,8 +6,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * PS パケットの規格由来の定数、定数名定義用のクラス。
  * </p>
- *
- * @author katsuhiro
  */
 public class PSConsts {
     //PS パケットのファクトリ

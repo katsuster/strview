@@ -42,7 +42,6 @@ import net.katsuster.strview.media.*;
  * 可変値の場合、value メンバはこのビットを含まない値が格納される。
  * </p>
  *
- * @author katsuhiro
  * @see EBMLvid
  */
 public class EBMLvalue extends EBMLvint

@@ -6,8 +6,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * EBML(Extensible Binary Meta Language) タグヘッダ。
  * </p>
- *
- * @author katsuhiro
  */
 public class EBMLHeader extends BlockAdapter {
     public EBMLvid tag_id;

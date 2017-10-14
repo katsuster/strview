@@ -15,8 +15,6 @@ import net.katsuster.strview.media.*;
  * <li>Microsoft Multimedia Standards Update: Revision 1.0.97</li>
  * <li>OpenDML AVI File Format Extensions: Version 1.02</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class RIFFHeader extends BlockAdapter {
     public UIntR ckID;

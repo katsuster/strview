@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * MPEG4 Part 2 Visual オブジェクトリスト。
  * </p>
- *
- * @author katsuhiro
  */
 public class M4VObjectList extends AbstractPacketList<M4VObject> {
     private LargeBitList buf;

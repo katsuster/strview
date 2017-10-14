@@ -7,8 +7,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * Matroska float
  * </p>
- *
- * @author katsuhiro
  */
 public class MKVHeaderFloat extends MKVHeader {
     public Float32 float_bits;

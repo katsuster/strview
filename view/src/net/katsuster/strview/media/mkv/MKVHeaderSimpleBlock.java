@@ -10,8 +10,6 @@ import net.katsuster.strview.media.mkv.MKVConsts.*;
  * <p>
  * Matroska SimpleBlock タグヘッダ。
  * </p>
- *
- * @author katsuhiro
  */
 public class MKVHeaderSimpleBlock extends MKVHeader {
     public EBMLvalue track_number;

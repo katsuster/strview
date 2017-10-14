@@ -6,8 +6,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * MPEG4 Part 2 Visual Object
  * </p>
- *
- * @author katsuhiro
  */
 public class M4VObject extends PacketAdapter {
     public M4VObject() {

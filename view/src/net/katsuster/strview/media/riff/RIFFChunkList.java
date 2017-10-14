@@ -10,8 +10,6 @@ import net.katsuster.strview.media.riff.RIFFConsts.*;
  * <p>
  * RIFF (Resource Interchange File Format) チャンクのリスト。
  * </p>
- *
- * @author katsuhiro
  */
 public class RIFFChunkList extends AbstractPacketList<RIFFChunk> {
     private LargeBitList buf;

@@ -6,8 +6,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * MPEG2 Video データ。
  * </p>
- *
- * @author katsuhiro
  */
 public class M2VData extends PacketAdapter {
     public M2VData() {
