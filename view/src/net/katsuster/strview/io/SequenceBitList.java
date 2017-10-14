@@ -8,8 +8,6 @@ import net.katsuster.strview.util.*;
  * <p>
  * 1つ以上のビット列を連結して作ったビット列です。
  * </p>
- *
- * @author katsuhiro
  */
 public class SequenceBitList extends AbstractLargeBitList {
     private List<Range> l;

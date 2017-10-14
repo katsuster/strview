@@ -14,8 +14,6 @@ import net.katsuster.strview.media.*;
  * ToMemberTreeNodeConverter が生成し、
  * MemberTreeViewer に設定し、表示します。
  * </p>
- *
- * @author katsuhiro
  */
 public class MemberTreeNode extends DefaultMutableTreeNode {
     private static final long serialVersionUID = 1L;

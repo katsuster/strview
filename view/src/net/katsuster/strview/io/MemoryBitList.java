@@ -10,8 +10,6 @@ import net.katsuster.strview.util.*;
  * <p>
  * ByteToBitList に MemoryByteList を渡すより高速に動作します。
  * </p>
- *
- * @author katsuhiro
  */
 public class MemoryBitList extends AbstractLargeBitList {
     //ビット列を格納するバッファの 1要素が 2 の何乗ビット格納するか？を表す値

@@ -7,8 +7,6 @@ import javax.swing.*;
  * <p>
  * ストリームの構造を表示するパネルです。
  * </p>
- *
- * @author katsuhiro
  */
 public class ViewerPanel extends JPanel {
     private static final long serialVersionUID = 1L;

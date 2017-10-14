@@ -11,8 +11,6 @@ import javax.swing.border.*;
  * <p>
  * クリアボタンの付いたテキストフィールドです。
  * </p>
- *
- * @author katsuhiro
  */
 public class FlatTextField extends JPanel {
     private static final long serialVersionUID = 1L;

@@ -4,6 +4,11 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
+/**
+ * <p>
+ * ファイルを開くメニューの動作を表すクラスです。
+ * </p>
+ */
 public class ActionFileOpen extends AbstractAction {
     private static final long serialVersionUID = 1L;
     private JFrame parent;

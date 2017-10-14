@@ -12,8 +12,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * パケットリストを表示するクラスです。
  * </p>
- *
- * @author katsuhiro
  */
 public class PacketListViewer extends JPanel {
     private static final long serialVersionUID = 1L;

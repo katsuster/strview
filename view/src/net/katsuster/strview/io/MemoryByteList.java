@@ -6,8 +6,6 @@ import net.katsuster.strview.util.*;
  * <p>
  * 通常の byte 型配列を LargeByteList インタフェースでラップしたクラスです。
  * </p>
- *
- * @author katsuhiro
  */
 public class MemoryByteList extends AbstractLargeList<Byte>
         implements LargeByteList, Cloneable {

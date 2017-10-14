@@ -11,8 +11,6 @@ import net.katsuster.strview.util.*;
  * 複数ビットを一度に扱うメソッドの高速化を一切行いません。
  * 他のビット列クラスをテストする際に用います。
  * </p>
- *
- * @author katsuhiro
  */
 public class SlowMemoryBitList extends AbstractLargeBitList {
     //ビット列を格納するバッファの 1要素が 2 の何乗ビット格納するか？を表す値

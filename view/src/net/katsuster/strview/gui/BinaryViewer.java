@@ -15,8 +15,6 @@ import net.katsuster.strview.io.*;
  * <p>
  * バイナリデータを表示するビューアです。
  * </p>
- *
- * @author katsuhiro
  */
 public class BinaryViewer extends JPanel {
     private static final long serialVersionUID = 1L;
@@ -599,8 +597,6 @@ public class BinaryViewer extends JPanel {
      * <p>
      * バイナリデータを描画するパネルです。
      * </p>
-     *
-     * @author katsuhiro
      */
     protected class BinaryViewerInner extends JComponent
             implements ChangeListener {

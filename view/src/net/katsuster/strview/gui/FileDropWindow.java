@@ -11,8 +11,6 @@ import net.katsuster.strview.gui.FileTransferHandler.*;
  * <p>
  * ファイルを開くためのウインドウです。ドラッグ＆ドロップを受け付けます。
  * </p>
- *
- * @author katsuhiro
  */
 public class FileDropWindow extends JFrame {
     private static final long serialVersionUID = 1L;

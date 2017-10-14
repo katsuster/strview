@@ -6,8 +6,6 @@ import net.katsuster.strview.util.*;
  * <p>
  * バイト列を受け取り、ビット列を返すクラスです。
  * </p>
- *
- * @author katsuhiro
  */
 public class ByteToBitList extends AbstractLargeBitList {
     //ビット列を格納するバッファの 1要素が 2 の何乗ビット格納するか？を表す値

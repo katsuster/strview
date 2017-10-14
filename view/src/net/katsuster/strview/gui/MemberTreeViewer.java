@@ -9,8 +9,6 @@ import javax.swing.tree.*;
  * <p>
  * パケットを構成するデータをツリー状に表示するビューアです。
  * </p>
- *
- * @author katsuhiro
  */
 public class MemberTreeViewer extends JPanel {
     private static final long serialVersionUID = 1L;

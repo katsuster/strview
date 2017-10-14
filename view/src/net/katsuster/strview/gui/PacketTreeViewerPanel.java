@@ -24,8 +24,6 @@ import net.katsuster.strview.media.*;
  * <li>ストリームを構成するパケットの一覧</li>
  * <li>各パケットを構成するデータの一覧</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class PacketTreeViewerPanel extends ViewerPanel {
     private static final long serialVersionUID = 1L;

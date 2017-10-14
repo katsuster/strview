@@ -11,8 +11,6 @@ import javax.swing.*;
  * <p>
  * ViewerPanel を 1つだけ表示できます。
  * </p>
- *
- * @author katsuhiro
  */
 public class ViewerWindow extends JFrame {
     private static final long serialVersionUID = 1L;

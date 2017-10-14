@@ -27,8 +27,6 @@ import net.katsuster.strview.media.test.*;
  * <p>
  * ファイルのドラッグ＆ドロップイベントを処理するクラスです。
  * </p>
- *
- * @author katsuhiro
  */
 public class FileTransferHandler extends TransferHandler {
     private static final long serialVersionUID = 1L;

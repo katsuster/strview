@@ -21,8 +21,6 @@ import net.katsuster.strview.util.*;
  * <p>
  * があります。
  * </p>
- *
- * @author katsuhiro
  */
 public class LinkEvent extends EventObject {
     private Type eventType;

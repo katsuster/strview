@@ -8,8 +8,6 @@ import net.katsuster.strview.util.*;
  * <p>
  * RandomAccessFile クラスを LargeByteList インタフェースでラップしたクラスです。
  * </p>
- *
- * @author katsuhiro
  */
 public class FileByteList extends AbstractLargeList<Byte>
         implements LargeByteList {

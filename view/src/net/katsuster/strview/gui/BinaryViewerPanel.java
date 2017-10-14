@@ -12,8 +12,6 @@ import net.katsuster.strview.util.*;
  * <p>
  * バイナリデータを表示するパネルです。
  * </p>
- *
- * @author katsuhiro
  */
 public class BinaryViewerPanel extends ViewerPanel {
     private static final long serialVersionUID = 1L;

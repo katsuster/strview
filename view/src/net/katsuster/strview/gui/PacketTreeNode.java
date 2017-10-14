@@ -11,8 +11,6 @@ import net.katsuster.strview.media.*;
  * <p>
  * toString をオーバーライドして、パケットの名前を返します。
  * </p>
- *
- * @author katsuhiro
  */
 public class PacketTreeNode {
     private LargeList<? extends Packet> list;

@@ -8,8 +8,6 @@ import javax.swing.*;
  * <p>
  * 閉じるメニューの動作を表すクラスです。
  * </p>
- *
- * @author katsuhiro
  */
 public class ActionClose extends AbstractAction {
     private static final long serialVersionUID = 1L;

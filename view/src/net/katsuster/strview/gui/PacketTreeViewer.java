@@ -19,8 +19,6 @@ import net.katsuster.strview.media.*;
  * <li>DataNode: データ保持用の MemberTreeNode オブジェクトのこと</li>
  * <li>TreeNode: ツリー表示用の DefaultMutableTreeNode のこと</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class PacketTreeViewer extends JPanel {
     private static final long serialVersionUID = 1L;
