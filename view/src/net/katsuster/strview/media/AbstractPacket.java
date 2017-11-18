@@ -1,5 +1,7 @@
 package net.katsuster.strview.media;
 
+import java.util.List;
+
 import net.katsuster.strview.util.*;
 
 /**
@@ -66,7 +68,7 @@ import net.katsuster.strview.util.*;
  * @see PacketAdapter
  */
 public abstract class AbstractPacket extends AbstractBlock
-        implements Packet, Cloneable {
+        implements Packet, PacketRange, Cloneable {
     //ヘッダ
     private Block head;
     //本体を表すビット列
@@ -135,80 +137,139 @@ public abstract class AbstractPacket extends AbstractBlock
         return obj;
     }
 
+    @Override
     public long getNumber() {
         return getRange().getNumber();
     }
 
+    @Override
     public void setNumber(long num) {
         getRange().setNumber(num);
     }
 
+    @Override
     public long getBodyAddress() {
         return getRange().getBodyAddress();
     }
 
+    @Override
     public long getFooterAddress() {
         return getRange().getFooterAddress();
     }
 
+    @Override
     public long getHeaderLength() {
         return getRange().getHeaderLength();
     }
 
+    @Override
     public void setHeaderLength(long s) {
         getRange().setHeaderLength(s);
     }
 
+    @Override
     public long getBodyLength() {
         return getRange().getBodyLength();
     }
 
+    @Override
     public void setBodyLength(long s) {
         getRange().setBodyLength(s);
     }
 
+    @Override
     public long getFooterLength() {
         return getRange().getFooterLength();
     }
 
+    @Override
     public void setFooterLength(long s) {
         getRange().setFooterLength(s);
     }
 
+    @Override
     public boolean getRecursive() {
         return getRange().getRecursive();
     }
 
+    @Override
     public void setRecursive(boolean r) {
         getRange().setRecursive(r);
     }
 
+    @Override
     public int getLevel() {
         return getRange().getLevel();
     }
 
+    @Override
     public PacketRange appendChild(PacketRange newChild) {
         return getRange().appendChild(newChild);
     }
 
+    @Override
     public PacketRange removeChild(PacketRange oldChild) {
         return getRange().removeChild(oldChild);
     }
 
+    @Override
     public PacketRange insertBefore(PacketRange newChild, PacketRange refChild) {
         return getRange().insertBefore(newChild, refChild);
     }
 
+    @Override
     public PacketRange replaceChild(PacketRange newChild, PacketRange oldChild) {
         return getRange().replaceChild(newChild, oldChild);
     }
 
+    @Override
     public PacketRange getParentNode() {
         return getRange().getParentNode();
     }
 
+    @Override
     public void setParentNode(PacketRange p) {
         getRange().setParentNode(p);
+    }
+
+    @Override
+    public PacketRange getPreviousSibling() {
+        return getRange().getPreviousSibling();
+    }
+
+    @Override
+    public PacketRange getNextSibling() {
+        return getRange().getNextSibling();
+    }
+
+    @Override
+    public boolean hasChildNodes() {
+        return getRange().hasChildNodes();
+    }
+
+    @Override
+    public List<PacketRange> getChildNodes() {
+        return getRange().getChildNodes();
+    }
+
+    @Override
+    public PacketRange getFirstChild() {
+        return getRange().getFirstChild();
+    }
+
+    @Override
+    public PacketRange getLastChild() {
+        return getRange().getLastChild();
+    }
+
+    @Override
+    public int getChildCounts() {
+        return getRange().getChildCounts();
+    }
+
+    @Override
+    public PacketRange getChild(int index) {
+        return getRange().getChild(index);
     }
 
     @Override
@@ -462,7 +523,7 @@ public abstract class AbstractPacket extends AbstractBlock
     }
 
     private static void convHeader(StreamConverter<?> c,
-                             AbstractPacket d) {
+                                   AbstractPacket d) {
         c.enterBlock("common");
 
         c.mark("tag_num",
