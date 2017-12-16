@@ -40,6 +40,11 @@ public class ASFHeaderHeader extends ASFHeader
     }
 
     @Override
+    public String getTypeName() {
+        return "Header Object";
+    }
+
+    @Override
     public boolean isRecursive() {
         return true;
     }
@@ -51,7 +56,7 @@ public class ASFHeaderHeader extends ASFHeader
 
     public static void read(StreamReader<?> c,
                             ASFHeaderHeader d) {
-        c.enterBlock("Header Object");
+        c.enterBlock(d);
 
         ASFHeader.read(c, d);
 
@@ -69,7 +74,7 @@ public class ASFHeaderHeader extends ASFHeader
 
     public static void write(StreamWriter<?> c,
                              ASFHeaderHeader d) {
-        c.enterBlock("Header Object");
+        c.enterBlock(d);
 
         ASFHeader.write(c, d);
 

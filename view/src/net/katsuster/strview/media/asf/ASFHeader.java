@@ -35,6 +35,11 @@ public class ASFHeader extends BlockAdapter
         return obj;
     }
 
+    @Override
+    public String getTypeName() {
+        return "Header Object";
+    }
+
     /**
      * <p>
      * オブジェクト本体に別のオブジェクトを含められるかどうかを返します。
@@ -54,7 +59,7 @@ public class ASFHeader extends BlockAdapter
 
     public static void read(StreamReader<?> c,
                             ASFHeader d) {
-        c.enterBlock("ASF object");
+        c.enterBlock(d);
 
         c.mark("Object ID", "");
         d.object_id.read(c);
@@ -70,7 +75,7 @@ public class ASFHeader extends BlockAdapter
 
     public static void write(StreamWriter<?> c,
                              ASFHeader d) {
-        c.enterBlock("ASF object");
+        c.enterBlock(d);
 
         c.mark("Object ID", "");
         d.object_id.write(c);

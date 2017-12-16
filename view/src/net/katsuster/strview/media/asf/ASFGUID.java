@@ -116,6 +116,11 @@ public class ASFGUID extends BlockAdapter
     }
 
     @Override
+    public String getTypeName() {
+        return "GUID";
+    }
+
+    @Override
     public int hashCode() {
         return la.intValue() + lb.intValue() + lc.intValue()
                 + bd.intValue() + be.intValue();
@@ -128,7 +133,7 @@ public class ASFGUID extends BlockAdapter
 
     public static void read(StreamReader<?> c,
                             ASFGUID d) {
-        c.enterBlock("GUID");
+        c.enterBlock(d);
 
         d.la = c.readUIntR(32, d.la);
         d.lb = c.readUIntR(16, d.lb);
@@ -146,7 +151,7 @@ public class ASFGUID extends BlockAdapter
 
     public static void write(StreamWriter<?> c,
                              ASFGUID d) {
-        c.enterBlock("GUID");
+        c.enterBlock(d);
 
         c.writeUIntR(32, d.la, "la");
         c.writeUIntR(16, d.lb, "lb");

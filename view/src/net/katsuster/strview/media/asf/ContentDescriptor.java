@@ -47,13 +47,18 @@ public class ContentDescriptor extends BlockAdapter
     }
 
     @Override
+    public String getTypeName() {
+        return "Content Descriptor";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             ContentDescriptor d) {
-        c.enterBlock("Content Descriptor");
+        c.enterBlock(d);
 
         d.descriptor_name_length     = c.readUIntR(16, d.descriptor_name_length    );
         checkNegative("Descriptor Name Length", d.descriptor_name_length);
@@ -74,7 +79,7 @@ public class ContentDescriptor extends BlockAdapter
 
     public static void write(StreamWriter<?> c,
                              ContentDescriptor d) {
-        c.enterBlock("Content Descriptor");
+        c.enterBlock(d);
 
         c.writeUIntR(16, d.descriptor_name_length    , "Descriptor Name Length");
         c.writeBitList(d.descriptor_name_length.intValue() << 3, d.descriptor_name,

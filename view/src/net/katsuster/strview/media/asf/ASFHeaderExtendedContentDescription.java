@@ -42,6 +42,11 @@ public class ASFHeaderExtendedContentDescription extends ASFHeader
     }
 
     @Override
+    public String getTypeName() {
+        return "Extended Content Description Object";
+    }
+
+    @Override
     public boolean isRecursive() {
         return false;
     }
@@ -53,7 +58,7 @@ public class ASFHeaderExtendedContentDescription extends ASFHeader
 
     public static void read(StreamReader<?> c,
                             ASFHeaderExtendedContentDescription d) {
-        c.enterBlock("Extended Content Description Object");
+        c.enterBlock(d);
 
         ASFHeader.read(c, d);
 
@@ -73,7 +78,7 @@ public class ASFHeaderExtendedContentDescription extends ASFHeader
 
     public static void write(StreamWriter<?> c,
                              ASFHeaderExtendedContentDescription d) {
-        c.enterBlock("Extended Content Description Object");
+        c.enterBlock(d);
 
         ASFHeader.write(c, d);
 

@@ -72,6 +72,11 @@ public class ASFHeaderFileProperties extends ASFHeader
     }
 
     @Override
+    public String getTypeName() {
+        return "File Properties Object";
+    }
+
+    @Override
     public boolean isRecursive() {
         return false;
     }
@@ -83,7 +88,7 @@ public class ASFHeaderFileProperties extends ASFHeader
 
     public static void read(StreamReader<?> c,
                             ASFHeaderFileProperties d) {
-        c.enterBlock("File Properties Object");
+        c.enterBlock(d);
 
         ASFHeader.read(c, d);
 
@@ -113,7 +118,7 @@ public class ASFHeaderFileProperties extends ASFHeader
 
     public static void write(StreamWriter<?> c,
                              ASFHeaderFileProperties d) {
-        c.enterBlock("File Properties Object");
+        c.enterBlock(d);
 
         ASFHeader.write(c, d);
 
