@@ -20,7 +20,7 @@ public class RIFFChunk extends PacketAdapter {
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         if (getHeader() instanceof RIFFHeaderList) {
             RIFFHeaderList t = (RIFFHeaderList)getHeader();
 

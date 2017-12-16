@@ -34,7 +34,7 @@ public class PacketTreeNode {
         if (range != null) {
             Packet packet = list.get(range.getNumber());
 
-            return packet.getShortName();
+            return packet.getTypeName();
         }
 
         return "????";

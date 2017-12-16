@@ -17,7 +17,7 @@ public class MarkedPacket extends PacketAdapter {
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         return "Marked Packet(a:" + getHeader().start_code + ")";
     }
 

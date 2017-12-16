@@ -20,7 +20,7 @@ public class ASFObject extends PacketAdapter {
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         return getHeader().object_id.getObjectIdName();
     }
 

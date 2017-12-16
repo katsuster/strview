@@ -17,20 +17,6 @@ import net.katsuster.strview.util.*;
 public interface Packet extends Block {
     /**
      * <p>
-     * パケットの短い名前を取得します。
-     * </p>
-     *
-     * <p>
-     * クラス名 Class.getCanonicalName() を返すか、
-     * より適切な名前を返すことが推奨されます。
-     * </p>
-     *
-     * @return パケットの短い名前
-     */
-    public String getShortName();
-
-    /**
-     * <p>
      * パケットの存在する範囲を取得します。
      * </p>
      *

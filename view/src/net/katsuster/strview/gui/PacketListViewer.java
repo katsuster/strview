@@ -55,7 +55,7 @@ public class PacketListViewer extends JPanel {
 
         @Override
         public String getElementAt(int index) {
-            return index + ": " + list.get(index).getShortName();
+            return index + ": " + list.get(index).getTypeName();
         }
 
         public void update(long before, long after) {

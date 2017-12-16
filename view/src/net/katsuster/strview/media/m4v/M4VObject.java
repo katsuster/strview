@@ -17,7 +17,7 @@ public class M4VObject extends PacketAdapter {
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         return getHeader().getStartCodeName();
     }
 

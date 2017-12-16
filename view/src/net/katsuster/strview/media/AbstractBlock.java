@@ -99,6 +99,11 @@ public abstract class AbstractBlock implements Block, Range {
     }
 
     @Override
+    public String getTypeName() {
+        return getClass().getName();
+    }
+
+    @Override
     public Range getRange() {
         return pos;
     }

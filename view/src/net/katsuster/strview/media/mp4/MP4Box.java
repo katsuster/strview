@@ -20,7 +20,7 @@ public class MP4Box extends PacketAdapter {
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         return getHeader().getTypeName();
     }
 

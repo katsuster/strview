@@ -20,7 +20,7 @@ public class FLVTag extends PacketAdapter {
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         if (getHeader() instanceof FLVHeaderAudio) {
             return "Audio";
         } else if (getHeader() instanceof FLVHeaderScript) {

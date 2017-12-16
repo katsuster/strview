@@ -20,7 +20,7 @@ public class FixedPacket extends PacketAdapter {
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         return "Fixed Size Packet(a:" + getHeader().data_a + ")";
     }
 

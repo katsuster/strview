@@ -27,6 +27,20 @@ public interface Block extends Cloneable {
 
     /**
      * <p>
+     * 型名を取得します。
+     * </p>
+     *
+     * <p>
+     * クラス名 Class.getCanonicalName() を返すか、
+     * より適切な名前を返すことが推奨されます。
+     * </p>
+     *
+     * @return 型名
+     */
+    public String getTypeName();
+
+    /**
+     * <p>
      * データの存在する範囲を取得します。
      * </p>
      *

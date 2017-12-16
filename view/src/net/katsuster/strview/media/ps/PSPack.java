@@ -20,7 +20,7 @@ public class PSPack extends PacketAdapter {
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         return getHeader().getStreamIdName();
     }
 

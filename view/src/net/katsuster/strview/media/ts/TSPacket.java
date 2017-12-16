@@ -20,7 +20,7 @@ public class TSPacket extends PacketAdapter {
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         return "TS(pid:" + getHeader().pid + ")";
     }
 

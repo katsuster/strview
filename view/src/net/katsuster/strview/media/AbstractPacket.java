@@ -278,11 +278,6 @@ public abstract class AbstractPacket extends AbstractBlock
     }
 
     @Override
-    public String getShortName() {
-        return getClass().getName();
-    }
-
-    @Override
     public Block getHeader() {
         return head;
     }
@@ -474,7 +469,7 @@ public abstract class AbstractPacket extends AbstractBlock
      */
     @Override
     public void read(StreamReader<?> c) {
-        c.enterPacket(getShortName());
+        c.enterPacket(getTypeName());
 
         convHeader(c, this);
 
@@ -510,7 +505,7 @@ public abstract class AbstractPacket extends AbstractBlock
      */
     @Override
     public void write(StreamWriter<?> c) {
-        c.enterPacket(getShortName());
+        c.enterPacket(getTypeName());
 
         convHeader(c, this);
 
