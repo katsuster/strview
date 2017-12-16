@@ -37,9 +37,15 @@ import net.katsuster.strview.util.*;
  * @see BlockAdapter
  */
 public abstract class AbstractBlock implements Block, Range {
+    private String name;
     private Range pos;
 
     public AbstractBlock() {
+        this("");
+    }
+
+    public AbstractBlock(String n) {
+        name = n;
         pos = new SimpleRange();
     }
 
@@ -101,6 +107,16 @@ public abstract class AbstractBlock implements Block, Range {
     @Override
     public String getTypeName() {
         return getClass().getName();
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String n) {
+        name = n;
     }
 
     @Override

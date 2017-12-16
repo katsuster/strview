@@ -15,6 +15,14 @@ package net.katsuster.strview.media;
  * </ul>
  */
 public class BlockAdapter extends AbstractBlock {
+    public BlockAdapter() {
+        super();
+    }
+
+    public BlockAdapter(String n) {
+        super(n);
+    }
+
     @Override
     public void read(StreamReader<?> c) {
         //do nothing

@@ -66,6 +66,42 @@ public interface StreamConverter<T> {
 
     /**
      * <p>
+     * パケットの変換を開始します。
+     * </p>
+     *
+     * <p>
+     * パケットが入れ子状になっている場合、
+     * enter を呼んだ順と逆順に leave を呼び出します。
+     * </p>
+     *
+     * <pre>
+     * 例えば変換対象が、
+     *
+     * packet A
+     *  `--- packet B
+     *       packet C
+     *        `--- packet D
+     *
+     * という構造を持つ場合、
+     *
+     * enter(packet A)
+     *  enter(packet B)
+     *  leave(packet B)
+     *  enter(packet C)
+     *   enter(packet D)
+     *   leave(packet D)
+     *  leave(packet C)
+     * leave(packet A)
+     *
+     * の順で呼び出します。
+     * </pre>
+     *
+     * @param p パケット
+     */
+    public void enterPacket(Packet p);
+
+    /**
+     * <p>
      * パケットの変換を終了します。
      * </p>
      *
@@ -112,6 +148,43 @@ public interface StreamConverter<T> {
      * @param name ブロックの名前
      */
     public void enterBlock(String name);
+
+    /**
+     * <p>
+     * 意味のある一続きのデータ（ブロック）の変換を開始します。
+     * パケットのヘッダ、フッタなどに使用します。
+     * </p>
+     *
+     * <p>
+     * ブロックが入れ子状になっている場合、
+     * enter を呼んだ順と逆順に leave を呼び出します。
+     * </p>
+     *
+     * <pre>
+     * 例えば変換対象が、
+     *
+     * block A
+     *  `--- block B
+     *       block C
+     *        `--- block D
+     *
+     * という構造を持つ場合、
+     *
+     * enter(block A)
+     *  enter(block B)
+     *  leave(block B)
+     *  enter(block C)
+     *   enter(block D)
+     *   leave(block D)
+     *  leave(block C)
+     * leave(block A)
+     *
+     * の順で呼び出します。
+     * </pre>
+     *
+     * @param b ブロック
+     */
+    public void enterBlock(Block b);
 
     /**
      * <p>

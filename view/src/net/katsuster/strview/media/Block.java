@@ -41,6 +41,24 @@ public interface Block extends Cloneable {
 
     /**
      * <p>
+     * 名前を取得します。
+     * </p>
+     *
+     * @return 名前
+     */
+    public String getName();
+
+    /**
+     * <p>
+     * 名前を設定します。
+     * </p>
+     *
+     * @param n 名前
+     */
+    public void setName(String n);
+
+    /**
+     * <p>
      * データの存在する範囲を取得します。
      * </p>
      *

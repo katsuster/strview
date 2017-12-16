@@ -22,6 +22,24 @@ public abstract class AbstractStreamConverter<T> implements StreamConverter<T> {
     }
 
     @Override
+    public void enterPacket(Packet p) {
+        if ("".equals(p.getName())) {
+            enterPacket(p.getTypeName());
+        } else {
+            enterPacket(p.getTypeName() + ": " + p.getName());
+        }
+    }
+
+    @Override
+    public void enterBlock(Block b) {
+        if ("".equals(b.getName())) {
+            enterPacket(b.getTypeName());
+        } else {
+            enterPacket(b.getTypeName() + ": " + b.getName());
+        }
+    }
+
+    @Override
     public void mark(String name, String s) {
         mark(name, s, null);
     }
