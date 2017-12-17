@@ -57,13 +57,18 @@ public class M2VHeaderExtQuantMatrix extends M2VHeaderExt
     }
 
     @Override
+    public String getTypeName() {
+        return "quant_matrix_extension";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             M2VHeaderExtQuantMatrix d) {
-        c.enterBlock("M2V quant_matrix_extension()");
+        c.enterBlock(d);
 
         M2VHeaderExt.read(c, d);
 
@@ -97,7 +102,7 @@ public class M2VHeaderExtQuantMatrix extends M2VHeaderExt
 
     public static void write(StreamWriter<?> c,
                              M2VHeaderExtQuantMatrix d) {
-        c.enterBlock("M2V quant_matrix_extension()");
+        c.enterBlock(d);
 
         M2VHeaderExt.write(c, d);
 

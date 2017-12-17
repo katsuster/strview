@@ -82,6 +82,11 @@ public class M2VHeaderSlice extends M2VHeader
     }
 
     @Override
+    public String getTypeName() {
+        return "slice";
+    }
+
+    @Override
     public M2VHeaderSlice clone()
             throws CloneNotSupportedException {
         M2VHeaderSlice obj = (M2VHeaderSlice)super.clone();
@@ -107,7 +112,7 @@ public class M2VHeaderSlice extends M2VHeader
 
     public static void read(StreamReader<?> c,
                             M2VHeaderSlice d) {
-        c.enterBlock("M2V slice()");
+        c.enterBlock(d);
 
         M2VHeader.read(c, d);
 
@@ -153,7 +158,7 @@ public class M2VHeaderSlice extends M2VHeader
 
     public static void write(StreamWriter<?> c,
                              M2VHeaderSlice d) {
-        c.enterBlock("M2V slice()");
+        c.enterBlock(d);
 
         M2VHeader.write(c, d);
 

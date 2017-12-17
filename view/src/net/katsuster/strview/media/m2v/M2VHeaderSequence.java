@@ -81,13 +81,18 @@ public class M2VHeaderSequence
     }
 
     @Override
+    public String getTypeName() {
+        return "sequence_header";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             M2VHeaderSequence d) {
-        c.enterBlock("M2V sequence_header()");
+        c.enterBlock(d);
 
         M2VHeader.read(c, d);
 
@@ -124,7 +129,7 @@ public class M2VHeaderSequence
 
     public static void write(StreamWriter<?> c,
                              M2VHeaderSequence d) {
-        c.enterBlock("M2V sequence_header()");
+        c.enterBlock(d);
 
         M2VHeader.write(c, d);
 

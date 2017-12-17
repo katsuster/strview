@@ -57,13 +57,18 @@ public class M2VHeaderGOP extends M2VHeader
     }
 
     @Override
+    public String getTypeName() {
+        return "group_of_pictures_header";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             M2VHeaderGOP d) {
-        c.enterBlock("M2V group_of_pictures_header()");
+        c.enterBlock(d);
 
         M2VHeader.read(c, d);
 
@@ -86,7 +91,7 @@ public class M2VHeaderGOP extends M2VHeader
 
     public static void write(StreamWriter<?> c,
                              M2VHeaderGOP d) {
-        c.enterBlock("M2V group_of_pictures_header()");
+        c.enterBlock(d);
 
         M2VHeader.write(c, d);
 

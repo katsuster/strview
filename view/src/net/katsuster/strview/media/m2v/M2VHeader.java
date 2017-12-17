@@ -36,13 +36,18 @@ public class M2VHeader extends BlockAdapter
     }
 
     @Override
+    public String getTypeName() {
+        return "header";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             M2VHeader d) {
-        c.enterBlock("M2V header");
+        c.enterBlock(d);
 
         d.start_code = c.readUInt(32, d.start_code);
 
@@ -56,7 +61,7 @@ public class M2VHeader extends BlockAdapter
 
     public static void write(StreamWriter<?> c,
                              M2VHeader d) {
-        c.enterBlock("M2V header");
+        c.enterBlock(d);
 
         c.writeUInt(32, d.start_code, "start_code", d.getStartCodeName());
 

@@ -36,13 +36,18 @@ public class M2VHeaderExt extends M2VHeader
     }
 
     @Override
+    public String getTypeName() {
+        return "header_ext";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             M2VHeaderExt d) {
-        c.enterBlock("M2V ext");
+        c.enterBlock(d);
 
         M2VHeader.read(c, d);
 
@@ -58,7 +63,7 @@ public class M2VHeaderExt extends M2VHeader
 
     public static void write(StreamWriter<?> c,
                              M2VHeaderExt d) {
-        c.enterBlock("M2V ext");
+        c.enterBlock(d);
 
         M2VHeader.write(c, d);
 

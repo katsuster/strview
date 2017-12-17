@@ -63,13 +63,18 @@ public class M2VHeaderExtSequenceDisplay extends M2VHeaderExt
     }
 
     @Override
+    public String getTypeName() {
+        return "sequence_display_extension";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             M2VHeaderExtSequenceDisplay d) {
-        c.enterBlock("M2V sequence_display_extension()");
+        c.enterBlock(d);
 
         M2VHeaderExt.read(c, d);
 
@@ -96,7 +101,7 @@ public class M2VHeaderExtSequenceDisplay extends M2VHeaderExt
 
     public static void write(StreamWriter<?> c,
                              M2VHeaderExtSequenceDisplay d) {
-        c.enterBlock("M2V sequence_display_extension()");
+        c.enterBlock(d);
 
         M2VHeaderExt.write(c, d);
 

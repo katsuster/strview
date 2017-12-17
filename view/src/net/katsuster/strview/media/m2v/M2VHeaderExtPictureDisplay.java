@@ -53,6 +53,11 @@ public class M2VHeaderExtPictureDisplay extends M2VHeaderExt
     }
 
     @Override
+    public String getTypeName() {
+        return "picture_display_extension";
+    }
+
+    @Override
     public M2VHeaderExtPictureDisplay clone()
             throws CloneNotSupportedException {
         M2VHeaderExtPictureDisplay obj = (M2VHeaderExtPictureDisplay) super.clone();
@@ -78,7 +83,7 @@ public class M2VHeaderExtPictureDisplay extends M2VHeaderExt
 
     public static void read(StreamReader<?> c,
                             M2VHeaderExtPictureDisplay d) {
-        c.enterBlock("M2V picture_display_extension()");
+        c.enterBlock(d);
 
         M2VHeaderExt.read(c, d);
 
@@ -105,7 +110,7 @@ public class M2VHeaderExtPictureDisplay extends M2VHeaderExt
 
     public static void write(StreamWriter<?> c,
                              M2VHeaderExtPictureDisplay d) {
-        c.enterBlock("M2V picture_display_extension()");
+        c.enterBlock(d);
 
         M2VHeaderExt.write(c, d);
 

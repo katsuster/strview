@@ -100,13 +100,18 @@ public class M2VHeaderExtPictureCoding extends M2VHeaderExt
     }
 
     @Override
+    public String getTypeName() {
+        return "picture_coding_extension";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             M2VHeaderExtPictureCoding d) {
-        c.enterBlock("M2V picture_coding_extension()");
+        c.enterBlock(d);
 
         M2VHeaderExt.read(c, d);
 
@@ -145,7 +150,7 @@ public class M2VHeaderExtPictureCoding extends M2VHeaderExt
 
     public static void write(StreamWriter<?> c,
                              M2VHeaderExtPictureCoding d) {
-        c.enterBlock("M2V picture_coding_extension()");
+        c.enterBlock(d);
 
         M2VHeaderExt.write(c, d);
 
