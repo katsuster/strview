@@ -9,7 +9,7 @@ import java.util.AbstractList;
  */
 public abstract class AbstractLargeListBase<T> /*extends AbstractList<T>*/
         implements LargeList<T>, Cloneable {
-    //リストの長さ
+    private String name;
     private long len;
     //追加情報
     private ExtraInfo extInfo;
@@ -22,9 +22,26 @@ public abstract class AbstractLargeListBase<T> /*extends AbstractList<T>*/
      * @param l リストの長さ
      */
     public AbstractLargeListBase(long l) {
+        this(null, l);
+    }
+
+    /**
+     * <p>
+     * 指定された長さのリストを作成します。
+     * </p>
+     *
+     * @param n 名前
+     * @param l リストの長さ
+     */
+    public AbstractLargeListBase(String n, long l) {
         if (l < 0 && l != LENGTH_UNKNOWN) {
             throw new NegativeArraySizeException("len:" + l
                     + " is negative.");
+        }
+        if (n == null) {
+            name = "";
+        } else {
+            name = n;
         }
         len = l;
         extInfo = new SimpleExtraInfo();
@@ -36,6 +53,21 @@ public abstract class AbstractLargeListBase<T> /*extends AbstractList<T>*/
         AbstractLargeListBase obj = (AbstractLargeListBase)super.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return getClass().getName();
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String n) {
+        name = n;
     }
 
     //@Override

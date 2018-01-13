@@ -8,16 +8,20 @@ package net.katsuster.strview.util;
 public class SInt extends AbstractNum
         implements Comparable<SInt> {
     public SInt() {
-        this(0, 64);
+        this(null, 0, 64);
     }
 
-    public SInt(long v, int l) {
-        super(l);
+    public SInt(String n) {
+        this(n, 0, 64);
+    }
+
+    public SInt(String n, long v, int l) {
+        super(n, l);
         setValue(v);
     }
 
-    public SInt(LargeBitList b, long p, int l) {
-        super(b, p, l);
+    public SInt(String n, LargeBitList b, long p, int l) {
+        super(n, b, p, l);
     }
 
     public SInt(SInt obj) {

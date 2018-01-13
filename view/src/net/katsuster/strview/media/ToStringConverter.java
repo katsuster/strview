@@ -39,13 +39,13 @@ public class ToStringConverter extends StreamWriterAdapter<StringBuilder> {
     @Override
     public void writeSInt(int nbit, SInt val, String name, String desc) {
         sb.append(NumFormatter.numToDecHexCaption(
-                name, val, desc));
+                val.getName(), val, desc));
     }
 
     @Override
     public void writeUInt(int nbit, UInt val, String name, String desc) {
         sb.append(NumFormatter.numToDecHexCaption(
-                name, val, desc));
+                val.getName(), val, desc));
     }
 
     @Override

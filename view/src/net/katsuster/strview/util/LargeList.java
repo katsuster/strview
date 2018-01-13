@@ -7,7 +7,7 @@ import java.util.List;
  * int 型で扱える長さを超えるリストのインタフェースです。
  * </p>
  */
-public interface LargeList<T> extends Cloneable/*, List<T>*/ {
+public interface LargeList<T> extends Cloneable, Named/*, List<T>*/ {
     //size() および length() メソッドで長さが分からないときに返される値です
     public static final long LENGTH_UNKNOWN = Range.LENGTH_UNKNOWN;
 

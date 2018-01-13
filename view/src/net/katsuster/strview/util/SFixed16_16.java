@@ -8,16 +8,20 @@ package net.katsuster.strview.util;
  */
 public class SFixed16_16 extends AbstractNum {
     public SFixed16_16() {
-        this(0);
+        this(null, 0);
     }
 
-    public SFixed16_16(int v) {
-        super(32);
+    public SFixed16_16(String n) {
+        this(n, 0);
+    }
+
+    public SFixed16_16(String n, int v) {
+        super(n, 32);
         setValue(v);
     }
 
-    public SFixed16_16(LargeBitList b, long p, int l) {
-        super(b, p, l);
+    public SFixed16_16(String n, LargeBitList b, long p, int l) {
+        super(n, b, p, l);
     }
 
     public SFixed16_16(SFixed16_16 obj) {

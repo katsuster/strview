@@ -23,6 +23,21 @@ public class SubLargeList<T> extends AbstractLargeListBase<T>
      * @param len  部分列の長さ
      */
     public SubLargeList(LargeList<T> buf, long from, long len) {
+        this(null, buf, from, len);
+    }
+
+    /**
+     * <p>
+     * 指定されたリストの
+     * from から len の長さの部分列を作成します。
+     * </p>
+     *
+     * @param n    名前
+     * @param buf  リスト
+     * @param from 部分列の開始点
+     * @param len  部分列の長さ
+     */
+    public SubLargeList(String n, LargeList<T> buf, long from, long len) {
         super(len);
 
         if (from + len > buf.length()) {

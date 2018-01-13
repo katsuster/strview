@@ -7,21 +7,25 @@ package net.katsuster.strview.util;
  */
 public class Float32 extends AbstractNum {
     public Float32() {
-        this(0);
+        this(null, 0);
     }
 
-    public Float32(int v) {
-        super(32);
+    public Float32(String n) {
+        this(n, 0);
+    }
+
+    public Float32(String n, int v) {
+        super(n, 32);
         setValue(v);
     }
 
-    public Float32(float v) {
-        super(32);
+    public Float32(String n, float v) {
+        super(n, 32);
         setValue(Float.floatToRawIntBits(v));
     }
 
-    public Float32(LargeBitList b, long p, int l) {
-        super(b, p, l);
+    public Float32(String n, LargeBitList b, long p, int l) {
+        super(n, b, p, l);
     }
 
     public Float32(Float32 obj) {

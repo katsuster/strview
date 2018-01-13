@@ -7,21 +7,25 @@ package net.katsuster.strview.util;
  */
 public class Float64 extends AbstractNum {
     public Float64() {
-        this(0);
+        this(null, 0);
     }
 
-    public Float64(long v) {
-        super(64);
+    public Float64(String n) {
+        this(n, 0);
+    }
+
+    public Float64(String n, long v) {
+        super(n, 64);
         setValue(v);
     }
 
-    public Float64(double v) {
-        super(64);
+    public Float64(String n, double v) {
+        super(n, 64);
         setValue(Double.doubleToRawLongBits(v));
     }
 
-    public Float64(LargeBitList b, long p, int l) {
-        super(b, p, l);
+    public Float64(String n, LargeBitList b, long p, int l) {
+        super(n, b, p, l);
     }
 
     public Float64(Float64 obj) {

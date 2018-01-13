@@ -75,10 +75,20 @@ public interface StreamWriter<T> extends StreamConverter<T> {
      *
      * @param nbit 変換対象のサイズ（ビット単位）
      * @param val  変換対象の符号付き数値オブジェクト
-     * @param name 変換対象の名前
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void pokeSInt(int nbit, SInt val, String name);
+    public void pokeSInt(int nbit, SInt val);
+
+    /**
+     * <p>
+     * 符号付き数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の符号付き数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeSInt(int nbit, SInt val);
 
     /**
      * <p>
@@ -113,10 +123,20 @@ public interface StreamWriter<T> extends StreamConverter<T> {
      *
      * @param nbit 変換対象のサイズ（ビット単位）
      * @param val  変換対象の符号無し数値オブジェクト
-     * @param name 変換対象の名前
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void pokeUInt(int nbit, UInt val, String name);
+    public void pokeUInt(int nbit, UInt val);
+
+    /**
+     * <p>
+     * 符号無し数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の符号無し数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeUInt(int nbit, UInt val);
 
     /**
      * <p>
@@ -156,10 +176,25 @@ public interface StreamWriter<T> extends StreamConverter<T> {
      *
      * @param nbit 変換対象のサイズ（ビット単位）
      * @param val  変換対象の符号付き数値オブジェクト
-     * @param name 変換対象の名前
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void pokeSIntR(int nbit, SIntR val, String name);
+    public void pokeSIntR(int nbit, SIntR val);
+
+    /**
+     * <p>
+     * 符号付き数値を書き込みます。
+     * </p>
+     *
+     * <p>
+     * バイト順序を逆順に並べ替えた値を書き込みます。
+     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の符号付き数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeSIntR(int nbit, SIntR val);
 
     /**
      * <p>
@@ -209,10 +244,25 @@ public interface StreamWriter<T> extends StreamConverter<T> {
      *
      * @param nbit 変換対象のサイズ（ビット単位）
      * @param val  変換対象の符号無し数値オブジェクト
-     * @param name 変換対象の名前
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void pokeUIntR(int nbit, UIntR val, String name);
+    public void pokeUIntR(int nbit, UIntR val);
+
+    /**
+     * <p>
+     * 符号無し数値を書き込みます。
+     * </p>
+     *
+     * <p>
+     * バイト順序を逆順に並べ替えた値を書き込みます。
+     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の符号無し数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeUIntR(int nbit, UIntR val);
 
     /**
      * <p>
@@ -257,10 +307,20 @@ public interface StreamWriter<T> extends StreamConverter<T> {
      *
      * @param nbit 変換対象のサイズ（ビット単位）
      * @param val  変換対象の浮動小数値オブジェクト
-     * @param name 変換対象の名前
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void pokeFloat32(int nbit, Float32 val, String name);
+    public void pokeFloat32(int nbit, Float32 val);
+
+    /**
+     * <p>
+     * 32ビット浮動小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeFloat32(int nbit, Float32 val);
 
     /**
      * <p>
@@ -295,10 +355,20 @@ public interface StreamWriter<T> extends StreamConverter<T> {
      *
      * @param nbit 変換対象のサイズ（ビット単位）
      * @param val  変換対象の浮動小数値オブジェクト
-     * @param name 変換対象の名前
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void pokeFloat64(int nbit, Float64 val, String name);
+    public void pokeFloat64(int nbit, Float64 val);
+
+    /**
+     * <p>
+     * 64ビット浮動小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の浮動小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeFloat64(int nbit, Float64 val);
 
     /**
      * <p>
@@ -333,10 +403,20 @@ public interface StreamWriter<T> extends StreamConverter<T> {
      *
      * @param nbit 変換対象のサイズ（ビット単位）
      * @param val  変換対象のビットリスト
-     * @param name 変換対象の名前
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void pokeBitList(long nbit, LargeBitList val, String name);
+    public void pokeBitList(long nbit, LargeBitList val);
+
+    /**
+     * <p>
+     * ビットリストを書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象のビットリスト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeBitList(long nbit, LargeBitList val);
 
     /**
      * <p>

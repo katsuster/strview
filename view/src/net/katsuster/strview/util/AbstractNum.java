@@ -20,9 +20,12 @@ public abstract class AbstractNum extends SubLargeBitList
      * 数値が存在する位置（ビット単位）を 0 に設定した、
      * 新たな数値を構築します。
      * </p>
+     *
+     * @param n 名前
+     * @param l 数値の長さ（ビット単位）
      */
-    public AbstractNum(int l) {
-        super(new MemoryBitList(64), 0, l);
+    public AbstractNum(String n, int l) {
+        super(n, new MemoryBitList(64), 0, l);
     }
 
     /**
@@ -32,12 +35,13 @@ public abstract class AbstractNum extends SubLargeBitList
      * 新たな数値を構築します。
      * </p>
      *
+     * @param n 名前
      * @param b バッファ
      * @param p 数値の存在する位置（ビット単位）
      * @param l 数値の長さ（ビット単位）
      */
-    public AbstractNum(LargeBitList b, long p, int l) {
-        super(b, p, l);
+    public AbstractNum(String n, LargeBitList b, long p, int l) {
+        super(n, b, p, l);
     }
 
     /**

@@ -33,7 +33,7 @@ public class SIntTest {
         String msg1 = "SInt(long, long, int) failed.";
         String msg2 = "SInt(long, long, int) illegal arguments check failed.";
         LargeBitList la = new MemoryBitList(64);
-        SInt va = new SInt(la, 2, 3);
+        SInt va = new SInt("", la, 2, 3);
 
         assertEquals(msg1, 0, va.getRaw());
         assertEquals(msg1, 2, va.getSourceStart());
@@ -45,7 +45,7 @@ public class SIntTest {
         String msg1 = "SInt(SInt) failed.";
         String msg2 = "SInt.clone() failed.";
         LargeBitList la = new MemoryBitList(64);
-        SInt va = new SInt(la, 2, 3);
+        SInt va = new SInt("", la, 2, 3);
         SInt vb = new SInt(va);
 
         assertEquals(msg1, va.getRaw(), vb.getRaw());
@@ -80,32 +80,32 @@ public class SIntTest {
     @Test
     public final void testSIntEquals() {
         String msg1 = "SInt.equals(Object) failed.";
-        SInt vz0_1 = new SInt(0L, 64);
-        SInt vz0_2 = new SInt(0L, 64);
-        SInt vp1_1 = new SInt(1L, 64);
-        SInt vp1_2 = new SInt(1L, 64);
-        SInt vp2_1 = new SInt(2L, 64);
-        SInt vp2_2 = new SInt(2L, 64);
-        SInt vm1_1 = new SInt(-1L, 64);
-        SInt vm1_2 = new SInt(-1L, 64);
-        SInt vm2_1 = new SInt(-2L, 64);
-        SInt vm2_2 = new SInt(-2L, 64);
-        SInt vh1_1 = new SInt(0x7ffffffffffffffeL, 64);
-        SInt vh1_2 = new SInt(0x7ffffffffffffffeL, 64);
-        SInt vh2_1 = new SInt(0x7fffffffffffffffL, 64);
-        SInt vh2_2 = new SInt(0x7fffffffffffffffL, 64);
-        SInt vh3_1 = new SInt(0x8000000000000000L, 64);
-        SInt vh3_2 = new SInt(0x8000000000000000L, 64);
-        SInt vh4_1 = new SInt(0x8000000000000001L, 64);
-        SInt vh4_2 = new SInt(0x8000000000000001L, 64);
-        SInt vsp1_1 = new SInt(1L, 64);
-        SInt vsp1_2 = new SInt(1L, 32);
-        SInt vsp2_1 = new SInt(2L, 64);
-        SInt vsp2_2 = new SInt(2L, 32);
-        SInt vsm1_1 = new SInt(-1L, 64);
-        SInt vsm1_2 = new SInt(-1L, 32);
-        SInt vsm2_1 = new SInt(-2L, 64);
-        SInt vsm2_2 = new SInt(-2L, 32);
+        SInt vz0_1 = new SInt("", 0L, 64);
+        SInt vz0_2 = new SInt("", 0L, 64);
+        SInt vp1_1 = new SInt("", 1L, 64);
+        SInt vp1_2 = new SInt("", 1L, 64);
+        SInt vp2_1 = new SInt("", 2L, 64);
+        SInt vp2_2 = new SInt("", 2L, 64);
+        SInt vm1_1 = new SInt("", -1L, 64);
+        SInt vm1_2 = new SInt("", -1L, 64);
+        SInt vm2_1 = new SInt("", -2L, 64);
+        SInt vm2_2 = new SInt("", -2L, 64);
+        SInt vh1_1 = new SInt("", 0x7ffffffffffffffeL, 64);
+        SInt vh1_2 = new SInt("", 0x7ffffffffffffffeL, 64);
+        SInt vh2_1 = new SInt("", 0x7fffffffffffffffL, 64);
+        SInt vh2_2 = new SInt("", 0x7fffffffffffffffL, 64);
+        SInt vh3_1 = new SInt("", 0x8000000000000000L, 64);
+        SInt vh3_2 = new SInt("", 0x8000000000000000L, 64);
+        SInt vh4_1 = new SInt("", 0x8000000000000001L, 64);
+        SInt vh4_2 = new SInt("", 0x8000000000000001L, 64);
+        SInt vsp1_1 = new SInt("", 1L, 64);
+        SInt vsp1_2 = new SInt("", 1L, 32);
+        SInt vsp2_1 = new SInt("", 2L, 64);
+        SInt vsp2_2 = new SInt("", 2L, 32);
+        SInt vsm1_1 = new SInt("", -1L, 64);
+        SInt vsm1_2 = new SInt("", -1L, 32);
+        SInt vsm2_1 = new SInt("", -2L, 64);
+        SInt vsm2_2 = new SInt("", -2L, 32);
 
         assertEquals(msg1, true, vz0_1.equals(vz0_1));
         assertEquals(msg1, true, vp1_1.equals(vp1_1));
@@ -146,32 +146,32 @@ public class SIntTest {
     @Test
     public final void testSIntCompareTo() {
         String msg1 = "SInt.compareTo(SInt) failed.";
-        SInt vz0_1 = new SInt(0L, 64);
-        SInt vz0_2 = new SInt(0L, 64);
-        SInt vp1_1 = new SInt(1L, 64);
-        SInt vp1_2 = new SInt(1L, 64);
-        SInt vp2_1 = new SInt(2L, 64);
-        SInt vp2_2 = new SInt(2L, 64);
-        SInt vm1_1 = new SInt(-1L, 64);
-        SInt vm1_2 = new SInt(-1L, 64);
-        SInt vm2_1 = new SInt(-2L, 64);
-        SInt vm2_2 = new SInt(-2L, 64);
-        SInt vh1_1 = new SInt(0x7ffffffffffffffeL, 64);
-        SInt vh1_2 = new SInt(0x7ffffffffffffffeL, 64);
-        SInt vh2_1 = new SInt(0x7fffffffffffffffL, 64);
-        SInt vh2_2 = new SInt(0x7fffffffffffffffL, 64);
-        SInt vh3_1 = new SInt(0x8000000000000000L, 64);
-        SInt vh3_2 = new SInt(0x8000000000000000L, 64);
-        SInt vh4_1 = new SInt(0x8000000000000001L, 64);
-        SInt vh4_2 = new SInt(0x8000000000000001L, 64);
-        SInt vsp1_1 = new SInt(1L, 64);
-        SInt vsp1_2 = new SInt(1L, 32);
-        SInt vsp2_1 = new SInt(2L, 64);
-        SInt vsp2_2 = new SInt(2L, 32);
-        SInt vsm1_1 = new SInt(-1L, 64);
-        SInt vsm1_2 = new SInt(-1L, 32);
-        SInt vsm2_1 = new SInt(-2L, 64);
-        SInt vsm2_2 = new SInt(-2L, 32);
+        SInt vz0_1 = new SInt("", 0L, 64);
+        SInt vz0_2 = new SInt("", 0L, 64);
+        SInt vp1_1 = new SInt("", 1L, 64);
+        SInt vp1_2 = new SInt("", 1L, 64);
+        SInt vp2_1 = new SInt("", 2L, 64);
+        SInt vp2_2 = new SInt("", 2L, 64);
+        SInt vm1_1 = new SInt("", -1L, 64);
+        SInt vm1_2 = new SInt("", -1L, 64);
+        SInt vm2_1 = new SInt("", -2L, 64);
+        SInt vm2_2 = new SInt("", -2L, 64);
+        SInt vh1_1 = new SInt("", 0x7ffffffffffffffeL, 64);
+        SInt vh1_2 = new SInt("", 0x7ffffffffffffffeL, 64);
+        SInt vh2_1 = new SInt("", 0x7fffffffffffffffL, 64);
+        SInt vh2_2 = new SInt("", 0x7fffffffffffffffL, 64);
+        SInt vh3_1 = new SInt("", 0x8000000000000000L, 64);
+        SInt vh3_2 = new SInt("", 0x8000000000000000L, 64);
+        SInt vh4_1 = new SInt("", 0x8000000000000001L, 64);
+        SInt vh4_2 = new SInt("", 0x8000000000000001L, 64);
+        SInt vsp1_1 = new SInt("", 1L, 64);
+        SInt vsp1_2 = new SInt("", 1L, 32);
+        SInt vsp2_1 = new SInt("", 2L, 64);
+        SInt vsp2_2 = new SInt("", 2L, 32);
+        SInt vsm1_1 = new SInt("", -1L, 64);
+        SInt vsm1_2 = new SInt("", -1L, 32);
+        SInt vsm2_1 = new SInt("", -2L, 64);
+        SInt vsm2_2 = new SInt("", -2L, 32);
 
         assertEquals(msg1, true, vz0_1.compareTo(vz0_1) == 0);
         assertEquals(msg1, true, vp1_1.compareTo(vp1_1) == 0);
@@ -217,19 +217,19 @@ public class SIntTest {
     @Test
     public final void testSIntByteValue() {
         String msg1 = "SInt.byteValue() failed.";
-        SInt vz0 = new SInt(0L, 64);
-        SInt vp1 = new SInt(1L, 64);
-        SInt vp2 = new SInt(2L, 64);
-        SInt vm1 = new SInt(-1L, 64);
-        SInt vm2 = new SInt(-2L, 64);
-        SInt vh1 = new SInt(0x7ffffffffffffffeL, 64);
-        SInt vh2 = new SInt(0x7fffffffffffffffL, 64);
-        SInt vh3 = new SInt(0x8000000000000000L, 64);
-        SInt vh4 = new SInt(0x8000000000000001L, 64);
-        SInt vsp1 = new SInt(1L, 32);
-        SInt vsp2 = new SInt(2L, 32);
-        SInt vsm1 = new SInt(-1L, 32);
-        SInt vsm2 = new SInt(-2L, 32);
+        SInt vz0 = new SInt("", 0L, 64);
+        SInt vp1 = new SInt("", 1L, 64);
+        SInt vp2 = new SInt("", 2L, 64);
+        SInt vm1 = new SInt("", -1L, 64);
+        SInt vm2 = new SInt("", -2L, 64);
+        SInt vh1 = new SInt("", 0x7ffffffffffffffeL, 64);
+        SInt vh2 = new SInt("", 0x7fffffffffffffffL, 64);
+        SInt vh3 = new SInt("", 0x8000000000000000L, 64);
+        SInt vh4 = new SInt("", 0x8000000000000001L, 64);
+        SInt vsp1 = new SInt("", 1L, 32);
+        SInt vsp2 = new SInt("", 2L, 32);
+        SInt vsm1 = new SInt("", -1L, 32);
+        SInt vsm2 = new SInt("", -2L, 32);
 
         assertEquals(msg1, (byte)0x00, vz0.byteValue());
         assertEquals(msg1, (byte)0x01, vp1.byteValue());
@@ -250,19 +250,19 @@ public class SIntTest {
     @Test
     public final void testSIntShortValue() {
         String msg1 = "SInt.shortValue() failed.";
-        SInt vz0 = new SInt(0L, 64);
-        SInt vp1 = new SInt(1L, 64);
-        SInt vp2 = new SInt(2L, 64);
-        SInt vm1 = new SInt(-1L, 64);
-        SInt vm2 = new SInt(-2L, 64);
-        SInt vh1 = new SInt(0x7ffffffffffffffeL, 64);
-        SInt vh2 = new SInt(0x7fffffffffffffffL, 64);
-        SInt vh3 = new SInt(0x8000000000000000L, 64);
-        SInt vh4 = new SInt(0x8000000000000001L, 64);
-        SInt vsp1 = new SInt(1L, 32);
-        SInt vsp2 = new SInt(2L, 32);
-        SInt vsm1 = new SInt(-1L, 32);
-        SInt vsm2 = new SInt(-2L, 32);
+        SInt vz0 = new SInt("", 0L, 64);
+        SInt vp1 = new SInt("", 1L, 64);
+        SInt vp2 = new SInt("", 2L, 64);
+        SInt vm1 = new SInt("", -1L, 64);
+        SInt vm2 = new SInt("", -2L, 64);
+        SInt vh1 = new SInt("", 0x7ffffffffffffffeL, 64);
+        SInt vh2 = new SInt("", 0x7fffffffffffffffL, 64);
+        SInt vh3 = new SInt("", 0x8000000000000000L, 64);
+        SInt vh4 = new SInt("", 0x8000000000000001L, 64);
+        SInt vsp1 = new SInt("", 1L, 32);
+        SInt vsp2 = new SInt("", 2L, 32);
+        SInt vsm1 = new SInt("", -1L, 32);
+        SInt vsm2 = new SInt("", -2L, 32);
 
         assertEquals(msg1, (short)0x0000, vz0.shortValue());
         assertEquals(msg1, (short)0x0001, vp1.shortValue());
@@ -283,19 +283,19 @@ public class SIntTest {
     @Test
     public final void testSIntIntValue() {
         String msg1 = "SInt.intValue() failed.";
-        SInt vz0 = new SInt(0L, 64);
-        SInt vp1 = new SInt(1L, 64);
-        SInt vp2 = new SInt(2L, 64);
-        SInt vm1 = new SInt(-1L, 64);
-        SInt vm2 = new SInt(-2L, 64);
-        SInt vh1 = new SInt(0x7ffffffffffffffeL, 64);
-        SInt vh2 = new SInt(0x7fffffffffffffffL, 64);
-        SInt vh3 = new SInt(0x8000000000000000L, 64);
-        SInt vh4 = new SInt(0x8000000000000001L, 64);
-        SInt vsp1 = new SInt(1L, 32);
-        SInt vsp2 = new SInt(2L, 32);
-        SInt vsm1 = new SInt(-1L, 32);
-        SInt vsm2 = new SInt(-2L, 32);
+        SInt vz0 = new SInt("", 0L, 64);
+        SInt vp1 = new SInt("", 1L, 64);
+        SInt vp2 = new SInt("", 2L, 64);
+        SInt vm1 = new SInt("", -1L, 64);
+        SInt vm2 = new SInt("", -2L, 64);
+        SInt vh1 = new SInt("", 0x7ffffffffffffffeL, 64);
+        SInt vh2 = new SInt("", 0x7fffffffffffffffL, 64);
+        SInt vh3 = new SInt("", 0x8000000000000000L, 64);
+        SInt vh4 = new SInt("", 0x8000000000000001L, 64);
+        SInt vsp1 = new SInt("", 1L, 32);
+        SInt vsp2 = new SInt("", 2L, 32);
+        SInt vsm1 = new SInt("", -1L, 32);
+        SInt vsm2 = new SInt("", -2L, 32);
 
         assertEquals(msg1, 0x00000000, vz0.intValue());
         assertEquals(msg1, 0x00000001, vp1.intValue());
@@ -316,19 +316,19 @@ public class SIntTest {
     @Test
     public final void testSIntLongValue() {
         String msg1 = "SInt.longValue() failed.";
-        SInt vz0 = new SInt(0L, 64);
-        SInt vp1 = new SInt(1L, 64);
-        SInt vp2 = new SInt(2L, 64);
-        SInt vm1 = new SInt(-1L, 64);
-        SInt vm2 = new SInt(-2L, 64);
-        SInt vh1 = new SInt(0x7ffffffffffffffeL, 64);
-        SInt vh2 = new SInt(0x7fffffffffffffffL, 64);
-        SInt vh3 = new SInt(0x8000000000000000L, 64);
-        SInt vh4 = new SInt(0x8000000000000001L, 64);
-        SInt vsp1 = new SInt(1L, 32);
-        SInt vsp2 = new SInt(2L, 32);
-        SInt vsm1 = new SInt(-1L, 32);
-        SInt vsm2 = new SInt(-2L, 32);
+        SInt vz0 = new SInt("", 0L, 64);
+        SInt vp1 = new SInt("", 1L, 64);
+        SInt vp2 = new SInt("", 2L, 64);
+        SInt vm1 = new SInt("", -1L, 64);
+        SInt vm2 = new SInt("", -2L, 64);
+        SInt vh1 = new SInt("", 0x7ffffffffffffffeL, 64);
+        SInt vh2 = new SInt("", 0x7fffffffffffffffL, 64);
+        SInt vh3 = new SInt("", 0x8000000000000000L, 64);
+        SInt vh4 = new SInt("", 0x8000000000000001L, 64);
+        SInt vsp1 = new SInt("", 1L, 32);
+        SInt vsp2 = new SInt("", 2L, 32);
+        SInt vsm1 = new SInt("", -1L, 32);
+        SInt vsm2 = new SInt("", -2L, 32);
 
         assertEquals(msg1, 0x0000000000000000L, vz0.longValue());
         assertEquals(msg1, 0x0000000000000001L, vp1.longValue());
@@ -349,19 +349,19 @@ public class SIntTest {
     @Test
     public final void testSIntFloatValue() {
         String msg1 = "SInt.floatValue() failed.";
-        SInt vz0 = new SInt(0L, 64);
-        SInt vp1 = new SInt(1L, 64);
-        SInt vp2 = new SInt(2L, 64);
-        SInt vm1 = new SInt(-1L, 64);
-        SInt vm2 = new SInt(-2L, 64);
-        SInt vh1 = new SInt(0x7ffffffffffffffeL, 64);
-        SInt vh2 = new SInt(0x7fffffffffffffffL, 64);
-        SInt vh3 = new SInt(0x8000000000000000L, 64);
-        SInt vh4 = new SInt(0x8000000000000001L, 64);
-        SInt vsp1 = new SInt(1L, 32);
-        SInt vsp2 = new SInt(2L, 32);
-        SInt vsm1 = new SInt(-1L, 32);
-        SInt vsm2 = new SInt(-2L, 32);
+        SInt vz0 = new SInt("", 0L, 64);
+        SInt vp1 = new SInt("", 1L, 64);
+        SInt vp2 = new SInt("", 2L, 64);
+        SInt vm1 = new SInt("", -1L, 64);
+        SInt vm2 = new SInt("", -2L, 64);
+        SInt vh1 = new SInt("", 0x7ffffffffffffffeL, 64);
+        SInt vh2 = new SInt("", 0x7fffffffffffffffL, 64);
+        SInt vh3 = new SInt("", 0x8000000000000000L, 64);
+        SInt vh4 = new SInt("", 0x8000000000000001L, 64);
+        SInt vsp1 = new SInt("", 1L, 32);
+        SInt vsp2 = new SInt("", 2L, 32);
+        SInt vsm1 = new SInt("", -1L, 32);
+        SInt vsm2 = new SInt("", -2L, 32);
 
         assertTrue(msg1,                    0.0F <= vz0.floatValue());
         assertTrue(msg1,                    1.0F <= vp1.floatValue());
@@ -382,19 +382,19 @@ public class SIntTest {
     @Test
     public final void testSIntDoubleValue() {
         String msg1 = "SInt.doubleValue() failed.";
-        SInt vz0 = new SInt(0L, 64);
-        SInt vp1 = new SInt(1L, 64);
-        SInt vp2 = new SInt(2L, 64);
-        SInt vm1 = new SInt(-1L, 64);
-        SInt vm2 = new SInt(-2L, 64);
-        SInt vh1 = new SInt(0x7ffffffffffffffeL, 64);
-        SInt vh2 = new SInt(0x7fffffffffffffffL, 64);
-        SInt vh3 = new SInt(0x8000000000000000L, 64);
-        SInt vh4 = new SInt(0x8000000000000001L, 64);
-        SInt vsp1 = new SInt(1L, 32);
-        SInt vsp2 = new SInt(2L, 32);
-        SInt vsm1 = new SInt(-1L, 32);
-        SInt vsm2 = new SInt(-2L, 32);
+        SInt vz0 = new SInt("", 0L, 64);
+        SInt vp1 = new SInt("", 1L, 64);
+        SInt vp2 = new SInt("", 2L, 64);
+        SInt vm1 = new SInt("", -1L, 64);
+        SInt vm2 = new SInt("", -2L, 64);
+        SInt vh1 = new SInt("", 0x7ffffffffffffffeL, 64);
+        SInt vh2 = new SInt("", 0x7fffffffffffffffL, 64);
+        SInt vh3 = new SInt("", 0x8000000000000000L, 64);
+        SInt vh4 = new SInt("", 0x8000000000000001L, 64);
+        SInt vsp1 = new SInt("", 1L, 32);
+        SInt vsp2 = new SInt("", 2L, 32);
+        SInt vsm1 = new SInt("", -1L, 32);
+        SInt vsm2 = new SInt("", -2L, 32);
 
         assertTrue(msg1,                    0.0D <= vz0.doubleValue());
         assertTrue(msg1,                    1.0D <= vp1.doubleValue());
@@ -415,19 +415,19 @@ public class SIntTest {
     @Test
     public final void testSIntToString() {
         String msg1 = "SInt.toString() failed.";
-        SInt vz0 = new SInt(0L, 64);
-        SInt vp1 = new SInt(1L, 64);
-        SInt vp2 = new SInt(2L, 64);
-        SInt vm1 = new SInt(-1L, 64);
-        SInt vm2 = new SInt(-2L, 64);
-        SInt vh1 = new SInt(0x7ffffffffffffffeL, 64);
-        SInt vh2 = new SInt(0x7fffffffffffffffL, 64);
-        SInt vh3 = new SInt(0x8000000000000000L, 64);
-        SInt vh4 = new SInt(0x8000000000000001L, 64);
-        SInt vsp1 = new SInt(1L, 32);
-        SInt vsp2 = new SInt(2L, 32);
-        SInt vsm1 = new SInt(-1L, 32);
-        SInt vsm2 = new SInt(-2L, 32);
+        SInt vz0 = new SInt("", 0L, 64);
+        SInt vp1 = new SInt("", 1L, 64);
+        SInt vp2 = new SInt("", 2L, 64);
+        SInt vm1 = new SInt("", -1L, 64);
+        SInt vm2 = new SInt("", -2L, 64);
+        SInt vh1 = new SInt("", 0x7ffffffffffffffeL, 64);
+        SInt vh2 = new SInt("", 0x7fffffffffffffffL, 64);
+        SInt vh3 = new SInt("", 0x8000000000000000L, 64);
+        SInt vh4 = new SInt("", 0x8000000000000001L, 64);
+        SInt vsp1 = new SInt("", 1L, 32);
+        SInt vsp2 = new SInt("", 2L, 32);
+        SInt vsm1 = new SInt("", -1L, 32);
+        SInt vsm2 = new SInt("", -2L, 32);
 
         assertEquals(msg1,                    "0", vz0.toString());
         assertEquals(msg1,                    "1", vp1.toString());

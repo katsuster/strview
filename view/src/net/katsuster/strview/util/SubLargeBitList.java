@@ -11,7 +11,7 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
     private Range<LargeBitList> range;
 
     public SubLargeBitList() {
-        this(null, 0, 0);
+        this(null, null, 0, 0);
     }
 
     /**
@@ -25,7 +25,22 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
      * @param len  部分列の長さ
      */
     public SubLargeBitList(LargeBitList bits, long from, long len) {
-        super(len);
+        this(null, bits, from, len);
+    }
+
+    /**
+     * <p>
+     * 指定されたビット列の
+     * from から len の長さの部分列を作成します。
+     * </p>
+     *
+     * @param n    名前
+     * @param bits ビット列
+     * @param from 部分列の開始点
+     * @param len  部分列の長さ
+     */
+    public SubLargeBitList(String n, LargeBitList bits, long from, long len) {
+        super(n, len);
 
         long bitsLen = 0;
         if (bits != null) {

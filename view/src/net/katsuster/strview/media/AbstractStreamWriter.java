@@ -37,10 +37,15 @@ public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
     }
 
     @Override
-    public void pokeSInt(int nbit, SInt val, String name) {
+    public void pokeSInt(int nbit, SInt val) {
         long orgpos = position();
-        writeSInt(nbit, val, name, null);
+        writeSInt(nbit, val, null);
         position(orgpos);
+    }
+
+    @Override
+    public void writeSInt(int nbit, SInt val) {
+        writeSInt(nbit, val, val.getName(), null);
     }
 
     @Override
@@ -49,10 +54,15 @@ public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
     }
 
     @Override
-    public void pokeUInt(int nbit, UInt val, String name) {
+    public void pokeUInt(int nbit, UInt val) {
         long orgpos = position();
-        writeUInt(nbit, val, name, null);
+        writeUInt(nbit, val, null);
         position(orgpos);
+    }
+
+    @Override
+    public void writeUInt(int nbit, UInt val) {
+        writeUInt(nbit, val, val.getName(), null);
     }
 
     @Override
@@ -61,10 +71,15 @@ public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
     }
 
     @Override
-    public void pokeSIntR(int nbit, SIntR val, String name) {
+    public void pokeSIntR(int nbit, SIntR val) {
         long orgpos = position();
-        writeSIntR(nbit, val, name, null);
+        writeSIntR(nbit, val, null);
         position(orgpos);
+    }
+
+    @Override
+    public void writeSIntR(int nbit, SIntR val) {
+        writeSIntR(nbit, val, val.getName(), null);
     }
 
     @Override
@@ -73,10 +88,15 @@ public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
     }
 
     @Override
-    public void pokeUIntR(int nbit, UIntR val, String name) {
+    public void pokeUIntR(int nbit, UIntR val) {
         long orgpos = position();
-        writeUIntR(nbit, val, name, null);
+        writeUIntR(nbit, val, null);
         position(orgpos);
+    }
+
+    @Override
+    public void writeUIntR(int nbit, UIntR val) {
+        writeUIntR(nbit, val, val.getName(), null);
     }
 
     @Override
@@ -85,10 +105,15 @@ public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
     }
 
     @Override
-    public void pokeFloat32(int nbit, Float32 val, String name) {
+    public void pokeFloat32(int nbit, Float32 val) {
         long orgpos = position();
-        writeFloat32(nbit, val, name, null);
+        writeFloat32(nbit, val, null);
         position(orgpos);
+    }
+
+    @Override
+    public void writeFloat32(int nbit, Float32 val) {
+        writeFloat32(nbit, val, val.getName(), null);
     }
 
     @Override
@@ -97,10 +122,15 @@ public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
     }
 
     @Override
-    public void pokeFloat64(int nbit, Float64 val, String name) {
+    public void pokeFloat64(int nbit, Float64 val) {
         long orgpos = position();
-        writeFloat64(nbit, val, name, null);
+        writeFloat64(nbit, val, null);
         position(orgpos);
+    }
+
+    @Override
+    public void writeFloat64(int nbit, Float64 val) {
+        writeFloat64(nbit, val, val.getName(), null);
     }
 
     @Override
@@ -109,10 +139,15 @@ public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
     }
 
     @Override
-    public void pokeBitList(long nbit, LargeBitList val, String name) {
+    public void pokeBitList(long nbit, LargeBitList val) {
         long orgpos = position();
-        writeBitList(nbit, val, name, null);
+        writeBitList(nbit, val, null);
         position(orgpos);
+    }
+
+    @Override
+    public void writeBitList(long nbit, LargeBitList val) {
+        writeBitList(nbit, val, val.getName(), null);
     }
 
     @Override

@@ -8,16 +8,20 @@ package net.katsuster.strview.util;
 public class UInt extends AbstractNum
         implements Comparable<UInt> {
     public UInt() {
-        this(0, 64);
+        this(null, 0, 64);
     }
 
-    public UInt(long v, int l) {
-        super(l);
+    public UInt(String n) {
+        this(n, 0, 64);
+    }
+
+    public UInt(String n, long v, int l) {
+        super(n, l);
         setValue(v);
     }
 
-    public UInt(LargeBitList b, long p, int l) {
-        super(b, p, l);
+    public UInt(String n, LargeBitList b, long p, int l) {
+        super(n, b, p, l);
     }
 
     public UInt(UInt obj) {

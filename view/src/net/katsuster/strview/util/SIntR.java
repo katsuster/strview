@@ -12,16 +12,20 @@ package net.katsuster.strview.util;
 public class SIntR extends AbstractNum
         implements Comparable<SIntR> {
     public SIntR() {
-        this(0, 64);
+        this(null, 0, 64);
     }
 
-    public SIntR(long v, int l) {
-        super(l);
+    public SIntR(String n) {
+        this(n, 0, 64);
+    }
+
+    public SIntR(String n, long v, int l) {
+        super(n, l);
         setValue(v);
     }
 
-    public SIntR(LargeBitList b, long p, int l) {
-        super(b, p, l);
+    public SIntR(String n, LargeBitList b, long p, int l) {
+        super(n, b, p, l);
     }
 
     public SIntR(SIntR obj) {

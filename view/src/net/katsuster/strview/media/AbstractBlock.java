@@ -45,6 +45,13 @@ public abstract class AbstractBlock<T extends LargeList<?>>
         this("");
     }
 
+    /**
+     * <p>
+     * 名前付きのブロックを作成します。
+     * </p>
+     *
+     * @param n 名前
+     */
     public AbstractBlock(String n) {
         name = n;
         pos = new SimpleRange<>();
@@ -58,6 +65,21 @@ public abstract class AbstractBlock<T extends LargeList<?>>
         obj.pos = (Range)pos.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return getClass().getName();
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String n) {
+        name = n;
     }
 
     @Override
@@ -103,21 +125,6 @@ public abstract class AbstractBlock<T extends LargeList<?>>
     @Override
     public boolean isHit(long i) {
         return pos.isHit(i);
-    }
-
-    @Override
-    public String getTypeName() {
-        return getClass().getName();
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String n) {
-        name = n;
     }
 
     @Override

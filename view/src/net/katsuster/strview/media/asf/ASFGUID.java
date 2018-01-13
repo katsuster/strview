@@ -57,11 +57,11 @@ public class ASFGUID<T extends LargeList<?>>
      * @param e パート E、下位 48bit のみ使用されます。
      */
     public ASFGUID(int a, int b, int c, int d, long e) {
-        la = new UIntR(a & 0xffffffffL, 32);
-        lb = new UIntR(b & 0xffffL, 16);
-        lc = new UIntR(c & 0xffffL, 16);
-        bd = new UInt(d & 0xffffL, 16);
-        be = new UInt(e & 0xffffffffffffL, 48);
+        la = new UIntR("la", a & 0xffffffffL, 32);
+        lb = new UIntR("lb", b & 0xffffL, 16);
+        lc = new UIntR("lc", c & 0xffffL, 16);
+        bd = new UInt("bd", d & 0xffffL, 16);
+        be = new UInt("be", e & 0xffffffffffffL, 48);
     }
 
     @Override

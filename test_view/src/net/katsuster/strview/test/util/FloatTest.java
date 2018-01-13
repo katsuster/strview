@@ -33,7 +33,7 @@ public class FloatTest {
         String msg1 = "Float32(int, long, int) failed.";
         String msg2 = "Float32(int, long, int) illegal arguments check failed.";
         LargeBitList la = new MemoryBitList(64);
-        Float32 va = new Float32(la, 2, 3);
+        Float32 va = new Float32("", la, 2, 3);
 
         assertEquals(msg1, 0, va.getRaw());
         assertEquals(msg1, 2, va.getSourceStart());
@@ -45,7 +45,7 @@ public class FloatTest {
         String msg1 = "Float32(Float32) failed.";
         String msg2 = "Float32.clone() failed.";
         LargeBitList la = new MemoryBitList(64);
-        Float32 va = new Float32(la, 2, 3);
+        Float32 va = new Float32("", la, 2, 3);
         Float32 vb = new Float32(va);
 
         assertEquals(msg1, va.getRaw(), vb.getRaw());
@@ -80,15 +80,15 @@ public class FloatTest {
     @Test
     public final void testFloat32ByteValue() {
         String msg1 = "Float32.byteValue() failed.";
-        Float32 vz0 = new Float32(0.0F);
-        Float32 vp1 = new Float32(1.0F);
-        Float32 vp2 = new Float32(2.0F);
-        Float32 vm1 = new Float32(-1.0F);
-        Float32 vm2 = new Float32(-2.0F);
-        Float32 vh1 = new Float32(8388606.0F);
-        Float32 vh2 = new Float32(8388607.0F);
-        Float32 vh3 = new Float32(8388608.0F);
-        Float32 vh4 = new Float32(8388609.0F);
+        Float32 vz0 = new Float32("", 0.0F);
+        Float32 vp1 = new Float32("", 1.0F);
+        Float32 vp2 = new Float32("", 2.0F);
+        Float32 vm1 = new Float32("", -1.0F);
+        Float32 vm2 = new Float32("", -2.0F);
+        Float32 vh1 = new Float32("", 8388606.0F);
+        Float32 vh2 = new Float32("", 8388607.0F);
+        Float32 vh3 = new Float32("", 8388608.0F);
+        Float32 vh4 = new Float32("", 8388609.0F);
 
         assertEquals(msg1, (byte)0x00, vz0.byteValue());
         assertEquals(msg1, (byte)0x01, vp1.byteValue());
@@ -104,15 +104,15 @@ public class FloatTest {
     @Test
     public final void testFloat32ShortValue() {
         String msg1 = "Float32.shortValue() failed.";
-        Float32 vz0 = new Float32(0.0F);
-        Float32 vp1 = new Float32(1.0F);
-        Float32 vp2 = new Float32(2.0F);
-        Float32 vm1 = new Float32(-1.0F);
-        Float32 vm2 = new Float32(-2.0F);
-        Float32 vh1 = new Float32(8388606.0F);
-        Float32 vh2 = new Float32(8388607.0F);
-        Float32 vh3 = new Float32(8388608.0F);
-        Float32 vh4 = new Float32(8388609.0F);
+        Float32 vz0 = new Float32("", 0.0F);
+        Float32 vp1 = new Float32("", 1.0F);
+        Float32 vp2 = new Float32("", 2.0F);
+        Float32 vm1 = new Float32("", -1.0F);
+        Float32 vm2 = new Float32("", -2.0F);
+        Float32 vh1 = new Float32("", 8388606.0F);
+        Float32 vh2 = new Float32("", 8388607.0F);
+        Float32 vh3 = new Float32("", 8388608.0F);
+        Float32 vh4 = new Float32("", 8388609.0F);
 
         assertEquals(msg1, (short)0x0000, vz0.shortValue());
         assertEquals(msg1, (short)0x0001, vp1.shortValue());
@@ -128,15 +128,15 @@ public class FloatTest {
     @Test
     public final void testFloat32IntValue() {
         String msg1 = "Float32.intValue() failed.";
-        Float32 vz0 = new Float32(0.0F);
-        Float32 vp1 = new Float32(1.0F);
-        Float32 vp2 = new Float32(2.0F);
-        Float32 vm1 = new Float32(-1.0F);
-        Float32 vm2 = new Float32(-2.0F);
-        Float32 vh1 = new Float32(8388606.0F);
-        Float32 vh2 = new Float32(8388607.0F);
-        Float32 vh3 = new Float32(8388608.0F);
-        Float32 vh4 = new Float32(8388609.0F);
+        Float32 vz0 = new Float32("", 0.0F);
+        Float32 vp1 = new Float32("", 1.0F);
+        Float32 vp2 = new Float32("", 2.0F);
+        Float32 vm1 = new Float32("", -1.0F);
+        Float32 vm2 = new Float32("", -2.0F);
+        Float32 vh1 = new Float32("", 8388606.0F);
+        Float32 vh2 = new Float32("", 8388607.0F);
+        Float32 vh3 = new Float32("", 8388608.0F);
+        Float32 vh4 = new Float32("", 8388609.0F);
 
         assertEquals(msg1, 0x00000000, vz0.intValue());
         assertEquals(msg1, 0x00000001, vp1.intValue());
@@ -152,15 +152,15 @@ public class FloatTest {
     @Test
     public final void testFloat32LongValue() {
         String msg1 = "Float32.longValue() failed.";
-        Float32 vz0 = new Float32(0.0F);
-        Float32 vp1 = new Float32(1.0F);
-        Float32 vp2 = new Float32(2.0F);
-        Float32 vm1 = new Float32(-1.0F);
-        Float32 vm2 = new Float32(-2.0F);
-        Float32 vh1 = new Float32(8388606.0F);
-        Float32 vh2 = new Float32(8388607.0F);
-        Float32 vh3 = new Float32(8388608.0F);
-        Float32 vh4 = new Float32(8388609.0F);
+        Float32 vz0 = new Float32("", 0.0F);
+        Float32 vp1 = new Float32("", 1.0F);
+        Float32 vp2 = new Float32("", 2.0F);
+        Float32 vm1 = new Float32("", -1.0F);
+        Float32 vm2 = new Float32("", -2.0F);
+        Float32 vh1 = new Float32("", 8388606.0F);
+        Float32 vh2 = new Float32("", 8388607.0F);
+        Float32 vh3 = new Float32("", 8388608.0F);
+        Float32 vh4 = new Float32("", 8388609.0F);
 
         assertEquals(msg1, 0x0000000000000000L, vz0.longValue());
         assertEquals(msg1, 0x0000000000000001L, vp1.longValue());
@@ -176,15 +176,15 @@ public class FloatTest {
     @Test
     public final void testFloat32FloatValue() {
         String msg1 = "Float32.floatValue() failed.";
-        Float32 vz0 = new Float32(0.0F);
-        Float32 vp1 = new Float32(1.0F);
-        Float32 vp2 = new Float32(2.0F);
-        Float32 vm1 = new Float32(-1.0F);
-        Float32 vm2 = new Float32(-2.0F);
-        Float32 vh1 = new Float32(8388606.0F);
-        Float32 vh2 = new Float32(8388607.0F);
-        Float32 vh3 = new Float32(8388608.0F);
-        Float32 vh4 = new Float32(8388609.0F);
+        Float32 vz0 = new Float32("", 0.0F);
+        Float32 vp1 = new Float32("", 1.0F);
+        Float32 vp2 = new Float32("", 2.0F);
+        Float32 vm1 = new Float32("", -1.0F);
+        Float32 vm2 = new Float32("", -2.0F);
+        Float32 vh1 = new Float32("", 8388606.0F);
+        Float32 vh2 = new Float32("", 8388607.0F);
+        Float32 vh3 = new Float32("", 8388608.0F);
+        Float32 vh4 = new Float32("", 8388609.0F);
 
         assertTrue(msg1,       0.0F <= vz0.floatValue());
         assertTrue(msg1,       1.0F <= vp1.floatValue());
@@ -200,15 +200,15 @@ public class FloatTest {
     @Test
     public final void testFloat32DoubleValue() {
         String msg1 = "Float32.doubleValue() failed.";
-        Float32 vz0 = new Float32(0.0F);
-        Float32 vp1 = new Float32(1.0F);
-        Float32 vp2 = new Float32(2.0F);
-        Float32 vm1 = new Float32(-1.0F);
-        Float32 vm2 = new Float32(-2.0F);
-        Float32 vh1 = new Float32(8388606.0F);
-        Float32 vh2 = new Float32(8388607.0F);
-        Float32 vh3 = new Float32(8388608.0F);
-        Float32 vh4 = new Float32(8388609.0F);
+        Float32 vz0 = new Float32("", 0.0F);
+        Float32 vp1 = new Float32("", 1.0F);
+        Float32 vp2 = new Float32("", 2.0F);
+        Float32 vm1 = new Float32("", -1.0F);
+        Float32 vm2 = new Float32("", -2.0F);
+        Float32 vh1 = new Float32("", 8388606.0F);
+        Float32 vh2 = new Float32("", 8388607.0F);
+        Float32 vh3 = new Float32("", 8388608.0F);
+        Float32 vh4 = new Float32("", 8388609.0F);
 
         assertTrue(msg1,       0.0D <= vz0.doubleValue());
         assertTrue(msg1,       1.0D <= vp1.doubleValue());
@@ -224,15 +224,15 @@ public class FloatTest {
     @Test
     public final void testFloat32ToString() {
         String msg1 = "Float32.toString() failed.";
-        Float32 vz0 = new Float32(0.0F);
-        Float32 vp1 = new Float32(1.0F);
-        Float32 vp2 = new Float32(2.0F);
-        Float32 vm1 = new Float32(-1.0F);
-        Float32 vm2 = new Float32(-2.0F);
-        Float32 vh1 = new Float32(8388606.0F);
-        Float32 vh2 = new Float32(8388607.0F);
-        Float32 vh3 = new Float32(8388608.0F);
-        Float32 vh4 = new Float32(8388609.0F);
+        Float32 vz0 = new Float32("", 0.0F);
+        Float32 vp1 = new Float32("", 1.0F);
+        Float32 vp2 = new Float32("", 2.0F);
+        Float32 vm1 = new Float32("", -1.0F);
+        Float32 vm2 = new Float32("", -2.0F);
+        Float32 vh1 = new Float32("", 8388606.0F);
+        Float32 vh2 = new Float32("", 8388607.0F);
+        Float32 vh3 = new Float32("", 8388608.0F);
+        Float32 vh4 = new Float32("", 8388609.0F);
 
         assertEquals(msg1,       "0.0", vz0.toString());
         assertEquals(msg1,       "1.0", vp1.toString());
@@ -250,7 +250,7 @@ public class FloatTest {
         String msg1 = "Float64(long, long, int) failed.";
         String msg2 = "Float64(long, long, int) illegal arguments check failed.";
         LargeBitList la = new MemoryBitList(64);
-        Float64 va = new Float64(la, 2, 3);
+        Float64 va = new Float64("", la, 2, 3);
 
         assertEquals(msg1, 0, va.getRaw());
         assertEquals(msg1, 2, va.getSourceStart());
@@ -262,7 +262,7 @@ public class FloatTest {
         String msg1 = "Float64(Float64) failed.";
         String msg2 = "Float64.clone() failed.";
         LargeBitList la = new MemoryBitList(64);
-        Float64 va = new Float64(la, 2, 3);
+        Float64 va = new Float64("", la, 2, 3);
         Float64 vb = new Float64(va);
 
         assertEquals(msg1, va.getRaw(), vb.getRaw());
@@ -297,15 +297,15 @@ public class FloatTest {
     @Test
     public final void testFloat64ByteValue() {
         String msg1 = "Float64.byteValue() failed.";
-        Float64 vz0 = new Float64(0.0D);
-        Float64 vp1 = new Float64(1.0D);
-        Float64 vp2 = new Float64(2.0D);
-        Float64 vm1 = new Float64(-1.0D);
-        Float64 vm2 = new Float64(-2.0D);
-        Float64 vh1 = new Float64(4503599627370494.0D);
-        Float64 vh2 = new Float64(4503599627370495.0D);
-        Float64 vh3 = new Float64(4503599627370496.0D);
-        Float64 vh4 = new Float64(4503599627370497.0D);
+        Float64 vz0 = new Float64("", 0.0D);
+        Float64 vp1 = new Float64("", 1.0D);
+        Float64 vp2 = new Float64("", 2.0D);
+        Float64 vm1 = new Float64("", -1.0D);
+        Float64 vm2 = new Float64("", -2.0D);
+        Float64 vh1 = new Float64("", 4503599627370494.0D);
+        Float64 vh2 = new Float64("", 4503599627370495.0D);
+        Float64 vh3 = new Float64("", 4503599627370496.0D);
+        Float64 vh4 = new Float64("", 4503599627370497.0D);
 
         assertEquals(msg1, (byte)0x00, vz0.byteValue());
         assertEquals(msg1, (byte)0x01, vp1.byteValue());
@@ -321,15 +321,15 @@ public class FloatTest {
     @Test
     public final void testFloat64ShortValue() {
         String msg1 = "Float64.shortValue() failed.";
-        Float64 vz0 = new Float64(0.0D);
-        Float64 vp1 = new Float64(1.0D);
-        Float64 vp2 = new Float64(2.0D);
-        Float64 vm1 = new Float64(-1.0D);
-        Float64 vm2 = new Float64(-2.0D);
-        Float64 vh1 = new Float64(4503599627370494.0D);
-        Float64 vh2 = new Float64(4503599627370495.0D);
-        Float64 vh3 = new Float64(4503599627370496.0D);
-        Float64 vh4 = new Float64(4503599627370497.0D);
+        Float64 vz0 = new Float64("", 0.0D);
+        Float64 vp1 = new Float64("", 1.0D);
+        Float64 vp2 = new Float64("", 2.0D);
+        Float64 vm1 = new Float64("", -1.0D);
+        Float64 vm2 = new Float64("", -2.0D);
+        Float64 vh1 = new Float64("", 4503599627370494.0D);
+        Float64 vh2 = new Float64("", 4503599627370495.0D);
+        Float64 vh3 = new Float64("", 4503599627370496.0D);
+        Float64 vh4 = new Float64("", 4503599627370497.0D);
 
         assertEquals(msg1, (short)0x0000, vz0.shortValue());
         assertEquals(msg1, (short)0x0001, vp1.shortValue());
@@ -345,15 +345,15 @@ public class FloatTest {
     @Test
     public final void testFloat64IntValue() {
         String msg1 = "Float64.intValue() failed.";
-        Float64 vz0 = new Float64(0.0D);
-        Float64 vp1 = new Float64(1.0D);
-        Float64 vp2 = new Float64(2.0D);
-        Float64 vm1 = new Float64(-1.0D);
-        Float64 vm2 = new Float64(-2.0D);
-        Float64 vh1 = new Float64(4503599627370494.0D);
-        Float64 vh2 = new Float64(4503599627370495.0D);
-        Float64 vh3 = new Float64(4503599627370496.0D);
-        Float64 vh4 = new Float64(4503599627370497.0D);
+        Float64 vz0 = new Float64("", 0.0D);
+        Float64 vp1 = new Float64("", 1.0D);
+        Float64 vp2 = new Float64("", 2.0D);
+        Float64 vm1 = new Float64("", -1.0D);
+        Float64 vm2 = new Float64("", -2.0D);
+        Float64 vh1 = new Float64("", 4503599627370494.0D);
+        Float64 vh2 = new Float64("", 4503599627370495.0D);
+        Float64 vh3 = new Float64("", 4503599627370496.0D);
+        Float64 vh4 = new Float64("", 4503599627370497.0D);
 
         assertEquals(msg1, 0x00000000, vz0.intValue());
         assertEquals(msg1, 0x00000001, vp1.intValue());
@@ -375,15 +375,15 @@ public class FloatTest {
     @Test
     public final void testFloat64LongValue() {
         String msg1 = "Float64.longValue() failed.";
-        Float64 vz0 = new Float64(0.0D);
-        Float64 vp1 = new Float64(1.0D);
-        Float64 vp2 = new Float64(2.0D);
-        Float64 vm1 = new Float64(-1.0D);
-        Float64 vm2 = new Float64(-2.0D);
-        Float64 vh1 = new Float64(4503599627370494.0D);
-        Float64 vh2 = new Float64(4503599627370495.0D);
-        Float64 vh3 = new Float64(4503599627370496.0D);
-        Float64 vh4 = new Float64(4503599627370497.0D);
+        Float64 vz0 = new Float64("", 0.0D);
+        Float64 vp1 = new Float64("", 1.0D);
+        Float64 vp2 = new Float64("", 2.0D);
+        Float64 vm1 = new Float64("", -1.0D);
+        Float64 vm2 = new Float64("", -2.0D);
+        Float64 vh1 = new Float64("", 4503599627370494.0D);
+        Float64 vh2 = new Float64("", 4503599627370495.0D);
+        Float64 vh3 = new Float64("", 4503599627370496.0D);
+        Float64 vh4 = new Float64("", 4503599627370497.0D);
 
         assertEquals(msg1, 0x0000000000000000L, vz0.longValue());
         assertEquals(msg1, 0x0000000000000001L, vp1.longValue());
@@ -399,15 +399,15 @@ public class FloatTest {
     @Test
     public final void testFloat64FloatValue() {
         String msg1 = "Float64.floatValue() failed.";
-        Float64 vz0 = new Float64(0.0D);
-        Float64 vp1 = new Float64(1.0D);
-        Float64 vp2 = new Float64(2.0D);
-        Float64 vm1 = new Float64(-1.0D);
-        Float64 vm2 = new Float64(-2.0D);
-        Float64 vh1 = new Float64(4503599627370494.0D);
-        Float64 vh2 = new Float64(4503599627370495.0D);
-        Float64 vh3 = new Float64(4503599627370496.0D);
-        Float64 vh4 = new Float64(4503599627370497.0D);
+        Float64 vz0 = new Float64("", 0.0D);
+        Float64 vp1 = new Float64("", 1.0D);
+        Float64 vp2 = new Float64("", 2.0D);
+        Float64 vm1 = new Float64("", -1.0D);
+        Float64 vm2 = new Float64("", -2.0D);
+        Float64 vh1 = new Float64("", 4503599627370494.0D);
+        Float64 vh2 = new Float64("", 4503599627370495.0D);
+        Float64 vh3 = new Float64("", 4503599627370496.0D);
+        Float64 vh4 = new Float64("", 4503599627370497.0D);
 
         assertTrue(msg1,                0.0F <= vz0.floatValue());
         assertTrue(msg1,                1.0F <= vp1.floatValue());
@@ -423,15 +423,15 @@ public class FloatTest {
     @Test
     public final void testFloat64DoubleValue() {
         String msg1 = "Float64.doubleValue() failed.";
-        Float64 vz0 = new Float64(0.0D);
-        Float64 vp1 = new Float64(1.0D);
-        Float64 vp2 = new Float64(2.0D);
-        Float64 vm1 = new Float64(-1.0D);
-        Float64 vm2 = new Float64(-2.0D);
-        Float64 vh1 = new Float64(4503599627370494.0D);
-        Float64 vh2 = new Float64(4503599627370495.0D);
-        Float64 vh3 = new Float64(4503599627370496.0D);
-        Float64 vh4 = new Float64(4503599627370497.0D);
+        Float64 vz0 = new Float64("", 0.0D);
+        Float64 vp1 = new Float64("", 1.0D);
+        Float64 vp2 = new Float64("", 2.0D);
+        Float64 vm1 = new Float64("", -1.0D);
+        Float64 vm2 = new Float64("", -2.0D);
+        Float64 vh1 = new Float64("", 4503599627370494.0D);
+        Float64 vh2 = new Float64("", 4503599627370495.0D);
+        Float64 vh3 = new Float64("", 4503599627370496.0D);
+        Float64 vh4 = new Float64("", 4503599627370497.0D);
 
         assertTrue(msg1,                0.0D <= vz0.doubleValue());
         assertTrue(msg1,                1.0D <= vp1.doubleValue());
@@ -447,15 +447,15 @@ public class FloatTest {
     @Test
     public final void testFloat64ToString() {
         String msg1 = "Float64.toString() failed.";
-        Float64 vz0 = new Float64(0.0D);
-        Float64 vp1 = new Float64(1.0D);
-        Float64 vp2 = new Float64(2.0D);
-        Float64 vm1 = new Float64(-1.0D);
-        Float64 vm2 = new Float64(-2.0D);
-        Float64 vh1 = new Float64(4503599627370494.0D);
-        Float64 vh2 = new Float64(4503599627370495.0D);
-        Float64 vh3 = new Float64(4503599627370496.0D);
-        Float64 vh4 = new Float64(4503599627370497.0D);
+        Float64 vz0 = new Float64("", 0.0D);
+        Float64 vp1 = new Float64("", 1.0D);
+        Float64 vp2 = new Float64("", 2.0D);
+        Float64 vm1 = new Float64("", -1.0D);
+        Float64 vm2 = new Float64("", -2.0D);
+        Float64 vh1 = new Float64("", 4503599627370494.0D);
+        Float64 vh2 = new Float64("", 4503599627370495.0D);
+        Float64 vh3 = new Float64("", 4503599627370496.0D);
+        Float64 vh4 = new Float64("", 4503599627370497.0D);
 
         assertEquals(msg1,                  "0.0", vz0.toString());
         assertEquals(msg1,                  "1.0", vp1.toString());
