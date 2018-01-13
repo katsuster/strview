@@ -49,8 +49,8 @@ public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
     }
 
     @Override
-    public void writeSInt(int nbit, SInt val, String name) {
-        writeSInt(nbit, val, name, null);
+    public void writeSInt(int nbit, SInt val, String desc) {
+        writeSInt(nbit, val, val.getName(), desc);
     }
 
     @Override
@@ -66,8 +66,8 @@ public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
     }
 
     @Override
-    public void writeUInt(int nbit, UInt val, String name) {
-        writeUInt(nbit, val, name, null);
+    public void writeUInt(int nbit, UInt val, String desc) {
+        writeUInt(nbit, val, val.getName(), desc);
     }
 
     @Override
@@ -83,8 +83,8 @@ public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
     }
 
     @Override
-    public void writeSIntR(int nbit, SIntR val, String name) {
-        writeSIntR(nbit, val, name, null);
+    public void writeSIntR(int nbit, SIntR val, String desc) {
+        writeSIntR(nbit, val, val.getName(), desc);
     }
 
     @Override
@@ -100,8 +100,8 @@ public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
     }
 
     @Override
-    public void writeUIntR(int nbit, UIntR val, String name) {
-        writeUIntR(nbit, val, name, null);
+    public void writeUIntR(int nbit, UIntR val, String desc) {
+        writeUIntR(nbit, val, val.getName(), desc);
     }
 
     @Override
@@ -117,8 +117,8 @@ public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
     }
 
     @Override
-    public void writeFloat32(int nbit, Float32 val, String name) {
-        writeFloat32(nbit, val, name, null);
+    public void writeFloat32(int nbit, Float32 val, String desc) {
+        writeFloat32(nbit, val, val.getName(), desc);
     }
 
     @Override
@@ -134,8 +134,8 @@ public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
     }
 
     @Override
-    public void writeFloat64(int nbit, Float64 val, String name) {
-        writeFloat64(nbit, val, name, null);
+    public void writeFloat64(int nbit, Float64 val, String desc) {
+        writeFloat64(nbit, val, val.getName(), desc);
     }
 
     @Override
@@ -151,7 +151,7 @@ public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
     }
 
     @Override
-    public void writeBitList(long nbit, LargeBitList val, String name) {
-        writeBitList(nbit, val, name, null);
+    public void writeBitList(long nbit, LargeBitList val, String desc) {
+        writeBitList(nbit, val, val.getName(), desc);
     }
 }

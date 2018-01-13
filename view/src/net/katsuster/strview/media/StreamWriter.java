@@ -97,10 +97,10 @@ public interface StreamWriter<T> extends StreamConverter<T> {
      *
      * @param nbit 変換対象のサイズ（ビット単位）
      * @param val  変換対象の符号付き数値オブジェクト
-     * @param name 変換対象の名前
+     * @param desc 変換対象の符号無し数値の意味、説明など
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void writeSInt(int nbit, SInt val, String name);
+    public void writeSInt(int nbit, SInt val, String desc);
 
     /**
      * <p>
@@ -145,10 +145,10 @@ public interface StreamWriter<T> extends StreamConverter<T> {
      *
      * @param nbit 変換対象のサイズ（ビット単位）
      * @param val  変換対象の符号無し数値オブジェクト
-     * @param name 変換対象の名前
+     * @param desc 変換対象の符号無し数値の意味、説明など
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void writeUInt(int nbit, UInt val, String name);
+    public void writeUInt(int nbit, UInt val, String desc);
 
     /**
      * <p>
@@ -208,10 +208,10 @@ public interface StreamWriter<T> extends StreamConverter<T> {
      *
      * @param nbit 変換対象のサイズ（ビット単位）
      * @param val  変換対象の符号付き数値オブジェクト
-     * @param name 変換対象の名前
+     * @param desc 変換対象の符号無し数値の意味、説明など
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void writeSIntR(int nbit, SIntR val, String name);
+    public void writeSIntR(int nbit, SIntR val, String desc);
 
     /**
      * <p>
@@ -276,10 +276,10 @@ public interface StreamWriter<T> extends StreamConverter<T> {
      *
      * @param nbit 変換対象のサイズ（ビット単位）
      * @param val  変換対象の符号無し数値オブジェクト
-     * @param name 変換対象の名前
+     * @param desc 変換対象の符号無し数値の意味、説明など
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void writeUIntR(int nbit, UIntR val, String name);
+    public void writeUIntR(int nbit, UIntR val, String desc);
 
     /**
      * <p>
@@ -329,10 +329,10 @@ public interface StreamWriter<T> extends StreamConverter<T> {
      *
      * @param nbit 変換対象のサイズ（ビット単位）
      * @param val  変換対象の浮動小数値オブジェクト
-     * @param name 変換対象の名前
+     * @param desc 変換対象の符号無し数値の意味、説明など
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void writeFloat32(int nbit, Float32 val, String name);
+    public void writeFloat32(int nbit, Float32 val, String desc);
 
     /**
      * <p>
@@ -377,10 +377,10 @@ public interface StreamWriter<T> extends StreamConverter<T> {
      *
      * @param nbit 変換対象のサイズ（ビット単位）
      * @param val  変換対象の浮動小数値オブジェクト
-     * @param name 変換対象の名前
+     * @param desc 変換対象の符号無し数値の意味、説明など
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void writeFloat64(int nbit, Float64 val, String name);
+    public void writeFloat64(int nbit, Float64 val, String desc);
 
     /**
      * <p>
@@ -425,10 +425,10 @@ public interface StreamWriter<T> extends StreamConverter<T> {
      *
      * @param nbit 変換対象のサイズ（ビット単位）
      * @param val  変換対象のビットリスト
-     * @param name 変換対象の名前
+     * @param desc 変換対象のビットリストの意味、説明など
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
-    public void writeBitList(long nbit, LargeBitList val, String name);
+    public void writeBitList(long nbit, LargeBitList val, String desc);
 
     /**
      * <p>

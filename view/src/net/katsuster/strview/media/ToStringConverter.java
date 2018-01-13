@@ -51,31 +51,31 @@ public class ToStringConverter extends StreamWriterAdapter<StringBuilder> {
     @Override
     public void writeSIntR(int nbit, SIntR val, String name, String desc) {
         sb.append(NumFormatter.numToDecHexCaption(
-                name, val, desc));
+                val.getName(), val, desc));
     }
 
     @Override
     public void writeUIntR(int nbit, UIntR val, String name, String desc) {
         sb.append(NumFormatter.numToDecHexCaption(
-                name, val, desc));
+                val.getName(), val, desc));
     }
 
     @Override
     public void writeFloat32(int nbit, Float32 val, String name, String desc) {
         sb.append(NumFormatter.numToDecHexCaption(
-                name, val, desc));
+                val.getName(), val, desc));
     }
 
     @Override
     public void writeFloat64(int nbit, Float64 val, String name, String desc) {
         sb.append(NumFormatter.numToDecHexCaption(
-                name, val, desc));
+                val.getName(), val, desc));
     }
 
     @Override
     public void writeBitList(long nbit, LargeBitList val, String name, String desc) {
         sb.append(NumFormatter.bitListToHexCaption(
-                name, val, desc));
+                val.getName(), val, desc));
     }
 
     @Override

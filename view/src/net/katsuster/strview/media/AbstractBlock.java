@@ -227,6 +227,17 @@ public abstract class AbstractBlock<T extends LargeList<?>>
      * 値が負の値だった場合、例外をスローします。
      * </p>
      *
+     * @param v    値
+     */
+    protected static void checkNegative(Num v) {
+        checkNegative(v.getName(), v);
+    }
+
+    /**
+     * <p>
+     * 値が負の値だった場合、例外をスローします。
+     * </p>
+     *
      * @param name 名前
      * @param v    値
      */

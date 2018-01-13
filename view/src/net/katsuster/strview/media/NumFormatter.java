@@ -11,6 +11,7 @@ public class NumFormatter {
     public static final String FORMAT_ADDRESS = "%6x.%d-%6x.%d" + ": ";
     public static final String FORMAT_ADDRESS_EMPTY = "                 " + "  ";
     public static final String FORMAT_NAME    = "%-32s" + ": ";
+    public static final String FORMAT_TYPE    = "%-10s" + ": ";
     public static final String FORMAT_INDENT  = "  ";
 
     protected NumFormatter() {
@@ -65,15 +66,15 @@ public class NumFormatter {
         return Integer.toString(((int)(v.length() - 1) >> 2) + 1);
     }
 
-    protected static String addressAndName(Range r, String name) {
+    protected static String addressAndName(Range r, String type, String name) {
         if (r == null || r.getLength() == 0) {
-            return String.format(FORMAT_ADDRESS_EMPTY + FORMAT_NAME,
-                    name);
+            return String.format(FORMAT_ADDRESS_EMPTY + FORMAT_NAME + FORMAT_TYPE,
+                    name, type);
         } else {
-            return String.format(FORMAT_ADDRESS + FORMAT_NAME,
+            return String.format(FORMAT_ADDRESS + FORMAT_NAME + FORMAT_TYPE,
                     r.getStart() >>> 3, r.getStart() & 7,
                     (r.getEnd() - 1) >>> 3, (r.getEnd() - 1) & 7,
-                    name);
+                    name, type);
         }
     }
 
@@ -82,7 +83,8 @@ public class NumFormatter {
         StringBuilder sb = new StringBuilder();
 
         //TODO: 参照先が非連続の場合の対応
-        sb.append(addressAndName(new SimpleRange(v.getSourceStart(), v.length()), name));
+        sb.append(addressAndName(new SimpleRange(v.getSourceStart(), v.length()),
+                v.getTypeName(), name));
         sb.append(String.format("0x%0" + digits + "x(0x%0" + digits + "x, %s)",
                 v.getRaw(), v.getValue(), v.toString()));
         if (caption == null) {
@@ -97,7 +99,7 @@ public class NumFormatter {
     public static String longToDecHexCaption(String name, long v, String caption) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(addressAndName(null, name));
+        sb.append(addressAndName(null, "long", name));
         sb.append(String.format("0x%x(%d)", v, v));
         if (caption == null) {
             sb.append("\n");
@@ -111,7 +113,7 @@ public class NumFormatter {
     public static String doubleToDecHexCaption(String name, double v, String caption) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(addressAndName(null, name));
+        sb.append(addressAndName(null, "double", name));
         sb.append(String.format("%f", v));
         if (caption == null) {
             sb.append("\n");
@@ -125,7 +127,7 @@ public class NumFormatter {
     public static String stringToDecHexCaption(String name, String v, String caption) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(addressAndName(null, name));
+        sb.append(addressAndName(null, "String", name));
         sb.append(String.format("'%s'", v));
         if (caption == null) {
             sb.append("\n");
@@ -161,7 +163,8 @@ public class NumFormatter {
         len_byte = len_bit >>> 3;
         len_show = Math.min(len_byte, 32);
 
-        sb.append(addressAndName(new SimpleRange(pos, len_bit), name));
+        sb.append(addressAndName(new SimpleRange(pos, len_bit),
+                v.getTypeName(), name));
         if (caption == null) {
             sb.append(String.format("%d[bytes]\n",
                     len_byte));
@@ -198,62 +201,4 @@ public class NumFormatter {
 
         return sb.toString();
     }
-
-    /*public static String byteListToHex(String name, LargeByteList v) {
-        return byteListToHexCaption(name, v, null);
-    }*/
-
-    /*public static String byteListToHexCaption(String name, LargeByteList v,
-                                              String caption) {
-        StringBuilder sb = new StringBuilder();
-        long i, t, w = 16;
-        long pos, len_bit, len_byte, len_show;
-
-        if (v == null) {
-            pos = 0;
-            len_bit = 0;
-        } else {
-            pos = v.getRange().getStart();
-            len_bit = v.getRange().getLength() << 3;
-        }
-        len_byte = len_bit >>> 3;
-        len_show = Math.min(len_byte, 32);
-
-        sb.append(addressAndName(new SimpleRange(pos, len_bit), name));
-        if (caption == null) {
-            sb.append(String.format("%d[bytes]\n",
-                    len_byte));
-        } else {
-            sb.append(String.format("%d[bytes](%s)\n",
-                    len_byte, caption));
-        }
-
-        if (len_show == 0) {
-            sb.append(FORMAT_INDENT);
-            sb.append("(empty)\n");
-        }
-
-        i = 0;
-        while (i < len_show) {
-            sb.append(FORMAT_INDENT);
-            sb.append(String.format("%04x: ", i));
-
-            t = Math.min(i + w, len_show);
-            for (; i < t; i++) {
-                if (isCenter(i, 8, w)) {
-                    sb.append(String.format("%02x-", v.get(i)));
-                } else {
-                    sb.append(String.format("%02x ", v.get(i)));
-                }
-            }
-
-            sb.append("\n");
-        }
-        if (len_byte != len_show) {
-            sb.append(FORMAT_INDENT);
-            sb.append("...\n");
-        }
-
-        return sb.toString();
-    }*/
 }
