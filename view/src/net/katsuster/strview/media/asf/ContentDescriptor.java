@@ -16,7 +16,8 @@ import net.katsuster.strview.media.*;
  * <li>Advanced Systems Format (ASF) Specification: Revision 01.20.06</li>
  * </ul>
  */
-public class ContentDescriptor extends BlockAdapter
+public class ContentDescriptor<T extends LargeList<?>>
+        extends BlockAdapter<T>
         implements Cloneable {
     public UIntR descriptor_name_length;
     public LargeBitList descriptor_name;

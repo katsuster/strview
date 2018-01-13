@@ -20,20 +20,21 @@ import net.katsuster.strview.media.m2v.M2VConsts.*;
  * associated audio information: Video</li>
  * </ul>
  */
-public class M2VHeaderExtPictureDisplay extends M2VHeaderExt
+public class M2VHeaderExtPictureDisplay<T extends LargeList<?>>
+        extends M2VHeaderExt<T>
         implements Cloneable {
     public SInt[] frame_centre_horizontal_offset;
     public UInt[] marker_bit0;
     public SInt[] frame_centre_vertical_offset;
     public UInt[] marker_bit1;
 
-    private Map.Entry<Long, M2VHeaderExtSequence> entEseq;
-    private M2VHeaderExtSequence eseq;
-    private Map.Entry<Long, M2VHeaderExtPictureCoding> entEpic;
-    private M2VHeaderExtPictureCoding epic;
+    private Map.Entry<Long, M2VHeaderExtSequence<T>> entEseq;
+    private M2VHeaderExtSequence<T> eseq;
+    private Map.Entry<Long, M2VHeaderExtPictureCoding<T>> entEpic;
+    private M2VHeaderExtPictureCoding<T> epic;
 
-    public M2VHeaderExtPictureDisplay(Map.Entry<Long, M2VHeaderExtSequence> es,
-                                      Map.Entry<Long, M2VHeaderExtPictureCoding> epc) {
+    public M2VHeaderExtPictureDisplay(Map.Entry<Long, M2VHeaderExtSequence<T>> es,
+                                      Map.Entry<Long, M2VHeaderExtPictureCoding<T>> epc) {
         frame_centre_horizontal_offset = new SInt[4];
         marker_bit0 = new UInt[4];
         frame_centre_vertical_offset = new SInt[4];
@@ -60,7 +61,7 @@ public class M2VHeaderExtPictureDisplay extends M2VHeaderExt
     @Override
     public M2VHeaderExtPictureDisplay clone()
             throws CloneNotSupportedException {
-        M2VHeaderExtPictureDisplay obj = (M2VHeaderExtPictureDisplay) super.clone();
+        M2VHeaderExtPictureDisplay<T> obj = (M2VHeaderExtPictureDisplay<T>) super.clone();
 
         obj.frame_centre_horizontal_offset = frame_centre_horizontal_offset.clone();
         obj.marker_bit0 = marker_bit0.clone();

@@ -3,13 +3,15 @@ package net.katsuster.strview.media.flv;
 import java.util.*;
 
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.util.*;
 
 /**
  * <p>
  * SCRIPTDATAOBJECT
  * </p>
  */
-public class FLVScriptDataObject extends FLVScriptData
+public class FLVScriptDataObject<T extends LargeList<?>>
+        extends FLVScriptData<T>
         implements Cloneable {
     public List<FLVScriptDataObjectProperty> object_properties;
     //SCRIPTDATAOBJECT が Script タグの終端にある場合、省略されることがある

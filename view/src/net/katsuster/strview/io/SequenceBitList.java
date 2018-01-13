@@ -10,7 +10,7 @@ import net.katsuster.strview.util.*;
  * </p>
  */
 public class SequenceBitList extends AbstractLargeBitList {
-    private List<Range> l;
+    private List<Range<LargeBitList>> l;
 
     public SequenceBitList() {
         super(0);
@@ -22,7 +22,7 @@ public class SequenceBitList extends AbstractLargeBitList {
     public long length() {
         long sum = 0;
 
-        for (Range r : l) {
+        for (Range<LargeBitList> r : l) {
             sum += r.getLength();
         }
 
@@ -33,7 +33,7 @@ public class SequenceBitList extends AbstractLargeBitList {
     protected Boolean getInner(long index) {
         long st = 0;
 
-        for (Range r : l) {
+        for (Range<LargeBitList> r : l) {
             if (st <= index && index < st + r.getLength()) {
                 return r.getBuffer().get(index - st);
             }
@@ -48,7 +48,7 @@ public class SequenceBitList extends AbstractLargeBitList {
     protected void setInner(long index, Boolean data) {
         long st = 0;
 
-        for (Range r : l) {
+        for (Range<LargeBitList> r : l) {
             if (st <= index && index < st + r.getLength()) {
                 r.getBuffer().set(index - st, data);
                 return;
@@ -60,7 +60,7 @@ public class SequenceBitList extends AbstractLargeBitList {
         throw new IndexOutOfBoundsException("index(" + index + ").");
     }
 
-    public boolean add(Range r) {
+    public boolean add(Range<LargeBitList> r) {
         if (r == null) {
             throw new IllegalArgumentException("range is null.");
         }

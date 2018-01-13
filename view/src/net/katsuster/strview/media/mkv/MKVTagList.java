@@ -32,7 +32,8 @@ import net.katsuster.strview.media.*;
  * ナノ秒で表した符号付き整数を含むタグ。</dd>
  * </dl>
  */
-public class MKVTagList extends AbstractPacketList<MKVTag> {
+public class MKVTagList<T extends LargeList<?>>
+        extends AbstractPacketList<MKVTag<T>, T> {
     private LargeBitList buf;
 
     public MKVTagList() {
@@ -58,10 +59,10 @@ public class MKVTagList extends AbstractPacketList<MKVTag> {
     }
 
     @Override
-    protected MKVTag readNextInner(StreamReader<?> c, PacketRange pr) {
-        MKVHeader tagh = createHeader(c, pr);
+    protected MKVTag<T> readNextInner(StreamReader<?> c, PacketRange<T> pr) {
+        MKVHeader<T> tagh = createHeader(c, pr);
 
-        MKVTag packet = new MKVTag(tagh);
+        MKVTag<T> packet = new MKVTag<>(tagh);
         packet.setRange(pr);
         packet.read(c);
 
@@ -69,24 +70,24 @@ public class MKVTagList extends AbstractPacketList<MKVTag> {
     }
 
     @Override
-    protected MKVTag getInner(long index) {
+    protected MKVTag<T> getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
         seek(c, index);
 
-        return (MKVTag)readNext(c, index);
+        return (MKVTag<T>)readNext(c, index);
     }
 
     @Override
-    protected void setInner(long index, MKVTag data) {
+    protected void setInner(long index, MKVTag<T> data) {
         //TODO: not implemented yet
     }
 
-    protected MKVHeader createHeader(StreamReader<?> c, PacketRange pr) {
-        MKVHeader tmph = new MKVHeader();
+    protected MKVHeader createHeader(StreamReader<?> c, PacketRange<T> pr) {
+        MKVHeader<T> tmph = new MKVHeader<>();
         tmph.peek(c);
 
-        MKVHeader tagh = MKVConsts.mkvFactory.createPacketHeader(
+        MKVHeader<T> tagh = MKVConsts.mkvFactory.createPacketHeader(
                 (int)tmph.tag_id.getValue());
         if (tagh == null) {
             //タグの仕様定義にあるデータ型から類推する

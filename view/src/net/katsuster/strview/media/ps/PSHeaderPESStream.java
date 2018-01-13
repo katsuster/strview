@@ -17,7 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Systems</li>
  * </ul>
  */
-public class PSHeaderPESStream extends PSHeaderPES
+public class PSHeaderPESStream<T extends LargeList<?>>
+        extends PSHeaderPES<T>
         implements Cloneable {
     //pes_stream
 

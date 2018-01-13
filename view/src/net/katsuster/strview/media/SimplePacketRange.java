@@ -9,8 +9,9 @@ import net.katsuster.strview.util.*;
  * パケットの位置。
  * </p>
  */
-public class SimplePacketRange extends SimpleRange
-        implements PacketRange {
+public class SimplePacketRange<T extends LargeList<?>>
+        extends SimpleRange<T>
+        implements PacketRange<T> {
     //パケットの通し番号
     private long number;
     //パケットのヘッダの長さ（ビット単位）
@@ -21,9 +22,9 @@ public class SimplePacketRange extends SimpleRange
     private boolean f_recursive;
 
     //パケットの親
-    private PacketRange parent;
+    private PacketRange<T> parent;
     //パケットの子供
-    private List<PacketRange> children;
+    private List<PacketRange<T>> children;
 
     /**
      * <p>
@@ -62,7 +63,7 @@ public class SimplePacketRange extends SimpleRange
      * @param len_f パケットフッタのサイズ
      * @param pp 親パケット
      */
-    public SimplePacketRange(long num, long addr, long len_h, long len_b, long len_f, PacketRange pp) {
+    public SimplePacketRange(long num, long addr, long len_h, long len_b, long len_f, PacketRange<T> pp) {
         super(addr, len_h + len_b + len_f);
 
         number = num;
@@ -79,7 +80,7 @@ public class SimplePacketRange extends SimpleRange
      *
      * @param obj パケットの位置
      */
-    public SimplePacketRange(PacketRange obj) {
+    public SimplePacketRange(PacketRange<T> obj) {
         this(obj.getNumber(), obj.getStart(),
                 obj.getHeaderLength(), obj.getBodyLength(), obj.getFooterLength(),
                 obj.getParentNode());
@@ -161,7 +162,7 @@ public class SimplePacketRange extends SimpleRange
     @Override
     public int getLevel() {
         int level;
-        PacketRange p = getParentNode();
+        PacketRange<T> p = getParentNode();
 
         for (level = 0; p != null; level++) {
             p = p.getParentNode();
@@ -171,7 +172,7 @@ public class SimplePacketRange extends SimpleRange
     }
 
     @Override
-    public PacketRange appendChild(PacketRange newChild) {
+    public PacketRange<T> appendChild(PacketRange<T> newChild) {
         if (newChild == null) {
             throw new IllegalArgumentException(
                     "newChild is null.");
@@ -191,7 +192,7 @@ public class SimplePacketRange extends SimpleRange
     }
 
     @Override
-    public PacketRange removeChild(PacketRange oldChild) {
+    public PacketRange<T> removeChild(PacketRange<T> oldChild) {
         boolean result;
 
         if (oldChild == null) {
@@ -210,7 +211,7 @@ public class SimplePacketRange extends SimpleRange
     }
 
     @Override
-    public PacketRange insertBefore(PacketRange newChild, PacketRange refChild) {
+    public PacketRange<T> insertBefore(PacketRange<T> newChild, PacketRange<T> refChild) {
         int index;
 
         if (newChild == null || refChild == null) {
@@ -230,7 +231,7 @@ public class SimplePacketRange extends SimpleRange
     }
 
     @Override
-    public PacketRange replaceChild(PacketRange newChild, PacketRange oldChild) {
+    public PacketRange<T> replaceChild(PacketRange<T> newChild, PacketRange<T> oldChild) {
         int index;
 
         if (newChild == null || oldChild == null) {
@@ -251,12 +252,12 @@ public class SimplePacketRange extends SimpleRange
     }
 
     @Override
-    public PacketRange getParentNode() {
+    public PacketRange<T> getParentNode() {
         return parent;
     }
 
     @Override
-    public void setParentNode(PacketRange p) {
+    public void setParentNode(PacketRange<T> p) {
         if (p == this) {
             return;
         }
@@ -265,8 +266,8 @@ public class SimplePacketRange extends SimpleRange
     }
 
     @Override
-    public PacketRange getPreviousSibling() {
-        List<PacketRange> l;
+    public PacketRange<T> getPreviousSibling() {
+        List<PacketRange<T>> l;
         int index;
 
         if (getParentNode() == null) {
@@ -283,8 +284,8 @@ public class SimplePacketRange extends SimpleRange
     }
 
     @Override
-    public PacketRange getNextSibling() {
-        List<PacketRange> l;
+    public PacketRange<T> getNextSibling() {
+        List<PacketRange<T>> l;
         int index;
 
         if (getParentNode() == null) {
@@ -306,12 +307,12 @@ public class SimplePacketRange extends SimpleRange
     }
 
     @Override
-    public List<PacketRange> getChildNodes() {
+    public List<PacketRange<T>> getChildNodes() {
         return children;
     }
 
     @Override
-    public PacketRange getFirstChild() {
+    public PacketRange<T> getFirstChild() {
         if (children.isEmpty()) {
             return null;
         }
@@ -320,7 +321,7 @@ public class SimplePacketRange extends SimpleRange
     }
 
     @Override
-    public PacketRange getLastChild() {
+    public PacketRange<T> getLastChild() {
         if (children.isEmpty()) {
             return null;
         }
@@ -334,7 +335,7 @@ public class SimplePacketRange extends SimpleRange
     }
 
     @Override
-    public PacketRange getChild(int index) {
+    public PacketRange<T> getChild(int index) {
         return children.get(index);
     }
 

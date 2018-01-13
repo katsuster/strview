@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * MPEG4 Part 2 Visual オブジェクトリスト。
  * </p>
  */
-public class M4VObjectList extends AbstractPacketList<M4VObject> {
+public class M4VObjectList<U extends LargeList<?>>
+        extends AbstractPacketList<M4VObject, U> {
     private LargeBitList buf;
 
     public M4VObjectList() {
@@ -39,10 +40,10 @@ public class M4VObjectList extends AbstractPacketList<M4VObject> {
     }
 
     @Override
-    protected M4VObject readNextInner(StreamReader<?> c, PacketRange pr) {
-        M4VHeader tagh = createHeader(c, pr);
+    protected M4VObject<U> readNextInner(StreamReader<?> c, PacketRange<U> pr) {
+        M4VHeader<U> tagh = createHeader(c, pr);
 
-        M4VObject packet = new M4VObject(tagh);
+        M4VObject<U> packet = new M4VObject<>(tagh);
         packet.setRange(pr);
         packet.read(c);
 
@@ -63,10 +64,10 @@ public class M4VObjectList extends AbstractPacketList<M4VObject> {
         //TODO: not implemented yet
     }
 
-    protected M4VHeader createHeader(StreamReader<?> c, PacketRange pr) {
-        M4VHeader tagh;
+    protected M4VHeader<U> createHeader(StreamReader<?> c, PacketRange<U> pr) {
+        M4VHeader<U> tagh;
 
-        M4VHeader tmph = new M4VHeader();
+        M4VHeader<U> tmph = new M4VHeader<>();
         tmph.peek(c);
 
         tagh = M4VConsts.m4vFactory.createPacketHeader(

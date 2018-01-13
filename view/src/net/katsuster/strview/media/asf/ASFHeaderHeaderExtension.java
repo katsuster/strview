@@ -15,7 +15,8 @@ import net.katsuster.strview.media.*;
  * <li>Advanced Systems Format (ASF) Specification: Revision 01.20.06</li>
  * </ul>
  */
-public class ASFHeaderHeaderExtension extends ASFHeader
+public class ASFHeaderHeaderExtension<T extends LargeList<?>>
+        extends ASFHeader<T>
         implements Cloneable {
     public ASFGUID reserved_field1;
     public UIntR reserved_field2;

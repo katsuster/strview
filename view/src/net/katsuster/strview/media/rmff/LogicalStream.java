@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * LogicalStream Structure
  * </p>
  */
-public class LogicalStream extends BlockAdapter
+public class LogicalStream<T extends LargeList<?>>
+        extends BlockAdapter<T>
         implements Cloneable {
     public UInt size;
     public UInt object_version;

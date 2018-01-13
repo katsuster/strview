@@ -5,6 +5,7 @@ import java.io.*;
 
 import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.util.*;
 
 /**
  * <p>
@@ -12,7 +13,8 @@ import net.katsuster.strview.media.*;
  * ビットリストではないデータからビットリストを生成するテスト用。
  * </p>
  */
-public class SrcPacketList extends AbstractPacketList<SrcPacket> {
+public class SrcPacketList<T extends LargeList<?>>
+        extends AbstractPacketList<SrcPacket<T>, T> {
     private List<File> buf;
 
     public SrcPacketList() {
@@ -46,9 +48,9 @@ public class SrcPacketList extends AbstractPacketList<SrcPacket> {
     }
 
     @Override
-    protected Packet readNextInner(StreamReader<?> c, PacketRange pr) {
+    protected Packet<T> readNextInner(StreamReader<?> c, PacketRange<T> pr) {
         //FIXME: This is not works correctly...
-        SrcPacket packet = new SrcPacket(new SrcHeader(""));
+        SrcPacket<T> packet = new SrcPacket<>(new SrcHeader<>(""));
         packet.setRange(pr);
         packet.read(c);
 
@@ -56,16 +58,16 @@ public class SrcPacketList extends AbstractPacketList<SrcPacket> {
     }
 
     @Override
-    protected SrcPacket getInner(long index) {
+    protected SrcPacket<T> getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(new MemoryBitList(0));
 
         seek(c, index);
 
-        return (SrcPacket)readNext(c, index);
+        return (SrcPacket<T>)readNext(c, index);
     }
 
     @Override
-    protected void setInner(long index, SrcPacket data) {
+    protected void setInner(long index, SrcPacket<T> data) {
         //TODO: not implemented yet
     }
 }

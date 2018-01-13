@@ -17,7 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Systems</li>
  * </ul>
  */
-public class PSHeaderPES extends PSHeader
+public class PSHeaderPES<T extends LargeList<?>>
+        extends PSHeader<T>
         implements Cloneable {
     public UInt pes_packet_length;
 

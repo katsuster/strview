@@ -18,7 +18,8 @@ import net.katsuster.strview.media.*;
  * (https://www.helixcommunity.org/projects/common/2003/HCS_SDK_r5/htmfiles/rmff.htm)</li>
  * </ul>
  */
-public class RMFFHeader extends BlockAdapter
+public class RMFFHeader<T extends LargeList<?>>
+        extends BlockAdapter<T>
         implements Cloneable {
     public UInt object_id;
     public UInt size;

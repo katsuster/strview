@@ -12,7 +12,8 @@ import net.katsuster.strview.media.*;
  * 名前、値のタイプ、値、の 3つで構成される。
  * </p>
  */
-public class NameValueProperty extends BlockAdapter
+public class NameValueProperty<T extends LargeList<?>>
+        extends BlockAdapter<T>
         implements Cloneable {
     public UInt size;
     public UInt object_version;

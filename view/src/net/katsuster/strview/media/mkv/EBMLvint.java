@@ -1,6 +1,7 @@
 package net.katsuster.strview.media.mkv;
 
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.util.*;
 
 /**
  * <p>
@@ -10,7 +11,8 @@ import net.katsuster.strview.media.*;
  * @see EBMLvid
  * @see EBMLvalue
  */
-public abstract class EBMLvint extends BlockAdapter
+public abstract class EBMLvint<T extends LargeList<?>>
+        extends BlockAdapter<T>
         implements Cloneable {
     //可変長整数値の全体サイズ（ビット単位）
     private int size_all;

@@ -17,7 +17,8 @@ import net.katsuster.strview.media.*;
  * <li>MSDN: AVISTREAMHEADER struct</li>
  * </ul>
  */
-public class RIFFHeaderInfo  extends RIFFHeader
+public class RIFFHeaderInfo<T extends LargeList<?>>
+        extends RIFFHeader<T>
         implements Cloneable {
     public LargeBitList strz;
 

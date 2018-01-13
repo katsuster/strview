@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * MDPR チャンクヘッダ。
  * </p>
  */
-public class RMFFHeaderMDPR extends RMFFHeader
+public class RMFFHeaderMDPR<T extends LargeList<?>>
+        extends RMFFHeader<T>
         implements Cloneable {
     public UInt stream_number;
     public UInt max_bit_rate;

@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * 先頭にマーカーのあるパケットヘッダ。
  * </p>
  */
-public class MarkedHeader extends BlockAdapter
+public class MarkedHeader<T extends LargeList<?>>
+        extends BlockAdapter<T>
         implements Cloneable {
     public UInt start_code;
 

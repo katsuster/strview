@@ -15,7 +15,8 @@ import net.katsuster.strview.media.*;
  * <li>MSDN: WAVEFORMATEX struct</li>
  * </ul>
  */
-public class RIFFHeaderFmt extends RIFFHeader
+public class RIFFHeaderFmt<T extends LargeList<?>>
+        extends RIFFHeader<T>
         implements Cloneable {
     public UIntR wFormatTag;
     public UIntR nChannels;

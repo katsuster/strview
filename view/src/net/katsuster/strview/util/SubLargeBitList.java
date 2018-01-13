@@ -8,7 +8,7 @@ package net.katsuster.strview.util;
 public class SubLargeBitList extends AbstractLargeListBase<Boolean>
         implements LargeBitList, Cloneable {
     //ビット列の存在する範囲
-    private Range range;
+    private Range<LargeBitList> range;
 
     public SubLargeBitList() {
         this(null, 0, 0);
@@ -37,7 +37,7 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
                     + ", len:" + len + " is too large.");
         }
 
-        range = new SimpleRange(bits, from, len);
+        range = new SimpleRange<>(bits, from, len);
     }
 
     /**
@@ -47,7 +47,7 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
      *
      * @param r ビット列の存在する範囲
      */
-    public SubLargeBitList(Range r) {
+    public SubLargeBitList(Range<LargeBitList> r) {
         this(r.getBuffer(), r.getStart(), r.getLength());
     }
 
@@ -56,14 +56,14 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
             throws CloneNotSupportedException {
         SubLargeBitList obj = (SubLargeBitList)super.clone();
 
-        obj.range = (Range)range.clone();
+        obj.range = (Range<LargeBitList>)range.clone();
 
         return obj;
     }
 
     @Override
     public Boolean get(long index) {
-        Range r = getRange();
+        Range<LargeBitList> r = getRange();
 
         checkRemaining(index, 1);
 
@@ -72,7 +72,7 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
 
     @Override
     public int get(long index, LargeList<Boolean> dest, int offset, int length) {
-        Range r = getRange();
+        Range<LargeBitList> r = getRange();
 
         checkRemaining(index, length);
 
@@ -81,7 +81,7 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
 
     @Override
     public int get(long index, boolean[] dest, int offset, int length) {
-        Range r = getRange();
+        Range<LargeBitList> r = getRange();
 
         checkRemaining(index, length);
 
@@ -90,7 +90,7 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
 
     @Override
     public int set(long index, boolean[] src, int offset, int length) {
-        Range r = getRange();
+        Range<LargeBitList> r = getRange();
 
         checkRemaining(index, length);
 
@@ -99,7 +99,7 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
 
     @Override
     public void set(long index, Boolean data) {
-        Range r = getRange();
+        Range<LargeBitList> r = getRange();
 
         checkRemaining(index, 1);
 
@@ -108,7 +108,7 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
 
     @Override
     public int set(long index, LargeList<Boolean> src, int offset, int length) {
-        Range r = getRange();
+        Range<LargeBitList> r = getRange();
 
         checkRemaining(index, 1);
 
@@ -117,7 +117,7 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
 
     @Override
     public long getPackedLong(long index, int n) {
-        Range r = getRange();
+        Range<LargeBitList> r = getRange();
 
         checkRemaining(index, n);
 
@@ -126,24 +126,24 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
 
     @Override
     public void getPackedByteArray(long index, byte[] dst, int off, int n) {
-        Range r = getRange();
+        Range<LargeBitList> r = getRange();
 
         checkRemaining(index, n);
 
         r.getBuffer().getPackedByteArray(index + r.getStart(), dst, off, n);
     }
 
-    public static long getPackedLong(Range r) {
+    public static long getPackedLong(Range<LargeBitList> r) {
         return r.getBuffer().getPackedLong(r.getStart(), (int) r.getLength());
     }
 
-    public static void getPackedByteArray(Range r, byte[] dst, int off) {
+    public static void getPackedByteArray(Range<LargeBitList> r, byte[] dst, int off) {
         r.getBuffer().getPackedByteArray(r.getStart(), dst, off, (int) r.getLength());
     }
 
     @Override
     public void setPackedLong(long index, int n, long val) {
-        Range r = getRange();
+        Range<LargeBitList> r = getRange();
 
         checkRemaining(index, n);
 
@@ -152,18 +152,18 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
 
     @Override
     public void setPackedByteArray(long index, byte[] src, int off, int n) {
-        Range r = getRange();
+        Range<LargeBitList> r = getRange();
 
         checkRemaining(index, n);
 
         r.getBuffer().setPackedByteArray(index + r.getStart(), src, off, n);
     }
 
-    public static void setPackedLong(Range r, long val) {
+    public static void setPackedLong(Range<LargeBitList> r, long val) {
         r.getBuffer().setPackedLong(r.getStart(), (int) r.getLength(), val);
     }
 
-    public static void setPackedByteArray(Range r, byte[] src, int off) {
+    public static void setPackedByteArray(Range<LargeBitList> r, byte[] src, int off) {
         r.getBuffer().setPackedByteArray(r.getStart(), src, off, (int) r.getLength());
     }
 
@@ -212,11 +212,11 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
         getRange().setEnd(index);
     }
 
-    protected Range getRange() {
+    protected Range<LargeBitList> getRange() {
         return range;
     }
 
-    protected void setRange(Range r) {
+    protected void setRange(Range<LargeBitList> r) {
         range = r;
     }
 

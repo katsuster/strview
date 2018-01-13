@@ -1,5 +1,6 @@
 package net.katsuster.strview.media.m2v;
 
+import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -7,7 +8,7 @@ import net.katsuster.strview.media.*;
  * MPEG2 Video データ。
  * </p>
  */
-public class M2VData extends PacketAdapter {
+public class M2VData<T extends LargeList<?>> extends PacketAdapter<T> {
     public M2VData() {
         this(new M2VHeader());
     }
@@ -34,8 +35,8 @@ public class M2VData extends PacketAdapter {
      * @return MPEG2 Video データのヘッダ
      */
     @Override
-    public M2VHeader getHeader() {
-        return (M2VHeader)super.getHeader();
+    public M2VHeader<T> getHeader() {
+        return (M2VHeader<T>)super.getHeader();
     }
 
     @Override

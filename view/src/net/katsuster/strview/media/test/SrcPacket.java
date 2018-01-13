@@ -1,5 +1,6 @@
 package net.katsuster.strview.media.test;
 
+import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -7,7 +8,7 @@ import net.katsuster.strview.media.*;
  * ソースパケット。
  * </p>
  */
-public class SrcPacket extends PacketAdapter {
+public class SrcPacket<T extends LargeList<?>> extends PacketAdapter<T> {
     public SrcPacket() {
         this(new SrcHeader(""));
     }

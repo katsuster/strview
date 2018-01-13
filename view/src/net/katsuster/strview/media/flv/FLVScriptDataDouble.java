@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * DOUBLE
  * </p>
  */
-public class FLVScriptDataDouble extends FLVScriptData
+public class FLVScriptDataDouble<T extends LargeList<?>>
+        extends FLVScriptData<T>
         implements Cloneable {
     public Float64 double_bits;
 

@@ -17,7 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Systems</li>
  * </ul>
  */
-public class PSHeaderPack extends PSHeader
+public class PSHeaderPack<T extends LargeList<?>>
+        extends PSHeader<T>
         implements Cloneable {
     public UInt reserved1; //must be '0010 (MPEG1)' or '01 (MPEG2)'
     public UInt system_clock_reference_base_high;

@@ -11,7 +11,8 @@ import net.katsuster.strview.media.*;
  * SCRIPTDATADATE
  * </p>
  */
-public class FLVScriptDataDate extends FLVScriptData
+public class FLVScriptDataDate<T extends LargeList<?>>
+        extends FLVScriptData<T>
         implements Cloneable {
     public Float64 date_time;
     public SInt local_date_time_offset;

@@ -11,13 +11,14 @@ import net.katsuster.strview.media.m2v.M2VConsts.*;
  * MPEG2 Video データリスト。
  * </p>
  */
-public class M2VDataList extends AbstractPacketList<M2VData> {
+public class M2VDataList<T extends LargeList<?>>
+        extends AbstractPacketList<M2VData<T>, T> {
     private LargeBitList buf;
 
-    private NavigableMap<Long, M2VHeaderSequence> cacheSeq;
-    private NavigableMap<Long, M2VHeaderExtSequence> cacheExtSeq;
-    private NavigableMap<Long, M2VHeaderExtSequenceScalable> cacheExtSeqSca;
-    private NavigableMap<Long, M2VHeaderExtPictureCoding> cacheExtPicCod;
+    private NavigableMap<Long, M2VHeaderSequence<T>> cacheSeq;
+    private NavigableMap<Long, M2VHeaderExtSequence<T>> cacheExtSeq;
+    private NavigableMap<Long, M2VHeaderExtSequenceScalable<T>> cacheExtSeqSca;
+    private NavigableMap<Long, M2VHeaderExtPictureCoding<T>> cacheExtPicCod;
 
     public M2VDataList() {
         super(LENGTH_UNKNOWN);
@@ -52,10 +53,10 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
     }
 
     @Override
-    protected M2VData readNextInner(StreamReader<?> c, PacketRange pr) {
-        M2VHeader tagh = createHeader(c, pr);
+    protected M2VData<T> readNextInner(StreamReader<?> c, PacketRange<T> pr) {
+        M2VHeader<T> tagh = createHeader(c, pr);
 
-        M2VData packet = new M2VData(tagh);
+        M2VData<T> packet = new M2VData<>(tagh);
         packet.setRange(pr);
         packet.read(c);
 
@@ -65,12 +66,12 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
     }
 
     @Override
-    protected M2VData getInner(long index) {
+    protected M2VData<T> getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
         seek(c, index);
 
-        return (M2VData)readNext(c, index);
+        return (M2VData<T>)readNext(c, index);
     }
 
     @Override
@@ -78,16 +79,16 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
         //TODO: not implemented yet
     }
 
-    protected M2VHeader createHeader(StreamReader<?> c, PacketRange pr) {
-        M2VHeader tagh;
+    protected M2VHeader<T> createHeader(StreamReader<?> c, PacketRange<T> pr) {
+        M2VHeader<T> tagh;
 
-        M2VHeader tmph = new M2VHeader();
+        M2VHeader<T> tmph = new M2VHeader<>();
         tmph.peek(c);
 
         int sc = tmph.start_code.intValue();
 
         if (sc == START_CODE.EXTENSION) {
-            M2VHeaderExt tmphext = new M2VHeaderExt();
+            M2VHeaderExt<T> tmphext = new M2VHeaderExt<>();
             tmphext.peek(c);
 
             int ec = tmphext.extension_start_code_identifier.intValue();
@@ -115,42 +116,42 @@ public class M2VDataList extends AbstractPacketList<M2VData> {
         return tagh;
     }
 
-    protected M2VHeader createHeaderSlice(StreamReader<?> c, PacketRange pr) {
-        Map.Entry<Long, M2VHeaderSequence> entSeq = cacheSeq.floorEntry(pr.getNumber());
-        Map.Entry<Long, M2VHeaderExtSequence> entExtSeq = cacheExtSeq.floorEntry(pr.getNumber());
-        Map.Entry<Long, M2VHeaderExtSequenceScalable> entExtSeqSca = cacheExtSeqSca.floorEntry(pr.getNumber());
+    protected M2VHeader<T> createHeaderSlice(StreamReader<?> c, PacketRange<T> pr) {
+        Map.Entry<Long, M2VHeaderSequence<T>> entSeq = cacheSeq.floorEntry(pr.getNumber());
+        Map.Entry<Long, M2VHeaderExtSequence<T>> entExtSeq = cacheExtSeq.floorEntry(pr.getNumber());
+        Map.Entry<Long, M2VHeaderExtSequenceScalable<T>> entExtSeqSca = cacheExtSeqSca.floorEntry(pr.getNumber());
         if (entSeq == null) {
             return null;
         }
 
-        return new M2VHeaderSlice(entSeq, entExtSeq, entExtSeqSca);
+        return new M2VHeaderSlice<T>(entSeq, entExtSeq, entExtSeqSca);
     }
 
-    protected M2VHeader createHeaderExtPictureDisplay(StreamReader<?> c, PacketRange pr) {
-        Map.Entry<Long, M2VHeaderExtSequence> entExtSeq = cacheExtSeq.floorEntry(pr.getNumber());
-        Map.Entry<Long, M2VHeaderExtPictureCoding> entExtPicCod = cacheExtPicCod.floorEntry(pr.getNumber());
+    protected M2VHeader<T> createHeaderExtPictureDisplay(StreamReader<?> c, PacketRange<T> pr) {
+        Map.Entry<Long, M2VHeaderExtSequence<T>> entExtSeq = cacheExtSeq.floorEntry(pr.getNumber());
+        Map.Entry<Long, M2VHeaderExtPictureCoding<T>> entExtPicCod = cacheExtPicCod.floorEntry(pr.getNumber());
         if (entExtSeq == null || entExtPicCod == null) {
             return null;
         }
 
-        return new M2VHeaderExtPictureDisplay(entExtSeq, entExtPicCod);
+        return new M2VHeaderExtPictureDisplay<T>(entExtSeq, entExtPicCod);
     }
 
-    protected void cachePacket(M2VData packet) {
-        M2VHeader h = packet.getHeader();
-        PacketRange pr = packet.getRange();
+    protected void cachePacket(M2VData<T> packet) {
+        M2VHeader<T> h = packet.getHeader();
+        PacketRange<T> pr = packet.getRange();
 
         if (h instanceof M2VHeaderSequence) {
-            cacheSeq.put(pr.getNumber(), (M2VHeaderSequence)h);
+            cacheSeq.put(pr.getNumber(), (M2VHeaderSequence<T>)h);
         }
         if (h instanceof M2VHeaderExtSequence) {
-            cacheExtSeq.put(pr.getNumber(), (M2VHeaderExtSequence)h);
+            cacheExtSeq.put(pr.getNumber(), (M2VHeaderExtSequence<T>)h);
         }
         if (h instanceof M2VHeaderExtSequenceScalable) {
-            cacheExtSeqSca.put(pr.getNumber(), (M2VHeaderExtSequenceScalable)h);
+            cacheExtSeqSca.put(pr.getNumber(), (M2VHeaderExtSequenceScalable<T>)h);
         }
         if (h instanceof M2VHeaderExtPictureCoding) {
-            cacheExtPicCod.put(pr.getNumber(), (M2VHeaderExtPictureCoding)h);
+            cacheExtPicCod.put(pr.getNumber(), (M2VHeaderExtPictureCoding<T>)h);
         }
     }
 }

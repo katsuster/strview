@@ -17,7 +17,8 @@ import net.katsuster.strview.media.*;
  * <li>MSDN: AVIMAINHEADER struct</li>
  * </ul>
  */
-public class RIFFHeaderAvih extends RIFFHeader
+public class RIFFHeaderAvih<T extends LargeList<?>>
+        extends RIFFHeader<T>
         implements Cloneable {
     public UIntR dwMicroSecPerFrame;
     public UIntR dwMaxBytesPerSec;

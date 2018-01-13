@@ -17,7 +17,8 @@ import net.katsuster.strview.media.*;
  * <li>Advanced Systems Format (ASF) Specification: Revision 01.20.06</li>
  * </ul>
  */
-public class ASFHeaderExtendedContentDescription extends ASFHeader
+public class ASFHeaderExtendedContentDescription<T extends LargeList<?>>
+        extends ASFHeader<T>
         implements Cloneable {
     public UIntR content_descriptors_count;
     public List<ContentDescriptor> content_descriptors;

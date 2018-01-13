@@ -17,7 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Systems</li>
  * </ul>
  */
-public class TSHeaderAdaptation extends BlockAdapter
+public class TSHeaderAdaptation<T extends LargeList<?>>
+        extends BlockAdapter<T>
         implements Cloneable {
     public UInt adaptation_field_length;
 

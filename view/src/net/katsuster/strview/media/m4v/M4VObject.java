@@ -1,5 +1,6 @@
 package net.katsuster.strview.media.m4v;
 
+import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -7,7 +8,7 @@ import net.katsuster.strview.media.*;
  * MPEG4 Part 2 Visual Object
  * </p>
  */
-public class M4VObject extends PacketAdapter {
+public class M4VObject<T extends LargeList<?>> extends PacketAdapter<T> {
     public M4VObject() {
         this(new M4VHeader());
     }

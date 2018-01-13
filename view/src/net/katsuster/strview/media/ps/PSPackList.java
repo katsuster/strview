@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * MPEG2-PS (Program Stream) パックリスト。
  * </p>
  */
-public class PSPackList extends AbstractPacketList<PSPack> {
+public class PSPackList<T extends LargeList<?>>
+        extends AbstractPacketList<PSPack<T>, T> {
     private LargeBitList buf;
 
     public PSPackList() {
@@ -39,10 +40,10 @@ public class PSPackList extends AbstractPacketList<PSPack> {
     }
 
     @Override
-    protected PSPack readNextInner(StreamReader<?> c, PacketRange pr) {
-        PSHeader tagh = createHeader(c, pr);
+    protected PSPack<T> readNextInner(StreamReader<?> c, PacketRange<T> pr) {
+        PSHeader<T> tagh = createHeader(c, pr);
 
-        PSPack packet = new PSPack(tagh);
+        PSPack<T> packet = new PSPack<>(tagh);
         packet.setRange(pr);
         packet.read(c);
 
@@ -50,23 +51,23 @@ public class PSPackList extends AbstractPacketList<PSPack> {
     }
 
     @Override
-    protected PSPack getInner(long index) {
+    protected PSPack<T> getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
         seek(c, index);
 
-        return (PSPack)readNext(c, index);
+        return (PSPack<T>)readNext(c, index);
     }
 
     @Override
-    protected void setInner(long index, PSPack data) {
+    protected void setInner(long index, PSPack<T> data) {
         //TODO: not implemented yet
     }
 
-    protected PSHeader createHeader(StreamReader<?> c, PacketRange pr) {
-        PSHeader tagh;
+    protected PSHeader<T> createHeader(StreamReader<?> c, PacketRange<T> pr) {
+        PSHeader<T> tagh;
 
-        PSHeader tmph = new PSHeader();
+        PSHeader<T> tmph = new PSHeader<>();
         tmph.peek(c);
 
         tagh = PSConsts.psFactory.createPacketHeader(

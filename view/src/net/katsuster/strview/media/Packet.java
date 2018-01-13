@@ -14,7 +14,8 @@ import net.katsuster.strview.util.*;
  *
  * @see PacketAdapter
  */
-public interface Packet extends Block {
+public interface Packet<T extends LargeList<?>>
+        extends Block<T> {
     /**
      * <p>
      * パケットの存在する範囲を取得します。
@@ -23,7 +24,7 @@ public interface Packet extends Block {
      * @return データの範囲
      */
     @Override
-    public PacketRange getRange();
+    public PacketRange<T> getRange();
 
     /**
      * <p>

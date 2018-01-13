@@ -27,7 +27,8 @@ import net.katsuster.strview.media.*;
  * <li>Advanced Systems Format (ASF) Specification: Revision 01.20.06</li>
  * </ul>
  */
-public class ASFGUID extends BlockAdapter
+public class ASFGUID<T extends LargeList<?>>
+        extends BlockAdapter<T>
         implements Cloneable, Comparable<ASFGUID> {
     private UIntR la;
     private UIntR lb;

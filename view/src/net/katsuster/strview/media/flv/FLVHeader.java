@@ -1,5 +1,6 @@
 package net.katsuster.strview.media.flv;
 
+import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -15,7 +16,8 @@ import net.katsuster.strview.media.*;
  * <li>Adobe SWF File Format Specification</li>
  * </ul>
  */
-public class FLVHeader extends BlockAdapter
+public class FLVHeader<T extends LargeList<?>>
+        extends BlockAdapter<T>
         implements Cloneable {
     public FLVHeader() {
     }

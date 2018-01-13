@@ -32,7 +32,8 @@ import net.katsuster.strview.media.*;
  *
  * @see EBMLvalue
  */
-public class EBMLvid extends EBMLvint
+public class EBMLvid<T extends LargeList<?>>
+        extends EBMLvint<T>
         implements Cloneable {
     public UInt vint_tag;
 

@@ -10,7 +10,8 @@ import net.katsuster.strview.media.*;
  * SCRIPTDATASTRICTARRAY
  * </p>
  */
-public class FLVScriptDataStrictArray extends FLVScriptData
+public class FLVScriptDataStrictArray<T extends LargeList<?>>
+        extends FLVScriptData<T>
         implements Cloneable {
     public UInt strict_array_length;
     public List<FLVScriptDataValue> strict_array_value;

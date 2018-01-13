@@ -1,13 +1,15 @@
 package net.katsuster.strview.media.mkv;
 
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.util.*;
 
 /**
  * <p>
  * EBML(Extensible Binary Meta Language) タグヘッダ。
  * </p>
  */
-public class EBMLHeader extends BlockAdapter {
+public class EBMLHeader<T extends LargeList<?>>
+        extends BlockAdapter<T> {
     public EBMLvid tag_id;
     public EBMLvalue tag_len;
 

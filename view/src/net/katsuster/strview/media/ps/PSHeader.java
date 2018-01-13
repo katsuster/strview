@@ -17,7 +17,7 @@ import net.katsuster.strview.media.*;
  * associated audio information: Systems</li>
  * </ul>
  */
-public class PSHeader extends BlockAdapter
+public class PSHeader<T extends LargeList<?>> extends BlockAdapter<T>
         implements Cloneable {
     public UInt packet_start_code_prefix;
     public UInt stream_id;

@@ -1,5 +1,6 @@
 package net.katsuster.strview.media.ts;
 
+import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -7,7 +8,7 @@ import net.katsuster.strview.media.*;
  * MPEG2-TS(Transport Stream) パケット。
  * </p>
  */
-public class TSPacket extends PacketAdapter {
+public class TSPacket<T extends LargeList<?>> extends PacketAdapter<T> {
     //TS パケットのサイズ（byte 単位）
     public static final int PACKET_SIZE = 188;
 

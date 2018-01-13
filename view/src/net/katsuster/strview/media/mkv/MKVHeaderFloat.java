@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * Matroska float
  * </p>
  */
-public class MKVHeaderFloat extends MKVHeader {
+public class MKVHeaderFloat<T extends LargeList<?>>
+        extends MKVHeader<T> {
     public Float32 float_bits;
     public Float64 double_bits;
 

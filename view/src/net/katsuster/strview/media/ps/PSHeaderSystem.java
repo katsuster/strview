@@ -19,7 +19,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Systems</li>
  * </ul>
  */
-public class PSHeaderSystem extends PSHeader {
+public class PSHeaderSystem<T extends LargeList<?>>
+        extends PSHeader<T> {
     public UInt header_length;
     public UInt marker_bit1;
     public UInt rate_bound;
@@ -34,7 +35,7 @@ public class PSHeaderSystem extends PSHeader {
     public UInt packet_rate_restriction_flag;
     public UInt reserved_bits;
 
-    public List<SystemESInfo> es_info;
+    public List<SystemESInfo<T>> es_info;
 
     public PSHeaderSystem() {
         header_length = new UInt();
@@ -141,8 +142,9 @@ public class PSHeaderSystem extends PSHeader {
         c.writeUInt( 1, d.packet_rate_restriction_flag, "packet_rate_restriction_flag");
         c.writeUInt( 7, d.reserved_bits               , "reserved_bits"               );
 
+        List<SystemESInfo> es_info = d.es_info;
         for (int i = 0; i < d.es_info.size(); i++) {
-            d.es_info.get(i).write(c);
+            es_info.get(i).write(c);
         }
 
         c.leaveBlock();

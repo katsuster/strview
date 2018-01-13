@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * MPEG2-TS(Transport Stream) パケットリスト。
  * </p>
  */
-public class TSPacketList extends AbstractPacketList<TSPacket> {
+public class TSPacketList<T extends LargeList<?>>
+        extends AbstractPacketList<TSPacket<T>, T> {
     private LargeBitList buf;
 
     public TSPacketList() {
@@ -42,8 +43,8 @@ public class TSPacketList extends AbstractPacketList<TSPacket> {
     }
 
     @Override
-    protected Packet readNextInner(StreamReader<?> c, PacketRange pr) {
-        TSPacket packet = new TSPacket(new TSHeader());
+    protected Packet<T> readNextInner(StreamReader<?> c, PacketRange<T> pr) {
+        TSPacket<T> packet = new TSPacket<>(new TSHeader<>());
         packet.setRange(pr);
         packet.read(c);
 
@@ -51,16 +52,16 @@ public class TSPacketList extends AbstractPacketList<TSPacket> {
     }
 
     @Override
-    protected TSPacket getInner(long index) {
+    protected TSPacket<T> getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
         seek(c, index);
 
-        return (TSPacket)readNext(c, index);
+        return (TSPacket<T>)readNext(c, index);
     }
 
     @Override
-    protected void setInner(long index, TSPacket data) {
+    protected void setInner(long index, TSPacket<T> data) {
         //TODO: not implemented yet
     }
 }

@@ -16,7 +16,8 @@ import net.katsuster.strview.media.*;
  * <li>OpenDML AVI File Format Extensions: Version 1.02</li>
  * </ul>
  */
-public class RIFFHeader extends BlockAdapter {
+public class RIFFHeader<T extends LargeList<?>>
+        extends BlockAdapter<T> {
     public UIntR ckID;
     public UIntR ckSize;
 

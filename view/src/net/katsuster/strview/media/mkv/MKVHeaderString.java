@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * Matroska string
  * </p>
  */
-public class MKVHeaderString extends MKVHeader {
+public class MKVHeaderString<T extends LargeList<?>>
+        extends MKVHeader<T> {
     public LargeBitList string_bits;
 
     public MKVHeaderString() {

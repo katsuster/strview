@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * Matroska signed integer
  * </p>
  */
-public class MKVHeaderSInt extends MKVHeader {
+public class MKVHeaderSInt<T extends LargeList<?>>
+        extends MKVHeader<T> {
     public SInt sint_val;
 
     public MKVHeaderSInt() {

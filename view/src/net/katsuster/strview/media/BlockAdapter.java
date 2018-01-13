@@ -1,5 +1,7 @@
 package net.katsuster.strview.media;
 
+import net.katsuster.strview.util.*;
+
 /**
  * <p>
  * 何もメンバを持たないブロックを表すためのユーティリティクラスです。
@@ -14,7 +16,8 @@ package net.katsuster.strview.media;
  *     <li>write 関数は何も書き込みません。</li>
  * </ul>
  */
-public class BlockAdapter extends AbstractBlock {
+public class BlockAdapter<T extends LargeList<?>>
+        extends AbstractBlock<T> {
     public BlockAdapter() {
         super();
     }

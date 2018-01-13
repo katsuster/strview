@@ -10,7 +10,8 @@ import net.katsuster.strview.media.*;
  * SCRIPTDATAECMAARRAY
  * </p>
  */
-public class FLVScriptDataECMAArray extends FLVScriptData
+public class FLVScriptDataECMAArray<T extends LargeList<?>>
+        extends FLVScriptData<T>
         implements Cloneable {
     public UInt ecma_array_length;
     public List<FLVScriptDataObjectProperty> variables;

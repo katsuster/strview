@@ -1,13 +1,15 @@
 package net.katsuster.strview.media.flv;
 
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.util.*;
 
 /**
  * <p>
  * SCRIPTDATA
  * </p>
  */
-public class FLVHeaderScript extends FLVHeaderES
+public class FLVHeaderScript<T extends LargeList<?>>
+        extends FLVHeaderES<T>
         implements Cloneable {
     public FLVScriptDataValue name;
     public FLVScriptDataValue value;

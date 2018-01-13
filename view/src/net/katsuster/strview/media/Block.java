@@ -15,7 +15,8 @@ import net.katsuster.strview.util.*;
  *
  * @see BlockAdapter
  */
-public interface Block extends Cloneable {
+public interface Block<T extends LargeList<?>>
+        extends Cloneable {
     /**
      * オブジェクトのコピーを作成し、返します。
      *
@@ -64,7 +65,7 @@ public interface Block extends Cloneable {
      *
      * @return データの範囲
      */
-    public Range getRange();
+    public Range<T> getRange();
 
     /**
      * <p>
@@ -73,7 +74,7 @@ public interface Block extends Cloneable {
      *
      * @param p データの範囲
      */
-    public void setRange(Range p);
+    public void setRange(Range<T> p);
 
     /**
      * <p>

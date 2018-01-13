@@ -1,5 +1,6 @@
 package net.katsuster.strview.media.mp4;
 
+import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -7,7 +8,7 @@ import net.katsuster.strview.media.*;
  * MPEG4 media file format の Box。
  * </p>
  */
-public class MP4Box extends PacketAdapter {
+public class MP4Box<T extends LargeList<?>> extends PacketAdapter<T> {
     //MP4 Box 最小ヘッダサイズ（byte 単位、size と type のみ）
     public static final int BOX_HEADER_SIZE = 8;
 

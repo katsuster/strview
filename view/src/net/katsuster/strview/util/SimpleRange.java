@@ -9,9 +9,9 @@ package net.katsuster.strview.util;
  * end = start + length です。
  * </p>
  */
-public class SimpleRange
-        implements Range {
-    private LargeBitList buffer;
+public class SimpleRange<T extends LargeList<?>>
+        implements Range<T> {
+    private T buffer;
     private long start;
     private long length;
 
@@ -45,7 +45,7 @@ public class SimpleRange
      * @param s 区間の開始地点
      * @param l 区間の長さ
      */
-    public SimpleRange(LargeBitList b, long s, long l) {
+    public SimpleRange(T b, long s, long l) {
         if (s < 0) {
             throw new IllegalArgumentException("start:" + s + " is negative.");
         }
@@ -64,7 +64,7 @@ public class SimpleRange
      *
      * @param obj 区間
      */
-    public SimpleRange(Range obj) {
+    public SimpleRange(Range<T> obj) {
         this(obj.getBuffer(), obj.getStart(), obj.getLength());
     }
 
@@ -138,12 +138,12 @@ public class SimpleRange
     }
 
     @Override
-    public LargeBitList getBuffer() {
+    public T getBuffer() {
         return buffer;
     }
 
     @Override
-    public void setBuffer(LargeBitList b) {
+    public void setBuffer(T b) {
         buffer = b;
     }
 

@@ -1,5 +1,7 @@
 package net.katsuster.strview.media;
 
+import net.katsuster.strview.util.*;
+
 /**
  * <p>
  * 何もメンバを持たないパケットを表すためのユーティリティクラスです。
@@ -15,7 +17,8 @@ package net.katsuster.strview.media;
  *     <li>write 関数は何も書き込みません。</li>
  * </ul>
  */
-public class PacketAdapter extends AbstractPacket {
+public class PacketAdapter<T extends LargeList<?>>
+        extends AbstractPacket<T> {
     /**
      * <p>
      * 空のヘッダを持ち、存在する範囲が未定義のパケットを作成します。

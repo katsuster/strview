@@ -1,5 +1,6 @@
 package net.katsuster.strview.media.flv;
 
+import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -7,7 +8,7 @@ import net.katsuster.strview.media.*;
  * Flash Video Tag
  * </p>
  */
-public class FLVTag extends PacketAdapter {
+public class FLVTag<T extends LargeList<?>> extends PacketAdapter<T> {
     //FLV タグのヘッダサイズ（byte 単位）
     public static final int TAG_HEADER_SIZE = 15;
 

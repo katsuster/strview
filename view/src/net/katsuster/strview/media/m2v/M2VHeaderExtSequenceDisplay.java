@@ -17,7 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Video</li>
  * </ul>
  */
-public class M2VHeaderExtSequenceDisplay extends M2VHeaderExt
+public class M2VHeaderExtSequenceDisplay<T extends LargeList<?>>
+        extends M2VHeaderExt<T>
         implements Cloneable {
     public UInt video_format;
     public UInt colour_description;

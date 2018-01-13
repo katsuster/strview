@@ -1,5 +1,6 @@
 package net.katsuster.strview.media.mkv;
 
+import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -7,7 +8,7 @@ import net.katsuster.strview.media.*;
  * Matroska タグ。
  * </p>
  */
-public class MKVTag extends PacketAdapter {
+public class MKVTag<T extends LargeList<?>> extends PacketAdapter<T> {
     //Matroska タグ最小ヘッダサイズ（byte 単位、id と size の最小値）
     public static final int TAG_HEADER_SIZE = 2;
 

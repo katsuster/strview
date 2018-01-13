@@ -18,7 +18,8 @@ import net.katsuster.strview.media.*;
  * <li>ISO/IEC 14496-12: ISO base media file format</li>
  * </ul>
  */
-public class MP4HeaderFull extends MP4Header
+public class MP4HeaderFull<T extends LargeList<?>>
+        extends MP4Header<T>
         implements Cloneable {
     public UInt version;
     public UInt flags;

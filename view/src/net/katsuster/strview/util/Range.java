@@ -16,7 +16,7 @@ package net.katsuster.strview.util;
  * isHit(6) は false、isHit(7) も false です。
  * </p>
  */
-public interface Range extends Cloneable {
+public interface Range<T extends LargeList<?>> extends Cloneable {
     //size() および length() メソッドで長さが分からないときに返される値です
     public static final long LENGTH_UNKNOWN = -1;
 
@@ -36,7 +36,7 @@ public interface Range extends Cloneable {
      *
      * @return バッファ
      */
-    public LargeBitList getBuffer();
+    public T getBuffer();
 
     /**
      * <p>
@@ -45,7 +45,7 @@ public interface Range extends Cloneable {
      *
      * @param b バッファ
      */
-    public void setBuffer(LargeBitList b);
+    public void setBuffer(T b);
 
     /**
      * <p>

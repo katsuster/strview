@@ -2,6 +2,7 @@ package net.katsuster.strview.media.mkv;
 
 import net.katsuster.strview.media.*;
 import net.katsuster.strview.media.mkv.MKVConsts.*;
+import net.katsuster.strview.util.*;
 
 /**
  * <p>
@@ -15,7 +16,8 @@ import net.katsuster.strview.media.mkv.MKVConsts.*;
  * <li>Matroska: http://www.matroska.org/technical/specs/index.html</li>
  * </ul>
  */
-public class MKVHeader extends EBMLHeader {
+public class MKVHeader<T extends LargeList<?>>
+        extends EBMLHeader<T> {
     //タグの定義
     protected MKVTagSpec tag_spec;
 

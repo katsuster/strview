@@ -1,13 +1,15 @@
 package net.katsuster.strview.media.flv;
 
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.util.*;
 
 /**
  * <p>
  * Base class of SCRIPTDATAxxxx
  * </p>
  */
-public class FLVScriptData extends BlockAdapter
+public class FLVScriptData<T extends LargeList<?>>
+        extends BlockAdapter<T>
         implements Cloneable {
     public static final long LIMIT_INVALID = -1;
 

@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * Matroska unsigned integer
  * </p>
  */
-public class MKVHeaderUInt extends MKVHeader {
+public class MKVHeaderUInt<T extends LargeList<?>>
+        extends MKVHeader<T> {
     public UInt uint_val;
 
     public MKVHeaderUInt() {

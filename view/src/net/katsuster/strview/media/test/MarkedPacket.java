@@ -1,5 +1,6 @@
 package net.katsuster.strview.media.test;
 
+import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -7,7 +8,7 @@ import net.katsuster.strview.media.*;
  * 先頭にマーカーのあるパケット。
  * </p>
  */
-public class MarkedPacket extends PacketAdapter {
+public class MarkedPacket<T extends LargeList<?>> extends PacketAdapter<T> {
     public MarkedPacket() {
         this(new MarkedHeader());
     }

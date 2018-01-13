@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * INDX チャンクヘッダ。
  * </p>
  */
-public class RMFFHeaderINDX extends RMFFHeader
+public class RMFFHeaderINDX<T extends LargeList<?>>
+        extends RMFFHeader<T>
         implements Cloneable {
     public UInt num_indices;
     public UInt stream_number;

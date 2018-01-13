@@ -18,7 +18,8 @@ import net.katsuster.strview.media.m2v.M2VConsts.*;
  * associated audio information: Video</li>
  * </ul>
  */
-public class M2VHeaderExtSequenceScalable extends M2VHeaderExt
+public class M2VHeaderExtSequenceScalable<T extends LargeList<?>>
+        extends M2VHeaderExt<T>
         implements Cloneable {
     public UInt scalable_mode;
     public UInt layer_id;

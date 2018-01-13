@@ -1,6 +1,7 @@
 package net.katsuster.strview.media.mp4;
 
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.util.*;
 
 /**
  * <p>
@@ -18,7 +19,8 @@ import net.katsuster.strview.media.*;
  * <li>ISO/IEC 14496-12: ISO base media file format</li>
  * </ul>
  */
-public class MP4HeaderRecursive extends MP4Header
+public class MP4HeaderRecursive<T extends LargeList<?>>
+        extends MP4Header<T>
         implements Cloneable {
     public MP4HeaderRecursive() {
     }

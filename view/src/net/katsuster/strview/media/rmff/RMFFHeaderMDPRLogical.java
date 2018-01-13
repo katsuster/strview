@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * MDPR LogicalStream Structure
  * </p>
  */
-public class RMFFHeaderMDPRLogical extends RMFFHeaderMDPR
+public class RMFFHeaderMDPRLogical<T extends LargeList<?>>
+        extends RMFFHeaderMDPR<T>
         implements Cloneable {
     public UInt type_specific_len;
     public LargeBitList type_specific_data;

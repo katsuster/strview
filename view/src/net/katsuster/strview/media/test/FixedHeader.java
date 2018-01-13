@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * 固定長パケットヘッダ。
  * </p>
  */
-public class FixedHeader extends BlockAdapter
+public class FixedHeader<T extends LargeList<?>>
+        extends BlockAdapter<T>
         implements Cloneable {
     public UInt data_a;
     public UInt data_b;

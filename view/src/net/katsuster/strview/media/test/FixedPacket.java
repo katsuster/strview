@@ -1,5 +1,6 @@
 package net.katsuster.strview.media.test;
 
+import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -7,7 +8,7 @@ import net.katsuster.strview.media.*;
  * 固定長パケット。
  * </p>
  */
-public class FixedPacket extends PacketAdapter {
+public class FixedPacket<T extends LargeList<?>> extends PacketAdapter<T> {
     //パケットのサイズ（byte 単位）
     public static final int PACKET_SIZE = 64;
 

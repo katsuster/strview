@@ -1,5 +1,6 @@
 package net.katsuster.strview.media.riff;
 
+import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -7,7 +8,7 @@ import net.katsuster.strview.media.*;
  * RIFF (Resource Interchange File Format) チャンク。
  * </p>
  */
-public class RIFFChunk extends PacketAdapter {
+public class RIFFChunk<T extends LargeList<?>> extends PacketAdapter<T> {
     //RIFF チャンクのヘッダサイズ（byte 単位、ckSize を含まない）
     public static final int CHUNK_HEADER_SIZE = 8;
 

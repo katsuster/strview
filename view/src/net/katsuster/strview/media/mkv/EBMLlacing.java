@@ -60,7 +60,8 @@ import net.katsuster.strview.media.*;
  *
  * @see EBMLvid
  */
-public class EBMLlacing extends EBMLvint
+public class EBMLlacing<T extends LargeList<?>>
+        extends EBMLvint<T>
         implements Cloneable {
     public UInt vint_head;
     public UInt vint_val;

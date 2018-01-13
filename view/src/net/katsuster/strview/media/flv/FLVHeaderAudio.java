@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * AUDIODATA
  * </p>
  */
-public class FLVHeaderAudio extends FLVHeaderES
+public class FLVHeaderAudio<T extends LargeList<?>>
+        extends FLVHeaderES<T>
         implements Cloneable {
     public UInt sound_format;
     public UInt sound_rate;

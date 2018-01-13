@@ -1,5 +1,6 @@
 package net.katsuster.strview.media.rmff;
 
+import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -7,7 +8,7 @@ import net.katsuster.strview.media.*;
  * RMFF(RealMedia File Format) チャンク。
  * </p>
  */
-public class RMFFChunk extends PacketAdapter {
+public class RMFFChunk<T extends LargeList<?>> extends PacketAdapter<T> {
     public RMFFChunk() {
         this(new RMFFHeader());
     }

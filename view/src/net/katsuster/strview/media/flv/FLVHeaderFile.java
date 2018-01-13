@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * Flash Video ヘッダ。
  * </p>
  */
-public class FLVHeaderFile extends FLVHeader
+public class FLVHeaderFile<T extends LargeList<?>>
+        extends FLVHeader<T>
         implements Cloneable {
     public UInt[] signature;
     public UInt version;

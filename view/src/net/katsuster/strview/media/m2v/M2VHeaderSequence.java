@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Video</li>
  * </ul>
  */
-public class M2VHeaderSequence
-        extends M2VHeader {
+public class M2VHeaderSequence<T extends LargeList<?>>
+        extends M2VHeader<T> {
     public UInt  horizontal_size_value;
     public UInt  vertical_size_value;
     public UInt  aspect_ratio_information;

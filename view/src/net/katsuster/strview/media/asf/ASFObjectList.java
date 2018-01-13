@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * ASF (Advanced Systems Format) Object リスト。
  * </p>
  */
-public class ASFObjectList extends AbstractPacketList<ASFObject> {
+public class ASFObjectList<T extends LargeList<?>>
+        extends AbstractPacketList<ASFObject<T>, T> {
     private LargeBitList buf;
 
     public ASFObjectList() {
@@ -34,10 +35,10 @@ public class ASFObjectList extends AbstractPacketList<ASFObject> {
     }
 
     @Override
-    protected ASFObject readNextInner(StreamReader<?> c, PacketRange pr) {
-        ASFHeader tagh = createHeader(c, pr);
+    protected ASFObject<T> readNextInner(StreamReader<?> c, PacketRange<T> pr) {
+        ASFHeader<T> tagh = createHeader(c, pr);
 
-        ASFObject packet = new ASFObject(tagh);
+        ASFObject<T> packet = new ASFObject<>(tagh);
         packet.setRange(pr);
         packet.read(c);
 
@@ -45,24 +46,24 @@ public class ASFObjectList extends AbstractPacketList<ASFObject> {
     }
 
     @Override
-    protected ASFObject getInner(long index) {
+    protected ASFObject<T> getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
         seek(c, index);
 
-        return (ASFObject)readNext(c, index);
+        return (ASFObject<T>)readNext(c, index);
     }
 
     @Override
-    protected void setInner(long index, ASFObject data) {
+    protected void setInner(long index, ASFObject<T> data) {
         //TODO: not implemented yet
     }
 
-    protected ASFHeader createHeader(StreamReader<?> c, PacketRange pr) {
-        ASFHeader tmph = new ASFHeader();
+    protected ASFHeader<T> createHeader(StreamReader<?> c, PacketRange<T> pr) {
+        ASFHeader<T> tmph = new ASFHeader<>();
         tmph.peek(c);
 
-        ASFHeader tagh = ASFConsts.asfFactory.createPacketHeader(tmph.object_id);
+        ASFHeader<T> tagh = ASFConsts.asfFactory.createPacketHeader(tmph.object_id);
         if (tagh == null) {
             //unknown
             tagh = tmph;

@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * DATA チャンクヘッダ。
  * </p>
  */
-public class RMFFHeaderDATA extends RMFFHeader
+public class RMFFHeaderDATA<T extends LargeList<?>>
+        extends RMFFHeader<T>
         implements Cloneable {
     public UInt num_packets;
     public UInt next_data_header;

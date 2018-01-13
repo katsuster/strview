@@ -67,14 +67,15 @@ import net.katsuster.strview.util.*;
  *
  * @see PacketAdapter
  */
-public abstract class AbstractPacket extends AbstractBlock
-        implements Packet, PacketRange, Cloneable {
+public abstract class AbstractPacket<T extends LargeList<?>>
+        extends AbstractBlock<T>
+        implements Packet<T>, PacketRange<T>, Cloneable {
     //ヘッダ
-    private Block head;
+    private Block<T> head;
     //本体を表すビット列
     private LargeBitList body;
     //フッタ
-    private Block foot;
+    private Block<T> foot;
 
     //パケット全体を表すビット列（参照のみ）
     private LargeBitList raw_packet;
@@ -95,7 +96,7 @@ public abstract class AbstractPacket extends AbstractBlock
      *
      * @param pr パケットが存在する範囲
      */
-    public AbstractPacket(PacketRange pr) {
+    public AbstractPacket(PacketRange<T> pr) {
         this(pr, new BlockAdapter());
     }
 
@@ -106,7 +107,7 @@ public abstract class AbstractPacket extends AbstractBlock
      *
      * @param h パケットヘッダ
      */
-    public AbstractPacket(Block h) {
+    public AbstractPacket(Block<T> h) {
         this(null, h);
     }
 
@@ -118,10 +119,10 @@ public abstract class AbstractPacket extends AbstractBlock
      * @param pr パケットが存在する範囲
      * @param h パケットヘッダ
      */
-    public AbstractPacket(PacketRange pr, Block h) {
+    public AbstractPacket(PacketRange<T> pr, Block<T> h) {
         setRange(pr);
         head = h;
-        foot = new BlockAdapter();
+        foot = new BlockAdapter<>();
     }
 
     @Override
@@ -129,9 +130,9 @@ public abstract class AbstractPacket extends AbstractBlock
             throws CloneNotSupportedException {
         AbstractPacket obj = (AbstractPacket)super.clone();
 
-        obj.head = (Block)head.clone();
+        obj.head = (Block<T>)head.clone();
         obj.body = (LargeBitList)body.clone();
-        obj.foot = (Block)foot.clone();
+        obj.foot = (Block<T>)foot.clone();
         obj.raw_packet = (LargeBitList)raw_packet.clone();
 
         return obj;
@@ -203,42 +204,42 @@ public abstract class AbstractPacket extends AbstractBlock
     }
 
     @Override
-    public PacketRange appendChild(PacketRange newChild) {
+    public PacketRange<T> appendChild(PacketRange<T> newChild) {
         return getRange().appendChild(newChild);
     }
 
     @Override
-    public PacketRange removeChild(PacketRange oldChild) {
+    public PacketRange<T> removeChild(PacketRange<T> oldChild) {
         return getRange().removeChild(oldChild);
     }
 
     @Override
-    public PacketRange insertBefore(PacketRange newChild, PacketRange refChild) {
+    public PacketRange<T> insertBefore(PacketRange<T> newChild, PacketRange<T> refChild) {
         return getRange().insertBefore(newChild, refChild);
     }
 
     @Override
-    public PacketRange replaceChild(PacketRange newChild, PacketRange oldChild) {
+    public PacketRange<T> replaceChild(PacketRange<T> newChild, PacketRange<T> oldChild) {
         return getRange().replaceChild(newChild, oldChild);
     }
 
     @Override
-    public PacketRange getParentNode() {
+    public PacketRange<T> getParentNode() {
         return getRange().getParentNode();
     }
 
     @Override
-    public void setParentNode(PacketRange p) {
+    public void setParentNode(PacketRange<T> p) {
         getRange().setParentNode(p);
     }
 
     @Override
-    public PacketRange getPreviousSibling() {
+    public PacketRange<T> getPreviousSibling() {
         return getRange().getPreviousSibling();
     }
 
     @Override
-    public PacketRange getNextSibling() {
+    public PacketRange<T> getNextSibling() {
         return getRange().getNextSibling();
     }
 
@@ -248,17 +249,17 @@ public abstract class AbstractPacket extends AbstractBlock
     }
 
     @Override
-    public List<PacketRange> getChildNodes() {
+    public List<PacketRange<T>> getChildNodes() {
         return getRange().getChildNodes();
     }
 
     @Override
-    public PacketRange getFirstChild() {
+    public PacketRange<T> getFirstChild() {
         return getRange().getFirstChild();
     }
 
     @Override
-    public PacketRange getLastChild() {
+    public PacketRange<T> getLastChild() {
         return getRange().getLastChild();
     }
 
@@ -268,17 +269,17 @@ public abstract class AbstractPacket extends AbstractBlock
     }
 
     @Override
-    public PacketRange getChild(int index) {
+    public PacketRange<T> getChild(int index) {
         return getRange().getChild(index);
     }
 
     @Override
-    public PacketRange getRange() {
-        return (PacketRange)super.getRange();
+    public PacketRange<T> getRange() {
+        return (PacketRange<T>)super.getRange();
     }
 
     @Override
-    public Block getHeader() {
+    public Block<T> getHeader() {
         return head;
     }
 
@@ -289,7 +290,7 @@ public abstract class AbstractPacket extends AbstractBlock
      *
      * @param h パケットのヘッダ
      */
-    protected void setHeader(Block h) {
+    protected void setHeader(Block<T> h) {
         head = h;
     }
 
@@ -336,7 +337,7 @@ public abstract class AbstractPacket extends AbstractBlock
     }
 
     @Override
-    public Block getFooter() {
+    public Block<T> getFooter() {
         return foot;
     }
 
@@ -347,7 +348,7 @@ public abstract class AbstractPacket extends AbstractBlock
      *
      * @param f パケットのフッタ
      */
-    protected void setFooter(Block f) {
+    protected void setFooter(Block<T> f) {
         foot = f;
     }
 

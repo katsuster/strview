@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * SCRIPTDATASTRING
  * </p>
  */
-public class FLVScriptDataString extends FLVScriptData
+public class FLVScriptDataString<T extends LargeList<?>>
+        extends FLVScriptData<T>
         implements Cloneable {
     public UInt string_length;
     public LargeBitList string_data;

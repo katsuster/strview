@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * 固定長パケットリスト。ビットリストから固定長パケットを読み出すテスト用。
  * </p>
  */
-public class FixedPacketList extends AbstractPacketList<FixedPacket> {
+public class FixedPacketList<T extends LargeList<?>>
+        extends AbstractPacketList<FixedPacket<T>, T> {
     public static int PACKET_SIZE = FixedPacket.PACKET_SIZE;
 
     private LargeBitList buf;
@@ -44,8 +45,8 @@ public class FixedPacketList extends AbstractPacketList<FixedPacket> {
     }
 
     @Override
-    protected Packet readNextInner(StreamReader<?> c, PacketRange pr) {
-        FixedPacket packet = new FixedPacket(new FixedHeader());
+    protected Packet<T> readNextInner(StreamReader<?> c, PacketRange<T> pr) {
+        FixedPacket<T> packet = new FixedPacket<>(new FixedHeader<>());
         packet.setRange(pr);
         packet.read(c);
 
@@ -53,16 +54,16 @@ public class FixedPacketList extends AbstractPacketList<FixedPacket> {
     }
 
     @Override
-    protected FixedPacket getInner(long index) {
+    protected FixedPacket<T> getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
         seek(c, index);
 
-        return (FixedPacket)readNext(c, index);
+        return (FixedPacket<T>)readNext(c, index);
     }
 
     @Override
-    protected void setInner(long index, FixedPacket data) {
+    protected void setInner(long index, FixedPacket<T> data) {
         //TODO: not implemented yet
     }
 }

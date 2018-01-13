@@ -3,6 +3,7 @@ package net.katsuster.strview.media.riff;
 import java.util.*;
 
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.util.*;
 
 /**
  * <p>
@@ -16,7 +17,8 @@ import net.katsuster.strview.media.*;
  * <li>MSDN: AVIOLDINDEX struct</li>
  * </ul>
  */
-public class RIFFHeaderIdx1 extends RIFFHeader
+public class RIFFHeaderIdx1<T extends LargeList<?>>
+        extends RIFFHeader<T>
         implements Cloneable {
     public List<IndexEntry> aIndex;
 

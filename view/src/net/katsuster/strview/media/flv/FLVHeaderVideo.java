@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * VIDEODATA
  * </p>
  */
-public class FLVHeaderVideo extends FLVHeaderES
+public class FLVHeaderVideo<T extends LargeList<?>>
+        extends FLVHeaderES<T>
         implements Cloneable {
     public UInt frame_type;
     public UInt codec_id;

@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * CONT チャンクヘッダ。
  * </p>
  */
-public class RMFFHeaderCONT extends RMFFHeader
+public class RMFFHeaderCONT<T extends LargeList<?>>
+        extends RMFFHeader<T>
         implements Cloneable {
     public UInt title_len;
     public LargeBitList title;

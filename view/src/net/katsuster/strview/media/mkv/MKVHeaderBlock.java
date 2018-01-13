@@ -11,7 +11,8 @@ import net.katsuster.strview.media.mkv.MKVConsts.*;
  * Matroska Block タグヘッダ。
  * </p>
  */
-public class MKVHeaderBlock extends MKVHeader {
+public class MKVHeaderBlock<T extends LargeList<?>>
+        extends MKVHeader<T> {
     public EBMLvalue track_number;
     public UInt timecode;
     public UInt reserved1;
@@ -159,14 +160,15 @@ public class MKVHeaderBlock extends MKVHeader {
             c.mark("lacing_size0", "");
             d.lacing_size0.write(c);
 
+            List<EBMLlacing> lacing_diffs = d.lacing_diffs;
             for (i = 0; i < d.lacing_head.intValue() - 1; i++) {
                 c.mark("lacing_diffs[" + i + "]", "");
-                d.lacing_diffs.get(i).write(c);
+                lacing_diffs.get(i).write(c);
             }
 
             for (i = 0; i < d.lacing_head.intValue() + 1; i++) {
                 c.mark("lacing_sizes[" + i + "]",
-                        d.lacing_sizes.get(i));
+                        d.lacing_sizes.get(i).toString());
             }
         } else if (d.lacing.intValue() == LACING.FIXED_SIZE) {
             c.writeUInt( 8, d.lacing_head, "lacing_head");

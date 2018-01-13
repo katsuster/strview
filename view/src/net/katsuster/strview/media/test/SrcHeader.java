@@ -1,13 +1,15 @@
 package net.katsuster.strview.media.test;
 
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.util.*;
 
 /**
  * <p>
  * ソースパケットヘッダ。
  * </p>
  */
-public class SrcHeader extends BlockAdapter
+public class SrcHeader<T extends LargeList<?>>
+        extends BlockAdapter<T>
         implements Cloneable {
     private String name;
 

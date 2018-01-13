@@ -6,7 +6,8 @@ import net.katsuster.strview.media.*;
 /**
  * Created by katsuhiro on 2017/03/15.
  */
-public class FLVTagList extends AbstractPacketList<FLVTag> {
+public class FLVTagList<T extends LargeList<?>>
+        extends AbstractPacketList<FLVTag<T>, T> {
     private LargeBitList buf;
 
     public FLVTagList() {
@@ -37,10 +38,10 @@ public class FLVTagList extends AbstractPacketList<FLVTag> {
     }
 
     @Override
-    protected FLVTag readNextInner(StreamReader<?> c, PacketRange pr) {
-        FLVHeader tagh = createHeader(c, pr);
+    protected FLVTag<T> readNextInner(StreamReader<?> c, PacketRange<T> pr) {
+        FLVHeader<T> tagh = createHeader(c, pr);
 
-        FLVTag packet = new FLVTag(tagh);
+        FLVTag<T> packet = new FLVTag<>(tagh);
         packet.setRange(pr);
         packet.read(c);
 
@@ -48,26 +49,26 @@ public class FLVTagList extends AbstractPacketList<FLVTag> {
     }
 
     @Override
-    protected FLVTag getInner(long index) {
+    protected FLVTag<T> getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
         seek(c, index);
 
-        return (FLVTag)readNext(c, index);
+        return (FLVTag<T>)readNext(c, index);
     }
 
     @Override
-    protected void setInner(long index, FLVTag data) {
+    protected void setInner(long index, FLVTag<T> data) {
         //TODO: not implemented yet
     }
 
-    protected FLVHeader createHeader(StreamReader<?> c, PacketRange pr) {
-        FLVHeader tagh;
+    protected FLVHeader<T> createHeader(StreamReader<?> c, PacketRange<T> pr) {
+        FLVHeader<T> tagh;
 
         if (pr.getNumber() == 0) {
-            tagh = new FLVHeaderFile();
+            tagh = new FLVHeaderFile<>();
         } else {
-            FLVHeaderES tmph = new FLVHeaderES();
+            FLVHeaderES<T> tmph = new FLVHeaderES<>();
             tmph.peek(c);
 
             tagh = FLVConsts.flvFactory.createPacketHeader(

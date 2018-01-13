@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * SCRIPTDATAOBJECTEND
  * </p>
  */
-public class FLVScriptDataObjectEnd extends FLVScriptData
+public class FLVScriptDataObjectEnd<T extends LargeList<?>>
+        extends FLVScriptData<T>
         implements Cloneable {
     //shall be 0x00, 0x00, 0x09
     public UInt object_end_marker;

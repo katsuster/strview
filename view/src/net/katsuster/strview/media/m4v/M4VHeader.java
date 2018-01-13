@@ -18,7 +18,8 @@ import net.katsuster.strview.media.*;
  * Part 2: Video</li>
  * </ul>
  */
-public class M4VHeader extends BlockAdapter
+public class M4VHeader<T extends LargeList<?>>
+        extends BlockAdapter<T>
         implements Cloneable {
     public UInt start_code;
 

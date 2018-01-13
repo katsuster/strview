@@ -17,7 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Systems</li>
  * </ul>
  */
-public class TSHeader extends BlockAdapter
+public class TSHeader<T extends LargeList<?>>
+        extends BlockAdapter<T>
         implements Cloneable {
     public UInt sync_byte;
     public UInt transport_error_indicator;

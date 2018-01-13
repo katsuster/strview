@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * Flash Video ビデオ、オーディオ、スクリプトタグの共通ヘッダ。
  * </p>
  */
-public class FLVHeaderES extends FLVHeader
+public class FLVHeaderES<T extends LargeList<?>>
+        extends FLVHeader<T>
         implements Cloneable {
     public UInt previous_tag_size;
 

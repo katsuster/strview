@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * Matroska UTF-8 string
  * </p>
  */
-public class MKVHeaderUTF8 extends MKVHeader {
+public class MKVHeaderUTF8<T extends LargeList<?>>
+        extends MKVHeader<T> {
     public LargeBitList utf8_bits;
 
     public MKVHeaderUTF8() {

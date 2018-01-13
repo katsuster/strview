@@ -15,7 +15,8 @@ import net.katsuster.strview.media.*;
  * <li>Advanced Systems Format (ASF) Specification: Revision 01.20.06</li>
  * </ul>
  */
-public class ASFHeader extends BlockAdapter
+public class ASFHeader<T extends LargeList<?>>
+        extends BlockAdapter<T>
         implements Cloneable {
     public ASFGUID object_id;
     public UIntR object_size;

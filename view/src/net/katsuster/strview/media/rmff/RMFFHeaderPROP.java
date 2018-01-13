@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * PROP チャンクヘッダ。
  * </p>
  */
-public class RMFFHeaderPROP extends RMFFHeader
+public class RMFFHeaderPROP<T extends LargeList<?>>
+        extends RMFFHeader<T>
         implements Cloneable {
     public UInt max_bit_rate;
     public UInt avg_bit_rate;

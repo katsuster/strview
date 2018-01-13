@@ -17,7 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Systems</li>
  * </ul>
  */
-public class SystemESInfo extends BlockAdapter
+public class SystemESInfo<T extends LargeList<?>>
+        extends BlockAdapter<T>
         implements Cloneable {
     public UInt stream_id;
     public UInt reserved1; //must be '11'

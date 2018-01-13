@@ -9,7 +9,7 @@ import net.katsuster.strview.util.*;
  * パケットの存在する範囲と木構造を表すインタフェースです。
  * </p>
  */
-public interface PacketRange extends Range {
+public interface PacketRange<T extends LargeList<?>> extends Range<T> {
     /**
      * <p>
      * パケットの通し番号を返します。
@@ -191,7 +191,7 @@ public interface PacketRange extends Range {
      * @param newChild リストの末尾に加える子要素
      * @return リストに加えられた子要素
      */
-    public PacketRange appendChild(PacketRange newChild);
+    public PacketRange<T> appendChild(PacketRange<T> newChild);
 
     /**
      * <p>
@@ -202,7 +202,7 @@ public interface PacketRange extends Range {
      * @return リストから削除された子要素、
      * 削除する要素が見つからない場合は null
      */
-    public PacketRange removeChild(PacketRange oldChild);
+    public PacketRange<T> removeChild(PacketRange<T> oldChild);
 
     /**
      * <p>
@@ -215,7 +215,7 @@ public interface PacketRange extends Range {
      * @return リストに追加された子要素、
      * 追加できなかった場合は null
      */
-    public PacketRange insertBefore(PacketRange newChild, PacketRange refChild);
+    public PacketRange<T> insertBefore(PacketRange<T> newChild, PacketRange<T> refChild);
 
     /**
      * <p>
@@ -227,7 +227,7 @@ public interface PacketRange extends Range {
      * @return リストの置き換えられた子要素、
      * 置き換えられなかった場合は null
      */
-    public PacketRange replaceChild(PacketRange newChild, PacketRange oldChild);
+    public PacketRange<T> replaceChild(PacketRange<T> newChild, PacketRange<T> oldChild);
 
     /**
      * <p>
@@ -236,7 +236,7 @@ public interface PacketRange extends Range {
      *
      * @return 親要素、親を持たない場合は null
      */
-    public PacketRange getParentNode();
+    public PacketRange<T> getParentNode();
 
     /**
      * <p>
@@ -249,7 +249,7 @@ public interface PacketRange extends Range {
      *
      * @param p パケットの親パケット
      */
-    public void setParentNode(PacketRange p);
+    public void setParentNode(PacketRange<T> p);
 
     /**
      * <p>
@@ -259,7 +259,7 @@ public interface PacketRange extends Range {
      *
      * @return 兄要素、兄を持たない場合は null
      */
-    public PacketRange getPreviousSibling();
+    public PacketRange<T> getPreviousSibling();
 
     /**
      * <p>
@@ -269,7 +269,7 @@ public interface PacketRange extends Range {
      *
      * @return 弟要素、弟を持たない場合は null
      */
-    public PacketRange getNextSibling();
+    public PacketRange<T> getNextSibling();
 
     /**
      * <p>
@@ -287,7 +287,7 @@ public interface PacketRange extends Range {
      *
      * @return 子要素のリスト
      */
-    public List<PacketRange> getChildNodes();
+    public List<PacketRange<T>> getChildNodes();
 
     /**
      * <p>
@@ -297,7 +297,7 @@ public interface PacketRange extends Range {
      * @return 最初の子要素、
      * 子要素がない場合は null
      */
-    public PacketRange getFirstChild();
+    public PacketRange<T> getFirstChild();
 
     /**
      * <p>
@@ -307,7 +307,7 @@ public interface PacketRange extends Range {
      * @return 最後の子要素、
      * 子要素がない場合は null
      */
-    public PacketRange getLastChild();
+    public PacketRange<T> getLastChild();
 
     /**
      * <p>
@@ -332,5 +332,5 @@ public interface PacketRange extends Range {
      * @throws IndexOutOfBoundsException 負の位置、
      * または子要素の数を超える位置を指定した場合
      */
-    public PacketRange getChild(int index);
+    public PacketRange<T> getChild(int index);
 }

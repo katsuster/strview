@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * .RMF チャンクヘッダ。
  * </p>
  */
-public class RMFFHeaderRMF extends RMFFHeader
+public class RMFFHeaderRMF<T extends LargeList<?>>
+        extends RMFFHeader<T>
         implements Cloneable {
     public UInt file_version;
     public UInt num_headers;

@@ -9,7 +9,8 @@ import net.katsuster.strview.media.*;
  * ビットリストからマーカーのあるパケットを読み出すテスト用。
  * </p>
  */
-public class MarkedPacketList extends AbstractPacketList<MarkedPacket> {
+public class MarkedPacketList<U extends LargeList<?>>
+        extends AbstractPacketList<MarkedPacket, U> {
     private LargeBitList buf;
 
     public MarkedPacketList() {
@@ -40,8 +41,8 @@ public class MarkedPacketList extends AbstractPacketList<MarkedPacket> {
     }
 
     @Override
-    protected Packet readNextInner(StreamReader<?> c, PacketRange pr) {
-        MarkedPacket packet = new MarkedPacket(new MarkedHeader());
+    protected Packet<U> readNextInner(StreamReader<?> c, PacketRange<U> pr) {
+        MarkedPacket<U> packet = new MarkedPacket<>(new MarkedHeader<>());
         packet.setRange(pr);
         packet.read(c);
 
@@ -49,12 +50,12 @@ public class MarkedPacketList extends AbstractPacketList<MarkedPacket> {
     }
 
     @Override
-    protected MarkedPacket getInner(long index) {
+    protected MarkedPacket<U> getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
         seek(c, index);
 
-        return (MarkedPacket)readNext(c, index);
+        return (MarkedPacket<U>)readNext(c, index);
     }
 
     @Override

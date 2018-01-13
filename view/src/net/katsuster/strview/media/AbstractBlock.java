@@ -36,9 +36,10 @@ import net.katsuster.strview.util.*;
  *
  * @see BlockAdapter
  */
-public abstract class AbstractBlock implements Block, Range {
+public abstract class AbstractBlock<T extends LargeList<?>>
+        implements Block<T>, Range<T> {
     private String name;
-    private Range pos;
+    private Range<T> pos;
 
     public AbstractBlock() {
         this("");
@@ -46,7 +47,7 @@ public abstract class AbstractBlock implements Block, Range {
 
     public AbstractBlock(String n) {
         name = n;
-        pos = new SimpleRange();
+        pos = new SimpleRange<>();
     }
 
     @Override
@@ -60,12 +61,12 @@ public abstract class AbstractBlock implements Block, Range {
     }
 
     @Override
-    public LargeBitList getBuffer() {
+    public T getBuffer() {
         return pos.getBuffer();
     }
 
     @Override
-    public void setBuffer(LargeBitList b) {
+    public void setBuffer(T b) {
         pos.setBuffer(b);
     }
 

@@ -15,7 +15,8 @@ import net.katsuster.strview.media.*;
  * <li>MSDN: AVIOLDINDEX struct</li>
  * </ul>
  */
-public class IndexEntry extends BlockAdapter {
+public class IndexEntry<T extends LargeList<?>>
+        extends BlockAdapter<T> {
     public UIntR dwChunkId;
     public UIntR dwFlags;
     public UIntR dwOffset;

@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * MDPR チャンクヘッダ。その他のデータ形式。
  * </p>
  */
-public class RMFFHeaderMDPRAny extends RMFFHeaderMDPR
+public class RMFFHeaderMDPRAny<T extends LargeList<?>>
+        extends RMFFHeaderMDPR<T>
         implements Cloneable {
     public UInt type_specific_len;
     public LargeBitList type_specific_data;

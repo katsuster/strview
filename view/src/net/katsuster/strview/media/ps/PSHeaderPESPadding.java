@@ -1,6 +1,7 @@
 package net.katsuster.strview.media.ps;
 
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.util.*;
 
 /**
  * <p>
@@ -16,7 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Systems</li>
  * </ul>
  */
-public class PSHeaderPESPadding extends PSHeaderPES
+public class PSHeaderPESPadding<T extends LargeList<?>>
+        extends PSHeaderPES<T>
         implements Cloneable {
     public PSHeaderPESPadding() {
         //Do nothing

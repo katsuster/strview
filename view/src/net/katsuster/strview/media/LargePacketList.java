@@ -7,7 +7,8 @@ import net.katsuster.strview.util.*;
  * int 型で扱える長さを超えるパケットリストのインタフェースです。
  * </p>
  */
-public interface LargePacketList<T extends Packet> extends LargeList<T> {
+public interface LargePacketList<T extends Packet>
+        extends LargeList<T> {
     /**
      * <p>
      * パケットリストの短い名前を取得します。

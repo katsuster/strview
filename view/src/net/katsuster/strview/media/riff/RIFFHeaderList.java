@@ -16,7 +16,8 @@ import net.katsuster.strview.media.*;
  * <li>OpenDML AVI File Format Extensions: Version 1.02</li>
  * </ul>
  */
-public class RIFFHeaderList extends RIFFHeader
+public class RIFFHeaderList<T extends LargeList<?>>
+        extends RIFFHeader<T>
         implements Cloneable {
     public UIntR listType;
 

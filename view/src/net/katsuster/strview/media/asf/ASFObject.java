@@ -1,5 +1,6 @@
 package net.katsuster.strview.media.asf;
 
+import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 
 /**
@@ -7,7 +8,7 @@ import net.katsuster.strview.media.*;
  * ASF (Advanced Systems Format) Object
  * </p>
  */
-public class ASFObject extends PacketAdapter {
+public class ASFObject<T extends LargeList<?>> extends PacketAdapter<T> {
     //ASF Object 最小ヘッダサイズ（byte 単位、ID と size のみ）
     public static final int OBJECT_HEADER_SIZE = 24;
 
