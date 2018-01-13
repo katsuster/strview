@@ -38,6 +38,11 @@ public class UIntR extends AbstractNum
     }
 
     @Override
+    public String getTypeName() {
+        return "UIntR";
+    }
+
+    @Override
     public float floatValue() {
         return uint64ToFloat(getValue());
     }

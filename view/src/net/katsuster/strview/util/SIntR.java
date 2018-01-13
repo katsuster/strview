@@ -38,6 +38,11 @@ public class SIntR extends AbstractNum
     }
 
     @Override
+    public String getTypeName() {
+        return "SIntR";
+    }
+
+    @Override
     public long getValue() {
         int nbit = (int) getRange().getLength();
 

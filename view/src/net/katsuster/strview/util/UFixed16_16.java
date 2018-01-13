@@ -29,6 +29,11 @@ public class UFixed16_16 extends AbstractNum {
     }
 
     @Override
+    public String getTypeName() {
+        return "UFix16_16";
+    }
+
+    @Override
     public byte byteValue() {
         return (byte) ufixed16_16ToFloat((int) getValue());
     }

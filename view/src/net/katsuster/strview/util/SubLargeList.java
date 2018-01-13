@@ -60,6 +60,11 @@ public class SubLargeList<T> extends AbstractLargeListBase<T>
     }
 
     @Override
+    public String getTypeName() {
+        return "SubList";
+    }
+
+    @Override
     public T get(long index) {
         checkIndex(index);
 

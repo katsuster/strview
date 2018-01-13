@@ -29,6 +29,11 @@ public class UFixed8_8 extends AbstractNum {
     }
 
     @Override
+    public String getTypeName() {
+        return "UFix8_8";
+    }
+
+    @Override
     public byte byteValue() {
         return (byte) ufixed8_8ToFloat((short) getValue());
     }

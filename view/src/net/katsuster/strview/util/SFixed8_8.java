@@ -29,6 +29,11 @@ public class SFixed8_8 extends AbstractNum {
     }
 
     @Override
+    public String getTypeName() {
+        return "SFix8_8";
+    }
+
+    @Override
     public byte byteValue() {
         return (byte) sfixed8_8ToFloat((short) getValue());
     }

@@ -29,6 +29,11 @@ public class SFixed16_16 extends AbstractNum {
     }
 
     @Override
+    public String getTypeName() {
+        return "SFix16_16";
+    }
+
+    @Override
     public byte byteValue() {
         return (byte) sfixed16_16ToFloat((int) getValue());
     }

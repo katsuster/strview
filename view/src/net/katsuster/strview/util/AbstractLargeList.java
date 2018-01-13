@@ -18,6 +18,11 @@ public abstract class AbstractLargeList<T> extends AbstractLargeListBase<T> {
     }
 
     @Override
+    public String getTypeName() {
+        return "List";
+    }
+
+    @Override
     public T get(long index) {
         checkIndex(index);
 

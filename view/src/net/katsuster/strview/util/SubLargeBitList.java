@@ -16,6 +16,17 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
 
     /**
      * <p>
+     * 指定された名前を持った部分列を作成します。
+     * </p>
+     *
+     * @param n    名前
+     */
+    public SubLargeBitList(String n) {
+        this(n, null, 0, 0);
+    }
+
+    /**
+     * <p>
      * 指定されたビット列の
      * from から len の長さの部分列を作成します。
      * </p>
@@ -74,6 +85,11 @@ public class SubLargeBitList extends AbstractLargeListBase<Boolean>
         obj.range = (Range<LargeBitList>)range.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "SubBits";
     }
 
     @Override

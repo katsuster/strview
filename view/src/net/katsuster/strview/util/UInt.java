@@ -34,6 +34,11 @@ public class UInt extends AbstractNum
     }
 
     @Override
+    public String getTypeName() {
+        return "UInt";
+    }
+
+    @Override
     public float floatValue() {
         return uint64ToFloat(getValue());
     }

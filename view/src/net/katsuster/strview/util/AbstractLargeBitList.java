@@ -76,6 +76,11 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
     }
 
     @Override
+    public String getTypeName() {
+        return "Bits";
+    }
+
+    @Override
     public int get(long index, boolean[] dest, int offset, int length) {
         checkRemaining(index, length);
 
