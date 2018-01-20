@@ -25,9 +25,9 @@ public class ASFHeaderHeaderExtension<T extends LargeList<?>>
     //public ByteArray header_extension_data;
 
     public ASFHeaderHeaderExtension() {
-        reserved_field1 = new ASFGUID();
-        reserved_field2 = new UIntR();
-        header_extension_data_size = new UIntR();
+        reserved_field1 = new ASFGUID("Reserved Field 1");
+        reserved_field2 = new UIntR("Reserved Field 2");
+        header_extension_data_size = new UIntR("Header Extension Data Size");
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ASFHeaderHeaderExtension<T extends LargeList<?>>
         d.reserved_field1.read(c);
         d.reserved_field2            = c.readUIntR(16, d.reserved_field2           );
         d.header_extension_data_size = c.readUIntR(32, d.header_extension_data_size);
-        checkNegative("Header Extension Data Size", d.header_extension_data_size);
+        checkNegative(d.header_extension_data_size);
 
         c.leaveBlock();
     }
@@ -85,8 +85,8 @@ public class ASFHeaderHeaderExtension<T extends LargeList<?>>
 
         c.mark("Reserved Field 1", "");
         d.reserved_field1.write(c);
-        c.writeUIntR(16, d.reserved_field2           , "Reserved Field 2");
-        c.writeUIntR(32, d.header_extension_data_size, "Header Extension Data Size");
+        c.writeUIntR(16, d.reserved_field2           );
+        c.writeUIntR(32, d.header_extension_data_size);
 
         c.leaveBlock();
     }

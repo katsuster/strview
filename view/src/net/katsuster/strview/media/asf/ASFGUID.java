@@ -42,7 +42,18 @@ public class ASFGUID<T extends LargeList<?>>
      * </p>
      */
     public ASFGUID() {
-        this(0, 0, 0, 0, 0);
+        this(null, 0, 0, 0, 0, 0);
+    }
+
+    /**
+     * <p>
+     * 全て 0 で初期化された GUID を生成します。
+     * </p>
+     *
+     * @param n 名前
+     */
+    public ASFGUID(String n) {
+        this(n, 0, 0, 0, 0, 0);
     }
 
     /**
@@ -57,6 +68,24 @@ public class ASFGUID<T extends LargeList<?>>
      * @param e パート E、下位 48bit のみ使用されます。
      */
     public ASFGUID(int a, int b, int c, int d, long e) {
+        this(null, a, b, c, d, e);
+    }
+
+    /**
+     * <p>
+     * 指定された値で初期化された GUID を生成します。
+     * </p>
+     *
+     * @param n 名前
+     * @param a パート A、下位 32bit のみ使用されます。
+     * @param b パート B、下位 16bit のみ使用されます。
+     * @param c パート C、下位 16bit のみ使用されます。
+     * @param d パート D、下位 16bit のみ使用されます。
+     * @param e パート E、下位 48bit のみ使用されます。
+     */
+    public ASFGUID(String n, int a, int b, int c, int d, long e) {
+        super(n);
+
         la = new UIntR("la", a & 0xffffffffL, 32);
         lb = new UIntR("lb", b & 0xffffL, 16);
         lc = new UIntR("lc", c & 0xffffL, 16);
@@ -154,11 +183,11 @@ public class ASFGUID<T extends LargeList<?>>
                              ASFGUID d) {
         c.enterBlock(d);
 
-        c.writeUIntR(32, d.la, "la");
-        c.writeUIntR(16, d.lb, "lb");
-        c.writeUIntR(16, d.lc, "lc");
-        c.writeUInt(16, d.bd, "bd");
-        c.writeUInt(48, d.be, "be");
+        c.writeUIntR(32, d.la);
+        c.writeUIntR(16, d.lb);
+        c.writeUIntR(16, d.lc);
+        c.writeUInt(16, d.bd);
+        c.writeUInt(48, d.be);
 
         c.mark("GUID",
                 String.format("%08x-%04x-%04x-%04x-%012x",

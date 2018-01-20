@@ -35,18 +35,18 @@ public class ASFHeaderFileProperties<T extends LargeList<?>>
     public UIntR maximum_bitrate;
 
     public ASFHeaderFileProperties() {
-        file_id = new ASFGUID();
-        file_size = new UIntR();
-        creation_date = new UIntR();
-        data_packets_count = new UIntR();
-        play_duration = new UIntR();
-        send_duration = new UIntR();
-        preroll = new UIntR();
-        flags = new UIntR();
+        file_id            = new ASFGUID("File ID");
+        file_size          = new UIntR("File Size"         );
+        creation_date      = new UIntR("Creation Date"     );
+        data_packets_count = new UIntR("Data Packets Count");
+        play_duration      = new UIntR("Play Duration"     );
+        send_duration      = new UIntR("Send Duration"     );
+        preroll            = new UIntR("Preroll"           );
+        flags              = new UIntR("Flags"             );
 
-        minimum_data_packet_size = new UIntR();
-        maximum_data_packet_size = new UIntR();
-        maximum_bitrate = new UIntR();
+        minimum_data_packet_size = new UIntR("Minimum Data Packet Size");
+        maximum_data_packet_size = new UIntR("Maximum Data Packet Size");
+        maximum_bitrate          = new UIntR("Maximum Bitrate"         );
     }
 
     @Override
@@ -125,19 +125,19 @@ public class ASFHeaderFileProperties<T extends LargeList<?>>
 
         c.mark("File ID", "");
         d.file_id.write(c);
-        c.writeUIntR(64, d.file_size               , "File Size"               );
-        c.writeUIntR(64, d.creation_date           , "Creation Date"           , d.getCreationDateName());
-        c.writeUIntR(64, d.data_packets_count      , "Data Packets Count"      );
-        c.writeUIntR(64, d.play_duration           , "Play Duration"           , d.getPlayDurationName());
-        c.writeUIntR(64, d.send_duration           , "Send Duration"           , d.getSendDurationName());
-        c.writeUIntR(64, d.preroll                 , "Preroll"                 );
-        c.writeUIntR(32, d.flags                   , "Flags"                   );
+        c.writeUIntR(64, d.file_size         );
+        c.writeUIntR(64, d.creation_date     , d.getCreationDateName());
+        c.writeUIntR(64, d.data_packets_count);
+        c.writeUIntR(64, d.play_duration     , d.getPlayDurationName());
+        c.writeUIntR(64, d.send_duration     , d.getSendDurationName());
+        c.writeUIntR(64, d.preroll           );
+        c.writeUIntR(32, d.flags             );
         ////Broadcast Flag 1
         ////Seekable Flag 1
         ////Reserved 30
-        c.writeUIntR(32, d.minimum_data_packet_size, "Minimum Data Packet Size");
-        c.writeUIntR(32, d.maximum_data_packet_size, "Maximum Data Packet Size");
-        c.writeUIntR(32, d.maximum_bitrate         , "Maximum Bitrate"         );
+        c.writeUIntR(32, d.minimum_data_packet_size);
+        c.writeUIntR(32, d.maximum_data_packet_size);
+        c.writeUIntR(32, d.maximum_bitrate         );
 
         c.leaveBlock();
     }

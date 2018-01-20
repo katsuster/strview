@@ -23,9 +23,9 @@ public class ASFHeaderHeader<T extends LargeList<?>>
     public UIntR reserved2;
 
     public ASFHeaderHeader() {
-        number_of_header_objects = new UIntR();
-        reserved1 = new UIntR();
-        reserved2 = new UIntR();
+        number_of_header_objects = new UIntR("Number of Header Objects");
+        reserved1 = new UIntR("Reserved 1");
+        reserved2 = new UIntR("Reserved 2");
     }
 
     @Override
@@ -79,9 +79,9 @@ public class ASFHeaderHeader<T extends LargeList<?>>
 
         ASFHeader.write(c, d);
 
-        c.writeUIntR(32, d.number_of_header_objects, "Number of Header Objects");
-        c.writeUIntR( 8, d.reserved1               , "Reserved 1");
-        c.writeUIntR( 8, d.reserved2               , "Reserved 2");
+        c.writeUIntR(32, d.number_of_header_objects);
+        c.writeUIntR( 8, d.reserved1               );
+        c.writeUIntR( 8, d.reserved2               );
 
         c.leaveBlock();
     }

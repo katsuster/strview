@@ -30,16 +30,16 @@ public class ASFHeaderContentDescription<T extends LargeList<?>>
     public LargeBitList rating;
 
     public ASFHeaderContentDescription() {
-        title_length = new UIntR();
-        author_length = new UIntR();
-        copyright_length = new UIntR();
-        description_length = new UIntR();
-        rating_length = new UIntR();
-        title = new SubLargeBitList();
-        author = new SubLargeBitList();
-        copyright = new SubLargeBitList();
-        description = new SubLargeBitList();
-        rating = new SubLargeBitList();
+        title_length       = new UIntR("Title Length"      );
+        author_length      = new UIntR("Author Length"     );
+        copyright_length   = new UIntR("Copyright Length"  );
+        description_length = new UIntR("Description Length");
+        rating_length      = new UIntR("Rating Length"     );
+        title              = new SubLargeBitList("Title"      );
+        author             = new SubLargeBitList("Author"     );
+        copyright          = new SubLargeBitList("Copyright"  );
+        description        = new SubLargeBitList("Description");
+        rating             = new SubLargeBitList("Rating"     );
     }
 
     @Override
@@ -83,15 +83,15 @@ public class ASFHeaderContentDescription<T extends LargeList<?>>
         ASFHeader.read(c, d);
 
         d.title_length       = c.readUIntR(16, d.title_length      );
-        checkNegative("Title Length", d.title_length);
+        checkNegative(d.title_length);
         d.author_length      = c.readUIntR(16, d.author_length     );
-        checkNegative("Author Length", d.author_length);
+        checkNegative(d.author_length);
         d.copyright_length   = c.readUIntR(16, d.copyright_length  );
-        checkNegative("Copyright Length", d.copyright_length);
+        checkNegative(d.copyright_length);
         d.description_length = c.readUIntR(16, d.description_length);
-        checkNegative("Description Length", d.description_length);
+        checkNegative(d.description_length);
         d.rating_length      = c.readUIntR(16, d.rating_length     );
-        checkNegative("Rating Length", d.rating_length);
+        checkNegative(d.rating_length);
 
         d.title       = c.readBitList(d.title_length.intValue() << 3      , d.title);
         d.author      = c.readBitList(d.author_length.intValue() << 3     , d.author);
@@ -113,22 +113,17 @@ public class ASFHeaderContentDescription<T extends LargeList<?>>
 
         ASFHeader.write(c, d);
 
-        c.writeUIntR(16, d.title_length      , "Title Length"      );
-        c.writeUIntR(16, d.author_length     , "Author Length"     );
-        c.writeUIntR(16, d.copyright_length  , "Copyright Length"  );
-        c.writeUIntR(16, d.description_length, "Description Length");
-        c.writeUIntR(16, d.rating_length     , "Rating Length"     );
+        c.writeUIntR(16, d.title_length      );
+        c.writeUIntR(16, d.author_length     );
+        c.writeUIntR(16, d.copyright_length  );
+        c.writeUIntR(16, d.description_length);
+        c.writeUIntR(16, d.rating_length     );
 
-        c.writeBitList(d.title_length.intValue() << 3      , d.title      ,
-                "Title"      , d.getTitleName());
-        c.writeBitList(d.author_length.intValue() << 3     , d.author     ,
-                "Author"     , d.getAuthorName());
-        c.writeBitList(d.copyright_length.intValue() << 3  , d.copyright  ,
-                "Copyright"  , d.getCopyrightName());
-        c.writeBitList(d.description_length.intValue() << 3, d.description,
-                "Description", d.getDescriptionName());
-        c.writeBitList(d.rating_length.intValue() << 3     , d.rating     ,
-                "Rating"     , d.getRatingName());
+        c.writeBitList(d.title_length.intValue() << 3      , d.title      , d.getTitleName());
+        c.writeBitList(d.author_length.intValue() << 3     , d.author     , d.getAuthorName());
+        c.writeBitList(d.copyright_length.intValue() << 3  , d.copyright  , d.getCopyrightName());
+        c.writeBitList(d.description_length.intValue() << 3, d.description, d.getDescriptionName());
+        c.writeBitList(d.rating_length.intValue() << 3     , d.rating     , d.getRatingName());
 
         c.leaveBlock();
     }

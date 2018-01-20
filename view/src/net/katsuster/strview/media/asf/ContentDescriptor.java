@@ -26,11 +26,11 @@ public class ContentDescriptor<T extends LargeList<?>>
     public LargeBitList descriptor_value;
 
     public ContentDescriptor() {
-        descriptor_name_length = new UIntR();
-        descriptor_name = new SubLargeBitList();
-        descriptor_value_data_type = new UIntR();
-        descriptor_value_length = new UIntR();
-        descriptor_value = new SubLargeBitList();
+        descriptor_name_length     = new UIntR("Descriptor Name Length");
+        descriptor_name            = new SubLargeBitList("Descriptor Name");
+        descriptor_value_data_type = new UIntR("Descriptor Value Data Type");
+        descriptor_value_length    = new UIntR("Descriptor Value Length");
+        descriptor_value           = new SubLargeBitList("Descriptor Value");
     }
 
     @Override
@@ -62,12 +62,12 @@ public class ContentDescriptor<T extends LargeList<?>>
         c.enterBlock(d);
 
         d.descriptor_name_length     = c.readUIntR(16, d.descriptor_name_length    );
-        checkNegative("Descriptor Name Length", d.descriptor_name_length);
+        checkNegative(d.descriptor_name_length);
         d.descriptor_name = c.readBitList(d.descriptor_name_length.intValue() << 3, d.descriptor_name);
 
         d.descriptor_value_data_type = c.readUIntR(16, d.descriptor_value_data_type);
         d.descriptor_value_length    = c.readUIntR(16, d.descriptor_value_length   );
-        checkNegative("Descriptor Value Length", d.descriptor_value_length);
+        checkNegative(d.descriptor_value_length);
         d.descriptor_value = c.readBitList(d.descriptor_value_length.intValue() << 3, d.descriptor_value);
 
         c.leaveBlock();
@@ -82,14 +82,12 @@ public class ContentDescriptor<T extends LargeList<?>>
                              ContentDescriptor d) {
         c.enterBlock(d);
 
-        c.writeUIntR(16, d.descriptor_name_length    , "Descriptor Name Length");
-        c.writeBitList(d.descriptor_name_length.intValue() << 3, d.descriptor_name,
-                "Descriptor Name", d.getDescriptorName());
+        c.writeUIntR(16, d.descriptor_name_length    );
+        c.writeBitList(d.descriptor_name_length.intValue() << 3, d.descriptor_name, d.getDescriptorName());
 
-        c.writeUIntR(16, d.descriptor_value_data_type, "Descriptor Value Data Type", d.getDescriptorDataTypeName());
-        c.writeUIntR(16, d.descriptor_value_length   , "Descriptor Value Length");
-        c.writeBitList(d.descriptor_value_length.intValue() << 3, d.descriptor_value,
-                "");
+        c.writeUIntR(16, d.descriptor_value_data_type, d.getDescriptorDataTypeName());
+        c.writeUIntR(16, d.descriptor_value_length   );
+        c.writeBitList(d.descriptor_value_length.intValue() << 3, d.descriptor_value);
 
         c.leaveBlock();
     }

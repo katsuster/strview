@@ -22,8 +22,8 @@ public class ASFHeader<T extends LargeList<?>>
     public UIntR object_size;
 
     public ASFHeader() {
-        object_id = new ASFGUID();
-        object_size = new UIntR();
+        object_id = new ASFGUID("Object ID");
+        object_size = new UIntR("Object Size");
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ASFHeader<T extends LargeList<?>>
 
         c.mark("Object ID", "");
         d.object_id.write(c);
-        c.writeUIntR(64, d.object_size, "Object Size");
+        c.writeUIntR(64, d.object_size);
 
         c.leaveBlock();
     }

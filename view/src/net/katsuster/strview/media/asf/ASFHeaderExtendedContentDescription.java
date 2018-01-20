@@ -24,7 +24,7 @@ public class ASFHeaderExtendedContentDescription<T extends LargeList<?>>
     public List<ContentDescriptor> content_descriptors;
 
     public ASFHeaderExtendedContentDescription() {
-        content_descriptors_count = new UIntR();
+        content_descriptors_count = new UIntR("Content Descriptors Count");
         content_descriptors = new ArrayList<>();
     }
 
@@ -64,7 +64,7 @@ public class ASFHeaderExtendedContentDescription<T extends LargeList<?>>
         ASFHeader.read(c, d);
 
         d.content_descriptors_count = c.readUIntR(16, d.content_descriptors_count);
-        checkNegative("Content Descriptors Count", d.content_descriptors_count);
+        checkNegative(d.content_descriptors_count);
 
         d.content_descriptors = readObjectList(c, d.content_descriptors_count.intValue(),
                 d.content_descriptors, ContentDescriptor.class);
@@ -83,7 +83,7 @@ public class ASFHeaderExtendedContentDescription<T extends LargeList<?>>
 
         ASFHeader.write(c, d);
 
-        c.writeUIntR(16, d.content_descriptors_count, "Content Descriptors Count");
+        c.writeUIntR(16, d.content_descriptors_count);
 
         writeObjectList(c, d.content_descriptors_count.intValue(),
                 d.content_descriptors, "Content Descriptors");
