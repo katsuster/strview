@@ -55,16 +55,16 @@ public class M2VHeaderSlice<T extends LargeList<?>>
     public M2VHeaderSlice(Map.Entry<Long, M2VHeaderSequence<T>> es,
                           Map.Entry<Long, M2VHeaderExtSequence<T>> ees,
                           Map.Entry<Long, M2VHeaderExtSequenceScalable<T>> eesc) {
-        slice_vertical_position_extension = new UInt();
-        priority_breakpoint = new UInt();
-        quantiser_scale_code = new UInt();
-        slice_extension_flag = new UInt();
-        intra_slice = new UInt();
-        slice_picture_id_enable = new UInt();
-        slice_picture_id = new UInt();
-        extra_bit_slice_1 = new UInt();
-        extra_information_slice = new UInt();
-        extra_bit_slice_0 = new UInt();
+        slice_vertical_position_extension = new UInt("slice_vertical_position_extension");
+        priority_breakpoint     = new UInt("priority_breakpoint"    );
+        quantiser_scale_code    = new UInt("quantiser_scale_code"   );
+        slice_extension_flag    = new UInt("slice_extension_flag"   );
+        intra_slice             = new UInt("intra_slice"            );
+        slice_picture_id_enable = new UInt("slice_picture_id_enable");
+        slice_picture_id        = new UInt("slice_picture_id"       );
+        extra_bit_slice_1       = new UInt("extra_bit_slice_1"      );
+        extra_information_slice = new UInt("extra_information_slice");
+        extra_bit_slice_0       = new UInt("extra_bit_slice_0"      );
 
         entSeq = es;
         entEseq = ees;
@@ -172,28 +172,28 @@ public class M2VHeaderSlice<T extends LargeList<?>>
         }
 
         if (d.getVerticalSize() > 2800) {
-            c.writeUInt( 3, d.slice_vertical_position_extension, "slice_vertical_position_extension");
+            c.writeUInt( 3, d.slice_vertical_position_extension);
         }
 
         if (d.eseqsca != null) {
             if (d.eseqsca.scalable_mode.intValue() == SCALABLE_MODE.DATA_PARTITIONING) {
-                c.writeUInt( 7, d.priority_breakpoint, "priority_breakpoint");
+                c.writeUInt( 7, d.priority_breakpoint);
             }
         }
 
-        c.writeUInt( 5, d.quantiser_scale_code, "quantiser_scale_code");
+        c.writeUInt( 5, d.quantiser_scale_code);
         if (d.slice_extension_flag.intValue() == 1) {
-            c.writeUInt( 1, d.slice_extension_flag   , "slice_extension_flag"   );
-            c.writeUInt( 1, d.intra_slice            , "intra_slice"            );
-            c.writeUInt( 1, d.slice_picture_id_enable, "slice_picture_id_enable");
-            c.writeUInt( 6, d.slice_picture_id       , "slice_picture_id"       );
+            c.writeUInt( 1, d.slice_extension_flag   );
+            c.writeUInt( 1, d.intra_slice            );
+            c.writeUInt( 1, d.slice_picture_id_enable);
+            c.writeUInt( 6, d.slice_picture_id       );
             while (d.extra_bit_slice_1.intValue() == 1) {
                 //TODO: extra_information_slice is ignored
-                c.writeUInt( 1, d.extra_bit_slice_1      , "extra_bit_slice_1"      );
-                c.writeUInt( 8, d.extra_information_slice, "extra_information_slice");
+                c.writeUInt( 1, d.extra_bit_slice_1      );
+                c.writeUInt( 8, d.extra_information_slice);
             }
         }
-        c.writeUInt( 1, d.extra_bit_slice_0, "extra_bit_slice_0");
+        c.writeUInt( 1, d.extra_bit_slice_0);
 
         c.leaveBlock();
     }

@@ -23,7 +23,7 @@ public class M2VHeaderExt<T extends LargeList<?>>
     public UInt extension_start_code_identifier;
 
     public M2VHeaderExt() {
-        extension_start_code_identifier = new UInt();
+        extension_start_code_identifier = new UInt("extension_start_code_identifier");
     }
 
     @Override
@@ -68,7 +68,7 @@ public class M2VHeaderExt<T extends LargeList<?>>
 
         M2VHeader.write(c, d);
 
-        c.writeUInt( 4, d.extension_start_code_identifier, "extension_start_code_identifier", d.getExtensionStartCodeName());
+        c.writeUInt( 4, d.extension_start_code_identifier, d.getExtensionStartCodeName());
 
         c.leaveBlock();
     }

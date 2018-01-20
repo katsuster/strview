@@ -44,27 +44,27 @@ public class M2VHeaderExtPictureCoding<T extends LargeList<?>>
         f_code = new UInt[2][2];
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
-                f_code[i][j] = new UInt();
+                f_code[i][j] = new UInt("f_code[" + i + "][" + j + "]");
             }
         }
-        intra_dc_precision = new UInt();
-        picture_structure = new UInt();
-        top_field_first = new UInt();
-        frame_pred_frame_dct = new UInt();
-        concealment_motion_vectors = new UInt();
-        q_scale_type = new UInt();
-        intra_vlc_format = new UInt();
-        alternate_scan = new UInt();
-        repeat_first_field = new UInt();
-        chroma_420_type = new UInt();
-        progressive_frame = new UInt();
-        composite_display_flag = new UInt();
+        intra_dc_precision         = new UInt("intra_dc_precision"        );
+        picture_structure          = new UInt("picture_structure"         );
+        top_field_first            = new UInt("top_field_first"           );
+        frame_pred_frame_dct       = new UInt("frame_pred_frame_dct"      );
+        concealment_motion_vectors = new UInt("concealment_motion_vectors");
+        q_scale_type               = new UInt("q_scale_type"              );
+        intra_vlc_format           = new UInt("intra_vlc_format"          );
+        alternate_scan             = new UInt("alternate_scan"            );
+        repeat_first_field         = new UInt("repeat_first_field"        );
+        chroma_420_type            = new UInt("chroma_420_type"           );
+        progressive_frame          = new UInt("progressive_frame"         );
+        composite_display_flag     = new UInt("composite_display_flag"    );
 
-        v_axis = new UInt();
-        field_sequence = new UInt();
-        sub_carrier = new UInt();
-        burst_amplitude = new UInt();
-        sub_carrier_phase = new UInt();
+        v_axis            = new UInt("v_axis"           );
+        field_sequence    = new UInt("field_sequence"   );
+        sub_carrier       = new UInt("sub_carrier"      );
+        burst_amplitude   = new UInt("burst_amplitude"  );
+        sub_carrier_phase = new UInt("sub_carrier_phase");
     }
 
     @Override
@@ -155,29 +155,29 @@ public class M2VHeaderExtPictureCoding<T extends LargeList<?>>
 
         M2VHeaderExt.write(c, d);
 
-        c.writeUInt( 4, d.f_code[0][0]              , "f_code[0][0]"              );
-        c.writeUInt( 4, d.f_code[0][1]              , "f_code[0][1]"              );
-        c.writeUInt( 4, d.f_code[1][0]              , "f_code[1][0]"              );
-        c.writeUInt( 4, d.f_code[1][1]              , "f_code[1][1]"              );
-        c.writeUInt( 2, d.intra_dc_precision        , "intra_dc_precision"        , d.getIntraDCPrecisionName());
-        c.writeUInt( 2, d.picture_structure         , "picture_structure"         , d.getPictureStructureName());
-        c.writeUInt( 1, d.top_field_first           , "top_field_first"           );
-        c.writeUInt( 1, d.frame_pred_frame_dct      , "frame_pred_frame_dct"      );
-        c.writeUInt( 1, d.concealment_motion_vectors, "concealment_motion_vectors");
-        c.writeUInt( 1, d.q_scale_type              , "q_scale_type"              );
-        c.writeUInt( 1, d.intra_vlc_format          , "intra_vlc_format"          );
-        c.writeUInt( 1, d.alternate_scan            , "alternate_scan"            );
-        c.writeUInt( 1, d.repeat_first_field        , "repeat_first_field"        );
-        c.writeUInt( 1, d.chroma_420_type           , "chroma_420_type"           );
-        c.writeUInt( 1, d.progressive_frame         , "progressive_frame"         );
-        c.writeUInt( 1, d.composite_display_flag    , "composite_display_flag"    );
+        c.writeUInt( 4, d.f_code[0][0]              );
+        c.writeUInt( 4, d.f_code[0][1]              );
+        c.writeUInt( 4, d.f_code[1][0]              );
+        c.writeUInt( 4, d.f_code[1][1]              );
+        c.writeUInt( 2, d.intra_dc_precision        , d.getIntraDCPrecisionName());
+        c.writeUInt( 2, d.picture_structure         , d.getPictureStructureName());
+        c.writeUInt( 1, d.top_field_first           );
+        c.writeUInt( 1, d.frame_pred_frame_dct      );
+        c.writeUInt( 1, d.concealment_motion_vectors);
+        c.writeUInt( 1, d.q_scale_type              );
+        c.writeUInt( 1, d.intra_vlc_format          );
+        c.writeUInt( 1, d.alternate_scan            );
+        c.writeUInt( 1, d.repeat_first_field        );
+        c.writeUInt( 1, d.chroma_420_type           );
+        c.writeUInt( 1, d.progressive_frame         );
+        c.writeUInt( 1, d.composite_display_flag    );
 
         if (d.composite_display_flag.intValue() == 1) {
-            c.writeUInt( 1, d.v_axis                    , "v_axis"                    );
-            c.writeUInt( 3, d.field_sequence            , "field_sequence"            );
-            c.writeUInt( 1, d.sub_carrier               , "sub_carrier"               );
-            c.writeUInt( 7, d.burst_amplitude           , "burst_amplitude"           );
-            c.writeUInt( 8, d.sub_carrier_phase         , "sub_carrier_phase"         );
+            c.writeUInt( 1, d.v_axis           );
+            c.writeUInt( 3, d.field_sequence   );
+            c.writeUInt( 1, d.sub_carrier      );
+            c.writeUInt( 7, d.burst_amplitude  );
+            c.writeUInt( 8, d.sub_carrier_phase);
         }
 
         c.leaveBlock();

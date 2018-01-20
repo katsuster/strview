@@ -30,14 +30,14 @@ public class M2VHeaderGOP<T extends LargeList<?>>
     public UInt broken_link;
 
     public M2VHeaderGOP() {
-        drop_frame = new UInt();
-        time_code_hours = new UInt();
-        time_code_minutes = new UInt();
-        marker_bit = new UInt();
-        time_code_seconds = new UInt();
-        time_code_pictures = new UInt();
-        closed_gop = new UInt();
-        broken_link = new UInt();
+        drop_frame         = new UInt("drop_frame"        );
+        time_code_hours    = new UInt("time_code_hours"   );
+        time_code_minutes  = new UInt("time_code_minutes" );
+        marker_bit         = new UInt("marker_bit"        );
+        time_code_seconds  = new UInt("time_code_seconds" );
+        time_code_pictures = new UInt("time_code_pictures");
+        closed_gop         = new UInt("closed_gop"        );
+        broken_link        = new UInt("broken_link"       );
     }
 
     @Override
@@ -96,14 +96,14 @@ public class M2VHeaderGOP<T extends LargeList<?>>
 
         M2VHeader.write(c, d);
 
-        c.writeUInt( 1, d.drop_frame        , "drop_frame"        );
-        c.writeUInt( 5, d.time_code_hours   , "time_code_hours"   );
-        c.writeUInt( 6, d.time_code_minutes , "time_code_minutes" );
-        c.writeUInt( 1, d.marker_bit        , "marker_bit"        );
-        c.writeUInt( 6, d.time_code_seconds , "time_code_seconds" );
-        c.writeUInt( 6, d.time_code_pictures, "time_code_pictures");
-        c.writeUInt( 1, d.closed_gop        , "closed_gop"        );
-        c.writeUInt( 1, d.broken_link       , "broken_link"       );
+        c.writeUInt( 1, d.drop_frame        );
+        c.writeUInt( 5, d.time_code_hours   );
+        c.writeUInt( 6, d.time_code_minutes );
+        c.writeUInt( 1, d.marker_bit        );
+        c.writeUInt( 6, d.time_code_seconds );
+        c.writeUInt( 6, d.time_code_pictures);
+        c.writeUInt( 1, d.closed_gop        );
+        c.writeUInt( 1, d.broken_link       );
 
         c.leaveBlock();
     }

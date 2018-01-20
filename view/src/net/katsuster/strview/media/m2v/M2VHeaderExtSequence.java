@@ -36,17 +36,17 @@ public class M2VHeaderExtSequence<T extends LargeList<?>>
     private int level;
 
     public M2VHeaderExtSequence() {
-        profile_and_level_indication = new UInt();
-        progressive_sequence = new UInt();
-        chroma_format = new UInt();
-        horizontal_size_extension = new UInt();
-        vertical_size_extension = new UInt();
-        bit_rate_extension = new UInt();
-        marker_bit = new UInt();
-        vbv_buffer_size_extension = new UInt();
-        low_delay = new UInt();
-        frame_rate_extension_n = new UInt();
-        frame_rate_extension_d = new UInt();
+        profile_and_level_indication = new UInt("profile_and_level_indication");
+        progressive_sequence         = new UInt("progressive_sequence"        );
+        chroma_format                = new UInt("chroma_format"               );
+        horizontal_size_extension    = new UInt("horizontal_size_extension"   );
+        vertical_size_extension      = new UInt("vertical_size_extension"     );
+        bit_rate_extension           = new UInt("bit_rate_extension"          );
+        marker_bit                   = new UInt("marker_bit"                  );
+        vbv_buffer_size_extension    = new UInt("vbv_buffer_size_extension"   );
+        low_delay                    = new UInt("low_delay"                   );
+        frame_rate_extension_n       = new UInt("frame_rate_extension_n"      );
+        frame_rate_extension_d       = new UInt("frame_rate_extension_d"      );
     }
 
     @Override
@@ -114,20 +114,20 @@ public class M2VHeaderExtSequence<T extends LargeList<?>>
 
         M2VHeaderExt.write(c, d);
 
-        c.writeUInt( 8, d.profile_and_level_indication, "profile_and_level_indication");
+        c.writeUInt( 8, d.profile_and_level_indication);
         c.mark("profile", d.getProfileName());
         c.mark("level", d.getLevelName());
 
-        c.writeUInt( 1, d.progressive_sequence        , "progressive_sequence"        );
-        c.writeUInt( 2, d.chroma_format               , "chroma_format"               , d.getChromaFormatName());
-        c.writeUInt( 2, d.horizontal_size_extension   , "horizontal_size_extension"   );
-        c.writeUInt( 2, d.vertical_size_extension     , "vertical_size_extension"     );
-        c.writeUInt(12, d.bit_rate_extension          , "bit_rate_extension"          );
-        c.writeUInt( 1, d.marker_bit                  , "marker_bit"                  );
-        c.writeUInt( 8, d.vbv_buffer_size_extension   , "vbv_buffer_size_extension"   );
-        c.writeUInt( 1, d.low_delay                   , "low_delay"                   );
-        c.writeUInt( 2, d.frame_rate_extension_n      , "frame_rate_extension_n"      );
-        c.writeUInt( 5, d.frame_rate_extension_d      , "frame_rate_extension_d"      );
+        c.writeUInt( 1, d.progressive_sequence        );
+        c.writeUInt( 2, d.chroma_format               , d.getChromaFormatName());
+        c.writeUInt( 2, d.horizontal_size_extension   );
+        c.writeUInt( 2, d.vertical_size_extension     );
+        c.writeUInt(12, d.bit_rate_extension          );
+        c.writeUInt( 1, d.marker_bit                  );
+        c.writeUInt( 8, d.vbv_buffer_size_extension   );
+        c.writeUInt( 1, d.low_delay                   );
+        c.writeUInt( 2, d.frame_rate_extension_n      );
+        c.writeUInt( 5, d.frame_rate_extension_d      );
 
         c.leaveBlock();
     }

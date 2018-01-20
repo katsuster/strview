@@ -36,19 +36,19 @@ public class M2VHeaderExtSequenceScalable<T extends LargeList<?>>
     public UInt picture_mux_factor;
 
     public M2VHeaderExtSequenceScalable() {
-        scalable_mode = new UInt();
-        layer_id = new UInt();
-        lower_layer_prediction_horizontal_size = new UInt();
-        marker_bit = new UInt();
-        lower_layer_prediction_vertical_size = new UInt();
-        horizontal_subsampling_factor_m = new UInt();
-        horizontal_subsampling_factor_n = new UInt();
-        vertical_subsampling_factor_m = new UInt();
-        vertical_subsampling_factor_n = new UInt();
-        picture_mux_enable = new UInt();
-        mux_to_progressive_sequence = new UInt();
-        picture_mux_order = new UInt();
-        picture_mux_factor = new UInt();
+        scalable_mode                          = new UInt("scalable_mode"                         );
+        layer_id                               = new UInt("layer_id"                              );
+        lower_layer_prediction_horizontal_size = new UInt("lower_layer_prediction_horizontal_size");
+        marker_bit                             = new UInt("marker_bit"                            );
+        lower_layer_prediction_vertical_size   = new UInt("lower_layer_prediction_vertical_size"  );
+        horizontal_subsampling_factor_m        = new UInt("horizontal_subsampling_factor_m"       );
+        horizontal_subsampling_factor_n        = new UInt("horizontal_subsampling_factor_n"       );
+        vertical_subsampling_factor_m          = new UInt("vertical_subsampling_factor_m"         );
+        vertical_subsampling_factor_n          = new UInt("vertical_subsampling_factor_n"         );
+        picture_mux_enable                     = new UInt("picture_mux_enable"                    );
+        mux_to_progressive_sequence            = new UInt("mux_to_progressive_sequence"           );
+        picture_mux_order                      = new UInt("picture_mux_order"                     );
+        picture_mux_factor                     = new UInt("picture_mux_factor"                    );
     }
 
     @Override
@@ -125,26 +125,26 @@ public class M2VHeaderExtSequenceScalable<T extends LargeList<?>>
 
         M2VHeaderExt.write(c, d);
 
-        c.writeUInt( 2, d.scalable_mode, "d.scalable_mode", d.getScalableModeName());
-        c.writeUInt( 4, d.layer_id     , "d.layer_id"     );
+        c.writeUInt( 2, d.scalable_mode, d.getScalableModeName());
+        c.writeUInt( 4, d.layer_id     );
 
         if (d.scalable_mode.intValue() == SCALABLE_MODE.SPATIAL) {
-            c.writeUInt(14, d.lower_layer_prediction_horizontal_size, "lower_layer_prediction_horizontal_size");
-            c.writeUInt( 1, d.marker_bit                            , "marker_bit"                            );
-            c.writeUInt(14, d.lower_layer_prediction_vertical_size  , "lower_layer_prediction_vertical_size"  );
-            c.writeUInt( 5, d.horizontal_subsampling_factor_m       , "horizontal_subsampling_factor_m"       );
-            c.writeUInt( 5, d.horizontal_subsampling_factor_n       , "horizontal_subsampling_factor_n"       );
-            c.writeUInt( 5, d.vertical_subsampling_factor_m         , "vertical_subsampling_factor_m"         );
-            c.writeUInt( 5, d.vertical_subsampling_factor_n         , "vertical_subsampling_factor_n"         );
+            c.writeUInt(14, d.lower_layer_prediction_horizontal_size);
+            c.writeUInt( 1, d.marker_bit                            );
+            c.writeUInt(14, d.lower_layer_prediction_vertical_size  );
+            c.writeUInt( 5, d.horizontal_subsampling_factor_m       );
+            c.writeUInt( 5, d.horizontal_subsampling_factor_n       );
+            c.writeUInt( 5, d.vertical_subsampling_factor_m         );
+            c.writeUInt( 5, d.vertical_subsampling_factor_n         );
         }
 
         if (d.scalable_mode.intValue() == SCALABLE_MODE.TEMPORAL) {
-            c.writeUInt( 1, d.picture_mux_enable, "picture_mux_enable");
+            c.writeUInt( 1, d.picture_mux_enable);
             if (d.picture_mux_enable.intValue() == 1) {
-                c.writeUInt( 1, d.mux_to_progressive_sequence, "mux_to_progressive_sequence");
+                c.writeUInt( 1, d.mux_to_progressive_sequence);
             }
-            c.writeUInt( 3, d.picture_mux_order , "picture_mux_order" );
-            c.writeUInt( 3, d.picture_mux_factor, "picture_mux_factor");
+            c.writeUInt( 3, d.picture_mux_order );
+            c.writeUInt( 3, d.picture_mux_factor);
         }
 
         c.leaveBlock();

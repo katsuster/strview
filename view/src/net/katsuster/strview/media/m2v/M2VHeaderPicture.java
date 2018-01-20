@@ -32,16 +32,16 @@ public class M2VHeaderPicture<T extends LargeList<?>>
     public UInt extra_bit_picture_0;
 
     public M2VHeaderPicture() {
-        temporal_reference = new UInt();
-        picture_coding_type = new UInt();
-        vbv_delay = new UInt();
-        full_pel_forward_vector = new UInt();
-        forward_f_code = new UInt();
-        full_pel_backward_vector = new UInt();
-        backward_f_code = new UInt();
-        extra_bit_picture_1 = new UInt();
-        extra_information_picture = new UInt();
-        extra_bit_picture_0 = new UInt();
+        temporal_reference        = new UInt("temporal_reference"       );
+        picture_coding_type       = new UInt("picture_coding_type"      );
+        vbv_delay                 = new UInt("vbv_delay"                );
+        full_pel_forward_vector   = new UInt("full_pel_forward_vector"  );
+        forward_f_code            = new UInt("forward_f_code"           );
+        full_pel_backward_vector  = new UInt("full_pel_backward_vector" );
+        backward_f_code           = new UInt("backward_f_code"          );
+        extra_bit_picture_1       = new UInt("extra_bit_picture_1"      );
+        extra_information_picture = new UInt("extra_information_picture");
+        extra_bit_picture_0       = new UInt("extra_bit_picture_0"      );
     }
 
     @Override
@@ -115,27 +115,27 @@ public class M2VHeaderPicture<T extends LargeList<?>>
 
         M2VHeader.write(c, d);
 
-        c.writeUInt(10, d.temporal_reference , "temporal_reference" );
-        c.writeUInt( 3, d.picture_coding_type, "picture_coding_type", d.getPictureCodingTypeName());
-        c.writeUInt(16, d.vbv_delay          , "vbv_delay"          );
+        c.writeUInt(10, d.temporal_reference );
+        c.writeUInt( 3, d.picture_coding_type, d.getPictureCodingTypeName());
+        c.writeUInt(16, d.vbv_delay          );
 
         if (d.picture_coding_type.intValue() == 2 ||
                 d.picture_coding_type.intValue() == 3) {
-            c.writeUInt( 1, d.full_pel_forward_vector  , "full_pel_forward_vector"  );
-            c.writeUInt( 3, d.forward_f_code           , "forward_f_code"           );
+            c.writeUInt( 1, d.full_pel_forward_vector  );
+            c.writeUInt( 3, d.forward_f_code           );
         }
 
         if (d.picture_coding_type.intValue() == 3) {
-            c.writeUInt( 1, d.full_pel_backward_vector , "full_pel_backward_vector" );
-            c.writeUInt( 3, d.backward_f_code          , "backward_f_code"          );
+            c.writeUInt( 1, d.full_pel_backward_vector );
+            c.writeUInt( 3, d.backward_f_code          );
         }
 
         if (d.extra_bit_picture_1.intValue() == 1) {
             //TODO: extra_information_picture is ignored
-            c.writeUInt( 1, d.extra_bit_picture_1      , "extra_bit_picture_1"      );
-            c.writeUInt( 8, d.extra_information_picture, "extra_information_picture");
+            c.writeUInt( 1, d.extra_bit_picture_1      );
+            c.writeUInt( 8, d.extra_information_picture);
         }
-        c.writeUInt( 1, d.extra_bit_picture_0, "extra_bit_picture_0");
+        c.writeUInt( 1, d.extra_bit_picture_0);
 
         c.leaveBlock();
     }

@@ -40,10 +40,10 @@ public class M2VHeaderExtPictureDisplay<T extends LargeList<?>>
         frame_centre_vertical_offset = new SInt[4];
         marker_bit1 = new UInt[4];
         for (int i = 0; i < 4; i++) {
-            frame_centre_horizontal_offset[i] = new SInt();
-            marker_bit0[i] = new UInt();
-            frame_centre_vertical_offset[i] = new SInt();
-            marker_bit1[i] = new UInt();
+            frame_centre_horizontal_offset[i] = new SInt("frame_centre_horizontal_offset[" + i + "]");
+            marker_bit0[i]                    = new UInt("marker_bit0[" + i + "]");
+            frame_centre_vertical_offset[i]   = new SInt("frame_centre_vertical_offset" + i + "]");
+            marker_bit1[i]                    = new UInt("marker_bit1[" + i + "]");
         }
 
         entEseq = es;
@@ -118,10 +118,10 @@ public class M2VHeaderExtPictureDisplay<T extends LargeList<?>>
         int n = d.getNumberOfFrameCentreOffsets();
 
         for (int i = 0; i < n; i++) {
-            c.writeSInt(16, d.frame_centre_horizontal_offset[i], "frame_centre_horizontal_offset[" + i + "]");
-            c.writeUInt( 1, d.marker_bit0[i]                   , "marker_bit0[" + i + "]"                   );
-            c.writeSInt(16, d.frame_centre_vertical_offset[i]  , "frame_centre_vertical_offset[" + i + "]"  );
-            c.writeUInt( 1, d.marker_bit1[i]                   , "marker_bit1[" + i + "]"                   );
+            c.writeSInt(16, d.frame_centre_horizontal_offset[i]);
+            c.writeUInt( 1, d.marker_bit0[i]                   );
+            c.writeSInt(16, d.frame_centre_vertical_offset[i]  );
+            c.writeUInt( 1, d.marker_bit1[i]                   );
         }
 
         c.leaveBlock();

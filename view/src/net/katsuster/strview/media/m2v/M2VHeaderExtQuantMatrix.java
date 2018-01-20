@@ -30,14 +30,14 @@ public class M2VHeaderExtQuantMatrix<T extends LargeList<?>>
     public LargeBitList chroma_non_intra_quantiser_matrix;
 
     public M2VHeaderExtQuantMatrix() {
-        load_intra_quantiser_matrix = new UInt();
-        intra_quantiser_matrix = new SubLargeBitList();
-        load_non_intra_quantiser_matrix = new UInt();
-        non_intra_quantiser_matrix = new SubLargeBitList();
-        load_chroma_intra_quantiser_matrix = new UInt();
-        chroma_intra_quantiser_matrix = new SubLargeBitList();
-        load_chroma_non_intra_quantiser_matrix = new UInt();
-        chroma_non_intra_quantiser_matrix = new SubLargeBitList();
+        load_intra_quantiser_matrix            = new UInt("load_intra_quantiser_matrix");
+        intra_quantiser_matrix                 = new SubLargeBitList("intra_quantiser_matrix");
+        load_non_intra_quantiser_matrix        = new UInt("load_non_intra_quantiser_matrix");
+        non_intra_quantiser_matrix             = new SubLargeBitList("non_intra_quantiser_matrix");
+        load_chroma_intra_quantiser_matrix     = new UInt("load_chroma_intra_quantiser_matrix");
+        chroma_intra_quantiser_matrix          = new SubLargeBitList("chroma_intra_quantiser_matrix");
+        load_chroma_non_intra_quantiser_matrix = new UInt("load_chroma_non_intra_quantiser_matrix");
+        chroma_non_intra_quantiser_matrix      = new SubLargeBitList("chroma_non_intra_quantiser_matrix");
     }
 
     @Override
@@ -107,24 +107,24 @@ public class M2VHeaderExtQuantMatrix<T extends LargeList<?>>
 
         M2VHeaderExt.write(c, d);
 
-        c.writeUInt( 1, d.load_intra_quantiser_matrix, "load_intra_quantiser_matrix");
+        c.writeUInt( 1, d.load_intra_quantiser_matrix);
         if (d.load_intra_quantiser_matrix.intValue() == 1) {
-            c.writeBitList(64 << 3, d.intra_quantiser_matrix, "intra_quantiser_matrix");
+            c.writeBitList(64 << 3, d.intra_quantiser_matrix);
         }
 
-        c.writeUInt( 1, d.load_non_intra_quantiser_matrix, "load_non_intra_quantiser_matrix");
+        c.writeUInt( 1, d.load_non_intra_quantiser_matrix);
         if (d.load_non_intra_quantiser_matrix.intValue() == 1) {
-            c.writeBitList(64 << 3, d.non_intra_quantiser_matrix, "non_intra_quantiser_matrix");
+            c.writeBitList(64 << 3, d.non_intra_quantiser_matrix);
         }
 
-        c.writeUInt( 1, d.load_chroma_intra_quantiser_matrix, "load_chroma_intra_quantiser_matrix");
+        c.writeUInt( 1, d.load_chroma_intra_quantiser_matrix);
         if (d.load_chroma_intra_quantiser_matrix.intValue() == 1) {
-            c.writeBitList(64 << 3, d.chroma_intra_quantiser_matrix, "chroma_intra_quantiser_matrix");
+            c.writeBitList(64 << 3, d.chroma_intra_quantiser_matrix);
         }
 
-        c.writeUInt( 1, d.load_chroma_non_intra_quantiser_matrix, "load_chroma_non_intra_quantiser_matrix");
+        c.writeUInt( 1, d.load_chroma_non_intra_quantiser_matrix);
         if (d.load_chroma_non_intra_quantiser_matrix.intValue() == 1) {
-            c.writeBitList(64 << 3, d.chroma_non_intra_quantiser_matrix, "chroma_non_intra_quantiser_matrix");
+            c.writeBitList(64 << 3, d.chroma_non_intra_quantiser_matrix);
         }
 
         c.leaveBlock();

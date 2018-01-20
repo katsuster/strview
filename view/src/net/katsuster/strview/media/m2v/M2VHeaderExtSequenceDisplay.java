@@ -32,16 +32,16 @@ public class M2VHeaderExtSequenceDisplay<T extends LargeList<?>>
     public UInt display_vertical_size;
 
     public M2VHeaderExtSequenceDisplay() {
-        video_format = new UInt();
-        colour_description = new UInt();
+        video_format       = new UInt("video_format"      );
+        colour_description = new UInt("colour_description");
 
-        colour_primaries = new UInt();
-        transfer_characteristics = new UInt();
-        matrix_coefficients = new UInt();
+        colour_primaries         = new UInt("colour_primaries"        );
+        transfer_characteristics = new UInt("transfer_characteristics");
+        matrix_coefficients      = new UInt("matrix_coefficients"     );
 
-        display_horizontal_size = new UInt();
-        marker_bit = new UInt();
-        display_vertical_size = new UInt();
+        display_horizontal_size = new UInt("display_horizontal_size");
+        marker_bit              = new UInt("marker_bit"             );
+        display_vertical_size   = new UInt("display_vertical_size"  );
     }
 
     @Override
@@ -106,18 +106,18 @@ public class M2VHeaderExtSequenceDisplay<T extends LargeList<?>>
 
         M2VHeaderExt.write(c, d);
 
-        c.writeUInt( 3, d.video_format            , "video_format"            , d.getVideoFormatName());
-        c.writeUInt( 1, d.colour_description      , "colour_description"      );
+        c.writeUInt( 3, d.video_format            , d.getVideoFormatName());
+        c.writeUInt( 1, d.colour_description      );
 
         if (d.colour_description.intValue() == 1) {
-            c.writeUInt( 8, d.colour_primaries        , "colour_primaries"        , d.getColourPrimariesName());
-            c.writeUInt( 8, d.transfer_characteristics, "transfer_characteristics", d.getTransferCharacteristicsName());
-            c.writeUInt( 8, d.matrix_coefficients     , "matrix_coefficients"     , d.getMatrixCoefficientsName());
+            c.writeUInt( 8, d.colour_primaries        , d.getColourPrimariesName());
+            c.writeUInt( 8, d.transfer_characteristics, d.getTransferCharacteristicsName());
+            c.writeUInt( 8, d.matrix_coefficients     , d.getMatrixCoefficientsName());
         }
 
-        c.writeUInt(14, d.display_horizontal_size , "display_horizontal_size" );
-        c.writeUInt( 1, d.marker_bit              , "marker_bit"              );
-        c.writeUInt(14, d.display_vertical_size   , "display_vertical_size"   );
+        c.writeUInt(14, d.display_horizontal_size );
+        c.writeUInt( 1, d.marker_bit              );
+        c.writeUInt(14, d.display_vertical_size   );
 
         c.leaveBlock();
     }

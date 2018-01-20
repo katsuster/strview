@@ -23,7 +23,7 @@ public class M2VHeader<T extends LargeList<?>>
     public UInt start_code;
 
     public M2VHeader() {
-        start_code = new UInt();
+        start_code = new UInt("start_code");
     }
 
     @Override
@@ -64,7 +64,7 @@ public class M2VHeader<T extends LargeList<?>>
                              M2VHeader d) {
         c.enterBlock(d);
 
-        c.writeUInt(32, d.start_code, "start_code", d.getStartCodeName());
+        c.writeUInt(32, d.start_code, d.getStartCodeName());
 
         c.leaveBlock();
     }

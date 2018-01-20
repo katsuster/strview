@@ -33,23 +33,23 @@ public class M2VHeaderSequence<T extends LargeList<?>>
     public UInt[] non_intra_quantiser_matrix;
 
     public M2VHeaderSequence() {
-        horizontal_size_value = new UInt();
-        vertical_size_value = new UInt();
-        aspect_ratio_information = new UInt();
-        frame_rate_code = new UInt();
-        bit_rate_value = new UInt();
-        marker_bit = new UInt();
-        vbv_buffer_size_value = new UInt();
-        constrained_parameters_flag = new UInt();
-        load_intra_quantiser_matrix = new UInt();
+        horizontal_size_value       = new UInt("horizontal_size_value"      );
+        vertical_size_value         = new UInt("vertical_size_value"        );
+        aspect_ratio_information    = new UInt("aspect_ratio_information"   );
+        frame_rate_code             = new UInt("frame_rate_code"            );
+        bit_rate_value              = new UInt("bit_rate_value"             );
+        marker_bit                  = new UInt("marker_bit"                 );
+        vbv_buffer_size_value       = new UInt("vbv_buffer_size_value"      );
+        constrained_parameters_flag = new UInt("constrained_parameters_flag");
+        load_intra_quantiser_matrix = new UInt("load_intra_quantiser_matrix");
         intra_quantiser_matrix = new UInt[64];
         for (int i = 0; i < intra_quantiser_matrix.length; i++) {
-            intra_quantiser_matrix[i] = new UInt();
+            intra_quantiser_matrix[i] = new UInt("intra_quantiser_matrix[" + i + "]");
         }
-        load_non_intra_quantiser_matrix = new UInt();
+        load_non_intra_quantiser_matrix = new UInt("load_non_intra_quantiser_matrix");
         non_intra_quantiser_matrix = new UInt[64];
         for (int i = 0; i < non_intra_quantiser_matrix.length; i++) {
-            non_intra_quantiser_matrix[i] = new UInt();
+            non_intra_quantiser_matrix[i] = new UInt("non_intra_quantiser_matrix[" + i + "]");
         }
     }
 
@@ -133,26 +133,26 @@ public class M2VHeaderSequence<T extends LargeList<?>>
 
         M2VHeader.write(c, d);
 
-        c.writeUInt(12, d.horizontal_size_value      , "horizontal_size_value"      );
-        c.writeUInt(12, d.vertical_size_value        , "vertical_size_value"        );
-        c.writeUInt( 4, d.aspect_ratio_information   , "aspect_ratio_information"   , d.getAspectRatioName());
-        c.writeUInt( 4, d.frame_rate_code            , "frame_rate_code"            , d.getFrameRateValueName());
-        c.writeUInt(18, d.bit_rate_value             , "bit_rate_value"             );
-        c.writeUInt( 1, d.marker_bit                 , "marker_bit"                 );
-        c.writeUInt(10, d.vbv_buffer_size_value      , "vbv_buffer_size_value"      );
-        c.writeUInt( 1, d.constrained_parameters_flag, "constrained_parameters_flag");
+        c.writeUInt(12, d.horizontal_size_value      );
+        c.writeUInt(12, d.vertical_size_value        );
+        c.writeUInt( 4, d.aspect_ratio_information   , d.getAspectRatioName());
+        c.writeUInt( 4, d.frame_rate_code            , d.getFrameRateValueName());
+        c.writeUInt(18, d.bit_rate_value             );
+        c.writeUInt( 1, d.marker_bit                 );
+        c.writeUInt(10, d.vbv_buffer_size_value      );
+        c.writeUInt( 1, d.constrained_parameters_flag);
 
-        c.writeUInt( 1, d.load_intra_quantiser_matrix    , "load_intra_quantiser_matrix");
+        c.writeUInt( 1, d.load_intra_quantiser_matrix);
         if (d.load_intra_quantiser_matrix.intValue() == 1) {
             for (int i = 0; i < d.intra_quantiser_matrix.length; i++) {
-                c.writeUInt( 8, d.intra_quantiser_matrix[i], "intra_quantiser_matrix[" + i + "]");
+                c.writeUInt( 8, d.intra_quantiser_matrix[i]);
             }
         }
 
-        c.writeUInt( 1, d.load_non_intra_quantiser_matrix, "load_non_intra_quantiser_matrix");
+        c.writeUInt( 1, d.load_non_intra_quantiser_matrix);
         if (d.load_non_intra_quantiser_matrix.intValue() == 1) {
             for (int i = 0; i < d.non_intra_quantiser_matrix.length; i++) {
-                c.writeUInt( 8, d.non_intra_quantiser_matrix[i], "non_intra_quantiser_matrix[" + i + "]");
+                c.writeUInt( 8, d.non_intra_quantiser_matrix[i]);
             }
         }
 
