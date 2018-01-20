@@ -45,7 +45,7 @@ public class MP4HeaderRecursive<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             MP4HeaderRecursive d) {
-        c.enterBlock("Box (recursive)");
+        c.enterBlock(d);
 
         MP4Header.read(c, d);
 
@@ -59,7 +59,7 @@ public class MP4HeaderRecursive<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              MP4HeaderRecursive d) {
-        c.enterBlock("Box (recursive)");
+        c.enterBlock(d);
 
         MP4Header.write(c, d);
 

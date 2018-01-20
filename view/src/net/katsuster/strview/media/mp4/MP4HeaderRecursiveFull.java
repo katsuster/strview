@@ -46,7 +46,7 @@ public class MP4HeaderRecursiveFull<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             MP4HeaderRecursiveFull d) {
-        c.enterBlock("FullBox (recursive)");
+        c.enterBlock(d);
 
         MP4HeaderFull.read(c, d);
 
@@ -60,7 +60,7 @@ public class MP4HeaderRecursiveFull<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              MP4HeaderRecursiveFull d) {
-        c.enterBlock("FullBox (recursive)");
+        c.enterBlock(d);
 
         MP4HeaderFull.write(c, d);
 

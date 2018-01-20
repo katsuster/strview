@@ -25,8 +25,8 @@ public class MP4HeaderFull<T extends LargeList<?>>
     public UInt flags;
 
     public MP4HeaderFull() {
-        version = new UInt();
-        flags = new UInt();
+        version = new UInt("version");
+        flags = new UInt("flags");
     }
 
     @Override
@@ -52,7 +52,7 @@ public class MP4HeaderFull<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             MP4HeaderFull d) {
-        c.enterBlock("FullBox");
+        c.enterBlock(d);
 
         MP4Header.read(c, d);
 
@@ -69,12 +69,12 @@ public class MP4HeaderFull<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              MP4HeaderFull d) {
-        c.enterBlock("FullBox");
+        c.enterBlock(d);
 
         MP4Header.write(c, d);
 
-        c.writeUInt( 8, d.version, "version");
-        c.writeUInt(24, d.flags  , "flags");
+        c.writeUInt( 8, d.version);
+        c.writeUInt(24, d.flags  );
 
         c.leaveBlock();
     }

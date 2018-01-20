@@ -25,10 +25,10 @@ public class MP4Header<T extends LargeList<?>>
     public LargeBitList usertype;
 
     public MP4Header() {
-        size = new UInt();
-        type = new UInt();
-        largesize = new UInt();
-        usertype = new SubLargeBitList();
+        size = new UInt("size");
+        type = new UInt("type");
+        largesize = new UInt("largesize");
+        usertype = new SubLargeBitList("usertype");
     }
 
     @Override
@@ -42,6 +42,11 @@ public class MP4Header<T extends LargeList<?>>
         obj.usertype = (LargeBitList)usertype.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return MP4Consts.getTypeName(type.intValue());
     }
 
     /**
@@ -63,7 +68,7 @@ public class MP4Header<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             MP4Header d) {
-        c.enterBlock("Box");
+        c.enterBlock(d);
 
         c.alignByte();
 
@@ -90,27 +95,23 @@ public class MP4Header<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              MP4Header d) {
-        c.enterBlock("Box");
+        c.enterBlock(d);
 
         c.alignByte();
 
-        c.writeUInt(32, d.size, "size");
-        c.writeUInt(32, d.type, "type", d.getTypeName());
+        c.writeUInt(32, d.size);
+        c.writeUInt(32, d.type, d.getTypeName());
 
         if (d.size.intValue() == 1) {
-            c.writeUInt(64, d.largesize, "largesize");
+            c.writeUInt(64, d.largesize);
         } else if (d.size.intValue() == 0) {
             // box extends to end of file
         }
 
         if (d.type.intValue() == BOX_TYPE.UUID) {
-            c.writeBitList(16 << 3, d.usertype, "usertype");
+            c.writeBitList(16 << 3, d.usertype);
         }
 
         c.leaveBlock();
-    }
-
-    public String getTypeName() {
-        return MP4Consts.getTypeName(type.intValue());
     }
 }
