@@ -18,14 +18,14 @@ import net.katsuster.strview.media.*;
 public class ASFHeaderHeaderExtension<T extends LargeList<?>>
         extends ASFHeader<T>
         implements Cloneable {
-    public ASFGUID reserved_field1;
+    public ASFGUID<T> reserved_field1;
     public UIntR reserved_field2;
     public UIntR header_extension_data_size;
     //下記はパケットの body として扱う
     //public ByteArray header_extension_data;
 
     public ASFHeaderHeaderExtension() {
-        reserved_field1 = new ASFGUID("Reserved Field 1");
+        reserved_field1 = new ASFGUID<>("Reserved Field 1");
         reserved_field2 = new UIntR("Reserved Field 2");
         header_extension_data_size = new UIntR("Header Extension Data Size");
     }

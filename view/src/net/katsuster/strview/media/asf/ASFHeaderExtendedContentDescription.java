@@ -21,7 +21,7 @@ public class ASFHeaderExtendedContentDescription<T extends LargeList<?>>
         extends ASFHeader<T>
         implements Cloneable {
     public UIntR content_descriptors_count;
-    public List<ContentDescriptor> content_descriptors;
+    public List<ContentDescriptor<T>> content_descriptors;
 
     public ASFHeaderExtendedContentDescription() {
         content_descriptors_count = new UIntR("Content Descriptors Count");
@@ -35,7 +35,7 @@ public class ASFHeaderExtendedContentDescription<T extends LargeList<?>>
 
         obj.content_descriptors_count = (UIntR)content_descriptors_count.clone();
         obj.content_descriptors = new ArrayList<>();
-        for (ContentDescriptor i : content_descriptors) {
+        for (ContentDescriptor<T> i : content_descriptors) {
             obj.content_descriptors.add(i.clone());
         }
 

@@ -21,7 +21,7 @@ import net.katsuster.strview.media.*;
 public class ASFHeaderFileProperties<T extends LargeList<?>>
         extends ASFHeader<T>
         implements Cloneable {
-    public ASFGUID file_id;
+    public ASFGUID<T> file_id;
     public UIntR file_size;
     public UIntR creation_date;
     public UIntR data_packets_count;
@@ -35,7 +35,7 @@ public class ASFHeaderFileProperties<T extends LargeList<?>>
     public UIntR maximum_bitrate;
 
     public ASFHeaderFileProperties() {
-        file_id            = new ASFGUID("File ID");
+        file_id            = new ASFGUID<>("File ID");
         file_size          = new UIntR("File Size"         );
         creation_date      = new UIntR("Creation Date"     );
         data_packets_count = new UIntR("Data Packets Count");

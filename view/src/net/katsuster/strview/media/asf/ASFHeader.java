@@ -18,11 +18,11 @@ import net.katsuster.strview.media.*;
 public class ASFHeader<T extends LargeList<?>>
         extends BlockAdapter<T>
         implements Cloneable {
-    public ASFGUID object_id;
+    public ASFGUID<T> object_id;
     public UIntR object_size;
 
     public ASFHeader() {
-        object_id = new ASFGUID("Object ID");
+        object_id = new ASFGUID<>("Object ID");
         object_size = new UIntR("Object Size");
     }
 
