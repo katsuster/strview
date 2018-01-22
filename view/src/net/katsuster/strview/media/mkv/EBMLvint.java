@@ -20,7 +20,11 @@ public abstract class EBMLvint<T extends LargeList<?>>
     private int size_content;
 
     public EBMLvint() {
-        //Do nothing
+        this(null);
+    }
+
+    public EBMLvint(String n) {
+        super(n);
     }
 
     @Override

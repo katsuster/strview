@@ -26,11 +26,16 @@ public class MKVHeader<T extends LargeList<?>>
     }
 
     @Override
-    public MKVHeader clone()
+    public MKVHeader<T> clone()
             throws CloneNotSupportedException {
-        MKVHeader obj = (MKVHeader)super.clone();
+        MKVHeader<T> obj = (MKVHeader<T>)super.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "Matroska tag header";
     }
 
     public boolean isMaster() {
@@ -51,7 +56,7 @@ public class MKVHeader<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             MKVHeader d) {
-        c.enterBlock("Matroska tag header");
+        c.enterBlock(d);
 
         EBMLHeader.read(c, d);
 
@@ -69,7 +74,7 @@ public class MKVHeader<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              MKVHeader d) {
-        c.enterBlock("Matroska tag header");
+        c.enterBlock(d);
 
         EBMLHeader.write(c, d);
 

@@ -10,23 +10,28 @@ import net.katsuster.strview.util.*;
  */
 public class EBMLHeader<T extends LargeList<?>>
         extends BlockAdapter<T> {
-    public EBMLvid tag_id;
-    public EBMLvalue tag_len;
+    public EBMLvid<T> tag_id;
+    public EBMLvalue<T> tag_len;
 
     public EBMLHeader() {
-        tag_id = new EBMLvid();
-        tag_len = new EBMLvalue();
+        tag_id = new EBMLvid<>("tag_id");
+        tag_len = new EBMLvalue<>("tag_len");
     }
 
     @Override
-    public EBMLHeader clone()
+    public EBMLHeader<T> clone()
             throws CloneNotSupportedException {
-        EBMLHeader obj = (EBMLHeader)super.clone();
+        EBMLHeader<T> obj = (EBMLHeader<T>)super.clone();
 
         obj.tag_id = tag_id.clone();
         obj.tag_len = tag_len.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "EBML tag header";
     }
 
     @Override
@@ -36,7 +41,7 @@ public class EBMLHeader<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             EBMLHeader d) {
-        c.enterBlock("EBML tag header");
+        c.enterBlock(d);
 
         d.tag_id.read(c);
         d.tag_len.read(c);
@@ -51,7 +56,7 @@ public class EBMLHeader<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              EBMLHeader d) {
-        c.enterBlock("EBML tag header");
+        c.enterBlock(d);
 
         c.mark("tag_id", "");
         d.tag_id.write(c);

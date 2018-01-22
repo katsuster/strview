@@ -13,17 +13,22 @@ public class MKVHeaderUTF8<T extends LargeList<?>>
     public LargeBitList utf8_bits;
 
     public MKVHeaderUTF8() {
-        utf8_bits = new SubLargeBitList();
+        utf8_bits = new SubLargeBitList("utf8_bits");
     }
 
     @Override
-    public MKVHeaderUTF8 clone()
+    public MKVHeaderUTF8<T> clone()
             throws CloneNotSupportedException {
-        MKVHeaderUTF8 obj = (MKVHeaderUTF8)super.clone();
+        MKVHeaderUTF8<T> obj = (MKVHeaderUTF8<T>)super.clone();
 
         obj.utf8_bits = (LargeBitList)utf8_bits.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "Matroska UTF-8 string";
     }
 
     @Override
@@ -38,7 +43,7 @@ public class MKVHeaderUTF8<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             MKVHeaderUTF8 d) {
-        c.enterBlock("Matroska utf-8 string");
+        c.enterBlock(d);
 
         MKVHeader.read(c, d);
 
@@ -54,12 +59,11 @@ public class MKVHeaderUTF8<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              MKVHeaderUTF8 d) {
-        c.enterBlock("Matroska utf-8 string");
+        c.enterBlock(d);
 
         MKVHeader.write(c, d);
 
-        c.writeBitList(d.tag_len.getValue() << 3, d.utf8_bits,
-                "utf8_bits", d.getUTF8Name());
+        c.writeBitList(d.tag_len.getValue() << 3, d.utf8_bits, d.getUTF8Name());
 
         c.leaveBlock();
     }

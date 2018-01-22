@@ -13,17 +13,22 @@ public class MKVHeaderUInt<T extends LargeList<?>>
     public UInt uint_val;
 
     public MKVHeaderUInt() {
-        uint_val = new UInt();
+        uint_val = new UInt("uint_val");
     }
 
     @Override
-    public MKVHeaderUInt clone()
+    public MKVHeaderUInt<T> clone()
             throws CloneNotSupportedException {
-        MKVHeaderUInt obj = (MKVHeaderUInt)super.clone();
+        MKVHeaderUInt<T> obj = (MKVHeaderUInt<T>)super.clone();
 
         obj.uint_val = (UInt)uint_val.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "Matroska uint";
     }
 
     @Override
@@ -38,7 +43,7 @@ public class MKVHeaderUInt<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             MKVHeaderUInt d) {
-        c.enterBlock("Matroska uint");
+        c.enterBlock(d);
 
         MKVHeader.read(c, d);
 
@@ -54,11 +59,11 @@ public class MKVHeaderUInt<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              MKVHeaderUInt d) {
-        c.enterBlock("Matroska uint");
+        c.enterBlock(d);
 
         MKVHeader.write(c, d);
 
-        c.writeUInt((int)d.tag_len.getValue() << 3, d.uint_val, "uint_val");
+        c.writeUInt((int)d.tag_len.getValue() << 3, d.uint_val);
 
         c.leaveBlock();
     }

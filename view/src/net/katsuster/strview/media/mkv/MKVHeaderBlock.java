@@ -13,7 +13,7 @@ import net.katsuster.strview.media.mkv.MKVConsts.*;
  */
 public class MKVHeaderBlock<T extends LargeList<?>>
         extends MKVHeader<T> {
-    public EBMLvalue track_number;
+    public EBMLvalue<T> track_number;
     public UInt timecode;
     public UInt reserved1;
     public UInt invisible;
@@ -22,31 +22,31 @@ public class MKVHeaderBlock<T extends LargeList<?>>
 
     //EBML lacing
     public UInt lacing_head;
-    public EBMLvalue lacing_size0;
-    public ArrayList<EBMLlacing> lacing_diffs;
+    public EBMLvalue<T> lacing_size0;
+    public ArrayList<EBMLlacing<T>> lacing_diffs;
 
     //Lacing の各フレームのサイズ（バイト単位）
     private ArrayList<Long> lacing_sizes;
 
     public MKVHeaderBlock() {
-        track_number = new EBMLvalue();
-        timecode = new UInt();
-        reserved1 = new UInt();
-        invisible = new UInt();
-        lacing = new UInt();
-        reserved2 = new UInt();
+        track_number = new EBMLvalue<>("track_number");
+        timecode     = new UInt("timecode" );
+        reserved1    = new UInt("reserved1");
+        invisible    = new UInt("invisible");
+        lacing       = new UInt("lacing"   );
+        reserved2    = new UInt("reserved2");
 
-        lacing_head = new UInt();
-        lacing_size0 = new EBMLvalue();
+        lacing_head  = new UInt("lacing_head");
+        lacing_size0 = new EBMLvalue<>("lacing_size0");
         lacing_diffs = new ArrayList<>();
 
         lacing_sizes = new ArrayList<>();
     }
 
     @Override
-    public MKVHeaderBlock clone()
+    public MKVHeaderBlock<T> clone()
             throws CloneNotSupportedException {
-        MKVHeaderBlock obj = (MKVHeaderBlock)super.clone();
+        MKVHeaderBlock<T> obj = (MKVHeaderBlock<T>)super.clone();
 
         obj.track_number = track_number.clone();
         obj.timecode = (UInt)timecode.clone();
@@ -72,6 +72,11 @@ public class MKVHeaderBlock<T extends LargeList<?>>
     }
 
     @Override
+    public String getTypeName() {
+        return "Matroska Block";
+    }
+
+    @Override
     public boolean isMaster() {
         return false;
     }
@@ -83,16 +88,11 @@ public class MKVHeaderBlock<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             MKVHeaderBlock d) {
-        EBMLlacing val;
-        long pos;
-        long frame_size, frame_sum;
-        int i;
-
-        c.enterBlock("Matroska Block");
+        c.enterBlock(d);
 
         MKVHeader.read(c, d);
 
-        pos = c.position();
+        long pos = c.position();
 
         d.track_number.read(c);
 
@@ -107,12 +107,12 @@ public class MKVHeaderBlock<T extends LargeList<?>>
             d.lacing_size0.read(c);
 
             //最初のフレームサイズは絶対値
-            frame_size = d.lacing_size0.getValue();
-            frame_sum = frame_size;
+            long frame_size = d.lacing_size0.getValue();
+            long frame_sum = frame_size;
             d.lacing_sizes.add(frame_size);
 
-            for (i = 0; i < d.lacing_head.intValue() - 1; i++) {
-                val = new EBMLlacing();
+            for (int i = 0; i < d.lacing_head.intValue() - 1; i++) {
+                EBMLlacing val = new EBMLlacing("lacing_diffs[" + i + "]");
                 val.read(c);
                 d.lacing_diffs.add(val);
 
@@ -142,7 +142,7 @@ public class MKVHeaderBlock<T extends LargeList<?>>
                              MKVHeaderBlock d) {
         int i;
 
-        c.enterBlock("Matroska Block");
+        c.enterBlock(d);
 
         MKVHeader.write(c, d);
 

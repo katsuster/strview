@@ -13,17 +13,22 @@ public class MKVHeaderSInt<T extends LargeList<?>>
     public SInt sint_val;
 
     public MKVHeaderSInt() {
-        sint_val = new SInt();
+        sint_val = new SInt("sint_val");
     }
 
     @Override
-    public MKVHeaderSInt clone()
+    public MKVHeaderSInt<T> clone()
             throws CloneNotSupportedException {
-        MKVHeaderSInt obj = (MKVHeaderSInt)super.clone();
+        MKVHeaderSInt<T> obj = (MKVHeaderSInt<T>)super.clone();
 
         obj.sint_val = (SInt)sint_val.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "Matroska int";
     }
 
     @Override
@@ -38,7 +43,7 @@ public class MKVHeaderSInt<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             MKVHeaderSInt d) {
-        c.enterBlock("Matroska int");
+        c.enterBlock(d);
 
         MKVHeader.read(c, d);
 
@@ -54,11 +59,11 @@ public class MKVHeaderSInt<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              MKVHeaderSInt d) {
-        c.enterBlock("Matroska int");
+        c.enterBlock(d);
 
         MKVHeader.write(c, d);
 
-        c.writeSInt((int)d.tag_len.getValue() << 3, d.sint_val, "sint_val");
+        c.writeSInt((int)d.tag_len.getValue() << 3, d.sint_val);
 
         c.leaveBlock();
     }

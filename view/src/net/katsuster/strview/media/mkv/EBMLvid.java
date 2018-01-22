@@ -38,17 +38,28 @@ public class EBMLvid<T extends LargeList<?>>
     public UInt vint_tag;
 
     public EBMLvid() {
-        vint_tag = new UInt();
+        this(null);
+    }
+
+    public EBMLvid(String n) {
+        super(n);
+
+        vint_tag = new UInt("vint_tag");
     }
 
     @Override
-    public EBMLvid clone()
+    public EBMLvid<T> clone()
             throws CloneNotSupportedException {
-        EBMLvid obj = (EBMLvid)super.clone();
+        EBMLvid<T> obj = (EBMLvid<T>)super.clone();
 
         obj.vint_tag = (UInt)vint_tag.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "EBML vid";
     }
 
     @Override
@@ -72,13 +83,11 @@ public class EBMLvid<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             EBMLvid d) {
-        int f, size;
-
-        c.enterBlock("EBML vid");
+        c.enterBlock(d);
 
         //可変長整数全体の長さを得る
-        f = (int)c.peekLong( 8);
-        size = getVintSize(f);
+        int f = (int)c.peekLong( 8);
+        int size = getVintSize(f);
         d.setSizeAll(size);
         d.setSizeContent(size);
 
@@ -94,9 +103,9 @@ public class EBMLvid<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              EBMLvid d) {
-        c.enterBlock("EBML vid");
+        c.enterBlock(d);
 
-        c.writeUInt(d.getSizeAll(), d.vint_tag, "vint_tag");
+        c.writeUInt(d.getSizeAll(), d.vint_tag);
 
         c.leaveBlock();
     }

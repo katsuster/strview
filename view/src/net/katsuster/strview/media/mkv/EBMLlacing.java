@@ -70,19 +70,30 @@ public class EBMLlacing<T extends LargeList<?>>
     private long lacing_val;
 
     public EBMLlacing() {
-        vint_head = new UInt();
-        vint_val = new UInt();
+        this(null);
+    }
+
+    public EBMLlacing(String n) {
+        super(n);
+
+        vint_head = new UInt("vint_head");
+        vint_val = new UInt("vint_val");
     }
 
     @Override
-    public EBMLlacing clone()
+    public EBMLlacing<T> clone()
             throws CloneNotSupportedException {
-        EBMLlacing obj = (EBMLlacing)super.clone();
+        EBMLlacing<T> obj = (EBMLlacing<T>)super.clone();
 
         obj.vint_head = (UInt)vint_head.clone();
         obj.vint_val = (UInt)vint_val.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "EBML lacing";
     }
 
     @Override
@@ -109,7 +120,7 @@ public class EBMLlacing<T extends LargeList<?>>
         int f, size_all, size_c;
         long minus;
 
-        c.enterBlock("EBML lacing");
+        c.enterBlock(d);
 
         //可変長整数全体の長さと、
         //可変長整数のうち値が占める部分の長さを得る
@@ -136,10 +147,10 @@ public class EBMLlacing<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              EBMLlacing d) {
-        c.enterBlock("EBML lacing");
+        c.enterBlock(d);
 
-        c.writeUInt(d.getSizeAll() - d.getSizeContent(), d.vint_head, "vint_head");
-        c.writeUInt(d.getSizeContent(), d.vint_val, "vint_val");
+        c.writeUInt(d.getSizeAll() - d.getSizeContent(), d.vint_head);
+        c.writeUInt(d.getSizeContent(), d.vint_val);
         c.mark("val", d.getValue());
 
         c.leaveBlock();

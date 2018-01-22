@@ -14,19 +14,24 @@ public class MKVHeaderFloat<T extends LargeList<?>>
     public Float64 double_bits;
 
     public MKVHeaderFloat() {
-        float_bits = new Float32();
-        double_bits = new Float64();
+        float_bits = new Float32("float_bits");
+        double_bits = new Float64("double_bits");
     }
 
     @Override
-    public MKVHeaderFloat clone()
+    public MKVHeaderFloat<T> clone()
             throws CloneNotSupportedException {
-        MKVHeaderFloat obj = (MKVHeaderFloat)super.clone();
+        MKVHeaderFloat<T> obj = (MKVHeaderFloat<T>)super.clone();
 
         obj.float_bits = (Float32)float_bits.clone();
         obj.double_bits = (Float64)double_bits.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "Matroska float";
     }
 
     @Override
@@ -41,13 +46,11 @@ public class MKVHeaderFloat<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             MKVHeaderFloat d) {
-        int val;
-
-        c.enterBlock("Matroska float");
+        c.enterBlock(d);
 
         MKVHeader.read(c, d);
 
-        val = (int)d.tag_len.getValue();
+        int val = (int)d.tag_len.getValue();
         switch (val) {
         case 4:
             d.float_bits = c.readFloat32(val << 3, d.float_bits);
@@ -70,19 +73,17 @@ public class MKVHeaderFloat<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              MKVHeaderFloat d) {
-        int val;
-
-        c.enterBlock("Matroska float");
+        c.enterBlock(d);
 
         MKVHeader.write(c, d);
 
-        val = (int)d.tag_len.getValue();
+        int val = (int)d.tag_len.getValue();
         switch (val) {
         case 4:
-            c.writeFloat32(val << 3, d.float_bits , "float_bits");
+            c.writeFloat32(val << 3, d.float_bits );
             break;
         case 8:
-            c.writeFloat64(val << 3, d.double_bits, "double_bits");
+            c.writeFloat64(val << 3, d.double_bits);
             break;
         default:
             throw new IllegalStateException("float tag has illegal length"

@@ -51,19 +51,30 @@ public class EBMLvalue<T extends LargeList<?>>
     public UInt vint_val;
 
     public EBMLvalue() {
-        vint_head = new UInt();
-        vint_val = new UInt();
+        this(null);
+    }
+
+    public EBMLvalue(String n) {
+        super(n);
+
+        vint_head = new UInt("vint_head");
+        vint_val = new UInt("vint_val");
     }
 
     @Override
-    public EBMLvalue clone()
+    public EBMLvalue<T> clone()
             throws CloneNotSupportedException {
-        EBMLvalue obj = (EBMLvalue)super.clone();
+        EBMLvalue<T> obj = (EBMLvalue<T>)super.clone();
 
         obj.vint_head = (UInt)vint_head.clone();
         obj.vint_val = (UInt)vint_val.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "EBML value";
     }
 
     @Override
@@ -87,15 +98,13 @@ public class EBMLvalue<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             EBMLvalue d) {
-        int f, size_all, size_c;
-
-        c.enterBlock("EBML value");
+        c.enterBlock(d);
 
         //可変長整数全体の長さと、
         //可変長整数のうち値が占める部分の長さを得る
-        f = (int)c.peekLong( 8);
-        size_all = getVintSize(f);
-        size_c = getVintContentSize(f);
+        int f = (int)c.peekLong( 8);
+        int size_all = getVintSize(f);
+        int size_c = getVintContentSize(f);
         d.setSizeAll(size_all);
         d.setSizeContent(size_c);
 
@@ -112,10 +121,10 @@ public class EBMLvalue<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              EBMLvalue d) {
-        c.enterBlock("EBML value");
+        c.enterBlock(d);
 
-        c.writeUInt(d.getSizeAll() - d.getSizeContent(), d.vint_head, "vint_head");
-        c.writeUInt(d.getSizeContent(), d.vint_val, "vint_val");
+        c.writeUInt(d.getSizeAll() - d.getSizeContent(), d.vint_head);
+        c.writeUInt(d.getSizeContent(), d.vint_val);
 
         c.leaveBlock();
     }

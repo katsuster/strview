@@ -13,7 +13,7 @@ import net.katsuster.strview.media.mkv.MKVConsts.*;
  */
 public class MKVHeaderSimpleBlock<T extends LargeList<?>>
         extends MKVHeader<T> {
-    public EBMLvalue track_number;
+    public EBMLvalue<T> track_number;
     public UInt timecode;
     public UInt keyframe;
     public UInt reserved1;
@@ -23,32 +23,32 @@ public class MKVHeaderSimpleBlock<T extends LargeList<?>>
 
     //EBML lacing
     public UInt lacing_head;
-    public EBMLvalue lacing_size0;
-    public ArrayList<EBMLlacing> lacing_diffs;
+    public EBMLvalue<T> lacing_size0;
+    public ArrayList<EBMLlacing<T>> lacing_diffs;
 
     //Lacing の各フレームのサイズ（バイト単位）
     private ArrayList<Long> lacing_sizes;
 
     public MKVHeaderSimpleBlock() {
-        track_number = new EBMLvalue();
-        timecode = new UInt();
-        keyframe = new UInt();
-        reserved1 = new UInt();
-        invisible = new UInt();
-        lacing = new UInt();
-        discardable = new UInt();
+        track_number = new EBMLvalue<>("track_number");
+        timecode     = new UInt("timecode"    );
+        keyframe     = new UInt("keyframe"    );
+        reserved1    = new UInt("reserved1"   );
+        invisible    = new UInt("invisible"   );
+        lacing       = new UInt("lacing"      );
+        discardable  = new UInt("discardable" );
 
-        lacing_head = new UInt();
-        lacing_size0 = new EBMLvalue();
-        lacing_diffs = new ArrayList<EBMLlacing>();
+        lacing_head  = new UInt("lacing_head" );
+        lacing_size0 = new EBMLvalue<>("lacing_size0");
+        lacing_diffs = new ArrayList<>();
 
-        lacing_sizes = new ArrayList<Long>();
+        lacing_sizes = new ArrayList<>();
     }
 
     @Override
-    public MKVHeaderSimpleBlock clone()
+    public MKVHeaderSimpleBlock<T> clone()
             throws CloneNotSupportedException {
-        MKVHeaderSimpleBlock obj = (MKVHeaderSimpleBlock)super.clone();
+        MKVHeaderSimpleBlock<T> obj = (MKVHeaderSimpleBlock<T>)super.clone();
 
         obj.track_number = track_number.clone();
         obj.timecode = (UInt)timecode.clone();
@@ -61,17 +61,22 @@ public class MKVHeaderSimpleBlock<T extends LargeList<?>>
         obj.lacing_head = (UInt)lacing_head.clone();
         obj.lacing_size0 = lacing_size0.clone();
 
-        obj.lacing_diffs = new ArrayList<EBMLlacing>();
-        for (EBMLlacing v : lacing_diffs) {
+        obj.lacing_diffs = new ArrayList<>();
+        for (EBMLlacing<T> v : lacing_diffs) {
             obj.lacing_diffs.add(v.clone());
         }
 
-        lacing_sizes = new ArrayList<Long>();
+        lacing_sizes = new ArrayList<>();
         for (Long v : lacing_sizes) {
             obj.lacing_sizes.add(new Long(v));
         }
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "Matroska SimpleBlock";
     }
 
     @Override
@@ -86,16 +91,11 @@ public class MKVHeaderSimpleBlock<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             MKVHeaderSimpleBlock d) {
-        EBMLlacing val;
-        long pos;
-        long frame_size, frame_sum;
-        int i;
-
-        c.enterBlock("Matroska SimpleBlock");
+        c.enterBlock(d);
 
         MKVHeader.read(c, d);
 
-        pos = c.position();
+        long pos = c.position();
 
         d.track_number.read(c);
 
@@ -111,12 +111,12 @@ public class MKVHeaderSimpleBlock<T extends LargeList<?>>
             d.lacing_size0.read(c);
 
             //最初のフレームサイズは絶対値
-            frame_size = d.lacing_size0.getValue();
-            frame_sum = frame_size;
+            long frame_size = d.lacing_size0.getValue();
+            long frame_sum = frame_size;
             d.lacing_sizes.add(frame_size);
 
-            for (i = 0; i < d.lacing_head.intValue() - 1; i++) {
-                val = new EBMLlacing();
+            for (int i = 0; i < d.lacing_head.intValue() - 1; i++) {
+                EBMLlacing val = new EBMLlacing("lacing_diffs[" + i + "]");
                 val.read(c);
                 d.lacing_diffs.add(val);
 
@@ -144,38 +144,36 @@ public class MKVHeaderSimpleBlock<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              MKVHeaderSimpleBlock d) {
-        int i;
-
-        c.enterBlock("Matroska SimpleBlock");
+        c.enterBlock(d);
 
         MKVHeader.write(c, d);
 
         c.mark("track_number", "");
         d.track_number.write(c);
 
-        c.writeUInt(16, d.timecode   , "timecode"   );
-        c.writeUInt( 1, d.keyframe   , "keyframe"   );
-        c.writeUInt( 3, d.reserved1  , "reserved1"  );
-        c.writeUInt( 1, d.invisible  , "invisible"  );
-        c.writeUInt( 2, d.lacing     , "lacing"     , d.getLacingName());
-        c.writeUInt( 1, d.discardable, "discardable");
+        c.writeUInt(16, d.timecode   );
+        c.writeUInt( 1, d.keyframe   );
+        c.writeUInt( 3, d.reserved1  );
+        c.writeUInt( 1, d.invisible  );
+        c.writeUInt( 2, d.lacing     , d.getLacingName());
+        c.writeUInt( 1, d.discardable);
 
         if (d.lacing.intValue() == LACING.EBML) {
-            c.writeUInt( 8, d.lacing_head, "lacing_head");
+            c.writeUInt( 8, d.lacing_head);
             c.mark("lacing_size0", "");
             d.lacing_size0.write(c);
 
             List<EBMLlacing> lacing_diffs = d.lacing_diffs;
-            for (i = 0; i < d.lacing_head.intValue() - 1; i++) {
+            for (int i = 0; i < d.lacing_head.intValue() - 1; i++) {
                 c.mark("lacing_diffs[" + i + "]", "");
                 lacing_diffs.get(i).write(c);
             }
-            for (i = 0; i < d.lacing_head.intValue() + 1; i++) {
+            for (int i = 0; i < d.lacing_head.intValue() + 1; i++) {
                 c.mark("lacing_sizes[" + i + "]",
                         d.lacing_sizes.get(i).toString());
             }
         } else if (d.lacing.intValue() == LACING.FIXED_SIZE) {
-            c.writeUInt( 8, d.lacing_head, "lacing_head");
+            c.writeUInt( 8, d.lacing_head);
         }
 
         c.leaveBlock();

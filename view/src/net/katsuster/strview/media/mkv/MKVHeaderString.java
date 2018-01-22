@@ -13,17 +13,22 @@ public class MKVHeaderString<T extends LargeList<?>>
     public LargeBitList string_bits;
 
     public MKVHeaderString() {
-        string_bits = new SubLargeBitList();
+        string_bits = new SubLargeBitList("string_bits");
     }
 
     @Override
-    public MKVHeaderString clone()
+    public MKVHeaderString<T> clone()
             throws CloneNotSupportedException {
-        MKVHeaderString obj = (MKVHeaderString)super.clone();
+        MKVHeaderString<T> obj = (MKVHeaderString<T>)super.clone();
 
         obj.string_bits = (LargeBitList)string_bits.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "Matroska string";
     }
 
     @Override
@@ -38,7 +43,7 @@ public class MKVHeaderString<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             MKVHeaderString d) {
-        c.enterBlock("Matroska string");
+        c.enterBlock(d);
 
         MKVHeader.read(c, d);
 
@@ -54,12 +59,11 @@ public class MKVHeaderString<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              MKVHeaderString d) {
-        c.enterBlock("Matroska string");
+        c.enterBlock(d);
 
         MKVHeader.write(c, d);
 
-        c.writeBitList(d.tag_len.getValue() << 3, d.string_bits,
-                "string_bits", d.getStringName());
+        c.writeBitList(d.tag_len.getValue() << 3, d.string_bits, d.getStringName());
 
         c.leaveBlock();
     }
