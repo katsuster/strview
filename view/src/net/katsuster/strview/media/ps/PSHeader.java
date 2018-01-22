@@ -23,19 +23,24 @@ public class PSHeader<T extends LargeList<?>> extends BlockAdapter<T>
     public UInt stream_id;
 
     public PSHeader() {
-        packet_start_code_prefix = new UInt();
-        stream_id = new UInt();
+        packet_start_code_prefix = new UInt("packet_start_code_prefix");
+        stream_id = new UInt("stream_id");
     }
 
     @Override
-    public PSHeader clone()
+    public PSHeader<T> clone()
             throws CloneNotSupportedException {
-        PSHeader obj = (PSHeader)super.clone();
+        PSHeader<T> obj = (PSHeader<T>)super.clone();
 
         obj.packet_start_code_prefix = (UInt)packet_start_code_prefix.clone();
         obj.stream_id = (UInt)stream_id.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "PS header";
     }
 
     @Override
@@ -45,7 +50,7 @@ public class PSHeader<T extends LargeList<?>> extends BlockAdapter<T>
 
     public static void read(StreamReader<?> c,
                             PSHeader d) {
-        c.enterBlock("PS header");
+        c.enterBlock(d);
 
         d.packet_start_code_prefix = c.readUInt(24, d.packet_start_code_prefix);
         d.stream_id                = c.readUInt( 8, d.stream_id               );
@@ -60,10 +65,10 @@ public class PSHeader<T extends LargeList<?>> extends BlockAdapter<T>
 
     public static void write(StreamWriter<?> c,
                              PSHeader d) {
-        c.enterBlock("PS header");
+        c.enterBlock(d);
 
-        c.writeUInt(24, d.packet_start_code_prefix, "packet_start_code_prefix");
-        c.writeUInt( 8, d.stream_id               , "stream_id"               , d.getStreamIdName());
+        c.writeUInt(24, d.packet_start_code_prefix);
+        c.writeUInt( 8, d.stream_id               , d.getStreamIdName());
 
         c.leaveBlock();
     }

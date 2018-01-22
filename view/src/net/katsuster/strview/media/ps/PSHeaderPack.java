@@ -37,27 +37,27 @@ public class PSHeaderPack<T extends LargeList<?>>
     public LargeBitList stuffing_byte;
 
     public PSHeaderPack() {
-        reserved1 = new UInt();
-        system_clock_reference_base_high = new UInt();
-        marker_bit1 = new UInt();
-        system_clock_reference_base_mid = new UInt();
-        marker_bit2 = new UInt();
-        system_clock_reference_base_low = new UInt();
-        marker_bit3 = new UInt();
-        system_clock_reference_extension = new UInt();
-        marker_bit4 = new UInt();
-        program_mux_rate = new UInt();
-        marker_bit5 = new UInt();
-        marker_bit6 = new UInt();
-        reserved2 = new UInt();
-        pack_stuffing_length = new UInt();
-        stuffing_byte = new SubLargeBitList();
+        reserved1                        = new UInt("reserved1"                       );
+        system_clock_reference_base_high = new UInt("system_clock_reference_base_high");
+        marker_bit1                      = new UInt("marker_bit1"                     );
+        system_clock_reference_base_mid  = new UInt("system_clock_reference_base_mid" );
+        marker_bit2                      = new UInt("marker_bit2"                     );
+        system_clock_reference_base_low  = new UInt("system_clock_reference_base_low" );
+        marker_bit3                      = new UInt("marker_bit3"                     );
+        system_clock_reference_extension = new UInt("system_clock_reference_extension");
+        marker_bit4                      = new UInt("marker_bit4"                     );
+        program_mux_rate                 = new UInt("program_mux_rate"                );
+        marker_bit5                      = new UInt("marker_bit5"                     );
+        marker_bit6                      = new UInt("marker_bit6"                     );
+        reserved2                        = new UInt("reserved2"                       );
+        pack_stuffing_length             = new UInt("pack_stuffing_length"            );
+        stuffing_byte = new SubLargeBitList("stuffing_byte");
     }
 
     @Override
-    public PSHeaderPack clone()
+    public PSHeaderPack<T> clone()
             throws CloneNotSupportedException {
-        PSHeaderPack obj = (PSHeaderPack)super.clone();
+        PSHeaderPack<T> obj = (PSHeaderPack<T>)super.clone();
 
         obj.reserved1 = (UInt)reserved1.clone();
         obj.system_clock_reference_base_high = (UInt)system_clock_reference_base_high.clone();
@@ -79,15 +79,18 @@ public class PSHeaderPack<T extends LargeList<?>>
     }
 
     @Override
+    public String getTypeName() {
+        return "PS pack header";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             PSHeaderPack d) {
-        int size_st;
-
-        c.enterBlock("PS pack header");
+        c.enterBlock(d);
 
         PSHeader.read(c, d);
 
@@ -149,7 +152,7 @@ public class PSHeaderPack<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              PSHeaderPack d) {
-        c.enterBlock("PS pack header");
+        c.enterBlock(d);
 
         PSHeader.write(c, d);
 
@@ -164,39 +167,39 @@ public class PSHeaderPack<T extends LargeList<?>>
 
     public static void writeMPEG1(StreamWriter<?> c,
                                   PSHeaderPack d) {
-        c.writeUInt( 4, d.reserved1                       , "reserved1"                       );
-        c.writeUInt( 3, d.system_clock_reference_base_high, "system_clock_reference_base_high");
-        c.writeUInt( 1, d.marker_bit1                     , "marker_bit1"                     );
-        c.writeUInt(15, d.system_clock_reference_base_mid , "system_clock_reference_base_mid" );
-        c.writeUInt( 1, d.marker_bit2                     , "marker_bit2"                     );
-        c.writeUInt(15, d.system_clock_reference_base_low , "system_clock_reference_base_low" );
-        c.writeUInt( 1, d.marker_bit3                     , "marker_bit3"                     );
+        c.writeUInt( 4, d.reserved1                       );
+        c.writeUInt( 3, d.system_clock_reference_base_high);
+        c.writeUInt( 1, d.marker_bit1                     );
+        c.writeUInt(15, d.system_clock_reference_base_mid );
+        c.writeUInt( 1, d.marker_bit2                     );
+        c.writeUInt(15, d.system_clock_reference_base_low );
+        c.writeUInt( 1, d.marker_bit3                     );
         c.mark("scr", d.getSCRBase());
-        c.writeUInt( 1, d.marker_bit4                     , "marker_bit4"                     );
-        c.writeUInt(22, d.program_mux_rate                , "program_mux_rate"                );
-        c.writeUInt( 1, d.marker_bit5                     , "marker_bit5"                     );
+        c.writeUInt( 1, d.marker_bit4                     );
+        c.writeUInt(22, d.program_mux_rate                );
+        c.writeUInt( 1, d.marker_bit5                     );
     }
 
     public static void writeMPEG2(StreamWriter<?> c,
                                   PSHeaderPack d) {
-        c.writeUInt( 2, d.reserved1                       , "reserved1"                       );
-        c.writeUInt( 3, d.system_clock_reference_base_high, "system_clock_reference_base_high");
-        c.writeUInt( 1, d.marker_bit1                     , "marker_bit1"                     );
-        c.writeUInt(15, d.system_clock_reference_base_mid , "system_clock_reference_base_mid" );
-        c.writeUInt( 1, d.marker_bit2                     , "marker_bit2"                     );
-        c.writeUInt(15, d.system_clock_reference_base_low , "system_clock_reference_base_low" );
-        c.writeUInt( 1, d.marker_bit3                     , "marker_bit3"                     );
+        c.writeUInt( 2, d.reserved1                       );
+        c.writeUInt( 3, d.system_clock_reference_base_high);
+        c.writeUInt( 1, d.marker_bit1                     );
+        c.writeUInt(15, d.system_clock_reference_base_mid );
+        c.writeUInt( 1, d.marker_bit2                     );
+        c.writeUInt(15, d.system_clock_reference_base_low );
+        c.writeUInt( 1, d.marker_bit3                     );
         c.mark("scr", d.getSCRBase());
-        c.writeUInt( 9, d.system_clock_reference_extension, "system_clock_reference_extension");
-        c.writeUInt( 1, d.marker_bit4                     , "marker_bit4"                     );
-        c.writeUInt(22, d.program_mux_rate                , "program_mux_rate"                );
-        c.writeUInt( 1, d.marker_bit5                     , "marker_bit5"                     );
-        c.writeUInt( 1, d.marker_bit6                     , "marker_bit6"                     );
-        c.writeUInt( 5, d.reserved2                       , "reserved2"                       );
-        c.writeUInt( 3, d.pack_stuffing_length            , "pack_stuffing_length"            );
+        c.writeUInt( 9, d.system_clock_reference_extension);
+        c.writeUInt( 1, d.marker_bit4                     );
+        c.writeUInt(22, d.program_mux_rate                );
+        c.writeUInt( 1, d.marker_bit5                     );
+        c.writeUInt( 1, d.marker_bit6                     );
+        c.writeUInt( 5, d.reserved2                       );
+        c.writeUInt( 3, d.pack_stuffing_length            );
 
         //残りを埋める
-        c.writeBitList(d.pack_stuffing_length.intValue() << 3, d.stuffing_byte, "stuffing_byte");
+        c.writeBitList(d.pack_stuffing_length.intValue() << 3, d.stuffing_byte);
     }
 
     public long getSCRBase() {

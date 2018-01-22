@@ -25,11 +25,16 @@ public class PSHeaderPESRaw<T extends LargeList<?>>
     }
 
     @Override
-    public PSHeaderPESRaw clone()
+    public PSHeaderPESRaw<T> clone()
             throws CloneNotSupportedException {
-        PSHeaderPESRaw obj = (PSHeaderPESRaw)super.clone();
+        PSHeaderPESRaw<T> obj = (PSHeaderPESRaw<T>)super.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "PES raw header";
     }
 
     @Override
@@ -39,7 +44,7 @@ public class PSHeaderPESRaw<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             PSHeaderPESRaw d) {
-        c.enterBlock("PES raw header");
+        c.enterBlock(d);
 
         PSHeaderPES.read(c, d);
 
@@ -53,7 +58,7 @@ public class PSHeaderPESRaw<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              PSHeaderPESRaw d) {
-        c.enterBlock("PES raw header");
+        c.enterBlock(d);
 
         PSHeaderPES.write(c, d);
 

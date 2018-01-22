@@ -38,27 +38,27 @@ public class PSHeaderSystem<T extends LargeList<?>>
     public List<SystemESInfo<T>> es_info;
 
     public PSHeaderSystem() {
-        header_length = new UInt();
-        marker_bit1 = new UInt();
-        rate_bound = new UInt();
-        marker_bit2 = new UInt();
-        audio_bound = new UInt();
-        fixed_flag = new UInt();
-        csps_flag = new UInt();
-        system_audio_lock_flag = new UInt();
-        system_video_lock_flag = new UInt();
-        marker_bit3 = new UInt();
-        video_bound = new UInt();
-        packet_rate_restriction_flag = new UInt();
-        reserved_bits = new UInt();
+        header_length          = new UInt("header_length");
+        marker_bit1            = new UInt("marker_bit1");
+        rate_bound             = new UInt("rate_bound");
+        marker_bit2            = new UInt("marker_bit2");
+        audio_bound            = new UInt("audio_bound");
+        fixed_flag             = new UInt("fixed_flag");
+        csps_flag              = new UInt("CSPS_flag");
+        system_audio_lock_flag = new UInt("system_audio_lock_flag");
+        system_video_lock_flag = new UInt("system_video_lock_flag");
+        marker_bit3            = new UInt("marker_bit3");
+        video_bound            = new UInt("video_bound");
+        packet_rate_restriction_flag = new UInt("packet_rate_restriction_flag");
+        reserved_bits          = new UInt("reserved_bits");
 
         es_info = new ArrayList<>();
     }
 
     @Override
-    public PSHeaderSystem clone()
+    public PSHeaderSystem<T> clone()
             throws CloneNotSupportedException {
-        PSHeaderSystem obj = (PSHeaderSystem)super.clone();
+        PSHeaderSystem<T> obj = (PSHeaderSystem<T>)super.clone();
 
         obj.header_length = (UInt)header_length.clone();
         obj.marker_bit1 = (UInt)marker_bit1.clone();
@@ -83,13 +83,18 @@ public class PSHeaderSystem<T extends LargeList<?>>
     }
 
     @Override
+    public String getTypeName() {
+        return "PS system header";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             PSHeaderSystem d) {
-        c.enterBlock("PS system header");
+        c.enterBlock(d);
 
         PSHeader.read(c, d);
 
@@ -109,7 +114,7 @@ public class PSHeaderSystem<T extends LargeList<?>>
 
         d.es_info.clear();
         while (c.peekLong(1) == 1) {
-            SystemESInfo info = new SystemESInfo();
+            SystemESInfo info = new SystemESInfo("es_info[" + d.es_info.size() + "]");
             info.read(c);
             d.es_info.add(info);
         }
@@ -124,23 +129,23 @@ public class PSHeaderSystem<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              PSHeaderSystem d) {
-        c.enterBlock("PS system header");
+        c.enterBlock(d);
 
         PSHeader.write(c, d);
 
-        c.writeUInt(16, d.header_length               , "header_length"               );
-        c.writeUInt( 1, d.marker_bit1                 , "marker_bit1"                 );
-        c.writeUInt(22, d.rate_bound                  , "rate_bound"                  );
-        c.writeUInt( 1, d.marker_bit2                 , "marker_bit2"                 );
-        c.writeUInt( 6, d.audio_bound                 , "audio_bound"                 );
-        c.writeUInt( 1, d.fixed_flag                  , "fixed_flag"                  );
-        c.writeUInt( 1, d.csps_flag                   , "CSPS_flag"                   );
-        c.writeUInt( 1, d.system_audio_lock_flag      , "system_audio_lock_flag"      );
-        c.writeUInt( 1, d.system_video_lock_flag      , "system_video_lock_flag"      );
-        c.writeUInt( 1, d.marker_bit3                 , "marker_bit3"                 );
-        c.writeUInt( 5, d.video_bound                 , "video_bound"                 );
-        c.writeUInt( 1, d.packet_rate_restriction_flag, "packet_rate_restriction_flag");
-        c.writeUInt( 7, d.reserved_bits               , "reserved_bits"               );
+        c.writeUInt(16, d.header_length               );
+        c.writeUInt( 1, d.marker_bit1                 );
+        c.writeUInt(22, d.rate_bound                  );
+        c.writeUInt( 1, d.marker_bit2                 );
+        c.writeUInt( 6, d.audio_bound                 );
+        c.writeUInt( 1, d.fixed_flag                  );
+        c.writeUInt( 1, d.csps_flag                   );
+        c.writeUInt( 1, d.system_audio_lock_flag      );
+        c.writeUInt( 1, d.system_video_lock_flag      );
+        c.writeUInt( 1, d.marker_bit3                 );
+        c.writeUInt( 5, d.video_bound                 );
+        c.writeUInt( 1, d.packet_rate_restriction_flag);
+        c.writeUInt( 7, d.reserved_bits               );
 
         List<SystemESInfo> es_info = d.es_info;
         for (int i = 0; i < d.es_info.size(); i++) {

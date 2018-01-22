@@ -25,11 +25,16 @@ public class PSHeaderPESPadding<T extends LargeList<?>>
     }
 
     @Override
-    public PSHeaderPESPadding clone()
+    public PSHeaderPESPadding<T> clone()
             throws CloneNotSupportedException {
-        PSHeaderPESPadding obj = (PSHeaderPESPadding)super.clone();
+        PSHeaderPESPadding<T> obj = (PSHeaderPESPadding<T>)super.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "PES padding header";
     }
 
     @Override
@@ -39,7 +44,7 @@ public class PSHeaderPESPadding<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             PSHeaderPESPadding d) {
-        c.enterBlock("PES padding header");
+        c.enterBlock(d);
 
         PSHeaderPES.read(c, d);
 
@@ -53,7 +58,7 @@ public class PSHeaderPESPadding<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              PSHeaderPESPadding d) {
-        c.enterBlock("PES padding header");
+        c.enterBlock(d);
 
         PSHeaderPES.write(c, d);
 

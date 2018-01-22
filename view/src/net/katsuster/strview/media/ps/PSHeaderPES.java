@@ -23,17 +23,22 @@ public class PSHeaderPES<T extends LargeList<?>>
     public UInt pes_packet_length;
 
     public PSHeaderPES() {
-        pes_packet_length = new UInt();
+        pes_packet_length = new UInt("PES_packet_length");
     }
 
     @Override
-    public PSHeaderPES clone()
+    public PSHeaderPES<T> clone()
             throws CloneNotSupportedException {
-        PSHeaderPES obj = (PSHeaderPES)super.clone();
+        PSHeaderPES<T> obj = (PSHeaderPES<T>)super.clone();
 
         obj.pes_packet_length = (UInt)pes_packet_length.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "PES common header";
     }
 
     @Override
@@ -43,7 +48,7 @@ public class PSHeaderPES<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             PSHeaderPES d) {
-        c.enterBlock("PES common header");
+        c.enterBlock(d);
 
         PSHeader.read(c, d);
 
@@ -59,11 +64,11 @@ public class PSHeaderPES<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              PSHeaderPES d) {
-        c.enterBlock("PES common header");
+        c.enterBlock(d);
 
         PSHeader.write(c, d);
 
-        c.writeUInt(16, d.pes_packet_length, "PES_packet_length");
+        c.writeUInt(16, d.pes_packet_length);
 
         c.leaveBlock();
     }
