@@ -24,17 +24,22 @@ public class M4VHeader<T extends LargeList<?>>
     public UInt start_code;
 
     public M4VHeader() {
-        start_code = new UInt();
+        start_code = new UInt("start_code");
     }
 
     @Override
-    public M4VHeader clone()
+    public M4VHeader<T> clone()
             throws CloneNotSupportedException {
-        M4VHeader obj = (M4VHeader)super.clone();
+        M4VHeader<T> obj = (M4VHeader<T>)super.clone();
 
         obj.start_code = (UInt)start_code.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "M4V header";
     }
 
     @Override
@@ -44,7 +49,7 @@ public class M4VHeader<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             M4VHeader d) {
-        c.enterBlock("M4V header");
+        c.enterBlock(d);
 
         d.start_code = c.readUInt(32, d.start_code);
 
@@ -58,9 +63,9 @@ public class M4VHeader<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              M4VHeader d) {
-        c.enterBlock("M4V header");
+        c.enterBlock(d);
 
-        c.writeUInt(32, d.start_code, "start_code", d.getStartCodeName());
+        c.writeUInt(32, d.start_code, d.getStartCodeName());
 
         c.leaveBlock();
     }
