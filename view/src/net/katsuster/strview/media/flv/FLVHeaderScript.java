@@ -20,9 +20,9 @@ public class FLVHeaderScript<T extends LargeList<?>>
     }
 
     @Override
-    public FLVHeaderScript clone()
+    public FLVHeaderScript<T> clone()
             throws CloneNotSupportedException {
-        FLVHeaderScript obj = (FLVHeaderScript)super.clone();
+        FLVHeaderScript<T> obj = (FLVHeaderScript<T>)super.clone();
 
         obj.name = name.clone();
         obj.value = value.clone();

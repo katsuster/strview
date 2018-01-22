@@ -14,26 +14,26 @@ public class FLVScriptDataECMAArray<T extends LargeList<?>>
         extends FLVScriptData<T>
         implements Cloneable {
     public UInt ecma_array_length;
-    public List<FLVScriptDataObjectProperty> variables;
+    public List<FLVScriptDataObjectProperty<T>> variables;
     //SCRIPTDATAECMAARRAY が Script タグの終端にある場合、省略されることがある
-    public FLVScriptDataObjectEnd list_terminator;
+    public FLVScriptDataObjectEnd<T> list_terminator;
 
     public FLVScriptDataECMAArray() {
         ecma_array_length = new UInt();
         variables = new ArrayList<>();
-        list_terminator = new FLVScriptDataObjectEnd("List Terminator");
+        list_terminator = new FLVScriptDataObjectEnd<>("List Terminator");
     }
 
     @Override
-    public FLVScriptDataECMAArray clone()
+    public FLVScriptDataECMAArray<T> clone()
             throws CloneNotSupportedException {
-        FLVScriptDataECMAArray obj =
-                (FLVScriptDataECMAArray)super.clone();
+        FLVScriptDataECMAArray<T> obj =
+                (FLVScriptDataECMAArray<T>)super.clone();
 
         obj.ecma_array_length = (UInt)ecma_array_length.clone();
 
         obj.variables = new ArrayList<>();
-        for (FLVScriptDataObjectProperty v : variables) {
+        for (FLVScriptDataObjectProperty<T> v : variables) {
             obj.variables.add(v.clone());
         }
 

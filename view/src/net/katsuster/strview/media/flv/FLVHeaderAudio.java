@@ -17,16 +17,16 @@ public class FLVHeaderAudio<T extends LargeList<?>>
     public UInt sound_type;
 
     public FLVHeaderAudio() {
-        sound_format = new UInt();
-        sound_rate = new UInt();
-        sound_size = new UInt();
-        sound_type = new UInt();
+        sound_format = new UInt("SoundFormat");
+        sound_rate   = new UInt("SoundRate");
+        sound_size   = new UInt("SoundSize");
+        sound_type   = new UInt("SoundType");
     }
 
     @Override
-    public FLVHeaderAudio clone()
+    public FLVHeaderAudio<T> clone()
             throws CloneNotSupportedException {
-        FLVHeaderAudio obj = (FLVHeaderAudio)super.clone();
+        FLVHeaderAudio<T> obj = (FLVHeaderAudio<T>)super.clone();
 
         obj.sound_format = (UInt)sound_format.clone();
         obj.sound_rate = (UInt)sound_rate.clone();
@@ -71,10 +71,10 @@ public class FLVHeaderAudio<T extends LargeList<?>>
 
         FLVHeaderES.write(c, d);
 
-        c.writeUInt( 4, d.sound_format, "SoundFormat", d.getSoundFormatName());
-        c.writeUInt( 2, d.sound_rate  , "SoundRate"  , d.getSoundRateName());
-        c.writeUInt( 1, d.sound_size  , "SoundSize"  , d.getSoundSizeName());
-        c.writeUInt( 1, d.sound_type  , "SoundType"  , d.getSoundTypeName());
+        c.writeUInt( 4, d.sound_format, d.getSoundFormatName());
+        c.writeUInt( 2, d.sound_rate  , d.getSoundRateName());
+        c.writeUInt( 1, d.sound_size  , d.getSoundSizeName());
+        c.writeUInt( 1, d.sound_type  , d.getSoundTypeName());
 
         c.leaveBlock();
     }

@@ -14,7 +14,7 @@ public class FLVScriptDataStrictArray<T extends LargeList<?>>
         extends FLVScriptData<T>
         implements Cloneable {
     public UInt strict_array_length;
-    public List<FLVScriptDataValue> strict_array_value;
+    public List<FLVScriptDataValue<T>> strict_array_value;
 
     public FLVScriptDataStrictArray() {
         strict_array_length = new UInt();
@@ -22,14 +22,14 @@ public class FLVScriptDataStrictArray<T extends LargeList<?>>
     }
 
     @Override
-    public FLVScriptDataStrictArray clone()
+    public FLVScriptDataStrictArray<T> clone()
             throws CloneNotSupportedException {
-        FLVScriptDataStrictArray obj = (FLVScriptDataStrictArray)super.clone();
+        FLVScriptDataStrictArray<T> obj = (FLVScriptDataStrictArray<T>)super.clone();
 
         obj.strict_array_length = (UInt)strict_array_length.clone();
 
         obj.strict_array_value = new ArrayList<>();
-        for (FLVScriptDataValue v : strict_array_value) {
+        for (FLVScriptDataValue<T> v : strict_array_value) {
             obj.strict_array_value.add(v.clone());
         }
 

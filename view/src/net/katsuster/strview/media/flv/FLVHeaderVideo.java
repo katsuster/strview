@@ -15,14 +15,14 @@ public class FLVHeaderVideo<T extends LargeList<?>>
     public UInt codec_id;
 
     public FLVHeaderVideo() {
-        frame_type = new UInt();
-        codec_id = new UInt();
+        frame_type = new UInt("FrameType");
+        codec_id = new UInt("CodecID");
     }
 
     @Override
-    public FLVHeaderVideo clone()
+    public FLVHeaderVideo<T> clone()
             throws CloneNotSupportedException {
-        FLVHeaderVideo obj = (FLVHeaderVideo)super.clone();
+        FLVHeaderVideo<T> obj = (FLVHeaderVideo<T>)super.clone();
 
         obj.frame_type = (UInt)frame_type.clone();
         obj.codec_id = (UInt)codec_id.clone();
@@ -63,8 +63,8 @@ public class FLVHeaderVideo<T extends LargeList<?>>
 
         FLVHeaderES.write(c, d);
 
-        c.writeUInt( 4, d.frame_type, "FrameType", d.getFrameTypeName());
-        c.writeUInt( 4, d.codec_id  , "CodecID"  , d.getCodecIDName());
+        c.writeUInt( 4, d.frame_type, d.getFrameTypeName());
+        c.writeUInt( 4, d.codec_id  , d.getCodecIDName());
 
         c.leaveBlock();
     }

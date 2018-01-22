@@ -25,9 +25,9 @@ public class FLVScriptDataObjectEnd<T extends LargeList<?>>
     }
 
     @Override
-    public FLVScriptDataObjectEnd clone()
+    public FLVScriptDataObjectEnd<T> clone()
             throws CloneNotSupportedException {
-        FLVScriptDataObjectEnd obj = (FLVScriptDataObjectEnd)super.clone();
+        FLVScriptDataObjectEnd<T> obj = (FLVScriptDataObjectEnd<T>)super.clone();
 
         obj.object_end_marker = (UInt)object_end_marker.clone();
 

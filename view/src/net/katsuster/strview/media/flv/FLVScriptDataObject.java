@@ -13,9 +13,9 @@ import net.katsuster.strview.util.*;
 public class FLVScriptDataObject<T extends LargeList<?>>
         extends FLVScriptData<T>
         implements Cloneable {
-    public List<FLVScriptDataObjectProperty> object_properties;
+    public List<FLVScriptDataObjectProperty<T>> object_properties;
     //SCRIPTDATAOBJECT が Script タグの終端にある場合、省略されることがある
-    public FLVScriptDataObjectEnd list_terminator;
+    public FLVScriptDataObjectEnd<T> list_terminator;
 
     public FLVScriptDataObject() {
         this(LIMIT_INVALID);
@@ -25,13 +25,13 @@ public class FLVScriptDataObject<T extends LargeList<?>>
         super(l);
 
         object_properties = new ArrayList<>();
-        list_terminator = new FLVScriptDataObjectEnd();
+        list_terminator = new FLVScriptDataObjectEnd<>();
     }
 
     @Override
-    public FLVScriptDataObject clone()
+    public FLVScriptDataObject<T> clone()
             throws CloneNotSupportedException {
-        FLVScriptDataObject obj = (FLVScriptDataObject)super.clone();
+        FLVScriptDataObject<T> obj = (FLVScriptDataObject<T>)super.clone();
 
         obj.object_properties = new ArrayList<>();
         for (FLVScriptDataObjectProperty v : object_properties) {

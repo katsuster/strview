@@ -23,9 +23,9 @@ public class FLVScriptDataDate<T extends LargeList<?>>
     }
 
     @Override
-    public FLVScriptDataDate clone()
+    public FLVScriptDataDate<T> clone()
             throws CloneNotSupportedException {
-        FLVScriptDataDate obj = (FLVScriptDataDate)super.clone();
+        FLVScriptDataDate<T> obj = (FLVScriptDataDate<T>)super.clone();
 
         obj.date_time = (Float64)date_time.clone();
         obj.local_date_time_offset = (SInt)local_date_time_offset.clone();

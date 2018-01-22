@@ -26,9 +26,9 @@ public class FLVScriptDataString<T extends LargeList<?>>
     }
 
     @Override
-    public FLVScriptDataString clone()
+    public FLVScriptDataString<T> clone()
             throws CloneNotSupportedException {
-        FLVScriptDataString obj = (FLVScriptDataString)super.clone();
+        FLVScriptDataString<T> obj = (FLVScriptDataString<T>)super.clone();
 
         obj.string_length = (UInt)string_length.clone();
         obj.string_data = (LargeBitList)string_data.clone();

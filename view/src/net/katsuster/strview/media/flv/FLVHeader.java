@@ -23,9 +23,9 @@ public class FLVHeader<T extends LargeList<?>>
     }
 
     @Override
-    public FLVHeader clone()
+    public FLVHeader<T> clone()
             throws CloneNotSupportedException {
-        FLVHeader obj = (FLVHeader)super.clone();
+        FLVHeader<T> obj = (FLVHeader<T>)super.clone();
 
         return obj;
     }

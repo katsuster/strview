@@ -11,8 +11,8 @@ import net.katsuster.strview.util.*;
 public class FLVScriptDataObjectProperty<T extends LargeList<?>>
         extends FLVScriptData<T>
         implements Cloneable {
-    public FLVScriptDataString property_name;
-    public FLVScriptDataValue property_data;
+    public FLVScriptDataString<T> property_name;
+    public FLVScriptDataValue<T> property_data;
 
     public FLVScriptDataObjectProperty() {
         this("");
@@ -21,14 +21,14 @@ public class FLVScriptDataObjectProperty<T extends LargeList<?>>
     public FLVScriptDataObjectProperty(String n) {
         super(n);
 
-        property_name = new FLVScriptDataString("PropertyName");
-        property_data = new FLVScriptDataValue("PropertyData");
+        property_name = new FLVScriptDataString<>("PropertyName");
+        property_data = new FLVScriptDataValue<>("PropertyData");
     }
 
     @Override
-    public FLVScriptDataObjectProperty clone()
+    public FLVScriptDataObjectProperty<T> clone()
             throws CloneNotSupportedException {
-        FLVScriptDataObjectProperty obj = (FLVScriptDataObjectProperty)super.clone();
+        FLVScriptDataObjectProperty<T> obj = (FLVScriptDataObjectProperty<T>)super.clone();
 
         obj.property_name = property_name.clone();
         obj.property_data = property_data.clone();

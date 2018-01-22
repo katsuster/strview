@@ -22,21 +22,21 @@ public class FLVHeaderES<T extends LargeList<?>>
     public UInt stream_id;
 
     public FLVHeaderES() {
-        previous_tag_size = new UInt();
+        previous_tag_size = new UInt("PreviousTagSize");
 
-        reserved = new UInt();
-        filter = new UInt();
-        tag_type = new UInt();
-        data_size = new UInt();
-        timestamp = new UInt();
-        timestamp_extended = new UInt();
-        stream_id = new UInt();
+        reserved           = new UInt("Reserved");
+        filter             = new UInt("Filter");
+        tag_type           = new UInt("TagType");
+        data_size          = new UInt("DataSize");
+        timestamp          = new UInt("Timestamp");
+        timestamp_extended = new UInt("TimestampExtended");
+        stream_id          = new UInt("StreamID");
     }
 
     @Override
-    public FLVHeaderES clone()
+    public FLVHeaderES<T> clone()
             throws CloneNotSupportedException {
-        FLVHeaderES obj = (FLVHeaderES)super.clone();
+        FLVHeaderES<T> obj = (FLVHeaderES<T>)super.clone();
 
         obj.previous_tag_size = (UInt)previous_tag_size.clone();
 
@@ -91,15 +91,15 @@ public class FLVHeaderES<T extends LargeList<?>>
 
         FLVHeader.write(c, d);
 
-        c.writeUInt(32, d.previous_tag_size , "PreviousTagSize"  );
+        c.writeUInt(32, d.previous_tag_size);
 
-        c.writeUInt( 2, d.reserved          , "Reserved"         );
-        c.writeUInt( 1, d.filter            , "Filter"           );
-        c.writeUInt( 5, d.tag_type          , "TagType"          , d.getTagTypeName());
-        c.writeUInt(24, d.data_size         , "DataSize"         );
-        c.writeUInt(24, d.timestamp         , "Timestamp"        );
-        c.writeUInt( 8, d.timestamp_extended, "TimestampExtended");
-        c.writeUInt(24, d.stream_id         , "StreamID"         );
+        c.writeUInt( 2, d.reserved          );
+        c.writeUInt( 1, d.filter            );
+        c.writeUInt( 5, d.tag_type          , d.getTagTypeName());
+        c.writeUInt(24, d.data_size         );
+        c.writeUInt(24, d.timestamp         );
+        c.writeUInt( 8, d.timestamp_extended);
+        c.writeUInt(24, d.stream_id         );
 
         c.leaveBlock();
     }

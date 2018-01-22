@@ -33,9 +33,9 @@ public class FLVScriptData<T extends LargeList<?>>
     }
 
     @Override
-    public FLVScriptData clone()
+    public FLVScriptData<T> clone()
             throws CloneNotSupportedException {
-        FLVScriptData obj = (FLVScriptData)super.clone();
+        FLVScriptData<T> obj = (FLVScriptData<T>)super.clone();
 
         return obj;
     }

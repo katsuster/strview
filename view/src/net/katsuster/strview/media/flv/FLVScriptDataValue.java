@@ -12,7 +12,7 @@ public class FLVScriptDataValue<T extends LargeList<?>>
         extends FLVScriptData<T>
         implements Cloneable {
     public UInt type;
-    public FLVScriptData val;
+    public FLVScriptData<T> val;
 
     public FLVScriptDataValue() {
         this("", LIMIT_INVALID);
@@ -26,13 +26,13 @@ public class FLVScriptDataValue<T extends LargeList<?>>
         super(n, l);
 
         type = new UInt();
-        val = new FLVScriptData();
+        val = new FLVScriptData<>();
     }
 
     @Override
-    public FLVScriptDataValue clone()
+    public FLVScriptDataValue<T> clone()
             throws CloneNotSupportedException {
-        FLVScriptDataValue obj = (FLVScriptDataValue)super.clone();
+        FLVScriptDataValue<T> obj = (FLVScriptDataValue<T>)super.clone();
 
         obj.type = (UInt)type.clone();
         obj.val = val.clone();

@@ -22,21 +22,21 @@ public class FLVHeaderFile<T extends LargeList<?>>
     public FLVHeaderFile() {
         signature = new UInt[3];
         for (int i = 0; i < signature.length; i++) {
-            signature[i] = new UInt();
+            signature[i] = new UInt("Signature[" + i + "]");
         }
 
-        version = new UInt();
-        type_flags_reserved1 = new UInt();
-        type_flags_audio = new UInt();
-        type_flags_reserved2 = new UInt();
-        type_flags_video = new UInt();
-        data_offset = new UInt();
+        version              = new UInt("Version");
+        type_flags_reserved1 = new UInt("TypeFlagsReserved1");
+        type_flags_audio     = new UInt("TypeFlagsAudio");
+        type_flags_reserved2 = new UInt("TypeFlagsReserved2");
+        type_flags_video     = new UInt("TypeFlagsVideo");
+        data_offset          = new UInt("DataOffset");
     }
 
     @Override
-    public FLVHeaderFile clone()
+    public FLVHeaderFile<T> clone()
             throws CloneNotSupportedException {
-        FLVHeaderFile obj = (FLVHeaderFile)super.clone();
+        FLVHeaderFile<T> obj = (FLVHeaderFile<T>)super.clone();
 
         obj.signature = signature.clone();
         for (int i = 0; i < signature.length; i++) {
@@ -93,14 +93,14 @@ public class FLVHeaderFile<T extends LargeList<?>>
         FLVHeader.write(c, d);
 
         for (int i = 0; i < d.signature.length; i++) {
-            c.writeUInt( 8, d.signature[i], "Signature[" + i + "]");
+            c.writeUInt( 8, d.signature[i]);
         }
-        c.writeUInt( 8, d.version             , "Version"           );
-        c.writeUInt( 5, d.type_flags_reserved1, "TypeFlagsReserved1");
-        c.writeUInt( 1, d.type_flags_audio    , "TypeFlagsAudio"    );
-        c.writeUInt( 1, d.type_flags_reserved2, "TypeFlagsReserved2");
-        c.writeUInt( 1, d.type_flags_video    , "TypeFlagsVideo"    );
-        c.writeUInt(32, d.data_offset         , "DataOffset"        );
+        c.writeUInt( 8, d.version             );
+        c.writeUInt( 5, d.type_flags_reserved1);
+        c.writeUInt( 1, d.type_flags_audio    );
+        c.writeUInt( 1, d.type_flags_reserved2);
+        c.writeUInt( 1, d.type_flags_video    );
+        c.writeUInt(32, d.data_offset         );
 
         c.leaveBlock();
     }

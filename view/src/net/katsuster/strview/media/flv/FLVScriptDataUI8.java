@@ -18,9 +18,9 @@ public class FLVScriptDataUI8<T extends LargeList<?>>
     }
 
     @Override
-    public FLVScriptDataUI8 clone()
+    public FLVScriptDataUI8<T> clone()
             throws CloneNotSupportedException {
-        FLVScriptDataUI8 obj = (FLVScriptDataUI8)super.clone();
+        FLVScriptDataUI8<T> obj = (FLVScriptDataUI8<T>)super.clone();
 
         obj.uint8_bits = (UInt)uint8_bits.clone();
 

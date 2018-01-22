@@ -18,9 +18,9 @@ public class FLVScriptDataDouble<T extends LargeList<?>>
     }
 
     @Override
-    public FLVScriptDataDouble clone()
+    public FLVScriptDataDouble<T> clone()
             throws CloneNotSupportedException {
-        FLVScriptDataDouble obj = (FLVScriptDataDouble)super.clone();
+        FLVScriptDataDouble<T> obj = (FLVScriptDataDouble<T>)super.clone();
 
         obj.double_bits = (Float64)double_bits.clone();
 
