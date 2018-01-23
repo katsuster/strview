@@ -23,16 +23,22 @@ public class IndexEntry<T extends LargeList<?>>
     public UIntR dwSize;
 
     public IndexEntry() {
-        dwChunkId = new UIntR();
-        dwFlags = new UIntR();
-        dwOffset = new UIntR();
-        dwSize = new UIntR();
+        this(null);
+    }
+
+    public IndexEntry(String n) {
+        super(n);
+
+        dwChunkId = new UIntR("dwChunkId");
+        dwFlags   = new UIntR("dwFlags"  );
+        dwOffset  = new UIntR("dwOffset" );
+        dwSize    = new UIntR("dwSize"   );
     }
 
     @Override
-    public IndexEntry clone()
+    public IndexEntry<T> clone()
             throws CloneNotSupportedException {
-        IndexEntry obj = (IndexEntry)super.clone();
+        IndexEntry<T> obj = (IndexEntry<T>)super.clone();
 
         obj.dwChunkId = (UIntR)dwChunkId.clone();
         obj.dwFlags = (UIntR)dwFlags.clone();
@@ -43,13 +49,18 @@ public class IndexEntry<T extends LargeList<?>>
     }
 
     @Override
+    public String getTypeName() {
+        return "entry of idx1 chunk";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             IndexEntry d) {
-        c.enterBlock("entry of idx1 chunk");
+        c.enterBlock(d);
 
         d.dwChunkId = c.readUIntR(32, d.dwChunkId);
         d.dwFlags   = c.readUIntR(32, d.dwFlags  );
@@ -66,12 +77,12 @@ public class IndexEntry<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              IndexEntry d) {
-        c.enterBlock("entry of idx1 chunk");
+        c.enterBlock(d);
 
-        c.writeUIntR(32, d.dwChunkId, "dwChunkId", d.getChunkIdName());
-        c.writeUIntR(32, d.dwFlags  , "dwFlags"  );
-        c.writeUIntR(32, d.dwOffset , "dwOffset" );
-        c.writeUIntR(32, d.dwSize   , "dwSize"   );
+        c.writeUIntR(32, d.dwChunkId, d.getChunkIdName());
+        c.writeUIntR(32, d.dwFlags  );
+        c.writeUIntR(32, d.dwOffset );
+        c.writeUIntR(32, d.dwSize   );
 
         c.leaveBlock();
     }

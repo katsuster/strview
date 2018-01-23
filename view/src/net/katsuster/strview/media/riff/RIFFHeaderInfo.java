@@ -23,17 +23,22 @@ public class RIFFHeaderInfo<T extends LargeList<?>>
     public LargeBitList strz;
 
     public RIFFHeaderInfo() {
-        strz = new SubLargeBitList();
+        strz = new SubLargeBitList("strz");
     }
 
     @Override
-    public RIFFHeaderInfo clone()
+    public RIFFHeaderInfo<T> clone()
             throws CloneNotSupportedException {
-        RIFFHeaderInfo obj = (RIFFHeaderInfo)super.clone();
+        RIFFHeaderInfo<T> obj = (RIFFHeaderInfo<T>)super.clone();
 
         obj.strz = (LargeBitList)strz.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "info chunk";
     }
 
     @Override
@@ -43,11 +48,11 @@ public class RIFFHeaderInfo<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             RIFFHeaderInfo d) {
-        c.enterBlock("info chunk");
+        c.enterBlock(d);
 
         RIFFHeader.read(c, d);
 
-        checkNegative("ckSize", d.ckSize);
+        checkNegative(d.ckSize);
         d.strz = c.readBitList(d.ckSize.intValue() << 3, d.strz);
 
         c.leaveBlock();
@@ -60,11 +65,11 @@ public class RIFFHeaderInfo<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              RIFFHeaderInfo d) {
-        c.enterBlock("info chunk");
+        c.enterBlock(d);
 
         RIFFHeader.write(c, d);
 
-        c.writeBitList(32, d.strz, "strz", d.getStringName());
+        c.writeBitList(32, d.strz, d.getStringName());
 
         c.leaveBlock();
     }

@@ -36,26 +36,26 @@ public class RIFFHeaderAvih<T extends LargeList<?>>
     public UIntR dwReserved3;
 
     public RIFFHeaderAvih() {
-        dwMicroSecPerFrame = new UIntR();
-        dwMaxBytesPerSec = new UIntR();
-        dwPaddingGranularity = new UIntR();
-        dwFlags = new UIntR();
-        dwTotalFrames = new UIntR();
-        dwInitialFrames = new UIntR();
-        dwStreams = new UIntR();
-        dwSuggestedBufferSize = new UIntR();
-        dwWidth = new UIntR();
-        dwHeight = new UIntR();
-        dwReserved0 = new UIntR();
-        dwReserved1 = new UIntR();
-        dwReserved2 = new UIntR();
-        dwReserved3 = new UIntR();
+        dwMicroSecPerFrame    = new UIntR("dwMicroSecPerFrame"   );
+        dwMaxBytesPerSec      = new UIntR("dwMaxBytesPerSec"     );
+        dwPaddingGranularity  = new UIntR("dwPaddingGranularity" );
+        dwFlags               = new UIntR("dwFlags"              );
+        dwTotalFrames         = new UIntR("dwTotalFrames"        );
+        dwInitialFrames       = new UIntR("dwInitialFrames"      );
+        dwStreams             = new UIntR("dwStreams"            );
+        dwSuggestedBufferSize = new UIntR("dwSuggestedBufferSize");
+        dwWidth               = new UIntR("dwWidth"              );
+        dwHeight              = new UIntR("dwHeight"             );
+        dwReserved0           = new UIntR("dwReserved0"          );
+        dwReserved1           = new UIntR("dwReserved1"          );
+        dwReserved2           = new UIntR("dwReserved2"          );
+        dwReserved3           = new UIntR("dwReserved3"          );
     }
 
     @Override
-    public RIFFHeaderAvih clone()
+    public RIFFHeaderAvih<T> clone()
             throws CloneNotSupportedException {
-        RIFFHeaderAvih obj = (RIFFHeaderAvih)super.clone();
+        RIFFHeaderAvih<T> obj = (RIFFHeaderAvih<T>)super.clone();
 
         obj.dwMicroSecPerFrame = (UIntR)dwMicroSecPerFrame.clone();
         obj.dwMaxBytesPerSec = (UIntR)dwMaxBytesPerSec.clone();
@@ -76,13 +76,18 @@ public class RIFFHeaderAvih<T extends LargeList<?>>
     }
 
     @Override
+    public String getTypeName() {
+        return "avih chunk";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             RIFFHeaderAvih d) {
-        c.enterBlock("avih chunk");
+        c.enterBlock(d);
 
         RIFFHeader.read(c, d);
 
@@ -111,24 +116,24 @@ public class RIFFHeaderAvih<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              RIFFHeaderAvih d) {
-        c.enterBlock("avih chunk");
+        c.enterBlock(d);
 
         RIFFHeader.write(c, d);
 
-        c.writeUIntR(32, d.dwMicroSecPerFrame   , "dwMicroSecPerFrame"   );
-        c.writeUIntR(32, d.dwMaxBytesPerSec     , "dwMaxBytesPerSec"     );
-        c.writeUIntR(32, d.dwPaddingGranularity , "dwPaddingGranularity" );
-        c.writeUIntR(32, d.dwFlags              , "dwFlags"              );
-        c.writeUIntR(32, d.dwTotalFrames        , "dwTotalFrames"        );
-        c.writeUIntR(32, d.dwInitialFrames      , "dwInitialFrames"      );
-        c.writeUIntR(32, d.dwStreams            , "dwStreams"            );
-        c.writeUIntR(32, d.dwSuggestedBufferSize, "dwSuggestedBufferSize");
-        c.writeUIntR(32, d.dwWidth              , "dwWidth"              );
-        c.writeUIntR(32, d.dwHeight             , "dwHeight"             );
-        c.writeUIntR(32, d.dwReserved0          , "dwReserved0"          );
-        c.writeUIntR(32, d.dwReserved1          , "dwReserved1"          );
-        c.writeUIntR(32, d.dwReserved2          , "dwReserved2"          );
-        c.writeUIntR(32, d.dwReserved3          , "dwReserved3"          );
+        c.writeUIntR(32, d.dwMicroSecPerFrame   );
+        c.writeUIntR(32, d.dwMaxBytesPerSec     );
+        c.writeUIntR(32, d.dwPaddingGranularity );
+        c.writeUIntR(32, d.dwFlags              );
+        c.writeUIntR(32, d.dwTotalFrames        );
+        c.writeUIntR(32, d.dwInitialFrames      );
+        c.writeUIntR(32, d.dwStreams            );
+        c.writeUIntR(32, d.dwSuggestedBufferSize);
+        c.writeUIntR(32, d.dwWidth              );
+        c.writeUIntR(32, d.dwHeight             );
+        c.writeUIntR(32, d.dwReserved0          );
+        c.writeUIntR(32, d.dwReserved1          );
+        c.writeUIntR(32, d.dwReserved2          );
+        c.writeUIntR(32, d.dwReserved3          );
 
         c.leaveBlock();
     }

@@ -39,29 +39,29 @@ public class RIFFHeaderStrh<T extends LargeList<?>>
     public SIntR bottom;
 
     public RIFFHeaderStrh() {
-        fccType = new UIntR();
-        fccHandler = new UIntR();
-        dwFlags = new UIntR();
-        wPriority = new UIntR();
-        wLanguage = new UIntR();
-        dwInitialFrames = new UIntR();
-        dwScale = new UIntR();
-        dwRate = new UIntR();
-        dwStart = new UIntR();
-        dwLength = new UIntR();
-        dwSuggestedBufferSize = new UIntR();
-        dwQuality = new UIntR();
-        dwSampleSize = new UIntR();
-        left = new SIntR();
-        top = new SIntR();
-        right = new SIntR();
-        bottom = new SIntR();
+        fccType         = new UIntR("fccType"        );
+        fccHandler      = new UIntR("fccHandler"     );
+        dwFlags         = new UIntR("dwFlags"        );
+        wPriority       = new UIntR("wPriority"      );
+        wLanguage       = new UIntR("wLanguage"      );
+        dwInitialFrames = new UIntR("dwInitialFrames");
+        dwScale         = new UIntR("dwScale"        );
+        dwRate          = new UIntR("dwRate"         );
+        dwStart         = new UIntR("dwStart"        );
+        dwLength        = new UIntR("dwLength"       );
+        dwSuggestedBufferSize = new UIntR("dwSuggestedBufferSize");
+        dwQuality       = new UIntR("dwQuality"      );
+        dwSampleSize    = new UIntR("dwSampleSize"   );
+        left            = new SIntR("left"           );
+        top             = new SIntR("top"            );
+        right           = new SIntR("right"          );
+        bottom          = new SIntR("bottom"         );
     }
 
     @Override
-    public RIFFHeaderStrh clone()
+    public RIFFHeaderStrh<T> clone()
             throws CloneNotSupportedException {
-        RIFFHeaderStrh obj = (RIFFHeaderStrh)super.clone();
+        RIFFHeaderStrh<T> obj = (RIFFHeaderStrh<T>)super.clone();
 
         obj.fccType = (UIntR)fccType.clone();
         obj.fccHandler = (UIntR)fccHandler.clone();
@@ -85,13 +85,18 @@ public class RIFFHeaderStrh<T extends LargeList<?>>
     }
 
     @Override
+    public String getTypeName() {
+        return "strh chunk";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             RIFFHeaderStrh d) {
-        c.enterBlock("strh chunk");
+        c.enterBlock(d);
 
         RIFFHeader.read(c, d);
 
@@ -123,27 +128,27 @@ public class RIFFHeaderStrh<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              RIFFHeaderStrh d) {
-        c.enterBlock("strh chunk");
+        c.enterBlock(d);
 
         RIFFHeader.write(c, d);
 
-        c.writeUIntR(32, d.fccType              , "fccType"              , d.getFccTypeName());
-        c.writeUIntR(32, d.fccHandler           , "fccHandler"           , d.getFccHandlerName());
-        c.writeUIntR(32, d.dwFlags              , "dwFlags"              );
-        c.writeUIntR(16, d.wPriority            , "wPriority"            );
-        c.writeUIntR(16, d.wLanguage            , "wLanguage"            );
-        c.writeUIntR(32, d.dwInitialFrames      , "dwInitialFrames"      );
-        c.writeUIntR(32, d.dwScale              , "dwScale"              );
-        c.writeUIntR(32, d.dwRate               , "dwRate"               );
-        c.writeUIntR(32, d.dwStart              , "dwStart"              );
-        c.writeUIntR(32, d.dwLength             , "dwLength"             );
-        c.writeUIntR(32, d.dwSuggestedBufferSize, "dwSuggestedBufferSize");
-        c.writeUIntR(32, d.dwQuality            , "dwQuality"            );
-        c.writeUIntR(32, d.dwSampleSize         , "dwSampleSize"         );
-        c.writeSIntR(16, d.left                 , "left"                 );
-        c.writeSIntR(16, d.top                  , "top"                  );
-        c.writeSIntR(16, d.right                , "right"                );
-        c.writeSIntR(16, d.bottom               , "bottom"               );
+        c.writeUIntR(32, d.fccType              , d.getFccTypeName());
+        c.writeUIntR(32, d.fccHandler           , d.getFccHandlerName());
+        c.writeUIntR(32, d.dwFlags              );
+        c.writeUIntR(16, d.wPriority            );
+        c.writeUIntR(16, d.wLanguage            );
+        c.writeUIntR(32, d.dwInitialFrames      );
+        c.writeUIntR(32, d.dwScale              );
+        c.writeUIntR(32, d.dwRate               );
+        c.writeUIntR(32, d.dwStart              );
+        c.writeUIntR(32, d.dwLength             );
+        c.writeUIntR(32, d.dwSuggestedBufferSize);
+        c.writeUIntR(32, d.dwQuality            );
+        c.writeUIntR(32, d.dwSampleSize         );
+        c.writeSIntR(16, d.left                 );
+        c.writeSIntR(16, d.top                  );
+        c.writeSIntR(16, d.right                );
+        c.writeSIntR(16, d.bottom               );
 
         c.leaveBlock();
     }

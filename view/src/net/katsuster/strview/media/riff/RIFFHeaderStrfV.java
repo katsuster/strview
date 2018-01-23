@@ -33,22 +33,22 @@ public class RIFFHeaderStrfV<T extends LargeList<?>>
     public UIntR biClrImportant;
 
     public RIFFHeaderStrfV() {
-        biSize = new UIntR();
-        biWidth = new SIntR();
-        biHeight = new SIntR();
-        biPlanes = new UIntR();
-        biBitCount = new UIntR();
-        biCompression = new UIntR();
-        biSizeImage = new UIntR();
+        biSize          = new UIntR();
+        biWidth         = new SIntR();
+        biHeight        = new SIntR();
+        biPlanes        = new UIntR();
+        biBitCount      = new UIntR();
+        biCompression   = new UIntR();
+        biSizeImage     = new UIntR();
         biXPelsPerMeter = new SIntR();
         biYPelsPerMeter = new SIntR();
-        biClrUsed = new UIntR();
-        biClrImportant = new UIntR();
+        biClrUsed       = new UIntR();
+        biClrImportant  = new UIntR();
     }
 
-    public RIFFHeaderStrfV clone()
+    public RIFFHeaderStrfV<T> clone()
             throws CloneNotSupportedException {
-        RIFFHeaderStrfV obj = (RIFFHeaderStrfV)super.clone();
+        RIFFHeaderStrfV<T> obj = (RIFFHeaderStrfV<T>)super.clone();
 
         obj.biSize = (UIntR)biSize.clone();
         obj.biWidth = (SIntR)biWidth.clone();
@@ -66,13 +66,18 @@ public class RIFFHeaderStrfV<T extends LargeList<?>>
     }
 
     @Override
+    public String getTypeName() {
+        return "strf chunk (video)";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             RIFFHeaderStrfV d) {
-        c.enterBlock("strf chunk (video)");
+        c.enterBlock(d);
 
         RIFFHeader.read(c, d);
 
@@ -98,21 +103,21 @@ public class RIFFHeaderStrfV<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              RIFFHeaderStrfV d) {
-        c.enterBlock("strf chunk (video)");
+        c.enterBlock(d);
 
         RIFFHeader.write(c, d);
 
-        c.writeUIntR(32, d.biSize         , "biSize"         );
-        c.writeSIntR(32, d.biWidth        , "biWidth"        );
-        c.writeSIntR(32, d.biHeight       , "biHeight"       );
-        c.writeUIntR(16, d.biPlanes       , "biPlanes"       );
-        c.writeUIntR(16, d.biBitCount     , "biBitCount"     );
-        c.writeUIntR(32, d.biCompression  , "biCompression"  );
-        c.writeUIntR(32, d.biSizeImage    , "biSizeImage"    );
-        c.writeSIntR(32, d.biXPelsPerMeter, "biXPelsPerMeter");
-        c.writeSIntR(32, d.biYPelsPerMeter, "biYPelsPerMeter");
-        c.writeUIntR(32, d.biClrUsed      , "biClrUsed"      );
-        c.writeUIntR(32, d.biClrImportant , "biClrImportant" );
+        c.writeUIntR(32, d.biSize         );
+        c.writeSIntR(32, d.biWidth        );
+        c.writeSIntR(32, d.biHeight       );
+        c.writeUIntR(16, d.biPlanes       );
+        c.writeUIntR(16, d.biBitCount     );
+        c.writeUIntR(32, d.biCompression  );
+        c.writeUIntR(32, d.biSizeImage    );
+        c.writeSIntR(32, d.biXPelsPerMeter);
+        c.writeSIntR(32, d.biYPelsPerMeter);
+        c.writeUIntR(32, d.biClrUsed      );
+        c.writeUIntR(32, d.biClrImportant );
 
         c.leaveBlock();
     }

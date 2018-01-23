@@ -26,18 +26,18 @@ public class RIFFHeaderFmt<T extends LargeList<?>>
     public UIntR wBitsPerSample;
 
     public RIFFHeaderFmt() {
-        wFormatTag = new UIntR();
-        nChannels = new UIntR();
-        nSamplesPerSec = new UIntR();
-        nAvgBytesPerSec = new UIntR();
-        nBlockAlign = new UIntR();
-        wBitsPerSample = new UIntR();
+        wFormatTag      = new UIntR("wFormatTag");
+        nChannels       = new UIntR("nChannels");
+        nSamplesPerSec  = new UIntR("nSamplesPerSec");
+        nAvgBytesPerSec = new UIntR("nAvgBytesPerSec");
+        nBlockAlign     = new UIntR("nBlockAlign");
+        wBitsPerSample  = new UIntR("wBitsPerSample");
     }
 
     @Override
-    public RIFFHeaderFmt clone()
+    public RIFFHeaderFmt<T> clone()
             throws CloneNotSupportedException {
-        RIFFHeaderFmt obj = (RIFFHeaderFmt)super.clone();
+        RIFFHeaderFmt<T> obj = (RIFFHeaderFmt<T>)super.clone();
 
         obj.wFormatTag = (UIntR)wFormatTag.clone();
         obj.nChannels = (UIntR)nChannels.clone();
@@ -50,13 +50,18 @@ public class RIFFHeaderFmt<T extends LargeList<?>>
     }
 
     @Override
+    public String getTypeName() {
+        return "fmt chunk";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             RIFFHeaderFmt d) {
-        c.enterBlock("fmt chunk");
+        c.enterBlock(d);
 
         RIFFHeader.read(c, d);
 
@@ -77,16 +82,16 @@ public class RIFFHeaderFmt<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              RIFFHeaderFmt d) {
-        c.enterBlock("fmt chunk");
+        c.enterBlock(d);
 
         RIFFHeader.write(c, d);
 
-        c.writeUIntR(16, d.wFormatTag     , "wFormatTag"     );
-        c.writeUIntR(16, d.nChannels      , "nChannels"      );
-        c.writeUIntR(32, d.nSamplesPerSec , "nSamplesPerSec" );
-        c.writeUIntR(32, d.nAvgBytesPerSec, "nAvgBytesPerSec");
-        c.writeUIntR(16, d.nBlockAlign    , "nBlockAlign"    );
-        c.writeUIntR(16, d.wBitsPerSample , "wBitsPerSample" );
+        c.writeUIntR(16, d.wFormatTag     );
+        c.writeUIntR(16, d.nChannels      );
+        c.writeUIntR(32, d.nSamplesPerSec );
+        c.writeUIntR(32, d.nAvgBytesPerSec);
+        c.writeUIntR(16, d.nBlockAlign    );
+        c.writeUIntR(16, d.wBitsPerSample );
 
         c.leaveBlock();
     }

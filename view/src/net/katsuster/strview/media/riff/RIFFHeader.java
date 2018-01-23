@@ -22,8 +22,8 @@ public class RIFFHeader<T extends LargeList<?>>
     public UIntR ckSize;
 
     public RIFFHeader() {
-        ckID = new UIntR();
-        ckSize = new UIntR();
+        ckID = new UIntR("ckID");
+        ckSize = new UIntR("ckSize");
     }
 
     @Override
@@ -35,6 +35,11 @@ public class RIFFHeader<T extends LargeList<?>>
         obj.ckSize = (UIntR)ckSize.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "RIFF chunk";
     }
 
     /**
@@ -56,7 +61,7 @@ public class RIFFHeader<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             RIFFHeader d) {
-        c.enterBlock("RIFF chunk");
+        c.enterBlock(d);
 
         d.ckID   = c.readUIntR(32, d.ckID);
         d.ckSize = c.readUIntR(32, d.ckSize);
@@ -71,10 +76,10 @@ public class RIFFHeader<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              RIFFHeader d) {
-        c.enterBlock("RIFF chunk");
+        c.enterBlock(d);
 
-        c.writeUIntR(32, d.ckID  , "ckID"  , d.getChunkIdName());
-        c.writeUIntR(32, d.ckSize, "ckSize");
+        c.writeUIntR(32, d.ckID  , d.getChunkIdName());
+        c.writeUIntR(32, d.ckSize);
 
         c.leaveBlock();
     }

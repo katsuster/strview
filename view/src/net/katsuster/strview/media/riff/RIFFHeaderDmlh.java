@@ -22,17 +22,22 @@ public class RIFFHeaderDmlh<T extends LargeList<?>>
     public UIntR dwTotalFrames;
 
     public RIFFHeaderDmlh() {
-        dwTotalFrames = new UIntR();
+        dwTotalFrames = new UIntR("dwTotalFrames");
     }
 
     @Override
-    public RIFFHeaderDmlh clone()
+    public RIFFHeaderDmlh<T> clone()
             throws CloneNotSupportedException {
-        RIFFHeaderDmlh obj = (RIFFHeaderDmlh)super.clone();
+        RIFFHeaderDmlh<T> obj = (RIFFHeaderDmlh<T>)super.clone();
 
         obj.dwTotalFrames = (UIntR)dwTotalFrames.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "dmlh chunk";
     }
 
     @Override
@@ -42,7 +47,7 @@ public class RIFFHeaderDmlh<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             RIFFHeaderDmlh d) {
-        c.enterBlock("dmlh chunk");
+        c.enterBlock(d);
 
         RIFFHeader.read(c, d);
 
@@ -58,11 +63,11 @@ public class RIFFHeaderDmlh<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              RIFFHeaderDmlh d) {
-        c.enterBlock("dmlh chunk");
+        c.enterBlock(d);
 
         RIFFHeader.write(c, d);
 
-        c.writeUIntR(32, d.dwTotalFrames, "dwTotalFrames");
+        c.writeUIntR(32, d.dwTotalFrames);
 
         c.leaveBlock();
     }

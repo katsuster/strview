@@ -20,23 +20,28 @@ import net.katsuster.strview.util.*;
 public class RIFFHeaderIdx1<T extends LargeList<?>>
         extends RIFFHeader<T>
         implements Cloneable {
-    public List<IndexEntry> aIndex;
+    public List<IndexEntry<T>> aIndex;
 
     public RIFFHeaderIdx1() {
         aIndex = new ArrayList<>();
     }
 
     @Override
-    public RIFFHeaderIdx1 clone()
+    public RIFFHeaderIdx1<T> clone()
             throws CloneNotSupportedException {
-        RIFFHeaderIdx1 obj = (RIFFHeaderIdx1)super.clone();
+        RIFFHeaderIdx1<T> obj = (RIFFHeaderIdx1<T>)super.clone();
 
         obj.aIndex = new ArrayList<>();
-        for (IndexEntry e : aIndex) {
+        for (IndexEntry<T> e : aIndex) {
             obj.aIndex.add(e.clone());
         }
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "idx1 chunk";
     }
 
     @Override
@@ -46,7 +51,7 @@ public class RIFFHeaderIdx1<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             RIFFHeaderIdx1 d) {
-        c.enterBlock("idx1 chunk");
+        c.enterBlock(d);
 
         RIFFHeader.read(c, d);
 
@@ -65,7 +70,7 @@ public class RIFFHeaderIdx1<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              RIFFHeaderIdx1 d) {
-        c.enterBlock("idx1 chunk");
+        c.enterBlock(d);
 
         RIFFHeader.write(c, d);
 
