@@ -27,9 +27,9 @@ public class MP4HeaderRecursiveFull<T extends LargeList<?>>
     }
 
     @Override
-    public MP4HeaderRecursiveFull clone()
+    public MP4HeaderRecursiveFull<T> clone()
             throws CloneNotSupportedException {
-        MP4HeaderRecursiveFull obj = (MP4HeaderRecursiveFull)super.clone();
+        MP4HeaderRecursiveFull<T> obj = (MP4HeaderRecursiveFull<T>)super.clone();
 
         return obj;
     }

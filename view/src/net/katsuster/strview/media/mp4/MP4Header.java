@@ -32,9 +32,9 @@ public class MP4Header<T extends LargeList<?>>
     }
 
     @Override
-    public MP4Header clone()
+    public MP4Header<T> clone()
             throws CloneNotSupportedException {
-        MP4Header obj = (MP4Header)super.clone();
+        MP4Header<T> obj = (MP4Header<T>)super.clone();
 
         obj.size = (UInt)size.clone();
         obj.type = (UInt)type.clone();

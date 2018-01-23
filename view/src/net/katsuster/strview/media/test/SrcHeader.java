@@ -18,13 +18,18 @@ public class SrcHeader<T extends LargeList<?>>
     }
 
     @Override
-    public SrcHeader clone()
+    public SrcHeader<T> clone()
             throws CloneNotSupportedException {
-        SrcHeader obj = (SrcHeader)super.clone();
+        SrcHeader<T> obj = (SrcHeader<T>)super.clone();
 
         obj.name = name;
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "Source Packet";
     }
 
     @Override
@@ -34,7 +39,7 @@ public class SrcHeader<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             SrcHeader d) {
-        c.enterBlock("Source Packet header");
+        c.enterBlock(d);
 
         c.leaveBlock();
     }
@@ -46,7 +51,7 @@ public class SrcHeader<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              SrcHeader d) {
-        c.enterBlock("Source Packet header");
+        c.enterBlock(d);
 
         c.mark("name", d.getName());
 

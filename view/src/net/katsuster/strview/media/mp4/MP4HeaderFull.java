@@ -30,9 +30,9 @@ public class MP4HeaderFull<T extends LargeList<?>>
     }
 
     @Override
-    public MP4HeaderFull clone()
+    public MP4HeaderFull<T> clone()
             throws CloneNotSupportedException {
-        MP4HeaderFull obj = (MP4HeaderFull)super.clone();
+        MP4HeaderFull<T> obj = (MP4HeaderFull<T>)super.clone();
 
         obj.version = (UInt)version.clone();
         obj.flags = (UInt)flags.clone();
