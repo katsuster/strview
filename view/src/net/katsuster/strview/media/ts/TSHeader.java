@@ -29,25 +29,25 @@ public class TSHeader<T extends LargeList<?>>
     public UInt adaptation_field_control;
     public UInt continuity_counter;
 
-    public TSHeaderAdaptation adapt;
+    public TSHeaderAdaptation<T> adapt;
 
     public TSHeader() {
-        sync_byte = new UInt();
-        transport_error_indicator = new UInt();
-        payload_unit_start_indicator = new UInt();
-        transport_priority = new UInt();
-        pid = new UInt();
-        transport_scrambling_control = new UInt();
-        adaptation_field_control = new UInt();
-        continuity_counter = new UInt();
+        sync_byte                    = new UInt("sync_byte"                   );
+        transport_error_indicator    = new UInt("transport_error_indicator"   );
+        payload_unit_start_indicator = new UInt("payload_unit_start_indicator");
+        transport_priority           = new UInt("transport_priority"          );
+        pid                          = new UInt("PID"                         );
+        transport_scrambling_control = new UInt("transport_scrambling_control");
+        adaptation_field_control     = new UInt("adaptation_field_control"    );
+        continuity_counter           = new UInt("continuity_counter"          );
 
-        adapt = new TSHeaderAdaptation();
+        adapt = new TSHeaderAdaptation<T>("adapt");
     }
 
     @Override
-    public TSHeader clone()
+    public TSHeader<T> clone()
             throws CloneNotSupportedException {
-        TSHeader obj = (TSHeader)super.clone();
+        TSHeader<T> obj = (TSHeader<T>)super.clone();
 
         obj.sync_byte = (UInt)sync_byte.clone();
         obj.transport_error_indicator = (UInt)transport_error_indicator.clone();
@@ -64,13 +64,18 @@ public class TSHeader<T extends LargeList<?>>
     }
 
     @Override
+    public String getTypeName() {
+        return "TS packet header";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             TSHeader d) {
-        c.enterBlock("TS packet header");
+        c.enterBlock(d);
 
         d.sync_byte                    = c.readUInt( 8, d.sync_byte                   );
         d.transport_error_indicator    = c.readUInt( 1, d.transport_error_indicator   );
@@ -96,16 +101,16 @@ public class TSHeader<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                             TSHeader d) {
-        c.enterBlock("TS packet header");
+        c.enterBlock(d);
 
-        c.writeUInt( 8, d.sync_byte                   , "sync_byte"                   );
-        c.writeUInt( 1, d.transport_error_indicator   , "transport_error_indicator"   );
-        c.writeUInt( 1, d.payload_unit_start_indicator, "payload_unit_start_indicator");
-        c.writeUInt( 1, d.transport_priority          , "transport_priority"          );
-        c.writeUInt(13, d.pid                         , "PID"                         , d.getPIDName());
-        c.writeUInt( 2, d.transport_scrambling_control, "transport_scrambling_control", d.getScramblingName());
-        c.writeUInt( 2, d.adaptation_field_control    , "adaptation_field_control"    , d.getAdaptationFieldName());
-        c.writeUInt( 4, d.continuity_counter          , "continuity_counter"          );
+        c.writeUInt( 8, d.sync_byte                   );
+        c.writeUInt( 1, d.transport_error_indicator   );
+        c.writeUInt( 1, d.payload_unit_start_indicator);
+        c.writeUInt( 1, d.transport_priority          );
+        c.writeUInt(13, d.pid                         , d.getPIDName());
+        c.writeUInt( 2, d.transport_scrambling_control, d.getScramblingName());
+        c.writeUInt( 2, d.adaptation_field_control    , d.getAdaptationFieldName());
+        c.writeUInt( 4, d.continuity_counter          );
 
         if (d.adaptation_field_control.intValue() == 2
                 || d.adaptation_field_control.intValue() == 3) {

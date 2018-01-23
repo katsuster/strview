@@ -68,58 +68,64 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
     public LargeBitList stuffing_byte;
 
     public TSHeaderAdaptation() {
-        adaptation_field_length = new UInt();
+        this(null);
+    }
 
-        discontinuity_indicator = new UInt();
-        random_access_indicator = new UInt();
-        elementary_stream_priority_indicator = new UInt();
-        pcr_flag = new UInt();
-        opcr_flag = new UInt();
-        splicing_point_flag = new UInt();
-        transport_private_data_flag = new UInt();
-        adaptation_field_extension_flag = new UInt();
+    public TSHeaderAdaptation(String n) {
+        super(n);
 
-        program_clock_reference_base = new UInt();
-        reserved = new UInt();
-        program_clock_reference_extension = new UInt();
+        adaptation_field_length = new UInt("adaptation_field_length");
 
-        original_program_clock_reference_base = new UInt();
-        reserved2 = new UInt();
-        original_program_clock_reference_extension = new UInt();
+        discontinuity_indicator              = new UInt("discontinuity_indicator"             );
+        random_access_indicator              = new UInt("random_access_indicator"             );
+        elementary_stream_priority_indicator = new UInt("elementary_stream_priority_indicator");
+        pcr_flag                             = new UInt("PCR_flag"                            );
+        opcr_flag                            = new UInt("OPCR_flag"                           );
+        splicing_point_flag                  = new UInt("splicing_point_flag"                 );
+        transport_private_data_flag          = new UInt("transport_private_data_flag"         );
+        adaptation_field_extension_flag      = new UInt("adaptation_field_extension_flag"     );
 
-        splice_countdown = new UInt();
+        program_clock_reference_base      = new UInt("program_clock_reference_base"     );
+        reserved                          = new UInt("reserved"                         );
+        program_clock_reference_extension = new UInt("program_clock_reference_extension");
 
-        transport_private_data_length = new UInt();
-        private_data_byte = new SubLargeBitList();
+        original_program_clock_reference_base      = new UInt("original_program_clock_reference_base"     );
+        reserved2                                  = new UInt("reserved2"                                 );
+        original_program_clock_reference_extension = new UInt("original_program_clock_reference_extension");
 
-        adaptation_field_extension_length = new UInt();
-        ltw_flag = new UInt();
-        piecewise_rate_flag = new UInt();
-        seamless_splice_flag = new UInt();
-        reserved3 = new UInt();
+        splice_countdown = new UInt("splice_countdown");
 
-        ltw_valid_flag = new UInt();
-        ltw_offset = new UInt();
+        transport_private_data_length = new UInt("transport_private_data_length");
+        private_data_byte             = new SubLargeBitList("private_data_byte"            );
 
-        reserved4 = new UInt();
-        piecewise_rate = new UInt();
+        adaptation_field_extension_length = new UInt("adaptation_field_extension_length");
+        ltw_flag                          = new UInt("ltw_flag"                         );
+        piecewise_rate_flag               = new UInt("piecewise_rate_flag"              );
+        seamless_splice_flag              = new UInt("seamless_splice_flag"             );
+        reserved3                         = new UInt("reserved3"                        );
 
-        splice_type = new UInt();
-        dts_next_au_high = new UInt();
-        marker_bit = new UInt();
-        dts_next_au_mid = new UInt();
-        marker_bit2 = new UInt();
-        dts_next_au_low = new UInt();
-        marker_bit3 = new UInt();
+        ltw_valid_flag = new UInt("ltw_valid_flag");
+        ltw_offset     = new UInt("ltw_offset"    );
 
-        reserved_byte = new SubLargeBitList();
-        stuffing_byte = new SubLargeBitList();
+        reserved4      = new UInt("reserved4"     );
+        piecewise_rate = new UInt("piecewise_rate");
+
+        splice_type      = new UInt("splice_type"     );
+        dts_next_au_high = new UInt("DTS_next_AU_high");
+        marker_bit       = new UInt("marker_bit"      );
+        dts_next_au_mid  = new UInt("DTS_next_AU_mid" );
+        marker_bit2      = new UInt("marker_bit2"     );
+        dts_next_au_low  = new UInt("DTS_next_AU_low" );
+        marker_bit3      = new UInt("marker_bit3"     );
+
+        reserved_byte = new SubLargeBitList("reserved_byte");
+        stuffing_byte = new SubLargeBitList("stuffing_byte");
     }
 
     @Override
-    public TSHeaderAdaptation clone()
+    public TSHeaderAdaptation<T> clone()
             throws CloneNotSupportedException {
-        TSHeaderAdaptation obj = (TSHeaderAdaptation)super.clone();
+        TSHeaderAdaptation<T> obj = (TSHeaderAdaptation<T>)super.clone();
 
         obj.adaptation_field_length = (UInt)adaptation_field_length.clone();
 
@@ -172,18 +178,20 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
     }
 
     @Override
+    public String getTypeName() {
+        return "TS packet header (adaptation field)";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             TSHeaderAdaptation d) {
-        c.enterBlock("TS packet header(adaptation field)");
+        c.enterBlock(d);
 
-        long pos_byte;
-        int size_st;
-
-        pos_byte = (c.position() >>> 3);
+        long pos_byte = (c.position() >>> 3);
 
         //アダプテーションフィールドの長さを得る
         d.adaptation_field_length = c.readUInt( 8, d.adaptation_field_length);
@@ -248,7 +256,7 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
         //adaptation_field_length は
         //adaptation_field_length 自身（1バイト）の
         //長さを含んでいないため、1バイト加えて計算する
-        size_st = d.adaptation_field_length.intValue() + 1
+        int size_st = d.adaptation_field_length.intValue() + 1
                 - (int)((c.position() >>> 3) - pos_byte);
         if (size_st < 0) {
             throw new IllegalStateException("stuffing bytes have negative size"
@@ -261,11 +269,8 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
 
     protected static void readExtensions(StreamReader<?> c,
                                          TSHeaderAdaptation d) {
-        long pos_byte;
-        int size_rs;
-
-        pos_byte = (c.position() >>> 3);
-        size_rs = 0;
+        long pos_byte = (c.position() >>> 3);;
+        int size_rs = 0;
 
         //フィールドの長さ
         d.adaptation_field_extension_length = c.readUInt( 8, d.adaptation_field_extension_length);
@@ -323,15 +328,12 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              TSHeaderAdaptation d) {
-        c.enterBlock("TS packet header(adaptation field)");
+        c.enterBlock(d);
 
-        long pos_byte;
-        int size_st;
-
-        pos_byte = (c.position() >>> 3);
+        long pos_byte = (c.position() >>> 3);
 
         //アダプテーションフィールドの長さを得る
-        c.writeUInt( 8, d.adaptation_field_length, "adaptation_field_length");
+        c.writeUInt( 8, d.adaptation_field_length);
         if (d.adaptation_field_length.intValue() < 0
                 || TSPacket.PACKET_SIZE < d.adaptation_field_length.intValue()) {
             throw new IllegalStateException("adaptation_field is too long"
@@ -344,37 +346,37 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
         }
 
         //各種フラグ
-        c.writeUInt( 1, d.discontinuity_indicator             , "discontinuity_indicator"             );
-        c.writeUInt( 1, d.random_access_indicator             , "random_access_indicator"             );
-        c.writeUInt( 1, d.elementary_stream_priority_indicator, "elementary_stream_priority_indicator");
-        c.writeUInt( 1, d.pcr_flag                            , "PCR_flag"                            );
-        c.writeUInt( 1, d.opcr_flag                           , "OPCR_flag"                           );
-        c.writeUInt( 1, d.splicing_point_flag                 , "splicing_point_flag"                 );
-        c.writeUInt( 1, d.transport_private_data_flag         , "transport_private_data_flag"         );
-        c.writeUInt( 1, d.adaptation_field_extension_flag     , "adaptation_field_extension_flag"     );
+        c.writeUInt( 1, d.discontinuity_indicator             );
+        c.writeUInt( 1, d.random_access_indicator             );
+        c.writeUInt( 1, d.elementary_stream_priority_indicator);
+        c.writeUInt( 1, d.pcr_flag                            );
+        c.writeUInt( 1, d.opcr_flag                           );
+        c.writeUInt( 1, d.splicing_point_flag                 );
+        c.writeUInt( 1, d.transport_private_data_flag         );
+        c.writeUInt( 1, d.adaptation_field_extension_flag     );
 
         //フラグに対応するフィールド
         if (d.pcr_flag.intValue() == 1) {
-            c.writeUInt(33, d.program_clock_reference_base     , "program_clock_reference_base"     );
-            c.writeUInt( 6, d.reserved                         , "reserved"                         );
-            c.writeUInt( 9, d.program_clock_reference_extension, "program_clock_reference_extension");
+            c.writeUInt(33, d.program_clock_reference_base     );
+            c.writeUInt( 6, d.reserved                         );
+            c.writeUInt( 9, d.program_clock_reference_extension);
             c.mark("pcr", d.getPCRValue());
         }
 
         if (d.opcr_flag.intValue() == 1) {
-            c.writeUInt(33, d.original_program_clock_reference_base     , "original_program_clock_reference_base"     );
-            c.writeUInt( 6, d.reserved2                                 , "reserved2"                                 );
-            c.writeUInt( 9, d.original_program_clock_reference_extension, "original_program_clock_reference_extension");
+            c.writeUInt(33, d.original_program_clock_reference_base     );
+            c.writeUInt( 6, d.reserved2                                 );
+            c.writeUInt( 9, d.original_program_clock_reference_extension);
             c.mark("opcr", d.getOPCRValue());
         }
 
         if (d.splicing_point_flag.intValue() == 1) {
-            c.writeUInt( 8, d.splice_countdown, "splice_countdown");
+            c.writeUInt( 8, d.splice_countdown);
         }
 
         if (d.transport_private_data_flag.intValue() == 1) {
             //プライベートデータの長さ
-            c.writeUInt( 8, d.transport_private_data_length, "transport_private_data_length");
+            c.writeUInt( 8, d.transport_private_data_length);
 
             //プライベートデータ
             if (d.transport_private_data_length.intValue() < 0
@@ -383,7 +385,7 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
                         + "(size: " + d.transport_private_data_length + ")");
             }
             c.writeBitList(d.transport_private_data_length.intValue() << 3,
-                    d.private_data_byte, "transport_private_data_length");
+                    d.private_data_byte);
         }
 
         if (d.adaptation_field_extension_flag.intValue() == 1) {
@@ -395,27 +397,24 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
         //adaptation_field_length は
         //adaptation_field_length 自身（1バイト）の
         //長さを含んでいないため、1バイト加えて計算する
-        size_st = d.adaptation_field_length.intValue() + 1
+        int size_st = d.adaptation_field_length.intValue() + 1
                 - (int)((c.position() >>> 3) - pos_byte);
         if (size_st < 0) {
             throw new IllegalStateException("stuffing bytes have negative size"
                     + "(size: " + size_st  + ")");
         }
-        c.writeBitList(size_st << 3, d.stuffing_byte, "stuffing_byte");
+        c.writeBitList(size_st << 3, d.stuffing_byte);
 
         c.leaveBlock();
     }
 
     protected static void writeExtensions(StreamWriter<?> c,
                                           TSHeaderAdaptation d) {
-        long pos_byte;
-        int size_rs;
-
-        pos_byte = (c.position() >>> 3);
-        size_rs = 0;
+        long pos_byte = (c.position() >>> 3);
+        int size_rs = 0;
 
         //フィールドの長さ
-        c.writeUInt( 8, d.adaptation_field_extension_length, "adaptation_field_extension_length");
+        c.writeUInt( 8, d.adaptation_field_extension_length);
         if (d.adaptation_field_extension_length.intValue() < 0
                 || TSPacket.PACKET_SIZE < d.adaptation_field_extension_length.intValue()) {
             throw new IllegalStateException("adapt header extension is too long"
@@ -423,30 +422,30 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
         }
 
         //各種フラグ
-        c.writeUInt( 1, d.ltw_flag            , "ltw_flag"            );
-        c.writeUInt( 1, d.piecewise_rate_flag , "piecewise_rate_flag" );
-        c.writeUInt( 1, d.seamless_splice_flag, "seamless_splice_flag");
-        c.writeUInt( 5, d.reserved3           , "reserved3"           );
+        c.writeUInt( 1, d.ltw_flag            );
+        c.writeUInt( 1, d.piecewise_rate_flag );
+        c.writeUInt( 1, d.seamless_splice_flag);
+        c.writeUInt( 5, d.reserved3           );
 
         //フラグに対応するフィールド
         if (d.ltw_flag.intValue() == 1) {
-            c.writeUInt( 1, d.ltw_valid_flag  , "ltw_valid_flag"  );
-            c.writeUInt(15, d.ltw_offset      , "ltw_offset"      );
+            c.writeUInt( 1, d.ltw_valid_flag);
+            c.writeUInt(15, d.ltw_offset    );
         }
 
         if (d.piecewise_rate_flag.intValue() == 1) {
-            c.writeUInt( 2, d.reserved4       , "reserved4"       );
-            c.writeUInt(22, d.piecewise_rate  , "piecewise_rate"  );
+            c.writeUInt( 2, d.reserved4     );
+            c.writeUInt(22, d.piecewise_rate);
         }
 
         if (d.seamless_splice_flag.intValue() == 1) {
-            c.writeUInt( 4, d.splice_type     , "splice_type"     );
-            c.writeUInt( 3, d.dts_next_au_high, "DTS_next_AU_high");
-            c.writeUInt( 1, d.marker_bit      , "marker_bit"      );
-            c.writeUInt(15, d.dts_next_au_mid , "DTS_next_AU_mid" );
-            c.writeUInt( 1, d.marker_bit2     , "marker_bit2"     );
-            c.writeUInt(15, d.dts_next_au_low , "DTS_next_AU_low" );
-            c.writeUInt( 1, d.marker_bit3     , "marker_bit3"     );
+            c.writeUInt( 4, d.splice_type     );
+            c.writeUInt( 3, d.dts_next_au_high);
+            c.writeUInt( 1, d.marker_bit      );
+            c.writeUInt(15, d.dts_next_au_mid );
+            c.writeUInt( 1, d.marker_bit2     );
+            c.writeUInt(15, d.dts_next_au_low );
+            c.writeUInt( 1, d.marker_bit3     );
             c.mark("dts_next_au", d.getDTSNextAUValue());
         }
 
@@ -460,7 +459,7 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
             throw new IllegalStateException("reserved bytes(extension) have negative size"
                     + "(size: " + size_rs + ")");
         }
-        c.writeBitList(size_rs << 3, d.reserved_byte, "reserved_byte");
+        c.writeBitList(size_rs << 3, d.reserved_byte);
     }
 
     public long getPCRValue() {
