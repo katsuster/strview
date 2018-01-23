@@ -50,9 +50,9 @@ public class M2VHeaderExtSequence<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderExtSequence clone()
+    public M2VHeaderExtSequence<T> clone()
             throws CloneNotSupportedException {
-        M2VHeaderExtSequence obj = (M2VHeaderExtSequence)super.clone();
+        M2VHeaderExtSequence<T> obj = (M2VHeaderExtSequence<T>)super.clone();
 
         obj.profile_and_level_indication = (UInt)profile_and_level_indication.clone();
         obj.progressive_sequence = (UInt)progressive_sequence.clone();

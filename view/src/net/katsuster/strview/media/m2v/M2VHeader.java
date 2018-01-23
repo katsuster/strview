@@ -27,9 +27,9 @@ public class M2VHeader<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeader clone()
+    public M2VHeader<T> clone()
             throws CloneNotSupportedException {
-        M2VHeader obj = (M2VHeader)super.clone();
+        M2VHeader<T> obj = (M2VHeader<T>)super.clone();
 
         obj.start_code = (UInt)start_code.clone();
 

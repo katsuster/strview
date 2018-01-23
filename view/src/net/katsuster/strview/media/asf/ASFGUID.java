@@ -94,8 +94,9 @@ public class ASFGUID<T extends LargeList<?>>
     }
 
     @Override
-    public ASFGUID clone() throws CloneNotSupportedException {
-        ASFGUID obj = (ASFGUID)super.clone();
+    public ASFGUID<T> clone()
+            throws CloneNotSupportedException {
+        ASFGUID<T> obj = (ASFGUID<T>)super.clone();
 
         obj.la = (UIntR)la.clone();
         obj.lb = (UIntR)lb.clone();

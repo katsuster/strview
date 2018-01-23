@@ -50,9 +50,9 @@ public class ASFHeaderFileProperties<T extends LargeList<?>>
     }
 
     @Override
-    public ASFHeaderFileProperties clone()
+    public ASFHeaderFileProperties<T> clone()
             throws CloneNotSupportedException {
-        ASFHeaderFileProperties obj = (ASFHeaderFileProperties)super.clone();
+        ASFHeaderFileProperties<T> obj = (ASFHeaderFileProperties<T>)super.clone();
 
         obj.file_id = file_id.clone();
         obj.file_size = (UIntR)file_size.clone();

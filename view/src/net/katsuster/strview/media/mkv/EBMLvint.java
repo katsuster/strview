@@ -28,9 +28,9 @@ public abstract class EBMLvint<T extends LargeList<?>>
     }
 
     @Override
-    public EBMLvint clone()
+    public EBMLvint<T> clone()
             throws CloneNotSupportedException {
-        EBMLvint obj = (EBMLvint)super.clone();
+        EBMLvint<T> obj = (EBMLvint<T>)super.clone();
 
         return obj;
     }

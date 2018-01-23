@@ -29,9 +29,9 @@ public class ASFHeaderExtendedContentDescription<T extends LargeList<?>>
     }
 
     @Override
-    public ASFHeaderExtendedContentDescription clone()
+    public ASFHeaderExtendedContentDescription<T> clone()
             throws CloneNotSupportedException {
-        ASFHeaderExtendedContentDescription obj = (ASFHeaderExtendedContentDescription)super.clone();
+        ASFHeaderExtendedContentDescription<T> obj = (ASFHeaderExtendedContentDescription<T>)super.clone();
 
         obj.content_descriptors_count = (UIntR)content_descriptors_count.clone();
         obj.content_descriptors = new ArrayList<>();

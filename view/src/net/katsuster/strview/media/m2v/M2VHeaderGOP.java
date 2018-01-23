@@ -41,9 +41,9 @@ public class M2VHeaderGOP<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderGOP clone()
+    public M2VHeaderGOP<T> clone()
             throws CloneNotSupportedException {
-        M2VHeaderGOP obj = (M2VHeaderGOP)super.clone();
+        M2VHeaderGOP<T> obj = (M2VHeaderGOP<T>)super.clone();
 
         obj.drop_frame = (UInt)drop_frame.clone();
         obj.time_code_hours = (UInt)time_code_hours.clone();

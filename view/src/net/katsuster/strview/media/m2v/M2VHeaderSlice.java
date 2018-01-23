@@ -88,7 +88,7 @@ public class M2VHeaderSlice<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderSlice clone()
+    public M2VHeaderSlice<T> clone()
             throws CloneNotSupportedException {
         M2VHeaderSlice<T> obj = (M2VHeaderSlice<T>)super.clone();
 

@@ -59,7 +59,7 @@ public class M2VHeaderExtPictureDisplay<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderExtPictureDisplay clone()
+    public M2VHeaderExtPictureDisplay<T> clone()
             throws CloneNotSupportedException {
         M2VHeaderExtPictureDisplay<T> obj = (M2VHeaderExtPictureDisplay<T>) super.clone();
 

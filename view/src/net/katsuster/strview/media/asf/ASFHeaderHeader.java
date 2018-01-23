@@ -29,9 +29,9 @@ public class ASFHeaderHeader<T extends LargeList<?>>
     }
 
     @Override
-    public ASFHeaderHeader clone()
+    public ASFHeaderHeader<T> clone()
             throws CloneNotSupportedException {
-        ASFHeaderHeader obj = (ASFHeaderHeader)super.clone();
+        ASFHeaderHeader<T> obj = (ASFHeaderHeader<T>)super.clone();
 
         obj.number_of_header_objects = (UIntR)number_of_header_objects.clone();
         obj.reserved1 = (UIntR)reserved1.clone();

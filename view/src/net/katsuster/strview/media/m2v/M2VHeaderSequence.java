@@ -54,7 +54,7 @@ public class M2VHeaderSequence<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderSequence clone()
+    public M2VHeaderSequence<T> clone()
             throws CloneNotSupportedException {
         M2VHeaderSequence obj = (M2VHeaderSequence)super.clone();
 

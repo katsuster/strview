@@ -27,9 +27,9 @@ public class RIFFHeader<T extends LargeList<?>>
     }
 
     @Override
-    public RIFFHeader clone()
+    public RIFFHeader<T> clone()
             throws CloneNotSupportedException {
-        RIFFHeader obj = (RIFFHeader)super.clone();
+        RIFFHeader<T> obj = (RIFFHeader<T>)super.clone();
 
         obj.ckID = (UIntR)ckID.clone();
         obj.ckSize = (UIntR)ckSize.clone();

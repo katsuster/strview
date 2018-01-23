@@ -34,9 +34,9 @@ public class ContentDescriptor<T extends LargeList<?>>
     }
 
     @Override
-    public ContentDescriptor clone()
+    public ContentDescriptor<T> clone()
             throws CloneNotSupportedException {
-        ContentDescriptor obj = (ContentDescriptor)super.clone();
+        ContentDescriptor<T> obj = (ContentDescriptor<T>)super.clone();
 
         obj.descriptor_name_length = (UIntR)descriptor_name_length.clone();
         obj.descriptor_name = (LargeBitList)descriptor_name.clone();

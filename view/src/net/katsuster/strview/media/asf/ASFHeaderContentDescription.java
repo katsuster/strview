@@ -43,9 +43,9 @@ public class ASFHeaderContentDescription<T extends LargeList<?>>
     }
 
     @Override
-    public ASFHeaderContentDescription clone()
+    public ASFHeaderContentDescription<T> clone()
             throws CloneNotSupportedException {
-        ASFHeaderContentDescription obj = (ASFHeaderContentDescription)super.clone();
+        ASFHeaderContentDescription<T> obj = (ASFHeaderContentDescription<T>)super.clone();
 
         obj.title_length = (UIntR)title_length.clone();
         obj.author_length = (UIntR)author_length.clone();

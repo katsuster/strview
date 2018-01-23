@@ -52,9 +52,10 @@ public class M2VHeaderExtSequenceScalable<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderExtSequenceScalable clone()
+    public M2VHeaderExtSequenceScalable<T> clone()
             throws CloneNotSupportedException {
-        M2VHeaderExtSequenceScalable obj = (M2VHeaderExtSequenceScalable)super.clone();
+        M2VHeaderExtSequenceScalable<T> obj =
+                (M2VHeaderExtSequenceScalable<T>)super.clone();
 
         obj.scalable_mode = (UInt)scalable_mode.clone();
         obj.layer_id = (UInt)layer_id.clone();

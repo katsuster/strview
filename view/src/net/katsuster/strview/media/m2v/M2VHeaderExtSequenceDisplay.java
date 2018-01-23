@@ -45,9 +45,9 @@ public class M2VHeaderExtSequenceDisplay<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderExtSequenceDisplay clone()
+    public M2VHeaderExtSequenceDisplay<T> clone()
             throws CloneNotSupportedException {
-        M2VHeaderExtSequenceDisplay obj = (M2VHeaderExtSequenceDisplay)super.clone();
+        M2VHeaderExtSequenceDisplay<T> obj = (M2VHeaderExtSequenceDisplay<T>)super.clone();
 
         obj.video_format = (UInt)video_format.clone();
         obj.colour_description = (UInt)colour_description.clone();

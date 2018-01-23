@@ -45,9 +45,9 @@ public class M2VHeaderPicture<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderPicture clone()
+    public M2VHeaderPicture<T> clone()
             throws CloneNotSupportedException {
-        M2VHeaderPicture obj = (M2VHeaderPicture)super.clone();
+        M2VHeaderPicture<T> obj = (M2VHeaderPicture<T>)super.clone();
 
         obj.temporal_reference = (UInt)temporal_reference.clone();
         obj.picture_coding_type = (UInt)picture_coding_type.clone();

@@ -41,9 +41,9 @@ public class M2VHeaderExtQuantMatrix<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderExtQuantMatrix clone()
+    public M2VHeaderExtQuantMatrix<T> clone()
             throws CloneNotSupportedException {
-        M2VHeaderExtQuantMatrix obj = (M2VHeaderExtQuantMatrix) super.clone();
+        M2VHeaderExtQuantMatrix<T> obj = (M2VHeaderExtQuantMatrix<T>) super.clone();
 
         obj.load_intra_quantiser_matrix = (UInt)load_intra_quantiser_matrix.clone();
         obj.intra_quantiser_matrix = (LargeBitList)intra_quantiser_matrix.clone();
