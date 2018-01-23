@@ -447,8 +447,14 @@ public class PacketTreeViewerPanel extends ViewerPanel {
             MemberTreeNode root = c.getResult();
             root.setName(getPacketList().getShortName());
             memberTreeViewer.setRootTreeNode(root);
-            for (int row = 0; row < memberTreeViewer.getViewer().getRowCount(); row++) {
-                memberTreeViewer.getViewer().expandRow(row);
+            JTree v = memberTreeViewer.getViewer();
+            while (true) {
+                int before = v.getRowCount();
+                for (int row = Integer.min(100, before) - 1; row >= 0; row--) {
+                    v.expandRow(row);
+                }
+                if (before == v.getRowCount())
+                    break;
             }
             memberTreeViewer.repaint();
 
