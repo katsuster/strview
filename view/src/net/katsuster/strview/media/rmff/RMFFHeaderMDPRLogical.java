@@ -14,19 +14,19 @@ public class RMFFHeaderMDPRLogical<T extends LargeList<?>>
     public UInt type_specific_len;
     public LargeBitList type_specific_data;
 
-    public LogicalStream logical_stream;
+    public LogicalStream<T> logical_stream;
 
     public RMFFHeaderMDPRLogical() {
-        type_specific_len = new UInt();
-        type_specific_data = new SubLargeBitList();
+        type_specific_len = new UInt("type_specific_len");
+        type_specific_data = new SubLargeBitList("type_specific_data");
 
-        logical_stream = new LogicalStream();
+        logical_stream = new LogicalStream<>("logical_stream");
     }
 
     @Override
-    public RMFFHeaderMDPRLogical clone()
+    public RMFFHeaderMDPRLogical<T> clone()
             throws CloneNotSupportedException {
-        RMFFHeaderMDPRLogical obj = (RMFFHeaderMDPRLogical)super.clone();
+        RMFFHeaderMDPRLogical<T> obj = (RMFFHeaderMDPRLogical<T>)super.clone();
 
         obj.type_specific_len = (UInt)type_specific_len.clone();
         obj.type_specific_data = (LargeBitList)type_specific_data.clone();
@@ -37,19 +37,24 @@ public class RMFFHeaderMDPRLogical<T extends LargeList<?>>
     }
 
     @Override
+    public String getTypeName() {
+        return "MDPR (logical stream) chunk";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             RMFFHeaderMDPRLogical d) {
-        c.enterBlock("MDPR(logical stream) chunk");
+        c.enterBlock(d);
 
         RMFFHeaderMDPR.read(c, d);
 
         if (d.object_version.intValue() == 0) {
             d.type_specific_len = c.readUInt(32, d.type_specific_len);
-            checkNegative("type_specific_len", d.type_specific_len);
+            checkNegative(d.type_specific_len);
 
             long st = c.position();
             d.logical_stream.read(c);
@@ -71,16 +76,16 @@ public class RMFFHeaderMDPRLogical<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              RMFFHeaderMDPRLogical d) {
-        c.enterBlock("MDPR(logical stream) chunk");
+        c.enterBlock(d);
 
         RMFFHeaderMDPR.write(c, d);
 
         if (d.object_version.intValue() == 0) {
-            c.writeUInt(32, d.type_specific_len, "type_specific_len");
+            c.writeUInt(32, d.type_specific_len);
 
             d.logical_stream.write(c);
 
-            c.writeBitList(d.type_specific_len.intValue() << 3, d.type_specific_data, "type_specific_data");
+            c.writeBitList(d.type_specific_len.intValue() << 3, d.type_specific_data);
         }
 
         c.leaveBlock();

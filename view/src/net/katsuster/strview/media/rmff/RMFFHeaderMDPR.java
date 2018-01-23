@@ -25,24 +25,24 @@ public class RMFFHeaderMDPR<T extends LargeList<?>>
     public LargeBitList mime_type;
 
     public RMFFHeaderMDPR() {
-        stream_number = new UInt();
-        max_bit_rate = new UInt();
-        avg_bit_rate = new UInt();
-        max_packet_size = new UInt();
-        avg_packet_size = new UInt();
-        start_time = new UInt();
-        preroll = new UInt();
-        duration = new UInt();
-        stream_name_size = new UInt();
-        stream_name = new SubLargeBitList();
-        mime_type_size = new UInt();
-        mime_type = new SubLargeBitList();
+        stream_number    = new UInt("stream_number"   );
+        max_bit_rate     = new UInt("max_bit_rate"    );
+        avg_bit_rate     = new UInt("avg_bit_rate"    );
+        max_packet_size  = new UInt("max_packet_size" );
+        avg_packet_size  = new UInt("avg_packet_size" );
+        start_time       = new UInt("start_time"      );
+        preroll          = new UInt("preroll"         );
+        duration         = new UInt("duration"        );
+        stream_name_size = new UInt("stream_name_size");
+        stream_name      = new SubLargeBitList("stream_name");
+        mime_type_size   = new UInt("mime_type_size"  );
+        mime_type        = new SubLargeBitList("mime_type");
     }
 
     @Override
-    public RMFFHeaderMDPR clone()
+    public RMFFHeaderMDPR<T> clone()
             throws CloneNotSupportedException {
-        RMFFHeaderMDPR obj = (RMFFHeaderMDPR)super.clone();
+        RMFFHeaderMDPR<T> obj = (RMFFHeaderMDPR<T>)super.clone();
 
         obj.stream_number = (UInt)stream_number.clone();
         obj.max_bit_rate = (UInt)max_bit_rate.clone();
@@ -61,13 +61,18 @@ public class RMFFHeaderMDPR<T extends LargeList<?>>
     }
 
     @Override
+    public String getTypeName() {
+        return "MDPR chunk";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             RMFFHeaderMDPR d) {
-        c.enterBlock("MDPR chunk");
+        c.enterBlock(d);
 
         RMFFHeader.read(c, d);
 
@@ -82,11 +87,11 @@ public class RMFFHeaderMDPR<T extends LargeList<?>>
             d.duration         = c.readUInt(32, d.duration        );
 
             d.stream_name_size = c.readUInt( 8, d.stream_name_size);
-            checkNegative("stream_name_size", d.stream_name_size);
+            checkNegative(d.stream_name_size);
             d.stream_name = c.readBitList(d.stream_name_size.intValue() << 3, d.stream_name);
 
             d.mime_type_size   = c.readUInt( 8, d.mime_type_size  );
-            checkNegative("mime_type_size", d.mime_type_size);
+            checkNegative(d.mime_type_size);
             d.mime_type = c.readBitList(d.mime_type_size.intValue() << 3, d.mime_type);
         }
 
@@ -100,27 +105,25 @@ public class RMFFHeaderMDPR<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              RMFFHeaderMDPR d) {
-        c.enterBlock("MDPR chunk");
+        c.enterBlock(d);
 
         RMFFHeader.write(c, d);
 
         if (d.object_version.intValue() == 0) {
-            c.writeUInt(16, d.stream_number   , "stream_number"   );
-            c.writeUInt(32, d.max_bit_rate    , "max_bit_rate"    );
-            c.writeUInt(32, d.avg_bit_rate    , "avg_bit_rate"    );
-            c.writeUInt(32, d.max_packet_size , "max_packet_size" );
-            c.writeUInt(32, d.avg_packet_size , "avg_packet_size" );
-            c.writeUInt(32, d.start_time      , "start_time"      );
-            c.writeUInt(32, d.preroll         , "preroll"         );
-            c.writeUInt(32, d.duration        , "duration"        );
+            c.writeUInt(16, d.stream_number  );
+            c.writeUInt(32, d.max_bit_rate   );
+            c.writeUInt(32, d.avg_bit_rate   );
+            c.writeUInt(32, d.max_packet_size);
+            c.writeUInt(32, d.avg_packet_size);
+            c.writeUInt(32, d.start_time     );
+            c.writeUInt(32, d.preroll        );
+            c.writeUInt(32, d.duration       );
 
-            c.writeUInt( 8, d.stream_name_size, "stream_name_size");
-            c.writeBitList(d.stream_name_size.intValue() << 3, d.stream_name,
-                    "stream_name", d.getStreamNameName());
+            c.writeUInt( 8, d.stream_name_size);
+            c.writeBitList(d.stream_name_size.intValue() << 3, d.stream_name, d.getStreamNameName());
 
-            c.writeUInt( 8, d.mime_type_size  , "mime_type_size"  );
-            c.writeBitList(d.mime_type_size.intValue() << 3, d.mime_type,
-                    "mime_type", d.getMimeTypeName());
+            c.writeUInt( 8, d.mime_type_size);
+            c.writeBitList(d.mime_type_size.intValue() << 3, d.mime_type, d.getMimeTypeName());
         }
 
         c.leaveBlock();

@@ -26,21 +26,26 @@ public class RMFFHeader<T extends LargeList<?>>
     public UInt object_version;
 
     public RMFFHeader() {
-        object_id = new UInt();
-        size = new UInt();
-        object_version = new UInt();
+        object_id = new UInt("object_id");
+        size      = new UInt("size");
+        object_version = new UInt("object_version");
     }
 
     @Override
-    public RMFFHeader clone()
+    public RMFFHeader<T> clone()
             throws CloneNotSupportedException {
-        RMFFHeader obj = (RMFFHeader)super.clone();
+        RMFFHeader<T> obj = (RMFFHeader<T>)super.clone();
 
         obj.object_id = (UInt)object_id.clone();
         obj.size = (UInt)size.clone();
         obj.object_version = (UInt)object_version.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "RMFF chunk";
     }
 
     /**
@@ -62,7 +67,7 @@ public class RMFFHeader<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             RMFFHeader d) {
-        c.enterBlock("RMFF chunk header");
+        c.enterBlock(d);
 
         d.object_id      = c.readUInt(32, d.object_id     );
         d.size           = c.readUInt(32, d.size          );
@@ -78,11 +83,11 @@ public class RMFFHeader<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              RMFFHeader d) {
-        c.enterBlock("RMFF chunk header");
+        c.enterBlock(d);
 
-        c.writeUInt(32, d.object_id     , "object_id"     , d.getObjectIdName());
-        c.writeUInt(32, d.size          , "size"          );
-        c.writeUInt(16, d.object_version, "object_version");
+        c.writeUInt(32, d.object_id     , d.getObjectIdName());
+        c.writeUInt(32, d.size          );
+        c.writeUInt(16, d.object_version);
 
         c.leaveBlock();
     }

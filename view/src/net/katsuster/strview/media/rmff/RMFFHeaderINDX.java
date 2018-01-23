@@ -16,15 +16,15 @@ public class RMFFHeaderINDX<T extends LargeList<?>>
     public UInt next_index_header;
 
     public RMFFHeaderINDX() {
-        num_indices = new UInt();
-        stream_number = new UInt();
-        next_index_header = new UInt();
+        num_indices = new UInt("num_indices");
+        stream_number = new UInt("stream_number");
+        next_index_header = new UInt("next_index_header");
     }
 
     @Override
-    public RMFFHeaderINDX clone()
+    public RMFFHeaderINDX<T> clone()
             throws CloneNotSupportedException {
-        RMFFHeaderINDX obj = (RMFFHeaderINDX)super.clone();
+        RMFFHeaderINDX<T> obj = (RMFFHeaderINDX<T>)super.clone();
 
         obj.num_indices = (UInt)num_indices.clone();
         obj.stream_number = (UInt)stream_number.clone();
@@ -34,13 +34,18 @@ public class RMFFHeaderINDX<T extends LargeList<?>>
     }
 
     @Override
+    public String getTypeName() {
+        return "INDX chunk";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             RMFFHeaderINDX d) {
-        c.enterBlock("INDX chunk");
+        c.enterBlock(d);
 
         RMFFHeader.read(c, d);
 
@@ -60,14 +65,14 @@ public class RMFFHeaderINDX<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              RMFFHeaderINDX d) {
-        c.enterBlock("INDX chunk");
+        c.enterBlock(d);
 
         RMFFHeader.write(c, d);
 
         if (d.object_version.intValue() == 0) {
-            c.writeUInt(32, d.num_indices      , "num_indices"      );
-            c.writeUInt(16, d.stream_number    , "stream_number"    );
-            c.writeUInt(32, d.next_index_header, "next_index_header");
+            c.writeUInt(32, d.num_indices      );
+            c.writeUInt(16, d.stream_number    );
+            c.writeUInt(32, d.next_index_header);
         }
 
         c.leaveBlock();

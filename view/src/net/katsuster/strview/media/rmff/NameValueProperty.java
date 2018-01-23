@@ -24,19 +24,25 @@ public class NameValueProperty<T extends LargeList<?>>
     public LargeBitList value_data;
 
     public NameValueProperty() {
-        size = new UInt();
-        object_version = new UInt();
-        name_length = new UInt();
-        name = new SubLargeBitList();
-        type = new SInt();
-        value_length = new UInt();
-        value_data = new SubLargeBitList();
+        this(null);
+    }
+
+    public NameValueProperty(String n) {
+        super(n);
+
+        size           = new UInt("size"          );
+        object_version = new UInt("object_version");
+        name_length    = new UInt("name_length"   );
+        name           = new SubLargeBitList("name");
+        type           = new SInt("type"          );
+        value_length   = new UInt("value_length"  );
+        value_data     = new SubLargeBitList("value_data");
     }
 
     @Override
-    public NameValueProperty clone()
+    public NameValueProperty<T> clone()
             throws CloneNotSupportedException {
-        NameValueProperty obj = (NameValueProperty)super.clone();
+        NameValueProperty<T> obj = (NameValueProperty<T>)super.clone();
 
         obj.size = (UInt)size.clone();
         obj.object_version = (UInt)object_version.clone();
@@ -50,68 +56,6 @@ public class NameValueProperty<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?> c) {
-        read(c, this);
-    }
-
-    public static void read(StreamReader<?> c,
-                            NameValueProperty d) {
-        c.enterBlock("NameValueProperty");
-
-        d.size           = c.readUInt(32, d.size          );
-        d.object_version = c.readUInt(16, d.object_version);
-
-        if (d.object_version.intValue() == 0) {
-            d.name_length = c.readUInt( 8, d.name_length);
-            checkNegative("name_length", d.name_length);
-            d.name = c.readBitList(d.name_length.intValue() << 3, d.name);
-
-            d.type = c.readSInt(32, d.type);
-
-            d.value_length = c.readUInt(16, d.value_length);
-            checkNegative("value_length", d.value_length);
-            d.value_data = c.readBitList(d.value_length.intValue() << 3, d.value_data);
-        }
-
-        c.leaveBlock();
-    }
-
-    @Override
-    public void write(StreamWriter<?> c) {
-        write(c, this);
-    }
-
-    public static void write(StreamWriter<?> c,
-                             NameValueProperty d) {
-        c.enterBlock("NameValueProperty");
-
-        c.writeUInt(32, d.size          , "size"          );
-        c.writeUInt(16, d.object_version, "object_version");
-
-        if (d.object_version.intValue() == 0) {
-            c.writeUInt( 8, d.name_length, "name_length");
-            c.writeBitList(d.name_length.intValue() << 3, d.name,
-                    "name", d.getNameName());
-
-            c.writeSInt(32, d.type, "type", d.getTypeName());
-
-            c.writeUInt(16, d.value_length, "value_length");
-            if (d.type.intValue() == TYPE.STRING) {
-                c.writeBitList(d.value_length.intValue() << 3, d.value_data,
-                        "value_data", d.getValueDataName());
-            } else {
-                c.writeBitList(d.value_length.intValue() << 3, d.value_data,
-                        "value_data");
-            }
-        }
-
-        c.leaveBlock();
-    }
-
-    public String getNameName() {
-        return getArrayName(name, "US-ASCII");
-    }
-
     public String getTypeName() {
         return getTypeName(type.intValue());
     }
@@ -135,6 +79,66 @@ public class NameValueProperty<T extends LargeList<?>>
         }
 
         return name;
+    }
+
+    @Override
+    public void read(StreamReader<?> c) {
+        read(c, this);
+    }
+
+    public static void read(StreamReader<?> c,
+                            NameValueProperty d) {
+        c.enterBlock(d);
+
+        d.size           = c.readUInt(32, d.size          );
+        d.object_version = c.readUInt(16, d.object_version);
+
+        if (d.object_version.intValue() == 0) {
+            d.name_length = c.readUInt( 8, d.name_length);
+            checkNegative(d.name_length);
+            d.name = c.readBitList(d.name_length.intValue() << 3, d.name);
+
+            d.type = c.readSInt(32, d.type);
+
+            d.value_length = c.readUInt(16, d.value_length);
+            checkNegative(d.value_length);
+            d.value_data = c.readBitList(d.value_length.intValue() << 3, d.value_data);
+        }
+
+        c.leaveBlock();
+    }
+
+    @Override
+    public void write(StreamWriter<?> c) {
+        write(c, this);
+    }
+
+    public static void write(StreamWriter<?> c,
+                             NameValueProperty d) {
+        c.enterBlock(d);
+
+        c.writeUInt(32, d.size          );
+        c.writeUInt(16, d.object_version);
+
+        if (d.object_version.intValue() == 0) {
+            c.writeUInt( 8, d.name_length);
+            c.writeBitList(d.name_length.intValue() << 3, d.name, d.getNameName());
+
+            c.writeSInt(32, d.type, d.getTypeName());
+
+            c.writeUInt(16, d.value_length);
+            if (d.type.intValue() == TYPE.STRING) {
+                c.writeBitList(d.value_length.intValue() << 3, d.value_data, d.getValueDataName());
+            } else {
+                c.writeBitList(d.value_length.intValue() << 3, d.value_data);
+            }
+        }
+
+        c.leaveBlock();
+    }
+
+    public String getNameName() {
+        return getArrayName(name, "US-ASCII");
     }
 
     public static class TYPE {

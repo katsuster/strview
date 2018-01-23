@@ -22,21 +22,27 @@ public class LogicalStream<T extends LargeList<?>>
     public NameValueProperty[] properties;
 
     public LogicalStream() {
-        size = new UInt();
-        object_version = new UInt();
-        num_physical_streams = new UInt();
+        this(null);
+    }
+
+    public LogicalStream(String n) {
+        super(n);
+
+        size                    = new UInt("size");
+        object_version          = new UInt("object_version");
+        num_physical_streams    = new UInt("num_physical_streams");
         physical_stream_numbers = new UInt[0];
-        data_offsets = new UInt[0];
-        num_rules = new UInt();
+        data_offsets            = new UInt[0];
+        num_rules               = new UInt("num_rules");
         rule_to_physical_stream_number_map = new UInt[0];
-        num_properties = new UInt();
-        properties = new NameValueProperty[0];
+        num_properties          = new UInt("num_properties");
+        properties              = new NameValueProperty[0];
     }
 
     @Override
-    public LogicalStream clone()
+    public LogicalStream<T> clone()
             throws CloneNotSupportedException {
-        LogicalStream obj = (LogicalStream)super.clone();
+        LogicalStream<T> obj = (LogicalStream<T>)super.clone();
         int i;
 
         obj.size = (UInt)size.clone();
@@ -66,41 +72,47 @@ public class LogicalStream<T extends LargeList<?>>
     }
 
     @Override
+    public String getTypeName() {
+        return "LogicalStream";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             LogicalStream d) {
-        c.enterBlock("LogicalStream");
-
-        int i;
+        c.enterBlock(d);
 
         d.size           = c.readUInt(32, d.size          );
         d.object_version = c.readUInt(16, d.object_version);
 
         if (d.object_version.intValue() == 0) {
             d.num_physical_streams = c.readUInt(16, d.num_physical_streams);
-            checkNegative("num_physical_streams", d.num_physical_streams);
+            checkNegative(d.num_physical_streams);
             d.physical_stream_numbers = new UInt[d.num_physical_streams.intValue()];
             d.data_offsets            = new UInt[d.num_physical_streams.intValue()];
-            for (i = 0; i < d.num_physical_streams.intValue(); i++) {
+            for (int i = 0; i < d.num_physical_streams.intValue(); i++) {
+                d.physical_stream_numbers[i] = new UInt("physical_stream_numbers[" + i + "]");
+                d.data_offsets[i]            = new UInt("data_offsets[" + i + "]");
                 d.physical_stream_numbers[i] = c.readUInt(16, d.physical_stream_numbers[i]);
                 d.data_offsets[i]            = c.readUInt(32, d.data_offsets[i]           );
             }
 
             d.num_rules = c.readUInt(16, d.num_rules);
-            checkNegative("num_rules", d.num_rules);
+            checkNegative(d.num_rules);
             d.rule_to_physical_stream_number_map = new UInt[d.num_rules.intValue()];
-            for (i = 0; i < d.num_rules.intValue(); i++) {
+            for (int i = 0; i < d.num_rules.intValue(); i++) {
                 d.rule_to_physical_stream_number_map[i] = c.readUInt(16, d.rule_to_physical_stream_number_map[i]);
+                d.rule_to_physical_stream_number_map[i].setName("rule_to_physical_stream_number_map[" + i + "]");
             }
 
             d.num_properties = c.readUInt(16, d.num_properties);
-            checkNegative("num_properties", d.num_properties);
+            checkNegative(d.num_properties);
             d.properties = new NameValueProperty[d.num_properties.intValue()];
-            for (i = 0; i < d.num_properties.intValue(); i++) {
-                d.properties[i] = new NameValueProperty();
+            for (int i = 0; i < d.num_properties.intValue(); i++) {
+                d.properties[i] = new NameValueProperty("properties[" + i + "]");
                 d.properties[i].read(c);
             }
         }
@@ -115,27 +127,25 @@ public class LogicalStream<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              LogicalStream d) {
-        c.enterBlock("LogicalStream");
+        c.enterBlock(d);
 
-        int i;
-
-        c.writeUInt(32, d.size          , "size"          );
-        c.writeUInt(16, d.object_version, "object_version");
+        c.writeUInt(32, d.size          );
+        c.writeUInt(16, d.object_version);
 
         if (d.object_version.intValue() == 0) {
-            c.writeUInt(16, d.num_physical_streams, "num_physical_streams");
-            for (i = 0; i < d.num_physical_streams.intValue(); i++) {
-                c.writeUInt(16, d.physical_stream_numbers[i], "physical_stream_numbers[" + i + "]");
-                c.writeUInt(32, d.data_offsets[i]           , "data_offsets[" + i + "]"           );
+            c.writeUInt(16, d.num_physical_streams);
+            for (int i = 0; i < d.num_physical_streams.intValue(); i++) {
+                c.writeUInt(16, d.physical_stream_numbers[i]);
+                c.writeUInt(32, d.data_offsets[i]           );
             }
 
-            c.writeUInt(16, d.num_rules     , "num_rules"     );
-            for (i = 0; i < d.num_rules.intValue(); i++) {
-                c.writeUInt(16, d.rule_to_physical_stream_number_map[i], "rule_to_physical_stream_number_map[" + i + "]");
+            c.writeUInt(16, d.num_rules);
+            for (int i = 0; i < d.num_rules.intValue(); i++) {
+                c.writeUInt(16, d.rule_to_physical_stream_number_map[i]);
             }
 
-            c.writeUInt(16, d.num_properties, "num_properties");
-            for (i = 0; i < d.num_properties.intValue(); i++) {
+            c.writeUInt(16, d.num_properties);
+            for (int i = 0; i < d.num_properties.intValue(); i++) {
                 d.properties[i].write(c);
             }
         }

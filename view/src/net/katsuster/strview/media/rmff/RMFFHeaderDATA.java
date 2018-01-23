@@ -15,19 +15,24 @@ public class RMFFHeaderDATA<T extends LargeList<?>>
     public UInt next_data_header;
 
     public RMFFHeaderDATA() {
-        num_packets = new UInt();
-        next_data_header = new UInt();
+        num_packets = new UInt("num_packets");
+        next_data_header = new UInt("next_data_header");
     }
 
     @Override
-    public RMFFHeaderDATA clone()
+    public RMFFHeaderDATA<T> clone()
             throws CloneNotSupportedException {
-        RMFFHeaderDATA obj = (RMFFHeaderDATA)super.clone();
+        RMFFHeaderDATA<T> obj = (RMFFHeaderDATA<T>)super.clone();
 
         obj.num_packets = (UInt)num_packets.clone();
         obj.next_data_header = (UInt)next_data_header.clone();
 
         return obj;
+    }
+
+    @Override
+    public String getTypeName() {
+        return "DATA chunk";
     }
 
     @Override
@@ -37,7 +42,7 @@ public class RMFFHeaderDATA<T extends LargeList<?>>
 
     public static void read(StreamReader<?> c,
                             RMFFHeaderDATA d) {
-        c.enterBlock("DATA chunk");
+        c.enterBlock(d);
 
         RMFFHeader.read(c, d);
 
@@ -56,13 +61,13 @@ public class RMFFHeaderDATA<T extends LargeList<?>>
 
     public static void write(StreamWriter<?> c,
                              RMFFHeaderDATA d) {
-        c.enterBlock("DATA chunk");
+        c.enterBlock(d);
 
         RMFFHeader.write(c, d);
 
         if (d.object_version.intValue() == 0) {
-            c.writeUInt(32, d.num_packets     , "num_packets"     );
-            c.writeUInt(32, d.next_data_header, "next_data_header");
+            c.writeUInt(32, d.num_packets     );
+            c.writeUInt(32, d.next_data_header);
         }
 
         c.leaveBlock();
