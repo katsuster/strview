@@ -1,7 +1,5 @@
 package net.katsuster.strview.util;
 
-import net.katsuster.strview.media.*;
-
 /**
  * <p>
  * 名前を持ったオブジェクトを表します。
