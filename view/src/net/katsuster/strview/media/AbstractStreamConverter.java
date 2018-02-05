@@ -33,9 +33,9 @@ public abstract class AbstractStreamConverter<T> implements StreamConverter<T> {
     @Override
     public void enterBlock(Block b) {
         if ("".equals(b.getName())) {
-            enterPacket(b.getTypeName());
+            enterBlock(b.getTypeName());
         } else {
-            enterPacket(b.getTypeName() + ": " + b.getName());
+            enterBlock(b.getTypeName() + ": " + b.getName());
         }
     }
 
