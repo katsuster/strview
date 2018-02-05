@@ -470,7 +470,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      */
     @Override
     public void read(StreamReader<?> c) {
-        c.enterPacket(getTypeName());
+        c.enterPacket(this);
 
         convHeader(c, this);
 
@@ -506,7 +506,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      */
     @Override
     public void write(StreamWriter<?> c) {
-        c.enterPacket(getTypeName());
+        c.enterPacket(this);
 
         convHeader(c, this);
 
