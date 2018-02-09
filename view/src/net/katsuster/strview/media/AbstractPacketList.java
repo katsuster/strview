@@ -9,13 +9,13 @@ import net.katsuster.strview.util.*;
  * パケットリスト。
  * </p>
  */
-public abstract class AbstractPacketList<T extends Packet, U extends LargeList<?>>
-        extends AbstractLargeList<T>
-        implements LargePacketList<T> {
+public abstract class AbstractPacketList<PACKET extends Packet, LIST extends LargeList<?>>
+        extends AbstractLargeList<PACKET>
+        implements LargePacketList<PACKET> {
     //木構造を管理するためのスタック
-    private Deque<PacketRange<U>> stack_packet;
+    private Deque<PacketRange<LIST>> stack_packet;
     //インデックスキャッシュ
-    private NavigableMap<Long, PacketRange<U>> cache_packet;
+    private NavigableMap<Long, PacketRange<LIST>> cache_packet;
 
     public AbstractPacketList() {
         this(LENGTH_UNKNOWN);
@@ -90,7 +90,7 @@ public abstract class AbstractPacketList<T extends Packet, U extends LargeList<?
      *
      * @return パケットスタック
      */
-    protected Deque<PacketRange<U>> getPacketStack() {
+    protected Deque<PacketRange<LIST>> getPacketStack() {
         return stack_packet;
     }
 
@@ -106,8 +106,8 @@ public abstract class AbstractPacketList<T extends Packet, U extends LargeList<?
      *
      * @param cr スタックに追加するパケット
      */
-    protected void stackPacket(PacketRange<U> cr) {
-        PacketRange<U> pr;
+    protected void stackPacket(PacketRange<LIST> cr) {
+        PacketRange<LIST> pr;
 
         if (!hasTreeStructure()) {
             return;
@@ -154,8 +154,8 @@ public abstract class AbstractPacketList<T extends Packet, U extends LargeList<?
      * @param index パケットの番号
      * @return パケットの存在する範囲
      */
-    protected PacketRange<U> getPacketRange(long index) {
-        PacketRange<U> pr;
+    protected PacketRange<LIST> getPacketRange(long index) {
+        PacketRange<LIST> pr;
 
         pr = cache_packet.get(index);
         if (pr == null) {
@@ -184,7 +184,7 @@ public abstract class AbstractPacketList<T extends Packet, U extends LargeList<?
         getPacketStack().clear();
         try {
             while (true) {
-                Packet<U> p = readNext(c, cnt);
+                Packet<LIST> p = readNext(c, cnt);
                 stackPacket(p.getRange());
                 cnt++;
             }
@@ -223,8 +223,8 @@ public abstract class AbstractPacketList<T extends Packet, U extends LargeList<?
      * @return シークした位置
      */
     protected long seekNearest(StreamReader<?> c, long index) {
-        Map.Entry<Long, PacketRange<U>> ent = cache_packet.floorEntry(index);
-        PacketRange<U> pr;
+        Map.Entry<Long, PacketRange<LIST>> ent = cache_packet.floorEntry(index);
+        PacketRange<LIST> pr;
 
         if (ent == null) {
             return 0;
@@ -280,8 +280,8 @@ public abstract class AbstractPacketList<T extends Packet, U extends LargeList<?
      * @param index パケットに付与する ID
      * @return パケット
      */
-    protected Packet<U> readNext(StreamReader<?> c, long index) {
-        PacketRange<U> pr;
+    protected Packet<LIST> readNext(StreamReader<?> c, long index) {
+        PacketRange<LIST> pr;
 
         pr = getPacketRange(index);
         return readNextInner(c, pr);
@@ -296,5 +296,5 @@ public abstract class AbstractPacketList<T extends Packet, U extends LargeList<?
      * @param pr パケットの存在する範囲
      * @return パケット
      */
-    protected abstract Packet<U> readNextInner(StreamReader<?> c, PacketRange<U> pr);
+    protected abstract Packet<LIST> readNextInner(StreamReader<?> c, PacketRange<LIST> pr);
 }
