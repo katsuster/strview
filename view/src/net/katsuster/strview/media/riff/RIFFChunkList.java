@@ -50,7 +50,7 @@ public class RIFFChunkList<U extends LargeList<?>>
         packet.read(c);
 
         //終端は必ず 2バイト境界なので、2バイト境界まで読み飛ばす
-        c.alignShort();
+        c.align(16);
 
         cachePacket(packet);
 

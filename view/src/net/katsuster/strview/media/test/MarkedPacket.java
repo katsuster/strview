@@ -40,7 +40,7 @@ public class MarkedPacket<T extends LargeList<?>> extends PacketAdapter<T> {
         int acc = 0xffffff;
 
         //次のスタートコードを探す
-        c.alignByte();
+        c.align(8);
         orgpos = c.position();
         while (c.hasNext(8)) {
             acc <<= 8;

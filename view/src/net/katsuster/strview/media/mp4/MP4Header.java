@@ -70,7 +70,7 @@ public class MP4Header<T extends LargeList<?>>
                             MP4Header d) {
         c.enterBlock(d);
 
-        c.alignByte();
+        c.align(8);
 
         d.size = c.readUInt(32, d.size);
         d.type = c.readUInt(32, d.type);
@@ -97,7 +97,7 @@ public class MP4Header<T extends LargeList<?>>
                              MP4Header d) {
         c.enterBlock(d);
 
-        c.alignByte();
+        c.align(8);
 
         c.writeUInt(32, d.size);
         c.writeUInt(32, d.type, d.getTypeName());

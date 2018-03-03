@@ -443,4 +443,20 @@ public interface StreamWriter<T> extends StreamConverter<T> {
      * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
      */
     public void writeBitList(long nbit, LargeBitList val, String name, String desc);
+
+    /**
+     * <p>
+     * 変換結果を取得します。
+     * </p>
+     *
+     * <p>
+     * 変換結果が取得できない場合は null を返します。
+     * 例外をスローしても構いません。
+     * スローする例外の種類は、
+     * メソッドの実装クラスにて決定してください。
+     * </p>
+     *
+     * @return 変換結果、変換結果が取得できない場合は null
+     */
+    public T getResult();
 }

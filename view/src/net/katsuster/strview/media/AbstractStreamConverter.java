@@ -50,42 +50,12 @@ public abstract class AbstractStreamConverter<T> implements StreamConverter<T> {
     }
 
     @Override
-    public boolean isAlignByte() {
-        return (position() & 0x7) == 0;
+    public boolean isAlign(int n) {
+        return (position() % n) == 0;
     }
 
     @Override
-    public void alignByte() {
-        position((position() + 0x7) & ~0x7);
-    }
-
-    @Override
-    public boolean isAlignShort() {
-        return (position() & 0xf) == 0;
-    }
-
-    @Override
-    public void alignShort() {
-        position((position() + 0xf) & ~0xf);
-    }
-
-    @Override
-    public boolean isAlignInt() {
-        return (position() & 0x1f) == 0;
-    }
-
-    @Override
-    public void alignInt() {
-        position((position() + 0x1f) & ~0x1f);
-    }
-
-    @Override
-    public boolean isAlignLong() {
-        return (position() & 0x3f) == 0;
-    }
-
-    @Override
-    public void alignLong() {
-        position((position() + 0x3f) & ~0x3f);
+    public void align(int n) {
+        position(((position() + n - 1) / n) * n);
     }
 }

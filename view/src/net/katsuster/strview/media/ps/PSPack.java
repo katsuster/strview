@@ -66,7 +66,7 @@ public class PSPack<T extends LargeList<?>> extends PacketAdapter<T> {
 
         if (search) {
             //次のパックヘッダを探す
-            c.alignByte();
+            c.align(8);
             orgpos = c.position();
             while (c.hasNext(8)) {
                 acc <<= 8;
