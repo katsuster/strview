@@ -301,11 +301,11 @@ public class PSHeaderPESStream<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?> c) {
+    public void read(StreamReader<?, ?> c) {
         read(c, this);
     }
 
-    public static void read(StreamReader<?> c,
+    public static void read(StreamReader<?, ?> c,
                             PSHeaderPESStream d) {
         c.enterBlock(d);
 
@@ -322,7 +322,7 @@ public class PSHeaderPESStream<T extends LargeList<?>>
         c.leaveBlock();
     }
 
-    public static void readMPEG1(StreamReader<?> c,
+    public static void readMPEG1(StreamReader<?, ?> c,
                                  PSHeaderPESStream d) {
         long orgpos = c.position();
         while (c.readLong(8) == 0xff) {
@@ -369,7 +369,7 @@ public class PSHeaderPESStream<T extends LargeList<?>>
         }
     }
 
-    public static void readMPEG2(StreamReader<?> c,
+    public static void readMPEG2(StreamReader<?, ?> c,
                                  PSHeaderPESStream d) {
         d.const_bit                 = c.readUInt( 2, d.const_bit                );
         d.pes_scrambling_control    = c.readUInt( 2, d.pes_scrambling_control   );
@@ -490,7 +490,7 @@ public class PSHeaderPESStream<T extends LargeList<?>>
         d.stuffing_byte = c.readBitList(size_st << 3, d.stuffing_byte);
     }
 
-    protected static void readStreamExt(StreamReader<?> c,
+    protected static void readStreamExt(StreamReader<?, ?> c,
                                         PSHeaderPESStream d) {
         d.pes_private_data_flag      = c.readUInt( 1, d.pes_private_data_flag     );
         d.pack_header_field_flag     = c.readUInt( 1, d.pack_header_field_flag    );
@@ -545,11 +545,11 @@ public class PSHeaderPESStream<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?> c) {
+    public void write(StreamWriter<?, ?> c) {
         write(c, this);
     }
 
-    public static void write(StreamWriter<?> c,
+    public static void write(StreamWriter<?, ?> c,
                              PSHeaderPESStream d) {
         c.enterBlock(d);
 
@@ -566,7 +566,7 @@ public class PSHeaderPESStream<T extends LargeList<?>>
         c.leaveBlock();
     }
 
-    public static void writeMPEG1(StreamWriter<?> c,
+    public static void writeMPEG1(StreamWriter<?, ?> c,
                                   PSHeaderPESStream d) {
         c.writeBitList((int)d.stuffing_byte.length(), d.stuffing_byte);
 
@@ -607,7 +607,7 @@ public class PSHeaderPESStream<T extends LargeList<?>>
         }
     }
 
-    public static void writeMPEG2(StreamWriter<?> c,
+    public static void writeMPEG2(StreamWriter<?, ?> c,
                                   PSHeaderPESStream d) {
         c.writeUInt( 2, d.const_bit                );
         c.writeUInt( 2, d.pes_scrambling_control   );
@@ -712,7 +712,7 @@ public class PSHeaderPESStream<T extends LargeList<?>>
         c.writeBitList((int)d.stuffing_byte.length(), d.stuffing_byte);
     }
 
-    protected static void writeStreamExt(StreamWriter<?> c,
+    protected static void writeStreamExt(StreamWriter<?, ?> c,
                                          PSHeaderPESStream d) {
         c.writeUInt( 1, d.pes_private_data_flag );
         c.writeUInt( 1, d.pack_header_field_flag);

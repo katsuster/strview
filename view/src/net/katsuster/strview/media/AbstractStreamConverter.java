@@ -16,7 +16,7 @@ package net.katsuster.strview.media;
  *     <li>結果は常に null を返す</li>
  * </ul>
  */
-public abstract class AbstractStreamConverter<T> implements StreamConverter<T> {
+public abstract class AbstractStreamConverter<IN, OUT> implements StreamConverter<IN, OUT> {
     public AbstractStreamConverter() {
         //do nothing
     }

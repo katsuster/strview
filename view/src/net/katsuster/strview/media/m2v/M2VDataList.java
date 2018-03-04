@@ -53,7 +53,7 @@ public class M2VDataList<T extends LargeList<?>>
     }
 
     @Override
-    protected M2VData<T> readNextInner(StreamReader<?> c, PacketRange<T> pr) {
+    protected M2VData<T> readNextInner(StreamReader<?, ?> c, PacketRange<T> pr) {
         M2VHeader<T> tagh = createHeader(c, pr);
 
         M2VData<T> packet = new M2VData<>(tagh);
@@ -79,7 +79,7 @@ public class M2VDataList<T extends LargeList<?>>
         //TODO: not implemented yet
     }
 
-    protected M2VHeader<T> createHeader(StreamReader<?> c, PacketRange<T> pr) {
+    protected M2VHeader<T> createHeader(StreamReader<?, ?> c, PacketRange<T> pr) {
         M2VHeader<T> tagh;
 
         M2VHeader<T> tmph = new M2VHeader<>();
@@ -116,7 +116,7 @@ public class M2VDataList<T extends LargeList<?>>
         return tagh;
     }
 
-    protected M2VHeader<T> createHeaderSlice(StreamReader<?> c, PacketRange<T> pr) {
+    protected M2VHeader<T> createHeaderSlice(StreamReader<?, ?> c, PacketRange<T> pr) {
         Map.Entry<Long, M2VHeaderSequence<T>> entSeq = cacheSeq.floorEntry(pr.getNumber());
         Map.Entry<Long, M2VHeaderExtSequence<T>> entExtSeq = cacheExtSeq.floorEntry(pr.getNumber());
         Map.Entry<Long, M2VHeaderExtSequenceScalable<T>> entExtSeqSca = cacheExtSeqSca.floorEntry(pr.getNumber());
@@ -127,7 +127,7 @@ public class M2VDataList<T extends LargeList<?>>
         return new M2VHeaderSlice<T>(entSeq, entExtSeq, entExtSeqSca);
     }
 
-    protected M2VHeader<T> createHeaderExtPictureDisplay(StreamReader<?> c, PacketRange<T> pr) {
+    protected M2VHeader<T> createHeaderExtPictureDisplay(StreamReader<?, ?> c, PacketRange<T> pr) {
         Map.Entry<Long, M2VHeaderExtSequence<T>> entExtSeq = cacheExtSeq.floorEntry(pr.getNumber());
         Map.Entry<Long, M2VHeaderExtPictureCoding<T>> entExtPicCod = cacheExtPicCod.floorEntry(pr.getNumber());
         if (entExtSeq == null || entExtPicCod == null) {

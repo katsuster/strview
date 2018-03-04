@@ -41,7 +41,7 @@ public class MarkedPacketList<U extends LargeList<?>>
     }
 
     @Override
-    protected Packet<U> readNextInner(StreamReader<?> c, PacketRange<U> pr) {
+    protected Packet<U> readNextInner(StreamReader<?, ?> c, PacketRange<U> pr) {
         MarkedPacket<U> packet = new MarkedPacket<>(new MarkedHeader<>());
         packet.setRange(pr);
         packet.read(c);

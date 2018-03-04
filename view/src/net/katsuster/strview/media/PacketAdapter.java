@@ -68,32 +68,32 @@ public class PacketAdapter<T extends LargeList<?>>
     }
 
     @Override
-    protected void readHeader(StreamReader<?> c) {
+    protected void readHeader(StreamReader<?, ?> c) {
         //do nothing
     }
 
     @Override
-    protected void readBody(StreamReader<?> c) {
+    protected void readBody(StreamReader<?, ?> c) {
         //do nothing
     }
 
     @Override
-    protected void readFooter(StreamReader<?> c) {
+    protected void readFooter(StreamReader<?, ?> c) {
         //do nothing
     }
 
     @Override
-    protected void writeHeader(StreamWriter<?> c) {
+    protected void writeHeader(StreamWriter<?, ?> c) {
         //do nothing
     }
 
     @Override
-    protected void writeBody(StreamWriter<?> c) {
+    protected void writeBody(StreamWriter<?, ?> c) {
         //do nothing
     }
 
     @Override
-    protected void writeFooter(StreamWriter<?> c) {
+    protected void writeFooter(StreamWriter<?, ?> c) {
         //do nothing
     }
 }

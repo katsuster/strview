@@ -10,7 +10,7 @@ import net.katsuster.strview.media.*;
  * パケットを構成するデータをツリービューのノードに変換するコンバータです。
  * </p>
  */
-public class ToMemberTreeNodeConverter extends StreamWriterAdapter<MemberTreeNode> {
+public class ToMemberTreeNodeConverter extends StreamWriterAdapter<Boolean, MemberTreeNode> {
     private Deque<MemberTreeNode> stack_node;
     private MemberTreeNode root;
 

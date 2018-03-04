@@ -35,7 +35,7 @@ public class ASFObjectList<T extends LargeList<?>>
     }
 
     @Override
-    protected ASFObject<T> readNextInner(StreamReader<?> c, PacketRange<T> pr) {
+    protected ASFObject<T> readNextInner(StreamReader<?, ?> c, PacketRange<T> pr) {
         ASFHeader<T> tagh = createHeader(c, pr);
 
         ASFObject<T> packet = new ASFObject<>(tagh);
@@ -59,7 +59,7 @@ public class ASFObjectList<T extends LargeList<?>>
         //TODO: not implemented yet
     }
 
-    protected ASFHeader<T> createHeader(StreamReader<?> c, PacketRange<T> pr) {
+    protected ASFHeader<T> createHeader(StreamReader<?, ?> c, PacketRange<T> pr) {
         ASFHeader<T> tmph = new ASFHeader<>();
         tmph.peek(c);
 

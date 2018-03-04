@@ -35,7 +35,7 @@ public class MP4BoxList<T extends LargeList<?>>
     }
 
     @Override
-    protected MP4Box<T> readNextInner(StreamReader<?> c, PacketRange<T> pr) {
+    protected MP4Box<T> readNextInner(StreamReader<?, ?> c, PacketRange<T> pr) {
         MP4Header<T> tagh = createHeader(c, pr);
 
         MP4Box<T> packet = new MP4Box<>(tagh);
@@ -59,7 +59,7 @@ public class MP4BoxList<T extends LargeList<?>>
         //TODO: not implemented yet
     }
 
-    protected MP4Header<T> createHeader(StreamReader<?> c, PacketRange<T> pr) {
+    protected MP4Header<T> createHeader(StreamReader<?, ?> c, PacketRange<T> pr) {
         MP4Header<T> tmph = new MP4Header<>();
         tmph.peek(c);
 

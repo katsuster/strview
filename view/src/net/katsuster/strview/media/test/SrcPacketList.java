@@ -43,12 +43,12 @@ public class SrcPacketList<T extends LargeList<?>>
     }
 
     @Override
-    protected void seek(StreamReader<?> c, long index) {
+    protected void seek(StreamReader<?, ?> c, long index) {
         c.position(index);
     }
 
     @Override
-    protected Packet<T> readNextInner(StreamReader<?> c, PacketRange<T> pr) {
+    protected Packet<T> readNextInner(StreamReader<?, ?> c, PacketRange<T> pr) {
         //FIXME: This is not works correctly...
         SrcPacket<T> packet = new SrcPacket<>(new SrcHeader<>(""));
         packet.setRange(pr);

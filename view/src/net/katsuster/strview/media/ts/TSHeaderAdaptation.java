@@ -183,11 +183,11 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?> c) {
+    public void read(StreamReader<?, ?> c) {
         read(c, this);
     }
 
-    public static void read(StreamReader<?> c,
+    public static void read(StreamReader<?, ?> c,
                             TSHeaderAdaptation d) {
         c.enterBlock(d);
 
@@ -267,7 +267,7 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
         c.leaveBlock();
     }
 
-    protected static void readExtensions(StreamReader<?> c,
+    protected static void readExtensions(StreamReader<?, ?> c,
                                          TSHeaderAdaptation d) {
         long pos_byte = (c.position() >>> 3);;
         int size_rs = 0;
@@ -322,11 +322,11 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?> c) {
+    public void write(StreamWriter<?, ?> c) {
         write(c, this);
     }
 
-    public static void write(StreamWriter<?> c,
+    public static void write(StreamWriter<?, ?> c,
                              TSHeaderAdaptation d) {
         c.enterBlock(d);
 
@@ -408,7 +408,7 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
         c.leaveBlock();
     }
 
-    protected static void writeExtensions(StreamWriter<?> c,
+    protected static void writeExtensions(StreamWriter<?, ?> c,
                                           TSHeaderAdaptation d) {
         long pos_byte = (c.position() >>> 3);
         int size_rs = 0;

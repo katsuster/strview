@@ -38,7 +38,7 @@ public class FLVTagList<T extends LargeList<?>>
     }
 
     @Override
-    protected FLVTag<T> readNextInner(StreamReader<?> c, PacketRange<T> pr) {
+    protected FLVTag<T> readNextInner(StreamReader<?, ?> c, PacketRange<T> pr) {
         FLVHeader<T> tagh = createHeader(c, pr);
 
         FLVTag<T> packet = new FLVTag<>(tagh);
@@ -62,7 +62,7 @@ public class FLVTagList<T extends LargeList<?>>
         //TODO: not implemented yet
     }
 
-    protected FLVHeader<T> createHeader(StreamReader<?> c, PacketRange<T> pr) {
+    protected FLVHeader<T> createHeader(StreamReader<?, ?> c, PacketRange<T> pr) {
         FLVHeader<T> tagh;
 
         if (pr.getNumber() == 0) {

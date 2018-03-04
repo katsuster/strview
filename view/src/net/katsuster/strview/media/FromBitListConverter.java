@@ -7,7 +7,7 @@ import net.katsuster.strview.util.*;
  * ビット列から読み込むコンバータクラスです。
  * </p>
  */
-public class FromBitListConverter extends StreamReaderAdapter<LargeBitList> {
+public class FromBitListConverter extends StreamReaderAdapter<LargeBitList, Long> {
     private LargeBitList buf;
     private long pos;
 

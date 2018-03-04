@@ -40,7 +40,7 @@ public class PSPackList<T extends LargeList<?>>
     }
 
     @Override
-    protected PSPack<T> readNextInner(StreamReader<?> c, PacketRange<T> pr) {
+    protected PSPack<T> readNextInner(StreamReader<?, ?> c, PacketRange<T> pr) {
         PSHeader<T> tagh = createHeader(c, pr);
 
         PSPack<T> packet = new PSPack<>(tagh);
@@ -64,7 +64,7 @@ public class PSPackList<T extends LargeList<?>>
         //TODO: not implemented yet
     }
 
-    protected PSHeader<T> createHeader(StreamReader<?> c, PacketRange<T> pr) {
+    protected PSHeader<T> createHeader(StreamReader<?, ?> c, PacketRange<T> pr) {
         PSHeader<T> tagh;
 
         PSHeader<T> tmph = new PSHeader<>();

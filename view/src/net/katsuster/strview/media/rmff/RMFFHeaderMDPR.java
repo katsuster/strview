@@ -66,11 +66,11 @@ public class RMFFHeaderMDPR<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?> c) {
+    public void read(StreamReader<?, ?> c) {
         read(c, this);
     }
 
-    public static void read(StreamReader<?> c,
+    public static void read(StreamReader<?, ?> c,
                             RMFFHeaderMDPR d) {
         c.enterBlock(d);
 
@@ -99,11 +99,11 @@ public class RMFFHeaderMDPR<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?> c) {
+    public void write(StreamWriter<?, ?> c) {
         write(c, this);
     }
 
-    public static void write(StreamWriter<?> c,
+    public static void write(StreamWriter<?, ?> c,
                              RMFFHeaderMDPR d) {
         c.enterBlock(d);
 

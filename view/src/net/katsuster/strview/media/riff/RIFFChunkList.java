@@ -42,7 +42,7 @@ public class RIFFChunkList<U extends LargeList<?>>
     }
 
     @Override
-    protected RIFFChunk<U> readNextInner(StreamReader<?> c, PacketRange<U> pr) {
+    protected RIFFChunk<U> readNextInner(StreamReader<?, ?> c, PacketRange<U> pr) {
         RIFFHeader<U> tagh = createHeader(c, pr);
 
         RIFFChunk<U> packet = new RIFFChunk<>(tagh);
@@ -71,7 +71,7 @@ public class RIFFChunkList<U extends LargeList<?>>
         //TODO: not implemented yet
     }
 
-    protected RIFFHeader createHeader(StreamReader<?> c, PacketRange pr) {
+    protected RIFFHeader createHeader(StreamReader<?, ?> c, PacketRange pr) {
         RIFFHeader<U> tagh;
 
         RIFFHeader<U> tmph = new RIFFHeader<>();
@@ -92,7 +92,7 @@ public class RIFFChunkList<U extends LargeList<?>>
         return tagh;
     }
 
-    protected RIFFHeader<U> createHeaderStrf(StreamReader<?> c, PacketRange pr) {
+    protected RIFFHeader<U> createHeaderStrf(StreamReader<?, ?> c, PacketRange pr) {
         Map.Entry<Long, RIFFHeaderStrh<U>> entStrh = cacheStrh.floorEntry(pr.getNumber());
         if (entStrh == null) {
             return null;

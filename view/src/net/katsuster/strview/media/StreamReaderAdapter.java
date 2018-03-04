@@ -19,8 +19,8 @@ import net.katsuster.strview.util.*;
  *     <li>結果は常に null を返す</li>
  * </ul>
  */
-public class StreamReaderAdapter<T> extends AbstractStreamReader<T>
-        implements StreamReader<T> {
+public class StreamReaderAdapter<IN, OUT> extends AbstractStreamReader<IN, OUT>
+        implements StreamReader<IN, OUT> {
     public StreamReaderAdapter() {
         //do nothing
     }
@@ -111,7 +111,7 @@ public class StreamReaderAdapter<T> extends AbstractStreamReader<T>
     }
 
     @Override
-    public T getResult() {
+    public IN getResult() {
         return null;
     }
 }

@@ -51,7 +51,7 @@ public interface Block<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    public void peek(StreamReader<?> c);
+    public void peek(StreamReader<?, ?> c);
 
     /**
      * <p>
@@ -60,7 +60,7 @@ public interface Block<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    public void read(StreamReader<?> c);
+    public void read(StreamReader<?, ?> c);
 
     /**
      * <p>
@@ -69,7 +69,7 @@ public interface Block<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    public void poke(StreamWriter<?> c);
+    public void poke(StreamWriter<?, ?> c);
 
     /**
      * <p>
@@ -78,5 +78,5 @@ public interface Block<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    public void write(StreamWriter<?> c);
+    public void write(StreamWriter<?, ?> c);
 }

@@ -59,7 +59,7 @@ public class MKVTagList<T extends LargeList<?>>
     }
 
     @Override
-    protected MKVTag<T> readNextInner(StreamReader<?> c, PacketRange<T> pr) {
+    protected MKVTag<T> readNextInner(StreamReader<?, ?> c, PacketRange<T> pr) {
         MKVHeader<T> tagh = createHeader(c, pr);
 
         MKVTag<T> packet = new MKVTag<>(tagh);
@@ -83,7 +83,7 @@ public class MKVTagList<T extends LargeList<?>>
         //TODO: not implemented yet
     }
 
-    protected MKVHeader createHeader(StreamReader<?> c, PacketRange<T> pr) {
+    protected MKVHeader createHeader(StreamReader<?, ?> c, PacketRange<T> pr) {
         MKVHeader<T> tmph = new MKVHeader<>();
         tmph.peek(c);
 

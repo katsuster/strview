@@ -40,7 +40,7 @@ public class M4VObjectList<U extends LargeList<?>>
     }
 
     @Override
-    protected M4VObject<U> readNextInner(StreamReader<?> c, PacketRange<U> pr) {
+    protected M4VObject<U> readNextInner(StreamReader<?, ?> c, PacketRange<U> pr) {
         M4VHeader<U> tagh = createHeader(c, pr);
 
         M4VObject<U> packet = new M4VObject<>(tagh);
@@ -64,7 +64,7 @@ public class M4VObjectList<U extends LargeList<?>>
         //TODO: not implemented yet
     }
 
-    protected M4VHeader<U> createHeader(StreamReader<?> c, PacketRange<U> pr) {
+    protected M4VHeader<U> createHeader(StreamReader<?, ?> c, PacketRange<U> pr) {
         M4VHeader<U> tagh;
 
         M4VHeader<U> tmph = new M4VHeader<>();

@@ -38,12 +38,12 @@ public class TSPacketList<T extends LargeList<?>>
     }
 
     @Override
-    protected void seek(StreamReader<?> c, long index) {
+    protected void seek(StreamReader<?, ?> c, long index) {
         c.position(index * 188 * 8);
     }
 
     @Override
-    protected Packet<T> readNextInner(StreamReader<?> c, PacketRange<T> pr) {
+    protected Packet<T> readNextInner(StreamReader<?, ?> c, PacketRange<T> pr) {
         TSPacket<T> packet = new TSPacket<>(new TSHeader<>());
         packet.setRange(pr);
         packet.read(c);

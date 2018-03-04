@@ -49,11 +49,11 @@ public class FLVScriptDataObject<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?> c) {
+    public void read(StreamReader<?, ?> c) {
         read(c, this);
     }
 
-    public static void read(StreamReader<?> c,
+    public static void read(StreamReader<?, ?> c,
                             FLVScriptDataObject d) {
         c.enterBlock(d);
 
@@ -73,7 +73,7 @@ public class FLVScriptDataObject<T extends LargeList<?>>
         c.leaveBlock();
     }
 
-    protected static boolean isTerminated(StreamReader<?> c,
+    protected static boolean isTerminated(StreamReader<?, ?> c,
                                           FLVScriptDataObject d) {
         if (c.peekLong(24) == 0x000009) {
             return true;
@@ -86,11 +86,11 @@ public class FLVScriptDataObject<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?> c) {
+    public void write(StreamWriter<?, ?> c) {
         write(c, this);
     }
 
-    public static void write(StreamWriter<?> c,
+    public static void write(StreamWriter<?, ?> c,
                              FLVScriptDataObject d) {
         c.enterBlock(d);
 

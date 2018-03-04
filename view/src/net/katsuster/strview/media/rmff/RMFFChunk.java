@@ -40,12 +40,12 @@ public class RMFFChunk<T extends LargeList<?>> extends PacketAdapter<T> {
     }
 
     @Override
-    protected void readHeader(StreamReader<?> c) {
+    protected void readHeader(StreamReader<?, ?> c) {
         getHeader().read(c);
     }
 
     @Override
-    protected void readBody(StreamReader<?> c) {
+    protected void readBody(StreamReader<?, ?> c) {
         RMFFHeader head = getHeader();
         long size_f;
 
@@ -58,12 +58,12 @@ public class RMFFChunk<T extends LargeList<?>> extends PacketAdapter<T> {
     }
 
     @Override
-    protected void writeHeader(StreamWriter<?> c) {
+    protected void writeHeader(StreamWriter<?, ?> c) {
         getHeader().write(c);
     }
 
     @Override
-    protected void writeBody(StreamWriter<?> c) {
+    protected void writeBody(StreamWriter<?, ?> c) {
         long size_f = getBody().length();
 
         //FIXME: tentative

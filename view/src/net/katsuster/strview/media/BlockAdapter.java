@@ -27,12 +27,12 @@ public class BlockAdapter<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?> c) {
+    public void read(StreamReader<?, ?> c) {
         //do nothing
     }
 
     @Override
-    public void write(StreamWriter<?> c) {
+    public void write(StreamWriter<?, ?> c) {
         //do nothing
     }
 }

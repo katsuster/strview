@@ -40,12 +40,12 @@ public class FixedPacketList<T extends LargeList<?>>
     }
 
     @Override
-    protected void seek(StreamReader<?> c, long index) {
+    protected void seek(StreamReader<?, ?> c, long index) {
         c.position(index * FixedPacket.PACKET_SIZE * 8);
     }
 
     @Override
-    protected Packet<T> readNextInner(StreamReader<?> c, PacketRange<T> pr) {
+    protected Packet<T> readNextInner(StreamReader<?, ?> c, PacketRange<T> pr) {
         FixedPacket<T> packet = new FixedPacket<>(new FixedHeader<>());
         packet.setRange(pr);
         packet.read(c);

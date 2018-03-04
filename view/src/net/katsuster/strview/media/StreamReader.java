@@ -29,7 +29,7 @@ import net.katsuster.strview.util.*;
  *
  * @see StreamReaderAdapter
  */
-public interface StreamReader<T> extends StreamConverter<T> {
+public interface StreamReader<IN, OUT> extends StreamConverter<IN, OUT> {
     /**
      * <p>
      * 現在位置を更新せずに、数値を読み出します。
@@ -390,5 +390,5 @@ public interface StreamReader<T> extends StreamConverter<T> {
      *
      * @return 変換結果、変換結果が取得できない場合は null
      */
-    public T getResult();
+    public IN getResult();
 }

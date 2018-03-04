@@ -84,11 +84,11 @@ public class PSHeaderPack<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?> c) {
+    public void read(StreamReader<?, ?> c) {
         read(c, this);
     }
 
-    public static void read(StreamReader<?> c,
+    public static void read(StreamReader<?, ?> c,
                             PSHeaderPack d) {
         c.enterBlock(d);
 
@@ -103,7 +103,7 @@ public class PSHeaderPack<T extends LargeList<?>>
         c.leaveBlock();
     }
 
-    public static void readMPEG1(StreamReader<?> c,
+    public static void readMPEG1(StreamReader<?, ?> c,
                                  PSHeaderPack d) {
         d.reserved1                        = c.readUInt( 4, d.reserved1                       );
         d.system_clock_reference_base_high = c.readUInt( 3, d.system_clock_reference_base_high);
@@ -117,7 +117,7 @@ public class PSHeaderPack<T extends LargeList<?>>
         d.marker_bit5                      = c.readUInt( 1, d.marker_bit5                     );
     }
 
-    public static void readMPEG2(StreamReader<?> c,
+    public static void readMPEG2(StreamReader<?, ?> c,
                                  PSHeaderPack d) {
         int size_st;
 
@@ -146,11 +146,11 @@ public class PSHeaderPack<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?> c) {
+    public void write(StreamWriter<?, ?> c) {
         write(c, this);
     }
 
-    public static void write(StreamWriter<?> c,
+    public static void write(StreamWriter<?, ?> c,
                              PSHeaderPack d) {
         c.enterBlock(d);
 
@@ -165,7 +165,7 @@ public class PSHeaderPack<T extends LargeList<?>>
         c.leaveBlock();
     }
 
-    public static void writeMPEG1(StreamWriter<?> c,
+    public static void writeMPEG1(StreamWriter<?, ?> c,
                                   PSHeaderPack d) {
         c.writeUInt( 4, d.reserved1                       );
         c.writeUInt( 3, d.system_clock_reference_base_high);
@@ -180,7 +180,7 @@ public class PSHeaderPack<T extends LargeList<?>>
         c.writeUInt( 1, d.marker_bit5                     );
     }
 
-    public static void writeMPEG2(StreamWriter<?> c,
+    public static void writeMPEG2(StreamWriter<?, ?> c,
                                   PSHeaderPack d) {
         c.writeUInt( 2, d.reserved1                       );
         c.writeUInt( 3, d.system_clock_reference_base_high);

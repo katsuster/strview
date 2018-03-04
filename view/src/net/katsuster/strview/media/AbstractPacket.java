@@ -375,7 +375,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected abstract void readHeader(StreamReader<?> c);
+    protected abstract void readHeader(StreamReader<?, ?> c);
 
     /**
      * <p>
@@ -384,7 +384,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected abstract void readBody(StreamReader<?> c);
+    protected abstract void readBody(StreamReader<?, ?> c);
 
     /**
      * <p>
@@ -393,7 +393,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected abstract void readFooter(StreamReader<?> c);
+    protected abstract void readFooter(StreamReader<?, ?> c);
 
     /**
      * <p>
@@ -402,7 +402,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected abstract void writeHeader(StreamWriter<?> c);
+    protected abstract void writeHeader(StreamWriter<?, ?> c);
 
     /**
      * <p>
@@ -411,7 +411,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected abstract void writeBody(StreamWriter<?> c);
+    protected abstract void writeBody(StreamWriter<?, ?> c);
 
     /**
      * <p>
@@ -420,7 +420,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected abstract void writeFooter(StreamWriter<?> c);
+    protected abstract void writeFooter(StreamWriter<?, ?> c);
 
     /**
      * <p>
@@ -433,7 +433,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected void readRawPacket(StreamReader<?> c) {
+    protected void readRawPacket(StreamReader<?, ?> c) {
         long org_pos;
 
         org_pos = c.position();
@@ -453,7 +453,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected void writeRawPacket(StreamWriter<?> c) {
+    protected void writeRawPacket(StreamWriter<?, ?> c) {
         c.writeBitList(getLength(), raw_packet, "raw_packet");
     }
 
@@ -469,7 +469,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      * @param c 各メンバの変換を実施するオブジェクト
      */
     @Override
-    public void read(StreamReader<?> c) {
+    public void read(StreamReader<?, ?> c) {
         c.enterPacket(this);
 
         convHeader(c, this);
@@ -505,7 +505,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      * @param c 各メンバの変換を実施するオブジェクト
      */
     @Override
-    public void write(StreamWriter<?> c) {
+    public void write(StreamWriter<?, ?> c) {
         c.enterPacket(this);
 
         convHeader(c, this);
@@ -518,7 +518,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
         c.leavePacket();
     }
 
-    private static void convHeader(StreamConverter<?> c,
+    private static void convHeader(StreamConverter<?, ?> c,
                                    AbstractPacket d) {
         c.enterBlock("common");
 

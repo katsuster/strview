@@ -111,11 +111,11 @@ public class EBMLlacing<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?> c) {
+    public void read(StreamReader<?, ?> c) {
         read(c, this);
     }
 
-    public static void read(StreamReader<?> c,
+    public static void read(StreamReader<?, ?> c,
                             EBMLlacing d) {
         int f, size_all, size_c;
         long minus;
@@ -141,11 +141,11 @@ public class EBMLlacing<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?> c) {
+    public void write(StreamWriter<?, ?> c) {
         write(c, this);
     }
 
-    public static void write(StreamWriter<?> c,
+    public static void write(StreamWriter<?, ?> c,
                              EBMLlacing d) {
         c.enterBlock(d);
 

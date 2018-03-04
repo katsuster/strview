@@ -178,7 +178,7 @@ public abstract class AbstractPacketList<PACKET extends Packet, LIST extends Lar
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected void countSlow(StreamReader<?> c) {
+    protected void countSlow(StreamReader<?, ?> c) {
         long cnt = 0;
 
         getPacketStack().clear();
@@ -206,7 +206,7 @@ public abstract class AbstractPacketList<PACKET extends Packet, LIST extends Lar
      * @param c 各メンバの変換を実施するオブジェクト
      * @param index シークする位置のパケット ID
      */
-    protected void seek(StreamReader<?> c, long index) {
+    protected void seek(StreamReader<?, ?> c, long index) {
         long start;
 
         start = seekNearest(c, index);
@@ -222,7 +222,7 @@ public abstract class AbstractPacketList<PACKET extends Packet, LIST extends Lar
      * @param index シークする位置のパケット ID
      * @return シークした位置
      */
-    protected long seekNearest(StreamReader<?> c, long index) {
+    protected long seekNearest(StreamReader<?, ?> c, long index) {
         Map.Entry<Long, PacketRange<LIST>> ent = cache_packet.floorEntry(index);
         PacketRange<LIST> pr;
 
@@ -265,7 +265,7 @@ public abstract class AbstractPacketList<PACKET extends Packet, LIST extends Lar
      * @param start 開始位置のパケット ID
      * @param index シークする位置のパケット ID
      */
-    protected void seekSlow(StreamReader<?> c, long start, long index) {
+    protected void seekSlow(StreamReader<?, ?> c, long start, long index) {
         for (long i = start; i < index; i++) {
             readNext(c, i);
         }
@@ -280,7 +280,7 @@ public abstract class AbstractPacketList<PACKET extends Packet, LIST extends Lar
      * @param index パケットに付与する ID
      * @return パケット
      */
-    protected Packet<LIST> readNext(StreamReader<?> c, long index) {
+    protected Packet<LIST> readNext(StreamReader<?, ?> c, long index) {
         PacketRange<LIST> pr;
 
         pr = getPacketRange(index);
@@ -296,5 +296,5 @@ public abstract class AbstractPacketList<PACKET extends Packet, LIST extends Lar
      * @param pr パケットの存在する範囲
      * @return パケット
      */
-    protected abstract Packet<LIST> readNextInner(StreamReader<?> c, PacketRange<LIST> pr);
+    protected abstract Packet<LIST> readNextInner(StreamReader<?, ?> c, PacketRange<LIST> pr);
 }

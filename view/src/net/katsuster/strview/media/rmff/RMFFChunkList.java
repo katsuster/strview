@@ -35,7 +35,7 @@ public class RMFFChunkList<U extends LargeList<?>>
     }
 
     @Override
-    protected RMFFChunk<U> readNextInner(StreamReader<?> c, PacketRange<U> pr) {
+    protected RMFFChunk<U> readNextInner(StreamReader<?, ?> c, PacketRange<U> pr) {
         RMFFHeader<U> tagh = createHeader(c, pr);
 
         RMFFChunk<U> packet = new RMFFChunk<>(tagh);
@@ -59,7 +59,7 @@ public class RMFFChunkList<U extends LargeList<?>>
         //TODO: not implemented yet
     }
 
-    protected RMFFHeader<U> createHeader(StreamReader<?> c, PacketRange<U> pr) {
+    protected RMFFHeader<U> createHeader(StreamReader<?, ?> c, PacketRange<U> pr) {
         RMFFHeader<U> tmph = new RMFFHeader<>();
         tmph.peek(c);
 

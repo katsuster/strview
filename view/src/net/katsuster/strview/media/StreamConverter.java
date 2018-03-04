@@ -27,7 +27,7 @@ package net.katsuster.strview.media;
  *
  * @see AbstractStreamConverter
  */
-public interface StreamConverter<T> {
+public interface StreamConverter<IN, OUT> {
     /**
      * <p>
      * パケットの変換を開始します。

@@ -7,7 +7,7 @@ import net.katsuster.strview.util.*;
  * パケットの各メンバを文字列に変換するコンバータクラスです。
  * </p>
  */
-public class ToStringConverter extends StreamWriterAdapter<StringBuilder> {
+public class ToStringConverter extends StreamWriterAdapter<Boolean, StringBuilder> {
     private StringBuilder sb;
 
     public ToStringConverter() {

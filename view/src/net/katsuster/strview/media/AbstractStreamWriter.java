@@ -18,8 +18,8 @@ import net.katsuster.strview.util.*;
  *     <li>結果は常に null を返す</li>
  * </ul>
  */
-public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
-        implements StreamWriter<T> {
+public abstract class AbstractStreamWriter<IN, OUT> extends AbstractStreamConverter<IN, OUT>
+        implements StreamWriter<IN, OUT> {
     public AbstractStreamWriter() {
         //do nothing
     }
