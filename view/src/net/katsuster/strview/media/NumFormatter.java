@@ -83,7 +83,7 @@ public class NumFormatter {
         StringBuilder sb = new StringBuilder();
 
         //TODO: 参照先が非連続の場合の対応
-        sb.append(addressAndName(new SimpleRange(v.getSourceStart(), v.length()),
+        sb.append(addressAndName(new SimpleRange(v.getRange().getStart(), v.length()),
                 v.getTypeName(), name));
         sb.append(String.format("0x%0" + digits + "x(0x%0" + digits + "x, %s)",
                 v.getRaw(), v.getValue(), v.toString()));
@@ -157,7 +157,7 @@ public class NumFormatter {
             pos = 0;
             len_bit = 0;
         } else {
-            pos = v.getSourceStart();
+            pos = v.getRange().getStart();
             len_bit = v.length();
         }
         len_byte = len_bit >>> 3;
