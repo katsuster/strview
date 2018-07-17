@@ -33,7 +33,7 @@ public class ByteToBitList extends AbstractLargeBitList {
      * element bit    | 0  1  2  3  4  5  6  7| 0  1  2  3  4  5  6  7| 0
      * </pre>
      */
-    private LargeByteList buf;
+    private LargeList<Byte> buf;
 
     /**
      * <p>
@@ -58,7 +58,7 @@ public class ByteToBitList extends AbstractLargeBitList {
      * @param array 利用するバイト列
      * @throws IllegalArgumentException null を指定した場合
      */
-    public ByteToBitList(LargeByteList array) {
+    public ByteToBitList(LargeList<Byte> array) {
         super(0);
 
         if (array == null) {
@@ -68,7 +68,6 @@ public class ByteToBitList extends AbstractLargeBitList {
 
         buf = array;
         length(array.length() * ELEM_BITS);
-        getRange().setLength(array.length() * ELEM_BITS);
     }
 
     @Override
@@ -76,7 +75,7 @@ public class ByteToBitList extends AbstractLargeBitList {
             throws CloneNotSupportedException {
         ByteToBitList obj = (ByteToBitList)super.clone();
 
-        obj.buf = (LargeByteList)buf.clone();
+        obj.buf = (LargeList<Byte>)buf.clone();
 
         return obj;
     }
