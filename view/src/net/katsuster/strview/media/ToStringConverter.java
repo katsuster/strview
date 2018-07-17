@@ -7,7 +7,7 @@ import net.katsuster.strview.util.*;
  * パケットの各メンバを文字列に変換するコンバータクラスです。
  * </p>
  */
-public class ToStringConverter extends StreamWriterAdapter<Boolean, StringBuilder> {
+public class ToStringConverter<T> extends StreamWriterAdapter<T> {
     private StringBuilder sb;
 
     public ToStringConverter() {
@@ -31,54 +31,19 @@ public class ToStringConverter extends StreamWriterAdapter<Boolean, StringBuilde
     }
 
     @Override
-    public void writeLong(int nbit, long val, String name, String desc) {
-        sb.append(NumFormatter.longToDecHexCaption(
-                name, val, desc));
+    public void write(T val, String desc) {
+        sb.append(NumFormatter.stringToDecHexCaption(
+                val.getClass().getTypeName(), val.toString(), desc));
+        position(position() + 1);
     }
 
     @Override
-    public void writeSInt(int nbit, SInt val, String name, String desc) {
-        sb.append(NumFormatter.numToDecHexCaption(
-                val.getName(), val, desc));
+    public void writeList(long n, LargeList<T> val, String desc) {
+        sb.append(NumFormatter.stringToDecHexCaption(
+                val.getClass().getTypeName(), val.toString(), desc));
+        position(position() + n);
     }
 
-    @Override
-    public void writeUInt(int nbit, UInt val, String name, String desc) {
-        sb.append(NumFormatter.numToDecHexCaption(
-                val.getName(), val, desc));
-    }
-
-    @Override
-    public void writeSIntR(int nbit, SIntR val, String name, String desc) {
-        sb.append(NumFormatter.numToDecHexCaption(
-                val.getName(), val, desc));
-    }
-
-    @Override
-    public void writeUIntR(int nbit, UIntR val, String name, String desc) {
-        sb.append(NumFormatter.numToDecHexCaption(
-                val.getName(), val, desc));
-    }
-
-    @Override
-    public void writeFloat32(int nbit, Float32 val, String name, String desc) {
-        sb.append(NumFormatter.numToDecHexCaption(
-                val.getName(), val, desc));
-    }
-
-    @Override
-    public void writeFloat64(int nbit, Float64 val, String name, String desc) {
-        sb.append(NumFormatter.numToDecHexCaption(
-                val.getName(), val, desc));
-    }
-
-    @Override
-    public void writeBitList(long nbit, LargeBitList val, String name, String desc) {
-        sb.append(NumFormatter.bitListToHexCaption(
-                val.getName(), val, desc));
-    }
-
-    @Override
     public StringBuilder getResult() {
         return sb;
     }
