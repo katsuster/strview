@@ -7,10 +7,7 @@ import net.katsuster.strview.util.*;
  * ビット列から読み込むコンバータクラスです。
  * </p>
  */
-public class FromBitListConverter extends StreamReaderAdapter<LargeBitList, Long> {
-    private LargeBitList buf;
-    private long pos;
-
+public class FromBitListConverter extends BitStreamReaderAdapter {
     /**
      * <p>
      * 初期位置 0 のコンバータを作成します。
@@ -19,7 +16,7 @@ public class FromBitListConverter extends StreamReaderAdapter<LargeBitList, Long
      * @param b ビット列
      */
     public FromBitListConverter(LargeBitList b) {
-        this(b, 0);
+        super(b, 0);
     }
 
     /**
@@ -31,32 +28,22 @@ public class FromBitListConverter extends StreamReaderAdapter<LargeBitList, Long
      * @param p 初期位置
      */
     public FromBitListConverter(LargeBitList b, long p) {
-        buf = b;
-        pos = p;
-    }
-
-    @Override
-    public long position() {
-        return pos;
-    }
-
-    @Override
-    public void position(long p) {
-        pos = p;
+        super(b, p);
     }
 
     @Override
     public boolean hasNext(long n) {
-        if (buf.length() == LargeList.LENGTH_UNKNOWN) {
+        if (getList().length() == LargeList.LENGTH_UNKNOWN) {
             return true;
         }
-        return pos + n <= buf.length();
+        return position() + n <= getList().length();
     }
 
     @Override
     public long readLong(int nbit, String desc) {
-        long res = buf.getPackedLong(pos, nbit);
-        pos += nbit;
+        LargeBitList buf = (LargeBitList)getList();
+        long res = buf.getPackedLong(position(), nbit);
+        position(position() + nbit);
 
         return res;
     }
@@ -67,10 +54,10 @@ public class FromBitListConverter extends StreamReaderAdapter<LargeBitList, Long
             val = new SInt();
         }
 
-        val.setSourceBuffer(buf);
-        val.setSourceStart(pos);
+        val.getRange().setBuffer(getList());
+        val.getRange().setStart(position());
         val.length(nbit);
-        pos += nbit;
+        position(position() + nbit);
 
         return val;
     }
@@ -81,10 +68,10 @@ public class FromBitListConverter extends StreamReaderAdapter<LargeBitList, Long
             val = new UInt();
         }
 
-        val.setSourceBuffer(buf);
-        val.setSourceStart(pos);
+        val.getRange().setBuffer(getList());
+        val.getRange().setStart(position());
         val.length(nbit);
-        pos += nbit;
+        position(position() + nbit);
 
         return val;
     }
@@ -95,10 +82,10 @@ public class FromBitListConverter extends StreamReaderAdapter<LargeBitList, Long
             val = new SIntR();
         }
 
-        val.setSourceBuffer(buf);
-        val.setSourceStart(pos);
+        val.getRange().setBuffer(getList());
+        val.getRange().setStart(position());
         val.length(nbit);
-        pos += nbit;
+        position(position() + nbit);
 
         return val;
     }
@@ -109,10 +96,10 @@ public class FromBitListConverter extends StreamReaderAdapter<LargeBitList, Long
             val = new UIntR();
         }
 
-        val.setSourceBuffer(buf);
-        val.setSourceStart(pos);
+        val.getRange().setBuffer(getList());
+        val.getRange().setStart(position());
         val.length(nbit);
-        pos += nbit;
+        position(position() + nbit);
 
         return val;
     }
@@ -123,10 +110,10 @@ public class FromBitListConverter extends StreamReaderAdapter<LargeBitList, Long
             val = new Float32();
         }
 
-        val.setSourceBuffer(buf);
-        val.setSourceStart(pos);
+        val.getRange().setBuffer(getList());
+        val.getRange().setStart(position());
         val.length(nbit);
-        pos += nbit;
+        position(position() + nbit);
 
         return val;
     }
@@ -137,30 +124,23 @@ public class FromBitListConverter extends StreamReaderAdapter<LargeBitList, Long
             val = new Float64();
         }
 
-        val.setSourceBuffer(buf);
-        val.setSourceStart(pos);
+        val.getRange().setBuffer(getList());
+        val.getRange().setStart(position());
         val.length(nbit);
-        pos += nbit;
+        position(position() + nbit);
 
         return val;
     }
 
     @Override
     public LargeBitList readBitList(long nbit, LargeBitList val, String desc) {
-        if (val == null) {
-            val = new SubLargeBitList();
-        }
+        val = new SubLargeBitList(val.getName());
 
-        val.setSourceBuffer(buf);
-        val.setSourceStart(pos);
+        val.getRange().setBuffer(getList());
+        val.getRange().setStart(position());
         val.length(nbit);
-        pos += nbit;
+        position(position() + nbit);
 
         return val;
-    }
-
-    @Override
-    public LargeBitList getResult() {
-        return buf;
     }
 }

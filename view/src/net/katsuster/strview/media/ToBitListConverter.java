@@ -7,7 +7,7 @@ import net.katsuster.strview.util.*;
  * ビット列に書き込むコンバータクラスです。
  * </p>
  */
-public class ToBitListConverter<IN> extends StreamWriterAdapter<IN, LargeBitList> {
+public class ToBitListConverter extends BitStreamWriterAdapter {
     private LargeBitList buf;
     private long pos;
 
@@ -99,10 +99,5 @@ public class ToBitListConverter<IN> extends StreamWriterAdapter<IN, LargeBitList
     public void writeBitList(long nbit, LargeBitList val, String name, String desc) {
         //buf.set(pos, val, 0, nbit);
         pos += nbit;
-    }
-
-    @Override
-    public LargeBitList getResult() {
-        return buf;
     }
 }
