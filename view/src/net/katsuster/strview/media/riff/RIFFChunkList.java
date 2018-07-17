@@ -2,6 +2,7 @@ package net.katsuster.strview.media.riff;
 
 import java.util.*;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 import net.katsuster.strview.media.riff.RIFFConsts.*;
@@ -11,11 +12,11 @@ import net.katsuster.strview.media.riff.RIFFConsts.*;
  * RIFF (Resource Interchange File Format) チャンクのリスト。
  * </p>
  */
-public class RIFFChunkList<U extends LargeList<?>>
-        extends AbstractPacketList<RIFFChunk<U>, U> {
+public class RIFFChunkList
+        extends AbstractPacketList<RIFFChunk, Boolean> {
     private LargeBitList buf;
 
-    private NavigableMap<Long, RIFFHeaderStrh<U>> cacheStrh;
+    private NavigableMap<Long, RIFFHeaderStrh> cacheStrh;
 
     public RIFFChunkList() {
         super(LENGTH_UNKNOWN);
@@ -30,7 +31,7 @@ public class RIFFChunkList<U extends LargeList<?>>
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         return "RIFF (Resource Interchange File Format)";
     }
 
@@ -42,10 +43,10 @@ public class RIFFChunkList<U extends LargeList<?>>
     }
 
     @Override
-    protected RIFFChunk<U> readNextInner(StreamReader<?, ?> c, PacketRange<U> pr) {
-        RIFFHeader<U> tagh = createHeader(c, pr);
+    protected RIFFChunk readNextInner(StreamReader<Boolean> c, PacketRange<LargeList<Boolean>> pr) {
+        RIFFHeader tagh = createHeader(c, pr);
 
-        RIFFChunk<U> packet = new RIFFChunk<>(tagh);
+        RIFFChunk packet = new RIFFChunk(tagh);
         packet.setRange(pr);
         packet.read(c);
 
@@ -58,12 +59,12 @@ public class RIFFChunkList<U extends LargeList<?>>
     }
 
     @Override
-    protected RIFFChunk<U> getInner(long index) {
+    protected RIFFChunk getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
         seek(c, index);
 
-        return (RIFFChunk<U>)readNext(c, index);
+        return readNext(c, index);
     }
 
     @Override
@@ -71,10 +72,10 @@ public class RIFFChunkList<U extends LargeList<?>>
         //TODO: not implemented yet
     }
 
-    protected RIFFHeader createHeader(StreamReader<?, ?> c, PacketRange pr) {
-        RIFFHeader<U> tagh;
+    protected RIFFHeader createHeader(StreamReader<Boolean> c, PacketRange<LargeList<Boolean>> pr) {
+        RIFFHeader tagh;
 
-        RIFFHeader<U> tmph = new RIFFHeader<>();
+        RIFFHeader tmph = new RIFFHeader();
         tmph.peek(c);
 
         int id = tmph.ckID.intValue();
@@ -92,33 +93,33 @@ public class RIFFChunkList<U extends LargeList<?>>
         return tagh;
     }
 
-    protected RIFFHeader<U> createHeaderStrf(StreamReader<?, ?> c, PacketRange pr) {
-        Map.Entry<Long, RIFFHeaderStrh<U>> entStrh = cacheStrh.floorEntry(pr.getNumber());
+    protected RIFFHeader createHeaderStrf(StreamReader<Boolean> c, PacketRange<LargeList<Boolean>> pr) {
+        Map.Entry<Long, RIFFHeaderStrh> entStrh = cacheStrh.floorEntry(pr.getNumber());
         if (entStrh == null) {
             return null;
         }
 
         int fccType = entStrh.getValue().fccType.intValue();
-        RIFFHeader<U> tagh = null;
+        RIFFHeader tagh = null;
 
         switch (fccType) {
         case FCC_TYPE.AUDS:
-            tagh = new RIFFHeaderStrfA<>();
+            tagh = new RIFFHeaderStrfA();
             break;
         case FCC_TYPE.VIDS:
-            tagh = new RIFFHeaderStrfV<>();
+            tagh = new RIFFHeaderStrfV();
             break;
         }
 
         return tagh;
     }
 
-    protected void cachePacket(RIFFChunk<U> packet) {
-        RIFFHeader<U> h = packet.getHeader();
-        PacketRange<U> pr = packet.getRange();
+    protected void cachePacket(RIFFChunk packet) {
+        RIFFHeader h = packet.getHeader();
+        PacketRange pr = packet.getRange();
 
         if (h instanceof RIFFHeaderStrh) {
-            cacheStrh.put(pr.getNumber(), (RIFFHeaderStrh<U>)h);
+            cacheStrh.put(pr.getNumber(), (RIFFHeaderStrh)h);
         }
     }
 }

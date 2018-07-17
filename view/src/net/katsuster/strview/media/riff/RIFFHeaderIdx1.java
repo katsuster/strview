@@ -17,22 +17,22 @@ import net.katsuster.strview.util.*;
  * <li>MSDN: AVIOLDINDEX struct</li>
  * </ul>
  */
-public class RIFFHeaderIdx1<T extends LargeList<?>>
-        extends RIFFHeader<T>
+public class RIFFHeaderIdx1
+        extends RIFFHeader
         implements Cloneable {
-    public List<IndexEntry<T>> aIndex;
+    public List<IndexEntry> aIndex;
 
     public RIFFHeaderIdx1() {
         aIndex = new ArrayList<>();
     }
 
     @Override
-    public RIFFHeaderIdx1<T> clone()
+    public RIFFHeaderIdx1 clone()
             throws CloneNotSupportedException {
-        RIFFHeaderIdx1<T> obj = (RIFFHeaderIdx1<T>)super.clone();
+        RIFFHeaderIdx1 obj = (RIFFHeaderIdx1)super.clone();
 
         obj.aIndex = new ArrayList<>();
-        for (IndexEntry<T> e : aIndex) {
+        for (IndexEntry e : aIndex) {
             obj.aIndex.add(e.clone());
         }
 
@@ -45,15 +45,15 @@ public class RIFFHeaderIdx1<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            RIFFHeaderIdx1 d) {
+    public static void readBits(BitStreamReader c,
+                                RIFFHeaderIdx1 d) {
         c.enterBlock(d);
 
-        RIFFHeader.read(c, d);
+        RIFFHeader.readBits(c, d);
 
         //16 is size of IndexEntry
         int cnt = d.ckSize.intValue() / 16;
@@ -64,15 +64,15 @@ public class RIFFHeaderIdx1<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             RIFFHeaderIdx1 d) {
+    public static void writeBits(BitStreamWriter c,
+                                 RIFFHeaderIdx1 d) {
         c.enterBlock(d);
 
-        RIFFHeader.write(c, d);
+        RIFFHeader.writeBits(c, d);
 
         writeObjectList(c, d.aIndex.size(), d.aIndex,
                 "aIndex");

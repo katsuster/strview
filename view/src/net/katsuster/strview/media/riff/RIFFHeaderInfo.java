@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * <li>MSDN: AVISTREAMHEADER struct</li>
  * </ul>
  */
-public class RIFFHeaderInfo<T extends LargeList<?>>
-        extends RIFFHeader<T>
+public class RIFFHeaderInfo
+        extends RIFFHeader
         implements Cloneable {
     public LargeBitList strz;
 
@@ -27,9 +27,9 @@ public class RIFFHeaderInfo<T extends LargeList<?>>
     }
 
     @Override
-    public RIFFHeaderInfo<T> clone()
+    public RIFFHeaderInfo clone()
             throws CloneNotSupportedException {
-        RIFFHeaderInfo<T> obj = (RIFFHeaderInfo<T>)super.clone();
+        RIFFHeaderInfo obj = (RIFFHeaderInfo)super.clone();
 
         obj.strz = (LargeBitList)strz.clone();
 
@@ -42,15 +42,15 @@ public class RIFFHeaderInfo<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            RIFFHeaderInfo d) {
+    public static void readBits(BitStreamReader c,
+                                RIFFHeaderInfo d) {
         c.enterBlock(d);
 
-        RIFFHeader.read(c, d);
+        RIFFHeader.readBits(c, d);
 
         checkNegative(d.ckSize);
         d.strz = c.readBitList(d.ckSize.intValue() << 3, d.strz);
@@ -59,15 +59,15 @@ public class RIFFHeaderInfo<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             RIFFHeaderInfo d) {
+    public static void writeBits(BitStreamWriter c,
+                                 RIFFHeaderInfo d) {
         c.enterBlock(d);
 
-        RIFFHeader.write(c, d);
+        RIFFHeader.writeBits(c, d);
 
         c.writeBitList(32, d.strz, d.getStringName());
 

@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * <li>MSDN: AVISTREAMHEADER struct</li>
  * </ul>
  */
-public class RIFFHeaderStrfV<T extends LargeList<?>>
-        extends RIFFHeader<T>
+public class RIFFHeaderStrfV
+        extends RIFFHeader
         implements Cloneable {
     public UIntR biSize;
     public SIntR biWidth;
@@ -46,9 +46,9 @@ public class RIFFHeaderStrfV<T extends LargeList<?>>
         biClrImportant  = new UIntR();
     }
 
-    public RIFFHeaderStrfV<T> clone()
+    public RIFFHeaderStrfV clone()
             throws CloneNotSupportedException {
-        RIFFHeaderStrfV<T> obj = (RIFFHeaderStrfV<T>)super.clone();
+        RIFFHeaderStrfV obj = (RIFFHeaderStrfV)super.clone();
 
         obj.biSize = (UIntR)biSize.clone();
         obj.biWidth = (SIntR)biWidth.clone();
@@ -71,15 +71,15 @@ public class RIFFHeaderStrfV<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            RIFFHeaderStrfV d) {
+    public static void readBits(BitStreamReader c,
+                                RIFFHeaderStrfV d) {
         c.enterBlock(d);
 
-        RIFFHeader.read(c, d);
+        RIFFHeader.readBits(c, d);
 
         d.biSize          = c.readUIntR(32, d.biSize         );
         d.biWidth         = c.readSIntR(32, d.biWidth        );
@@ -97,15 +97,15 @@ public class RIFFHeaderStrfV<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             RIFFHeaderStrfV d) {
+    public static void writeBits(BitStreamWriter c,
+                                 RIFFHeaderStrfV d) {
         c.enterBlock(d);
 
-        RIFFHeader.write(c, d);
+        RIFFHeader.writeBits(c, d);
 
         c.writeUIntR(32, d.biSize         );
         c.writeSIntR(32, d.biWidth        );

@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * <li>MSDN: AVISTREAMHEADER struct</li>
  * </ul>
  */
-public class RIFFHeaderStrfA<T extends LargeList<?>>
-        extends RIFFHeader<T>
+public class RIFFHeaderStrfA
+        extends RIFFHeader
         implements Cloneable {
     public UIntR wFormatTag;
     public UIntR nChannels;
@@ -38,9 +38,9 @@ public class RIFFHeaderStrfA<T extends LargeList<?>>
         cbSize          = new UIntR("cbSize"         );
     }
 
-    public RIFFHeaderStrfA<T> clone()
+    public RIFFHeaderStrfA clone()
             throws CloneNotSupportedException {
-        RIFFHeaderStrfA<T> obj = (RIFFHeaderStrfA<T>)super.clone();
+        RIFFHeaderStrfA obj = (RIFFHeaderStrfA)super.clone();
 
         obj.wFormatTag = (UIntR)wFormatTag.clone();
         obj.nChannels = (UIntR)nChannels.clone();
@@ -59,15 +59,15 @@ public class RIFFHeaderStrfA<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            RIFFHeaderStrfA d) {
+    public static void readBits(BitStreamReader c,
+                                RIFFHeaderStrfA d) {
         c.enterBlock(d);
 
-        RIFFHeader.read(c, d);
+        RIFFHeader.readBits(c, d);
 
         d.wFormatTag      = c.readUIntR(16, d.wFormatTag     );
         d.nChannels       = c.readUIntR(16, d.nChannels      );
@@ -81,15 +81,15 @@ public class RIFFHeaderStrfA<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             RIFFHeaderStrfA d) {
+    public static void writeBits(BitStreamWriter c,
+                                 RIFFHeaderStrfA d) {
         c.enterBlock(d);
 
-        RIFFHeader.write(c, d);
+        RIFFHeader.writeBits(c, d);
 
         c.writeUIntR(16, d.wFormatTag     );
         c.writeUIntR(16, d.nChannels      );

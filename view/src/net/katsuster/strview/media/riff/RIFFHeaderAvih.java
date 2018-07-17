@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * <li>MSDN: AVIMAINHEADER struct</li>
  * </ul>
  */
-public class RIFFHeaderAvih<T extends LargeList<?>>
-        extends RIFFHeader<T>
+public class RIFFHeaderAvih
+        extends RIFFHeader
         implements Cloneable {
     public UIntR dwMicroSecPerFrame;
     public UIntR dwMaxBytesPerSec;
@@ -53,9 +53,9 @@ public class RIFFHeaderAvih<T extends LargeList<?>>
     }
 
     @Override
-    public RIFFHeaderAvih<T> clone()
+    public RIFFHeaderAvih clone()
             throws CloneNotSupportedException {
-        RIFFHeaderAvih<T> obj = (RIFFHeaderAvih<T>)super.clone();
+        RIFFHeaderAvih obj = (RIFFHeaderAvih)super.clone();
 
         obj.dwMicroSecPerFrame = (UIntR)dwMicroSecPerFrame.clone();
         obj.dwMaxBytesPerSec = (UIntR)dwMaxBytesPerSec.clone();
@@ -81,15 +81,15 @@ public class RIFFHeaderAvih<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            RIFFHeaderAvih d) {
+    public static void readBits(BitStreamReader c,
+                                RIFFHeaderAvih d) {
         c.enterBlock(d);
 
-        RIFFHeader.read(c, d);
+        RIFFHeader.readBits(c, d);
 
         d.dwMicroSecPerFrame    = c.readUIntR(32, d.dwMicroSecPerFrame   );
         d.dwMaxBytesPerSec      = c.readUIntR(32, d.dwMaxBytesPerSec     );
@@ -110,15 +110,15 @@ public class RIFFHeaderAvih<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             RIFFHeaderAvih d) {
+    public static void writeBits(BitStreamWriter c,
+                                 RIFFHeaderAvih d) {
         c.enterBlock(d);
 
-        RIFFHeader.write(c, d);
+        RIFFHeader.writeBits(c, d);
 
         c.writeUIntR(32, d.dwMicroSecPerFrame   );
         c.writeUIntR(32, d.dwMaxBytesPerSec     );

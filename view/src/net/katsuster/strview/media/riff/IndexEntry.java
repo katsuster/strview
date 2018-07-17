@@ -15,8 +15,8 @@ import net.katsuster.strview.media.*;
  * <li>MSDN: AVIOLDINDEX struct</li>
  * </ul>
  */
-public class IndexEntry<T extends LargeList<?>>
-        extends BlockAdapter<T> {
+public class IndexEntry
+        extends BitBlockAdapter {
     public UIntR dwChunkId;
     public UIntR dwFlags;
     public UIntR dwOffset;
@@ -36,9 +36,9 @@ public class IndexEntry<T extends LargeList<?>>
     }
 
     @Override
-    public IndexEntry<T> clone()
+    public IndexEntry clone()
             throws CloneNotSupportedException {
-        IndexEntry<T> obj = (IndexEntry<T>)super.clone();
+        IndexEntry obj = (IndexEntry)super.clone();
 
         obj.dwChunkId = (UIntR)dwChunkId.clone();
         obj.dwFlags = (UIntR)dwFlags.clone();
@@ -54,12 +54,12 @@ public class IndexEntry<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            IndexEntry d) {
+    public static void readBits(BitStreamReader c,
+                                IndexEntry d) {
         c.enterBlock(d);
 
         d.dwChunkId = c.readUIntR(32, d.dwChunkId);
@@ -71,12 +71,12 @@ public class IndexEntry<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             IndexEntry d) {
+    public static void writeBits(BitStreamWriter c,
+                                 IndexEntry d) {
         c.enterBlock(d);
 
         c.writeUIntR(32, d.dwChunkId, d.getChunkIdName());

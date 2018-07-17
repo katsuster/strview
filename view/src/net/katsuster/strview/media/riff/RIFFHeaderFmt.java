@@ -15,8 +15,8 @@ import net.katsuster.strview.media.*;
  * <li>MSDN: WAVEFORMATEX struct</li>
  * </ul>
  */
-public class RIFFHeaderFmt<T extends LargeList<?>>
-        extends RIFFHeader<T>
+public class RIFFHeaderFmt
+        extends RIFFHeader
         implements Cloneable {
     public UIntR wFormatTag;
     public UIntR nChannels;
@@ -35,9 +35,9 @@ public class RIFFHeaderFmt<T extends LargeList<?>>
     }
 
     @Override
-    public RIFFHeaderFmt<T> clone()
+    public RIFFHeaderFmt clone()
             throws CloneNotSupportedException {
-        RIFFHeaderFmt<T> obj = (RIFFHeaderFmt<T>)super.clone();
+        RIFFHeaderFmt obj = (RIFFHeaderFmt)super.clone();
 
         obj.wFormatTag = (UIntR)wFormatTag.clone();
         obj.nChannels = (UIntR)nChannels.clone();
@@ -55,15 +55,15 @@ public class RIFFHeaderFmt<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            RIFFHeaderFmt d) {
+    public static void readBits(BitStreamReader c,
+                                RIFFHeaderFmt d) {
         c.enterBlock(d);
 
-        RIFFHeader.read(c, d);
+        RIFFHeader.readBits(c, d);
 
         d.wFormatTag      = c.readUIntR(16, d.wFormatTag     );
         d.nChannels       = c.readUIntR(16, d.nChannels      );
@@ -76,15 +76,15 @@ public class RIFFHeaderFmt<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             RIFFHeaderFmt d) {
+    public static void writeBits(BitStreamWriter c,
+                                 RIFFHeaderFmt d) {
         c.enterBlock(d);
 
-        RIFFHeader.write(c, d);
+        RIFFHeader.writeBits(c, d);
 
         c.writeUIntR(16, d.wFormatTag     );
         c.writeUIntR(16, d.nChannels      );

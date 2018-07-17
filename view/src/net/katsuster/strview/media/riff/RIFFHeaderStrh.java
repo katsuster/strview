@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * <li>MSDN: AVISTREAMHEADER struct</li>
  * </ul>
  */
-public class RIFFHeaderStrh<T extends LargeList<?>>
-        extends RIFFHeader<T>
+public class RIFFHeaderStrh
+        extends RIFFHeader
         implements Cloneable {
     public UIntR fccType;
     public UIntR fccHandler;
@@ -59,9 +59,9 @@ public class RIFFHeaderStrh<T extends LargeList<?>>
     }
 
     @Override
-    public RIFFHeaderStrh<T> clone()
+    public RIFFHeaderStrh clone()
             throws CloneNotSupportedException {
-        RIFFHeaderStrh<T> obj = (RIFFHeaderStrh<T>)super.clone();
+        RIFFHeaderStrh obj = (RIFFHeaderStrh)super.clone();
 
         obj.fccType = (UIntR)fccType.clone();
         obj.fccHandler = (UIntR)fccHandler.clone();
@@ -90,15 +90,15 @@ public class RIFFHeaderStrh<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            RIFFHeaderStrh d) {
+    public static void readBits(BitStreamReader c,
+                                RIFFHeaderStrh d) {
         c.enterBlock(d);
 
-        RIFFHeader.read(c, d);
+        RIFFHeader.readBits(c, d);
 
         d.fccType               = c.readUIntR(32, d.fccType              );
         d.fccHandler            = c.readUIntR(32, d.fccHandler           );
@@ -122,15 +122,15 @@ public class RIFFHeaderStrh<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             RIFFHeaderStrh d) {
+    public static void writeBits(BitStreamWriter c,
+                                 RIFFHeaderStrh d) {
         c.enterBlock(d);
 
-        RIFFHeader.write(c, d);
+        RIFFHeader.writeBits(c, d);
 
         c.writeUIntR(32, d.fccType              , d.getFccTypeName());
         c.writeUIntR(32, d.fccHandler           , d.getFccHandlerName());

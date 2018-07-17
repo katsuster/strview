@@ -16,8 +16,8 @@ import net.katsuster.strview.media.*;
  * <li>OpenDML AVI File Format Extensions: Version 1.02</li>
  * </ul>
  */
-public class RIFFHeaderList<T extends LargeList<?>>
-        extends RIFFHeader<T>
+public class RIFFHeaderList
+        extends RIFFHeader
         implements Cloneable {
     public UIntR listType;
 
@@ -26,9 +26,9 @@ public class RIFFHeaderList<T extends LargeList<?>>
     }
 
     @Override
-    public RIFFHeaderList<T> clone()
+    public RIFFHeaderList clone()
             throws CloneNotSupportedException {
-        RIFFHeaderList<T> obj = (RIFFHeaderList<T>)super.clone();
+        RIFFHeaderList obj = (RIFFHeaderList)super.clone();
 
         obj.listType = (UIntR)listType.clone();
 
@@ -46,15 +46,15 @@ public class RIFFHeaderList<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            RIFFHeaderList d) {
+    public static void readBits(BitStreamReader c,
+                                RIFFHeaderList d) {
         c.enterBlock(d);
 
-        RIFFHeader.read(c, d);
+        RIFFHeader.readBits(c, d);
 
         d.listType = c.readUIntR(32, d.listType);
 
@@ -62,15 +62,15 @@ public class RIFFHeaderList<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             RIFFHeaderList d) {
+    public static void writeBits(BitStreamWriter c,
+                                 RIFFHeaderList d) {
         c.enterBlock(d);
 
-        RIFFHeader.write(c, d);
+        RIFFHeader.writeBits(c, d);
 
         c.writeUIntR(32, d.listType, d.getChunkTypeName());
 
