@@ -8,14 +8,18 @@ import net.katsuster.strview.util.*;
  * <p>
  * パケットリスト。
  * </p>
+ *
+ * <p>
+ * P はリストに格納するパケットの型、T は変換元のデータの型。
+ * </p>
  */
-public abstract class AbstractPacketList<PACKET extends Packet, LIST extends LargeList<?>>
-        extends AbstractLargeList<PACKET>
-        implements LargePacketList<PACKET> {
+public abstract class AbstractPacketList<P extends Packet, T>
+        extends AbstractLargeList<P>
+        implements LargePacketList<P> {
     //木構造を管理するためのスタック
-    private Deque<PacketRange<LIST>> stack_packet;
+    private Deque<PacketRange<LargeList<T>>> stack_packet;
     //インデックスキャッシュ
-    private NavigableMap<Long, PacketRange<LIST>> cache_packet;
+    private NavigableMap<Long, PacketRange<LargeList<T>>> cache_packet;
 
     public AbstractPacketList() {
         this(LENGTH_UNKNOWN);
@@ -26,23 +30,6 @@ public abstract class AbstractPacketList<PACKET extends Packet, LIST extends Lar
 
         stack_packet = new ArrayDeque<>();
         cache_packet = new TreeMap<>();
-    }
-
-    /**
-     * <p>
-     * パケットリストの短い名前を取得します。
-     * </p>
-     *
-     * <p>
-     * クラス名 Class.getCanonicalName() を返すか、
-     * より適切な名前を返すことが推奨されます。
-     * </p>
-     *
-     * @return パケットの短い名前
-     */
-    @Override
-    public String getShortName() {
-        return getClass().getName();
     }
 
     /**
@@ -65,32 +52,12 @@ public abstract class AbstractPacketList<PACKET extends Packet, LIST extends Lar
 
     /**
      * <p>
-     * ビット列に変換します。
-     * </p>
-     *
-     * <p>
-     * パケット列とメソッドが返すビット列は等価ではありません。
-     * すなわちビット列はパケット列の全ての情報を表しているとは限りません。
-     * </p>
-     *
-     * <p>
-     * デフォルトの実装では常に null を返します。
-     * </p>
-     *
-     * @return ビット列、ビット列への変換ができない場合は null
-     */
-    public LargeBitList toBitList() {
-        return null;
-    }
-
-    /**
-     * <p>
      * パケットのスタックを取得します。
      * </p>
      *
      * @return パケットスタック
      */
-    protected Deque<PacketRange<LIST>> getPacketStack() {
+    protected Deque<PacketRange<LargeList<T>>> getPacketStack() {
         return stack_packet;
     }
 
@@ -106,8 +73,8 @@ public abstract class AbstractPacketList<PACKET extends Packet, LIST extends Lar
      *
      * @param cr スタックに追加するパケット
      */
-    protected void stackPacket(PacketRange<LIST> cr) {
-        PacketRange<LIST> pr;
+    protected void stackPacket(PacketRange<LargeList<T>> cr) {
+        PacketRange<LargeList<T>> pr;
 
         if (!hasTreeStructure()) {
             return;
@@ -154,8 +121,8 @@ public abstract class AbstractPacketList<PACKET extends Packet, LIST extends Lar
      * @param index パケットの番号
      * @return パケットの存在する範囲
      */
-    protected PacketRange<LIST> getPacketRange(long index) {
-        PacketRange<LIST> pr;
+    protected PacketRange<LargeList<T>> getPacketRange(long index) {
+        PacketRange<LargeList<T>> pr;
 
         pr = cache_packet.get(index);
         if (pr == null) {
@@ -178,13 +145,13 @@ public abstract class AbstractPacketList<PACKET extends Packet, LIST extends Lar
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected void countSlow(StreamReader<?, ?> c) {
+    protected void countSlow(StreamReader<T> c) {
         long cnt = 0;
 
         getPacketStack().clear();
         try {
             while (true) {
-                Packet<LIST> p = readNext(c, cnt);
+                P p = readNext(c, cnt);
                 stackPacket(p.getRange());
                 cnt++;
             }
@@ -206,7 +173,7 @@ public abstract class AbstractPacketList<PACKET extends Packet, LIST extends Lar
      * @param c 各メンバの変換を実施するオブジェクト
      * @param index シークする位置のパケット ID
      */
-    protected void seek(StreamReader<?, ?> c, long index) {
+    protected void seek(StreamReader<T> c, long index) {
         long start;
 
         start = seekNearest(c, index);
@@ -222,9 +189,9 @@ public abstract class AbstractPacketList<PACKET extends Packet, LIST extends Lar
      * @param index シークする位置のパケット ID
      * @return シークした位置
      */
-    protected long seekNearest(StreamReader<?, ?> c, long index) {
-        Map.Entry<Long, PacketRange<LIST>> ent = cache_packet.floorEntry(index);
-        PacketRange<LIST> pr;
+    protected long seekNearest(StreamReader<T> c, long index) {
+        Map.Entry<Long, PacketRange<LargeList<T>>> ent = cache_packet.floorEntry(index);
+        PacketRange<LargeList<T>> pr;
 
         if (ent == null) {
             return 0;
@@ -265,7 +232,7 @@ public abstract class AbstractPacketList<PACKET extends Packet, LIST extends Lar
      * @param start 開始位置のパケット ID
      * @param index シークする位置のパケット ID
      */
-    protected void seekSlow(StreamReader<?, ?> c, long start, long index) {
+    protected void seekSlow(StreamReader<T> c, long start, long index) {
         for (long i = start; i < index; i++) {
             readNext(c, i);
         }
@@ -280,8 +247,8 @@ public abstract class AbstractPacketList<PACKET extends Packet, LIST extends Lar
      * @param index パケットに付与する ID
      * @return パケット
      */
-    protected Packet<LIST> readNext(StreamReader<?, ?> c, long index) {
-        PacketRange<LIST> pr;
+    protected P readNext(StreamReader<T> c, long index) {
+        PacketRange<LargeList<T>> pr;
 
         pr = getPacketRange(index);
         return readNextInner(c, pr);
@@ -296,5 +263,5 @@ public abstract class AbstractPacketList<PACKET extends Packet, LIST extends Lar
      * @param pr パケットの存在する範囲
      * @return パケット
      */
-    protected abstract Packet<LIST> readNextInner(StreamReader<?, ?> c, PacketRange<LIST> pr);
+    protected abstract P readNextInner(StreamReader<T> c, PacketRange<LargeList<T>> pr);
 }
