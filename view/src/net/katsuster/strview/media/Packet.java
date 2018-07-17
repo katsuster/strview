@@ -14,7 +14,7 @@ import net.katsuster.strview.util.*;
  *
  * @see PacketAdapter
  */
-public interface Packet<T extends LargeList<?>>
+public interface Packet<T>
         extends Block<T> {
     /**
      * <p>
@@ -24,7 +24,7 @@ public interface Packet<T extends LargeList<?>>
      * @return データの範囲
      */
     @Override
-    public PacketRange<T> getRange();
+    public PacketRange<LargeList<T>> getRange();
 
     /**
      * <p>
@@ -47,12 +47,12 @@ public interface Packet<T extends LargeList<?>>
 
     /**
      * <p>
-     * パケット本体のビット列を取得します。
+     * パケット本体を表すリストを取得します。
      * </p>
      *
-     * @return パケット本体のビット列
+     * @return パケット本体を表すリスト
      */
-    public LargeBitList getBody();
+    public LargeList<T> getBody();
 
     /**
      * <p>
@@ -65,10 +65,10 @@ public interface Packet<T extends LargeList<?>>
 
     /**
      * <p>
-     * パケット全体を表すビット列を取得します。
+     * パケット全体を表すリストを取得します。
      * </p>
      *
-     * @return ビット列
+     * @return パケット全体を表すリスト
      */
-    public LargeBitList getRawPacket();
+    public LargeList<T> getRawPacket();
 }

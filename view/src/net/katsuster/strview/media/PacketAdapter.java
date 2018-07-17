@@ -1,7 +1,5 @@
 package net.katsuster.strview.media;
 
-import net.katsuster.strview.util.*;
-
 /**
  * <p>
  * 何もメンバを持たないパケットを表すためのユーティリティクラスです。
@@ -17,8 +15,7 @@ import net.katsuster.strview.util.*;
  *     <li>write 関数は何も書き込みません。</li>
  * </ul>
  */
-public class PacketAdapter<T extends LargeList<?>>
-        extends AbstractPacket<T> {
+public class PacketAdapter<T> extends AbstractPacket<T> {
     /**
      * <p>
      * 空のヘッダを持ち、存在する範囲が未定義のパケットを作成します。
@@ -68,32 +65,32 @@ public class PacketAdapter<T extends LargeList<?>>
     }
 
     @Override
-    protected void readHeader(StreamReader<?, ?> c) {
+    protected void readHeader(StreamReader<T> c) {
         //do nothing
     }
 
     @Override
-    protected void readBody(StreamReader<?, ?> c) {
+    protected void readBody(StreamReader<T> c) {
         //do nothing
     }
 
     @Override
-    protected void readFooter(StreamReader<?, ?> c) {
+    protected void readFooter(StreamReader<T> c) {
         //do nothing
     }
 
     @Override
-    protected void writeHeader(StreamWriter<?, ?> c) {
+    protected void writeHeader(StreamWriter<T> c) {
         //do nothing
     }
 
     @Override
-    protected void writeBody(StreamWriter<?, ?> c) {
+    protected void writeBody(StreamWriter<T> c) {
         //do nothing
     }
 
     @Override
-    protected void writeFooter(StreamWriter<?, ?> c) {
+    protected void writeFooter(StreamWriter<T> c) {
         //do nothing
     }
 }

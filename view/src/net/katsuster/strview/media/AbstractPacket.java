@@ -2,6 +2,7 @@ package net.katsuster.strview.media;
 
 import java.util.List;
 
+import net.katsuster.strview.io.*;
 import net.katsuster.strview.util.*;
 
 /**
@@ -67,18 +68,18 @@ import net.katsuster.strview.util.*;
  *
  * @see PacketAdapter
  */
-public abstract class AbstractPacket<T extends LargeList<?>>
+public abstract class AbstractPacket<T>
         extends AbstractBlock<T>
-        implements Packet<T>, PacketRange<T>, Cloneable {
+        implements Packet<T>, PacketRange<LargeList<T>>, Cloneable {
     //ヘッダ
     private Block<T> head;
     //本体を表すビット列
-    private LargeBitList body;
+    private LargeList<T> body;
     //フッタ
     private Block<T> foot;
 
     //パケット全体を表すビット列（参照のみ）
-    private LargeBitList raw_packet;
+    private LargeList<T> raw_packet;
 
     /**
      * <p>
@@ -86,7 +87,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      * </p>
      */
     public AbstractPacket() {
-        this(null, new BlockAdapter());
+        this(null, new BlockAdapter<>("head"));
     }
 
     /**
@@ -96,8 +97,8 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      *
      * @param pr パケットが存在する範囲
      */
-    public AbstractPacket(PacketRange<T> pr) {
-        this(pr, new BlockAdapter());
+    public AbstractPacket(PacketRange<LargeList<T>> pr) {
+        this(pr, new BlockAdapter<>("head"));
     }
 
     /**
@@ -119,10 +120,12 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      * @param pr パケットが存在する範囲
      * @param h パケットヘッダ
      */
-    public AbstractPacket(PacketRange<T> pr, Block<T> h) {
+    public AbstractPacket(PacketRange<LargeList<T>> pr, Block<T> h) {
         setRange(pr);
         head = h;
-        foot = new BlockAdapter<>();
+        body = new DummyList<>("body");
+        foot = new BlockAdapter<>("foot");
+        raw_packet = new DummyList<>("raw_packet");
     }
 
     @Override
@@ -131,9 +134,9 @@ public abstract class AbstractPacket<T extends LargeList<?>>
         AbstractPacket obj = (AbstractPacket)super.clone();
 
         obj.head = (Block<T>)head.clone();
-        obj.body = (LargeBitList)body.clone();
+        obj.body = (LargeList<T>)body.clone();
         obj.foot = (Block<T>)foot.clone();
-        obj.raw_packet = (LargeBitList)raw_packet.clone();
+        obj.raw_packet = (LargeList<T>)raw_packet.clone();
 
         return obj;
     }
@@ -204,42 +207,42 @@ public abstract class AbstractPacket<T extends LargeList<?>>
     }
 
     @Override
-    public PacketRange<T> appendChild(PacketRange<T> newChild) {
+    public PacketRange<LargeList<T>> appendChild(PacketRange<LargeList<T>> newChild) {
         return getRange().appendChild(newChild);
     }
 
     @Override
-    public PacketRange<T> removeChild(PacketRange<T> oldChild) {
+    public PacketRange<LargeList<T>> removeChild(PacketRange<LargeList<T>> oldChild) {
         return getRange().removeChild(oldChild);
     }
 
     @Override
-    public PacketRange<T> insertBefore(PacketRange<T> newChild, PacketRange<T> refChild) {
+    public PacketRange<LargeList<T>> insertBefore(PacketRange<LargeList<T>> newChild, PacketRange<LargeList<T>> refChild) {
         return getRange().insertBefore(newChild, refChild);
     }
 
     @Override
-    public PacketRange<T> replaceChild(PacketRange<T> newChild, PacketRange<T> oldChild) {
+    public PacketRange<LargeList<T>> replaceChild(PacketRange<LargeList<T>> newChild, PacketRange<LargeList<T>> oldChild) {
         return getRange().replaceChild(newChild, oldChild);
     }
 
     @Override
-    public PacketRange<T> getParentNode() {
+    public PacketRange<LargeList<T>> getParentNode() {
         return getRange().getParentNode();
     }
 
     @Override
-    public void setParentNode(PacketRange<T> p) {
+    public void setParentNode(PacketRange<LargeList<T>> p) {
         getRange().setParentNode(p);
     }
 
     @Override
-    public PacketRange<T> getPreviousSibling() {
+    public PacketRange<LargeList<T>> getPreviousSibling() {
         return getRange().getPreviousSibling();
     }
 
     @Override
-    public PacketRange<T> getNextSibling() {
+    public PacketRange<LargeList<T>> getNextSibling() {
         return getRange().getNextSibling();
     }
 
@@ -249,17 +252,17 @@ public abstract class AbstractPacket<T extends LargeList<?>>
     }
 
     @Override
-    public List<PacketRange<T>> getChildNodes() {
+    public List<PacketRange<LargeList<T>>> getChildNodes() {
         return getRange().getChildNodes();
     }
 
     @Override
-    public PacketRange<T> getFirstChild() {
+    public PacketRange<LargeList<T>> getFirstChild() {
         return getRange().getFirstChild();
     }
 
     @Override
-    public PacketRange<T> getLastChild() {
+    public PacketRange<LargeList<T>> getLastChild() {
         return getRange().getLastChild();
     }
 
@@ -269,13 +272,13 @@ public abstract class AbstractPacket<T extends LargeList<?>>
     }
 
     @Override
-    public PacketRange<T> getChild(int index) {
+    public PacketRange<LargeList<T>> getChild(int index) {
         return getRange().getChild(index);
     }
 
     @Override
-    public PacketRange<T> getRange() {
-        return (PacketRange<T>)super.getRange();
+    public PacketRange<LargeList<T>> getRange() {
+        return (PacketRange<LargeList<T>>)super.getRange();
     }
 
     @Override
@@ -295,7 +298,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
     }
 
     @Override
-    public LargeBitList getBody() {
+    public LargeList<T> getBody() {
         return body;
     }
 
@@ -306,7 +309,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      *
      * @param b パケット本体のビット列
      */
-    protected void setBody(LargeBitList b) {
+    protected void setBody(LargeList<T> b) {
         body = b;
     }
 
@@ -323,7 +326,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      * @param from パケット本体の開始位置（ビット単位）
      * @param len  パケット本体の長さ（ビット単位）
      */
-    protected void setBody(LargeBitList b, long from, long len) {
+    protected void setBody(LargeList<T> b, long from, long len) {
         if (len < 0) {
             //長さが負の場合、長さを 0 にする
             System.err.printf("Warning: body length is negative."
@@ -333,7 +336,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
             len = 0;
         }
 
-        body = new SubLargeBitList(b, from, len);
+        body = new SubLargeList<>(b, from, len);
     }
 
     @Override
@@ -353,7 +356,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
     }
 
     @Override
-    public LargeBitList getRawPacket() {
+    public LargeList<T> getRawPacket() {
         return raw_packet;
     }
 
@@ -364,63 +367,63 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      *
      * @param b パケット全体のビット列
      */
-    protected void setRawPacket(LargeBitList b) {
+    protected void setRawPacket(LargeList<T> b) {
         raw_packet = b;
     }
 
     /**
      * <p>
-     * 別の形式からパケットのヘッダに変換します。
+     * パケットのヘッダを読み出します。
      * </p>
      *
-     * @param c 各メンバの変換を実施するオブジェクト
+     * @param c リストの読み出しオブジェクト
      */
-    protected abstract void readHeader(StreamReader<?, ?> c);
+    protected abstract void readHeader(StreamReader<T> c);
 
     /**
      * <p>
-     * 別の形式からパケットの本体に変換します。
+     * パケットの本体を読み出します。
      * </p>
      *
-     * @param c 各メンバの変換を実施するオブジェクト
+     * @param c リストの読み出しオブジェクト
      */
-    protected abstract void readBody(StreamReader<?, ?> c);
+    protected abstract void readBody(StreamReader<T> c);
 
     /**
      * <p>
-     * 別の形式からパケットのフッタに変換します。
+     * パケットのフッタを読み出します。
      * </p>
      *
-     * @param c 各メンバの変換を実施するオブジェクト
+     * @param c リストの読み出しオブジェクト
      */
-    protected abstract void readFooter(StreamReader<?, ?> c);
+    protected abstract void readFooter(StreamReader<T> c);
 
     /**
      * <p>
-     * パケットのヘッダを別の形式に変換します。
+     * パケットのヘッダを書き込みます。
      * </p>
      *
-     * @param c 各メンバの変換を実施するオブジェクト
+     * @param c リストの書き込みオブジェクト
      */
-    protected abstract void writeHeader(StreamWriter<?, ?> c);
+    protected abstract void writeHeader(StreamWriter<T> c);
 
     /**
      * <p>
-     * パケットの本体を別の形式に変換します。
+     * パケットの本体を書き込みます。
      * </p>
      *
-     * @param c 各メンバの変換を実施するオブジェクト
+     * @param c リストの書き込みオブジェクト
      */
-    protected abstract void writeBody(StreamWriter<?, ?> c);
+    protected abstract void writeBody(StreamWriter<T> c);
 
     /**
      * <p>
-     * パケットのフッタを別の形式に変換します。
+     * パケットのフッタを書き込みます。
      * </p>
      *
-     * @param c 各メンバの変換を実施するオブジェクト
+     * @param c リストの書き込みオブジェクト
      */
-    protected abstract void writeFooter(StreamWriter<?, ?> c);
+    protected abstract void writeFooter(StreamWriter<T> c);
 
     /**
      * <p>
@@ -433,12 +436,12 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected void readRawPacket(StreamReader<?, ?> c) {
+    protected void readRawPacket(StreamReader<T> c) {
         long org_pos;
 
         org_pos = c.position();
         c.position(getStart());
-        raw_packet = c.readBitList(getLength(), raw_packet, "raw_packet");
+        raw_packet = c.readList(getLength(), raw_packet);
         c.position(org_pos);
     }
 
@@ -453,8 +456,8 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    protected void writeRawPacket(StreamWriter<?, ?> c) {
-        c.writeBitList(getLength(), raw_packet, "raw_packet");
+    protected void writeRawPacket(StreamWriter<T> c) {
+        c.writeList(getLength(), raw_packet);
     }
 
     /**
@@ -469,7 +472,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      * @param c 各メンバの変換を実施するオブジェクト
      */
     @Override
-    public void read(StreamReader<?, ?> c) {
+    public void read(StreamReader<T> c) {
         c.enterPacket(this);
 
         convHeader(c, this);
@@ -505,7 +508,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
      * @param c 各メンバの変換を実施するオブジェクト
      */
     @Override
-    public void write(StreamWriter<?, ?> c) {
+    public void write(StreamWriter<T> c) {
         c.enterPacket(this);
 
         convHeader(c, this);
@@ -518,7 +521,7 @@ public abstract class AbstractPacket<T extends LargeList<?>>
         c.leavePacket();
     }
 
-    private static void convHeader(StreamConverter<?, ?> c,
+    private static void convHeader(StreamConverter<?> c,
                                    AbstractPacket d) {
         c.enterBlock("common");
 
