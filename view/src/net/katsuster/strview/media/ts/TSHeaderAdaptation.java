@@ -1,7 +1,7 @@
 package net.katsuster.strview.media.ts;
 
-import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.util.*;
 
 /**
  * <p>
@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Systems</li>
  * </ul>
  */
-public class TSHeaderAdaptation<T extends LargeList<?>>
-        extends BlockAdapter<T>
+public class TSHeaderAdaptation
+        extends BitBlockAdapter
         implements Cloneable {
     public UInt adaptation_field_length;
 
@@ -123,9 +123,9 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
     }
 
     @Override
-    public TSHeaderAdaptation<T> clone()
+    public TSHeaderAdaptation clone()
             throws CloneNotSupportedException {
-        TSHeaderAdaptation<T> obj = (TSHeaderAdaptation<T>)super.clone();
+        TSHeaderAdaptation obj = (TSHeaderAdaptation)super.clone();
 
         obj.adaptation_field_length = (UInt)adaptation_field_length.clone();
 
@@ -183,12 +183,12 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            TSHeaderAdaptation d) {
+    public static void readBits(BitStreamReader c,
+                                TSHeaderAdaptation d) {
         c.enterBlock(d);
 
         long pos_byte = (c.position() >>> 3);
@@ -267,7 +267,7 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
         c.leaveBlock();
     }
 
-    protected static void readExtensions(StreamReader<?, ?> c,
+    protected static void readExtensions(BitStreamReader c,
                                          TSHeaderAdaptation d) {
         long pos_byte = (c.position() >>> 3);;
         int size_rs = 0;
@@ -322,12 +322,12 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             TSHeaderAdaptation d) {
+    public static void writeBits(BitStreamWriter c,
+                                 TSHeaderAdaptation d) {
         c.enterBlock(d);
 
         long pos_byte = (c.position() >>> 3);
@@ -408,7 +408,7 @@ public class TSHeaderAdaptation<T extends LargeList<?>>
         c.leaveBlock();
     }
 
-    protected static void writeExtensions(StreamWriter<?, ?> c,
+    protected static void writeExtensions(BitStreamWriter c,
                                           TSHeaderAdaptation d) {
         long pos_byte = (c.position() >>> 3);
         int size_rs = 0;

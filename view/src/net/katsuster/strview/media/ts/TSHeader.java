@@ -1,7 +1,7 @@
 package net.katsuster.strview.media.ts;
 
-import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.util.*;
 
 /**
  * <p>
@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Systems</li>
  * </ul>
  */
-public class TSHeader<T extends LargeList<?>>
-        extends BlockAdapter<T>
+public class TSHeader
+        extends BitBlockAdapter
         implements Cloneable {
     public UInt sync_byte;
     public UInt transport_error_indicator;
@@ -29,7 +29,7 @@ public class TSHeader<T extends LargeList<?>>
     public UInt adaptation_field_control;
     public UInt continuity_counter;
 
-    public TSHeaderAdaptation<T> adapt;
+    public TSHeaderAdaptation adapt;
 
     public TSHeader() {
         sync_byte                    = new UInt("sync_byte"                   );
@@ -41,13 +41,13 @@ public class TSHeader<T extends LargeList<?>>
         adaptation_field_control     = new UInt("adaptation_field_control"    );
         continuity_counter           = new UInt("continuity_counter"          );
 
-        adapt = new TSHeaderAdaptation<T>("adapt");
+        adapt = new TSHeaderAdaptation("adapt");
     }
 
     @Override
-    public TSHeader<T> clone()
+    public TSHeader clone()
             throws CloneNotSupportedException {
-        TSHeader<T> obj = (TSHeader<T>)super.clone();
+        TSHeader obj = (TSHeader)super.clone();
 
         obj.sync_byte = (UInt)sync_byte.clone();
         obj.transport_error_indicator = (UInt)transport_error_indicator.clone();
@@ -69,12 +69,12 @@ public class TSHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            TSHeader d) {
+    public static void readBits(BitStreamReader c,
+                                TSHeader d) {
         c.enterBlock(d);
 
         d.sync_byte                    = c.readUInt( 8, d.sync_byte                   );
@@ -95,12 +95,12 @@ public class TSHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                            TSHeader d) {
+    public static void writeBits(BitStreamWriter c,
+                                 TSHeader d) {
         c.enterBlock(d);
 
         c.writeUInt( 8, d.sync_byte                   );
