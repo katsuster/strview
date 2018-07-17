@@ -45,7 +45,7 @@ public class MemoryBitList extends AbstractLargeBitList {
      * </p>
      */
     public MemoryBitList() {
-        this(0, 0);
+        this(0);
     }
 
     /**
@@ -63,34 +63,21 @@ public class MemoryBitList extends AbstractLargeBitList {
      * @throws IllegalArgumentException 最大サイズを超えていた場合
      */
     public MemoryBitList(long len) {
-        this(0, len);
-    }
+        super(len);
 
-    /**
-     * <p>
-     * 指定された長さのビット列を作成します。
-     * </p>
-     *
-     * <p>
-     * 指定できる最大サイズは Integer.MAX_VALUE * ELEM_BITS [bits] まで、
-     * つまり (2^31 - 1) * 32 / 8 ≒ 約 8[GB] です。
-     * </p>
-     *
-     * @param from 開始点（ビット単位）
-     * @param len  ビット列の長さ（ビット単位）
-     * @throws NegativeArraySizeException 負のサイズを指定した場合
-     * @throws IllegalArgumentException 最大サイズを超えていた場合
-     */
-    public MemoryBitList(long from, long len) {
-        super(from, len);
+        boolean[] array;
 
-        if (((long)Integer.MAX_VALUE * ELEM_BITS) < len) {
-            throw new IllegalArgumentException(
-                    "len:" + len + " is too large.");
+        if (len == LENGTH_UNKNOWN) {
+            array = new boolean[0];
+        } else {
+            array = new boolean[(int)len];
         }
 
-        buf = new int[getBufferElementPosition(len + ELEM_MASK)];
-        length(len);
+        buf = new int[getBufferElementPosition(array.length + ELEM_MASK)];
+        length(array.length);
+        getRange().setLength(array.length);
+
+        set(0, array, 0, array.length);
     }
 
     /**
@@ -130,13 +117,13 @@ public class MemoryBitList extends AbstractLargeBitList {
     protected Boolean getInner(long index) {
         int b, p, shifts;
 
-		/*
-		 * BITS = 8(MASK = 7) の例
-		 *
-		 * p        | 0  1  2  3  4  5  6  7|
-		 * ---------+-----------------------+-
-		 * shifts   | 7  6  5  4  3  2  1  0|
-		 */
+        /*
+         * BITS = 8(MASK = 7) の例
+         *
+         * p        | 0  1  2  3  4  5  6  7|
+         * ---------+-----------------------+-
+         * shifts   | 7  6  5  4  3  2  1  0|
+         */
         b = getBufferElementPosition(index);
         p = getElementBitPosition(index);
         shifts = ELEM_MASK - p;
@@ -153,13 +140,13 @@ public class MemoryBitList extends AbstractLargeBitList {
         int b, p, shifts;
         int t;
 
-		/*
-		 * BITS = 8(MASK = 7) の例
-		 *
-		 * p        | 0  1  2  3  4  5  6  7|
-		 * ---------+-----------------------+-
-		 * shifts   | 7  6  5  4  3  2  1  0|
-		 */
+        /*
+         * BITS = 8(MASK = 7) の例
+         *
+         * p        | 0  1  2  3  4  5  6  7|
+         * ---------+-----------------------+-
+         * shifts   | 7  6  5  4  3  2  1  0|
+         */
         b = getBufferElementPosition(index);
         p = getElementBitPosition(index);
         shifts = ELEM_MASK - p;
