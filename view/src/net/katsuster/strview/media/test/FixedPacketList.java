@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * 固定長パケットリスト。ビットリストから固定長パケットを読み出すテスト用。
  * </p>
  */
-public class FixedPacketList<T extends LargeList<?>>
-        extends AbstractPacketList<FixedPacket<T>, T> {
+public class FixedPacketList
+        extends AbstractPacketList<FixedPacket, Boolean> {
     public static int PACKET_SIZE = FixedPacket.PACKET_SIZE;
 
     private LargeBitList buf;
@@ -25,7 +25,7 @@ public class FixedPacketList<T extends LargeList<?>>
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         return "Fixed Size Packet List";
     }
 
@@ -40,13 +40,13 @@ public class FixedPacketList<T extends LargeList<?>>
     }
 
     @Override
-    protected void seek(StreamReader<?, ?> c, long index) {
+    protected void seek(StreamReader<Boolean> c, long index) {
         c.position(index * FixedPacket.PACKET_SIZE * 8);
     }
 
     @Override
-    protected Packet<T> readNextInner(StreamReader<?, ?> c, PacketRange<T> pr) {
-        FixedPacket<T> packet = new FixedPacket<>(new FixedHeader<>());
+    protected FixedPacket readNextInner(StreamReader<Boolean> c, PacketRange<LargeList<Boolean>> pr) {
+        FixedPacket packet = new FixedPacket(new FixedHeader());
         packet.setRange(pr);
         packet.read(c);
 
@@ -54,16 +54,16 @@ public class FixedPacketList<T extends LargeList<?>>
     }
 
     @Override
-    protected FixedPacket<T> getInner(long index) {
+    protected FixedPacket getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
         seek(c, index);
 
-        return (FixedPacket<T>)readNext(c, index);
+        return readNext(c, index);
     }
 
     @Override
-    protected void setInner(long index, FixedPacket<T> data) {
+    protected void setInner(long index, FixedPacket data) {
         //TODO: not implemented yet
     }
 }

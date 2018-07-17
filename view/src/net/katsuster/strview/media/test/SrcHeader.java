@@ -8,8 +8,8 @@ import net.katsuster.strview.util.*;
  * ソースパケットヘッダ。
  * </p>
  */
-public class SrcHeader<T extends LargeList<?>>
-        extends BlockAdapter<T>
+public class SrcHeader
+        extends BitBlockAdapter
         implements Cloneable {
     private String name;
 
@@ -18,9 +18,9 @@ public class SrcHeader<T extends LargeList<?>>
     }
 
     @Override
-    public SrcHeader<T> clone()
+    public SrcHeader clone()
             throws CloneNotSupportedException {
-        SrcHeader<T> obj = (SrcHeader<T>)super.clone();
+        SrcHeader obj = (SrcHeader)super.clone();
 
         obj.name = name;
 
@@ -33,24 +33,24 @@ public class SrcHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            SrcHeader d) {
+    public static void readBits(BitStreamReader c,
+                                SrcHeader d) {
         c.enterBlock(d);
 
         c.leaveBlock();
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             SrcHeader d) {
+    public static void writeBits(BitStreamWriter c,
+                                 SrcHeader d) {
         c.enterBlock(d);
 
         c.mark("name", d.getName());

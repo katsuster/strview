@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * 固定長パケットヘッダ。
  * </p>
  */
-public class FixedHeader<T extends LargeList<?>>
-        extends BlockAdapter<T>
+public class FixedHeader
+        extends BitBlockAdapter
         implements Cloneable {
     public UInt data_a;
     public UInt data_b;
@@ -20,9 +20,9 @@ public class FixedHeader<T extends LargeList<?>>
     }
 
     @Override
-    public FixedHeader<T> clone()
+    public FixedHeader clone()
             throws CloneNotSupportedException {
-        FixedHeader<T> obj = (FixedHeader<T>)super.clone();
+        FixedHeader obj = (FixedHeader)super.clone();
 
         obj.data_a = (UInt) data_a.clone();
         obj.data_b = (UInt) data_b.clone();
@@ -36,12 +36,12 @@ public class FixedHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            FixedHeader d) {
+    public static void readBits(BitStreamReader c,
+                                FixedHeader d) {
         c.enterBlock(d);
 
         d.data_a = c.readUInt( 3, d.data_a);
@@ -51,12 +51,12 @@ public class FixedHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             FixedHeader d) {
+    public static void writeBits(BitStreamWriter c,
+                                 FixedHeader d) {
         c.enterBlock(d);
 
         c.writeUInt( 3, d.data_a);

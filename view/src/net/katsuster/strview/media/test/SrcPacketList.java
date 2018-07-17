@@ -13,8 +13,8 @@ import net.katsuster.strview.util.*;
  * ビットリストではないデータからビットリストを生成するテスト用。
  * </p>
  */
-public class SrcPacketList<T extends LargeList<?>>
-        extends AbstractPacketList<SrcPacket<T>, T> {
+public class SrcPacketList
+        extends AbstractPacketList<SrcPacket, Boolean> {
     private List<File> buf;
 
     public SrcPacketList() {
@@ -28,7 +28,7 @@ public class SrcPacketList<T extends LargeList<?>>
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         return "Source Packet List";
     }
 
@@ -43,14 +43,14 @@ public class SrcPacketList<T extends LargeList<?>>
     }
 
     @Override
-    protected void seek(StreamReader<?, ?> c, long index) {
+    protected void seek(StreamReader<Boolean> c, long index) {
         c.position(index);
     }
 
     @Override
-    protected Packet<T> readNextInner(StreamReader<?, ?> c, PacketRange<T> pr) {
+    protected SrcPacket readNextInner(StreamReader<Boolean> c, PacketRange<LargeList<Boolean>> pr) {
         //FIXME: This is not works correctly...
-        SrcPacket<T> packet = new SrcPacket<>(new SrcHeader<>(""));
+        SrcPacket packet = new SrcPacket(new SrcHeader(""));
         packet.setRange(pr);
         packet.read(c);
 
@@ -58,16 +58,16 @@ public class SrcPacketList<T extends LargeList<?>>
     }
 
     @Override
-    protected SrcPacket<T> getInner(long index) {
+    protected SrcPacket getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(new MemoryBitList(0));
 
         seek(c, index);
 
-        return (SrcPacket<T>)readNext(c, index);
+        return readNext(c, index);
     }
 
     @Override
-    protected void setInner(long index, SrcPacket<T> data) {
+    protected void setInner(long index, SrcPacket data) {
         //TODO: not implemented yet
     }
 }

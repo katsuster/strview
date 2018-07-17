@@ -8,7 +8,7 @@ import net.katsuster.strview.media.*;
  * ソースパケット。
  * </p>
  */
-public class SrcPacket<T extends LargeList<?>> extends PacketAdapter<T> {
+public class SrcPacket extends BitPacketAdapter {
     public SrcPacket() {
         this(new SrcHeader(""));
     }
@@ -28,12 +28,12 @@ public class SrcPacket<T extends LargeList<?>> extends PacketAdapter<T> {
     }
 
     @Override
-    protected void readHeader(StreamReader<?, ?> c) {
+    protected void readHeaderBits(BitStreamReader c) {
         getHeader().read(c);
     }
 
     @Override
-    protected void readBody(StreamReader<?, ?> c) {
+    protected void readBodyBits(BitStreamReader c) {
         long size_f;
 
         //FIXME: サイズは固定の長さ
@@ -41,16 +41,16 @@ public class SrcPacket<T extends LargeList<?>> extends PacketAdapter<T> {
 
         //ヘッダ以降の本体を読み込む
         size_f -= getHeaderLength();
-        setBody(c.readBitList(size_f, getBody()));
+        setBody(c.readBitList(size_f, (LargeBitList) getBody()));
     }
 
     @Override
-    protected void writeHeader(StreamWriter<?, ?> c) {
+    protected void writeHeaderBits(BitStreamWriter c) {
         getHeader().write(c);
     }
 
     @Override
-    protected void writeBody(StreamWriter<?, ?> c) {
+    protected void writeBodyBits(BitStreamWriter c) {
         long size_f;
 
         //FIXME: サイズは固定の長さ
@@ -58,6 +58,6 @@ public class SrcPacket<T extends LargeList<?>> extends PacketAdapter<T> {
 
         //ヘッダ以降の本体を書き込む
         size_f -= getHeaderLength();
-        c.writeBitList(size_f, getBody(), "body");
+        c.writeBitList(size_f, (LargeBitList) getBody(), "body");
     }
 }

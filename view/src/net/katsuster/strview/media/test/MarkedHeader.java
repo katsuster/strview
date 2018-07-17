@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * 先頭にマーカーのあるパケットヘッダ。
  * </p>
  */
-public class MarkedHeader<T extends LargeList<?>>
-        extends BlockAdapter<T>
+public class MarkedHeader
+        extends BitBlockAdapter
         implements Cloneable {
     public UInt start_code;
 
@@ -18,9 +18,9 @@ public class MarkedHeader<T extends LargeList<?>>
     }
 
     @Override
-    public MarkedHeader<T> clone()
+    public MarkedHeader clone()
             throws CloneNotSupportedException {
-        MarkedHeader<T> obj = (MarkedHeader<T>)super.clone();
+        MarkedHeader obj = (MarkedHeader)super.clone();
 
         obj.start_code = (UInt)start_code.clone();
 
@@ -33,12 +33,12 @@ public class MarkedHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            MarkedHeader d) {
+    public static void readBits(BitStreamReader c,
+                                MarkedHeader d) {
         c.enterBlock(d);
 
         d.start_code = c.readUInt(32, d.start_code);
@@ -47,12 +47,12 @@ public class MarkedHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             MarkedHeader d) {
+    public static void writeBits(BitStreamWriter c,
+                                 MarkedHeader d) {
         c.enterBlock(d);
 
         c.writeUInt(32, d.start_code);
