@@ -15,7 +15,7 @@ import net.katsuster.strview.util.*;
  *
  * @see BlockAdapter
  */
-public interface Block<T extends LargeList<?>>
+public interface Block<T>
         extends Cloneable, Named {
     /**
      * オブジェクトのコピーを作成し、返します。
@@ -33,7 +33,7 @@ public interface Block<T extends LargeList<?>>
      *
      * @return データの範囲
      */
-    public Range<T> getRange();
+    public Range<LargeList<T>> getRange();
 
     /**
      * <p>
@@ -42,7 +42,7 @@ public interface Block<T extends LargeList<?>>
      *
      * @param p データの範囲
      */
-    public void setRange(Range<T> p);
+    public void setRange(Range<LargeList<T>> p);
 
     /**
      * <p>
@@ -51,7 +51,7 @@ public interface Block<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    public void peek(StreamReader<?, ?> c);
+    public void peek(StreamReader<T> c);
 
     /**
      * <p>
@@ -60,7 +60,7 @@ public interface Block<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    public void read(StreamReader<?, ?> c);
+    public void read(StreamReader<T> c);
 
     /**
      * <p>
@@ -69,7 +69,7 @@ public interface Block<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    public void poke(StreamWriter<?, ?> c);
+    public void poke(StreamWriter<T> c);
 
     /**
      * <p>
@@ -78,5 +78,5 @@ public interface Block<T extends LargeList<?>>
      *
      * @param c 各メンバの変換を実施するオブジェクト
      */
-    public void write(StreamWriter<?, ?> c);
+    public void write(StreamWriter<T> c);
 }

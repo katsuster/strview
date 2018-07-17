@@ -1,7 +1,7 @@
 package net.katsuster.strview.media;
 
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 import net.katsuster.strview.util.*;
 
@@ -36,10 +36,10 @@ import net.katsuster.strview.util.*;
  *
  * @see BlockAdapter
  */
-public abstract class AbstractBlock<T extends LargeList<?>>
-        implements Block<T>, Range<T> {
+public abstract class AbstractBlock<T>
+        implements Block<T>, Range<LargeList<T>> {
     private String name;
-    private Range<T> pos;
+    private Range<LargeList<T>> pos;
 
     public AbstractBlock() {
         this("");
@@ -83,12 +83,12 @@ public abstract class AbstractBlock<T extends LargeList<?>>
     }
 
     @Override
-    public T getBuffer() {
+    public LargeList<T> getBuffer() {
         return pos.getBuffer();
     }
 
     @Override
-    public void setBuffer(T b) {
+    public void setBuffer(LargeList<T> b) {
         pos.setBuffer(b);
     }
 
@@ -138,14 +138,14 @@ public abstract class AbstractBlock<T extends LargeList<?>>
     }
 
     @Override
-    public void peek(StreamReader<?, ?> c) {
+    public void peek(StreamReader<T> c) {
         long orgpos = c.position();
         read(c);
         c.position(orgpos);
     }
 
     @Override
-    public void poke(StreamWriter<?, ?> c) {
+    public void poke(StreamWriter<T> c) {
         long orgpos = c.position();
         write(c);
         c.position(orgpos);
@@ -153,11 +153,38 @@ public abstract class AbstractBlock<T extends LargeList<?>>
 
     @Override
     public String toString() {
-        ToStringConverter c = new ToStringConverter(new StringBuilder());
+        ToStringConverter<T> c = new ToStringConverter<>(new StringBuilder());
 
         write(c);
 
         return c.getResult().toString();
+    }
+
+    /**
+     * <p>
+     * 値が負の値だった場合、例外をスローします。
+     * </p>
+     *
+     * @param v 値
+     */
+    protected static void checkNegative(Num v) {
+        checkNegative(v.getName(), v);
+    }
+
+    /**
+     * <p>
+     * 値が負の値だった場合、例外をスローします。
+     * </p>
+     *
+     * @param name 名前
+     * @param v    値
+     */
+    protected static void checkNegative(String name, Num v) {
+        if (v.intValue() < 0) {
+            throw new IllegalStateException(
+                    name + " has negative size"
+                            + "(len:" + v + ")");
+        }
     }
 
     /**
@@ -179,7 +206,7 @@ public abstract class AbstractBlock<T extends LargeList<?>>
      * @throws IllegalArgumentException 読み出すオブジェクト数が不適切であるとき
      * @throws IndexOutOfBoundsException 現在位置がリミット以上である場合
      */
-    public static <T extends Block> List<T> readObjectList(StreamReader<?, ?> c, int n, List<T> lst, Class<? extends T> cls) {
+    public static <T extends Block> List<T> readObjectList(BitStreamReader c, int n, List<T> lst, Class<? extends T> cls) {
         try {
             if (lst == null) {
                 lst = new ArrayList<>();
@@ -215,37 +242,10 @@ public abstract class AbstractBlock<T extends LargeList<?>>
      * @throws IllegalArgumentException ビット数が不適切であるとき
      * @throws IndexOutOfBoundsException 現在位置がリミット以上である場合
      */
-    public static <T extends Block> void writeObjectList(StreamWriter<?, ?> c, int n, List<T> lst, String name) {
+    public static <T extends Block> void writeObjectList(BitStreamWriter c, int n, List<T> lst, String name) {
         for (int i = 0; i < n; i++) {
             c.mark(name, i);
             lst.get(i).write(c);
-        }
-    }
-
-    /**
-     * <p>
-     * 値が負の値だった場合、例外をスローします。
-     * </p>
-     *
-     * @param v    値
-     */
-    protected static void checkNegative(Num v) {
-        checkNegative(v.getName(), v);
-    }
-
-    /**
-     * <p>
-     * 値が負の値だった場合、例外をスローします。
-     * </p>
-     *
-     * @param name 名前
-     * @param v    値
-     */
-    protected static void checkNegative(String name, Num v) {
-        if (v.intValue() < 0) {
-            throw new IllegalStateException(
-                    name + " has negative size"
-                            + "(len:" + v + ")");
         }
     }
 

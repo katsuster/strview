@@ -1,7 +1,5 @@
 package net.katsuster.strview.media;
 
-import net.katsuster.strview.util.*;
-
 /**
  * <p>
  * 何もメンバを持たないブロックを表すためのユーティリティクラスです。
@@ -16,8 +14,7 @@ import net.katsuster.strview.util.*;
  *     <li>write 関数は何も書き込みません。</li>
  * </ul>
  */
-public class BlockAdapter<T extends LargeList<?>>
-        extends AbstractBlock<T> {
+public class BlockAdapter<T> extends AbstractBlock<T> {
     public BlockAdapter() {
         super();
     }
@@ -27,12 +24,12 @@ public class BlockAdapter<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
+    public void read(StreamReader<T> c) {
         //do nothing
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
+    public void write(StreamWriter<T> c) {
         //do nothing
     }
 }
