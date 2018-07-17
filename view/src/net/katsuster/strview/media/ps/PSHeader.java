@@ -17,7 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Systems</li>
  * </ul>
  */
-public class PSHeader<T extends LargeList<?>> extends BlockAdapter<T>
+public class PSHeader
+        extends BitBlockAdapter
         implements Cloneable {
     public UInt packet_start_code_prefix;
     public UInt stream_id;
@@ -28,9 +29,9 @@ public class PSHeader<T extends LargeList<?>> extends BlockAdapter<T>
     }
 
     @Override
-    public PSHeader<T> clone()
+    public PSHeader clone()
             throws CloneNotSupportedException {
-        PSHeader<T> obj = (PSHeader<T>)super.clone();
+        PSHeader obj = (PSHeader)super.clone();
 
         obj.packet_start_code_prefix = (UInt)packet_start_code_prefix.clone();
         obj.stream_id = (UInt)stream_id.clone();
@@ -44,12 +45,12 @@ public class PSHeader<T extends LargeList<?>> extends BlockAdapter<T>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            PSHeader d) {
+    public static void readBits(BitStreamReader c,
+                                PSHeader d) {
         c.enterBlock(d);
 
         d.packet_start_code_prefix = c.readUInt(24, d.packet_start_code_prefix);
@@ -59,12 +60,12 @@ public class PSHeader<T extends LargeList<?>> extends BlockAdapter<T>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             PSHeader d) {
+    public static void writeBits(BitStreamWriter c,
+                                 PSHeader d) {
         c.enterBlock(d);
 
         c.writeUInt(24, d.packet_start_code_prefix);

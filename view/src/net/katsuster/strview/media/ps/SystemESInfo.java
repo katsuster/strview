@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Systems</li>
  * </ul>
  */
-public class SystemESInfo<T extends LargeList<?>>
-        extends BlockAdapter<T>
+public class SystemESInfo
+        extends BitBlockAdapter
         implements Cloneable {
     public UInt stream_id;
     public UInt reserved1; //must be '11'
@@ -39,9 +39,9 @@ public class SystemESInfo<T extends LargeList<?>>
     }
 
     @Override
-    public SystemESInfo<T> clone()
+    public SystemESInfo clone()
             throws CloneNotSupportedException {
-        SystemESInfo<T> obj = (SystemESInfo<T>)super.clone();
+        SystemESInfo obj = (SystemESInfo)super.clone();
 
         stream_id = (UInt)stream_id.clone();
         reserved1 = (UInt)reserved1.clone();
@@ -57,12 +57,12 @@ public class SystemESInfo<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            SystemESInfo d) {
+    public static void readBits(BitStreamReader c,
+                                SystemESInfo d) {
         c.enterBlock(d);
 
         d.stream_id                = c.readUInt( 8, d.stream_id               );
@@ -74,12 +74,12 @@ public class SystemESInfo<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             SystemESInfo d) {
+    public static void writeBits(BitStreamWriter c,
+                                 SystemESInfo d) {
         c.enterBlock(d);
 
         c.writeUInt( 8, d.stream_id               , d.getStreamIdNameSystemHeader());

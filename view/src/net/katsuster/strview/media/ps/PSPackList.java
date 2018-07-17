@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * MPEG2-PS (Program Stream) パックリスト。
  * </p>
  */
-public class PSPackList<T extends LargeList<?>>
-        extends AbstractPacketList<PSPack<T>, T> {
+public class PSPackList
+        extends AbstractPacketList<PSPack, Boolean> {
     private LargeBitList buf;
 
     public PSPackList() {
@@ -23,7 +23,7 @@ public class PSPackList<T extends LargeList<?>>
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         return "MPEG1 System / MPEG2 PS (Program Stream)";
     }
 
@@ -40,10 +40,10 @@ public class PSPackList<T extends LargeList<?>>
     }
 
     @Override
-    protected PSPack<T> readNextInner(StreamReader<?, ?> c, PacketRange<T> pr) {
-        PSHeader<T> tagh = createHeader(c, pr);
+    protected PSPack readNextInner(StreamReader<Boolean> c, PacketRange<LargeList<Boolean>> pr) {
+        PSHeader tagh = createHeader(c, pr);
 
-        PSPack<T> packet = new PSPack<>(tagh);
+        PSPack packet = new PSPack(tagh);
         packet.setRange(pr);
         packet.read(c);
 
@@ -51,23 +51,23 @@ public class PSPackList<T extends LargeList<?>>
     }
 
     @Override
-    protected PSPack<T> getInner(long index) {
+    protected PSPack getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
         seek(c, index);
 
-        return (PSPack<T>)readNext(c, index);
+        return (PSPack)readNext(c, index);
     }
 
     @Override
-    protected void setInner(long index, PSPack<T> data) {
+    protected void setInner(long index, PSPack data) {
         //TODO: not implemented yet
     }
 
-    protected PSHeader<T> createHeader(StreamReader<?, ?> c, PacketRange<T> pr) {
-        PSHeader<T> tagh;
+    protected PSHeader createHeader(StreamReader<Boolean> c, PacketRange<LargeList<Boolean>> pr) {
+        PSHeader tagh;
 
-        PSHeader<T> tmph = new PSHeader<>();
+        PSHeader tmph = new PSHeader();
         tmph.peek(c);
 
         tagh = PSConsts.psFactory.createPacketHeader(

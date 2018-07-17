@@ -8,7 +8,7 @@ import net.katsuster.strview.media.*;
  * MPEG2-PS (Program Stream) パック。
  * </p>
  */
-public class PSPack<T extends LargeList<?>> extends PacketAdapter<T> {
+public class PSPack extends BitPacketAdapter {
     //PS パケットのヘッダサイズ（byte 単位）
     public static final int PACKET_HEADER_SIZE = 6;
 
@@ -38,12 +38,12 @@ public class PSPack<T extends LargeList<?>> extends PacketAdapter<T> {
     }
 
     @Override
-    protected void readHeader(StreamReader<?, ?> c) {
+    protected void readHeaderBits(BitStreamReader c) {
         getHeader().read(c);
     }
 
     @Override
-    protected void readBody(StreamReader<?, ?> c) {
+    protected void readBodyBits(BitStreamReader c) {
         long orgpos;
         long size_f = 0;
         boolean search = false;
@@ -80,19 +80,19 @@ public class PSPack<T extends LargeList<?>> extends PacketAdapter<T> {
             c.position(orgpos);
         }
 
-        setBody(c.readBitList(size_f, getBody()));
+        setBody(c.readBitList(size_f, (LargeBitList) getBody()));
     }
 
     @Override
-    protected void writeHeader(StreamWriter<?, ?> c) {
+    protected void writeHeaderBits(BitStreamWriter c) {
         getHeader().write(c);
     }
 
     @Override
-    protected void writeBody(StreamWriter<?, ?> c) {
+    protected void writeBodyBits(BitStreamWriter c) {
         long size_f = getBody().length();
 
         //FIXME: tentative
-        c.writeBitList(size_f, getBody(), "body");
+        c.writeBitList(size_f, (LargeBitList) getBody(), "body");
     }
 }

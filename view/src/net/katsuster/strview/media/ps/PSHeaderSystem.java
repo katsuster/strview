@@ -19,8 +19,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Systems</li>
  * </ul>
  */
-public class PSHeaderSystem<T extends LargeList<?>>
-        extends PSHeader<T> {
+public class PSHeaderSystem
+        extends PSHeader {
     public UInt header_length;
     public UInt marker_bit1;
     public UInt rate_bound;
@@ -35,7 +35,7 @@ public class PSHeaderSystem<T extends LargeList<?>>
     public UInt packet_rate_restriction_flag;
     public UInt reserved_bits;
 
-    public List<SystemESInfo<T>> es_info;
+    public List<SystemESInfo> es_info;
 
     public PSHeaderSystem() {
         header_length          = new UInt("header_length");
@@ -56,9 +56,9 @@ public class PSHeaderSystem<T extends LargeList<?>>
     }
 
     @Override
-    public PSHeaderSystem<T> clone()
+    public PSHeaderSystem clone()
             throws CloneNotSupportedException {
-        PSHeaderSystem<T> obj = (PSHeaderSystem<T>)super.clone();
+        PSHeaderSystem obj = (PSHeaderSystem)super.clone();
 
         obj.header_length = (UInt)header_length.clone();
         obj.marker_bit1 = (UInt)marker_bit1.clone();
@@ -88,15 +88,15 @@ public class PSHeaderSystem<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            PSHeaderSystem d) {
+    public static void readBits(BitStreamReader c,
+                                PSHeaderSystem d) {
         c.enterBlock(d);
 
-        PSHeader.read(c, d);
+        PSHeader.readBits(c, d);
 
         d.header_length                = c.readUInt(16, d.header_length               );
         d.marker_bit1                  = c.readUInt( 1, d.marker_bit1                 );
@@ -123,15 +123,15 @@ public class PSHeaderSystem<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             PSHeaderSystem d) {
+    public static void writeBits(BitStreamWriter c,
+                                 PSHeaderSystem d) {
         c.enterBlock(d);
 
-        PSHeader.write(c, d);
+        PSHeader.writeBits(c, d);
 
         c.writeUInt(16, d.header_length               );
         c.writeUInt( 1, d.marker_bit1                 );

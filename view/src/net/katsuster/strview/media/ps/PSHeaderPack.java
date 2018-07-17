@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Systems</li>
  * </ul>
  */
-public class PSHeaderPack<T extends LargeList<?>>
-        extends PSHeader<T>
+public class PSHeaderPack
+        extends PSHeader
         implements Cloneable {
     public UInt reserved1; //must be '0010 (MPEG1)' or '01 (MPEG2)'
     public UInt system_clock_reference_base_high;
@@ -55,9 +55,9 @@ public class PSHeaderPack<T extends LargeList<?>>
     }
 
     @Override
-    public PSHeaderPack<T> clone()
+    public PSHeaderPack clone()
             throws CloneNotSupportedException {
-        PSHeaderPack<T> obj = (PSHeaderPack<T>)super.clone();
+        PSHeaderPack obj = (PSHeaderPack)super.clone();
 
         obj.reserved1 = (UInt)reserved1.clone();
         obj.system_clock_reference_base_high = (UInt)system_clock_reference_base_high.clone();
@@ -84,15 +84,15 @@ public class PSHeaderPack<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            PSHeaderPack d) {
+    public static void readBits(BitStreamReader c,
+                                PSHeaderPack d) {
         c.enterBlock(d);
 
-        PSHeader.read(c, d);
+        PSHeader.readBits(c, d);
 
         if (c.peekLong(2) == 0) {
             readMPEG1(c, d);
@@ -103,7 +103,7 @@ public class PSHeaderPack<T extends LargeList<?>>
         c.leaveBlock();
     }
 
-    public static void readMPEG1(StreamReader<?, ?> c,
+    public static void readMPEG1(BitStreamReader c,
                                  PSHeaderPack d) {
         d.reserved1                        = c.readUInt( 4, d.reserved1                       );
         d.system_clock_reference_base_high = c.readUInt( 3, d.system_clock_reference_base_high);
@@ -117,7 +117,7 @@ public class PSHeaderPack<T extends LargeList<?>>
         d.marker_bit5                      = c.readUInt( 1, d.marker_bit5                     );
     }
 
-    public static void readMPEG2(StreamReader<?, ?> c,
+    public static void readMPEG2(BitStreamReader c,
                                  PSHeaderPack d) {
         int size_st;
 
@@ -146,15 +146,15 @@ public class PSHeaderPack<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             PSHeaderPack d) {
+    public static void writeBits(BitStreamWriter c,
+                                 PSHeaderPack d) {
         c.enterBlock(d);
 
-        PSHeader.write(c, d);
+        PSHeader.writeBits(c, d);
 
         if (d.reserved1.intValue() == 2) {
             writeMPEG1(c, d);
@@ -165,7 +165,7 @@ public class PSHeaderPack<T extends LargeList<?>>
         c.leaveBlock();
     }
 
-    public static void writeMPEG1(StreamWriter<?, ?> c,
+    public static void writeMPEG1(BitStreamWriter c,
                                   PSHeaderPack d) {
         c.writeUInt( 4, d.reserved1                       );
         c.writeUInt( 3, d.system_clock_reference_base_high);
@@ -180,7 +180,7 @@ public class PSHeaderPack<T extends LargeList<?>>
         c.writeUInt( 1, d.marker_bit5                     );
     }
 
-    public static void writeMPEG2(StreamWriter<?, ?> c,
+    public static void writeMPEG2(BitStreamWriter c,
                                   PSHeaderPack d) {
         c.writeUInt( 2, d.reserved1                       );
         c.writeUInt( 3, d.system_clock_reference_base_high);

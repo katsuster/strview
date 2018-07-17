@@ -17,17 +17,17 @@ import net.katsuster.strview.util.*;
  * associated audio information: Systems</li>
  * </ul>
  */
-public class PSHeaderPESPadding<T extends LargeList<?>>
-        extends PSHeaderPES<T>
+public class PSHeaderPESPadding
+        extends PSHeaderPES
         implements Cloneable {
     public PSHeaderPESPadding() {
         //Do nothing
     }
 
     @Override
-    public PSHeaderPESPadding<T> clone()
+    public PSHeaderPESPadding clone()
             throws CloneNotSupportedException {
-        PSHeaderPESPadding<T> obj = (PSHeaderPESPadding<T>)super.clone();
+        PSHeaderPESPadding obj = (PSHeaderPESPadding)super.clone();
 
         return obj;
     }
@@ -38,29 +38,29 @@ public class PSHeaderPESPadding<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            PSHeaderPESPadding d) {
+    public static void readBits(BitStreamReader c,
+                                PSHeaderPESPadding d) {
         c.enterBlock(d);
 
-        PSHeaderPES.read(c, d);
+        PSHeaderPES.readBits(c, d);
 
         c.leaveBlock();
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             PSHeaderPESPadding d) {
+    public static void writeBits(BitStreamWriter c,
+                                 PSHeaderPESPadding d) {
         c.enterBlock(d);
 
-        PSHeaderPES.write(c, d);
+        PSHeaderPES.writeBits(c, d);
 
         c.leaveBlock();
     }
