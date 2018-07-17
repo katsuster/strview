@@ -38,7 +38,7 @@ public class PacketTreeViewer extends JPanel {
 
         //ルートのみを持つツリービューアを作成する
         root = new DefaultMutableTreeNode();
-        root.setUserObject(l.getShortName());
+        root.setUserObject(l.getTypeName());
         viewer = new JTree(root);
         viewer.setRootVisible(true);
 

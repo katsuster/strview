@@ -139,7 +139,7 @@ public class PacketTreeViewerPanel extends ViewerPanel {
 
     @Override
     public String getShortName() {
-        return list_packet.getShortName();
+        return list_packet.getTypeName();
     }
 
     public LargePacketList<?> getPacketList() {
@@ -442,10 +442,10 @@ public class PacketTreeViewerPanel extends ViewerPanel {
             memberTextViewer.repaint();
 
             //ノードのツリー表現を表示する
-            StreamWriter<Boolean, MemberTreeNode> c = new ToMemberTreeNodeConverter();
+            ToMemberTreeNodeConverter c = new ToMemberTreeNodeConverter();
             p.write(c);
             MemberTreeNode root = c.getResult();
-            root.setName(getPacketList().getShortName());
+            root.setName(getPacketList().getTypeName());
             memberTreeViewer.setRootTreeNode(root);
             JTree v = memberTreeViewer.getViewer();
             while (true) {
