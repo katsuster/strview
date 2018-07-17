@@ -36,7 +36,7 @@ public class UIntTest {
         UInt va = new UInt("", la, 2, 3);
 
         assertEquals(msg1, 0, va.getRaw());
-        assertEquals(msg1, 2, va.getSourceStart());
+        assertEquals(msg1, 2, va.getRange().getStart());
         assertEquals(msg1, 3, va.length());
     }
 
@@ -49,29 +49,29 @@ public class UIntTest {
         UInt vb = new UInt(va);
 
         assertEquals(msg1, va.getRaw(), vb.getRaw());
-        assertEquals(msg1, va.getSourceStart(), vb.getSourceStart());
-        assertEquals(msg1, va.getSourceEnd(), vb.getSourceEnd());
+        assertEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
         vb.setRaw(10);
-        vb.setSourceStart(20);
-        vb.setSourceEnd(30);
+        vb.getRange().setStart(20);
+        vb.getRange().setEnd(30);
         assertNotEquals(msg1, va.getRaw(), vb.getRaw());
-        assertNotEquals(msg1, va.getSourceStart(), vb.getSourceStart());
-        assertNotEquals(msg1, va.getSourceEnd(), vb.getSourceEnd());
+        assertNotEquals(msg1, va.getRange().getStart(), vb.getRange().getStart());
+        assertNotEquals(msg1, va.getRange().getEnd(), vb.getRange().getEnd());
 
         try {
             UInt vc = (UInt)va.clone();
 
             assertEquals(msg2, va.getRaw(), vc.getRaw());
-            assertEquals(msg2, va.getSourceStart(), vc.getSourceStart());
-            assertEquals(msg2, va.getSourceEnd(), vc.getSourceEnd());
+            assertEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
 
             vc.setRaw(100);
-            vc.setSourceStart(4);
-            vc.setSourceEnd(10);
+            vc.getRange().setStart(4);
+            vc.getRange().setEnd(10);
             assertNotEquals(msg2, va.getRaw(), vc.getRaw());
-            assertNotEquals(msg2, va.getSourceStart(), vc.getSourceStart());
-            assertNotEquals(msg2, va.getSourceEnd(), vc.getSourceEnd());
+            assertNotEquals(msg2, va.getRange().getStart(), vc.getRange().getStart());
+            assertNotEquals(msg2, va.getRange().getEnd(), vc.getRange().getEnd());
         } catch (Exception ex) {
             fail(msg2);
         }
