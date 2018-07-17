@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * Matroska unsigned integer
  * </p>
  */
-public class MKVHeaderUInt<T extends LargeList<?>>
-        extends MKVHeader<T> {
+public class MKVHeaderUInt
+        extends MKVHeader {
     public UInt uint_val;
 
     public MKVHeaderUInt() {
@@ -17,9 +17,9 @@ public class MKVHeaderUInt<T extends LargeList<?>>
     }
 
     @Override
-    public MKVHeaderUInt<T> clone()
+    public MKVHeaderUInt clone()
             throws CloneNotSupportedException {
-        MKVHeaderUInt<T> obj = (MKVHeaderUInt<T>)super.clone();
+        MKVHeaderUInt obj = (MKVHeaderUInt)super.clone();
 
         obj.uint_val = (UInt)uint_val.clone();
 
@@ -37,15 +37,15 @@ public class MKVHeaderUInt<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            MKVHeaderUInt d) {
+    public static void readBits(BitStreamReader c,
+                                MKVHeaderUInt d) {
         c.enterBlock(d);
 
-        MKVHeader.read(c, d);
+        MKVHeader.readBits(c, d);
 
         d.uint_val = c.readUInt((int)d.tag_len.getValue() << 3, d.uint_val);
 
@@ -53,15 +53,15 @@ public class MKVHeaderUInt<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             MKVHeaderUInt d) {
+    public static void writeBits(BitStreamWriter c,
+                                 MKVHeaderUInt d) {
         c.enterBlock(d);
 
-        MKVHeader.write(c, d);
+        MKVHeader.writeBits(c, d);
 
         c.writeUInt((int)d.tag_len.getValue() << 3, d.uint_val);
 

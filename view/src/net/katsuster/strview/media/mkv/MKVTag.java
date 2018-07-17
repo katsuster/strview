@@ -8,7 +8,7 @@ import net.katsuster.strview.media.*;
  * Matroska タグ。
  * </p>
  */
-public class MKVTag<T extends LargeList<?>> extends PacketAdapter<T> {
+public class MKVTag extends BitPacketAdapter {
     //Matroska タグ最小ヘッダサイズ（byte 単位、id と size の最小値）
     public static final int TAG_HEADER_SIZE = 2;
 
@@ -65,12 +65,12 @@ public class MKVTag<T extends LargeList<?>> extends PacketAdapter<T> {
     }
 
     @Override
-    protected void readHeader(StreamReader<?, ?> c) {
+    protected void readHeaderBits(BitStreamReader c) {
         getHeader().read(c);
     }
 
     @Override
-    protected void readBody(StreamReader<?, ?> c) {
+    protected void readBodyBits(BitStreamReader c) {
         MKVHeader head = getHeader();
         long size_f;
 
@@ -80,19 +80,19 @@ public class MKVTag<T extends LargeList<?>> extends PacketAdapter<T> {
                 + (getTagLength() << 3);
 
         size_f -= getHeaderLength();
-        setBody(c.readBitList(size_f, getBody()));
+        setBody(c.readBitList(size_f, (LargeBitList) getBody()));
     }
 
     @Override
-    protected void writeHeader(StreamWriter<?, ?> c) {
+    protected void writeHeaderBits(BitStreamWriter c) {
         getHeader().write(c);
     }
 
     @Override
-    protected void writeBody(StreamWriter<?, ?> c) {
+    protected void writeBodyBits(BitStreamWriter c) {
         long size_f = getBody().length();
 
         //FIXME: tentative
-        c.writeBitList(size_f, getBody(), "body");
+        c.writeBitList(size_f, (LargeBitList) getBody(), "body");
     }
 }

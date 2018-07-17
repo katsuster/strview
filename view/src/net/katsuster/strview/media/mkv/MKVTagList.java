@@ -32,8 +32,8 @@ import net.katsuster.strview.media.*;
  * ナノ秒で表した符号付き整数を含むタグ。</dd>
  * </dl>
  */
-public class MKVTagList<T extends LargeList<?>>
-        extends AbstractPacketList<MKVTag<T>, T> {
+public class MKVTagList
+        extends AbstractPacketList<MKVTag, Boolean> {
     private LargeBitList buf;
 
     public MKVTagList() {
@@ -47,7 +47,7 @@ public class MKVTagList<T extends LargeList<?>>
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         return "Matroska";
     }
 
@@ -59,10 +59,10 @@ public class MKVTagList<T extends LargeList<?>>
     }
 
     @Override
-    protected MKVTag<T> readNextInner(StreamReader<?, ?> c, PacketRange<T> pr) {
-        MKVHeader<T> tagh = createHeader(c, pr);
+    protected MKVTag readNextInner(StreamReader<Boolean> c, PacketRange<LargeList<Boolean>> pr) {
+        MKVHeader tagh = createHeader(c, pr);
 
-        MKVTag<T> packet = new MKVTag<>(tagh);
+        MKVTag packet = new MKVTag(tagh);
         packet.setRange(pr);
         packet.read(c);
 
@@ -70,24 +70,24 @@ public class MKVTagList<T extends LargeList<?>>
     }
 
     @Override
-    protected MKVTag<T> getInner(long index) {
+    protected MKVTag getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
         seek(c, index);
 
-        return (MKVTag<T>)readNext(c, index);
+        return (MKVTag)readNext(c, index);
     }
 
     @Override
-    protected void setInner(long index, MKVTag<T> data) {
+    protected void setInner(long index, MKVTag data) {
         //TODO: not implemented yet
     }
 
-    protected MKVHeader createHeader(StreamReader<?, ?> c, PacketRange<T> pr) {
-        MKVHeader<T> tmph = new MKVHeader<>();
+    protected MKVHeader createHeader(StreamReader<Boolean> c, PacketRange<LargeList<Boolean>> pr) {
+        MKVHeader tmph = new MKVHeader();
         tmph.peek(c);
 
-        MKVHeader<T> tagh = MKVConsts.mkvFactory.createPacketHeader(
+        MKVHeader tagh = MKVConsts.mkvFactory.createPacketHeader(
                 (int)tmph.tag_id.getValue());
         if (tagh == null) {
             //タグの仕様定義にあるデータ型から類推する

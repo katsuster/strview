@@ -32,8 +32,8 @@ import net.katsuster.strview.media.*;
  *
  * @see EBMLvalue
  */
-public class EBMLvid<T extends LargeList<?>>
-        extends EBMLvint<T>
+public class EBMLvid
+        extends EBMLvint
         implements Cloneable {
     public UInt vint_tag;
 
@@ -48,9 +48,9 @@ public class EBMLvid<T extends LargeList<?>>
     }
 
     @Override
-    public EBMLvid<T> clone()
+    public EBMLvid clone()
             throws CloneNotSupportedException {
-        EBMLvid<T> obj = (EBMLvid<T>)super.clone();
+        EBMLvid obj = (EBMLvid)super.clone();
 
         obj.vint_tag = (UInt)vint_tag.clone();
 
@@ -77,12 +77,12 @@ public class EBMLvid<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            EBMLvid d) {
+    public static void readBits(BitStreamReader c,
+                                EBMLvid d) {
         c.enterBlock(d);
 
         //可変長整数全体の長さを得る
@@ -97,12 +97,12 @@ public class EBMLvid<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             EBMLvid d) {
+    public static void writeBits(BitStreamWriter c,
+                                 EBMLvid d) {
         c.enterBlock(d);
 
         c.writeUInt(d.getSizeAll(), d.vint_tag);

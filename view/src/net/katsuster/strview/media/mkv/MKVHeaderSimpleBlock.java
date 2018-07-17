@@ -11,9 +11,9 @@ import net.katsuster.strview.media.mkv.MKVConsts.*;
  * Matroska SimpleBlock タグヘッダ。
  * </p>
  */
-public class MKVHeaderSimpleBlock<T extends LargeList<?>>
-        extends MKVHeader<T> {
-    public EBMLvalue<T> track_number;
+public class MKVHeaderSimpleBlock
+        extends MKVHeader {
+    public EBMLvalue track_number;
     public UInt timecode;
     public UInt keyframe;
     public UInt reserved1;
@@ -23,14 +23,14 @@ public class MKVHeaderSimpleBlock<T extends LargeList<?>>
 
     //EBML lacing
     public UInt lacing_head;
-    public EBMLvalue<T> lacing_size0;
-    public ArrayList<EBMLlacing<T>> lacing_diffs;
+    public EBMLvalue lacing_size0;
+    public ArrayList<EBMLlacing> lacing_diffs;
 
     //Lacing の各フレームのサイズ（バイト単位）
     private ArrayList<Long> lacing_sizes;
 
     public MKVHeaderSimpleBlock() {
-        track_number = new EBMLvalue<>("track_number");
+        track_number = new EBMLvalue("track_number");
         timecode     = new UInt("timecode"    );
         keyframe     = new UInt("keyframe"    );
         reserved1    = new UInt("reserved1"   );
@@ -39,16 +39,16 @@ public class MKVHeaderSimpleBlock<T extends LargeList<?>>
         discardable  = new UInt("discardable" );
 
         lacing_head  = new UInt("lacing_head" );
-        lacing_size0 = new EBMLvalue<>("lacing_size0");
+        lacing_size0 = new EBMLvalue("lacing_size0");
         lacing_diffs = new ArrayList<>();
 
         lacing_sizes = new ArrayList<>();
     }
 
     @Override
-    public MKVHeaderSimpleBlock<T> clone()
+    public MKVHeaderSimpleBlock clone()
             throws CloneNotSupportedException {
-        MKVHeaderSimpleBlock<T> obj = (MKVHeaderSimpleBlock<T>)super.clone();
+        MKVHeaderSimpleBlock obj = (MKVHeaderSimpleBlock)super.clone();
 
         obj.track_number = track_number.clone();
         obj.timecode = (UInt)timecode.clone();
@@ -62,7 +62,7 @@ public class MKVHeaderSimpleBlock<T extends LargeList<?>>
         obj.lacing_size0 = lacing_size0.clone();
 
         obj.lacing_diffs = new ArrayList<>();
-        for (EBMLlacing<T> v : lacing_diffs) {
+        for (EBMLlacing v : lacing_diffs) {
             obj.lacing_diffs.add(v.clone());
         }
 
@@ -85,15 +85,15 @@ public class MKVHeaderSimpleBlock<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            MKVHeaderSimpleBlock d) {
+    public static void readBits(BitStreamReader c,
+                                MKVHeaderSimpleBlock d) {
         c.enterBlock(d);
 
-        MKVHeader.read(c, d);
+        MKVHeader.readBits(c, d);
 
         long pos = c.position();
 
@@ -138,15 +138,15 @@ public class MKVHeaderSimpleBlock<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             MKVHeaderSimpleBlock d) {
+    public static void writeBits(BitStreamWriter c,
+                                 MKVHeaderSimpleBlock d) {
         c.enterBlock(d);
 
-        MKVHeader.write(c, d);
+        MKVHeader.writeBits(c, d);
 
         c.mark("track_number", "");
         d.track_number.write(c);

@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * Matroska float
  * </p>
  */
-public class MKVHeaderFloat<T extends LargeList<?>>
-        extends MKVHeader<T> {
+public class MKVHeaderFloat
+        extends MKVHeader {
     public Float32 float_bits;
     public Float64 double_bits;
 
@@ -19,9 +19,9 @@ public class MKVHeaderFloat<T extends LargeList<?>>
     }
 
     @Override
-    public MKVHeaderFloat<T> clone()
+    public MKVHeaderFloat clone()
             throws CloneNotSupportedException {
-        MKVHeaderFloat<T> obj = (MKVHeaderFloat<T>)super.clone();
+        MKVHeaderFloat obj = (MKVHeaderFloat)super.clone();
 
         obj.float_bits = (Float32)float_bits.clone();
         obj.double_bits = (Float64)double_bits.clone();
@@ -40,15 +40,15 @@ public class MKVHeaderFloat<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            MKVHeaderFloat d) {
+    public static void readBits(BitStreamReader c,
+                                MKVHeaderFloat d) {
         c.enterBlock(d);
 
-        MKVHeader.read(c, d);
+        MKVHeader.readBits(c, d);
 
         int val = (int)d.tag_len.getValue();
         switch (val) {
@@ -67,15 +67,15 @@ public class MKVHeaderFloat<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             MKVHeaderFloat d) {
+    public static void writeBits(BitStreamWriter c,
+                                 MKVHeaderFloat d) {
         c.enterBlock(d);
 
-        MKVHeader.write(c, d);
+        MKVHeader.writeBits(c, d);
 
         int val = (int)d.tag_len.getValue();
         switch (val) {

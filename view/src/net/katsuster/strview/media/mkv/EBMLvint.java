@@ -11,8 +11,8 @@ import net.katsuster.strview.util.*;
  * @see EBMLvid
  * @see EBMLvalue
  */
-public abstract class EBMLvint<T extends LargeList<?>>
-        extends BlockAdapter<T>
+public abstract class EBMLvint
+        extends BitBlockAdapter
         implements Cloneable {
     //可変長整数値の全体サイズ（ビット単位）
     private int size_all;
@@ -28,9 +28,9 @@ public abstract class EBMLvint<T extends LargeList<?>>
     }
 
     @Override
-    public EBMLvint<T> clone()
+    public EBMLvint clone()
             throws CloneNotSupportedException {
-        EBMLvint<T> obj = (EBMLvint<T>)super.clone();
+        EBMLvint obj = (EBMLvint)super.clone();
 
         return obj;
     }

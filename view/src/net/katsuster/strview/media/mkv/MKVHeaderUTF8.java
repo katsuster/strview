@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * Matroska UTF-8 string
  * </p>
  */
-public class MKVHeaderUTF8<T extends LargeList<?>>
-        extends MKVHeader<T> {
+public class MKVHeaderUTF8
+        extends MKVHeader {
     public LargeBitList utf8_bits;
 
     public MKVHeaderUTF8() {
@@ -17,9 +17,9 @@ public class MKVHeaderUTF8<T extends LargeList<?>>
     }
 
     @Override
-    public MKVHeaderUTF8<T> clone()
+    public MKVHeaderUTF8 clone()
             throws CloneNotSupportedException {
-        MKVHeaderUTF8<T> obj = (MKVHeaderUTF8<T>)super.clone();
+        MKVHeaderUTF8 obj = (MKVHeaderUTF8)super.clone();
 
         obj.utf8_bits = (LargeBitList)utf8_bits.clone();
 
@@ -37,15 +37,15 @@ public class MKVHeaderUTF8<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            MKVHeaderUTF8 d) {
+    public static void readBits(BitStreamReader c,
+                                MKVHeaderUTF8 d) {
         c.enterBlock(d);
 
-        MKVHeader.read(c, d);
+        MKVHeader.readBits(c, d);
 
         d.utf8_bits = c.readBitList(d.tag_len.getValue() << 3, d.utf8_bits);
 
@@ -53,15 +53,15 @@ public class MKVHeaderUTF8<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             MKVHeaderUTF8 d) {
+    public static void writeBits(BitStreamWriter c,
+                                 MKVHeaderUTF8 d) {
         c.enterBlock(d);
 
-        MKVHeader.write(c, d);
+        MKVHeader.writeBits(c, d);
 
         c.writeBitList(d.tag_len.getValue() << 3, d.utf8_bits, d.getUTF8Name());
 

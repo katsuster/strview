@@ -16,8 +16,8 @@ import net.katsuster.strview.util.*;
  * <li>Matroska: http://www.matroska.org/technical/specs/index.html</li>
  * </ul>
  */
-public class MKVHeader<T extends LargeList<?>>
-        extends EBMLHeader<T> {
+public class MKVHeader
+        extends EBMLHeader {
     //タグの定義
     protected MKVTagSpec tag_spec;
 
@@ -26,9 +26,9 @@ public class MKVHeader<T extends LargeList<?>>
     }
 
     @Override
-    public MKVHeader<T> clone()
+    public MKVHeader clone()
             throws CloneNotSupportedException {
-        MKVHeader<T> obj = (MKVHeader<T>)super.clone();
+        MKVHeader obj = (MKVHeader)super.clone();
 
         return obj;
     }
@@ -50,15 +50,15 @@ public class MKVHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            MKVHeader d) {
+    public static void readBits(BitStreamReader c,
+                                MKVHeader d) {
         c.enterBlock(d);
 
-        EBMLHeader.read(c, d);
+        EBMLHeader.readBits(c, d);
 
         //ID と一致するタグの定義を得る
         d.tag_spec = MKVConsts.getTagSpec(
@@ -68,15 +68,15 @@ public class MKVHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             MKVHeader d) {
+    public static void writeBits(BitStreamWriter c,
+                                 MKVHeader d) {
         c.enterBlock(d);
 
-        EBMLHeader.write(c, d);
+        EBMLHeader.writeBits(c, d);
 
         c.mark("type", d.getTagType(), d.getTagTypeName());
         c.mark("name", d.getTagIdName());

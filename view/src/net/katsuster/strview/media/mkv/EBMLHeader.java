@@ -8,20 +8,20 @@ import net.katsuster.strview.util.*;
  * EBML(Extensible Binary Meta Language) タグヘッダ。
  * </p>
  */
-public class EBMLHeader<T extends LargeList<?>>
-        extends BlockAdapter<T> {
-    public EBMLvid<T> tag_id;
-    public EBMLvalue<T> tag_len;
+public class EBMLHeader
+        extends BitBlockAdapter {
+    public EBMLvid tag_id;
+    public EBMLvalue tag_len;
 
     public EBMLHeader() {
-        tag_id = new EBMLvid<>("tag_id");
-        tag_len = new EBMLvalue<>("tag_len");
+        tag_id = new EBMLvid("tag_id");
+        tag_len = new EBMLvalue("tag_len");
     }
 
     @Override
-    public EBMLHeader<T> clone()
+    public EBMLHeader clone()
             throws CloneNotSupportedException {
-        EBMLHeader<T> obj = (EBMLHeader<T>)super.clone();
+        EBMLHeader obj = (EBMLHeader)super.clone();
 
         obj.tag_id = tag_id.clone();
         obj.tag_len = tag_len.clone();
@@ -35,12 +35,12 @@ public class EBMLHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            EBMLHeader d) {
+    public static void readBits(BitStreamReader c,
+                                EBMLHeader d) {
         c.enterBlock(d);
 
         d.tag_id.read(c);
@@ -50,12 +50,12 @@ public class EBMLHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             EBMLHeader d) {
+    public static void writeBits(BitStreamWriter c,
+                                 EBMLHeader d) {
         c.enterBlock(d);
 
         c.mark("tag_id", "");

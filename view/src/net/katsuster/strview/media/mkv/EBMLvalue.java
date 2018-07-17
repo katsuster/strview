@@ -44,8 +44,8 @@ import net.katsuster.strview.media.*;
  *
  * @see EBMLvid
  */
-public class EBMLvalue<T extends LargeList<?>>
-        extends EBMLvint<T>
+public class EBMLvalue
+        extends EBMLvint
         implements Cloneable {
     public UInt vint_head;
     public UInt vint_val;
@@ -62,9 +62,9 @@ public class EBMLvalue<T extends LargeList<?>>
     }
 
     @Override
-    public EBMLvalue<T> clone()
+    public EBMLvalue clone()
             throws CloneNotSupportedException {
-        EBMLvalue<T> obj = (EBMLvalue<T>)super.clone();
+        EBMLvalue obj = (EBMLvalue)super.clone();
 
         obj.vint_head = (UInt)vint_head.clone();
         obj.vint_val = (UInt)vint_val.clone();
@@ -92,12 +92,12 @@ public class EBMLvalue<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            EBMLvalue d) {
+    public static void readBits(BitStreamReader c,
+                                EBMLvalue d) {
         c.enterBlock(d);
 
         //可変長整数全体の長さと、
@@ -115,12 +115,12 @@ public class EBMLvalue<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             EBMLvalue d) {
+    public static void writeBits(BitStreamWriter c,
+                                 EBMLvalue d) {
         c.enterBlock(d);
 
         c.writeUInt(d.getSizeAll() - d.getSizeContent(), d.vint_head);

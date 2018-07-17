@@ -60,8 +60,8 @@ import net.katsuster.strview.media.*;
  *
  * @see EBMLvid
  */
-public class EBMLlacing<T extends LargeList<?>>
-        extends EBMLvint<T>
+public class EBMLlacing
+        extends EBMLvint
         implements Cloneable {
     public UInt vint_head;
     public UInt vint_val;
@@ -81,9 +81,9 @@ public class EBMLlacing<T extends LargeList<?>>
     }
 
     @Override
-    public EBMLlacing<T> clone()
+    public EBMLlacing clone()
             throws CloneNotSupportedException {
-        EBMLlacing<T> obj = (EBMLlacing<T>)super.clone();
+        EBMLlacing obj = (EBMLlacing)super.clone();
 
         obj.vint_head = (UInt)vint_head.clone();
         obj.vint_val = (UInt)vint_val.clone();
@@ -111,12 +111,12 @@ public class EBMLlacing<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            EBMLlacing d) {
+    public static void readBits(BitStreamReader c,
+                                EBMLlacing d) {
         int f, size_all, size_c;
         long minus;
 
@@ -141,12 +141,12 @@ public class EBMLlacing<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             EBMLlacing d) {
+    public static void writeBits(BitStreamWriter c,
+                                 EBMLlacing d) {
         c.enterBlock(d);
 
         c.writeUInt(d.getSizeAll() - d.getSizeContent(), d.vint_head);
