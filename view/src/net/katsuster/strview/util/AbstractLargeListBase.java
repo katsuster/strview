@@ -1,7 +1,5 @@
 package net.katsuster.strview.util;
 
-import java.util.AbstractList;
-
 /**
  * <p>
  * int 型で扱える長さを超えるリストの共通動作を定義します。
@@ -10,20 +8,7 @@ import java.util.AbstractList;
 public abstract class AbstractLargeListBase<T> /*extends AbstractList<T>*/
         implements LargeList<T>, Cloneable {
     private String name;
-    private long len;
-    //追加情報
-    private ExtraInfo extInfo;
-
-    /**
-     * <p>
-     * 指定された長さのリストを作成します。
-     * </p>
-     *
-     * @param l リストの長さ
-     */
-    public AbstractLargeListBase(long l) {
-        this(null, l);
-    }
+    private Range<LargeList<T>> range;
 
     /**
      * <p>
@@ -38,13 +23,14 @@ public abstract class AbstractLargeListBase<T> /*extends AbstractList<T>*/
             throw new NegativeArraySizeException("len:" + l
                     + " is negative.");
         }
+
         if (n == null) {
             name = "";
         } else {
             name = n;
         }
-        len = l;
-        extInfo = new SimpleExtraInfo();
+
+        range = new SimpleRange<>(null, 0, l);
     }
 
     @Override
@@ -52,12 +38,9 @@ public abstract class AbstractLargeListBase<T> /*extends AbstractList<T>*/
             throws CloneNotSupportedException {
         AbstractLargeListBase obj = (AbstractLargeListBase)super.clone();
 
-        return obj;
-    }
+        obj.range = (Range<LargeList<T>>)range.clone();
 
-    @Override
-    public String getTypeName() {
-        return getClass().getName();
+        return obj;
     }
 
     @Override
@@ -98,35 +81,27 @@ public abstract class AbstractLargeListBase<T> /*extends AbstractList<T>*/
 
     @Override
     public long length() {
-        return len;
+        return range.getLength();
     }
 
     @Override
     public void length(long l) {
-        len = l;
+        range.setLength(l);
+    }
+
+    @Override
+    public Range<LargeList<T>> getRange() {
+        return range;
+    }
+
+    @Override
+    public void setRange(Range<LargeList<T>> r) {
+        range = r;
     }
 
     @Override
     public LargeList<T> subLargeList(long from, long len) {
         return new SubLargeList<T>(this, from, len);
-    }
-
-    @Override
-    public ExtraInfo getExtraInfo(long index) {
-        if (index != 0) {
-            throw new IllegalArgumentException("index:" + index + " != 0");
-        }
-
-        return extInfo;
-    }
-
-    @Override
-    public void setExtraInfo(long index, ExtraInfo info) {
-        if (index != 0) {
-            throw new IllegalArgumentException("index:" + index + " != 0");
-        }
-
-        extInfo = info;
     }
 
     /**

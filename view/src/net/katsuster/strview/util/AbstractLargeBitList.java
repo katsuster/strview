@@ -11,68 +11,38 @@ package net.katsuster.strview.util;
  */
 public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
         implements LargeBitList {
-    //ビット列の存在する範囲
-    private Range range;
+    /**
+     * <p>
+     * 指定された名前、長さ 0 のリストを作成します。
+     * </p>
+     *
+     * @param name リストの名前
+     */
+    public AbstractLargeBitList(String name) {
+        super(name, 0);
+    }
 
     /**
      * <p>
-     * 指定された長さのビット列を作成します。
+     * 名前無し、指定された長さのリストを作成します。
      * </p>
      *
-     * @param l ビット列の長さ
+     * @param l リストの長さ
      */
     public AbstractLargeBitList(long l) {
-        this(null, 0, l);
+        super(null, l);
     }
 
     /**
      * <p>
-     * 指定された長さのビット列を作成します。
+     * 指定された長さ、名前のリストを作成します。
      * </p>
      *
-     * @param from ビット列の開始点
-     * @param len  ビット列の長さ
+     * @param name リストの名前
+     * @param l リストの長さ
      */
-    public AbstractLargeBitList(long from, long len) {
-        this(null, from, len);
-    }
-
-    /**
-     * <p>
-     * 指定されたバッファ上の指定された長さのビット列を作成します。
-     * </p>
-     *
-     * @param buf  バッファ
-     * @param from ビット列の開始点
-     * @param len  ビット列の長さ
-     */
-    public AbstractLargeBitList(LargeBitList buf, long from, long len) {
-        super(len);
-
-        range = new SimpleRange(buf, from, len);
-    }
-
-    /**
-     * <p>
-     * 指定されたバッファ上の指定された長さのビット列を作成します。
-     * </p>
-     *
-     * @param r 範囲
-     */
-    public AbstractLargeBitList(Range r) {
-        super(r.getLength());
-
-        range = new SimpleRange(r);
-    }
-
-    @Override
-    public Object clone()
-            throws CloneNotSupportedException {
-        AbstractLargeBitList obj = (AbstractLargeBitList)super.clone();
-
-        obj.range = (Range)range.clone();
-
-        return obj;
+    public AbstractLargeBitList(String name, long l) {
+        super(name, l);
     }
 
     @Override
@@ -163,56 +133,8 @@ public abstract class AbstractLargeBitList extends AbstractLargeList<Boolean>
     }
 
     @Override
-    public long length() {
-        return getRange().getLength();
-    }
-
-    @Override
-    public void length(long l) {
-        getRange().setLength(l);
-    }
-
-    @Override
     public LargeBitList subLargeList(long from, long len) {
         return new SubLargeBitList(this, from, len);
-    }
-
-    @Override
-    public LargeBitList getSourceBuffer() {
-        throw new TranslationFaultException();
-    }
-
-    @Override
-    public void setSourceBuffer(LargeBitList buf) {
-        throw new IllegalStateException();
-    }
-
-    @Override
-    public long getSourceStart() {
-        throw new TranslationFaultException();
-    }
-
-    @Override
-    public void setSourceStart(long index) {
-        throw new IllegalStateException();
-    }
-
-    @Override
-    public long getSourceEnd() {
-        throw new TranslationFaultException();
-    }
-
-    @Override
-    public void setSourceEnd(long index) {
-        throw new IllegalStateException();
-    }
-
-    protected Range getRange() {
-        return range;
-    }
-
-    protected void setRange(Range r) {
-        range = r;
     }
 
     /**
