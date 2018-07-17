@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * MPEG4 Part 2 Visual オブジェクトリスト。
  * </p>
  */
-public class M4VObjectList<U extends LargeList<?>>
-        extends AbstractPacketList<M4VObject, U> {
+public class M4VObjectList
+        extends AbstractPacketList<M4VObject, Boolean> {
     private LargeBitList buf;
 
     public M4VObjectList() {
@@ -23,7 +23,7 @@ public class M4VObjectList<U extends LargeList<?>>
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         return "MPEG4 Part 2 Video";
     }
 
@@ -40,10 +40,10 @@ public class M4VObjectList<U extends LargeList<?>>
     }
 
     @Override
-    protected M4VObject<U> readNextInner(StreamReader<?, ?> c, PacketRange<U> pr) {
-        M4VHeader<U> tagh = createHeader(c, pr);
+    protected M4VObject readNextInner(StreamReader<Boolean> c, PacketRange<LargeList<Boolean>> pr) {
+        M4VHeader tagh = createHeader(c, pr);
 
-        M4VObject<U> packet = new M4VObject<>(tagh);
+        M4VObject packet = new M4VObject(tagh);
         packet.setRange(pr);
         packet.read(c);
 
@@ -56,7 +56,7 @@ public class M4VObjectList<U extends LargeList<?>>
 
         seek(c, index);
 
-        return (M4VObject)readNext(c, index);
+        return readNext(c, index);
     }
 
     @Override
@@ -64,10 +64,10 @@ public class M4VObjectList<U extends LargeList<?>>
         //TODO: not implemented yet
     }
 
-    protected M4VHeader<U> createHeader(StreamReader<?, ?> c, PacketRange<U> pr) {
-        M4VHeader<U> tagh;
+    protected M4VHeader createHeader(StreamReader<Boolean> c, PacketRange<LargeList<Boolean>> pr) {
+        M4VHeader tagh;
 
-        M4VHeader<U> tmph = new M4VHeader<>();
+        M4VHeader tmph = new M4VHeader();
         tmph.peek(c);
 
         tagh = M4VConsts.m4vFactory.createPacketHeader(

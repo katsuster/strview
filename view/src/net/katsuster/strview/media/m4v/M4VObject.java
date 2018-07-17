@@ -8,7 +8,8 @@ import net.katsuster.strview.media.*;
  * MPEG4 Part 2 Visual Object
  * </p>
  */
-public class M4VObject<T extends LargeList<?>> extends PacketAdapter<T> {
+public class M4VObject
+        extends BitPacketAdapter {
     public M4VObject() {
         this(new M4VHeader());
     }
@@ -35,12 +36,12 @@ public class M4VObject<T extends LargeList<?>> extends PacketAdapter<T> {
     }
 
     @Override
-    protected void readHeader(StreamReader<?, ?> c) {
+    protected void readHeaderBits(BitStreamReader c) {
         getHeader().read(c);
     }
 
     @Override
-    protected void readBody(StreamReader<?, ?> c) {
+    protected void readBodyBits(BitStreamReader c) {
         long orgpos;
         int size_f = 0;
         int stepback = 0;
@@ -60,19 +61,19 @@ public class M4VObject<T extends LargeList<?>> extends PacketAdapter<T> {
         size_f = (int)(c.position() - orgpos - stepback);
         c.position(orgpos);
 
-        setBody(c.readBitList(size_f, getBody()));
+        setBody(c.readBitList(size_f, (LargeBitList) getBody()));
     }
 
     @Override
-    protected void writeHeader(StreamWriter<?, ?> c) {
+    protected void writeHeaderBits(BitStreamWriter c) {
         getHeader().write(c);
     }
 
     @Override
-    protected void writeBody(StreamWriter<?, ?> c) {
+    protected void writeBodyBits(BitStreamWriter c) {
         long size_f = getBody().length();
 
         //FIXME: tentative
-        c.writeBitList(size_f, getBody(), "body");
+        c.writeBitList(size_f, (LargeBitList) getBody(), "body");
     }
 }

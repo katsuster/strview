@@ -18,8 +18,8 @@ import net.katsuster.strview.media.*;
  * Part 2: Video</li>
  * </ul>
  */
-public class M4VHeader<T extends LargeList<?>>
-        extends BlockAdapter<T>
+public class M4VHeader
+        extends BitBlockAdapter
         implements Cloneable {
     public UInt start_code;
 
@@ -28,9 +28,9 @@ public class M4VHeader<T extends LargeList<?>>
     }
 
     @Override
-    public M4VHeader<T> clone()
+    public M4VHeader clone()
             throws CloneNotSupportedException {
-        M4VHeader<T> obj = (M4VHeader<T>)super.clone();
+        M4VHeader obj = (M4VHeader)super.clone();
 
         obj.start_code = (UInt)start_code.clone();
 
@@ -43,12 +43,12 @@ public class M4VHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            M4VHeader d) {
+    public static void readBits(BitStreamReader c,
+                                M4VHeader d) {
         c.enterBlock(d);
 
         d.start_code = c.readUInt(32, d.start_code);
@@ -57,12 +57,12 @@ public class M4VHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             M4VHeader d) {
+    public static void writeBits(BitStreamWriter c,
+                                 M4VHeader d) {
         c.enterBlock(d);
 
         c.writeUInt(32, d.start_code, d.getStartCodeName());
