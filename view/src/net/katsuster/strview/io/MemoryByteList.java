@@ -4,7 +4,7 @@ import net.katsuster.strview.util.*;
 
 /**
  * <p>
- * 通常の byte 型配列を LargeByteList インタフェースでラップしたクラスです。
+ * 通常の byte 型配列を LargeList インタフェースでラップしたクラスです。
  * </p>
  */
 public class MemoryByteList extends AbstractLargeList<Byte>
