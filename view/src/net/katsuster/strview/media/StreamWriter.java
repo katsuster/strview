@@ -4,12 +4,12 @@ import net.katsuster.strview.util.*;
 
 /**
  * <p>
- * パケットを別の形式に変換に変換するインタフェースです。
+ * リストのインデックスを持ち、リストの要素を書き込むインタフェースです。
  * </p>
  *
  * <p>
  * ほとんどのメソッドが空の実装となる場合は、
- * PacketWriterAdaptor を継承し必要な関数のみをオーバライドすると便利です。
+ * StreamWriterAdaptor を継承し必要な関数のみをオーバライドすると便利です。
  * </p>
  *
  * <p>
@@ -29,434 +29,88 @@ import net.katsuster.strview.util.*;
  *
  * @see StreamWriterAdapter
  */
-public interface StreamWriter<IN, OUT> extends StreamConverter<IN, OUT> {
+public interface StreamWriter<T> extends StreamConverter<T> {
     /**
      * <p>
-     * 現在位置を更新せずに、数値を書き込みます。
+     * 現在位置を更新せずに、要素を書き込みます。
      * </p>
      *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の数値
-     * @param name 変換対象の名前
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     * @param val 要素
      */
-    public void pokeLong(int nbit, long val, String name);
+    public void poke(T val);
 
     /**
      * <p>
-     * 数値を書き込みます。
+     * 要素を書き込み、現在位置を進めます。
      * </p>
      *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の数値
-     * @param name 変換対象の名前
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     * @param val 要素
      */
-    public void writeLong(int nbit, long val, String name);
+    public void write(T val);
 
     /**
      * <p>
-     * 数値を書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
+     * 現在位置を更新せずに、要素を書き込みます。
+     * 意味、説明などを渡すことができます。
      * </p>
      *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の数値
-     * @param name 変換対象の名前
-     * @param desc 変換対象の符号付き数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     * @param val  要素
+     * @param desc 要素の意味、説明など
      */
-    public void writeLong(int nbit, long val, String name, String desc);
+    public void poke(T val, String desc);
 
     /**
      * <p>
-     * 現在位置を更新せずに、符号付き数値を書き込みます。
+     * 要素を書き込み、現在位置を進めます。
+     * 意味、説明などを渡すことができます。
      * </p>
      *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     * @param val  要素
+     * @param desc 要素の意味、説明など
      */
-    public void pokeSInt(int nbit, SInt val);
+    public void write(T val, String desc);
 
     /**
      * <p>
-     * 符号付き数値を書き込みます。
+     * 現在位置を更新せずに、リストを書き込みます。
      * </p>
      *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     * @param n   読み出す要素数
+     * @param val リスト
      */
-    public void writeSInt(int nbit, SInt val);
+    public void pokeList(long n, LargeList<T> val);
 
     /**
      * <p>
-     * 符号付き数値を書き込みます。
+     * リストを書き込み、現在位置を進めます。
      * </p>
      *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @param desc 変換対象の符号無し数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     * @param n   読み出す要素数
+     * @param val リスト
      */
-    public void writeSInt(int nbit, SInt val, String desc);
+    public void writeList(long n, LargeList<T> val);
 
     /**
      * <p>
-     * 符号付き数値を書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
+     * 現在位置を更新せずに、リストを書き込みます。
+     * 意味、説明などを渡すことができます。
      * </p>
      *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @param name 変換対象の名前
-     * @param desc 変換対象の符号付き数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     * @param n    読み出す要素数
+     * @param val  リスト
+     * @param desc リストの意味、説明など
      */
-    public void writeSInt(int nbit, SInt val, String name, String desc);
+    public void pokeList(long n, LargeList<T> val, String desc);
 
     /**
      * <p>
-     * 現在位置を更新せずに、符号無し数値を書き込みます。
+     * リストを書き込み、現在位置を進めます。
+     * 意味、説明などを渡すことができます。
      * </p>
      *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     * @param n    読み出す要素数
+     * @param val  リスト
+     * @param desc リストの意味、説明など
      */
-    public void pokeUInt(int nbit, UInt val);
-
-    /**
-     * <p>
-     * 符号無し数値を書き込みます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeUInt(int nbit, UInt val);
-
-    /**
-     * <p>
-     * 符号無し数値を書き込みます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @param desc 変換対象の符号無し数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeUInt(int nbit, UInt val, String desc);
-
-    /**
-     * <p>
-     * 符号無し数値を書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @param name 変換対象の名前
-     * @param desc 変換対象の符号無し数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeUInt(int nbit, UInt val, String name, String desc);
-
-    /**
-     * <p>
-     * 現在位置を更新せずに、符号付き数値を書き込みます。
-     * </p>
-     *
-     * <p>
-     * バイト順序を逆順に並べ替えた値を書き込みます。
-     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void pokeSIntR(int nbit, SIntR val);
-
-    /**
-     * <p>
-     * 符号付き数値を書き込みます。
-     * </p>
-     *
-     * <p>
-     * バイト順序を逆順に並べ替えた値を書き込みます。
-     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeSIntR(int nbit, SIntR val);
-
-    /**
-     * <p>
-     * 符号付き数値を書き込みます。
-     * </p>
-     *
-     * <p>
-     * バイト順序を逆順に並べ替えた値を書き込みます。
-     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @param desc 変換対象の符号無し数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeSIntR(int nbit, SIntR val, String desc);
-
-    /**
-     * <p>
-     * 符号付き数値を書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * <p>
-     * バイト順序を逆順に並べ替えた値を書き込みます。
-     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @param name 変換対象の名前
-     * @param desc 変換対象の符号付き数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeSIntR(int nbit, SIntR val, String name, String desc);
-
-    /**
-     * <p>
-     * 現在位置を更新せずに、符号無し数値を書き込みます。
-     * </p>
-     *
-     * <p>
-     * バイト順序を逆順に並べ替えた値を書き込みます。
-     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void pokeUIntR(int nbit, UIntR val);
-
-    /**
-     * <p>
-     * 符号無し数値を書き込みます。
-     * </p>
-     *
-     * <p>
-     * バイト順序を逆順に並べ替えた値を書き込みます。
-     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeUIntR(int nbit, UIntR val);
-
-    /**
-     * <p>
-     * 符号無し数値を書き込みます。
-     * </p>
-     *
-     * <p>
-     * バイト順序を逆順に並べ替えた値を書き込みます。
-     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @param desc 変換対象の符号無し数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeUIntR(int nbit, UIntR val, String desc);
-
-    /**
-     * <p>
-     * 符号無し数値を書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * <p>
-     * バイト順序を逆順に並べ替えた値を書き込みます。
-     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @param name 変換対象の名前
-     * @param desc 変換対象の符号無し数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeUIntR(int nbit, UIntR val, String name, String desc);
-
-    /**
-     * <p>
-     * 現在位置を更新せずに、32ビット浮動小数値を書き込みます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の浮動小数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void pokeFloat32(int nbit, Float32 val);
-
-    /**
-     * <p>
-     * 32ビット浮動小数値を書き込みます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の浮動小数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeFloat32(int nbit, Float32 val);
-
-    /**
-     * <p>
-     * 32ビット浮動小数値を書き込みます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の浮動小数値オブジェクト
-     * @param desc 変換対象の符号無し数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeFloat32(int nbit, Float32 val, String desc);
-
-    /**
-     * <p>
-     * 32ビット浮動小数値を書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の浮動小数値オブジェクト
-     * @param name 変換対象の名前
-     * @param desc 変換対象の浮動小数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeFloat32(int nbit, Float32 val, String name, String desc);
-
-    /**
-     * <p>
-     * 現在位置を更新せずに、64ビット浮動小数値を書き込みます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の浮動小数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void pokeFloat64(int nbit, Float64 val);
-
-    /**
-     * <p>
-     * 64ビット浮動小数値を書き込みます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の浮動小数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeFloat64(int nbit, Float64 val);
-
-    /**
-     * <p>
-     * 64ビット浮動小数値を書き込みます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の浮動小数値オブジェクト
-     * @param desc 変換対象の符号無し数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeFloat64(int nbit, Float64 val, String desc);
-
-    /**
-     * <p>
-     * 64ビット浮動小数値を書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の浮動小数値オブジェクト
-     * @param name 変換対象の名前
-     * @param desc 変換対象の浮動小数値の意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeFloat64(int nbit, Float64 val, String name, String desc);
-
-    /**
-     * <p>
-     * 現在位置を更新せずに、ビットリストを書き込みます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象のビットリスト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void pokeBitList(long nbit, LargeBitList val);
-
-    /**
-     * <p>
-     * ビットリストを書き込みます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象のビットリスト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeBitList(long nbit, LargeBitList val);
-
-    /**
-     * <p>
-     * ビットリストを書き込みます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象のビットリスト
-     * @param desc 変換対象のビットリストの意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeBitList(long nbit, LargeBitList val, String desc);
-
-    /**
-     * <p>
-     * ビットリストを書き込みます。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象のビットリスト
-     * @param name 変換対象の名前
-     * @param desc 変換対象のビットリストの意味、説明など
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public void writeBitList(long nbit, LargeBitList val, String name, String desc);
-
-    /**
-     * <p>
-     * 変換結果を取得します。
-     * </p>
-     *
-     * <p>
-     * 変換結果が取得できない場合は null を返します。
-     * 例外をスローしても構いません。
-     * スローする例外の種類は、
-     * メソッドの実装クラスにて決定してください。
-     * </p>
-     *
-     * @return 変換結果、変換結果が取得できない場合は null
-     */
-    public OUT getResult();
+    public void writeList(long n, LargeList<T> val, String desc);
 }

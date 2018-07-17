@@ -1,8 +1,15 @@
 package net.katsuster.strview.media;
 
+import net.katsuster.strview.util.*;
+
 /**
  * <p>
- * パケットを別の形式に変換、または別の形式からパケットに変換するインタフェースです。
+ * リストのインデックスです。
+ * </p>
+ *
+ * <p>
+ * Java のイテレータと似ていますが、
+ * 現在位置が「要素の間」ではなく「要素自体」を指している点が異なります。
  * </p>
  *
  * <p>
@@ -27,7 +34,29 @@ package net.katsuster.strview.media;
  *
  * @see AbstractStreamConverter
  */
-public interface StreamConverter<IN, OUT> {
+public interface StreamConverter<T> {
+    /**
+     * <p>
+     * リストを取得します。
+     * </p>
+     *
+     * @return リスト
+     */
+    public LargeList<T> getList();
+
+    /**
+     * <p>
+     * リストを設定します。
+     * </p>
+     *
+     * <p>
+     * リストを設定する前に保持していたインデックスは無効になります。
+     * </p>
+     *
+     * @param l リスト
+     */
+    public void setList(LargeList<T> l);
+
     /**
      * <p>
      * パケットの変換を開始します。
@@ -242,29 +271,29 @@ public interface StreamConverter<IN, OUT> {
 
     /**
      * <p>
-     * 変換中の位置を取得します。
+     * 現在の位置を取得します。
      * </p>
      *
-     * @return 現在の位置（ビット単位）
+     * @return 現在の位置
      */
     public long position();
 
     /**
      * <p>
-     * 変換中の位置を設定します（ビット単位）。
+     * 位置を設定します。
      * </p>
      *
-     * @param p 新たな位置（ビット単位）
+     * @param p 新たな位置
      */
     public void position(long p);
 
     /**
      * <p>
-     * 現在位置から指定されたサイズを読み出しあるいは、
+     * 現在位置から指定された数の要素を読み出しあるいは、
      * 書き込みできるかどうかを取得します。
      * </p>
      *
-     * @param n 読み出すまたは書き込む予定のサイズ（ビット単位）
+     * @param n 読み出すまたは書き込む予定の要素数
      * @return 読み出しまたは書き込みが可能ならば true、不可能ならば false
      */
     public boolean hasNext(long n);
@@ -285,7 +314,7 @@ public interface StreamConverter<IN, OUT> {
      * 現在位置が 0, 4, 8 ならば、true となります。
      * </p>
      *
-     * @param n 要素数
+     * @param n 境界となる要素数
      * @return 境界なら true、そうでなければ false
      */
     public boolean isAlign(int n);
@@ -306,7 +335,7 @@ public interface StreamConverter<IN, OUT> {
      * 5, 6, 7, 8 ならば、新たな位置は 8 となります。
      * </p>
      *
-     * @paran n 要素数
+     * @param n 境界となる要素数
      */
     public void align(int n);
 }

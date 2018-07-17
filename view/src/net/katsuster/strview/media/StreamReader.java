@@ -4,12 +4,12 @@ import net.katsuster.strview.util.*;
 
 /**
  * <p>
- * 別の形式からパケットに変換するインタフェースです。
+ * リストのインデックスを持ち、リストの要素を読み取るインタフェースです。
  * </p>
  *
  * <p>
  * ほとんどのメソッドが空の実装となる場合は、
- * PacketReaderAdaptor を継承し必要な関数のみをオーバライドすると便利です。
+ * StreamReaderAdaptor を継承し必要な関数のみをオーバライドすると便利です。
  * </p>
  *
  * <p>
@@ -29,366 +29,144 @@ import net.katsuster.strview.util.*;
  *
  * @see StreamReaderAdapter
  */
-public interface StreamReader<IN, OUT> extends StreamConverter<IN, OUT> {
+public interface StreamReader<T> extends StreamConverter<T> {
     /**
      * <p>
-     * 現在位置を更新せずに、数値を読み出します。
+     * 現在位置を更新せずに、要素を読み出します。
      * </p>
      *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @return 変換対象の数値
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     * <p>
+     * 渡した要素を書き換えて返す実装と、
+     * 渡した要素から必要な情報をコピーした新たな要素を返す実装、
+     * どちらの実装も可能です。
+     * </p>
+     *
+     * @param val 要素
+     * @return 現在位置にある要素
      */
-    public long peekLong(int nbit);
+    public T peek(T val);
 
     /**
      * <p>
-     * 数値を読み出します。
+     * 要素を読み出し、現在位置を進めます。
      * </p>
      *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @return 変換対象の数値
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     * <p>
+     * 渡した要素を書き換えて返す実装と、
+     * 渡した要素から必要な情報をコピーした新たな要素を返す実装、
+     * どちらの実装も可能です。
+     * </p>
+     *
+     * @param val 要素
+     * @return 現在位置にある要素
      */
-    public long readLong(int nbit);
+    public T read(T val);
 
     /**
      * <p>
-     * 数値を読み出します。
-     * データに加えて、データの意味、説明などを渡すことができます。
+     * 現在位置を更新せずに、要素を読み出します。
+     * 意味、説明などを渡すことができます。
      * </p>
      *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param desc 変換対象の符号付き数値の意味、説明など
-     * @return 変換対象の符号付き数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     * <p>
+     * 渡した要素を書き換えて返す実装と、
+     * 渡した要素から必要な情報をコピーした新たな要素を返す実装、
+     * どちらの実装も可能です。
+     * </p>
+     *
+     * @param val 要素
+     * @param desc 要素の意味、説明など
+     * @return 現在位置にある要素
      */
-    public long readLong(int nbit, String desc);
+    public T peek(T val, String desc);
 
     /**
      * <p>
-     * 現在位置を更新せずに、符号付き数値を読み出します。
+     * 要素を読み出し、現在位置を進めます。
+     * 意味、説明などを渡すことができます。
      * </p>
      *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @return 変換対象の符号付き数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     * <p>
+     * 渡した要素を書き換えて返す実装と、
+     * 渡した要素から必要な情報をコピーした新たな要素を返す実装、
+     * どちらの実装も可能です。
+     * </p>
+     *
+     * @param val 要素
+     * @param desc 要素の意味、説明など
+     * @return 現在位置にある要素
      */
-    public SInt peekSInt(int nbit, SInt val);
+    public T read(T val, String desc);
 
     /**
      * <p>
-     * 符号付き数値を読み出します。
+     * 現在位置を更新せずに、複数の要素を読み出します。
      * </p>
      *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @return 変換対象の符号付き数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     * <p>
+     * 渡したリストを書き換えて返す実装と、
+     * 渡したリストから必要な情報をコピーした新たなリストを返す実装、
+     * どちらの実装も可能です。
+     * </p>
+     *
+     * @param n   読み出す要素数
+     * @param val リスト
+     * @return 現在位置から読み出したリスト
      */
-    public SInt readSInt(int nbit, SInt val);
+    public LargeList<T> peekList(long n, LargeList<T> val);
 
     /**
      * <p>
-     * 符号付き数値を読み出します。
-     * データに加えて、データの意味、説明などを渡すことができます。
+     * 複数の要素を読み出し、現在位置を進めます。
      * </p>
      *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @param desc 変換対象の符号付き数値の意味、説明など
-     * @return 変換対象の符号付き数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     * <p>
+     * 渡したリストを書き換えて返す実装と、
+     * 渡したリストから必要な情報をコピーした新たなリストを返す実装、
+     * どちらの実装も可能です。
+     * </p>
+     *
+     * @param n   読み出す要素数
+     * @param val リスト
+     * @return 現在位置から読み出したリスト
      */
-    public SInt readSInt(int nbit, SInt val, String desc);
+    public LargeList<T> readList(long n, LargeList<T> val);
 
     /**
      * <p>
-     * 現在位置を更新せずに、符号無し数値を読み出します。
+     * 現在位置を更新せずに、複数の要素を読み出します。
+     * 意味、説明などを渡すことができます。
      * </p>
      *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @return 変換対象の符号無し数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     * <p>
+     * 渡したリストを書き換えて返す実装と、
+     * 渡したリストから必要な情報をコピーした新たなリストを返す実装、
+     * どちらの実装も可能です。
+     * </p>
+     *
+     * @param n    読み出す要素数
+     * @param val  リスト
+     * @param desc 要素の意味、説明など
+     * @return 現在位置から読み出したリスト
      */
-    public UInt peekUInt(int nbit, UInt val);
+    public LargeList<T> peekList(long n, LargeList<T> val, String desc);
 
     /**
      * <p>
-     * 符号無し数値を読み出します。
+     * 複数の要素を読み出し、現在位置を進めます。
+     * 意味、説明などを渡すことができます。
      * </p>
      *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @return 変換対象の符号無し数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     * <p>
+     * 渡したリストを書き換えて返す実装と、
+     * 渡したリストから必要な情報をコピーした新たなリストを返す実装、
+     * どちらの実装も可能です。
+     * </p>
+     *
+     * @param n    読み出す要素数
+     * @param val  リスト
+     * @param desc 要素の意味、説明など
+     * @return 現在位置から読み出したリスト
      */
-    public UInt readUInt(int nbit, UInt val);
-
-    /**
-     * <p>
-     * 符号無し数値を読み出します。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @param desc 変換対象の符号無し数値の意味、説明など
-     * @return 変換対象の符号無し数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public UInt readUInt(int nbit, UInt val, String desc);
-
-    /**
-     * <p>
-     * 現在位置を更新せずに、符号付き数値を読み出します。
-     * </p>
-     *
-     * <p>
-     * バイト順序を逆順に並べ替えた値を読み込みます。
-     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @return 変換対象の符号付き数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public SIntR peekSIntR(int nbit, SIntR val);
-
-    /**
-     * <p>
-     * 符号付き数値を読み出します。
-     * </p>
-     *
-     * <p>
-     * バイト順序を逆順に並べ替えた値を読み込みます。
-     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @return 変換対象の符号付き数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public SIntR readSIntR(int nbit, SIntR val);
-
-    /**
-     * <p>
-     * 符号付き数値を読み出します。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * <p>
-     * バイト順序を逆順に並べ替えた値を読み込みます。
-     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号付き数値オブジェクト
-     * @param desc 変換対象の符号付き数値の意味、説明など
-     * @return 変換対象の符号付き数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public SIntR readSIntR(int nbit, SIntR val, String desc);
-
-    /**
-     * <p>
-     * 現在位置を更新せずに、符号無し数値を読み出します。
-     * </p>
-     *
-     * <p>
-     * バイト順序を逆順に並べ替えた値を読み込みます。
-     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @return 変換対象の符号無し数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public UIntR peekUIntR(int nbit, UIntR val);
-
-    /**
-     * <p>
-     * 符号無し数値を読み出します。
-     * </p>
-     *
-     * <p>
-     * バイト順序を逆順に並べ替えた値を読み込みます。
-     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @return 変換対象の符号無し数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public UIntR readUIntR(int nbit, UIntR val);
-
-    /**
-     * <p>
-     * 符号無し数値を読み出します。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * <p>
-     * バイト順序を逆順に並べ替えた値を読み込みます。
-     * 指定できるサイズは 16, 32, 64 ビットのいずれかです。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の符号無し数値オブジェクト
-     * @param desc 変換対象の符号無し数値の意味、説明など
-     * @return 変換対象の符号無し数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public UIntR readUIntR(int nbit, UIntR val, String desc);
-
-    /**
-     * <p>
-     * 現在位置を更新せずに、32ビット浮動小数値を読み出します。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の浮動小数値オブジェクト
-     * @return 変換対象の浮動小数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public Float32 peekFloat32(int nbit, Float32 val);
-
-    /**
-     * <p>
-     * 32ビット浮動小数値を読み出します。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の浮動小数値オブジェクト
-     * @return 変換対象の浮動小数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public Float32 readFloat32(int nbit, Float32 val);
-
-    /**
-     * <p>
-     * 32ビット浮動小数値を読み出します。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の浮動小数値オブジェクト
-     * @param desc 変換対象の浮動小数値の意味、説明など
-     * @return 変換対象の浮動小数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public Float32 readFloat32(int nbit, Float32 val, String desc);
-
-    /**
-     * <p>
-     * 現在位置を更新せずに、64ビット浮動小数値を読み出します。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の浮動小数値オブジェクト
-     * @return 変換対象の浮動小数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public Float64 peekFloat64(int nbit, Float64 val);
-
-    /**
-     * <p>
-     * 64ビット浮動小数値を読み出します。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の浮動小数値オブジェクト
-     * @return 変換対象の浮動小数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public Float64 readFloat64(int nbit, Float64 val);
-
-    /**
-     * <p>
-     * 64ビット浮動小数値を読み出します。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象の浮動小数値オブジェクト
-     * @param desc 変換対象の浮動小数値の意味、説明など
-     * @return 変換対象の浮動小数値オブジェクト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public Float64 readFloat64(int nbit, Float64 val, String desc);
-
-    /**
-     * <p>
-     * 現在位置を更新せずに、ビットリストを読み出します。
-     * </p>
-     *
-     * <p>
-     * readBitList で取得したデータのコピーを変更しても、取得元のデータは変化しません。
-     * readSubList で取得した部分列を変更すると、取得元のデータも変化します。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象のビットリスト
-     * @return 変換対象のビットリスト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public LargeBitList peekBitList(long nbit, LargeBitList val);
-
-    /**
-     * <p>
-     * ビットリストを読み出します。
-     * </p>
-     *
-     * <p>
-     * readBitList で取得したデータのコピーを変更しても、取得元のデータは変化しません。
-     * readSubList で取得した部分列を変更すると、取得元のデータも変化します。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象のビットリスト
-     * @return 変換対象のビットリスト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public LargeBitList readBitList(long nbit, LargeBitList val);
-
-    /**
-     * <p>
-     * ビットリストを読み出します。
-     * データに加えて、データの意味、説明などを渡すことができます。
-     * </p>
-     *
-     * <p>
-     * readBitList で取得したデータのコピーを変更しても、取得元のデータは変化しません。
-     * readSubList で取得した部分列を変更すると、取得元のデータも変化します。
-     * </p>
-     *
-     * @param nbit 変換対象のサイズ（ビット単位）
-     * @param val  変換対象のビットリスト
-     * @param desc 変換対象のビットリストの意味、説明など
-     * @return 変換対象のビットリスト
-     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
-     */
-    public LargeBitList readBitList(long nbit, LargeBitList val, String desc);
-
-    /**
-     * <p>
-     * 変換結果を取得します。
-     * </p>
-     *
-     * <p>
-     * 変換結果が取得できない場合は null を返します。
-     * 例外をスローしても構いません。
-     * スローする例外の種類は、
-     * メソッドの実装クラスにて決定してください。
-     * </p>
-     *
-     * @return 変換結果、変換結果が取得できない場合は null
-     */
-    public IN getResult();
+    public LargeList<T> readList(long n, LargeList<T> val, String desc);
 }
