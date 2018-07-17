@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Video</li>
  * </ul>
  */
-public class M2VHeaderExt<T extends LargeList<?>>
-        extends M2VHeader<T>
+public class M2VHeaderExt
+        extends M2VHeader
         implements Cloneable {
     public UInt extension_start_code_identifier;
 
@@ -27,9 +27,9 @@ public class M2VHeaderExt<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderExt<T> clone()
+    public M2VHeaderExt clone()
             throws CloneNotSupportedException {
-        M2VHeaderExt<T> obj = (M2VHeaderExt<T>)super.clone();
+        M2VHeaderExt obj = (M2VHeaderExt)super.clone();
 
         obj.extension_start_code_identifier = (UInt)extension_start_code_identifier.clone();
 
@@ -42,15 +42,15 @@ public class M2VHeaderExt<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            M2VHeaderExt d) {
+    public static void readBits(BitStreamReader c,
+                                M2VHeaderExt d) {
         c.enterBlock(d);
 
-        M2VHeader.read(c, d);
+        M2VHeader.readBits(c, d);
 
         d.extension_start_code_identifier = c.readUInt( 4, d.extension_start_code_identifier);
 
@@ -58,15 +58,15 @@ public class M2VHeaderExt<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             M2VHeaderExt d) {
+    public static void writeBits(BitStreamWriter c,
+                                 M2VHeaderExt d) {
         c.enterBlock(d);
 
-        M2VHeader.write(c, d);
+        M2VHeader.writeBits(c, d);
 
         c.writeUInt( 4, d.extension_start_code_identifier, d.getExtensionStartCodeName());
 

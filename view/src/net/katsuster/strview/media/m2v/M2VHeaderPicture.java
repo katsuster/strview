@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Video</li>
  * </ul>
  */
-public class M2VHeaderPicture<T extends LargeList<?>>
-        extends M2VHeader<T>
+public class M2VHeaderPicture
+        extends M2VHeader
         implements Cloneable {
     public UInt temporal_reference;
     public UInt picture_coding_type;
@@ -45,9 +45,9 @@ public class M2VHeaderPicture<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderPicture<T> clone()
+    public M2VHeaderPicture clone()
             throws CloneNotSupportedException {
-        M2VHeaderPicture<T> obj = (M2VHeaderPicture<T>)super.clone();
+        M2VHeaderPicture obj = (M2VHeaderPicture)super.clone();
 
         obj.temporal_reference = (UInt)temporal_reference.clone();
         obj.picture_coding_type = (UInt)picture_coding_type.clone();
@@ -69,15 +69,15 @@ public class M2VHeaderPicture<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            M2VHeaderPicture d) {
+    public static void readBits(BitStreamReader c,
+                                M2VHeaderPicture d) {
         c.enterBlock(d);
 
-        M2VHeader.read(c, d);
+        M2VHeader.readBits(c, d);
 
         d.temporal_reference  = c.readUInt(10, d.temporal_reference );
         d.picture_coding_type = c.readUInt( 3, d.picture_coding_type);
@@ -105,15 +105,15 @@ public class M2VHeaderPicture<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             M2VHeaderPicture d) {
+    public static void writeBits(BitStreamWriter c,
+                                 M2VHeaderPicture d) {
         c.enterBlock(d);
 
-        M2VHeader.write(c, d);
+        M2VHeader.writeBits(c, d);
 
         c.writeUInt(10, d.temporal_reference );
         c.writeUInt( 3, d.picture_coding_type, d.getPictureCodingTypeName());

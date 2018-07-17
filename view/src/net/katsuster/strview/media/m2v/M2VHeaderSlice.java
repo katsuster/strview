@@ -20,8 +20,8 @@ import net.katsuster.strview.media.m2v.M2VConsts.*;
  * associated audio information: Video</li>
  * </ul>
  */
-public class M2VHeaderSlice<T extends LargeList<?>>
-        extends M2VHeader<T>
+public class M2VHeaderSlice
+        extends M2VHeader
         implements Cloneable {
     public UInt slice_vertical_position_extension;
     public UInt priority_breakpoint;
@@ -34,27 +34,27 @@ public class M2VHeaderSlice<T extends LargeList<?>>
     public UInt extra_information_slice;
     public UInt extra_bit_slice_0;
 
-    private Map.Entry<Long, M2VHeaderSequence<T>> entSeq;
-    private M2VHeaderSequence<T> seq = null;
-    private Map.Entry<Long, M2VHeaderExtSequence<T>> entEseq;
-    private M2VHeaderExtSequence<T> eseq = null;
-    private Map.Entry<Long, M2VHeaderExtSequenceScalable<T>> entEseqsca;
-    private M2VHeaderExtSequenceScalable<T> eseqsca = null;
+    private Map.Entry<Long, M2VHeaderSequence> entSeq;
+    private M2VHeaderSequence seq = null;
+    private Map.Entry<Long, M2VHeaderExtSequence> entEseq;
+    private M2VHeaderExtSequence eseq = null;
+    private Map.Entry<Long, M2VHeaderExtSequenceScalable> entEseqsca;
+    private M2VHeaderExtSequenceScalable eseqsca = null;
     private int horizontal_size;
     private int vertical_size;
 
-    public M2VHeaderSlice(Map.Entry<Long, M2VHeaderSequence<T>> es) {
+    public M2VHeaderSlice(Map.Entry<Long, M2VHeaderSequence> es) {
         this(es, null, null);
     }
 
-    public M2VHeaderSlice(Map.Entry<Long, M2VHeaderSequence<T>> es,
-                          Map.Entry<Long, M2VHeaderExtSequence<T>> ees) {
+    public M2VHeaderSlice(Map.Entry<Long, M2VHeaderSequence> es,
+                          Map.Entry<Long, M2VHeaderExtSequence> ees) {
         this(es, ees, null);
     }
 
-    public M2VHeaderSlice(Map.Entry<Long, M2VHeaderSequence<T>> es,
-                          Map.Entry<Long, M2VHeaderExtSequence<T>> ees,
-                          Map.Entry<Long, M2VHeaderExtSequenceScalable<T>> eesc) {
+    public M2VHeaderSlice(Map.Entry<Long, M2VHeaderSequence> es,
+                          Map.Entry<Long, M2VHeaderExtSequence> ees,
+                          Map.Entry<Long, M2VHeaderExtSequenceScalable> eesc) {
         slice_vertical_position_extension = new UInt("slice_vertical_position_extension");
         priority_breakpoint     = new UInt("priority_breakpoint"    );
         quantiser_scale_code    = new UInt("quantiser_scale_code"   );
@@ -88,9 +88,9 @@ public class M2VHeaderSlice<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderSlice<T> clone()
+    public M2VHeaderSlice clone()
             throws CloneNotSupportedException {
-        M2VHeaderSlice<T> obj = (M2VHeaderSlice<T>)super.clone();
+        M2VHeaderSlice obj = (M2VHeaderSlice)super.clone();
 
         obj.slice_vertical_position_extension = (UInt)slice_vertical_position_extension.clone();
         obj.priority_breakpoint = (UInt)priority_breakpoint.clone();
@@ -107,15 +107,15 @@ public class M2VHeaderSlice<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            M2VHeaderSlice d) {
+    public static void readBits(BitStreamReader c,
+                                M2VHeaderSlice d) {
         c.enterBlock(d);
 
-        M2VHeader.read(c, d);
+        M2VHeader.readBits(c, d);
 
         c.mark("sequence_header No", d.entSeq.getKey().toString());
         if (d.eseq != null) {
@@ -153,15 +153,15 @@ public class M2VHeaderSlice<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             M2VHeaderSlice d) {
+    public static void writeBits(BitStreamWriter c,
+                                 M2VHeaderSlice d) {
         c.enterBlock(d);
 
-        M2VHeader.write(c, d);
+        M2VHeader.writeBits(c, d);
 
         c.mark("sequence_header No", d.entSeq.getKey().toString());
         if (d.eseq != null) {

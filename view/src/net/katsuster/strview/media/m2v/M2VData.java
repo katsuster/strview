@@ -8,7 +8,7 @@ import net.katsuster.strview.media.*;
  * MPEG2 Video データ。
  * </p>
  */
-public class M2VData<T extends LargeList<?>> extends PacketAdapter<T> {
+public class M2VData<T extends LargeList<?>> extends BitPacketAdapter {
     public M2VData() {
         this(new M2VHeader());
     }
@@ -35,17 +35,17 @@ public class M2VData<T extends LargeList<?>> extends PacketAdapter<T> {
      * @return MPEG2 Video データのヘッダ
      */
     @Override
-    public M2VHeader<T> getHeader() {
-        return (M2VHeader<T>)super.getHeader();
+    public M2VHeader getHeader() {
+        return (M2VHeader)super.getHeader();
     }
 
     @Override
-    protected void readHeader(StreamReader<?, ?> c) {
+    protected void readHeaderBits(BitStreamReader c) {
         getHeader().read(c);
     }
 
     @Override
-    protected void readBody(StreamReader<?, ?> c) {
+    protected void readBodyBits(BitStreamReader c) {
         long orgpos;
         int size_f = 0;
         int stepback = 0;
@@ -65,19 +65,19 @@ public class M2VData<T extends LargeList<?>> extends PacketAdapter<T> {
         size_f = (int)(c.position() - orgpos - stepback);
         c.position(orgpos);
 
-        setBody(c.readBitList(size_f, getBody()));
+        setBody(c.readBitList(size_f, (LargeBitList) getBody()));
     }
 
     @Override
-    protected void writeHeader(StreamWriter<?, ?> c) {
+    protected void writeHeaderBits(BitStreamWriter c) {
         getHeader().write(c);
     }
 
     @Override
-    protected void writeBody(StreamWriter<?, ?> c) {
+    protected void writeBodyBits(BitStreamWriter c) {
         long size_f = getBody().length();
 
         //FIXME: tentative
-        c.writeBitList(size_f, getBody(), "body");
+        c.writeBitList(size_f, (LargeBitList) getBody(), "body");
     }
 }

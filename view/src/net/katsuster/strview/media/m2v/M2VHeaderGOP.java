@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Video</li>
  * </ul>
  */
-public class M2VHeaderGOP<T extends LargeList<?>>
-        extends M2VHeader<T>
+public class M2VHeaderGOP
+        extends M2VHeader
         implements Cloneable {
     public UInt drop_frame;
     public UInt time_code_hours;
@@ -41,9 +41,9 @@ public class M2VHeaderGOP<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderGOP<T> clone()
+    public M2VHeaderGOP clone()
             throws CloneNotSupportedException {
-        M2VHeaderGOP<T> obj = (M2VHeaderGOP<T>)super.clone();
+        M2VHeaderGOP obj = (M2VHeaderGOP)super.clone();
 
         obj.drop_frame = (UInt)drop_frame.clone();
         obj.time_code_hours = (UInt)time_code_hours.clone();
@@ -63,15 +63,15 @@ public class M2VHeaderGOP<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            M2VHeaderGOP d) {
+    public static void readBits(BitStreamReader c,
+                                M2VHeaderGOP d) {
         c.enterBlock(d);
 
-        M2VHeader.read(c, d);
+        M2VHeader.readBits(c, d);
 
         d.drop_frame         = c.readUInt( 1, d.drop_frame        );
         d.time_code_hours    = c.readUInt( 5, d.time_code_hours   );
@@ -86,15 +86,15 @@ public class M2VHeaderGOP<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             M2VHeaderGOP d) {
+    public static void writeBits(BitStreamWriter c,
+                                 M2VHeaderGOP d) {
         c.enterBlock(d);
 
-        M2VHeader.write(c, d);
+        M2VHeader.writeBits(c, d);
 
         c.writeUInt( 1, d.drop_frame        );
         c.writeUInt( 5, d.time_code_hours   );

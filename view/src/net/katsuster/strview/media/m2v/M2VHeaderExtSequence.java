@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Video</li>
  * </ul>
  */
-public class M2VHeaderExtSequence<T extends LargeList<?>>
-        extends M2VHeaderExt<T>
+public class M2VHeaderExtSequence
+        extends M2VHeaderExt
         implements Cloneable {
     public UInt profile_and_level_indication;
     public UInt progressive_sequence;
@@ -50,9 +50,9 @@ public class M2VHeaderExtSequence<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderExtSequence<T> clone()
+    public M2VHeaderExtSequence clone()
             throws CloneNotSupportedException {
-        M2VHeaderExtSequence<T> obj = (M2VHeaderExtSequence<T>)super.clone();
+        M2VHeaderExtSequence obj = (M2VHeaderExtSequence)super.clone();
 
         obj.profile_and_level_indication = (UInt)profile_and_level_indication.clone();
         obj.progressive_sequence = (UInt)progressive_sequence.clone();
@@ -75,15 +75,15 @@ public class M2VHeaderExtSequence<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            M2VHeaderExtSequence d) {
+    public static void readBits(BitStreamReader c,
+                                M2VHeaderExtSequence d) {
         c.enterBlock(d);
 
-        M2VHeaderExt.read(c, d);
+        M2VHeaderExt.readBits(c, d);
 
         d.profile_and_level_indication = c.readUInt( 8, d.profile_and_level_indication);
         d.profile = getProfileValue(d);
@@ -104,15 +104,15 @@ public class M2VHeaderExtSequence<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             M2VHeaderExtSequence d) {
+    public static void writeBits(BitStreamWriter c,
+                                 M2VHeaderExtSequence d) {
         c.enterBlock(d);
 
-        M2VHeaderExt.write(c, d);
+        M2VHeaderExt.writeBits(c, d);
 
         c.writeUInt( 8, d.profile_and_level_indication);
         c.mark("profile", d.getProfileName());

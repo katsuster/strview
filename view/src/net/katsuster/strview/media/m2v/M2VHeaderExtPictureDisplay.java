@@ -20,21 +20,21 @@ import net.katsuster.strview.media.m2v.M2VConsts.*;
  * associated audio information: Video</li>
  * </ul>
  */
-public class M2VHeaderExtPictureDisplay<T extends LargeList<?>>
-        extends M2VHeaderExt<T>
+public class M2VHeaderExtPictureDisplay
+        extends M2VHeaderExt
         implements Cloneable {
     public SInt[] frame_centre_horizontal_offset;
     public UInt[] marker_bit0;
     public SInt[] frame_centre_vertical_offset;
     public UInt[] marker_bit1;
 
-    private Map.Entry<Long, M2VHeaderExtSequence<T>> entEseq;
-    private M2VHeaderExtSequence<T> eseq;
-    private Map.Entry<Long, M2VHeaderExtPictureCoding<T>> entEpic;
-    private M2VHeaderExtPictureCoding<T> epic;
+    private Map.Entry<Long, M2VHeaderExtSequence> entEseq;
+    private M2VHeaderExtSequence eseq;
+    private Map.Entry<Long, M2VHeaderExtPictureCoding> entEpic;
+    private M2VHeaderExtPictureCoding epic;
 
-    public M2VHeaderExtPictureDisplay(Map.Entry<Long, M2VHeaderExtSequence<T>> es,
-                                      Map.Entry<Long, M2VHeaderExtPictureCoding<T>> epc) {
+    public M2VHeaderExtPictureDisplay(Map.Entry<Long, M2VHeaderExtSequence> es,
+                                      Map.Entry<Long, M2VHeaderExtPictureCoding> epc) {
         frame_centre_horizontal_offset = new SInt[4];
         marker_bit0 = new UInt[4];
         frame_centre_vertical_offset = new SInt[4];
@@ -59,9 +59,9 @@ public class M2VHeaderExtPictureDisplay<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderExtPictureDisplay<T> clone()
+    public M2VHeaderExtPictureDisplay clone()
             throws CloneNotSupportedException {
-        M2VHeaderExtPictureDisplay<T> obj = (M2VHeaderExtPictureDisplay<T>) super.clone();
+        M2VHeaderExtPictureDisplay obj = (M2VHeaderExtPictureDisplay) super.clone();
 
         obj.frame_centre_horizontal_offset = frame_centre_horizontal_offset.clone();
         obj.marker_bit0 = marker_bit0.clone();
@@ -78,15 +78,15 @@ public class M2VHeaderExtPictureDisplay<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            M2VHeaderExtPictureDisplay d) {
+    public static void readBits(BitStreamReader c,
+                                M2VHeaderExtPictureDisplay d) {
         c.enterBlock(d);
 
-        M2VHeaderExt.read(c, d);
+        M2VHeaderExt.readBits(c, d);
 
         int n = d.getNumberOfFrameCentreOffsets();
 
@@ -105,15 +105,15 @@ public class M2VHeaderExtPictureDisplay<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             M2VHeaderExtPictureDisplay d) {
+    public static void writeBits(BitStreamWriter c,
+                                 M2VHeaderExtPictureDisplay d) {
         c.enterBlock(d);
 
-        M2VHeaderExt.write(c, d);
+        M2VHeaderExt.writeBits(c, d);
 
         int n = d.getNumberOfFrameCentreOffsets();
 

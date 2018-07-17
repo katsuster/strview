@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Video</li>
  * </ul>
  */
-public class M2VHeaderExtSequenceDisplay<T extends LargeList<?>>
-        extends M2VHeaderExt<T>
+public class M2VHeaderExtSequenceDisplay
+        extends M2VHeaderExt
         implements Cloneable {
     public UInt video_format;
     public UInt colour_description;
@@ -45,9 +45,9 @@ public class M2VHeaderExtSequenceDisplay<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderExtSequenceDisplay<T> clone()
+    public M2VHeaderExtSequenceDisplay clone()
             throws CloneNotSupportedException {
-        M2VHeaderExtSequenceDisplay<T> obj = (M2VHeaderExtSequenceDisplay<T>)super.clone();
+        M2VHeaderExtSequenceDisplay obj = (M2VHeaderExtSequenceDisplay)super.clone();
 
         obj.video_format = (UInt)video_format.clone();
         obj.colour_description = (UInt)colour_description.clone();
@@ -69,15 +69,15 @@ public class M2VHeaderExtSequenceDisplay<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            M2VHeaderExtSequenceDisplay d) {
+    public static void readBits(BitStreamReader c,
+                                M2VHeaderExtSequenceDisplay d) {
         c.enterBlock(d);
 
-        M2VHeaderExt.read(c, d);
+        M2VHeaderExt.readBits(c, d);
 
         d.video_format             = c.readUInt( 3, d.video_format            );
         d.colour_description       = c.readUInt( 1, d.colour_description      );
@@ -96,15 +96,15 @@ public class M2VHeaderExtSequenceDisplay<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             M2VHeaderExtSequenceDisplay d) {
+    public static void writeBits(BitStreamWriter c,
+                                 M2VHeaderExtSequenceDisplay d) {
         c.enterBlock(d);
 
-        M2VHeaderExt.write(c, d);
+        M2VHeaderExt.writeBits(c, d);
 
         c.writeUInt( 3, d.video_format            , d.getVideoFormatName());
         c.writeUInt( 1, d.colour_description      );

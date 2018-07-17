@@ -18,8 +18,8 @@ import net.katsuster.strview.media.m2v.M2VConsts.*;
  * associated audio information: Video</li>
  * </ul>
  */
-public class M2VHeaderExtSequenceScalable<T extends LargeList<?>>
-        extends M2VHeaderExt<T>
+public class M2VHeaderExtSequenceScalable
+        extends M2VHeaderExt
         implements Cloneable {
     public UInt scalable_mode;
     public UInt layer_id;
@@ -52,10 +52,9 @@ public class M2VHeaderExtSequenceScalable<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderExtSequenceScalable<T> clone()
+    public M2VHeaderExtSequenceScalable clone()
             throws CloneNotSupportedException {
-        M2VHeaderExtSequenceScalable<T> obj =
-                (M2VHeaderExtSequenceScalable<T>)super.clone();
+        M2VHeaderExtSequenceScalable obj = (M2VHeaderExtSequenceScalable)super.clone();
 
         obj.scalable_mode = (UInt)scalable_mode.clone();
         obj.layer_id = (UInt)layer_id.clone();
@@ -80,15 +79,15 @@ public class M2VHeaderExtSequenceScalable<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            M2VHeaderExtSequenceScalable d) {
+    public static void readBits(BitStreamReader c,
+                                M2VHeaderExtSequenceScalable d) {
         c.enterBlock(d);
 
-        M2VHeaderExt.read(c, d);
+        M2VHeaderExt.readBits(c, d);
 
         d.scalable_mode = c.readUInt( 2, d.scalable_mode);
         d.layer_id      = c.readUInt( 4, d.layer_id     );
@@ -116,15 +115,15 @@ public class M2VHeaderExtSequenceScalable<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             M2VHeaderExtSequenceScalable d) {
+    public static void writeBits(BitStreamWriter c,
+                                 M2VHeaderExtSequenceScalable d) {
         c.enterBlock(d);
 
-        M2VHeaderExt.write(c, d);
+        M2VHeaderExt.writeBits(c, d);
 
         c.writeUInt( 2, d.scalable_mode, d.getScalableModeName());
         c.writeUInt( 4, d.layer_id     );

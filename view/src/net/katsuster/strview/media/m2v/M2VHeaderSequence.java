@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Video</li>
  * </ul>
  */
-public class M2VHeaderSequence<T extends LargeList<?>>
-        extends M2VHeader<T> {
+public class M2VHeaderSequence
+        extends M2VHeader {
     public UInt  horizontal_size_value;
     public UInt  vertical_size_value;
     public UInt  aspect_ratio_information;
@@ -54,7 +54,7 @@ public class M2VHeaderSequence<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderSequence<T> clone()
+    public M2VHeaderSequence clone()
             throws CloneNotSupportedException {
         M2VHeaderSequence obj = (M2VHeaderSequence)super.clone();
 
@@ -86,15 +86,15 @@ public class M2VHeaderSequence<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            M2VHeaderSequence d) {
+    public static void readBits(BitStreamReader c,
+                                M2VHeaderSequence d) {
         c.enterBlock(d);
 
-        M2VHeader.read(c, d);
+        M2VHeader.readBits(c, d);
 
         d.horizontal_size_value       = c.readUInt(12, d.horizontal_size_value      );
         d.vertical_size_value         = c.readUInt(12, d.vertical_size_value        );
@@ -123,15 +123,15 @@ public class M2VHeaderSequence<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             M2VHeaderSequence d) {
+    public static void writeBits(BitStreamWriter c,
+                                 M2VHeaderSequence d) {
         c.enterBlock(d);
 
-        M2VHeader.write(c, d);
+        M2VHeader.writeBits(c, d);
 
         c.writeUInt(12, d.horizontal_size_value      );
         c.writeUInt(12, d.vertical_size_value        );

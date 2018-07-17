@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Video</li>
  * </ul>
  */
-public class M2VHeaderExtPictureCoding<T extends LargeList<?>>
-        extends M2VHeaderExt<T>
+public class M2VHeaderExtPictureCoding
+        extends M2VHeaderExt
         implements Cloneable {
     public UInt[][] f_code;
     public UInt intra_dc_precision;
@@ -68,7 +68,7 @@ public class M2VHeaderExtPictureCoding<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderExtPictureCoding<T> clone()
+    public M2VHeaderExtPictureCoding clone()
             throws CloneNotSupportedException {
         M2VHeaderExtPictureCoding obj = (M2VHeaderExtPictureCoding)super.clone();
 
@@ -106,15 +106,15 @@ public class M2VHeaderExtPictureCoding<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            M2VHeaderExtPictureCoding d) {
+    public static void readBits(BitStreamReader c,
+                                M2VHeaderExtPictureCoding d) {
         c.enterBlock(d);
 
-        M2VHeaderExt.read(c, d);
+        M2VHeaderExt.readBits(c, d);
 
         d.f_code[0][0]               = c.readUInt( 4, d.f_code[0][0]              );
         d.f_code[0][1]               = c.readUInt( 4, d.f_code[0][1]              );
@@ -145,15 +145,15 @@ public class M2VHeaderExtPictureCoding<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             M2VHeaderExtPictureCoding d) {
+    public static void writeBits(BitStreamWriter c,
+                                 M2VHeaderExtPictureCoding d) {
         c.enterBlock(d);
 
-        M2VHeaderExt.write(c, d);
+        M2VHeaderExt.writeBits(c, d);
 
         c.writeUInt( 4, d.f_code[0][0]              );
         c.writeUInt( 4, d.f_code[0][1]              );

@@ -17,8 +17,8 @@ import net.katsuster.strview.media.*;
  * associated audio information: Video</li>
  * </ul>
  */
-public class M2VHeaderExtQuantMatrix<T extends LargeList<?>>
-        extends M2VHeaderExt<T>
+public class M2VHeaderExtQuantMatrix
+        extends M2VHeaderExt
         implements Cloneable {
     public UInt load_intra_quantiser_matrix;
     public LargeBitList intra_quantiser_matrix;
@@ -41,9 +41,9 @@ public class M2VHeaderExtQuantMatrix<T extends LargeList<?>>
     }
 
     @Override
-    public M2VHeaderExtQuantMatrix<T> clone()
+    public M2VHeaderExtQuantMatrix clone()
             throws CloneNotSupportedException {
-        M2VHeaderExtQuantMatrix<T> obj = (M2VHeaderExtQuantMatrix<T>) super.clone();
+        M2VHeaderExtQuantMatrix obj = (M2VHeaderExtQuantMatrix) super.clone();
 
         obj.load_intra_quantiser_matrix = (UInt)load_intra_quantiser_matrix.clone();
         obj.intra_quantiser_matrix = (LargeBitList)intra_quantiser_matrix.clone();
@@ -63,15 +63,15 @@ public class M2VHeaderExtQuantMatrix<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            M2VHeaderExtQuantMatrix d) {
+    public static void readBits(BitStreamReader c,
+                                M2VHeaderExtQuantMatrix d) {
         c.enterBlock(d);
 
-        M2VHeaderExt.read(c, d);
+        M2VHeaderExt.readBits(c, d);
 
         d.load_intra_quantiser_matrix = c.readUInt( 1, d.load_intra_quantiser_matrix);
         if (d.load_intra_quantiser_matrix.intValue() == 1) {
@@ -97,15 +97,15 @@ public class M2VHeaderExtQuantMatrix<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             M2VHeaderExtQuantMatrix d) {
+    public static void writeBits(BitStreamWriter c,
+                                 M2VHeaderExtQuantMatrix d) {
         c.enterBlock(d);
 
-        M2VHeaderExt.write(c, d);
+        M2VHeaderExt.writeBits(c, d);
 
         c.writeUInt( 1, d.load_intra_quantiser_matrix);
         if (d.load_intra_quantiser_matrix.intValue() == 1) {
