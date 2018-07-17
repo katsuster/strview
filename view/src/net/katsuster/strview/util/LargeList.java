@@ -1,7 +1,5 @@
 package net.katsuster.strview.util;
 
-import java.util.List;
-
 /**
  * <p>
  * int 型で扱える長さを超えるリストのインタフェースです。
@@ -9,7 +7,7 @@ import java.util.List;
  */
 public interface LargeList<T> extends Cloneable, Named/*, List<T>*/ {
     //size() および length() メソッドで長さが分からないときに返される値です
-    public static final long LENGTH_UNKNOWN = Range.LENGTH_UNKNOWN;
+    public static final long LENGTH_UNKNOWN = -1;
 
     /**
      * オブジェクトのコピーを作成し、返します。
@@ -51,6 +49,24 @@ public interface LargeList<T> extends Cloneable, Named/*, List<T>*/ {
 
     /**
      * <p>
+     * リストの存在する範囲を返します。
+     * </p>
+     *
+     * @return リストの範囲
+     */
+    public Range<LargeList<T>> getRange();
+
+    /**
+     * <p>
+     * リストの存在する範囲を設定します。
+     * </p>
+     *
+     * @param r リストの範囲
+     */
+    public void setRange(Range<LargeList<T>> r);
+
+    /**
+     * <p>
      * 指定された位置の要素を取得します。
      * </p>
      *
@@ -73,7 +89,7 @@ public interface LargeList<T> extends Cloneable, Named/*, List<T>*/ {
      * @return 実際に読みだした要素数
      * @throws IndexOutOfBoundsException 読み出し位置が負、リストの範囲外の場合
      */
-    //public int get(long index, T[] dest, int offset, int length);
+    public int get(long index, T[] dest, int offset, int length);
 
     /**
      * <p>
@@ -113,7 +129,7 @@ public interface LargeList<T> extends Cloneable, Named/*, List<T>*/ {
      * @return 実際に書き込んだ要素数
      * @throws IndexOutOfBoundsException 書き込み位置が負、リストの範囲外の場合
      */
-    //public int set(long index, T[] src, int offset, int length);
+    public int set(long index, T[] src, int offset, int length);
 
     /**
      * <p>
@@ -140,32 +156,4 @@ public interface LargeList<T> extends Cloneable, Named/*, List<T>*/ {
      * @return リストの部分列
      */
     public LargeList<T> subLargeList(long from, long len);
-
-    /**
-     * <p>
-     * 指定された位置の追加情報を取得します。
-     * </p>
-     *
-     * <p>
-     * 位置に対応する追加情報が存在しない場合 null を返します。
-     * </p>
-     *
-     * @param index 追加情報を取得したい位置
-     * @return 追加情報
-     */
-    public ExtraInfo getExtraInfo(long index);
-
-    /**
-     * <p>
-     * 指定された位置の追加情報を設定します。
-     * </p>
-     *
-     * <p>
-     * 追加情報に null を許容するか否かは実装依存です。
-     * </p>
-     *
-     * @param index 追加情報を取得したい位置
-     * @param info  追加情報
-     */
-    public void setExtraInfo(long index, ExtraInfo info);
 }
