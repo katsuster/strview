@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * DATA チャンクヘッダ。
  * </p>
  */
-public class RMFFHeaderDATA<T extends LargeList<?>>
-        extends RMFFHeader<T>
+public class RMFFHeaderDATA
+        extends RMFFHeader
         implements Cloneable {
     public UInt num_packets;
     public UInt next_data_header;
@@ -20,9 +20,9 @@ public class RMFFHeaderDATA<T extends LargeList<?>>
     }
 
     @Override
-    public RMFFHeaderDATA<T> clone()
+    public RMFFHeaderDATA clone()
             throws CloneNotSupportedException {
-        RMFFHeaderDATA<T> obj = (RMFFHeaderDATA<T>)super.clone();
+        RMFFHeaderDATA obj = (RMFFHeaderDATA)super.clone();
 
         obj.num_packets = (UInt)num_packets.clone();
         obj.next_data_header = (UInt)next_data_header.clone();
@@ -36,15 +36,15 @@ public class RMFFHeaderDATA<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            RMFFHeaderDATA d) {
+    public static void readBits(BitStreamReader c,
+                                RMFFHeaderDATA d) {
         c.enterBlock(d);
 
-        RMFFHeader.read(c, d);
+        RMFFHeader.readBits(c, d);
 
         if (d.object_version.intValue() == 0) {
             d.num_packets      = c.readUInt(32, d.num_packets     );
@@ -55,15 +55,15 @@ public class RMFFHeaderDATA<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             RMFFHeaderDATA d) {
+    public static void writeBits(BitStreamWriter c,
+                                 RMFFHeaderDATA d) {
         c.enterBlock(d);
 
-        RMFFHeader.write(c, d);
+        RMFFHeader.writeBits(c, d);
 
         if (d.object_version.intValue() == 0) {
             c.writeUInt(32, d.num_packets     );

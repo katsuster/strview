@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * .RMF チャンクヘッダ。
  * </p>
  */
-public class RMFFHeaderRMF<T extends LargeList<?>>
-        extends RMFFHeader<T>
+public class RMFFHeaderRMF
+        extends RMFFHeader
         implements Cloneable {
     public UInt file_version;
     public UInt num_headers;
@@ -20,9 +20,9 @@ public class RMFFHeaderRMF<T extends LargeList<?>>
     }
 
     @Override
-    public RMFFHeaderRMF<T> clone()
+    public RMFFHeaderRMF clone()
             throws CloneNotSupportedException {
-        RMFFHeaderRMF<T> obj = (RMFFHeaderRMF<T>)super.clone();
+        RMFFHeaderRMF obj = (RMFFHeaderRMF)super.clone();
 
         obj.file_version = (UInt)file_version.clone();
         obj.num_headers = (UInt)num_headers.clone();
@@ -36,15 +36,15 @@ public class RMFFHeaderRMF<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            RMFFHeaderRMF d) {
+    public static void readBits(BitStreamReader c,
+                                RMFFHeaderRMF d) {
         c.enterBlock(d);
 
-        RMFFHeader.read(c, d);
+        RMFFHeader.readBits(c, d);
 
         if ((d.object_version.intValue() == 0)
                 || (d.object_version.intValue() == 1)) {
@@ -56,15 +56,15 @@ public class RMFFHeaderRMF<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             RMFFHeaderRMF d) {
+    public static void writeBits(BitStreamWriter c,
+                                 RMFFHeaderRMF d) {
         c.enterBlock(d);
 
-        RMFFHeader.write(c, d);
+        RMFFHeader.writeBits(c, d);
 
         if ((d.object_version.intValue() == 0)
                 || (d.object_version.intValue() == 1)) {

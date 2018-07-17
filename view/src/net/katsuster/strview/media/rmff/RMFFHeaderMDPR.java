@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * MDPR チャンクヘッダ。
  * </p>
  */
-public class RMFFHeaderMDPR<T extends LargeList<?>>
-        extends RMFFHeader<T>
+public class RMFFHeaderMDPR
+        extends RMFFHeader
         implements Cloneable {
     public UInt stream_number;
     public UInt max_bit_rate;
@@ -40,9 +40,9 @@ public class RMFFHeaderMDPR<T extends LargeList<?>>
     }
 
     @Override
-    public RMFFHeaderMDPR<T> clone()
+    public RMFFHeaderMDPR clone()
             throws CloneNotSupportedException {
-        RMFFHeaderMDPR<T> obj = (RMFFHeaderMDPR<T>)super.clone();
+        RMFFHeaderMDPR obj = (RMFFHeaderMDPR)super.clone();
 
         obj.stream_number = (UInt)stream_number.clone();
         obj.max_bit_rate = (UInt)max_bit_rate.clone();
@@ -66,15 +66,15 @@ public class RMFFHeaderMDPR<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            RMFFHeaderMDPR d) {
+    public static void readBits(BitStreamReader c,
+                                RMFFHeaderMDPR d) {
         c.enterBlock(d);
 
-        RMFFHeader.read(c, d);
+        RMFFHeader.readBits(c, d);
 
         if (d.object_version.intValue() == 0) {
             d.stream_number    = c.readUInt(16, d.stream_number   );
@@ -99,15 +99,15 @@ public class RMFFHeaderMDPR<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             RMFFHeaderMDPR d) {
+    public static void writeBits(BitStreamWriter c,
+                                 RMFFHeaderMDPR d) {
         c.enterBlock(d);
 
-        RMFFHeader.write(c, d);
+        RMFFHeader.writeBits(c, d);
 
         if (d.object_version.intValue() == 0) {
             c.writeUInt(16, d.stream_number  );

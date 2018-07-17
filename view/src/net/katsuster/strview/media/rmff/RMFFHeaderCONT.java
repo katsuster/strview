@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * CONT チャンクヘッダ。
  * </p>
  */
-public class RMFFHeaderCONT<T extends LargeList<?>>
-        extends RMFFHeader<T>
+public class RMFFHeaderCONT
+        extends RMFFHeader
         implements Cloneable {
     public UInt title_len;
     public LargeBitList title;
@@ -32,9 +32,9 @@ public class RMFFHeaderCONT<T extends LargeList<?>>
     }
 
     @Override
-    public RMFFHeaderCONT<T> clone()
+    public RMFFHeaderCONT clone()
             throws CloneNotSupportedException {
-        RMFFHeaderCONT<T> obj = (RMFFHeaderCONT<T>)super.clone();
+        RMFFHeaderCONT obj = (RMFFHeaderCONT)super.clone();
 
         obj.title_len = (UInt)title_len.clone();
         obj.title = (LargeBitList)title.clone();
@@ -54,15 +54,15 @@ public class RMFFHeaderCONT<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            RMFFHeaderCONT d) {
+    public static void readBits(BitStreamReader c,
+                                RMFFHeaderCONT d) {
         c.enterBlock(d);
 
-        RMFFHeader.read(c, d);
+        RMFFHeader.readBits(c, d);
 
         if (d.object_version.intValue() == 0) {
             d.title_len = c.readUInt(16, d.title_len);
@@ -86,15 +86,15 @@ public class RMFFHeaderCONT<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             RMFFHeaderCONT d) {
+    public static void writeBits(BitStreamWriter c,
+                                 RMFFHeaderCONT d) {
         c.enterBlock(d);
 
-        RMFFHeader.write(c, d);
+        RMFFHeader.writeBits(c, d);
 
         if (d.object_version.intValue() == 0) {
             c.writeUInt(16, d.title_len    );

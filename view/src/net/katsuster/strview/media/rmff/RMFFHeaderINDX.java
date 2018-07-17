@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * INDX チャンクヘッダ。
  * </p>
  */
-public class RMFFHeaderINDX<T extends LargeList<?>>
-        extends RMFFHeader<T>
+public class RMFFHeaderINDX
+        extends RMFFHeader
         implements Cloneable {
     public UInt num_indices;
     public UInt stream_number;
@@ -22,9 +22,9 @@ public class RMFFHeaderINDX<T extends LargeList<?>>
     }
 
     @Override
-    public RMFFHeaderINDX<T> clone()
+    public RMFFHeaderINDX clone()
             throws CloneNotSupportedException {
-        RMFFHeaderINDX<T> obj = (RMFFHeaderINDX<T>)super.clone();
+        RMFFHeaderINDX obj = (RMFFHeaderINDX)super.clone();
 
         obj.num_indices = (UInt)num_indices.clone();
         obj.stream_number = (UInt)stream_number.clone();
@@ -39,15 +39,15 @@ public class RMFFHeaderINDX<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            RMFFHeaderINDX d) {
+    public static void readBits(BitStreamReader c,
+                                RMFFHeaderINDX d) {
         c.enterBlock(d);
 
-        RMFFHeader.read(c, d);
+        RMFFHeader.readBits(c, d);
 
         if (d.object_version.intValue() == 0) {
             d.num_indices       = c.readUInt(32, d.num_indices      );
@@ -59,15 +59,15 @@ public class RMFFHeaderINDX<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             RMFFHeaderINDX d) {
+    public static void writeBits(BitStreamWriter c,
+                                 RMFFHeaderINDX d) {
         c.enterBlock(d);
 
-        RMFFHeader.write(c, d);
+        RMFFHeader.writeBits(c, d);
 
         if (d.object_version.intValue() == 0) {
             c.writeUInt(32, d.num_indices      );

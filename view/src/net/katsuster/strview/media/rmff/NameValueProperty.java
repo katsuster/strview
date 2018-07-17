@@ -12,8 +12,8 @@ import net.katsuster.strview.media.*;
  * 名前、値のタイプ、値、の 3つで構成される。
  * </p>
  */
-public class NameValueProperty<T extends LargeList<?>>
-        extends BlockAdapter<T>
+public class NameValueProperty
+        extends BitBlockAdapter
         implements Cloneable {
     public UInt size;
     public UInt object_version;
@@ -40,9 +40,9 @@ public class NameValueProperty<T extends LargeList<?>>
     }
 
     @Override
-    public NameValueProperty<T> clone()
+    public NameValueProperty clone()
             throws CloneNotSupportedException {
-        NameValueProperty<T> obj = (NameValueProperty<T>)super.clone();
+        NameValueProperty obj = (NameValueProperty)super.clone();
 
         obj.size = (UInt)size.clone();
         obj.object_version = (UInt)object_version.clone();
@@ -82,12 +82,12 @@ public class NameValueProperty<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            NameValueProperty d) {
+    public static void readBits(BitStreamReader c,
+                                NameValueProperty d) {
         c.enterBlock(d);
 
         d.size           = c.readUInt(32, d.size          );
@@ -109,12 +109,12 @@ public class NameValueProperty<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             NameValueProperty d) {
+    public static void writeBits(BitStreamWriter c,
+                                 NameValueProperty d) {
         c.enterBlock(d);
 
         c.writeUInt(32, d.size          );

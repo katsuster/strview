@@ -18,8 +18,8 @@ import net.katsuster.strview.media.*;
  * (https://www.helixcommunity.org/projects/common/2003/HCS_SDK_r5/htmfiles/rmff.htm)</li>
  * </ul>
  */
-public class RMFFHeader<T extends LargeList<?>>
-        extends BlockAdapter<T>
+public class RMFFHeader
+        extends BitBlockAdapter
         implements Cloneable {
     public UInt object_id;
     public UInt size;
@@ -32,9 +32,9 @@ public class RMFFHeader<T extends LargeList<?>>
     }
 
     @Override
-    public RMFFHeader<T> clone()
+    public RMFFHeader clone()
             throws CloneNotSupportedException {
-        RMFFHeader<T> obj = (RMFFHeader<T>)super.clone();
+        RMFFHeader obj = (RMFFHeader)super.clone();
 
         obj.object_id = (UInt)object_id.clone();
         obj.size = (UInt)size.clone();
@@ -61,12 +61,12 @@ public class RMFFHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            RMFFHeader d) {
+    public static void readBits(BitStreamReader c,
+                                RMFFHeader d) {
         c.enterBlock(d);
 
         d.object_id      = c.readUInt(32, d.object_id     );
@@ -77,12 +77,12 @@ public class RMFFHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             RMFFHeader d) {
+    public static void writeBits(BitStreamWriter c,
+                                 RMFFHeader d) {
         c.enterBlock(d);
 
         c.writeUInt(32, d.object_id     , d.getObjectIdName());

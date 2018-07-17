@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * RMFF(RealMedia File Format) チャンクリスト。
  * </p>
  */
-public class RMFFChunkList<U extends LargeList<?>>
-        extends AbstractPacketList<RMFFChunk<U>, U> {
+public class RMFFChunkList
+        extends AbstractPacketList<RMFFChunk, Boolean> {
     private LargeBitList buf;
 
     public RMFFChunkList() {
@@ -23,7 +23,7 @@ public class RMFFChunkList<U extends LargeList<?>>
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         return "RMFF (RealMedia File Format)";
     }
 
@@ -35,10 +35,10 @@ public class RMFFChunkList<U extends LargeList<?>>
     }
 
     @Override
-    protected RMFFChunk<U> readNextInner(StreamReader<?, ?> c, PacketRange<U> pr) {
-        RMFFHeader<U> tagh = createHeader(c, pr);
+    protected RMFFChunk readNextInner(StreamReader<Boolean> c, PacketRange<LargeList<Boolean>> pr) {
+        RMFFHeader tagh = createHeader(c, pr);
 
-        RMFFChunk<U> packet = new RMFFChunk<>(tagh);
+        RMFFChunk packet = new RMFFChunk(tagh);
         packet.setRange(pr);
         packet.read(c);
 
@@ -46,12 +46,12 @@ public class RMFFChunkList<U extends LargeList<?>>
     }
 
     @Override
-    protected RMFFChunk<U> getInner(long index) {
+    protected RMFFChunk getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
         seek(c, index);
 
-        return (RMFFChunk<U>)readNext(c, index);
+        return readNext(c, index);
     }
 
     @Override
@@ -59,15 +59,15 @@ public class RMFFChunkList<U extends LargeList<?>>
         //TODO: not implemented yet
     }
 
-    protected RMFFHeader<U> createHeader(StreamReader<?, ?> c, PacketRange<U> pr) {
-        RMFFHeader<U> tmph = new RMFFHeader<>();
+    protected RMFFHeader createHeader(StreamReader<Boolean> c, PacketRange<LargeList<Boolean>> pr) {
+        RMFFHeader tmph = new RMFFHeader();
         tmph.peek(c);
 
-        RMFFHeader<U> tagh;
+        RMFFHeader tagh;
         int id = tmph.object_id.intValue();
 
         if (id == RMFFConsts.OBJECT.MDPR) {
-            RMFFHeaderMDPR<U> tmph_mdpr = new RMFFHeaderMDPRAny<>();
+            RMFFHeaderMDPR tmph_mdpr = new RMFFHeaderMDPRAny();
             tmph_mdpr.peek(c);
 
             tagh = RMFFConsts.mdprFactory.createPacketHeader(tmph_mdpr.getMimeTypeName());

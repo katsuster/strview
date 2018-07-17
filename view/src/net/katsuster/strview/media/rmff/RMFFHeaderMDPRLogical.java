@@ -8,25 +8,25 @@ import net.katsuster.strview.media.*;
  * MDPR LogicalStream Structure
  * </p>
  */
-public class RMFFHeaderMDPRLogical<T extends LargeList<?>>
-        extends RMFFHeaderMDPR<T>
+public class RMFFHeaderMDPRLogical
+        extends RMFFHeaderMDPR
         implements Cloneable {
     public UInt type_specific_len;
     public LargeBitList type_specific_data;
 
-    public LogicalStream<T> logical_stream;
+    public LogicalStream logical_stream;
 
     public RMFFHeaderMDPRLogical() {
         type_specific_len = new UInt("type_specific_len");
         type_specific_data = new SubLargeBitList("type_specific_data");
 
-        logical_stream = new LogicalStream<>("logical_stream");
+        logical_stream = new LogicalStream("logical_stream");
     }
 
     @Override
-    public RMFFHeaderMDPRLogical<T> clone()
+    public RMFFHeaderMDPRLogical clone()
             throws CloneNotSupportedException {
-        RMFFHeaderMDPRLogical<T> obj = (RMFFHeaderMDPRLogical<T>)super.clone();
+        RMFFHeaderMDPRLogical obj = (RMFFHeaderMDPRLogical)super.clone();
 
         obj.type_specific_len = (UInt)type_specific_len.clone();
         obj.type_specific_data = (LargeBitList)type_specific_data.clone();
@@ -42,15 +42,15 @@ public class RMFFHeaderMDPRLogical<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            RMFFHeaderMDPRLogical d) {
+    public static void readBits(BitStreamReader c,
+                                RMFFHeaderMDPRLogical d) {
         c.enterBlock(d);
 
-        RMFFHeaderMDPR.read(c, d);
+        RMFFHeaderMDPR.readBits(c, d);
 
         if (d.object_version.intValue() == 0) {
             d.type_specific_len = c.readUInt(32, d.type_specific_len);
@@ -70,15 +70,15 @@ public class RMFFHeaderMDPRLogical<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             RMFFHeaderMDPRLogical d) {
+    public static void writeBits(BitStreamWriter c,
+                                 RMFFHeaderMDPRLogical d) {
         c.enterBlock(d);
 
-        RMFFHeaderMDPR.write(c, d);
+        RMFFHeaderMDPR.writeBits(c, d);
 
         if (d.object_version.intValue() == 0) {
             c.writeUInt(32, d.type_specific_len);

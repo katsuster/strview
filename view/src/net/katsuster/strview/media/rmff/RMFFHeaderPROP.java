@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * PROP チャンクヘッダ。
  * </p>
  */
-public class RMFFHeaderPROP<T extends LargeList<?>>
-        extends RMFFHeader<T>
+public class RMFFHeaderPROP
+        extends RMFFHeader
         implements Cloneable {
     public UInt max_bit_rate;
     public UInt avg_bit_rate;
@@ -38,9 +38,9 @@ public class RMFFHeaderPROP<T extends LargeList<?>>
     }
 
     @Override
-    public RMFFHeaderPROP<T> clone()
+    public RMFFHeaderPROP clone()
             throws CloneNotSupportedException {
-        RMFFHeaderPROP<T> obj = (RMFFHeaderPROP<T>)super.clone();
+        RMFFHeaderPROP obj = (RMFFHeaderPROP)super.clone();
 
         obj.max_bit_rate = (UInt)max_bit_rate.clone();
         obj.avg_bit_rate = (UInt)avg_bit_rate.clone();
@@ -63,15 +63,15 @@ public class RMFFHeaderPROP<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            RMFFHeaderPROP d) {
+    public static void readBits(BitStreamReader c,
+                                RMFFHeaderPROP d) {
         c.enterBlock(d);
 
-        RMFFHeader.read(c, d);
+        RMFFHeader.readBits(c, d);
 
         if (d.object_version.intValue() == 0) {
             d.max_bit_rate    = c.readUInt(32, d.max_bit_rate   );
@@ -91,15 +91,15 @@ public class RMFFHeaderPROP<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             RMFFHeaderPROP d) {
+    public static void writeBits(BitStreamWriter c,
+                                 RMFFHeaderPROP d) {
         c.enterBlock(d);
 
-        RMFFHeader.write(c, d);
+        RMFFHeader.writeBits(c, d);
 
         if (d.object_version.intValue() == 0) {
             c.writeUInt(32, d.max_bit_rate   );

@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * LogicalStream Structure
  * </p>
  */
-public class LogicalStream<T extends LargeList<?>>
-        extends BlockAdapter<T>
+public class LogicalStream
+        extends BitBlockAdapter
         implements Cloneable {
     public UInt size;
     public UInt object_version;
@@ -40,9 +40,9 @@ public class LogicalStream<T extends LargeList<?>>
     }
 
     @Override
-    public LogicalStream<T> clone()
+    public LogicalStream clone()
             throws CloneNotSupportedException {
-        LogicalStream<T> obj = (LogicalStream<T>)super.clone();
+        LogicalStream obj = (LogicalStream)super.clone();
         int i;
 
         obj.size = (UInt)size.clone();
@@ -77,12 +77,12 @@ public class LogicalStream<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            LogicalStream d) {
+    public static void readBits(BitStreamReader c,
+                                LogicalStream d) {
         c.enterBlock(d);
 
         d.size           = c.readUInt(32, d.size          );
@@ -121,12 +121,12 @@ public class LogicalStream<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             LogicalStream d) {
+    public static void writeBits(BitStreamWriter c,
+                                 LogicalStream d) {
         c.enterBlock(d);
 
         c.writeUInt(32, d.size          );
