@@ -8,8 +8,8 @@ import net.katsuster.strview.util.*;
  * Base class of SCRIPTDATAxxxx
  * </p>
  */
-public class FLVScriptData<T extends LargeList<?>>
-        extends BlockAdapter<T>
+public class FLVScriptData
+        extends BitBlockAdapter
         implements Cloneable {
     public static final long LIMIT_INVALID = -1;
 
@@ -33,29 +33,29 @@ public class FLVScriptData<T extends LargeList<?>>
     }
 
     @Override
-    public FLVScriptData<T> clone()
+    public FLVScriptData clone()
             throws CloneNotSupportedException {
-        FLVScriptData<T> obj = (FLVScriptData<T>)super.clone();
+        FLVScriptData obj = (FLVScriptData)super.clone();
 
         return obj;
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            FLVScriptData d) {
+    public static void readBits(BitStreamReader c,
+                                FLVScriptData d) {
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             FLVScriptData d) {
+    public static void writeBits(BitStreamWriter c,
+                                 FLVScriptData d) {
     }
 
     /**

@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * SCRIPTDATASTRING
  * </p>
  */
-public class FLVScriptDataString<T extends LargeList<?>>
-        extends FLVScriptData<T>
+public class FLVScriptDataString
+        extends FLVScriptData
         implements Cloneable {
     public UInt string_length;
     public LargeBitList string_data;
@@ -26,9 +26,9 @@ public class FLVScriptDataString<T extends LargeList<?>>
     }
 
     @Override
-    public FLVScriptDataString<T> clone()
+    public FLVScriptDataString clone()
             throws CloneNotSupportedException {
-        FLVScriptDataString<T> obj = (FLVScriptDataString<T>)super.clone();
+        FLVScriptDataString obj = (FLVScriptDataString)super.clone();
 
         obj.string_length = (UInt)string_length.clone();
         obj.string_data = (LargeBitList)string_data.clone();
@@ -42,15 +42,15 @@ public class FLVScriptDataString<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            FLVScriptDataString d) {
+    public static void readBits(BitStreamReader c,
+                                FLVScriptDataString d) {
         c.enterBlock(d);
 
-        FLVScriptData.read(c, d);
+        FLVScriptData.readBits(c, d);
 
         d.string_length = c.readUInt(16, d.string_length);
         d.string_data = c.readBitList(d.string_length.intValue() << 3, d.string_data);
@@ -59,15 +59,15 @@ public class FLVScriptDataString<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             FLVScriptDataString d) {
+    public static void writeBits(BitStreamWriter c,
+                                 FLVScriptDataString d) {
         c.enterBlock(d);
 
-        FLVScriptData.write(c, d);
+        FLVScriptData.writeBits(c, d);
 
         c.writeUInt(16, d.string_length, "StringLength");
         c.writeBitList(d.string_length.intValue() << 3, d.string_data,

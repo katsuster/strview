@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * DOUBLE
  * </p>
  */
-public class FLVScriptDataDouble<T extends LargeList<?>>
-        extends FLVScriptData<T>
+public class FLVScriptDataDouble
+        extends FLVScriptData
         implements Cloneable {
     public Float64 double_bits;
 
@@ -18,9 +18,9 @@ public class FLVScriptDataDouble<T extends LargeList<?>>
     }
 
     @Override
-    public FLVScriptDataDouble<T> clone()
+    public FLVScriptDataDouble clone()
             throws CloneNotSupportedException {
-        FLVScriptDataDouble<T> obj = (FLVScriptDataDouble<T>)super.clone();
+        FLVScriptDataDouble obj = (FLVScriptDataDouble)super.clone();
 
         obj.double_bits = (Float64)double_bits.clone();
 
@@ -33,15 +33,15 @@ public class FLVScriptDataDouble<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            FLVScriptDataDouble d) {
+    public static void readBits(BitStreamReader c,
+                                FLVScriptDataDouble d) {
         c.enterBlock(d);
 
-        FLVScriptData.read(c, d);
+        FLVScriptData.readBits(c, d);
 
         d.double_bits = c.readFloat64(64, d.double_bits);
 
@@ -49,15 +49,15 @@ public class FLVScriptDataDouble<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             FLVScriptDataDouble d) {
+    public static void writeBits(BitStreamWriter c,
+                                 FLVScriptDataDouble d) {
         c.enterBlock(d);
 
-        FLVScriptData.write(c, d);
+        FLVScriptData.writeBits(c, d);
 
         c.writeFloat64(64, d.double_bits, "double_bits");
 

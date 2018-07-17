@@ -8,11 +8,11 @@ import net.katsuster.strview.util.*;
  * SCRIPTDATAOBJECTPROPERTY
  * </p>
  */
-public class FLVScriptDataObjectProperty<T extends LargeList<?>>
-        extends FLVScriptData<T>
+public class FLVScriptDataObjectProperty
+        extends FLVScriptData
         implements Cloneable {
-    public FLVScriptDataString<T> property_name;
-    public FLVScriptDataValue<T> property_data;
+    public FLVScriptDataString property_name;
+    public FLVScriptDataValue property_data;
 
     public FLVScriptDataObjectProperty() {
         this("");
@@ -21,14 +21,14 @@ public class FLVScriptDataObjectProperty<T extends LargeList<?>>
     public FLVScriptDataObjectProperty(String n) {
         super(n);
 
-        property_name = new FLVScriptDataString<>("PropertyName");
-        property_data = new FLVScriptDataValue<>("PropertyData");
+        property_name = new FLVScriptDataString("PropertyName");
+        property_data = new FLVScriptDataValue("PropertyData");
     }
 
     @Override
-    public FLVScriptDataObjectProperty<T> clone()
+    public FLVScriptDataObjectProperty clone()
             throws CloneNotSupportedException {
-        FLVScriptDataObjectProperty<T> obj = (FLVScriptDataObjectProperty<T>)super.clone();
+        FLVScriptDataObjectProperty obj = (FLVScriptDataObjectProperty)super.clone();
 
         obj.property_name = property_name.clone();
         obj.property_data = property_data.clone();
@@ -42,15 +42,15 @@ public class FLVScriptDataObjectProperty<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            FLVScriptDataObjectProperty d) {
+    public static void readBits(BitStreamReader c,
+                                FLVScriptDataObjectProperty d) {
         c.enterBlock(d);
 
-        FLVScriptData.read(c, d);
+        FLVScriptData.readBits(c, d);
 
         d.property_name.setLimit(d.getLimit());
         d.property_name.read(c);
@@ -61,15 +61,15 @@ public class FLVScriptDataObjectProperty<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             FLVScriptDataObjectProperty d) {
+    public static void writeBits(BitStreamWriter c,
+                                 FLVScriptDataObjectProperty d) {
         c.enterBlock(d);
 
-        FLVScriptData.write(c, d);
+        FLVScriptData.writeBits(c, d);
 
         d.property_name.write(c);
         d.property_data.write(c);

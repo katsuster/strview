@@ -6,8 +6,8 @@ import net.katsuster.strview.media.*;
 /**
  * Created by katsuhiro on 2017/03/15.
  */
-public class FLVTagList<T extends LargeList<?>>
-        extends AbstractPacketList<FLVTag<T>, T> {
+public class FLVTagList
+        extends AbstractPacketList<FLVTag, Boolean> {
     private LargeBitList buf;
 
     public FLVTagList() {
@@ -21,7 +21,7 @@ public class FLVTagList<T extends LargeList<?>>
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         return "Flash Video";
     }
 
@@ -38,10 +38,10 @@ public class FLVTagList<T extends LargeList<?>>
     }
 
     @Override
-    protected FLVTag<T> readNextInner(StreamReader<?, ?> c, PacketRange<T> pr) {
-        FLVHeader<T> tagh = createHeader(c, pr);
+    protected FLVTag readNextInner(StreamReader<Boolean> c, PacketRange<LargeList<Boolean>> pr) {
+        FLVHeader tagh = createHeader(c, pr);
 
-        FLVTag<T> packet = new FLVTag<>(tagh);
+        FLVTag packet = new FLVTag(tagh);
         packet.setRange(pr);
         packet.read(c);
 
@@ -49,26 +49,26 @@ public class FLVTagList<T extends LargeList<?>>
     }
 
     @Override
-    protected FLVTag<T> getInner(long index) {
+    protected FLVTag getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
         seek(c, index);
 
-        return (FLVTag<T>)readNext(c, index);
+        return readNext(c, index);
     }
 
     @Override
-    protected void setInner(long index, FLVTag<T> data) {
+    protected void setInner(long index, FLVTag data) {
         //TODO: not implemented yet
     }
 
-    protected FLVHeader<T> createHeader(StreamReader<?, ?> c, PacketRange<T> pr) {
-        FLVHeader<T> tagh;
+    protected FLVHeader createHeader(StreamReader<Boolean> c, PacketRange<LargeList<Boolean>> pr) {
+        FLVHeader tagh;
 
         if (pr.getNumber() == 0) {
-            tagh = new FLVHeaderFile<>();
+            tagh = new FLVHeaderFile();
         } else {
-            FLVHeaderES<T> tmph = new FLVHeaderES<>();
+            FLVHeaderES tmph = new FLVHeaderES();
             tmph.peek(c);
 
             tagh = FLVConsts.flvFactory.createPacketHeader(

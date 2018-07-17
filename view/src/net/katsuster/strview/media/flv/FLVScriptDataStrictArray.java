@@ -10,11 +10,11 @@ import net.katsuster.strview.media.*;
  * SCRIPTDATASTRICTARRAY
  * </p>
  */
-public class FLVScriptDataStrictArray<T extends LargeList<?>>
-        extends FLVScriptData<T>
+public class FLVScriptDataStrictArray
+        extends FLVScriptData
         implements Cloneable {
     public UInt strict_array_length;
-    public List<FLVScriptDataValue<T>> strict_array_value;
+    public List<FLVScriptDataValue> strict_array_value;
 
     public FLVScriptDataStrictArray() {
         strict_array_length = new UInt();
@@ -22,14 +22,14 @@ public class FLVScriptDataStrictArray<T extends LargeList<?>>
     }
 
     @Override
-    public FLVScriptDataStrictArray<T> clone()
+    public FLVScriptDataStrictArray clone()
             throws CloneNotSupportedException {
-        FLVScriptDataStrictArray<T> obj = (FLVScriptDataStrictArray<T>)super.clone();
+        FLVScriptDataStrictArray obj = (FLVScriptDataStrictArray)super.clone();
 
         obj.strict_array_length = (UInt)strict_array_length.clone();
 
         obj.strict_array_value = new ArrayList<>();
-        for (FLVScriptDataValue<T> v : strict_array_value) {
+        for (FLVScriptDataValue v : strict_array_value) {
             obj.strict_array_value.add(v.clone());
         }
 
@@ -42,15 +42,15 @@ public class FLVScriptDataStrictArray<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            FLVScriptDataStrictArray d) {
+    public static void readBits(BitStreamReader c,
+                                FLVScriptDataStrictArray d) {
         c.enterBlock(d);
 
-        FLVScriptData.read(c, d);
+        FLVScriptData.readBits(c, d);
 
         d.strict_array_length = c.readUInt(32, d.strict_array_length);
 
@@ -61,15 +61,15 @@ public class FLVScriptDataStrictArray<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             FLVScriptDataStrictArray d) {
+    public static void writeBits(BitStreamWriter c,
+                                 FLVScriptDataStrictArray d) {
         c.enterBlock(d);
 
-        FLVScriptData.write(c, d);
+        FLVScriptData.writeBits(c, d);
 
         c.writeUInt(32, d.strict_array_length, "StrictArrayLength");
 

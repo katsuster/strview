@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * Flash Video ビデオ、オーディオ、スクリプトタグの共通ヘッダ。
  * </p>
  */
-public class FLVHeaderES<T extends LargeList<?>>
-        extends FLVHeader<T>
+public class FLVHeaderES
+        extends FLVHeader
         implements Cloneable {
     public UInt previous_tag_size;
 
@@ -34,9 +34,9 @@ public class FLVHeaderES<T extends LargeList<?>>
     }
 
     @Override
-    public FLVHeaderES<T> clone()
+    public FLVHeaderES clone()
             throws CloneNotSupportedException {
-        FLVHeaderES<T> obj = (FLVHeaderES<T>)super.clone();
+        FLVHeaderES obj = (FLVHeaderES)super.clone();
 
         obj.previous_tag_size = (UInt)previous_tag_size.clone();
 
@@ -57,15 +57,15 @@ public class FLVHeaderES<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            FLVHeaderES d) {
+    public static void readBits(BitStreamReader c,
+                                FLVHeaderES d) {
         c.enterBlock(d);
 
-        FLVHeader.read(c, d);
+        FLVHeader.readBits(c, d);
 
         d.previous_tag_size  = c.readUInt(32, d.previous_tag_size );
 
@@ -81,15 +81,15 @@ public class FLVHeaderES<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             FLVHeaderES d) {
+    public static void writeBits(BitStreamWriter c,
+                                 FLVHeaderES d) {
         c.enterBlock(d);
 
-        FLVHeader.write(c, d);
+        FLVHeader.writeBits(c, d);
 
         c.writeUInt(32, d.previous_tag_size);
 

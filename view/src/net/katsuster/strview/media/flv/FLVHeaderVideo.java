@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * VIDEODATA
  * </p>
  */
-public class FLVHeaderVideo<T extends LargeList<?>>
-        extends FLVHeaderES<T>
+public class FLVHeaderVideo
+        extends FLVHeaderES
         implements Cloneable {
     public UInt frame_type;
     public UInt codec_id;
@@ -20,9 +20,9 @@ public class FLVHeaderVideo<T extends LargeList<?>>
     }
 
     @Override
-    public FLVHeaderVideo<T> clone()
+    public FLVHeaderVideo clone()
             throws CloneNotSupportedException {
-        FLVHeaderVideo<T> obj = (FLVHeaderVideo<T>)super.clone();
+        FLVHeaderVideo obj = (FLVHeaderVideo)super.clone();
 
         obj.frame_type = (UInt)frame_type.clone();
         obj.codec_id = (UInt)codec_id.clone();
@@ -36,15 +36,15 @@ public class FLVHeaderVideo<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            FLVHeaderVideo d) {
+    public static void readBits(BitStreamReader c,
+                                FLVHeaderVideo d) {
         c.enterBlock(d);
 
-        FLVHeaderES.read(c, d);
+        FLVHeaderES.readBits(c, d);
 
         d.frame_type = c.readUInt( 4, d.frame_type);
         d.codec_id   = c.readUInt( 4, d.codec_id  );
@@ -53,15 +53,15 @@ public class FLVHeaderVideo<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             FLVHeaderVideo d) {
+    public static void writeBits(BitStreamWriter c,
+                                 FLVHeaderVideo d) {
         c.enterBlock(d);
 
-        FLVHeaderES.write(c, d);
+        FLVHeaderES.writeBits(c, d);
 
         c.writeUInt( 4, d.frame_type, d.getFrameTypeName());
         c.writeUInt( 4, d.codec_id  , d.getCodecIDName());

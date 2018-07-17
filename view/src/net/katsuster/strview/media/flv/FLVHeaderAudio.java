@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * AUDIODATA
  * </p>
  */
-public class FLVHeaderAudio<T extends LargeList<?>>
-        extends FLVHeaderES<T>
+public class FLVHeaderAudio
+        extends FLVHeaderES
         implements Cloneable {
     public UInt sound_format;
     public UInt sound_rate;
@@ -24,9 +24,9 @@ public class FLVHeaderAudio<T extends LargeList<?>>
     }
 
     @Override
-    public FLVHeaderAudio<T> clone()
+    public FLVHeaderAudio clone()
             throws CloneNotSupportedException {
-        FLVHeaderAudio<T> obj = (FLVHeaderAudio<T>)super.clone();
+        FLVHeaderAudio obj = (FLVHeaderAudio)super.clone();
 
         obj.sound_format = (UInt)sound_format.clone();
         obj.sound_rate = (UInt)sound_rate.clone();
@@ -42,15 +42,15 @@ public class FLVHeaderAudio<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            FLVHeaderAudio d) {
+    public static void readBits(BitStreamReader c,
+                                FLVHeaderAudio d) {
         c.enterBlock(d);
 
-        FLVHeaderES.read(c, d);
+        FLVHeaderES.readBits(c, d);
 
         d.sound_format = c.readUInt( 4, d.sound_format);
         d.sound_rate   = c.readUInt( 2, d.sound_rate  );
@@ -61,15 +61,15 @@ public class FLVHeaderAudio<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             FLVHeaderAudio d) {
+    public static void writeBits(BitStreamWriter c,
+                                 FLVHeaderAudio d) {
         c.enterBlock(d);
 
-        FLVHeaderES.write(c, d);
+        FLVHeaderES.writeBits(c, d);
 
         c.writeUInt( 4, d.sound_format, d.getSoundFormatName());
         c.writeUInt( 2, d.sound_rate  , d.getSoundRateName());

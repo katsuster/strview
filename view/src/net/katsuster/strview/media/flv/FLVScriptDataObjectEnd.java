@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * SCRIPTDATAOBJECTEND
  * </p>
  */
-public class FLVScriptDataObjectEnd<T extends LargeList<?>>
-        extends FLVScriptData<T>
+public class FLVScriptDataObjectEnd
+        extends FLVScriptData
         implements Cloneable {
     //shall be 0x00, 0x00, 0x09
     public UInt object_end_marker;
@@ -25,9 +25,9 @@ public class FLVScriptDataObjectEnd<T extends LargeList<?>>
     }
 
     @Override
-    public FLVScriptDataObjectEnd<T> clone()
+    public FLVScriptDataObjectEnd clone()
             throws CloneNotSupportedException {
-        FLVScriptDataObjectEnd<T> obj = (FLVScriptDataObjectEnd<T>)super.clone();
+        FLVScriptDataObjectEnd obj = (FLVScriptDataObjectEnd)super.clone();
 
         obj.object_end_marker = (UInt)object_end_marker.clone();
 
@@ -40,15 +40,15 @@ public class FLVScriptDataObjectEnd<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            FLVScriptDataObjectEnd d) {
+    public static void readBits(BitStreamReader c,
+                                FLVScriptDataObjectEnd d) {
         c.enterBlock(d);
 
-        FLVScriptData.read(c, d);
+        FLVScriptData.readBits(c, d);
 
         d.object_end_marker = c.readUInt(24, d.object_end_marker);
 
@@ -56,15 +56,15 @@ public class FLVScriptDataObjectEnd<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             FLVScriptDataObjectEnd d) {
+    public static void writeBits(BitStreamWriter c,
+                                 FLVScriptDataObjectEnd d) {
         c.enterBlock(d);
 
-        FLVScriptData.write(c, d);
+        FLVScriptData.writeBits(c, d);
 
         c.writeUInt(24, d.object_end_marker, "ObjectEndMarker");
 

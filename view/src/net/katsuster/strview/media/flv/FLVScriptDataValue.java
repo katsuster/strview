@@ -8,11 +8,11 @@ import net.katsuster.strview.media.*;
  * SCRIPTDATAVALUE
  * </p>
  */
-public class FLVScriptDataValue<T extends LargeList<?>>
-        extends FLVScriptData<T>
+public class FLVScriptDataValue
+        extends FLVScriptData
         implements Cloneable {
     public UInt type;
-    public FLVScriptData<T> val;
+    public FLVScriptData val;
 
     public FLVScriptDataValue() {
         this("", LIMIT_INVALID);
@@ -26,13 +26,13 @@ public class FLVScriptDataValue<T extends LargeList<?>>
         super(n, l);
 
         type = new UInt();
-        val = new FLVScriptData<>();
+        val = new FLVScriptData();
     }
 
     @Override
-    public FLVScriptDataValue<T> clone()
+    public FLVScriptDataValue clone()
             throws CloneNotSupportedException {
-        FLVScriptDataValue<T> obj = (FLVScriptDataValue<T>)super.clone();
+        FLVScriptDataValue obj = (FLVScriptDataValue)super.clone();
 
         obj.type = (UInt)type.clone();
         obj.val = val.clone();
@@ -46,11 +46,11 @@ public class FLVScriptDataValue<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
+    public static void readBits(BitStreamReader c,
                             FLVScriptDataValue d) {
         c.enterBlock(d);
 
@@ -71,11 +71,11 @@ public class FLVScriptDataValue<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
+    public static void writeBits(BitStreamWriter c,
                              FLVScriptDataValue d) {
         c.enterBlock(d);
 

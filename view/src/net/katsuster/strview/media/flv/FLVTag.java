@@ -8,7 +8,7 @@ import net.katsuster.strview.media.*;
  * Flash Video Tag
  * </p>
  */
-public class FLVTag<T extends LargeList<?>> extends PacketAdapter<T> {
+public class FLVTag extends BitPacketAdapter {
     //FLV タグのヘッダサイズ（byte 単位）
     public static final int TAG_HEADER_SIZE = 15;
 
@@ -48,12 +48,12 @@ public class FLVTag<T extends LargeList<?>> extends PacketAdapter<T> {
     }
 
     @Override
-    protected void readHeader(StreamReader<?, ?> c) {
+    protected void readHeaderBits(BitStreamReader c) {
         getHeader().read(c);
     }
 
     @Override
-    protected void readBody(StreamReader<?, ?> c) {
+    protected void readBodyBits(BitStreamReader c) {
         FLVHeader head = getHeader();
         FLVHeaderES headt;
         long size_f;
@@ -73,19 +73,19 @@ public class FLVTag<T extends LargeList<?>> extends PacketAdapter<T> {
 
         //ヘッダ以降を本体として読み込む
         size_f -= getHeaderLength();
-        setBody(c.readBitList(size_f, getBody()));
+        setBody(c.readBitList(size_f, (LargeBitList) getBody()));
     }
 
     @Override
-    protected void writeHeader(StreamWriter<?, ?> c) {
+    protected void writeHeaderBits(BitStreamWriter c) {
         getHeader().write(c);
     }
 
     @Override
-    protected void writeBody(StreamWriter<?, ?> c) {
+    protected void writeBodyBits(BitStreamWriter c) {
         long size_f = getBody().length();
 
         //FIXME: tentative
-        c.writeBitList(size_f, getBody(), "body");
+        c.writeBitList(size_f, (LargeBitList) getBody(), "body");
     }
 }

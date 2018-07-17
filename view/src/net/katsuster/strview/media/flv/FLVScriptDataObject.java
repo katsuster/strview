@@ -10,12 +10,12 @@ import net.katsuster.strview.util.*;
  * SCRIPTDATAOBJECT
  * </p>
  */
-public class FLVScriptDataObject<T extends LargeList<?>>
-        extends FLVScriptData<T>
+public class FLVScriptDataObject
+        extends FLVScriptData
         implements Cloneable {
-    public List<FLVScriptDataObjectProperty<T>> object_properties;
+    public List<FLVScriptDataObjectProperty> object_properties;
     //SCRIPTDATAOBJECT が Script タグの終端にある場合、省略されることがある
-    public FLVScriptDataObjectEnd<T> list_terminator;
+    public FLVScriptDataObjectEnd list_terminator;
 
     public FLVScriptDataObject() {
         this(LIMIT_INVALID);
@@ -25,13 +25,13 @@ public class FLVScriptDataObject<T extends LargeList<?>>
         super(l);
 
         object_properties = new ArrayList<>();
-        list_terminator = new FLVScriptDataObjectEnd<>();
+        list_terminator = new FLVScriptDataObjectEnd();
     }
 
     @Override
-    public FLVScriptDataObject<T> clone()
+    public FLVScriptDataObject clone()
             throws CloneNotSupportedException {
-        FLVScriptDataObject<T> obj = (FLVScriptDataObject<T>)super.clone();
+        FLVScriptDataObject obj = (FLVScriptDataObject)super.clone();
 
         obj.object_properties = new ArrayList<>();
         for (FLVScriptDataObjectProperty v : object_properties) {
@@ -49,15 +49,15 @@ public class FLVScriptDataObject<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            FLVScriptDataObject d) {
+    public static void readBits(BitStreamReader c,
+                                FLVScriptDataObject d) {
         c.enterBlock(d);
 
-        FLVScriptData.read(c, d);
+        FLVScriptData.readBits(c, d);
 
         d.object_properties.clear();
         while (!isTerminated(c, d)) {
@@ -73,7 +73,7 @@ public class FLVScriptDataObject<T extends LargeList<?>>
         c.leaveBlock();
     }
 
-    protected static boolean isTerminated(StreamReader<?, ?> c,
+    protected static boolean isTerminated(BitStreamReader c,
                                           FLVScriptDataObject d) {
         if (c.peekLong(24) == 0x000009) {
             return true;
@@ -86,15 +86,15 @@ public class FLVScriptDataObject<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             FLVScriptDataObject d) {
+    public static void writeBits(BitStreamWriter c,
+                                 FLVScriptDataObject d) {
         c.enterBlock(d);
 
-        FLVScriptData.write(c, d);
+        FLVScriptData.writeBits(c, d);
 
         writeObjectList(c, d.object_properties.size(),
                 d.object_properties, "ObjectProperties");

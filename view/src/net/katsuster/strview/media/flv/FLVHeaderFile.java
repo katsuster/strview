@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * Flash Video ヘッダ。
  * </p>
  */
-public class FLVHeaderFile<T extends LargeList<?>>
-        extends FLVHeader<T>
+public class FLVHeaderFile
+        extends FLVHeader
         implements Cloneable {
     public UInt[] signature;
     public UInt version;
@@ -34,9 +34,9 @@ public class FLVHeaderFile<T extends LargeList<?>>
     }
 
     @Override
-    public FLVHeaderFile<T> clone()
+    public FLVHeaderFile clone()
             throws CloneNotSupportedException {
-        FLVHeaderFile<T> obj = (FLVHeaderFile<T>)super.clone();
+        FLVHeaderFile obj = (FLVHeaderFile)super.clone();
 
         obj.signature = signature.clone();
         for (int i = 0; i < signature.length; i++) {
@@ -58,15 +58,15 @@ public class FLVHeaderFile<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            FLVHeaderFile d) {
+    public static void readBits(BitStreamReader c,
+                                FLVHeaderFile d) {
         c.enterBlock(d);
 
-        FLVHeader.read(c, d);
+        FLVHeader.readBits(c, d);
 
         for (int i = 0; i < d.signature.length; i++) {
             d.signature[i] = c.readUInt( 8, d.signature[i]);
@@ -82,15 +82,15 @@ public class FLVHeaderFile<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             FLVHeaderFile d) {
+    public static void writeBits(BitStreamWriter c,
+                                 FLVHeaderFile d) {
         c.enterBlock(d);
 
-        FLVHeader.write(c, d);
+        FLVHeader.writeBits(c, d);
 
         for (int i = 0; i < d.signature.length; i++) {
             c.writeUInt( 8, d.signature[i]);

@@ -11,8 +11,8 @@ import net.katsuster.strview.media.*;
  * SCRIPTDATADATE
  * </p>
  */
-public class FLVScriptDataDate<T extends LargeList<?>>
-        extends FLVScriptData<T>
+public class FLVScriptDataDate
+        extends FLVScriptData
         implements Cloneable {
     public Float64 date_time;
     public SInt local_date_time_offset;
@@ -23,9 +23,9 @@ public class FLVScriptDataDate<T extends LargeList<?>>
     }
 
     @Override
-    public FLVScriptDataDate<T> clone()
+    public FLVScriptDataDate clone()
             throws CloneNotSupportedException {
-        FLVScriptDataDate<T> obj = (FLVScriptDataDate<T>)super.clone();
+        FLVScriptDataDate obj = (FLVScriptDataDate)super.clone();
 
         obj.date_time = (Float64)date_time.clone();
         obj.local_date_time_offset = (SInt)local_date_time_offset.clone();
@@ -39,15 +39,15 @@ public class FLVScriptDataDate<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            FLVScriptDataDate d) {
+    public static void readBits(BitStreamReader c,
+                                FLVScriptDataDate d) {
         c.enterBlock(d);
 
-        FLVScriptData.read(c, d);
+        FLVScriptData.readBits(c, d);
 
         d.date_time              = c.readFloat64(64, d.date_time          );
         d.local_date_time_offset = c.readSInt(16, d.local_date_time_offset);
@@ -56,15 +56,15 @@ public class FLVScriptDataDate<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             FLVScriptDataDate d) {
+    public static void writeBits(BitStreamWriter c,
+                                 FLVScriptDataDate d) {
         c.enterBlock(d);
 
-        FLVScriptData.write(c, d);
+        FLVScriptData.writeBits(c, d);
 
         c.writeFloat64(64, d.date_time          , "DateTime"           , d.getDateTimeName());
         c.writeSInt(16, d.local_date_time_offset, "LocalDateTimeOffset", d.getLocalDateTimeOffsetName());

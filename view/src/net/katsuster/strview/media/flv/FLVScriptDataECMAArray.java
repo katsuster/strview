@@ -10,30 +10,30 @@ import net.katsuster.strview.media.*;
  * SCRIPTDATAECMAARRAY
  * </p>
  */
-public class FLVScriptDataECMAArray<T extends LargeList<?>>
-        extends FLVScriptData<T>
+public class FLVScriptDataECMAArray
+        extends FLVScriptData
         implements Cloneable {
     public UInt ecma_array_length;
-    public List<FLVScriptDataObjectProperty<T>> variables;
+    public List<FLVScriptDataObjectProperty> variables;
     //SCRIPTDATAECMAARRAY が Script タグの終端にある場合、省略されることがある
-    public FLVScriptDataObjectEnd<T> list_terminator;
+    public FLVScriptDataObjectEnd list_terminator;
 
     public FLVScriptDataECMAArray() {
         ecma_array_length = new UInt();
         variables = new ArrayList<>();
-        list_terminator = new FLVScriptDataObjectEnd<>("List Terminator");
+        list_terminator = new FLVScriptDataObjectEnd("List Terminator");
     }
 
     @Override
-    public FLVScriptDataECMAArray<T> clone()
+    public FLVScriptDataECMAArray clone()
             throws CloneNotSupportedException {
-        FLVScriptDataECMAArray<T> obj =
-                (FLVScriptDataECMAArray<T>)super.clone();
+        FLVScriptDataECMAArray obj =
+                (FLVScriptDataECMAArray)super.clone();
 
         obj.ecma_array_length = (UInt)ecma_array_length.clone();
 
         obj.variables = new ArrayList<>();
-        for (FLVScriptDataObjectProperty<T> v : variables) {
+        for (FLVScriptDataObjectProperty v : variables) {
             obj.variables.add(v.clone());
         }
 
@@ -48,15 +48,15 @@ public class FLVScriptDataECMAArray<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            FLVScriptDataECMAArray d) {
+    public static void readBits(BitStreamReader c,
+                                FLVScriptDataECMAArray d) {
         c.enterBlock(d);
 
-        FLVScriptData.read(c, d);
+        FLVScriptData.readBits(c, d);
 
         d.ecma_array_length = c.readUInt(32, d.ecma_array_length);
 
@@ -75,15 +75,15 @@ public class FLVScriptDataECMAArray<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             FLVScriptDataECMAArray d) {
+    public static void writeBits(BitStreamWriter c,
+                                 FLVScriptDataECMAArray d) {
         c.enterBlock(d);
 
-        FLVScriptData.write(c, d);
+        FLVScriptData.writeBits(c, d);
 
         c.writeUInt(32, d.ecma_array_length, "ECMAArrayLength");
 
