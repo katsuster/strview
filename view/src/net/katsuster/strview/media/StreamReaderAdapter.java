@@ -4,7 +4,7 @@ import net.katsuster.strview.util.*;
 
 /**
  * <p>
- * 何もしないコンバータクラスです。
+ * 何もしないリストからの読み込みクラスです。
  * </p>
  *
  * <p>
@@ -12,15 +12,13 @@ import net.katsuster.strview.util.*;
  * </p>
  *
  * <ul>
- *     <li>位置は常に 0</li>
  *     <li>無限に読み込み（hasNext が常にtrue）</li>
  *     <li>マークは全て無視する</li>
- *     <li>変換対象は全て無視する</li>
- *     <li>結果は常に null を返す</li>
+ *     <li>何も読み込まず渡された値をそのまま返すが、位置は進む</li>
  * </ul>
  */
-public class StreamReaderAdapter<IN, OUT> extends AbstractStreamReader<IN, OUT>
-        implements StreamReader<IN, OUT> {
+public class StreamReaderAdapter<T> extends AbstractStreamReader<T>
+        implements StreamReader<T> {
     public StreamReaderAdapter() {
         //do nothing
     }
@@ -56,62 +54,19 @@ public class StreamReaderAdapter<IN, OUT> extends AbstractStreamReader<IN, OUT>
     }
 
     @Override
-    public long position() {
-        return 0;
-    }
-
-    @Override
-    public void position(long p) {
-        //do nothing
-    }
-
-    @Override
     public boolean hasNext(long n) {
         return true;
     }
 
     @Override
-    public long readLong(int nbit, String desc) {
-        return 0;
-    }
-
-    @Override
-    public SInt readSInt(int nbit, SInt val, String desc) {
+    public T read(T val, String desc) {
+        position(position() + 1);
         return val;
     }
 
     @Override
-    public UInt readUInt(int nbit, UInt val, String desc) {
+    public LargeList<T> readList(long n, LargeList<T> val, String desc) {
+        position(position() + n);
         return val;
-    }
-
-    @Override
-    public SIntR readSIntR(int nbit, SIntR val, String desc) {
-        return val;
-    }
-
-    @Override
-    public UIntR readUIntR(int nbit, UIntR val, String desc) {
-        return val;
-    }
-
-    @Override
-    public Float32 readFloat32(int nbit, Float32 val, String desc) {
-        return val;
-    }
-
-    @Override
-    public Float64 readFloat64(int nbit, Float64 val, String desc) {
-        return val;
-    }
-
-    @Override
-    public LargeBitList readBitList(long nbit, LargeBitList val, String desc) {
-        return val;
-    }
-
-    @Override
-    public IN getResult() {
-        return null;
     }
 }

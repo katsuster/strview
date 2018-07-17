@@ -3,155 +3,59 @@ package net.katsuster.strview.media;
 import net.katsuster.strview.util.*;
 
 /**
- * <p>
- * 何もしないコンバータクラスです。
+ * リストのインデックスを持ち、
+ * リストの要素を書き込むクラスを容易に実装するための抽象クラスです。
  * </p>
- *
- * <p>
- * 下記の特徴を持ちます。
- * </p>
- *
- * <ul>
- *     <li>位置は常に 0</li>
- *     <li>マークは全て無視する</li>
- *     <li>変換対象は全て無視する</li>
- *     <li>結果は常に null を返す</li>
- * </ul>
  */
-public abstract class AbstractStreamWriter<IN, OUT> extends AbstractStreamConverter<IN, OUT>
-        implements StreamWriter<IN, OUT> {
+public abstract class AbstractStreamWriter<T> extends AbstractStreamConverter<T>
+        implements StreamWriter<T> {
     public AbstractStreamWriter() {
-        //do nothing
+        super(null);
+    }
+
+    public AbstractStreamWriter(LargeList<T> l) {
+        super(l);
+    }
+
+    public AbstractStreamWriter(LargeList<T> l, long p) {
+        super(l, p);
     }
 
     @Override
-    public void pokeLong(int nbit, long val, String name) {
+    public void poke(T val) {
         long orgpos = position();
-        writeLong(nbit, val, name, null);
+        write(val);
         position(orgpos);
     }
 
     @Override
-    public void writeLong(int nbit, long val, String name) {
-        writeLong(nbit, val, name, null);
+    public void write(T val) {
+        write(val, null);
     }
 
     @Override
-    public void pokeSInt(int nbit, SInt val) {
+    public void poke(T val, String desc) {
         long orgpos = position();
-        writeSInt(nbit, val, null);
+        write(val, desc);
         position(orgpos);
     }
 
     @Override
-    public void writeSInt(int nbit, SInt val) {
-        writeSInt(nbit, val, val.getName(), null);
-    }
-
-    @Override
-    public void writeSInt(int nbit, SInt val, String desc) {
-        writeSInt(nbit, val, val.getName(), desc);
-    }
-
-    @Override
-    public void pokeUInt(int nbit, UInt val) {
+    public void pokeList(long n, LargeList<T> val) {
         long orgpos = position();
-        writeUInt(nbit, val, null);
+        writeList(n, val);
         position(orgpos);
     }
 
     @Override
-    public void writeUInt(int nbit, UInt val) {
-        writeUInt(nbit, val, val.getName(), null);
+    public void writeList(long n, LargeList<T> val) {
+        writeList(n, val, null);
     }
 
     @Override
-    public void writeUInt(int nbit, UInt val, String desc) {
-        writeUInt(nbit, val, val.getName(), desc);
-    }
-
-    @Override
-    public void pokeSIntR(int nbit, SIntR val) {
+    public void pokeList(long n, LargeList<T> val, String desc) {
         long orgpos = position();
-        writeSIntR(nbit, val, null);
+        writeList(n, val, desc);
         position(orgpos);
-    }
-
-    @Override
-    public void writeSIntR(int nbit, SIntR val) {
-        writeSIntR(nbit, val, val.getName(), null);
-    }
-
-    @Override
-    public void writeSIntR(int nbit, SIntR val, String desc) {
-        writeSIntR(nbit, val, val.getName(), desc);
-    }
-
-    @Override
-    public void pokeUIntR(int nbit, UIntR val) {
-        long orgpos = position();
-        writeUIntR(nbit, val, null);
-        position(orgpos);
-    }
-
-    @Override
-    public void writeUIntR(int nbit, UIntR val) {
-        writeUIntR(nbit, val, val.getName(), null);
-    }
-
-    @Override
-    public void writeUIntR(int nbit, UIntR val, String desc) {
-        writeUIntR(nbit, val, val.getName(), desc);
-    }
-
-    @Override
-    public void pokeFloat32(int nbit, Float32 val) {
-        long orgpos = position();
-        writeFloat32(nbit, val, null);
-        position(orgpos);
-    }
-
-    @Override
-    public void writeFloat32(int nbit, Float32 val) {
-        writeFloat32(nbit, val, val.getName(), null);
-    }
-
-    @Override
-    public void writeFloat32(int nbit, Float32 val, String desc) {
-        writeFloat32(nbit, val, val.getName(), desc);
-    }
-
-    @Override
-    public void pokeFloat64(int nbit, Float64 val) {
-        long orgpos = position();
-        writeFloat64(nbit, val, null);
-        position(orgpos);
-    }
-
-    @Override
-    public void writeFloat64(int nbit, Float64 val) {
-        writeFloat64(nbit, val, val.getName(), null);
-    }
-
-    @Override
-    public void writeFloat64(int nbit, Float64 val, String desc) {
-        writeFloat64(nbit, val, val.getName(), desc);
-    }
-
-    @Override
-    public void pokeBitList(long nbit, LargeBitList val) {
-        long orgpos = position();
-        writeBitList(nbit, val, null);
-        position(orgpos);
-    }
-
-    @Override
-    public void writeBitList(long nbit, LargeBitList val) {
-        writeBitList(nbit, val, val.getName(), null);
-    }
-
-    @Override
-    public void writeBitList(long nbit, LargeBitList val, String desc) {
-        writeBitList(nbit, val, val.getName(), desc);
     }
 }

@@ -4,7 +4,7 @@ import net.katsuster.strview.util.*;
 
 /**
  * <p>
- * 何もしないコンバータクラスです。
+ * 何もしないリストへの書き込みクラスです。
  * </p>
  *
  * <p>
@@ -12,15 +12,13 @@ import net.katsuster.strview.util.*;
  * </p>
  *
  * <ul>
- *     <li>位置は常に 0</li>
  *     <li>無限に書き込み可能（hasNext が常にtrue）</li>
  *     <li>マークは全て無視する</li>
- *     <li>変換対象は全て無視する</li>
- *     <li>結果は常に null を返す</li>
+ *     <li>何も書き込まないが、位置は進む</li>
  * </ul>
  */
-public class StreamWriterAdapter<IN, OUT> extends AbstractStreamWriter<IN, OUT>
-        implements StreamWriter<IN, OUT> {
+public class StreamWriterAdapter<T> extends AbstractStreamWriter<T>
+        implements StreamWriter<T> {
     public StreamWriterAdapter() {
         //do nothing
     }
@@ -56,62 +54,17 @@ public class StreamWriterAdapter<IN, OUT> extends AbstractStreamWriter<IN, OUT>
     }
 
     @Override
-    public long position() {
-        return 0;
-    }
-
-    @Override
-    public void position(long p) {
-        //do nothing
-    }
-
-    @Override
     public boolean hasNext(long n) {
         return true;
     }
 
     @Override
-    public void writeLong(int nbit, long val, String name, String desc) {
-        //do nothing
+    public void write(T val, String desc) {
+        position(position() + 1);
     }
 
     @Override
-    public void writeSInt(int nbit, SInt val, String name, String desc) {
-        //do nothing
-    }
-
-    @Override
-    public void writeUInt(int nbit, UInt val, String name, String desc) {
-        //do nothing
-    }
-
-    @Override
-    public void writeSIntR(int nbit, SIntR val, String name, String desc) {
-        //do nothing
-    }
-
-    @Override
-    public void writeUIntR(int nbit, UIntR val, String name, String desc) {
-        //do nothing
-    }
-
-    @Override
-    public void writeFloat32(int nbit, Float32 val, String name, String desc) {
-        //do nothing
-    }
-
-    @Override
-    public void writeFloat64(int nbit, Float64 val, String name, String desc) {
-        //do nothing
-    }
-
-    @Override
-    public void writeBitList(long nbit, LargeBitList val, String name, String desc) {
-        //do nothing
-    }
-
-    @Override
-    public OUT getResult() {
-        return null;
+    public void writeList(long n, LargeList<T> val, String desc) {
+        position(position() + n);
     }
 }

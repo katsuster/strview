@@ -1,5 +1,7 @@
 package net.katsuster.strview.media;
 
+import net.katsuster.strview.util.*;
+
 /**
  * <p>
  * 何もしないコンバータクラスです。
@@ -16,9 +18,27 @@ package net.katsuster.strview.media;
  *     <li>結果は常に null を返す</li>
  * </ul>
  */
-public abstract class AbstractStreamConverter<IN, OUT> implements StreamConverter<IN, OUT> {
-    public AbstractStreamConverter() {
-        //do nothing
+public abstract class AbstractStreamConverter<T> implements StreamConverter<T> {
+    LargeList<T> list;
+    private long pos;
+
+    public AbstractStreamConverter(LargeList<T> l) {
+        this(l, 0);
+    }
+
+    public AbstractStreamConverter(LargeList<T> l, long p) {
+        list = l;
+        pos = p;
+    }
+
+    @Override
+    public LargeList<T> getList() {
+        return list;
+    }
+
+    @Override
+    public void setList(LargeList<T> l) {
+        list = l;
     }
 
     @Override
@@ -47,6 +67,16 @@ public abstract class AbstractStreamConverter<IN, OUT> implements StreamConverte
     @Override
     public void mark(String name, Number n) {
         mark(name, n, null);
+    }
+
+    @Override
+    public long position() {
+        return pos;
+    }
+
+    @Override
+    public void position(long p) {
+        pos = p;
     }
 
     @Override
