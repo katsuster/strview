@@ -2,14 +2,14 @@ package net.katsuster.strview.util;
 
 /**
  * <p>
- * バッファ上の半開区間 [start, end) を表すクラスです。
+ * リスト上の半開区間 [start, end) を表すクラスです。
  * </p>
  *
  * <p>
  * end = start + length です。
  * </p>
  */
-public class SimpleRange<T extends LargeList<?>>
+public class SimpleRange<T extends LargeList>
         implements Range<T> {
     private T buffer;
     private long start;

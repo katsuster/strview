@@ -2,7 +2,7 @@ package net.katsuster.strview.util;
 
 /**
  * <p>
- * バッファ上の半開区間 [start, end) を表すインタフェースです。
+ * リスト上の半開区間 [start, end) を表すインタフェースです。
  * </p>
  *
  * <p>
@@ -16,9 +16,9 @@ package net.katsuster.strview.util;
  * isHit(6) は false、isHit(7) も false です。
  * </p>
  */
-public interface Range<T extends LargeList<?>> extends Cloneable {
+public interface Range<T extends LargeList> extends Cloneable {
     //size() および length() メソッドで長さが分からないときに返される値です
-    public static final long LENGTH_UNKNOWN = -1;
+    public static final long LENGTH_UNKNOWN = LargeList.LENGTH_UNKNOWN;
 
     /**
      * オブジェクトのコピーを作成し、返します。
