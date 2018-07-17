@@ -8,7 +8,7 @@ import net.katsuster.strview.media.*;
  * MPEG4 media file format の Box。
  * </p>
  */
-public class MP4Box<T extends LargeList<?>> extends PacketAdapter<T> {
+public class MP4Box extends BitPacketAdapter {
     //MP4 Box 最小ヘッダサイズ（byte 単位、size と type のみ）
     public static final int BOX_HEADER_SIZE = 8;
 
@@ -43,12 +43,12 @@ public class MP4Box<T extends LargeList<?>> extends PacketAdapter<T> {
     }
 
     @Override
-    protected void readHeader(StreamReader<?, ?> c) {
+    protected void readHeaderBits(BitStreamReader c) {
         getHeader().read(c);
     }
 
     @Override
-    protected void readBody(StreamReader<?, ?> c) {
+    protected void readBodyBits(BitStreamReader c) {
         MP4Header head = getHeader();
         long size_f;
 
@@ -63,19 +63,19 @@ public class MP4Box<T extends LargeList<?>> extends PacketAdapter<T> {
 
         //ヘッダ以降を本体として読み込む
         size_f -= getHeaderLength();
-        setBody(c.readBitList(size_f, getBody()));
+        setBody(c.readBitList(size_f, (LargeBitList) getBody()));
     }
 
     @Override
-    protected void writeHeader(StreamWriter<?, ?> c) {
+    protected void writeHeaderBits(BitStreamWriter c) {
         getHeader().write(c);
     }
 
     @Override
-    protected void writeBody(StreamWriter<?, ?> c) {
+    protected void writeBodyBits(BitStreamWriter c) {
         long size_f = getBody().length();
 
         //FIXME: tentative
-        c.writeBitList(size_f, getBody(), "body");
+        c.writeBitList(size_f, (LargeBitList) getBody(), "body");
     }
 }

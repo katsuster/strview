@@ -18,8 +18,8 @@ import net.katsuster.strview.media.*;
  * <li>ISO/IEC 14496-12: ISO base media file format</li>
  * </ul>
  */
-public class MP4HeaderFull<T extends LargeList<?>>
-        extends MP4Header<T>
+public class MP4HeaderFull
+        extends MP4Header
         implements Cloneable {
     public UInt version;
     public UInt flags;
@@ -30,9 +30,9 @@ public class MP4HeaderFull<T extends LargeList<?>>
     }
 
     @Override
-    public MP4HeaderFull<T> clone()
+    public MP4HeaderFull clone()
             throws CloneNotSupportedException {
-        MP4HeaderFull<T> obj = (MP4HeaderFull<T>)super.clone();
+        MP4HeaderFull obj = (MP4HeaderFull)super.clone();
 
         obj.version = (UInt)version.clone();
         obj.flags = (UInt)flags.clone();
@@ -46,15 +46,15 @@ public class MP4HeaderFull<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            MP4HeaderFull d) {
+    public static void readBits(BitStreamReader c,
+                                MP4HeaderFull d) {
         c.enterBlock(d);
 
-        MP4Header.read(c, d);
+        MP4Header.readBits(c, d);
 
         d.version = c.readUInt( 8, d.version);
         d.flags   = c.readUInt(24, d.flags  );
@@ -63,15 +63,15 @@ public class MP4HeaderFull<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             MP4HeaderFull d) {
+    public static void writeBits(BitStreamWriter c,
+                                 MP4HeaderFull d) {
         c.enterBlock(d);
 
-        MP4Header.write(c, d);
+        MP4Header.writeBits(c, d);
 
         c.writeUInt( 8, d.version);
         c.writeUInt(24, d.flags  );

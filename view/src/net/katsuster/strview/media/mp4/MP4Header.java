@@ -16,8 +16,8 @@ import net.katsuster.strview.media.mp4.MP4Consts.*;
  * <li>ISO/IEC 14496-12: ISO base media file format</li>
  * </ul>
  */
-public class MP4Header<T extends LargeList<?>>
-        extends BlockAdapter<T>
+public class MP4Header
+        extends BitBlockAdapter
         implements Cloneable {
     public UInt size;
     public UInt type;
@@ -32,9 +32,9 @@ public class MP4Header<T extends LargeList<?>>
     }
 
     @Override
-    public MP4Header<T> clone()
+    public MP4Header clone()
             throws CloneNotSupportedException {
-        MP4Header<T> obj = (MP4Header<T>)super.clone();
+        MP4Header obj = (MP4Header)super.clone();
 
         obj.size = (UInt)size.clone();
         obj.type = (UInt)type.clone();
@@ -62,12 +62,12 @@ public class MP4Header<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            MP4Header d) {
+    public static void readBits(BitStreamReader c,
+                                MP4Header d) {
         c.enterBlock(d);
 
         c.align(8);
@@ -89,12 +89,12 @@ public class MP4Header<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             MP4Header d) {
+    public static void writeBits(BitStreamWriter c,
+                                 MP4Header d) {
         c.enterBlock(d);
 
         c.align(8);

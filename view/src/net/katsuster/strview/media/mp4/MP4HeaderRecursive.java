@@ -19,16 +19,16 @@ import net.katsuster.strview.util.*;
  * <li>ISO/IEC 14496-12: ISO base media file format</li>
  * </ul>
  */
-public class MP4HeaderRecursive<T extends LargeList<?>>
-        extends MP4Header<T>
+public class MP4HeaderRecursive
+        extends MP4Header
         implements Cloneable {
     public MP4HeaderRecursive() {
     }
 
     @Override
-    public MP4HeaderRecursive<T> clone()
+    public MP4HeaderRecursive clone()
             throws CloneNotSupportedException {
-        MP4HeaderRecursive<T> obj = (MP4HeaderRecursive<T>)super.clone();
+        MP4HeaderRecursive obj = (MP4HeaderRecursive)super.clone();
 
         return obj;
     }
@@ -39,29 +39,29 @@ public class MP4HeaderRecursive<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            MP4HeaderRecursive d) {
+    public static void readBits(BitStreamReader c,
+                                MP4HeaderRecursive d) {
         c.enterBlock(d);
 
-        MP4Header.read(c, d);
+        MP4Header.readBits(c, d);
 
         c.leaveBlock();
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             MP4HeaderRecursive d) {
+    public static void writeBits(BitStreamWriter c,
+                                 MP4HeaderRecursive d) {
         c.enterBlock(d);
 
-        MP4Header.write(c, d);
+        MP4Header.writeBits(c, d);
 
         c.leaveBlock();
     }
