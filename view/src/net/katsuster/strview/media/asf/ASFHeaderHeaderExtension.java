@@ -15,25 +15,25 @@ import net.katsuster.strview.media.*;
  * <li>Advanced Systems Format (ASF) Specification: Revision 01.20.06</li>
  * </ul>
  */
-public class ASFHeaderHeaderExtension<T extends LargeList<?>>
-        extends ASFHeader<T>
+public class ASFHeaderHeaderExtension
+        extends ASFHeader
         implements Cloneable {
-    public ASFGUID<T> reserved_field1;
+    public ASFGUID reserved_field1;
     public UIntR reserved_field2;
     public UIntR header_extension_data_size;
     //下記はパケットの body として扱う
     //public ByteArray header_extension_data;
 
     public ASFHeaderHeaderExtension() {
-        reserved_field1 = new ASFGUID<>("Reserved Field 1");
+        reserved_field1 = new ASFGUID("Reserved Field 1");
         reserved_field2 = new UIntR("Reserved Field 2");
         header_extension_data_size = new UIntR("Header Extension Data Size");
     }
 
     @Override
-    public ASFHeaderHeaderExtension<T> clone()
+    public ASFHeaderHeaderExtension clone()
             throws CloneNotSupportedException {
-        ASFHeaderHeaderExtension<T> obj = (ASFHeaderHeaderExtension<T>)super.clone();
+        ASFHeaderHeaderExtension obj = (ASFHeaderHeaderExtension)super.clone();
 
         obj.reserved_field1 = reserved_field1.clone();
         obj.reserved_field2 = (UIntR)reserved_field2.clone();
@@ -53,15 +53,15 @@ public class ASFHeaderHeaderExtension<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            ASFHeaderHeaderExtension d) {
+    public static void readBits(BitStreamReader c,
+                                ASFHeaderHeaderExtension d) {
         c.enterBlock(d);
 
-        ASFHeader.read(c, d);
+        ASFHeader.readBits(c, d);
 
         c.mark("Reserved Field 1", "");
         d.reserved_field1.read(c);
@@ -73,15 +73,15 @@ public class ASFHeaderHeaderExtension<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             ASFHeaderHeaderExtension d) {
+    public static void writeBits(BitStreamWriter c,
+                                 ASFHeaderHeaderExtension d) {
         c.enterBlock(d);
 
-        ASFHeader.write(c, d);
+        ASFHeader.writeBits(c, d);
 
         c.mark("Reserved Field 1", "");
         d.reserved_field1.write(c);

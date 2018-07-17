@@ -17,11 +17,11 @@ import net.katsuster.strview.media.*;
  * <li>Advanced Systems Format (ASF) Specification: Revision 01.20.06</li>
  * </ul>
  */
-public class ASFHeaderExtendedContentDescription<T extends LargeList<?>>
-        extends ASFHeader<T>
+public class ASFHeaderExtendedContentDescription
+        extends ASFHeader
         implements Cloneable {
     public UIntR content_descriptors_count;
-    public List<ContentDescriptor<T>> content_descriptors;
+    public List<ContentDescriptor> content_descriptors;
 
     public ASFHeaderExtendedContentDescription() {
         content_descriptors_count = new UIntR("Content Descriptors Count");
@@ -29,13 +29,13 @@ public class ASFHeaderExtendedContentDescription<T extends LargeList<?>>
     }
 
     @Override
-    public ASFHeaderExtendedContentDescription<T> clone()
+    public ASFHeaderExtendedContentDescription clone()
             throws CloneNotSupportedException {
-        ASFHeaderExtendedContentDescription<T> obj = (ASFHeaderExtendedContentDescription<T>)super.clone();
+        ASFHeaderExtendedContentDescription obj = (ASFHeaderExtendedContentDescription)super.clone();
 
         obj.content_descriptors_count = (UIntR)content_descriptors_count.clone();
         obj.content_descriptors = new ArrayList<>();
-        for (ContentDescriptor<T> i : content_descriptors) {
+        for (ContentDescriptor i : content_descriptors) {
             obj.content_descriptors.add(i.clone());
         }
 
@@ -53,15 +53,15 @@ public class ASFHeaderExtendedContentDescription<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            ASFHeaderExtendedContentDescription d) {
+    public static void readBits(BitStreamReader c,
+                                ASFHeaderExtendedContentDescription d) {
         c.enterBlock(d);
 
-        ASFHeader.read(c, d);
+        ASFHeader.readBits(c, d);
 
         d.content_descriptors_count = c.readUIntR(16, d.content_descriptors_count);
         checkNegative(d.content_descriptors_count);
@@ -73,15 +73,15 @@ public class ASFHeaderExtendedContentDescription<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             ASFHeaderExtendedContentDescription d) {
+    public static void writeBits(BitStreamWriter c,
+                                 ASFHeaderExtendedContentDescription d) {
         c.enterBlock(d);
 
-        ASFHeader.write(c, d);
+        ASFHeader.writeBits(c, d);
 
         c.writeUIntR(16, d.content_descriptors_count);
 

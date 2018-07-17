@@ -16,8 +16,8 @@ import net.katsuster.strview.media.*;
  * <li>Advanced Systems Format (ASF) Specification: Revision 01.20.06</li>
  * </ul>
  */
-public class ContentDescriptor<T extends LargeList<?>>
-        extends BlockAdapter<T>
+public class ContentDescriptor
+        extends BitBlockAdapter
         implements Cloneable {
     public UIntR descriptor_name_length;
     public LargeBitList descriptor_name;
@@ -34,9 +34,9 @@ public class ContentDescriptor<T extends LargeList<?>>
     }
 
     @Override
-    public ContentDescriptor<T> clone()
+    public ContentDescriptor clone()
             throws CloneNotSupportedException {
-        ContentDescriptor<T> obj = (ContentDescriptor<T>)super.clone();
+        ContentDescriptor obj = (ContentDescriptor)super.clone();
 
         obj.descriptor_name_length = (UIntR)descriptor_name_length.clone();
         obj.descriptor_name = (LargeBitList)descriptor_name.clone();
@@ -53,11 +53,11 @@ public class ContentDescriptor<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
+    public static void readBits(BitStreamReader c,
                             ContentDescriptor d) {
         c.enterBlock(d);
 
@@ -74,11 +74,11 @@ public class ContentDescriptor<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
+    public static void writeBits(BitStreamWriter c,
                              ContentDescriptor d) {
         c.enterBlock(d);
 

@@ -15,8 +15,8 @@ import net.katsuster.strview.media.*;
  * <li>Advanced Systems Format (ASF) Specification: Revision 01.20.06</li>
  * </ul>
  */
-public class ASFHeaderContentDescription<T extends LargeList<?>>
-        extends ASFHeader<T>
+public class ASFHeaderContentDescription
+        extends ASFHeader
         implements Cloneable {
     public UIntR title_length;
     public UIntR author_length;
@@ -43,9 +43,9 @@ public class ASFHeaderContentDescription<T extends LargeList<?>>
     }
 
     @Override
-    public ASFHeaderContentDescription<T> clone()
+    public ASFHeaderContentDescription clone()
             throws CloneNotSupportedException {
-        ASFHeaderContentDescription<T> obj = (ASFHeaderContentDescription<T>)super.clone();
+        ASFHeaderContentDescription obj = (ASFHeaderContentDescription)super.clone();
 
         obj.title_length = (UIntR)title_length.clone();
         obj.author_length = (UIntR)author_length.clone();
@@ -72,15 +72,15 @@ public class ASFHeaderContentDescription<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            ASFHeaderContentDescription d) {
+    public static void readBits(BitStreamReader c,
+                                ASFHeaderContentDescription d) {
         c.enterBlock(d);
 
-        ASFHeader.read(c, d);
+        ASFHeader.readBits(c, d);
 
         d.title_length       = c.readUIntR(16, d.title_length      );
         checkNegative(d.title_length);
@@ -103,15 +103,15 @@ public class ASFHeaderContentDescription<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             ASFHeaderContentDescription d) {
+    public static void writeBits(BitStreamWriter c,
+                                 ASFHeaderContentDescription d) {
         c.enterBlock(d);
 
-        ASFHeader.write(c, d);
+        ASFHeader.writeBits(c, d);
 
         c.writeUIntR(16, d.title_length      );
         c.writeUIntR(16, d.author_length     );

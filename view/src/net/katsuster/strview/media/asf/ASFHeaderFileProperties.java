@@ -18,10 +18,10 @@ import net.katsuster.strview.media.*;
  * <li>Advanced Systems Format (ASF) Specification: Revision 01.20.06</li>
  * </ul>
  */
-public class ASFHeaderFileProperties<T extends LargeList<?>>
-        extends ASFHeader<T>
+public class ASFHeaderFileProperties
+        extends ASFHeader
         implements Cloneable {
-    public ASFGUID<T> file_id;
+    public ASFGUID file_id;
     public UIntR file_size;
     public UIntR creation_date;
     public UIntR data_packets_count;
@@ -35,7 +35,7 @@ public class ASFHeaderFileProperties<T extends LargeList<?>>
     public UIntR maximum_bitrate;
 
     public ASFHeaderFileProperties() {
-        file_id            = new ASFGUID<>("File ID");
+        file_id            = new ASFGUID("File ID");
         file_size          = new UIntR("File Size"         );
         creation_date      = new UIntR("Creation Date"     );
         data_packets_count = new UIntR("Data Packets Count");
@@ -50,9 +50,9 @@ public class ASFHeaderFileProperties<T extends LargeList<?>>
     }
 
     @Override
-    public ASFHeaderFileProperties<T> clone()
+    public ASFHeaderFileProperties clone()
             throws CloneNotSupportedException {
-        ASFHeaderFileProperties<T> obj = (ASFHeaderFileProperties<T>)super.clone();
+        ASFHeaderFileProperties obj = (ASFHeaderFileProperties)super.clone();
 
         obj.file_id = file_id.clone();
         obj.file_size = (UIntR)file_size.clone();
@@ -83,15 +83,15 @@ public class ASFHeaderFileProperties<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
+    public static void readBits(BitStreamReader c,
                             ASFHeaderFileProperties d) {
         c.enterBlock(d);
 
-        ASFHeader.read(c, d);
+        ASFHeader.readBits(c, d);
 
         c.mark("File ID", "");
         d.file_id.read(c);
@@ -113,15 +113,15 @@ public class ASFHeaderFileProperties<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
+    public static void writeBits(BitStreamWriter c,
                              ASFHeaderFileProperties d) {
         c.enterBlock(d);
 
-        ASFHeader.write(c, d);
+        ASFHeader.writeBits(c, d);
 
         c.mark("File ID", "");
         d.file_id.write(c);

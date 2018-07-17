@@ -8,8 +8,8 @@ import net.katsuster.strview.media.*;
  * ASF (Advanced Systems Format) Object リスト。
  * </p>
  */
-public class ASFObjectList<T extends LargeList<?>>
-        extends AbstractPacketList<ASFObject<T>, T> {
+public class ASFObjectList
+        extends AbstractPacketList<ASFObject, Boolean> {
     private LargeBitList buf;
 
     public ASFObjectList() {
@@ -23,7 +23,7 @@ public class ASFObjectList<T extends LargeList<?>>
     }
 
     @Override
-    public String getShortName() {
+    public String getTypeName() {
         return "ASF";
     }
 
@@ -35,10 +35,10 @@ public class ASFObjectList<T extends LargeList<?>>
     }
 
     @Override
-    protected ASFObject<T> readNextInner(StreamReader<?, ?> c, PacketRange<T> pr) {
-        ASFHeader<T> tagh = createHeader(c, pr);
+    protected ASFObject readNextInner(StreamReader<Boolean> c, PacketRange<LargeList<Boolean>> pr) {
+        ASFHeader tagh = createHeader(c, pr);
 
-        ASFObject<T> packet = new ASFObject<>(tagh);
+        ASFObject packet = new ASFObject<>(tagh);
         packet.setRange(pr);
         packet.read(c);
 
@@ -46,24 +46,24 @@ public class ASFObjectList<T extends LargeList<?>>
     }
 
     @Override
-    protected ASFObject<T> getInner(long index) {
+    protected ASFObject getInner(long index) {
         FromBitListConverter c = new FromBitListConverter(buf);
 
         seek(c, index);
 
-        return (ASFObject<T>)readNext(c, index);
+        return readNext(c, index);
     }
 
     @Override
-    protected void setInner(long index, ASFObject<T> data) {
+    protected void setInner(long index, ASFObject data) {
         //TODO: not implemented yet
     }
 
-    protected ASFHeader<T> createHeader(StreamReader<?, ?> c, PacketRange<T> pr) {
-        ASFHeader<T> tmph = new ASFHeader<>();
+    protected ASFHeader createHeader(StreamReader<Boolean> c, PacketRange<LargeList<Boolean>> pr) {
+        ASFHeader tmph = new ASFHeader();
         tmph.peek(c);
 
-        ASFHeader<T> tagh = ASFConsts.asfFactory.createPacketHeader(tmph.object_id);
+        ASFHeader tagh = ASFConsts.asfFactory.createPacketHeader(tmph.object_id);
         if (tagh == null) {
             //unknown
             tagh = tmph;

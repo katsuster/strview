@@ -15,8 +15,8 @@ import net.katsuster.strview.media.*;
  * <li>Advanced Systems Format (ASF) Specification: Revision 01.20.06</li>
  * </ul>
  */
-public class ASFHeaderHeader<T extends LargeList<?>>
-        extends ASFHeader<T>
+public class ASFHeaderHeader
+        extends ASFHeader
         implements Cloneable {
     public UIntR number_of_header_objects;
     public UIntR reserved1;
@@ -29,9 +29,9 @@ public class ASFHeaderHeader<T extends LargeList<?>>
     }
 
     @Override
-    public ASFHeaderHeader<T> clone()
+    public ASFHeaderHeader clone()
             throws CloneNotSupportedException {
-        ASFHeaderHeader<T> obj = (ASFHeaderHeader<T>)super.clone();
+        ASFHeaderHeader obj = (ASFHeaderHeader)super.clone();
 
         obj.number_of_header_objects = (UIntR)number_of_header_objects.clone();
         obj.reserved1 = (UIntR)reserved1.clone();
@@ -51,15 +51,15 @@ public class ASFHeaderHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            ASFHeaderHeader d) {
+    public static void readBits(BitStreamReader c,
+                                ASFHeaderHeader d) {
         c.enterBlock(d);
 
-        ASFHeader.read(c, d);
+        ASFHeader.readBits(c, d);
 
         d.number_of_header_objects = c.readUIntR(32, d.number_of_header_objects);
         d.reserved1                = c.readUIntR( 8, d.reserved1               );
@@ -69,15 +69,15 @@ public class ASFHeaderHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             ASFHeaderHeader d) {
+    public static void writeBits(BitStreamWriter c,
+                                 ASFHeaderHeader d) {
         c.enterBlock(d);
 
-        ASFHeader.write(c, d);
+        ASFHeader.writeBits(c, d);
 
         c.writeUIntR(32, d.number_of_header_objects);
         c.writeUIntR( 8, d.reserved1               );

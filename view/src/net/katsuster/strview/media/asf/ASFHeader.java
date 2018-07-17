@@ -15,21 +15,21 @@ import net.katsuster.strview.media.*;
  * <li>Advanced Systems Format (ASF) Specification: Revision 01.20.06</li>
  * </ul>
  */
-public class ASFHeader<T extends LargeList<?>>
-        extends BlockAdapter<T>
+public class ASFHeader
+        extends BitBlockAdapter
         implements Cloneable {
-    public ASFGUID<T> object_id;
+    public ASFGUID object_id;
     public UIntR object_size;
 
     public ASFHeader() {
-        object_id = new ASFGUID<>("Object ID");
+        object_id = new ASFGUID("Object ID");
         object_size = new UIntR("Object Size");
     }
 
     @Override
-    public ASFHeader<T> clone()
+    public ASFHeader clone()
             throws CloneNotSupportedException {
-        ASFHeader<T> obj = (ASFHeader<T>)super.clone();
+        ASFHeader obj = (ASFHeader)super.clone();
 
         obj.object_id = object_id.clone();
         obj.object_size = (UIntR)object_size.clone();
@@ -55,12 +55,12 @@ public class ASFHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void read(StreamReader<?, ?> c) {
-        read(c, this);
+    protected void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void read(StreamReader<?, ?> c,
-                            ASFHeader d) {
+    public static void readBits(BitStreamReader c,
+                                ASFHeader d) {
         c.enterBlock(d);
 
         c.mark("Object ID", "");
@@ -71,12 +71,12 @@ public class ASFHeader<T extends LargeList<?>>
     }
 
     @Override
-    public void write(StreamWriter<?, ?> c) {
-        write(c, this);
+    protected void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void write(StreamWriter<?, ?> c,
-                             ASFHeader d) {
+    public static void writeBits(BitStreamWriter c,
+                                 ASFHeader d) {
         c.enterBlock(d);
 
         c.mark("Object ID", "");
