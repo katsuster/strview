@@ -1,52 +1,62 @@
-package net.katsuster.strview.util;
+package net.katsuster.strview.util.bit;
 
 /**
  * <p>
- * 64bit の符号あり整数、リトルエンディアン
+ * 64bit の符号無し整数、リトルエンディアン
  * </p>
  *
  * <p>
  * 8, 16, 32, 64bit のみ有効です。
  * </p>
  */
-public class SIntR extends AbstractNum
-        implements Comparable<SIntR> {
-    public SIntR() {
+public class UIntR extends AbstractNum
+        implements Comparable<UIntR> {
+    public UIntR() {
         this(null, 0, 64);
     }
 
-    public SIntR(String n) {
+    public UIntR(String n) {
         this(n, 0, 64);
     }
 
-    public SIntR(String n, long v, int l) {
+    public UIntR(String n, long v, int l) {
         super(n, l);
         setValue(v);
     }
 
-    public SIntR(String n, LargeBitList b, long p, int l) {
+    public UIntR(String n, LargeBitList b, long p, int l) {
         super(n, b, p, l);
     }
 
-    public SIntR(SIntR obj) {
+    public UIntR(UIntR obj) {
         super(obj);
     }
 
     @Override
-    public int compareTo(SIntR obj) {
-        return compareAsSInt(getValue(), obj.getValue());
+    public int compareTo(UIntR obj) {
+        return compareAsUInt(getValue(), obj.getValue());
     }
 
     @Override
     public String getTypeName() {
-        return "SIntR";
+        return "UIntR";
+    }
+
+    @Override
+    public float floatValue() {
+        return uint64ToFloat(getValue());
+    }
+
+    @Override
+    public double doubleValue() {
+        return uint64ToDouble(getValue());
     }
 
     @Override
     public long getValue() {
         int nbit = (int) getRange().getLength();
 
-        return signext(reverseNum(getRaw(), nbit), nbit);
+        return reverseNum(getRaw(), nbit);
     }
 
     @Override
@@ -63,6 +73,6 @@ public class SIntR extends AbstractNum
      */
     @Override
     public String toString() {
-        return Long.toString(getValue());
+        return uint64ToString(getValue());
     }
 }

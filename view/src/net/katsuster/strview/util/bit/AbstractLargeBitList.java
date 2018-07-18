@@ -1,4 +1,6 @@
-package net.katsuster.strview.util;
+package net.katsuster.strview.util.bit;
+
+import net.katsuster.strview.util.*;
 
 /**
  * <p>
