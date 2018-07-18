@@ -1,4 +1,4 @@
-package net.katsuster.strview.media;
+package net.katsuster.strview.media.bit;
 
 /**
  * <p>
