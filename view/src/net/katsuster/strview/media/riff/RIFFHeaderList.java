@@ -1,7 +1,7 @@
 package net.katsuster.strview.media.riff;
 
-import net.katsuster.strview.util.*;
-import net.katsuster.strview.media.*;
+import net.katsuster.strview.util.bit.*;
+import net.katsuster.strview.media.bit.*;
 
 /**
  * <p>

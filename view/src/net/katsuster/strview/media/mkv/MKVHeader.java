@@ -1,8 +1,7 @@
 package net.katsuster.strview.media.mkv;
 
-import net.katsuster.strview.media.*;
+import net.katsuster.strview.media.bit.*;
 import net.katsuster.strview.media.mkv.MKVConsts.*;
-import net.katsuster.strview.util.*;
 
 /**
  * <p>

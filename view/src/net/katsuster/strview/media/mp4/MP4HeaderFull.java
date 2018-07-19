@@ -3,8 +3,8 @@ package net.katsuster.strview.media.mp4;
 import java.text.*;
 import java.util.*;
 
-import net.katsuster.strview.util.*;
-import net.katsuster.strview.media.*;
+import net.katsuster.strview.util.bit.*;
+import net.katsuster.strview.media.bit.*;
 
 /**
  * <p>

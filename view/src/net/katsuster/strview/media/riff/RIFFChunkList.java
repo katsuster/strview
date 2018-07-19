@@ -4,7 +4,9 @@ import java.util.*;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import net.katsuster.strview.util.*;
+import net.katsuster.strview.util.bit.*;
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.media.bit.*;
 import net.katsuster.strview.media.riff.RIFFConsts.*;
 
 /**

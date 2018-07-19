@@ -2,8 +2,8 @@ package net.katsuster.strview.media.flv;
 
 import java.util.*;
 
-import net.katsuster.strview.media.*;
-import net.katsuster.strview.util.*;
+import net.katsuster.strview.util.bit.*;
+import net.katsuster.strview.media.bit.*;
 
 /**
  * <p>

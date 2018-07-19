@@ -3,7 +3,9 @@ package net.katsuster.strview.media;
 import java.io.*;
 import java.util.*;
 
+import net.katsuster.strview.media.bit.*;
 import net.katsuster.strview.util.*;
+import net.katsuster.strview.util.bit.*;
 
 /**
  * <p>

@@ -1,7 +1,9 @@
 package net.katsuster.strview.media.test;
 
 import net.katsuster.strview.util.*;
+import net.katsuster.strview.util.bit.*;
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.media.bit.*;
 
 /**
  * <p>

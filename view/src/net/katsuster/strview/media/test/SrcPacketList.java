@@ -4,8 +4,9 @@ import java.util.*;
 import java.io.*;
 
 import net.katsuster.strview.io.*;
-import net.katsuster.strview.media.*;
 import net.katsuster.strview.util.*;
+import net.katsuster.strview.media.*;
+import net.katsuster.strview.media.bit.*;
 
 /**
  * <p>

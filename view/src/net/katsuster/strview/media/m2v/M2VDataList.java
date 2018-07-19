@@ -3,7 +3,9 @@ package net.katsuster.strview.media.m2v;
 import java.util.*;
 
 import net.katsuster.strview.util.*;
+import net.katsuster.strview.util.bit.*;
 import net.katsuster.strview.media.*;
+import net.katsuster.strview.media.bit.*;
 import net.katsuster.strview.media.m2v.M2VConsts.*;
 
 /**
