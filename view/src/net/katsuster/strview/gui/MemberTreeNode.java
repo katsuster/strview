@@ -2,8 +2,8 @@ package net.katsuster.strview.gui;
 
 import javax.swing.tree.*;
 
-import net.katsuster.strview.util.*;
-import net.katsuster.strview.media.*;
+import net.katsuster.strview.util.bit.*;
+import net.katsuster.strview.media.bit.*;
 
 /**
  * <p>
@@ -352,7 +352,7 @@ public class MemberTreeNode extends DefaultMutableTreeNode {
             valuename = getStringData();
         } else if (hasNumData()) {
             Num v = getNumData();
-            String digits = NumFormatter.numToDigits(v);
+            String digits = BitNumFormatter.numToDigits(v);
 
             valuename = String.format(
                     "0x%0" + digits + "x(0x%0" + digits + "x, %s)\n",

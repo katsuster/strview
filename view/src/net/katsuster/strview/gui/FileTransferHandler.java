@@ -9,6 +9,7 @@ import java.awt.datatransfer.*;
 import javax.swing.*;
 
 import net.katsuster.strview.util.*;
+import net.katsuster.strview.util.bit.*;
 import net.katsuster.strview.io.*;
 import net.katsuster.strview.media.*;
 import net.katsuster.strview.media.asf.*;

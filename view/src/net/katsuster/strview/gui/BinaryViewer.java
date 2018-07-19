@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 import net.katsuster.strview.util.*;
+import net.katsuster.strview.util.bit.*;
 import net.katsuster.strview.util.gui.*;
 import net.katsuster.strview.io.*;
 
