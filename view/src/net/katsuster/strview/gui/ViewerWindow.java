@@ -20,7 +20,7 @@ public class ViewerWindow extends JFrame {
     public ViewerWindow(ViewerPanel p) {
         viewer = p;
 
-        setTitle(p.getShortName());
+        setTitle(p.getName());
         setResizable(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 

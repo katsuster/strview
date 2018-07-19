@@ -7,6 +7,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import net.katsuster.strview.util.*;
+import net.katsuster.strview.util.bit.*;
 
 /**
  * <p>
@@ -16,15 +17,15 @@ import net.katsuster.strview.util.*;
 public class BinaryViewerPanel extends ViewerPanel {
     private static final long serialVersionUID = 1L;
 
-    private File file;
+    private LargeBitList buf;
 
     private FlatTextField binaryToolText;
     private BinaryViewer binaryViewer;
 
-    public BinaryViewerPanel(File f) {
-        //表示するファイルを保持する
-        file = f;
+    public BinaryViewerPanel(LargeBitList l) {
+        buf = l;
 
+        setName(buf.getName());
         setLayout(new BorderLayout());
         setTransferHandler(new FileTransferHandler());
 
@@ -41,7 +42,7 @@ public class BinaryViewerPanel extends ViewerPanel {
         JButton btnGo = new JButton(new ActionGoto("Go"));
         binaryTool.add(btnGo);
 
-        binaryViewer = new BinaryViewer(f);
+        binaryViewer = new BinaryViewer(l);
         binaryViewer.setFont(new Font(Font.MONOSPACED, 0, 12));
 
         JPanel binaryPanel = new JPanel();
@@ -62,11 +63,6 @@ public class BinaryViewerPanel extends ViewerPanel {
     }
 
     @Override
-    public String getShortName() {
-        return file.getAbsolutePath();
-    }
-
-    @Override
     protected void processLinkEvent(LinkEvent e) {
         Range r = e.getRange();
 
@@ -81,10 +77,6 @@ public class BinaryViewerPanel extends ViewerPanel {
         }
 
         binaryViewer.repaint();
-    }
-
-    public File getFile() {
-        return file;
     }
 
     public class ActionGoto extends AbstractAction

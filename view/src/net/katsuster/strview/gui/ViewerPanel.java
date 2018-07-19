@@ -17,10 +17,6 @@ public class ViewerPanel extends JPanel {
         helpers = new ArrayList<>();
     }
 
-    public String getShortName() {
-        return "";
-    }
-
     protected void processLinkEvent(LinkEvent e) {
         //do nothing
     }

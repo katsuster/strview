@@ -71,6 +71,10 @@ public class BinaryViewer extends JPanel {
         this(new ByteToBitList(new FileByteList(f.getAbsolutePath())));
     }
 
+    public BinaryViewer(LargeList<Byte> l) {
+        this(new ByteToBitList(l));
+    }
+
     public BinaryViewer(LargeBitList l) {
         //表示する範囲を初期化する
         ranges = new Range[PRIORITY.MAX];

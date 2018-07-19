@@ -42,6 +42,7 @@ public class PacketTreeViewerPanel extends ViewerPanel {
         //表示するファイルを保持する
         list_packet = l;
 
+        setName(list_packet.getTypeName());
         setLayout(new BorderLayout());
         setTransferHandler(new FileTransferHandler());
 
@@ -135,11 +136,6 @@ public class PacketTreeViewerPanel extends ViewerPanel {
         if (memberTreeViewer != null) {
             memberTreeViewer.setFont(f);
         }
-    }
-
-    @Override
-    public String getShortName() {
-        return list_packet.getTypeName();
     }
 
     public LargePacketList<?> getPacketList() {

@@ -155,7 +155,8 @@ public class FileTransferHandler extends TransferHandler {
             LargeBitList blist = new ByteToBitList(new FileByteList(tfile.getAbsolutePath()));
             LargePacketList<?> list = getPacketList(getFileTypeByFileName(tfile), blist);
 
-            BinaryViewerPanel bp = new BinaryViewerPanel(tfile);
+            blist.setName(tfile.getName());
+            BinaryViewerPanel bp = new BinaryViewerPanel(blist);
             ViewerWindow vbw = new ViewerWindow(bp);
             vbw.setSize(600, 720);
             vbw.setVisible(true);
