@@ -10,8 +10,9 @@ import org.junit.Test;
 
 import java.util.*;
 
-import net.katsuster.strview.util.*;
 import net.katsuster.strview.io.*;
+import net.katsuster.strview.util.*;
+import net.katsuster.strview.util.bit.*;
 import net.katsuster.strview.test.util.*;
 
 /**

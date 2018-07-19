@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import net.katsuster.strview.util.*;
+import net.katsuster.strview.util.bit.*;
 import net.katsuster.strview.io.*;
 
 public class UFixedTest {

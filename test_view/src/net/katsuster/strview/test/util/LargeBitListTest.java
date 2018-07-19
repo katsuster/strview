@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.*;
 
-import net.katsuster.strview.util.*;
+import net.katsuster.strview.util.bit.*;
 
 /**
  * @author katsuhiro

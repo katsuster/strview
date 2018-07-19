@@ -1,9 +1,8 @@
 package net.katsuster.strview.test.io;
 
-import net.katsuster.strview.io.SequenceBitList;
-import net.katsuster.strview.util.SimpleRange;
-import net.katsuster.strview.io.MemoryBitList;
-import net.katsuster.strview.test.util.LargeBitListTest;
+import net.katsuster.strview.io.*;
+import net.katsuster.strview.util.*;
+import net.katsuster.strview.test.util.*;
 import org.junit.*;
 
 import static org.junit.Assert.*;
