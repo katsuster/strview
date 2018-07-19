@@ -113,6 +113,6 @@ public class ASFHeader
      * @return 文字列
      */
     public static String getWcharName(LargeBitList v) {
-        return AbstractBlock.getArrayName(v, "UTF-16LE");
+        return getArrayName(v, "UTF-16LE");
     }
 }
