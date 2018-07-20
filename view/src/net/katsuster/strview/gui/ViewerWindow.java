@@ -1,7 +1,12 @@
 package net.katsuster.strview.gui;
 
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import net.katsuster.strview.media.*;
+import net.katsuster.strview.util.*;
+import net.katsuster.strview.util.bit.*;
 
 /**
  * <p>
@@ -16,6 +21,8 @@ public class ViewerWindow extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private ViewerPanel viewer;
+    JComboBox<FileTypeItem> cmbType;
+    FileTypeItem fileType;
 
     public ViewerWindow(ViewerPanel p) {
         viewer = p;
@@ -48,7 +55,21 @@ public class ViewerWindow extends JFrame {
         topMenuBar.add(menuSetting);
         setJMenuBar(topMenuBar);
 
-        getContentPane().add(p);
+        //下側、ファイル種別選択ボックス
+        JPanel typeTool = new JPanel();
+        typeTool.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+        cmbType = new JComboBox<>();
+        cmbType.addItemListener(new FileTypeChanged());
+        typeTool.add(cmbType);
+
+        JButton btnOpen = new JButton("Open");
+        btnOpen.setEnabled(false);
+        typeTool.add(btnOpen);
+
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(p, BorderLayout.CENTER);
+        getContentPane().add(typeTool, BorderLayout.SOUTH);
     }
 
     public ViewerPanel getViewer() {
@@ -86,6 +107,14 @@ public class ViewerWindow extends JFrame {
             if (res == JFontChooser.OK_OPTION) {
                 viewer.setFont(chooser.getSelectedFont());
             }
+        }
+    }
+
+    public class FileTypeChanged implements ItemListener {
+        private static final long serialVersionUID = 1L;
+
+        public void itemStateChanged(ItemEvent e) {
+            //TODO: implemented yet
         }
     }
 }
