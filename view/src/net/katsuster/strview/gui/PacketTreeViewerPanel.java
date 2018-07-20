@@ -28,8 +28,6 @@ import net.katsuster.strview.media.*;
 public class PacketTreeViewerPanel extends ViewerPanel {
     private static final long serialVersionUID = 1L;
 
-    private LargePacketList<?> list_packet;
-
     private FlatTextField packetToolText;
     private PacketTreeViewer packetTreeViewer;
     private PacketListViewer packetListViewer;
@@ -40,9 +38,9 @@ public class PacketTreeViewerPanel extends ViewerPanel {
         JScrollPane scrPacketViewer;
 
         //表示するファイルを保持する
-        list_packet = l;
+        setList(l);
 
-        setName(list_packet.getTypeName());
+        setName(getList().getTypeName());
         setLayout(new BorderLayout());
         setTransferHandler(new FileTransferHandler());
 
@@ -65,8 +63,8 @@ public class PacketTreeViewerPanel extends ViewerPanel {
         JButton btnCount = new JButton(new ActionCount("Count"));
         packetTool.add(btnCount);
 
-        if (getPacketList().hasTreeStructure()) {
-            packetTreeViewer = new PacketTreeViewer(getPacketList());
+        if (getList().hasTreeStructure()) {
+            packetTreeViewer = new PacketTreeViewer(getList());
             PacketTreeSelListener packetTreeListener = new PacketTreeSelListener();
 
             JTree lview = packetTreeViewer.getViewer();
@@ -77,7 +75,7 @@ public class PacketTreeViewerPanel extends ViewerPanel {
             scrPacketViewer = new JScrollPane(packetTreeViewer);
             scrPacketViewer.getVerticalScrollBar().setUnitIncrement(10);
         } else {
-            packetListViewer = new PacketListViewer(getPacketList());
+            packetListViewer = new PacketListViewer(getList());
             PacketListSelListener packetListListener = new PacketListSelListener();
 
             JList lview = packetListViewer.getViewer();
@@ -138,8 +136,9 @@ public class PacketTreeViewerPanel extends ViewerPanel {
         }
     }
 
-    public LargePacketList<?> getPacketList() {
-        return list_packet;
+    @Override
+    public LargePacketList<?> getList() {
+        return (LargePacketList<?>)super.getList();
     }
 
     public class ActionGoto extends AbstractAction
@@ -184,7 +183,7 @@ public class PacketTreeViewerPanel extends ViewerPanel {
                 long num = Long.parseLong(
                         packetToolText.getTextField().getText(), 10);
 
-                if (getPacketList().hasTreeStructure()) {
+                if (getList().hasTreeStructure()) {
                     JTree tview = packetTreeViewer.getViewer();
                     DefaultTreeModel model = (DefaultTreeModel)tview.getModel();
                     DefaultMutableTreeNode n = (DefaultMutableTreeNode)model.getRoot();
@@ -247,7 +246,7 @@ public class PacketTreeViewerPanel extends ViewerPanel {
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    list_packet.count();
+                    getList().count();
 
                     SwingUtilities.invokeLater(new Runnable() {
                         @Override
@@ -441,7 +440,7 @@ public class PacketTreeViewerPanel extends ViewerPanel {
             ToMemberTreeNodeConverter c = new ToMemberTreeNodeConverter();
             p.write(c);
             MemberTreeNode root = c.getResult();
-            root.setName(getPacketList().getTypeName());
+            root.setName(getList().getTypeName());
             memberTreeViewer.setRootTreeNode(root);
             JTree v = memberTreeViewer.getViewer();
             while (true) {
@@ -458,7 +457,7 @@ public class PacketTreeViewerPanel extends ViewerPanel {
             if (p.getRawPacket() != null) {
                 PacketRange pr = p.getRange();
 
-                LinkEvent e = new LinkEvent(list_packet, LinkEvent.Type.NODE,
+                LinkEvent e = new LinkEvent(getList(), LinkEvent.Type.NODE,
                         new SimpleRange(null, pr.getStart(), pr.getLength()));
                 fireLinkChange(e);
             }
@@ -471,13 +470,13 @@ public class PacketTreeViewerPanel extends ViewerPanel {
             }
 
             //ノードが指すデータの先頭にジャンプする
-            LinkEvent e = new LinkEvent(list_packet, LinkEvent.Type.JUMP,
+            LinkEvent e = new LinkEvent(getList(), LinkEvent.Type.JUMP,
                     new SimpleRange(null, p.getRange().getStart(), 0));
             fireLinkChange(e);
         }
 
         protected Packet getPacketFromEvent(long selRow) {
-            return getPacketList().get(selRow);
+            return getList().get(selRow);
         }
     }
 
@@ -558,10 +557,10 @@ public class PacketTreeViewerPanel extends ViewerPanel {
                     len += 7;
                 }
 
-                e = new LinkEvent(list_packet, LinkEvent.Type.MEMBER,
+                e = new LinkEvent(getList(), LinkEvent.Type.MEMBER,
                         new SimpleRange(null, ptn.getDataStart(), len));
             } else {
-                e = new LinkEvent(list_packet, LinkEvent.Type.MEMBER,
+                e = new LinkEvent(getList(), LinkEvent.Type.MEMBER,
                         new SimpleRange(null, 0, 0));
             }
 
@@ -576,7 +575,7 @@ public class PacketTreeViewerPanel extends ViewerPanel {
 
             //ノードが指すデータの先頭にジャンプする
             if (ptn.hasNumData() || ptn.hasArrayData()) {
-                LinkEvent e = new LinkEvent(list_packet, LinkEvent.Type.JUMP,
+                LinkEvent e = new LinkEvent(getList(), LinkEvent.Type.JUMP,
                         new SimpleRange(null, ptn.getDataStart(), 0));
                 fireLinkChange(e);
             }

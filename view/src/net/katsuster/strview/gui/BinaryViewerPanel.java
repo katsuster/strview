@@ -17,15 +17,13 @@ import net.katsuster.strview.util.bit.*;
 public class BinaryViewerPanel extends ViewerPanel {
     private static final long serialVersionUID = 1L;
 
-    private LargeBitList buf;
-
     private FlatTextField binaryToolText;
     private BinaryViewer binaryViewer;
 
     public BinaryViewerPanel(LargeBitList l) {
-        buf = l;
+        setList(l);
 
-        setName(buf.getName());
+        setName(getList().getName());
         setLayout(new BorderLayout());
         setTransferHandler(new FileTransferHandler());
 
@@ -77,6 +75,11 @@ public class BinaryViewerPanel extends ViewerPanel {
         }
 
         binaryViewer.repaint();
+    }
+
+    @Override
+    public LargeBitList getList() {
+        return (LargeBitList)super.getList();
     }
 
     public class ActionGoto extends AbstractAction
