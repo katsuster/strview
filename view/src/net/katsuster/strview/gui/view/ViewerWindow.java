@@ -1,10 +1,12 @@
 package net.katsuster.strview.gui.view;
 
+import java.util.List;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 import net.katsuster.strview.gui.*;
+import net.katsuster.strview.gui.opener.*;
 
 /**
  * <p>
@@ -19,8 +21,10 @@ public class ViewerWindow extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private ViewerPanel viewer;
-    JComboBox<FileTypeItem> cmbType;
-    FileTypeItem fileType;
+    private JComboBox<Opener> cmbType;
+    private JButton btnOpen;
+
+    private Opener opener;
 
     public ViewerWindow(ViewerPanel p) {
         viewer = p;
@@ -57,11 +61,13 @@ public class ViewerWindow extends JFrame {
         JPanel typeTool = new JPanel();
         typeTool.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
+        typeTool.add(new JLabel("Open as:"));
+
         cmbType = new JComboBox<>();
         cmbType.addItemListener(new FileTypeChanged());
         typeTool.add(cmbType);
 
-        JButton btnOpen = new JButton("Open");
+        btnOpen = new JButton("Open");
         btnOpen.setEnabled(false);
         typeTool.add(btnOpen);
 
@@ -80,6 +86,17 @@ public class ViewerWindow extends JFrame {
 
     public void removeHelperViewer(ViewerWindow w) {
         viewer.removeHelperViewer(w.getViewer());
+    }
+
+    public void setOpeners(List<Opener> ops) {
+        cmbType.removeAllItems();
+        for (Opener i : ops) {
+            cmbType.addItem(i);
+        }
+    }
+
+    public Opener getSelectedOpener() {
+        return opener;
     }
 
     public class ActionFont extends AbstractAction {
@@ -109,10 +126,18 @@ public class ViewerWindow extends JFrame {
     }
 
     public class FileTypeChanged implements ItemListener {
-        private static final long serialVersionUID = 1L;
-
         public void itemStateChanged(ItemEvent e) {
-            //TODO: implemented yet
+            Opener o = (Opener)e.getItem();
+
+            opener = o;
+
+            if (o == null) {
+                btnOpen.setAction(null);
+                btnOpen.setEnabled(false);
+            } else {
+                btnOpen.setAction(o.getAction());
+                btnOpen.setEnabled(true);
+            }
         }
     }
 }

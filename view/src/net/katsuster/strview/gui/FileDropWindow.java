@@ -5,7 +5,8 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import net.katsuster.strview.gui.FileTransferHandler.*;
+import net.katsuster.strview.gui.opener.*;
+import net.katsuster.strview.gui.opener.Opener.*;
 
 /**
  * <p>
@@ -16,7 +17,6 @@ public class FileDropWindow extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private FileTransferHandler trHandler;
-    private JComboBox<FileTypeItem> cmbType;
     private JLabel lblHeapWatcher;
     private JButton btnGC;
     private javax.swing.Timer timHeapWatcher;
@@ -44,25 +44,6 @@ public class FileDropWindow extends JFrame {
         actionExit.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_X);
         menuFile.add(actionExit);
 
-        //ファイル種別ボックス
-        cmbType = new JComboBox<>();
-        cmbType.setPreferredSize(new Dimension(100, 20));
-        cmbType.addItem(new FileTypeItem("Auto", FILE_TYPE.FT_AUTO));
-        cmbType.addItem(new FileTypeItem("FLV", FILE_TYPE.FT_FLV));
-        cmbType.addItem(new FileTypeItem("Matroska", FILE_TYPE.FT_MATROSKA));
-        cmbType.addItem(new FileTypeItem("MPEG2 TS", FILE_TYPE.FT_MPEG2TS));
-        cmbType.addItem(new FileTypeItem("MPEG2 PS", FILE_TYPE.FT_MPEG2PS));
-        cmbType.addItem(new FileTypeItem("MPEG4", FILE_TYPE.FT_MPEG4));
-        cmbType.addItem(new FileTypeItem("RIFF", FILE_TYPE.FT_RIFF));
-        cmbType.addItem(new FileTypeItem("RealMedia", FILE_TYPE.FT_RMFF));
-        cmbType.addItem(new FileTypeItem("MPEG2 Visual", FILE_TYPE.FT_MPEG2VIDEO));
-        cmbType.addItem(new FileTypeItem("MPEG4 Part2 Visual", FILE_TYPE.FT_MPEG4VISUAL));
-        cmbType.addItem(new FileTypeItem("TEST: Source Packet", FILE_TYPE.FT_TEST_SRC));
-        cmbType.addItem(new FileTypeItem("TEST: Fixed Size Packet", FILE_TYPE.FT_TEST_FIXED));
-        cmbType.addItem(new FileTypeItem("TEST: Marked Packet", FILE_TYPE.FT_TEST_MARKED));
-        cmbType.addItemListener(new FileTypeChanged());
-        getContentPane().add(cmbType);
-
         //ヒープ使用量と GC ボタンを追加する
         lblHeapWatcher = new JLabel();
         getContentPane().add(lblHeapWatcher);
@@ -73,29 +54,6 @@ public class FileDropWindow extends JFrame {
         Action actionGC = new ActionGC("GC");
         btnGC = new JButton(actionGC);
         getContentPane().add(btnGC);
-    }
-
-    public class FileTypeItem {
-        private String name;
-        private FileTransferHandler.FILE_TYPE type;
-
-        public FileTypeItem(String n, FileTransferHandler.FILE_TYPE t) {
-            name = n;
-            type = t;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public FileTransferHandler.FILE_TYPE getType() {
-            return type;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
     }
 
     public class ActionExit extends AbstractAction {
@@ -112,16 +70,6 @@ public class FileDropWindow extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.exit(0);
-        }
-    }
-
-    public class FileTypeChanged implements ItemListener {
-        private static final long serialVersionUID = 1L;
-
-        public void itemStateChanged(ItemEvent e) {
-            FileTypeItem s = (FileTypeItem)e.getItem();
-
-            trHandler.setFileType(s.getType());
         }
     }
 
