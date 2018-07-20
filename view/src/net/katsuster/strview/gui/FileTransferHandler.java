@@ -74,9 +74,6 @@ public class FileTransferHandler extends TransferHandler {
      * </p>
      *
      * <p>
-     * 解析が可能なファイルだと判断した場合は、
-     * ストリームの構造を表示するウインドウが開きます。
-     * 解析が不可能なファイルだと判断した場合は、
      * バイナリデータを表示するウインドウが開きます。
      * </p>
      *
@@ -84,8 +81,6 @@ public class FileTransferHandler extends TransferHandler {
      * @return ファイルを開けた場合は true、ファイルを開けなかった場合は false
      */
     public boolean openFile(File tfile) {
-        System.out.println(tfile);
-
         LargeBitList blist = new ByteToBitList(new FileByteList(tfile.getAbsolutePath()));
         blist.setName(tfile.getName());
         BinaryViewerPanel bp = new BinaryViewerPanel(blist);
