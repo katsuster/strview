@@ -1,4 +1,4 @@
-package net.katsuster.strview.gui;
+package net.katsuster.strview.gui.view;
 
 import java.util.*;
 import java.awt.*;
@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.tree.*;
 
+import net.katsuster.strview.gui.*;
 import net.katsuster.strview.util.*;
 import net.katsuster.strview.media.*;
 

@@ -1,12 +1,10 @@
-package net.katsuster.strview.gui;
+package net.katsuster.strview.gui.view;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import net.katsuster.strview.media.*;
-import net.katsuster.strview.util.*;
-import net.katsuster.strview.util.bit.*;
+import net.katsuster.strview.gui.*;
 
 /**
  * <p>

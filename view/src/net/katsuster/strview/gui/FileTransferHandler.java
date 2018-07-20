@@ -8,6 +8,7 @@ import java.awt.datatransfer.*;
 
 import javax.swing.*;
 
+import net.katsuster.strview.gui.view.*;
 import net.katsuster.strview.util.*;
 import net.katsuster.strview.util.bit.*;
 import net.katsuster.strview.io.*;

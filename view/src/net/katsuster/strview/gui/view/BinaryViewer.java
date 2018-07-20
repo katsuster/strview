@@ -1,4 +1,4 @@
-package net.katsuster.strview.gui;
+package net.katsuster.strview.gui.view;
 
 import java.io.*;
 import java.awt.*;
