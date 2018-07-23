@@ -1,5 +1,6 @@
 package net.katsuster.strview.gui.opener;
 
+import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -44,12 +45,15 @@ public class ActionOpenAsBit extends ActionOpenAs {
         LargeList<?> l = getParent().getViewer().getList();
 
         if (l instanceof LargeBitList) {
-            LargeBitList lb = (LargeBitList) l;
-            LargePacketList<?> lp = getPacketList(getFileTypeByFileName(l.getName()), lb);
+            LargeBitList blist = (LargeBitList) l;
+            LargePacketList<?> lp = getPacketList(getFileTypeByFileName(l.getName()), blist);
             PacketTreeViewerPanel pp = new PacketTreeViewerPanel(lp);
             ViewerWindow vpw = new ViewerWindow(pp);
-            vpw.addHelperViewer(getParent());
+            List<Opener> openers = OpenerFactory.createOpener(lp, vpw);
+
             vpw.setSize(800, 720);
+            vpw.addHelperViewer(getParent());
+            vpw.setOpeners(openers);
             vpw.setVisible(true);
         }
     }
