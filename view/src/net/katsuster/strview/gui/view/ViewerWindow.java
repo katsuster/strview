@@ -21,8 +21,8 @@ public class ViewerWindow extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private ViewerPanel viewer;
-    private JComboBox<Opener> cmbType;
-    private JButton btnOpen;
+    private JComboBox<Opener> cmbOpener;
+    private JButton btnOpener;
 
     private Opener opener;
 
@@ -63,13 +63,13 @@ public class ViewerWindow extends JFrame {
 
         typeTool.add(new JLabel("Open as:"));
 
-        cmbType = new JComboBox<>();
-        cmbType.addItemListener(new FileTypeChanged());
-        typeTool.add(cmbType);
+        cmbOpener = new JComboBox<>();
+        cmbOpener.addItemListener(new FileTypeChanged());
+        typeTool.add(cmbOpener);
 
-        btnOpen = new JButton("Open");
-        btnOpen.setEnabled(false);
-        typeTool.add(btnOpen);
+        btnOpener = new JButton("Open");
+        btnOpener.setEnabled(false);
+        typeTool.add(btnOpener);
 
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(p, BorderLayout.CENTER);
@@ -89,9 +89,9 @@ public class ViewerWindow extends JFrame {
     }
 
     public void setOpeners(List<Opener> ops) {
-        cmbType.removeAllItems();
+        cmbOpener.removeAllItems();
         for (Opener i : ops) {
-            cmbType.addItem(i);
+            cmbOpener.addItem(i);
         }
     }
 
@@ -132,11 +132,11 @@ public class ViewerWindow extends JFrame {
             opener = o;
 
             if (o == null) {
-                btnOpen.setAction(null);
-                btnOpen.setEnabled(false);
+                btnOpener.setAction(null);
+                btnOpener.setEnabled(false);
             } else {
-                btnOpen.setAction(o.getAction());
-                btnOpen.setEnabled(true);
+                btnOpener.setAction(o.getAction());
+                btnOpener.setEnabled(true);
             }
         }
     }
