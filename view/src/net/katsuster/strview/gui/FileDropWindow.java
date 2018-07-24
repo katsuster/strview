@@ -5,9 +5,6 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import net.katsuster.strview.gui.opener.*;
-import net.katsuster.strview.gui.opener.Opener.*;
-
 /**
  * <p>
  * ファイルを開くためのウインドウです。ドラッグ＆ドロップを受け付けます。
