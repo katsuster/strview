@@ -79,6 +79,26 @@ public class FLVTagList
                 //unknown
                 tagh = tmph;
             }
+
+            if (tagh instanceof FLVHeaderAudio) {
+                FLVHeaderAudio tmpha = new FLVHeaderAudio();
+                tmpha.peek(c);
+
+                tagh = FLVConsts.flvAudFactory.createPacketHeader(
+                        tmpha.sound_format.intValue());
+                if (tagh == null) {
+                    tagh = tmpha;
+                }
+            } else if (tagh instanceof FLVHeaderVideo) {
+                FLVHeaderVideo tmphv = new FLVHeaderVideo();
+                tmphv.peek(c);
+
+                tagh = FLVConsts.flvVidFactory.createPacketHeader(
+                        tmphv.codec_id.intValue());
+                if (tagh == null) {
+                    tagh = tmphv;
+                }
+            }
         }
 
         return tagh;

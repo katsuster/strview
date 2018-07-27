@@ -31,9 +31,9 @@ public class FLVConsts {
             new PacketFactory<>(FLVHeaderVideo.class);
     static {
         //Video
-        //flvVidFactory.put(CODEC_ID.H263, FLVHeaderVideoH263.class);
-        //flvVidFactory.put(CODEC_ID.VP6, FLVHeaderVideoVP6.class);
-        //flvVidFactory.put(CODEC_ID.VP6_WITH_ALPHA, FLVHeaderVideoVP6A.class);
+        flvVidFactory.put(CODEC_ID.H263, FLVHeaderVideoH263.class);
+        flvVidFactory.put(CODEC_ID.VP6, FLVHeaderVideoVP6.class);
+        flvVidFactory.put(CODEC_ID.VP6_WITH_ALPHA, FLVHeaderVideoVP6A.class);
         //flvVidFactory.put(CODEC_ID.AVC, FLVHeaderVideoAVC.class);
     }
 
