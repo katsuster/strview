@@ -41,12 +41,7 @@ public abstract class AbstractBitStreamWriter extends AbstractStreamWriter<Boole
 
     @Override
     public void writeSInt(int nbit, SInt val) {
-        writeSInt(nbit, val, val.getName(), null);
-    }
-
-    @Override
-    public void writeSInt(int nbit, SInt val, String desc) {
-        writeSInt(nbit, val, val.getName(), desc);
+        writeSInt(nbit, val, null);
     }
 
     @Override
@@ -58,12 +53,7 @@ public abstract class AbstractBitStreamWriter extends AbstractStreamWriter<Boole
 
     @Override
     public void writeUInt(int nbit, UInt val) {
-        writeUInt(nbit, val, val.getName(), null);
-    }
-
-    @Override
-    public void writeUInt(int nbit, UInt val, String desc) {
-        writeUInt(nbit, val, val.getName(), desc);
+        writeUInt(nbit, val, null);
     }
 
     @Override
@@ -75,12 +65,7 @@ public abstract class AbstractBitStreamWriter extends AbstractStreamWriter<Boole
 
     @Override
     public void writeSIntR(int nbit, SIntR val) {
-        writeSIntR(nbit, val, val.getName(), null);
-    }
-
-    @Override
-    public void writeSIntR(int nbit, SIntR val, String desc) {
-        writeSIntR(nbit, val, val.getName(), desc);
+        writeSIntR(nbit, val, null);
     }
 
     @Override
@@ -92,12 +77,7 @@ public abstract class AbstractBitStreamWriter extends AbstractStreamWriter<Boole
 
     @Override
     public void writeUIntR(int nbit, UIntR val) {
-        writeUIntR(nbit, val, val.getName(), null);
-    }
-
-    @Override
-    public void writeUIntR(int nbit, UIntR val, String desc) {
-        writeUIntR(nbit, val, val.getName(), desc);
+        writeUIntR(nbit, val, null);
     }
 
     @Override
@@ -109,12 +89,7 @@ public abstract class AbstractBitStreamWriter extends AbstractStreamWriter<Boole
 
     @Override
     public void writeFloat32(int nbit, Float32 val) {
-        writeFloat32(nbit, val, val.getName(), null);
-    }
-
-    @Override
-    public void writeFloat32(int nbit, Float32 val, String desc) {
-        writeFloat32(nbit, val, val.getName(), desc);
+        writeFloat32(nbit, val, null);
     }
 
     @Override
@@ -126,12 +101,7 @@ public abstract class AbstractBitStreamWriter extends AbstractStreamWriter<Boole
 
     @Override
     public void writeFloat64(int nbit, Float64 val) {
-        writeFloat64(nbit, val, val.getName(), null);
-    }
-
-    @Override
-    public void writeFloat64(int nbit, Float64 val, String desc) {
-        writeFloat64(nbit, val, val.getName(), desc);
+        writeFloat64(nbit, val, null);
     }
 
     @Override
@@ -143,11 +113,6 @@ public abstract class AbstractBitStreamWriter extends AbstractStreamWriter<Boole
 
     @Override
     public void writeBitList(long nbit, LargeBitList val) {
-        writeBitList(nbit, val, val.getName(), null);
-    }
-
-    @Override
-    public void writeBitList(long nbit, LargeBitList val, String desc) {
-        writeBitList(nbit, val, val.getName(), desc);
+        writeBitList(nbit, val, null);
     }
 }
