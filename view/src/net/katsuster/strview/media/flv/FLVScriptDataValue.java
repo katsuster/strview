@@ -25,8 +25,8 @@ public class FLVScriptDataValue
     public FLVScriptDataValue(String n, long l) {
         super(n, l);
 
-        type = new UInt();
-        val = new FLVScriptData();
+        type = new UInt("Type");
+        val = new FLVScriptData("ScriptDataValue");
     }
 
     @Override
@@ -79,7 +79,7 @@ public class FLVScriptDataValue
                              FLVScriptDataValue d) {
         c.enterBlock(d);
 
-        c.writeUInt( 8, d.type, "Type", d.getScriptDataTypeName());
+        c.writeUInt( 8, d.type, d.getScriptDataTypeName());
         d.val.write(c);
 
         c.leaveBlock();

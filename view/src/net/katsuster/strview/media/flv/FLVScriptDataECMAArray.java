@@ -19,7 +19,7 @@ public class FLVScriptDataECMAArray
     public FLVScriptDataObjectEnd list_terminator;
 
     public FLVScriptDataECMAArray() {
-        ecma_array_length = new UInt();
+        ecma_array_length = new UInt("ECMAArrayLength");
         variables = new ArrayList<>();
         list_terminator = new FLVScriptDataObjectEnd("List Terminator");
     }
@@ -85,7 +85,7 @@ public class FLVScriptDataECMAArray
 
         FLVScriptData.writeBits(c, d);
 
-        c.writeUInt(32, d.ecma_array_length, "ECMAArrayLength");
+        c.writeUInt(32, d.ecma_array_length);
 
         writeObjectList(c, d.variables.size() /*d.ecma_array_length.intValue()*/,
                 d.variables, "Variables");

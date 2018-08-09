@@ -14,7 +14,7 @@ public class FLVScriptDataUI8
     public UInt uint8_bits;
 
     public FLVScriptDataUI8() {
-        uint8_bits = new UInt();
+        uint8_bits = new UInt("UI8");
     }
 
     @Override
@@ -59,7 +59,7 @@ public class FLVScriptDataUI8
 
         FLVScriptData.writeBits(c, d);
 
-        c.writeUInt( 8, d.uint8_bits, "UI8");
+        c.writeUInt( 8, d.uint8_bits);
 
         c.leaveBlock();
     }

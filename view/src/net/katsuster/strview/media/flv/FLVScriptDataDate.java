@@ -18,8 +18,8 @@ public class FLVScriptDataDate
     public SInt local_date_time_offset;
 
     public FLVScriptDataDate() {
-        date_time = new Float64();
-        local_date_time_offset = new SInt();
+        date_time = new Float64("DateTime");
+        local_date_time_offset = new SInt("LocalDateTimeOffset");
     }
 
     @Override
@@ -66,8 +66,8 @@ public class FLVScriptDataDate
 
         FLVScriptData.writeBits(c, d);
 
-        c.writeFloat64(64, d.date_time          , "DateTime"           , d.getDateTimeName());
-        c.writeSInt(16, d.local_date_time_offset, "LocalDateTimeOffset", d.getLocalDateTimeOffsetName());
+        c.writeFloat64(64, d.date_time          , d.getDateTimeName());
+        c.writeSInt(16, d.local_date_time_offset, d.getLocalDateTimeOffsetName());
 
         c.leaveBlock();
     }

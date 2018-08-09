@@ -66,9 +66,7 @@ public class FLVHeaderScript
 
         FLVHeaderES.writeBits(c, d);
 
-        c.mark("Name", "");
         d.name.write(c);
-        c.mark("Value", "");
         d.value.write(c);
 
         c.leaveBlock();

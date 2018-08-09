@@ -17,7 +17,7 @@ public class FLVScriptDataStrictArray
     public List<FLVScriptDataValue> strict_array_value;
 
     public FLVScriptDataStrictArray() {
-        strict_array_length = new UInt();
+        strict_array_length = new UInt("StrictArrayLength");
         strict_array_value = new ArrayList<>();
     }
 
@@ -71,7 +71,7 @@ public class FLVScriptDataStrictArray
 
         FLVScriptData.writeBits(c, d);
 
-        c.writeUInt(32, d.strict_array_length, "StrictArrayLength");
+        c.writeUInt(32, d.strict_array_length);
 
         writeObjectList(c, d.strict_array_length.intValue(),
                 d.strict_array_value, "StrictArrayValue");

@@ -14,7 +14,7 @@ public class FLVScriptDataDouble
     public Float64 double_bits;
 
     public FLVScriptDataDouble() {
-        double_bits = new Float64();
+        double_bits = new Float64("double_bits");
     }
 
     @Override
@@ -59,7 +59,7 @@ public class FLVScriptDataDouble
 
         FLVScriptData.writeBits(c, d);
 
-        c.writeFloat64(64, d.double_bits, "double_bits");
+        c.writeFloat64(64, d.double_bits);
 
         c.leaveBlock();
     }

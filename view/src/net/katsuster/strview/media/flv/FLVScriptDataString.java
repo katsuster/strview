@@ -21,8 +21,8 @@ public class FLVScriptDataString
     public FLVScriptDataString(String n) {
         super(n);
 
-        string_length = new UInt();
-        string_data = new SubLargeBitList();
+        string_length = new UInt("StringLength");
+        string_data = new SubLargeBitList("StringData");
     }
 
     @Override
@@ -69,9 +69,9 @@ public class FLVScriptDataString
 
         FLVScriptData.writeBits(c, d);
 
-        c.writeUInt(16, d.string_length, "StringLength");
+        c.writeUInt(16, d.string_length);
         c.writeBitList(d.string_length.intValue() << 3, d.string_data,
-                "StringData", d.getStringDataName());
+                d.getStringDataName());
 
         c.leaveBlock();
     }

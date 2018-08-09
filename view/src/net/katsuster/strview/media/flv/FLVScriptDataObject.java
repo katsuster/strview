@@ -25,7 +25,7 @@ public class FLVScriptDataObject
         super(l);
 
         object_properties = new ArrayList<>();
-        list_terminator = new FLVScriptDataObjectEnd();
+        list_terminator = new FLVScriptDataObjectEnd("List Terminator");
     }
 
     @Override
@@ -60,8 +60,8 @@ public class FLVScriptDataObject
         FLVScriptData.readBits(c, d);
 
         d.object_properties.clear();
-        while (!isTerminated(c, d)) {
-            FLVScriptDataObjectProperty prop = new FLVScriptDataObjectProperty();
+        for (int i = 0; !isTerminated(c, d); i++) {
+            FLVScriptDataObjectProperty prop = new FLVScriptDataObjectProperty("ObjectProperties[" + i + "]");
             prop.setLimit(d.getLimit());
             prop.read(c);
             d.object_properties.add(prop);

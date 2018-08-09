@@ -21,7 +21,7 @@ public class FLVScriptDataObjectEnd
     public FLVScriptDataObjectEnd(String n) {
         super(n);
 
-        object_end_marker = new UInt();
+        object_end_marker = new UInt("ObjectEndMarker");
     }
 
     @Override
@@ -66,7 +66,7 @@ public class FLVScriptDataObjectEnd
 
         FLVScriptData.writeBits(c, d);
 
-        c.writeUInt(24, d.object_end_marker, "ObjectEndMarker");
+        c.writeUInt(24, d.object_end_marker);
 
         c.leaveBlock();
     }
