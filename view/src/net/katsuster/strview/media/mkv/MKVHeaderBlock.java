@@ -146,23 +146,20 @@ public class MKVHeaderBlock
 
         MKVHeader.writeBits(c, d);
 
-        c.mark("track_number", "");
         d.track_number.write(c);
 
-        c.writeUInt(16, d.timecode , "timecode");
-        c.writeUInt( 4, d.reserved1, "reserved1");
-        c.writeUInt( 1, d.invisible, "invisible");
-        c.writeUInt( 2, d.lacing   , "lacing"   , d.getLacingName());
-        c.writeUInt( 1, d.reserved2, "reserved2");
+        c.writeUInt(16, d.timecode );
+        c.writeUInt( 4, d.reserved1);
+        c.writeUInt( 1, d.invisible);
+        c.writeUInt( 2, d.lacing   , d.getLacingName());
+        c.writeUInt( 1, d.reserved2);
 
         if (d.lacing.intValue() == LACING.EBML) {
-            c.writeUInt( 8, d.lacing_head, "lacing_head");
-            c.mark("lacing_size0", "");
+            c.writeUInt( 8, d.lacing_head);
             d.lacing_size0.write(c);
 
             List<EBMLlacing> lacing_diffs = d.lacing_diffs;
             for (i = 0; i < d.lacing_head.intValue() - 1; i++) {
-                c.mark("lacing_diffs[" + i + "]", "");
                 lacing_diffs.get(i).write(c);
             }
 
@@ -171,7 +168,7 @@ public class MKVHeaderBlock
                         d.lacing_sizes.get(i).toString());
             }
         } else if (d.lacing.intValue() == LACING.FIXED_SIZE) {
-            c.writeUInt( 8, d.lacing_head, "lacing_head");
+            c.writeUInt( 8, d.lacing_head);
         }
 
         c.leaveBlock();
