@@ -26,7 +26,7 @@ public class MP4Consts {
         //mp4Factory.put(BOX_TYPE.HDLR, MP4HeaderHdlr.class);
         mp4Factory.put(BOX_TYPE.ILST, MP4HeaderRecursive.class);
         //mp4Factory.put(BOX_TYPE.IODS, MP4HeaderIods.class);
-        //mp4Factory.put(BOX_TYPE.MDHD, MP4HeaderMdhd.class);
+        mp4Factory.put(BOX_TYPE.MDHD, MP4HeaderMdhd.class);
         mp4Factory.put(BOX_TYPE.MDIA, MP4HeaderRecursive.class);
         mp4Factory.put(BOX_TYPE.META, MP4HeaderRecursiveFull.class);
         //mp4Factory.put(BOX_TYPE.MFHD, MP4HeaderMfhd.class);
@@ -35,7 +35,7 @@ public class MP4Consts {
         mp4Factory.put(BOX_TYPE.MINF, MP4HeaderRecursive.class);
         mp4Factory.put(BOX_TYPE.MOOF, MP4HeaderRecursive.class);
         mp4Factory.put(BOX_TYPE.MOOV, MP4HeaderRecursive.class);
-        //mp4Factory.put(BOX_TYPE.MVHD, MP4HeaderMvhd.class);
+        mp4Factory.put(BOX_TYPE.MVHD, MP4HeaderMvhd.class);
         mp4Factory.put(BOX_TYPE.NMHD, MP4HeaderFull.class);
         //mp4Factory.put(BOX_TYPE.SMHD, MP4HeaderSmhd.class);
         mp4Factory.put(BOX_TYPE.STBL, MP4HeaderRecursive.class);
