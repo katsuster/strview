@@ -67,7 +67,7 @@ public class ASFHeaderExtendedContentDescription
         checkNegative(d.content_descriptors_count);
 
         d.content_descriptors = readObjectList(c, d.content_descriptors_count.intValue(),
-                d.content_descriptors, ContentDescriptor.class);
+                d.content_descriptors, ContentDescriptor.class, "Content Descriptors");
 
         c.leaveBlock();
     }
@@ -86,7 +86,7 @@ public class ASFHeaderExtendedContentDescription
         c.writeUIntR(16, d.content_descriptors_count);
 
         writeObjectList(c, d.content_descriptors_count.intValue(),
-                d.content_descriptors, "Content Descriptors");
+                d.content_descriptors);
 
         c.leaveBlock();
     }

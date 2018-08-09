@@ -57,7 +57,7 @@ public class RIFFHeaderIdx1
         //16 is size of IndexEntry
         int cnt = d.ckSize.intValue() / 16;
         d.aIndex = readObjectList(c, cnt, d.aIndex,
-                IndexEntry.class);
+                IndexEntry.class, "aIndex");
 
         c.leaveBlock();
     }
@@ -73,8 +73,7 @@ public class RIFFHeaderIdx1
 
         RIFFHeader.writeBits(c, d);
 
-        writeObjectList(c, d.aIndex.size(), d.aIndex,
-                "aIndex");
+        writeObjectList(c, d.aIndex.size(), d.aIndex);
 
         c.leaveBlock();
     }

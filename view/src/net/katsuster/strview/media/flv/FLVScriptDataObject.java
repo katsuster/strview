@@ -97,7 +97,7 @@ public class FLVScriptDataObject
         FLVScriptData.writeBits(c, d);
 
         writeObjectList(c, d.object_properties.size(),
-                d.object_properties, "ObjectProperties");
+                d.object_properties);
 
         d.list_terminator.write(c);
 

@@ -101,11 +101,12 @@ public abstract class AbstractBitBlock
      * @param n   取得するオブジェクトの個数
      * @param lst オブジェクトのリスト、null を渡すと新たなリストを作成します
      * @param cls 取得するオブジェクトのクラス
+     * @param name リストの名前
      * @return バッファから取得した n 個のオブジェクトを納めたリスト
      * @throws IllegalArgumentException 読み出すオブジェクト数が不適切であるとき
      * @throws IndexOutOfBoundsException 現在位置がリミット以上である場合
      */
-    public static <T extends Block> List<T> readObjectList(BitStreamReader c, int n, List<T> lst, Class<? extends T> cls) {
+    public static <T extends Block> List<T> readObjectList(BitStreamReader c, int n, List<T> lst, Class<? extends T> cls, String name) {
         try {
             if (lst == null) {
                 lst = new ArrayList<>();
@@ -114,6 +115,7 @@ public abstract class AbstractBitBlock
             }
             for (int i = 0; i < n; i++) {
                 T v = cls.newInstance();
+                v.setName(name + "[" + i + "]");
                 v.read(c);
                 lst.add(v);
             }
@@ -137,13 +139,11 @@ public abstract class AbstractBitBlock
      * @param c    各メンバの変換を実施するオブジェクト
      * @param n    書き込むオブジェクトの個数
      * @param lst  書き込むオブジェクトのリスト
-     * @param name リストの名前
      * @throws IllegalArgumentException ビット数が不適切であるとき
      * @throws IndexOutOfBoundsException 現在位置がリミット以上である場合
      */
-    public static <T extends Block> void writeObjectList(BitStreamWriter c, int n, List<T> lst, String name) {
+    public static <T extends Block> void writeObjectList(BitStreamWriter c, int n, List<T> lst) {
         for (int i = 0; i < n; i++) {
-            c.mark(name, i);
             lst.get(i).write(c);
         }
     }

@@ -88,7 +88,7 @@ public class FLVScriptDataECMAArray
         c.writeUInt(32, d.ecma_array_length);
 
         writeObjectList(c, d.variables.size() /*d.ecma_array_length.intValue()*/,
-                d.variables, "Variables");
+                d.variables);
 
         d.list_terminator.write(c);
 

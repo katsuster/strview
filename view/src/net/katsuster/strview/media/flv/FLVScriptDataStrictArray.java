@@ -55,7 +55,7 @@ public class FLVScriptDataStrictArray
         d.strict_array_length = c.readUInt(32, d.strict_array_length);
 
         d.strict_array_value = readObjectList(c, d.strict_array_length.intValue(),
-                d.strict_array_value, FLVScriptDataValue.class);
+                d.strict_array_value, FLVScriptDataValue.class, "StrictArrayValue");
 
         c.leaveBlock();
     }
@@ -74,7 +74,7 @@ public class FLVScriptDataStrictArray
         c.writeUInt(32, d.strict_array_length);
 
         writeObjectList(c, d.strict_array_length.intValue(),
-                d.strict_array_value, "StrictArrayValue");
+                d.strict_array_value);
 
         c.leaveBlock();
     }
