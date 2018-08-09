@@ -283,6 +283,142 @@ public interface BitStreamWriter extends StreamWriter<Boolean> {
 
     /**
      * <p>
+     * 現在位置を更新せずに、16ビット符号付き固定小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void pokeSF8_8(int nbit, SFixed8_8 val);
+
+    /**
+     * <p>
+     * 16ビット符号付き固定小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeSF8_8(int nbit, SFixed8_8 val);
+
+    /**
+     * <p>
+     * 16ビット符号付き固定小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @param desc 変換対象の固定小数数値の意味、説明など
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeSF8_8(int nbit, SFixed8_8 val, String desc);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、32ビット符号付き固定小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void pokeSF16_16(int nbit, SFixed16_16 val);
+
+    /**
+     * <p>
+     * 32ビット符号付き固定小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeSF16_16(int nbit, SFixed16_16 val);
+
+    /**
+     * <p>
+     * 32ビット符号付き固定小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @param desc 変換対象の固定小数数値の意味、説明など
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeSF16_16(int nbit, SFixed16_16 val, String desc);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、16ビット符号なし固定小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void pokeUF8_8(int nbit, UFixed8_8 val);
+
+    /**
+     * <p>
+     * 16ビット符号なし固定小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeUF8_8(int nbit, UFixed8_8 val);
+
+    /**
+     * <p>
+     * 16ビット符号なし固定小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @param desc 変換対象の固定小数数値の意味、説明など
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeUF8_8(int nbit, UFixed8_8 val, String desc);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、32ビット符号なし固定小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void pokeUF16_16(int nbit, UFixed16_16 val);
+
+    /**
+     * <p>
+     * 32ビット符号なし固定小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeUF16_16(int nbit, UFixed16_16 val);
+
+    /**
+     * <p>
+     * 32ビット符号なし固定小数値を書き込みます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @param desc 変換対象の固定小数数値の意味、説明など
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public void writeUF16_16(int nbit, UFixed16_16 val, String desc);
+
+    /**
+     * <p>
      * 現在位置を更新せずに、ビットリストを書き込みます。
      * </p>
      *

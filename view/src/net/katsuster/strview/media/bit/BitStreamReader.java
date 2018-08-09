@@ -304,6 +304,158 @@ public interface BitStreamReader extends StreamReader<Boolean> {
 
     /**
      * <p>
+     * 現在位置を更新せずに、16ビット符号付き固定小数値を読み出します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @return 変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public SFixed8_8 peekSF8_8(int nbit, SFixed8_8 val);
+
+    /**
+     * <p>
+     * 16ビット符号付き固定小数値を読み出します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @return 変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public SFixed8_8 readSF8_8(int nbit, SFixed8_8 val);
+
+    /**
+     * <p>
+     * 16ビット符号付き固定小数値を読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @param desc 変換対象の固定小数値の意味、説明など
+     * @return 変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public SFixed8_8 readSF8_8(int nbit, SFixed8_8 val, String desc);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、32ビット符号付き固定小数値を読み出します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @return 変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public SFixed16_16 peekSF16_16(int nbit, SFixed16_16 val);
+
+    /**
+     * <p>
+     * 32ビット符号付き固定小数値を読み出します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @return 変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public SFixed16_16 readSF16_16(int nbit, SFixed16_16 val);
+
+    /**
+     * <p>
+     * 32ビット符号付き固定小数値を読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @param desc 変換対象の固定小数値の意味、説明など
+     * @return 変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public SFixed16_16 readSF16_16(int nbit, SFixed16_16 val, String desc);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、16ビット符号なし固定小数値を読み出します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @return 変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public UFixed8_8 peekUF8_8(int nbit, UFixed8_8 val);
+
+    /**
+     * <p>
+     * 16ビット符号なし固定小数値を読み出します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @return 変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public UFixed8_8 readUF8_8(int nbit, UFixed8_8 val);
+
+    /**
+     * <p>
+     * 16ビット符号なし固定小数値を読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @param desc 変換対象の固定小数値の意味、説明など
+     * @return 変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public UFixed8_8 readUF8_8(int nbit, UFixed8_8 val, String desc);
+
+    /**
+     * <p>
+     * 現在位置を更新せずに、32ビット符号なし固定小数値を読み出します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @return 変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public UFixed16_16 peekUF16_16(int nbit, UFixed16_16 val);
+
+    /**
+     * <p>
+     * 32ビット符号なし固定小数値を読み出します。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @return 変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public UFixed16_16 readUF16_16(int nbit, UFixed16_16 val);
+
+    /**
+     * <p>
+     * 32ビット符号なし固定小数値を読み出します。
+     * データに加えて、データの意味、説明などを渡すことができます。
+     * </p>
+     *
+     * @param nbit 変換対象のサイズ（ビット単位）
+     * @param val  変換対象の固定小数値オブジェクト
+     * @param desc 変換対象の固定小数値の意味、説明など
+     * @return 変換対象の固定小数値オブジェクト
+     * @throws IllegalArgumentException 無効なパラメータや null を渡した場合
+     */
+    public UFixed16_16 readUF16_16(int nbit, UFixed16_16 val, String desc);
+
+    /**
+     * <p>
      * 現在位置を更新せずに、ビットリストを読み出します。
      * </p>
      *

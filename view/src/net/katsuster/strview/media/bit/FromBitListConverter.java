@@ -134,6 +134,62 @@ public class FromBitListConverter extends BitStreamReaderAdapter {
     }
 
     @Override
+    public SFixed8_8 readSF8_8(int nbit, SFixed8_8 val, String desc) {
+        if (val == null) {
+            val = new SFixed8_8();
+        }
+
+        val.getRange().setBuffer(getList());
+        val.getRange().setStart(position());
+        val.length(nbit);
+        position(position() + nbit);
+
+        return val;
+    }
+
+    @Override
+    public SFixed16_16 readSF16_16(int nbit, SFixed16_16 val, String desc) {
+        if (val == null) {
+            val = new SFixed16_16();
+        }
+
+        val.getRange().setBuffer(getList());
+        val.getRange().setStart(position());
+        val.length(nbit);
+        position(position() + nbit);
+
+        return val;
+    }
+
+    @Override
+    public UFixed8_8 readUF8_8(int nbit, UFixed8_8 val, String desc) {
+        if (val == null) {
+            val = new UFixed8_8();
+        }
+
+        val.getRange().setBuffer(getList());
+        val.getRange().setStart(position());
+        val.length(nbit);
+        position(position() + nbit);
+
+        return val;
+    }
+
+    @Override
+    public UFixed16_16 readUF16_16(int nbit, UFixed16_16 val, String desc) {
+        if (val == null) {
+            val = new UFixed16_16();
+        }
+
+        val.getRange().setBuffer(getList());
+        val.getRange().setStart(position());
+        val.length(nbit);
+        position(position() + nbit);
+
+        return val;
+    }
+
+    @Override
     public LargeBitList readBitList(long nbit, LargeBitList val, String desc) {
         val = new SubLargeBitList(val.getName());
 

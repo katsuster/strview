@@ -116,6 +116,58 @@ public abstract class AbstractBitStreamReader extends AbstractStreamReader<Boole
     }
 
     @Override
+    public SFixed8_8 peekSF8_8(int nbit, SFixed8_8 val) {
+        long orgpos = position();
+        SFixed8_8 res = readSF8_8(nbit, val, null);
+        position(orgpos);
+        return res;
+    }
+
+    @Override
+    public SFixed8_8 readSF8_8(int nbit, SFixed8_8 val) {
+        return readSF8_8(nbit, val, null);
+    }
+
+    @Override
+    public SFixed16_16 peekSF16_16(int nbit, SFixed16_16 val) {
+        long orgpos = position();
+        SFixed16_16 res = readSF16_16(nbit, val, null);
+        position(orgpos);
+        return res;
+    }
+
+    @Override
+    public SFixed16_16 readSF16_16(int nbit, SFixed16_16 val) {
+        return readSF16_16(nbit, val, null);
+    }
+
+    @Override
+    public UFixed8_8 peekUF8_8(int nbit, UFixed8_8 val) {
+        long orgpos = position();
+        UFixed8_8 res = readUF8_8(nbit, val, null);
+        position(orgpos);
+        return res;
+    }
+
+    @Override
+    public UFixed8_8 readUF8_8(int nbit, UFixed8_8 val) {
+        return readUF8_8(nbit, val, null);
+    }
+
+    @Override
+    public UFixed16_16 peekUF16_16(int nbit, UFixed16_16 val) {
+        long orgpos = position();
+        UFixed16_16 res = readUF16_16(nbit, val, null);
+        position(orgpos);
+        return res;
+    }
+
+    @Override
+    public UFixed16_16 readUF16_16(int nbit, UFixed16_16 val) {
+        return readUF16_16(nbit, val, null);
+    }
+
+    @Override
     public LargeBitList peekBitList(long nbit, LargeBitList val) {
         long orgpos = position();
         LargeBitList res = readBitList(nbit, val, null);

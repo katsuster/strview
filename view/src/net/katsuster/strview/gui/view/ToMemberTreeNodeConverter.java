@@ -116,6 +116,34 @@ public class ToMemberTreeNodeConverter extends BitStreamWriterAdapter {
     }
 
     @Override
+    public void writeSF8_8(int nbit, SFixed8_8 val, String desc) {
+        MemberTreeNode top = stack_node.peek();
+
+        top.add(new MemberTreeNode((Num)val, val.getName(), desc));
+    }
+
+    @Override
+    public void writeSF16_16(int nbit, SFixed16_16 val, String desc) {
+        MemberTreeNode top = stack_node.peek();
+
+        top.add(new MemberTreeNode((Num)val, val.getName(), desc));
+    }
+
+    @Override
+    public void writeUF8_8(int nbit, UFixed8_8 val, String desc) {
+        MemberTreeNode top = stack_node.peek();
+
+        top.add(new MemberTreeNode((Num)val, val.getName(), desc));
+    }
+
+    @Override
+    public void writeUF16_16(int nbit, UFixed16_16 val, String desc) {
+        MemberTreeNode top = stack_node.peek();
+
+        top.add(new MemberTreeNode((Num)val, val.getName(), desc));
+    }
+
+    @Override
     public void writeBitList(long nbit, LargeBitList val, String desc) {
         MemberTreeNode top = stack_node.peek();
 

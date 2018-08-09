@@ -81,6 +81,34 @@ public class BitToStringConverter extends BitStreamWriterAdapter {
     }
 
     @Override
+    public void writeSF8_8(int nbit, SFixed8_8 val, String desc) {
+        sb.append(BitNumFormatter.numToDecHexCaption(
+                val.getName(), val, desc));
+        position(position() + nbit);
+    }
+
+    @Override
+    public void writeSF16_16(int nbit, SFixed16_16 val, String desc) {
+        sb.append(BitNumFormatter.numToDecHexCaption(
+                val.getName(), val, desc));
+        position(position() + nbit);
+    }
+
+    @Override
+    public void writeUF8_8(int nbit, UFixed8_8 val, String desc) {
+        sb.append(BitNumFormatter.numToDecHexCaption(
+                val.getName(), val, desc));
+        position(position() + nbit);
+    }
+
+    @Override
+    public void writeUF16_16(int nbit, UFixed16_16 val, String desc) {
+        sb.append(BitNumFormatter.numToDecHexCaption(
+                val.getName(), val, desc));
+        position(position() + nbit);
+    }
+
+    @Override
     public void writeBitList(long nbit, LargeBitList val, String desc) {
         sb.append(BitNumFormatter.bitListToHexCaption(
                 val.getName(), val, desc));

@@ -105,6 +105,26 @@ public class BitStreamWriterAdapter extends AbstractBitStreamWriter
     }
 
     @Override
+    public void writeSF8_8(int nbit, SFixed8_8 val, String desc) {
+        position(position() + nbit);
+    }
+
+    @Override
+    public void writeSF16_16(int nbit, SFixed16_16 val, String desc) {
+        position(position() + nbit);
+    }
+
+    @Override
+    public void writeUF8_8(int nbit, UFixed8_8 val, String desc) {
+        position(position() + nbit);
+    }
+
+    @Override
+    public void writeUF16_16(int nbit, UFixed16_16 val, String desc) {
+        position(position() + nbit);
+    }
+
+    @Override
     public void writeBitList(long nbit, LargeBitList val, String desc) {
         position(position() + nbit);
     }

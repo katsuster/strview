@@ -121,6 +121,30 @@ public class BitStreamReaderAdapter extends AbstractBitStreamReader
     }
 
     @Override
+    public SFixed8_8 readSF8_8(int nbit, SFixed8_8 val, String desc) {
+        position(position() + nbit);
+        return val;
+    }
+
+    @Override
+    public SFixed16_16 readSF16_16(int nbit, SFixed16_16 val, String desc) {
+        position(position() + nbit);
+        return val;
+    }
+
+    @Override
+    public UFixed8_8 readUF8_8(int nbit, UFixed8_8 val, String desc) {
+        position(position() + nbit);
+        return val;
+    }
+
+    @Override
+    public UFixed16_16 readUF16_16(int nbit, UFixed16_16 val, String desc) {
+        position(position() + nbit);
+        return val;
+    }
+
+    @Override
     public LargeBitList readBitList(long nbit, LargeBitList val, String desc) {
         position(position() + nbit);
         return val;

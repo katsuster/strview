@@ -105,6 +105,54 @@ public abstract class AbstractBitStreamWriter extends AbstractStreamWriter<Boole
     }
 
     @Override
+    public void pokeSF8_8(int nbit, SFixed8_8 val) {
+        long orgpos = position();
+        writeSF8_8(nbit, val, null);
+        position(orgpos);
+    }
+
+    @Override
+    public void writeSF8_8(int nbit, SFixed8_8 val) {
+        writeSF8_8(nbit, val, null);
+    }
+
+    @Override
+    public void pokeSF16_16(int nbit, SFixed16_16 val) {
+        long orgpos = position();
+        writeSF16_16(nbit, val, null);
+        position(orgpos);
+    }
+
+    @Override
+    public void writeSF16_16(int nbit, SFixed16_16 val) {
+        writeSF16_16(nbit, val, null);
+    }
+
+    @Override
+    public void pokeUF8_8(int nbit, UFixed8_8 val) {
+        long orgpos = position();
+        writeUF8_8(nbit, val, null);
+        position(orgpos);
+    }
+
+    @Override
+    public void writeUF8_8(int nbit, UFixed8_8 val) {
+        writeUF8_8(nbit, val, null);
+    }
+
+    @Override
+    public void pokeUF16_16(int nbit, UFixed16_16 val) {
+        long orgpos = position();
+        writeUF16_16(nbit, val, null);
+        position(orgpos);
+    }
+
+    @Override
+    public void writeUF16_16(int nbit, UFixed16_16 val) {
+        writeUF16_16(nbit, val, null);
+    }
+
+    @Override
     public void pokeBitList(long nbit, LargeBitList val) {
         long orgpos = position();
         writeBitList(nbit, val, null);
