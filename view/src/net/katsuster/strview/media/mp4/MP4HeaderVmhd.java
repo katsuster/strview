@@ -14,8 +14,6 @@ import net.katsuster.strview.util.bit.*;
  * <ul>
  * <li>ISO/IEC 14496-12: ISO base media file format</li>
  * </ul>
- *
- * @author katsuhiro
  */
 public class MP4HeaderVmhd extends MP4HeaderFull
         implements Cloneable {
@@ -56,7 +54,7 @@ public class MP4HeaderVmhd extends MP4HeaderFull
     }
 
     public static void readBits(BitStreamReader b,
-                            MP4HeaderVmhd d) {
+                                MP4HeaderVmhd d) {
         MP4HeaderFull.readBits(b, d);
 
         d.graphicsmode = b.readUInt(16, d.graphicsmode);
@@ -71,7 +69,7 @@ public class MP4HeaderVmhd extends MP4HeaderFull
     }
 
     public static void writeBits(BitStreamWriter b,
-                             MP4HeaderVmhd d) {
+                                 MP4HeaderVmhd d) {
         MP4HeaderFull.writeBits(b, d);
 
         b.writeUInt(16, d.graphicsmode);
