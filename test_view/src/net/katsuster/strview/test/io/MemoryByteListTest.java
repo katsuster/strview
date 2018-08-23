@@ -13,9 +13,6 @@ import java.util.*;
 import net.katsuster.strview.io.*;
 import net.katsuster.strview.test.util.*;
 
-/**
- * @author katsuhiro
- */
 public class MemoryByteListTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {

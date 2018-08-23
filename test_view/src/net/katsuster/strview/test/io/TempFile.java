@@ -2,9 +2,6 @@ package net.katsuster.strview.test.io;
 
 import java.io.*;
 
-/**
- * @author katsuhiro
- */
 public class TempFile {
     protected TempFile() {
         //do nothing

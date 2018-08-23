@@ -7,9 +7,6 @@ import org.junit.*;
 
 import static org.junit.Assert.*;
 
-/**
- * @author katsuhiro
- */
 public class SequenceBitListTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {

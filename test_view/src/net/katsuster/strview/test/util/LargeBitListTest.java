@@ -6,9 +6,6 @@ import java.util.*;
 
 import net.katsuster.strview.util.bit.*;
 
-/**
- * @author katsuhiro
- */
 public class LargeBitListTest {
     public static final void testGetLongInner(LargeBitList a,
                                               long offset, boolean[] correct) {

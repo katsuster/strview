@@ -6,9 +6,6 @@ import java.util.*;
 
 import net.katsuster.strview.util.*;
 
-/**
- * @author katsuhiro
- */
 public class LargeByteListTest {
     public static void testGetLongInner(LargeList<Byte> a,
                                               long offset, byte[] correct) {

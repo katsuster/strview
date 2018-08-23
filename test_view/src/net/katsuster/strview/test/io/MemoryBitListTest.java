@@ -15,9 +15,6 @@ import net.katsuster.strview.util.*;
 import net.katsuster.strview.util.bit.*;
 import net.katsuster.strview.test.util.*;
 
-/**
- * @author katsuhiro
- */
 public class MemoryBitListTest {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
