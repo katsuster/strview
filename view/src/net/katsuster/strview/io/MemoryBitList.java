@@ -65,6 +65,10 @@ public class MemoryBitList extends AbstractLargeBitList {
     public MemoryBitList(long len) {
         super(len);
 
+        if (len > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException("len:" + len + " is too large.");
+        }
+
         boolean[] array;
 
         if (len == LENGTH_UNKNOWN) {
