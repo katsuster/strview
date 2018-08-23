@@ -111,21 +111,6 @@ public class MP4HeaderHdlr extends MP4HeaderFull
     }
 
     public String getNameName() {
-        byte[] tmp = new byte[(int)(name.length() >>> 3) + 1];
-        name.getPackedByteArray(0, tmp, 0, (int)name.length());
-
-        return getNameName(tmp);
-    }
-
-    public static String getNameName(byte[] dat) {
-        String name = "..unknown..";
-
-        try {
-            name = new String(dat, "US-ASCII");
-        } catch (UnsupportedEncodingException e) {
-            name = "";
-        }
-
-        return name;
+        return getArrayName(name, "US-ASCII");
     }
 }
