@@ -23,7 +23,7 @@ public class MP4Consts {
         mp4Factory.put(BOX_TYPE.EDTS, MP4HeaderRecursive.class);
         //mp4Factory.put(BOX_TYPE.ESDS, MP4HeaderEsds.class);
         //mp4Factory.put(BOX_TYPE.FTYP, MP4HeaderFtyp.class);
-        //mp4Factory.put(BOX_TYPE.HDLR, MP4HeaderHdlr.class);
+        mp4Factory.put(BOX_TYPE.HDLR, MP4HeaderHdlr.class);
         mp4Factory.put(BOX_TYPE.ILST, MP4HeaderRecursive.class);
         //mp4Factory.put(BOX_TYPE.IODS, MP4HeaderIods.class);
         mp4Factory.put(BOX_TYPE.MDHD, MP4HeaderMdhd.class);
@@ -37,7 +37,7 @@ public class MP4Consts {
         mp4Factory.put(BOX_TYPE.MOOV, MP4HeaderRecursive.class);
         mp4Factory.put(BOX_TYPE.MVHD, MP4HeaderMvhd.class);
         mp4Factory.put(BOX_TYPE.NMHD, MP4HeaderFull.class);
-        //mp4Factory.put(BOX_TYPE.SMHD, MP4HeaderSmhd.class);
+        mp4Factory.put(BOX_TYPE.SMHD, MP4HeaderSmhd.class);
         mp4Factory.put(BOX_TYPE.STBL, MP4HeaderRecursive.class);
         //mp4Factory.put(BOX_TYPE.STCO, MP4HeaderStco.class);
         //mp4Factory.put(BOX_TYPE.STSC, MP4HeaderStsc.class);
@@ -51,7 +51,7 @@ public class MP4Consts {
         mp4Factory.put(BOX_TYPE.TRAK, MP4HeaderRecursive.class);
         mp4Factory.put(BOX_TYPE.UDTA, MP4HeaderRecursive.class);
         mp4Factory.put(BOX_TYPE.UUID, MP4Header.class);
-        //mp4Factory.put(BOX_TYPE.VMHD, MP4HeaderVmhd.class);
+        mp4Factory.put(BOX_TYPE.VMHD, MP4HeaderVmhd.class);
 
         //Video
         //mp4Factory.put(BOX_TYPE.AVC1, MP4HeaderVisualSample.class);
