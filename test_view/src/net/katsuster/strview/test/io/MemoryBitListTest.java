@@ -60,7 +60,7 @@ public class MemoryBitListTest {
         }
 
         try {
-            new MemoryBitList((long)Integer.MAX_VALUE * MemoryBitList.ELEM_BITS + 1);
+            new MemoryBitList((long)Integer.MAX_VALUE + 1);
             fail(msg2);
         } catch (IllegalArgumentException ex) {
             //OK
