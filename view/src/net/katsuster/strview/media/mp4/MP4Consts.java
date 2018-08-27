@@ -41,7 +41,7 @@ public class MP4Consts {
         mp4Factory.put(BOX_TYPE.STBL, MP4HeaderRecursive.class);
         //mp4Factory.put(BOX_TYPE.STCO, MP4HeaderStco.class);
         //mp4Factory.put(BOX_TYPE.STSC, MP4HeaderStsc.class);
-        //mp4Factory.put(BOX_TYPE.STSD, MP4HeaderStsd.class);
+        mp4Factory.put(BOX_TYPE.STSD, MP4HeaderStsd.class);
         //mp4Factory.put(BOX_TYPE.STSS, MP4HeaderStss.class);
         //mp4Factory.put(BOX_TYPE.STSZ, MP4HeaderStsz.class);
         //mp4Factory.put(BOX_TYPE.STTS, MP4HeaderStts.class);
