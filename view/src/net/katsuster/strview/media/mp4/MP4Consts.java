@@ -54,11 +54,11 @@ public class MP4Consts {
         mp4Factory.put(BOX_TYPE.VMHD, MP4HeaderVmhd.class);
 
         //Video
-        //mp4Factory.put(BOX_TYPE.AVC1, MP4HeaderVisualSample.class);
-        //mp4Factory.put(BOX_TYPE.MP4V, MP4HeaderVisualSample.class);
+        mp4Factory.put(BOX_TYPE.AVC1, MP4HeaderVisualSample.class);
+        mp4Factory.put(BOX_TYPE.MP4V, MP4HeaderVisualSample.class);
 
         //Audio
-        //mp4Factory.put(BOX_TYPE.MP4A, MP4HeaderAudioSample.class);
+        mp4Factory.put(BOX_TYPE.MP4A, MP4HeaderAudioSample.class);
     }
 
     protected MP4Consts() {
