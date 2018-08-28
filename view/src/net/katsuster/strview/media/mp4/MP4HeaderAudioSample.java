@@ -61,55 +61,59 @@ public class MP4HeaderAudioSample extends MP4HeaderSample
     }
 
     @Override
-    public void readBits(BitStreamReader b) {
-        readBits(b, this);
+    public void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void readBits(BitStreamReader b,
+    public static void readBits(BitStreamReader c,
                                 MP4HeaderAudioSample d) {
-        int i;
+        c.enterBlock(d);
 
-        MP4HeaderSample.readBits(b, d);
+        MP4HeaderSample.readBits(c, d);
 
         d.reserved2 = new UInt[2];
-        for (i = 0; i < d.reserved2.length; i++) {
+        for (int i = 0; i < d.reserved2.length; i++) {
             d.reserved2[i] = new UInt("reserved2[" + i + "]");
-            d.reserved2[i] = b.readUInt(32, d.reserved2[i]);
+            d.reserved2[i] = c.readUInt(32, d.reserved2[i]);
         }
 
-        d.channelcount = b.readUInt(16, d.channelcount );
-        d.samplesize   = b.readUInt(16, d.samplesize   );
-        d.pre_defined  = b.readUInt(16, d.pre_defined  );
-        d.reserved3    = b.readUInt(16, d.reserved3    );
-        d.samplerate   = b.readSF16_16(32, d.samplerate);
+        d.channelcount = c.readUInt(16, d.channelcount );
+        d.samplesize   = c.readUInt(16, d.samplesize   );
+        d.pre_defined  = c.readUInt(16, d.pre_defined  );
+        d.reserved3    = c.readUInt(16, d.reserved3    );
+        d.samplerate   = c.readSF16_16(32, d.samplerate);
 
         //FIXME: 暫定対応、本来は QuickTime 対応版を作るべき
         //間違って QuickTime Sound Sample Description(Version 1) を
         //読んだときの対策
         if (d.reserved2[0].intValue() == 0x10000) {
-            b.position(b.position() + 128);
+            c.position(c.position() + 128);
         }
+
+        c.leaveBlock();
     }
 
     @Override
-    public void writeBits(BitStreamWriter b) {
-        writeBits(b, this);
+    public void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void writeBits(BitStreamWriter b,
+    public static void writeBits(BitStreamWriter c,
                                  MP4HeaderAudioSample d) {
-        int i;
+        c.enterBlock(d);
 
-        MP4HeaderSample.writeBits(b, d);
+        MP4HeaderSample.writeBits(c, d);
 
-        for (i = 0; i < d.reserved2.length; i++) {
-            b.writeUInt(32, d.reserved2[i]);
+        for (int i = 0; i < d.reserved2.length; i++) {
+            c.writeUInt(32, d.reserved2[i]);
         }
 
-        b.writeUInt(16, d.channelcount );
-        b.writeUInt(16, d.samplesize   );
-        b.writeUInt(16, d.pre_defined  );
-        b.writeUInt(16, d.reserved3    );
-        b.writeSF16_16(32, d.samplerate);
+        c.writeUInt(16, d.channelcount );
+        c.writeUInt(16, d.samplesize   );
+        c.writeUInt(16, d.pre_defined  );
+        c.writeUInt(16, d.reserved3    );
+        c.writeSF16_16(32, d.samplerate);
+
+        c.leaveBlock();
     }
 }

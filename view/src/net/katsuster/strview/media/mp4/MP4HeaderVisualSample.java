@@ -83,34 +83,36 @@ public class MP4HeaderVisualSample extends MP4HeaderSample
     }
 
     @Override
-    public void readBits(BitStreamReader b) {
-        readBits(b, this);
+    public void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void readBits(BitStreamReader b,
+    public static void readBits(BitStreamReader c,
                                 MP4HeaderVisualSample d) {
-        int i;
+        c.enterBlock(d);
 
-        MP4HeaderSample.readBits(b, d);
+        MP4HeaderSample.readBits(c, d);
 
-        b.readUInt(16, d.pre_defined1);
-        b.readUInt(16, d.reserved2   );
+        c.readUInt(16, d.pre_defined1);
+        c.readUInt(16, d.reserved2   );
 
         d.pre_defined2 = new UInt[3];
-        for (i = 0; i < d.pre_defined2.length; i++) {
+        for (int i = 0; i < d.pre_defined2.length; i++) {
             d.pre_defined2[i] = new UInt("pre_defined2[" + i + "]");
-            d.pre_defined2[i] = b.readUInt(32, d.pre_defined2[i]);
+            d.pre_defined2[i] = c.readUInt(32, d.pre_defined2[i]);
         }
 
-        d.width           = b.readUInt(16, d.width             );
-        d.height          = b.readUInt(16, d.height            );
-        d.horizresolution = b.readSF16_16(32, d.horizresolution);
-        d.vertresolution  = b.readSF16_16(32, d.vertresolution );
-        d.reserved3       = b.readUInt(32, d.reserved3         );
-        d.frame_count     = b.readUInt(16, d.frame_count       );
-        d.compressorname  = b.readBitList(256, d.compressorname);
-        d.depth           = b.readUInt(16, d.depth             );
-        d.pre_defined3    = b.readSInt(16, d.pre_defined3      );
+        d.width           = c.readUInt(16, d.width             );
+        d.height          = c.readUInt(16, d.height            );
+        d.horizresolution = c.readSF16_16(32, d.horizresolution);
+        d.vertresolution  = c.readSF16_16(32, d.vertresolution );
+        d.reserved3       = c.readUInt(32, d.reserved3         );
+        d.frame_count     = c.readUInt(16, d.frame_count       );
+        d.compressorname  = c.readBitList(256, d.compressorname);
+        d.depth           = c.readUInt(16, d.depth             );
+        d.pre_defined3    = c.readSInt(16, d.pre_defined3      );
+
+        c.leaveBlock();
     }
 
     @Override
@@ -118,28 +120,30 @@ public class MP4HeaderVisualSample extends MP4HeaderSample
         writeBits(b, this);
     }
 
-    public static void writeBits(BitStreamWriter b,
+    public static void writeBits(BitStreamWriter c,
                                  MP4HeaderVisualSample d) {
-        int i;
+        c.enterBlock(d);
 
-        MP4HeaderSample.writeBits(b, d);
+        MP4HeaderSample.writeBits(c, d);
 
-        b.writeUInt(16, d.pre_defined1);
-        b.writeUInt(16, d.reserved2   );
+        c.writeUInt(16, d.pre_defined1);
+        c.writeUInt(16, d.reserved2   );
 
-        for (i = 0; i < d.pre_defined2.length; i++) {
-            b.writeUInt(32, d.pre_defined2[i]);
+        for (int i = 0; i < d.pre_defined2.length; i++) {
+            c.writeUInt(32, d.pre_defined2[i]);
         }
 
-        b.writeUInt(16, d.width             );
-        b.writeUInt(16, d.height            );
-        b.writeSF16_16(32, d.horizresolution);
-        b.writeSF16_16(32, d.vertresolution );
-        b.writeUInt(32, d.reserved3         );
-        b.writeUInt(16, d.frame_count       );
-        b.writeBitList(256, d.compressorname, d.getCompressornameName());
-        b.writeUInt(16, d.depth             );
-        b.writeSInt(16, d.pre_defined3      );
+        c.writeUInt(16, d.width             );
+        c.writeUInt(16, d.height            );
+        c.writeSF16_16(32, d.horizresolution);
+        c.writeSF16_16(32, d.vertresolution );
+        c.writeUInt(32, d.reserved3         );
+        c.writeUInt(16, d.frame_count       );
+        c.writeBitList(256, d.compressorname, d.getCompressornameName());
+        c.writeUInt(16, d.depth             );
+        c.writeSInt(16, d.pre_defined3      );
+
+        c.leaveBlock();
     }
 
     public String getCompressornameName() {

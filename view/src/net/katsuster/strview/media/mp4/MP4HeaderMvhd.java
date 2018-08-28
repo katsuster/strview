@@ -83,82 +83,85 @@ public class MP4HeaderMvhd extends MP4HeaderFull {
     }
 
     @Override
-    public void readBits(BitStreamReader b) {
-        readBits(b, this);
+    public void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void readBits(BitStreamReader b,
+    public static void readBits(BitStreamReader c,
                                 MP4HeaderMvhd d) {
-        int i;
+        c.enterBlock(d);
 
-        MP4HeaderFull.readBits(b, d);
+        MP4HeaderFull.readBits(c, d);
 
         if (d.version.intValue() == 1) {
-            d.creation_time     = b.readUInt(64, d.creation_time    );
-            d.modification_time = b.readUInt(64, d.modification_time);
-            d.timescale         = b.readUInt(32, d.timescale        );
-            d.duration          = b.readUInt(64, d.duration         );
+            d.creation_time     = c.readUInt(64, d.creation_time    );
+            d.modification_time = c.readUInt(64, d.modification_time);
+            d.timescale         = c.readUInt(32, d.timescale        );
+            d.duration          = c.readUInt(64, d.duration         );
         } else {
-            d.creation_time     = b.readUInt(32, d.creation_time    );
-            d.modification_time = b.readUInt(32, d.modification_time);
-            d.timescale         = b.readUInt(32, d.timescale        );
-            d.duration          = b.readUInt(32, d.duration         );
+            d.creation_time     = c.readUInt(32, d.creation_time    );
+            d.modification_time = c.readUInt(32, d.modification_time);
+            d.timescale         = c.readUInt(32, d.timescale        );
+            d.duration          = c.readUInt(32, d.duration         );
         }
 
-        d.rate      = b.readSF16_16(32, d.rate  );
-        d.volume    = b.readSF8_8(16, d.volume  );
-        d.reserved1 = b.readUInt(16, d.reserved1);
-        d.reserved2 = b.readUInt(32, d.reserved2);
-        d.reserved3 = b.readUInt(32, d.reserved3);
+        d.rate      = c.readSF16_16(32, d.rate  );
+        d.volume    = c.readSF8_8(16, d.volume  );
+        d.reserved1 = c.readUInt(16, d.reserved1);
+        d.reserved2 = c.readUInt(32, d.reserved2);
+        d.reserved3 = c.readUInt(32, d.reserved3);
         d.matrix = new UInt[9];
-        for (i = 0; i < d.matrix.length; i++) {
+        for (int i = 0; i < d.matrix.length; i++) {
             d.matrix[i] = new UInt("matrix[" + i + "]");
-            d.matrix[i] = b.readUInt(32, d.matrix[i]);
+            d.matrix[i] = c.readUInt(32, d.matrix[i]);
         }
         d.pre_defined = new UInt[6];
-        for (i = 0; i < d.pre_defined.length; i++) {
+        for (int i = 0; i < d.pre_defined.length; i++) {
             d.pre_defined[i] = new UInt("pre_defined[" + i + "]");
-            d.pre_defined[i] = b.readUInt(32, d.pre_defined[i]);
+            d.pre_defined[i] = c.readUInt(32, d.pre_defined[i]);
         }
-        b.readUInt(32, d.next_track_ID);
+        c.readUInt(32, d.next_track_ID);
 
+        c.leaveBlock();
     }
 
     @Override
-    public void writeBits(BitStreamWriter b) {
-        writeBits(b, this);
+    public void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void writeBits(BitStreamWriter b,
+    public static void writeBits(BitStreamWriter c,
                                  MP4HeaderMvhd d) {
-        int i;
+        c.enterBlock(d);
 
-        MP4HeaderFull.writeBits(b, d);
+        MP4HeaderFull.writeBits(c, d);
 
         if (d.version.intValue() == 1) {
-            b.writeUInt(64, d.creation_time    , d.getCreationTimeName());
-            b.writeUInt(64, d.modification_time, d.getModificationTimeName());
-            b.writeUInt(32, d.timescale        );
-            b.writeUInt(64, d.duration         );
+            c.writeUInt(64, d.creation_time    , d.getCreationTimeName());
+            c.writeUInt(64, d.modification_time, d.getModificationTimeName());
+            c.writeUInt(32, d.timescale        );
+            c.writeUInt(64, d.duration         );
         } else {
-            b.writeUInt(32, d.creation_time    , d.getCreationTimeName());
-            b.writeUInt(32, d.modification_time, d.getModificationTimeName());
-            b.writeUInt(32, d.timescale        );
-            b.writeUInt(32, d.duration         );
+            c.writeUInt(32, d.creation_time    , d.getCreationTimeName());
+            c.writeUInt(32, d.modification_time, d.getModificationTimeName());
+            c.writeUInt(32, d.timescale        );
+            c.writeUInt(32, d.duration         );
         }
 
-        b.writeSF16_16(32, d.rate  );
-        b.writeSF8_8(16, d.volume  );
-        b.writeUInt(16, d.reserved1);
-        b.writeUInt(32, d.reserved2);
-        b.writeUInt(32, d.reserved3);
-        for (i = 0; i < d.matrix.length; i++) {
-            b.writeUInt(32, d.matrix[i]);
+        c.writeSF16_16(32, d.rate  );
+        c.writeSF8_8(16, d.volume  );
+        c.writeUInt(16, d.reserved1);
+        c.writeUInt(32, d.reserved2);
+        c.writeUInt(32, d.reserved3);
+        for (int i = 0; i < d.matrix.length; i++) {
+            c.writeUInt(32, d.matrix[i]);
         }
-        for (i = 0; i < d.pre_defined.length; i++) {
-            b.writeUInt(32, d.pre_defined[i]);
+        for (int i = 0; i < d.pre_defined.length; i++) {
+            c.writeUInt(32, d.pre_defined[i]);
         }
-        b.writeUInt(32, d.next_track_ID);
+        c.writeUInt(32, d.next_track_ID);
+
+        c.leaveBlock();
     }
 
     public String getCreationTimeName() {

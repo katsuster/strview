@@ -48,40 +48,44 @@ public class MP4HeaderSample extends MP4Header
     }
 
     @Override
-    public void readBits(BitStreamReader b) {
-        readBits(b, this);
+    public void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void readBits(BitStreamReader b,
+    public static void readBits(BitStreamReader c,
                                 MP4HeaderSample d) {
-        int i;
+        c.enterBlock(d);
 
-        MP4Header.readBits(b, d);
+        MP4Header.readBits(c, d);
 
         d.reserved1 = new UInt[6];
-        for (i = 0; i < d.reserved1.length; i++) {
+        for (int i = 0; i < d.reserved1.length; i++) {
             d.reserved1[i] = new UInt("reserved1[" + i + "]");
-            d.reserved1[i] = b.readUInt( 8, d.reserved1[i]);
+            d.reserved1[i] = c.readUInt( 8, d.reserved1[i]);
         }
 
-        d.data_reference_index = b.readUInt(16, d.data_reference_index);
+        d.data_reference_index = c.readUInt(16, d.data_reference_index);
+
+        c.leaveBlock();
     }
 
     @Override
-    public void writeBits(BitStreamWriter b) {
-        writeBits(b, this);
+    public void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void writeBits(BitStreamWriter b,
+    public static void writeBits(BitStreamWriter c,
                                  MP4HeaderSample d) {
-        int i;
+        c.enterBlock(d);
 
-        MP4Header.writeBits(b, d);
+        MP4Header.writeBits(c, d);
 
-        for (i = 0; i < d.reserved1.length; i++) {
-            b.writeUInt( 8, d.reserved1[i]);
+        for (int i = 0; i < d.reserved1.length; i++) {
+            c.writeUInt( 8, d.reserved1[i]);
         }
 
-        b.writeUInt(16, d.data_reference_index);
+        c.writeUInt(16, d.data_reference_index);
+
+        c.leaveBlock();
     }
 }

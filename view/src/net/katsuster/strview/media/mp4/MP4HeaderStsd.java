@@ -41,26 +41,34 @@ public class MP4HeaderStsd extends MP4HeaderFull
     }
 
     @Override
-    public void readBits(BitStreamReader b) {
-        readBits(b, this);
+    public void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void readBits(BitStreamReader b,
+    public static void readBits(BitStreamReader c,
                                 MP4HeaderStsd d) {
-        MP4HeaderFull.readBits(b, d);
+        c.enterBlock(d);
 
-        d.entry_count = b.readUInt(32, d.entry_count);
+        MP4HeaderFull.readBits(c, d);
+
+        d.entry_count = c.readUInt(32, d.entry_count);
+
+        c.leaveBlock();
     }
 
     @Override
-    public void writeBits(BitStreamWriter b) {
-        writeBits(b, this);
+    public void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void writeBits(BitStreamWriter b,
+    public static void writeBits(BitStreamWriter c,
                                  MP4HeaderStsd d) {
-        MP4HeaderFull.writeBits(b, d);
+        c.enterBlock(d);
 
-        b.writeUInt(32, d.entry_count);
+        MP4HeaderFull.writeBits(c, d);
+
+        c.writeUInt(32, d.entry_count);
+
+        c.leaveBlock();
     }
 }

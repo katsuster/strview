@@ -49,32 +49,40 @@ public class MP4HeaderVmhd extends MP4HeaderFull
     }
 
     @Override
-    public void readBits(BitStreamReader b) {
-        readBits(b, this);
+    public void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void readBits(BitStreamReader b,
+    public static void readBits(BitStreamReader c,
                                 MP4HeaderVmhd d) {
-        MP4HeaderFull.readBits(b, d);
+        c.enterBlock(d);
 
-        d.graphicsmode = b.readUInt(16, d.graphicsmode);
-        d.opcolor0     = b.readUInt(16, d.opcolor0    );
-        d.opcolor1     = b.readUInt(16, d.opcolor1    );
-        d.opcolor2     = b.readUInt(16, d.opcolor2    );
+        MP4HeaderFull.readBits(c, d);
+
+        d.graphicsmode = c.readUInt(16, d.graphicsmode);
+        d.opcolor0     = c.readUInt(16, d.opcolor0    );
+        d.opcolor1     = c.readUInt(16, d.opcolor1    );
+        d.opcolor2     = c.readUInt(16, d.opcolor2    );
+
+        c.leaveBlock();
     }
 
     @Override
-    public void writeBits(BitStreamWriter b) {
-        writeBits(b, this);
+    public void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void writeBits(BitStreamWriter b,
+    public static void writeBits(BitStreamWriter c,
                                  MP4HeaderVmhd d) {
-        MP4HeaderFull.writeBits(b, d);
+        c.enterBlock(d);
 
-        b.writeUInt(16, d.graphicsmode);
-        b.writeUInt(16, d.opcolor0    );
-        b.writeUInt(16, d.opcolor1    );
-        b.writeUInt(16, d.opcolor2    );
+        MP4HeaderFull.writeBits(c, d);
+
+        c.writeUInt(16, d.graphicsmode);
+        c.writeUInt(16, d.opcolor0    );
+        c.writeUInt(16, d.opcolor1    );
+        c.writeUInt(16, d.opcolor2    );
+
+        c.leaveBlock();
     }
 }

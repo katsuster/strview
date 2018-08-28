@@ -42,28 +42,36 @@ public class MP4HeaderSmhd extends MP4HeaderFull
     }
 
     @Override
-    public void readBits(BitStreamReader b) {
-        readBits(b, this);
+    public void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void readBits(BitStreamReader b,
+    public static void readBits(BitStreamReader c,
                                 MP4HeaderSmhd d) {
-        MP4HeaderFull.readBits(b, d);
+        c.enterBlock(d);
 
-        d.balance  = b.readSF8_8(16, d.balance);
-        d.reserved = b.readUInt(16, d.reserved);
+        MP4HeaderFull.readBits(c, d);
+
+        d.balance  = c.readSF8_8(16, d.balance);
+        d.reserved = c.readUInt(16, d.reserved);
+
+        c.leaveBlock();
     }
 
     @Override
-    public void writeBits(BitStreamWriter b) {
-        writeBits(b, this);
+    public void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void writeBits(BitStreamWriter b,
+    public static void writeBits(BitStreamWriter c,
                                  MP4HeaderSmhd d) {
-        MP4HeaderFull.writeBits(b, d);
+        c.enterBlock(d);
 
-        b.writeSF8_8(16, d.balance);
-        b.writeUInt(16, d.reserved);
+        MP4HeaderFull.writeBits(c, d);
+
+        c.writeSF8_8(16, d.balance);
+        c.writeUInt(16, d.reserved);
+
+        c.leaveBlock();
     }
 }

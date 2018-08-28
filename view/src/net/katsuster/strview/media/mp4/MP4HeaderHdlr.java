@@ -58,52 +58,55 @@ public class MP4HeaderHdlr extends MP4HeaderFull
     }
 
     @Override
-    public void readBits(BitStreamReader b) {
-        readBits(b, this);
+    public void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void readBits(BitStreamReader b,
+    public static void readBits(BitStreamReader c,
                                 MP4HeaderHdlr d) {
-        int size;
-        int i;
+        c.enterBlock(d);
 
-        MP4HeaderFull.readBits(b, d);
+        MP4HeaderFull.readBits(c, d);
 
-        d.pre_defined  = b.readUInt(32, d.pre_defined );
-        d.handler_type = b.readUInt(32, d.handler_type);
+        d.pre_defined  = c.readUInt(32, d.pre_defined );
+        d.handler_type = c.readUInt(32, d.handler_type);
 
         d.reserved = new UInt[3];
-        for (i = 0; i < d.reserved.length; i++) {
+        for (int i = 0; i < d.reserved.length; i++) {
             d.reserved[i] = new UInt("reserved[" + i + "]");
-            d.reserved[i] = b.readUInt(32, d.reserved[i]);
+            d.reserved[i] = c.readUInt(32, d.reserved[i]);
         }
 
         //文字列の長さを求める
-        size = ((d.size.intValue() - 4) << 3)
-                - (int)(b.position() - d.type.getRange().getStart());
+        int size = ((d.size.intValue() - 4) << 3)
+                - (int)(c.position() - d.type.getRange().getStart());
 
-        d.name = b.readBitList(size, d.name);
+        d.name = c.readBitList(size, d.name);
+
+        c.leaveBlock();
     }
 
     @Override
-    public void writeBits(BitStreamWriter b) {
-        writeBits(b, this);
+    public void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void writeBits(BitStreamWriter b,
+    public static void writeBits(BitStreamWriter c,
                                  MP4HeaderHdlr d) {
-        int i;
+        c.enterBlock(d);
 
-        MP4HeaderFull.writeBits(b, d);
+        MP4HeaderFull.writeBits(c, d);
 
-        b.writeUInt(32, d.pre_defined );
-        b.writeUInt(32, d.handler_type, d.getHandlerTypeName());
+        c.writeUInt(32, d.pre_defined );
+        c.writeUInt(32, d.handler_type, d.getHandlerTypeName());
 
-        for (i = 0; i < d.reserved.length; i++) {
-            b.writeUInt(32, d.reserved[i]);
+        for (int i = 0; i < d.reserved.length; i++) {
+            c.writeUInt(32, d.reserved[i]);
         }
 
-        b.writeBitList((int)d.name.length(), d.name, d.getNameName());
+        c.writeBitList((int)d.name.length(), d.name, d.getNameName());
+
+        c.leaveBlock();
     }
 
     public String getHandlerTypeName() {

@@ -42,7 +42,6 @@ public class MP4HeaderMdhd extends MP4HeaderFull {
     public MP4HeaderMdhd clone()
             throws CloneNotSupportedException {
         MP4HeaderMdhd obj = (MP4HeaderMdhd)super.clone();
-        int i;
 
         obj.creation_time = (UInt)creation_time.clone();
         obj.modification_time = (UInt)modification_time.clone();
@@ -51,7 +50,7 @@ public class MP4HeaderMdhd extends MP4HeaderFull {
 
         obj.pad = (UInt)pad.clone();
         obj.language = language.clone();
-        for (i = 0; i < obj.language.length; i++) {
+        for (int i = 0; i < obj.language.length; i++) {
             obj.language[i] = (UInt)language[i].clone();
         }
         obj.pre_defined = (UInt)pre_defined.clone();
@@ -65,66 +64,70 @@ public class MP4HeaderMdhd extends MP4HeaderFull {
     }
 
     @Override
-    public void readBits(BitStreamReader b) {
-        readBits(b, this);
+    public void readBits(BitStreamReader c) {
+        readBits(c, this);
     }
 
-    public static void readBits(BitStreamReader b,
+    public static void readBits(BitStreamReader c,
                                 MP4HeaderMdhd d) {
-        int i;
+        c.enterBlock(d);
 
-        MP4HeaderFull.readBits(b, d);
+        MP4HeaderFull.readBits(c, d);
 
         if (d.version.intValue() == 1) {
-            d.creation_time     = b.readUInt(64, d.creation_time    );
-            d.modification_time = b.readUInt(64, d.modification_time);
-            d.timescale         = b.readUInt(32, d.timescale        );
-            d.duration          = b.readUInt(64, d.duration         );
+            d.creation_time     = c.readUInt(64, d.creation_time    );
+            d.modification_time = c.readUInt(64, d.modification_time);
+            d.timescale         = c.readUInt(32, d.timescale        );
+            d.duration          = c.readUInt(64, d.duration         );
         } else {
-            d.creation_time     = b.readUInt(32, d.creation_time    );
-            d.modification_time = b.readUInt(32, d.modification_time);
-            d.timescale         = b.readUInt(32, d.timescale        );
-            d.duration          = b.readUInt(32, d.duration         );
+            d.creation_time     = c.readUInt(32, d.creation_time    );
+            d.modification_time = c.readUInt(32, d.modification_time);
+            d.timescale         = c.readUInt(32, d.timescale        );
+            d.duration          = c.readUInt(32, d.duration         );
         }
 
-        d.pad = b.readUInt( 1, d.pad);
+        d.pad = c.readUInt( 1, d.pad);
         d.language = new UInt[3];
-        for (i = 0; i < d.language.length; i++) {
+        for (int i = 0; i < d.language.length; i++) {
             d.language[i] = new UInt("language[" + i + "]");
-            d.language[i] = b.readUInt( 5, d.language[i]);
+            d.language[i] = c.readUInt( 5, d.language[i]);
         }
-        b.readUInt(16, d.pre_defined);
+        c.readUInt(16, d.pre_defined);
+
+        c.leaveBlock();
     }
 
     @Override
-    public void writeBits(BitStreamWriter b) {
-        writeBits(b, this);
+    public void writeBits(BitStreamWriter c) {
+        writeBits(c, this);
     }
 
-    public static void writeBits(BitStreamWriter b,
+    public static void writeBits(BitStreamWriter c,
                                  MP4HeaderMdhd d) {
-        int i;
+        c.enterBlock(d);
 
-        MP4HeaderFull.writeBits(b, d);
+        MP4HeaderFull.writeBits(c, d);
 
         if (d.version.intValue() == 1) {
-            b.writeUInt(64, d.creation_time    , d.getCreationTimeName());
-            b.writeUInt(64, d.modification_time, d.getModificationTimeName());
-            b.writeUInt(32, d.timescale        );
-            b.writeUInt(64, d.duration         );
+            c.writeUInt(64, d.creation_time    , d.getCreationTimeName());
+            c.writeUInt(64, d.modification_time, d.getModificationTimeName());
+            c.writeUInt(32, d.timescale        );
+            c.writeUInt(64, d.duration         );
         } else {
-            b.writeUInt(32, d.creation_time    , d.getCreationTimeName());
-            b.writeUInt(32, d.modification_time, d.getModificationTimeName());
-            b.writeUInt(32, d.timescale        );
-            b.writeUInt(32, d.duration         );
+            c.writeUInt(32, d.creation_time    , d.getCreationTimeName());
+            c.writeUInt(32, d.modification_time, d.getModificationTimeName());
+            c.writeUInt(32, d.timescale        );
+            c.writeUInt(32, d.duration         );
         }
 
-        b.writeUInt( 1, d.pad);
-        for (i = 0; i < d.language.length; i++) {
-            b.writeUInt( 5, d.language[i]);
+        c.writeUInt( 1, d.pad);
+        for (int i = 0; i < d.language.length; i++) {
+            c.writeUInt( 5, d.language[i]);
         }
-        b.mark("language", d.getLanguageName());
-        b.writeUInt(16, d.pre_defined);
+        c.mark("language", d.getLanguageName());
+        c.writeUInt(16, d.pre_defined);
+
+        c.leaveBlock();
     }
 
     public String getCreationTimeName() {
