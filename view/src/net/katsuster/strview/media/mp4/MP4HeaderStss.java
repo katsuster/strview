@@ -20,7 +20,7 @@ import net.katsuster.strview.util.bit.*;
 public class MP4HeaderStss extends MP4HeaderFull
         implements Cloneable {
     public UInt entry_count;
-    public List<MP4StssEntry> sample_number;
+    public List<UInt> sample_number;
 
     public MP4HeaderStss() {
         entry_count = new UInt("entry_count");
@@ -36,8 +36,8 @@ public class MP4HeaderStss extends MP4HeaderFull
         obj.entry_count = (UInt)entry_count.clone();
 
         obj.sample_number = new ArrayList<>();
-        for (MP4StssEntry v : sample_number) {
-            obj.sample_number.add(v.clone());
+        for (UInt v : sample_number) {
+            obj.sample_number.add((UInt)v.clone());
         }
 
         return obj;
@@ -61,8 +61,12 @@ public class MP4HeaderStss extends MP4HeaderFull
 
         d.entry_count = c.readUInt(32, d.entry_count);
 
-        d.sample_number = readObjectList(c, d.entry_count.intValue(), d.sample_number,
-                MP4StssEntry.class, "sample_number");
+        d.sample_number.clear();
+        for (int i = 0; i < d.entry_count.intValue(); i++) {
+            UInt data = new UInt("sample_number[" + i + "]");
+            data = c.readUInt(32, data);
+            d.sample_number.add(data);
+        }
 
         c.leaveBlock();
     }
@@ -80,7 +84,9 @@ public class MP4HeaderStss extends MP4HeaderFull
 
         c.writeUInt(32, d.entry_count);
 
-        writeObjectList(c, d.entry_count.intValue(), d.sample_number);
+        for (int i = 0; i < d.entry_count.intValue(); i++) {
+            c.writeUInt(32, d.sample_number.get(i));
+        }
 
         c.leaveBlock();
     }
