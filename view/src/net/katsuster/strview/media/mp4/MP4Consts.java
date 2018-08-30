@@ -20,6 +20,7 @@ public class MP4Consts {
         //mp4Factory.put(BOX_TYPE.CO64, MP4HeaderCo64.class);
         //mp4Factory.put(BOX_TYPE.CTTS, MP4HeaderCtts.class);
         mp4Factory.put(BOX_TYPE.DINF, MP4HeaderRecursive.class);
+        mp4Factory.put(BOX_TYPE.DREF, MP4HeaderDref.class);
         mp4Factory.put(BOX_TYPE.EDTS, MP4HeaderRecursive.class);
         //mp4Factory.put(BOX_TYPE.ESDS, MP4HeaderEsds.class);
         //mp4Factory.put(BOX_TYPE.FTYP, MP4HeaderFtyp.class);
@@ -88,6 +89,7 @@ public class MP4Consts {
         public static final int CO64 = 0x636f3634;
         public static final int CTTS = 0x63747473;
         public static final int DINF = 0x64696e66;
+        public static final int DREF = 0x64726566;
         public static final int EDTS = 0x65647473;
         public static final int ESDS = 0x65736473;
         public static final int FTYP = 0x66747970;
