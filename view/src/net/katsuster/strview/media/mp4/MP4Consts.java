@@ -18,7 +18,7 @@ public class MP4Consts {
         //mp4Factory.put(BOX_TYPE.AVCC, MP4HeaderAvcc.class);
         //mp4Factory.put(BOX_TYPE.BTRT, MP4HeaderBtrt.class);
         //mp4Factory.put(BOX_TYPE.CO64, MP4HeaderCo64.class);
-        //mp4Factory.put(BOX_TYPE.CTTS, MP4HeaderCtts.class);
+        mp4Factory.put(BOX_TYPE.CTTS, MP4HeaderCtts.class);
         mp4Factory.put(BOX_TYPE.DINF, MP4HeaderRecursive.class);
         mp4Factory.put(BOX_TYPE.DREF, MP4HeaderDref.class);
         mp4Factory.put(BOX_TYPE.EDTS, MP4HeaderRecursive.class);
