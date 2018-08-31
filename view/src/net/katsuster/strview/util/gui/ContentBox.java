@@ -185,6 +185,19 @@ public class ContentBox {
 
     /**
      * <p>
+     * 描画領域の位置を設定します。
+     * </p>
+     *
+     * @param x 描画領域の X 座標
+     * @param y 描画領域の Y 座標
+     */
+    public void setPosition(int x, int y) {
+        bounds.x = x;
+        bounds.y = y;
+    }
+
+    /**
+     * <p>
      * 描画領域の幅を取得します。
      * </p>
      *
@@ -224,6 +237,19 @@ public class ContentBox {
      * @param h 描画領域の高さ
      */
     public void setHeight(int h) {
+        bounds.height = h;
+    }
+
+    /**
+     * <p>
+     * 描画領域の大きさを設定します。
+     * </p>
+     *
+     * @param w 描画領域の幅
+     * @param h 描画領域の高さ
+     */
+    public void setSize(int w, int h) {
+        bounds.width = w;
         bounds.height = h;
     }
 
@@ -272,6 +298,17 @@ public class ContentBox {
      */
     public Space getMargin() {
         return new Space(margin);
+    }
+
+    /**
+     * <p>
+     * 描画領域と枠の間の余白（Margin）を設定します。
+     * </p>
+     *
+     * @param m 余白
+     */
+    public void setMargin(int m) {
+        margin = new Space(m, m, m, m);
     }
 
     /**
@@ -330,6 +367,17 @@ public class ContentBox {
      * 枠とコンテンツの間の空白（Padding）を設定します。
      * </p>
      *
+     * @param p 空白
+     */
+    public void setPadding(int p) {
+        padding = new Space(p, p, p, p);
+    }
+
+    /**
+     * <p>
+     * 枠とコンテンツの間の空白（Padding）を設定します。
+     * </p>
+     *
      * @param l 左側の空白
      * @param t 上側の空白
      * @param r 右側の空白
@@ -365,5 +413,42 @@ public class ContentBox {
                 border.y + padding.top,
                 border.width - padding.left - padding.right,
                 border.height - padding.top - padding.bottom);
+    }
+
+    /**
+     * <p>
+     * コンテンツ領域（Contents）の幅を設定します。
+     * </p>
+     *
+     * @param w コンテンツ領域の幅
+     */
+    public void setContentsWidth(int w) {
+        bounds.width = w + margin.left + margin.right +
+                padding.left + padding.right;
+    }
+
+    /**
+     * <p>
+     * コンテンツ領域（Contents）の高さを設定します。
+     * </p>
+     *
+     * @param h コンテンツ領域の高さ
+     */
+    public void setContentsHeight(int h) {
+        bounds.height = h + margin.top + margin.bottom +
+                padding.top + padding.bottom;
+    }
+
+    /**
+     * <p>
+     * コンテンツ領域（Contents）の大きさを設定します。
+     * </p>
+     *
+     * @param w コンテンツ領域の幅
+     * @param h コンテンツ領域の高さ
+     */
+    public void setContentsSize(int w, int h) {
+        setContentsWidth(w);
+        setContentsHeight(h);
     }
 }
