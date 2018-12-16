@@ -14,10 +14,19 @@ public class FLVScriptData extends BlockAdapter
     private long limit = -2;
 
     public FLVScriptData() {
-        this(LIMIT_INVALID);
+        this("", LIMIT_INVALID);
+    }
+
+    public FLVScriptData(String n) {
+        this(n, LIMIT_INVALID);
     }
 
     public FLVScriptData(long l) {
+        this("", l);
+    }
+
+    public FLVScriptData(String n, long l) {
+        super(n);
         limit = l;
     }
 

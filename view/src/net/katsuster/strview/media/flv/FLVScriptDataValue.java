@@ -14,11 +14,15 @@ public class FLVScriptDataValue extends FLVScriptData
     public FLVScriptData val;
 
     public FLVScriptDataValue() {
-        this(LIMIT_INVALID);
+        this("", LIMIT_INVALID);
     }
 
-    public FLVScriptDataValue(long l) {
-        super(l);
+    public FLVScriptDataValue(String n) {
+        this(n, LIMIT_INVALID);
+    }
+
+    public FLVScriptDataValue(String n, long l) {
+        super(n, l);
 
         type = new UInt();
         val = new FLVScriptData();
@@ -36,13 +40,18 @@ public class FLVScriptDataValue extends FLVScriptData
     }
 
     @Override
+    public String getTypeName() {
+        return "SCRIPTDATAVALUE";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             FLVScriptDataValue d) {
-        c.enterBlock("SCRIPTDATAVALUE");
+        c.enterBlock(d);
 
         d.type = c.readUInt( 8, d.type);
 
@@ -53,6 +62,7 @@ public class FLVScriptDataValue extends FLVScriptData
                     + "type: " + d.type.intValue()
                     + "(" + d.getScriptDataTypeName() + ").");
         }
+        d.val.setName("ScriptDataValue");
         d.val.setLimit(d.getLimit());
         d.val.read(c);
 
@@ -66,7 +76,7 @@ public class FLVScriptDataValue extends FLVScriptData
 
     public static void write(StreamWriter<?> c,
                              FLVScriptDataValue d) {
-        c.enterBlock("SCRIPTDATAVALUE");
+        c.enterBlock(d);
 
         c.writeUInt( 8, d.type, "Type", d.getScriptDataTypeName());
         d.val.write(c);

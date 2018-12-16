@@ -27,13 +27,18 @@ public class FLVScriptDataDouble extends FLVScriptData
     }
 
     @Override
+    public String getTypeName() {
+        return "DOUBLE";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             FLVScriptDataDouble d) {
-        c.enterBlock("DOUBLE");
+        c.enterBlock(d);
 
         FLVScriptData.read(c, d);
 
@@ -49,7 +54,7 @@ public class FLVScriptDataDouble extends FLVScriptData
 
     public static void write(StreamWriter<?> c,
                              FLVScriptDataDouble d) {
-        c.enterBlock("DOUBLE");
+        c.enterBlock(d);
 
         FLVScriptData.write(c, d);
 

@@ -29,6 +29,11 @@ public class FLVHeader extends BlockAdapter
     }
 
     @Override
+    public String getTypeName() {
+        return "FLV tag";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }

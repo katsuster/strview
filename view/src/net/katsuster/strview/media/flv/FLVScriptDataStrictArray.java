@@ -36,13 +36,18 @@ public class FLVScriptDataStrictArray extends FLVScriptData
     }
 
     @Override
+    public String getTypeName() {
+        return "SCRIPTDATASTRICTARRAY";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             FLVScriptDataStrictArray d) {
-        c.enterBlock("SCRIPTDATASTRICTARRAY");
+        c.enterBlock(d);
 
         FLVScriptData.read(c, d);
 
@@ -61,7 +66,7 @@ public class FLVScriptDataStrictArray extends FLVScriptData
 
     public static void write(StreamWriter<?> c,
                              FLVScriptDataStrictArray d) {
-        c.enterBlock("SCRIPTDATASTRICTARRAY");
+        c.enterBlock(d);
 
         FLVScriptData.write(c, d);
 

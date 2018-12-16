@@ -33,13 +33,18 @@ public class FLVScriptDataDate extends FLVScriptData
     }
 
     @Override
+    public String getTypeName() {
+        return "SCRIPTDATADATE";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             FLVScriptDataDate d) {
-        c.enterBlock("SCRIPTDATADATE");
+        c.enterBlock(d);
 
         FLVScriptData.read(c, d);
 
@@ -56,7 +61,7 @@ public class FLVScriptDataDate extends FLVScriptData
 
     public static void write(StreamWriter<?> c,
                              FLVScriptDataDate d) {
-        c.enterBlock("SCRIPTDATADATE");
+        c.enterBlock(d);
 
         FLVScriptData.write(c, d);
 

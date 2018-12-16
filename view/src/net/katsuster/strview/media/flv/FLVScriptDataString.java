@@ -14,6 +14,12 @@ public class FLVScriptDataString extends FLVScriptData
     public LargeBitList string_data;
 
     public FLVScriptDataString() {
+        this("");
+    }
+
+    public FLVScriptDataString(String n) {
+        super(n);
+
         string_length = new UInt();
         string_data = new SubLargeBitList();
     }
@@ -30,13 +36,18 @@ public class FLVScriptDataString extends FLVScriptData
     }
 
     @Override
+    public String getTypeName() {
+        return "SCRIPTDATASTRING";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             FLVScriptDataString d) {
-        c.enterBlock("SCRIPTDATASTRING");
+        c.enterBlock(d);
 
         FLVScriptData.read(c, d);
 
@@ -53,7 +64,7 @@ public class FLVScriptDataString extends FLVScriptData
 
     public static void write(StreamWriter<?> c,
                              FLVScriptDataString d) {
-        c.enterBlock("SCRIPTDATASTRING");
+        c.enterBlock(d);
 
         FLVScriptData.write(c, d);
 

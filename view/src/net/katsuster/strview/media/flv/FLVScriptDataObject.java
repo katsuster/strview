@@ -42,13 +42,18 @@ public class FLVScriptDataObject extends FLVScriptData
     }
 
     @Override
+    public String getTypeName() {
+        return "SCRIPTDATAOBJECT";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             FLVScriptDataObject d) {
-        c.enterBlock("SCRIPTDATAOBJECT");
+        c.enterBlock(d);
 
         FLVScriptData.read(c, d);
 
@@ -85,7 +90,7 @@ public class FLVScriptDataObject extends FLVScriptData
 
     public static void write(StreamWriter<?> c,
                              FLVScriptDataObject d) {
-        c.enterBlock("SCRIPTDATAOBJECT");
+        c.enterBlock(d);
 
         FLVScriptData.write(c, d);
 

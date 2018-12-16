@@ -13,8 +13,14 @@ public class FLVScriptDataObjectProperty extends FLVScriptData
     public FLVScriptDataValue property_data;
 
     public FLVScriptDataObjectProperty() {
-        property_name = new FLVScriptDataString();
-        property_data = new FLVScriptDataValue();
+        this("");
+    }
+
+    public FLVScriptDataObjectProperty(String n) {
+        super(n);
+
+        property_name = new FLVScriptDataString("PropertyName");
+        property_data = new FLVScriptDataValue("PropertyData");
     }
 
     @Override
@@ -29,13 +35,18 @@ public class FLVScriptDataObjectProperty extends FLVScriptData
     }
 
     @Override
+    public String getTypeName() {
+        return "SCRIPTDATAOBJECTPROPERTY";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             FLVScriptDataObjectProperty d) {
-        c.enterBlock("SCRIPTDATAOBJECTPROPERTY");
+        c.enterBlock(d);
 
         FLVScriptData.read(c, d);
 
@@ -54,7 +65,7 @@ public class FLVScriptDataObjectProperty extends FLVScriptData
 
     public static void write(StreamWriter<?> c,
                              FLVScriptDataObjectProperty d) {
-        c.enterBlock("SCRIPTDATAOBJECTPROPERTY");
+        c.enterBlock(d);
 
         FLVScriptData.write(c, d);
 

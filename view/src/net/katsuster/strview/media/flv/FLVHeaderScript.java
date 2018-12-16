@@ -13,8 +13,8 @@ public class FLVHeaderScript extends FLVHeaderES
     public FLVScriptDataValue value;
 
     public FLVHeaderScript() {
-        name = new FLVScriptDataValue();
-        value = new FLVScriptDataValue();
+        name = new FLVScriptDataValue("Name");
+        value = new FLVScriptDataValue("Value");
     }
 
     @Override
@@ -29,13 +29,18 @@ public class FLVHeaderScript extends FLVHeaderES
     }
 
     @Override
+    public String getTypeName() {
+        return "FLV tag (Script)";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             FLVHeaderScript d) {
-        c.enterBlock("FLV tag (Script)");
+        c.enterBlock(d);
 
         FLVHeaderES.read(c, d);
 
@@ -56,7 +61,7 @@ public class FLVHeaderScript extends FLVHeaderES
 
     public static void write(StreamWriter<?> c,
                              FLVHeaderScript d) {
-        c.enterBlock("FLV tag (Script)");
+        c.enterBlock(d);
 
         FLVHeaderES.write(c, d);
 

@@ -27,13 +27,18 @@ public class FLVScriptDataUI8 extends FLVScriptData
     }
 
     @Override
+    public String getTypeName() {
+        return "UI8";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             FLVScriptDataUI8 d) {
-        c.enterBlock("UI8");
+        c.enterBlock(d);
 
         FLVScriptData.read(c, d);
 
@@ -49,7 +54,7 @@ public class FLVScriptDataUI8 extends FLVScriptData
 
     public static void write(StreamWriter<?> c,
                              FLVScriptDataUI8 d) {
-        c.enterBlock("UI8");
+        c.enterBlock(d);
 
         FLVScriptData.write(c, d);
 

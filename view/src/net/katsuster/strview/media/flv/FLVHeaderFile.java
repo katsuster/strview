@@ -52,13 +52,18 @@ public class FLVHeaderFile extends FLVHeader
     }
 
     @Override
+    public String getTypeName() {
+        return "FLV header";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             FLVHeaderFile d) {
-        c.enterBlock("FLV header");
+        c.enterBlock(d);
 
         FLVHeader.read(c, d);
 
@@ -82,7 +87,7 @@ public class FLVHeaderFile extends FLVHeader
 
     public static void write(StreamWriter<?> c,
                              FLVHeaderFile d) {
-        c.enterBlock("FLV header");
+        c.enterBlock(d);
 
         FLVHeader.write(c, d);
 

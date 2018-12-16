@@ -20,7 +20,7 @@ public class FLVScriptDataECMAArray extends FLVScriptData
     public FLVScriptDataECMAArray() {
         ecma_array_length = new UInt();
         variables = new ArrayList<>();
-        list_terminator = new FLVScriptDataObjectEnd();
+        list_terminator = new FLVScriptDataObjectEnd("List Terminator");
     }
 
     @Override
@@ -42,13 +42,18 @@ public class FLVScriptDataECMAArray extends FLVScriptData
     }
 
     @Override
+    public String getTypeName() {
+        return "SCRIPTDATAECMAARRAY";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             FLVScriptDataECMAArray d) {
-        c.enterBlock("SCRIPTDATAECMAARRAY");
+        c.enterBlock(d);
 
         FLVScriptData.read(c, d);
 
@@ -56,7 +61,7 @@ public class FLVScriptDataECMAArray extends FLVScriptData
 
         d.variables.clear();
         for (int i = 0; i < d.ecma_array_length.intValue(); i++) {
-            FLVScriptDataObjectProperty v = new FLVScriptDataObjectProperty();
+            FLVScriptDataObjectProperty v = new FLVScriptDataObjectProperty("Variables[" + i + "]");
             v.setLimit(d.getLimit());
             v.read(c);
             d.variables.add(v);
@@ -75,7 +80,7 @@ public class FLVScriptDataECMAArray extends FLVScriptData
 
     public static void write(StreamWriter<?> c,
                              FLVScriptDataECMAArray d) {
-        c.enterBlock("SCRIPTDATAECMAARRAY");
+        c.enterBlock(d);
 
         FLVScriptData.write(c, d);
 

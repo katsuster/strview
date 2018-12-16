@@ -36,13 +36,18 @@ public class FLVHeaderAudio extends FLVHeaderES
     }
 
     @Override
+    public String getTypeName() {
+        return "FLV tag (Audio)";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             FLVHeaderAudio d) {
-        c.enterBlock("FLV tag (Audio)");
+        c.enterBlock(d);
 
         FLVHeaderES.read(c, d);
 
@@ -61,7 +66,7 @@ public class FLVHeaderAudio extends FLVHeaderES
 
     public static void write(StreamWriter<?> c,
                              FLVHeaderAudio d) {
-        c.enterBlock("FLV tag (Audio)");
+        c.enterBlock(d);
 
         FLVHeaderES.write(c, d);
 

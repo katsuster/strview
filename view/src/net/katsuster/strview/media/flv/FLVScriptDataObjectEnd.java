@@ -14,6 +14,12 @@ public class FLVScriptDataObjectEnd extends FLVScriptData
     public UInt object_end_marker;
 
     public FLVScriptDataObjectEnd() {
+        this("");
+    }
+
+    public FLVScriptDataObjectEnd(String n) {
+        super(n);
+
         object_end_marker = new UInt();
     }
 
@@ -28,13 +34,18 @@ public class FLVScriptDataObjectEnd extends FLVScriptData
     }
 
     @Override
+    public String getTypeName() {
+        return "SCRIPTDATAOBJECTEND";
+    }
+
+    @Override
     public void read(StreamReader<?> c) {
         read(c, this);
     }
 
     public static void read(StreamReader<?> c,
                             FLVScriptDataObjectEnd d) {
-        c.enterBlock("SCRIPTDATAOBJECTEND");
+        c.enterBlock(d);
 
         FLVScriptData.read(c, d);
 
@@ -50,7 +61,7 @@ public class FLVScriptDataObjectEnd extends FLVScriptData
 
     public static void write(StreamWriter<?> c,
                              FLVScriptDataObjectEnd d) {
-        c.enterBlock("SCRIPTDATAOBJECTEND");
+        c.enterBlock(d);
 
         FLVScriptData.write(c, d);
 
