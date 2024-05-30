@@ -2,7 +2,6 @@ package net.katsuster.strview.media.riff;
 
 import java.util.*;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import net.katsuster.strview.util.*;
 import net.katsuster.strview.util.bit.*;
 import net.katsuster.strview.media.*;
